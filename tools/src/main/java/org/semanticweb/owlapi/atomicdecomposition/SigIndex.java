@@ -10,27 +10,27 @@ import java.util.Map;
 import org.semanticweb.owlapi.model.OWLEntity;
 
 /**
- * signature index
+ * Signature index.
  */
 public class SigIndex {
 
     /**
      * map between entities and axioms that contains them in their signature
      */
-    private Map<OWLEntity, Collection<AxiomWrapper>> base = new HashMap<>();
+    private final Map<OWLEntity, Collection<AxiomWrapper>> base = new HashMap<>();
     /**
      * locality checker
      */
-    private LocalityChecker checker;
+    private final LocalityChecker checker;
     /**
      * empty signature to test the non-locality
      */
-    private Signature emptySig = new Signature();
+    private final Signature emptySig = new Signature();
     /**
      * sets of axioms non-local wrt the empty signature
      */
-    private Collection<AxiomWrapper> topNonLocal = new ArrayList<>();
-    private Collection<AxiomWrapper> bottomNonLocal = new ArrayList<>();
+    private final Collection<AxiomWrapper> topNonLocal = new ArrayList<>();
+    private final Collection<AxiomWrapper> bottomNonLocal = new ArrayList<>();
     /**
      * number of registered axioms
      */
@@ -82,10 +82,7 @@ public class SigIndex {
      */
     public Collection<AxiomWrapper> getAxioms(OWLEntity entity) {
         Collection<AxiomWrapper> collection = base.get(entity);
-        if (collection == null) {
-            return Collections.emptyList();
-        }
-        return collection;
+        return collection == null ? Collections.emptyList() : collection;
     }
 
     /**

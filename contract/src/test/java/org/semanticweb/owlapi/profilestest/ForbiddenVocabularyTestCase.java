@@ -36,10 +36,11 @@ import org.semanticweb.owlapi.utility.OWLObjectPropertyManager;
 
 public class ForbiddenVocabularyTestCase extends TestBase {
 
-    OWLObjectProperty father = df.getOWLObjectProperty("urn:test:", "hasFather");
-    OWLObjectProperty brother = df.getOWLObjectProperty("urn:test:", "hasBrother");
-    OWLObjectProperty child = df.getOWLObjectProperty("urn:test:", "hasChild");
-    OWLObjectProperty uncle = df.getOWLObjectProperty("urn:test:", "hasUncle");
+    private static final String URN_TEST = "urn:test:";
+    OWLObjectProperty father = df.getOWLObjectProperty(URN_TEST, "hasFather");
+    OWLObjectProperty brother = df.getOWLObjectProperty(URN_TEST, "hasBrother");
+    OWLObjectProperty child = df.getOWLObjectProperty(URN_TEST, "hasChild");
+    OWLObjectProperty uncle = df.getOWLObjectProperty(URN_TEST, "hasUncle");
 
     @Test
     public void shouldFindViolation() {

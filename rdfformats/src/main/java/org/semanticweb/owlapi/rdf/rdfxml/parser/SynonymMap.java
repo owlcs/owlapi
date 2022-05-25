@@ -53,7 +53,7 @@ class SynonymMap {
 
     private final Map<IRI, IRI> synonyms = createMap();
     private final boolean strict;
-    private OWLDataFactory df;
+    private final OWLDataFactory df;
 
     public SynonymMap(boolean strict, OWLDataFactory df) {
         this.strict = strict;

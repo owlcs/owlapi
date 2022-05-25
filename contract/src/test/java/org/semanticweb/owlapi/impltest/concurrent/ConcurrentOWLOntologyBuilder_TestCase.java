@@ -1,13 +1,11 @@
 package org.semanticweb.owlapi.impltest.concurrent;
 
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.core.Is.is;
+import static org.junit.Assert.assertSame;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import java.util.concurrent.locks.Lock;
+import java.lang.reflect.Field;
 import java.util.concurrent.locks.ReadWriteLock;
 
 import org.junit.Before;
@@ -16,6 +14,7 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.semanticweb.owlapi.impl.concurrent.ConcurrentOWLOntologyBuilder;
+import org.semanticweb.owlapi.impl.concurrent.ConcurrentOWLOntologyImpl;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyBuilder;
 import org.semanticweb.owlapi.model.OWLOntologyID;
@@ -34,8 +33,6 @@ public class ConcurrentOWLOntologyBuilder_TestCase {
     @Mock
     private ReadWriteLock readWriteLock;
     @Mock
-    private Lock readLock;
-    @Mock
     private OWLOntologyManager manager;
     @Mock
     private OWLOntologyID ontologyId;
@@ -47,7 +44,6 @@ public class ConcurrentOWLOntologyBuilder_TestCase {
     @Before
     public void setUp() {
         when(delegateBuilder.createOWLOntology(manager, ontologyId, config)).thenReturn(ontology);
-        when(readWriteLock.readLock()).thenReturn(readLock);
         builder = new ConcurrentOWLOntologyBuilder(delegateBuilder, readWriteLock);
     }
 
@@ -58,8 +54,12 @@ public class ConcurrentOWLOntologyBuilder_TestCase {
     }
 
     @Test
-    public void shouldCreateWrappedOntology() {
-        OWLOntology concurrentOntology = builder.createOWLOntology(manager, ontologyId, config);
-        assertThat(concurrentOntology, is(equalTo(ontology)));
+    public void shouldCreateWrappedOntology() throws NoSuchFieldException, SecurityException,
+        IllegalArgumentException, IllegalAccessException {
+        ConcurrentOWLOntologyImpl concurrentOntology =
+            (ConcurrentOWLOntologyImpl) builder.createOWLOntology(manager, ontologyId, config);
+        Field declaredField = ConcurrentOWLOntologyImpl.class.getDeclaredField("delegate");
+        declaredField.setAccessible(true);
+        assertSame(ontology, declaredField.get(concurrentOntology));
     }
 }

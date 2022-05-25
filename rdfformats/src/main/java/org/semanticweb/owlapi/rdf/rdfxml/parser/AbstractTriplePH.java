@@ -65,11 +65,11 @@ enum AbstractTriplePH
         (c, s, p, o) -> c.addFirst(s, p, o)), 
     ANNOTATIONLITERALHANDLER        (                           
         (c, s, p, o) -> c.canHandleAnnotationLiteral(s, p), 
-        (c, s, p, o) -> c.canHandleAnnotationLiteralStreaming(s, p), 
+        (c, s, p, o) -> false, 
         (c, s, p, o) -> c.handleAnnotationLiteralTriple(s, p, o)), 
     ANNOTATIONRESOURCETRIPLEHANDLER (null,                      
         (c, s, p, o) -> c.canHandleAnnotationResource(s, p), 
-        (c, s, p, o) -> c.canHandleAnnotationResourceStreaming(s, p, o), 
+        (c, s, p, o) -> false, 
         (c, s, p, o) -> c.handleAnnotationResourceTriple(s, p, o)), 
     DATAPROPERTYASSERTIONHANDLER    (                           
         (c, s, p, o) -> c.canHandleDataAssertion(p), 

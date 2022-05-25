@@ -285,13 +285,13 @@ public class DLExpressivityCheckerTestCase extends TestBase {
 
     private final List<OWLAxiom> objects;
     private final String expected;
-    private List<Construct> constructs;
-    private List<Languages> expressible;
-    private List<Languages> within;
-    private List<Languages> minimal;
+    private final List<Construct> constructs;
+    private final List<Languages> expressible;
+    private final List<Languages> within;
+    private final List<Languages> minimal;
 
-    public DLExpressivityCheckerTestCase(String expected, String expectedStrict, List<Construct> c, List<Languages> exp,
-        List<Languages> within, List<Languages> min, List<OWLAxiom> objects) {
+    public DLExpressivityCheckerTestCase(String expected, String expectedStrict, List<Construct> c,
+        List<Languages> exp, List<Languages> within, List<Languages> min, List<OWLAxiom> objects) {
         this.objects = objects;
         this.expected = expectedStrict;
         constructs = c;
@@ -439,7 +439,8 @@ public class DLExpressivityCheckerTestCase extends TestBase {
             }
         }
         Collection<Languages> expressibleInLanguages = testsubject.expressibleInLanguages();
-        assertEquals(delta("expressible", expressible, expressibleInLanguages), expressible, expressibleInLanguages);
+        assertEquals(delta("expressible", expressible, expressibleInLanguages), expressible,
+            expressibleInLanguages);
         assertEquals(constructs, constructsFound);
         assertEquals(delta("below", within, below), new HashSet<>(within), new HashSet<>(below));
         assertEquals(expected, testsubject.getDescriptionLogicName());
@@ -452,7 +453,8 @@ public class DLExpressivityCheckerTestCase extends TestBase {
         // System.out.println(message);
     }
 
-    private static String delta(String prefix, Collection<Languages> within2, Collection<Languages> below) {
+    private static String delta(String prefix, Collection<Languages> within2,
+        Collection<Languages> below) {
         Set<Languages> onlyFirst = new HashSet<>(within2);
         onlyFirst.removeAll(below);
         Set<Languages> onlySecond = new HashSet<>(below);
@@ -464,7 +466,6 @@ public class DLExpressivityCheckerTestCase extends TestBase {
     public Set<OWLOntology> ont() {
         OWLOntology o = getOWLOntology();
         o.add(objects);
-        Set<OWLOntology> singleton = Collections.singleton(o);
-        return singleton;
+        return Collections.singleton(o);
     }
 }

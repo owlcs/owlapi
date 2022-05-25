@@ -15,12 +15,14 @@ import org.semanticweb.owlapi.model.OWLOntologyID;
 
 public class OWLOntologyChangeRecordTest extends TestBase {
 
+    private static final String URN_TEST = "urn:test#";
+
     @Test
     public void testSerializeChangeRecord() throws Exception {
         OWLOntologyID id1 =
-            df.getOWLOntologyID(df.getIRI("urn:test#", "a"), df.getIRI("urn:test#", "v1"));
+            df.getOWLOntologyID(df.getIRI(URN_TEST, "a"), df.getIRI(URN_TEST, "v1"));
         OWLOntologyID id2 =
-            df.getOWLOntologyID(df.getIRI("urn:test#", "a"), df.getIRI("urn:test#", "v2"));
+            df.getOWLOntologyID(df.getIRI(URN_TEST, "a"), df.getIRI(URN_TEST, "v2"));
         OWLOntologyChangeRecord idChangeRecord =
             new OWLOntologyChangeRecord(id1, new SetOntologyIDData(id2));
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();

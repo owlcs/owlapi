@@ -8,8 +8,8 @@ import static org.mockito.Mockito.reset;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import java.io.ByteArrayInputStream;
 import java.io.InputStream;
-import java.io.StringBufferInputStream;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Optional;
@@ -25,7 +25,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.junit.MockitoJUnitRunner;
-import org.semanticweb.owlapi.impl.OWLDataFactoryImpl;
+import org.semanticweb.owlapi.apitest.baseclasses.TestBase;
 import org.semanticweb.owlapi.impl.OWLImportsDeclarationImpl;
 import org.semanticweb.owlapi.impl.OWLOntologyImpl;
 import org.semanticweb.owlapi.impl.OWLOntologyManagerImpl;
@@ -36,7 +36,6 @@ import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.ImpendingOWLOntologyChangeListener;
 import org.semanticweb.owlapi.model.MissingImportListener;
 import org.semanticweb.owlapi.model.OWLAxiom;
-import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLImportsDeclaration;
 import org.semanticweb.owlapi.model.OWLMutableOntology;
@@ -57,12 +56,12 @@ import org.semanticweb.owlapi.model.OntologyConfigurator;
  * Matthew Horridge Stanford Center for Biomedical Informatics Research 13/04/15
  */
 @RunWith(MockitoJUnitRunner.class)
-public class OWLOntologyManager_Concurrent_TestCase {
+public class OWLOntologyManager_Concurrent_TestCase extends TestBase {
 
+    private static final String HTTP_OWLAPI = "http://owlapi/";
     private OWLOntologyManager manager;
     @Mock
     private Lock readLock, writeLock;
-    private OWLDataFactory df = new OWLDataFactoryImpl();
     @Mock
     private ReadWriteLock readWriteLock;
     private OWLOntology ontology;
@@ -73,7 +72,7 @@ public class OWLOntologyManager_Concurrent_TestCase {
         when(readWriteLock.writeLock()).thenReturn(writeLock);
         manager = new OWLOntologyManagerImpl(df, readWriteLock);
         mockAndAddOntologyFactory();
-        IRI iri = df.getIRI("http://owlapi/", "ont");
+        IRI iri = df.getIRI(HTTP_OWLAPI, "ont");
         ontology = manager.createOntology(iri);
         manager.setOntologyDocumentIRI(ontology, iri);
         reset(readLock, writeLock, readWriteLock);
@@ -155,14 +154,13 @@ public class OWLOntologyManager_Concurrent_TestCase {
         verifyReadLock_LockUnlock();
     }
 
-    private IRI mockIRI() {
+    private static IRI mockIRI() {
         return df.getIRI("http://owlapi.sourceforge.net/", "stuff");
     }
 
     @Test
     public void shouldCall_getImportedOntology_with_readLock() {
-        OWLImportsDeclaration arg0 =
-            new OWLImportsDeclarationImpl(df.getIRI("http://owlapi/", "ont"));
+        OWLImportsDeclaration arg0 = new OWLImportsDeclarationImpl(df.getIRI(HTTP_OWLAPI, "ont"));
         manager.getImportedOntology(arg0);
         verifyReadLock_LockUnlock();
     }
@@ -254,7 +252,7 @@ public class OWLOntologyManager_Concurrent_TestCase {
     @Test
     public void shouldCall_loadOntologyFromOntologyDocument_with_writeLock_3()
         throws OWLOntologyCreationException {
-        InputStream arg0 = new StringBufferInputStream("some string");
+        InputStream arg0 = new ByteArrayInputStream("test".getBytes());
         manager.loadOntologyFromOntologyDocument(arg0);
         verifyWriteLock_LockUnlock();
     }
@@ -443,7 +441,7 @@ public class OWLOntologyManager_Concurrent_TestCase {
     @Test
     public void shouldCall_makeLoadImportRequest_with_writeLock() {
         OWLImportsDeclaration arg0 = mock(OWLImportsDeclaration.class);
-        when(arg0.getIRI()).thenReturn(df.getIRI("http://owlapi/", "other"));
+        when(arg0.getIRI()).thenReturn(df.getIRI(HTTP_OWLAPI, "other"));
         OntologyConfigurator arg1 = mock(OntologyConfigurator.class);
         manager.makeLoadImportRequest(arg0, arg1);
         verifyWriteLock_LockUnlock();
@@ -452,7 +450,7 @@ public class OWLOntologyManager_Concurrent_TestCase {
     @Test
     public void shouldCall_makeLoadImportRequest_with_writeLock_2() {
         OWLImportsDeclaration arg0 =
-            new OWLImportsDeclarationImpl(df.getIRI("http://owlapi/", "otheront"));
+            new OWLImportsDeclarationImpl(df.getIRI(HTTP_OWLAPI, "otheront"));
         manager.makeLoadImportRequest(arg0);
         verifyWriteLock_LockUnlock();
     }

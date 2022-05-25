@@ -160,7 +160,7 @@ public class MacroExpansionGCIVisitor {
 
         class ClassVisitor extends AbstractMacroExpansionVisitor.AbstractClassExpressionVisitorEx {
 
-            private Set<OWLAxiom> newAxioms;
+            private final Set<OWLAxiom> newAxioms;
 
             public ClassVisitor(Set<OWLAxiom> newAxioms) {
                 this.newAxioms = newAxioms;

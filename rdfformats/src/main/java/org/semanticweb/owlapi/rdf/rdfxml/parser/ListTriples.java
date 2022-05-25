@@ -52,11 +52,11 @@ class ListTriples {
         return consume ? listRestTripleMap.remove(subject) : listRestTripleMap.get(subject);
     }
 
-    protected void addFirst(IRI s, IRI p, IRI o) {
+    protected void addFirst(IRI s, IRI o) {
         listFirstResourceTripleMap.put(s, o);
     }
 
-    protected void addFirst(IRI s, IRI p, OWLLiteral o) {
+    protected void addFirst(IRI s, OWLLiteral o) {
         listFirstLiteralTripleMap.put(s, o);
     }
 

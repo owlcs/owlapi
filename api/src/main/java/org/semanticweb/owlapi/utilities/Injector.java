@@ -40,16 +40,17 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Basic dependency injection utility, to replace the use of Guice and wrap
- * calls to ServiceLoader.
+ * Basic dependency injection utility, to replace the use of Guice and wrap calls to ServiceLoader.
  */
 public class Injector {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(Injector.class);
-    private Map<Object, List<Supplier<?>>> supplierOverrides = new ConcurrentHashMap<>(16, 0.75F, 1);
-    private Map<Object, Class<?>> typesOverrides = new ConcurrentHashMap<>(16, 0.75F, 1);
-    private Map<Object, List<Class<?>>> typesCache = new ConcurrentHashMap<>(16, 0.75F, 1);
-    private Map<URI, AtomicStampedReference<List<String>>> filesCache = new ConcurrentHashMap<>();
+    private final Map<Object, List<Supplier<?>>> supplierOverrides =
+        new ConcurrentHashMap<>(16, 0.75F, 1);
+    private final Map<Object, Class<?>> typesOverrides = new ConcurrentHashMap<>(16, 0.75F, 1);
+    private final Map<Object, List<Class<?>>> typesCache = new ConcurrentHashMap<>(16, 0.75F, 1);
+    private final Map<URI, AtomicStampedReference<List<String>>> filesCache =
+        new ConcurrentHashMap<>();
 
     /**
      * Key class for binding overrides
@@ -73,10 +74,8 @@ public class Injector {
         }
 
         /**
-         * @param cl
-         *        class
-         * @param a
-         *        annotations
+         * @param cl class
+         * @param a annotations
          * @return modified key
          */
         public Key with(Class<?> cl, Annotation[] a) {
@@ -98,8 +97,7 @@ public class Injector {
     public Injector() {}
 
     /**
-     * @param i
-     *        injector to copy
+     * @param i injector to copy
      */
     public Injector(Injector i) {
         supplierOverrides.putAll(i.supplierOverrides);
@@ -108,15 +106,11 @@ public class Injector {
     }
 
     /**
-     * Associate a key made of interface type and optional annotations with an
-     * implementation type
+     * Associate a key made of interface type and optional annotations with an implementation type
      * 
-     * @param t
-     *        implementation type
-     * @param c
-     *        interface type
-     * @param annotations
-     *        annotations
+     * @param t implementation type
+     * @param c interface type
+     * @param annotations annotations
      * @return modified injector
      */
     public Injector bind(Class<?> t, Class<?> c, Annotation... annotations) {
@@ -125,15 +119,12 @@ public class Injector {
     }
 
     /**
-     * Associate a key made of interface type and optional annotations with an
-     * instance, replacing existing associations
+     * Associate a key made of interface type and optional annotations with an instance, replacing
+     * existing associations
      * 
-     * @param t
-     *        instance
-     * @param c
-     *        interface type
-     * @param annotations
-     *        annotations
+     * @param t instance
+     * @param c interface type
+     * @param annotations annotations
      * @return modified injector
      */
     public Injector bindToOne(Object t, Class<?> c, Annotation... annotations) {
@@ -142,15 +133,12 @@ public class Injector {
     }
 
     /**
-     * Associate a key made of interface type and optional annotations with a
-     * supplier of instances, replacing existing associations
+     * Associate a key made of interface type and optional annotations with a supplier of instances,
+     * replacing existing associations
      * 
-     * @param t
-     *        supplier
-     * @param c
-     *        interface type
-     * @param annotations
-     *        annotations
+     * @param t supplier
+     * @param c interface type
+     * @param annotations annotations
      * @return modified injector
      */
     public Injector bindToOne(Supplier<?> t, Class<?> c, Annotation... annotations) {
@@ -159,17 +147,13 @@ public class Injector {
     }
 
     /**
-     * Associate a key made of interface type and optional annotations with an
-     * instance, adding to existing associations
+     * Associate a key made of interface type and optional annotations with an instance, adding to
+     * existing associations
      * 
-     * @param t
-     *        instance
-     * @param c
-     *        interface type
-     * @param annotations
-     *        annotations
-     * @param <T>
-     *        type bound
+     * @param t instance
+     * @param c interface type
+     * @param annotations annotations
+     * @param <T> type bound
      * @return modified injector
      */
     public <T> Injector bindOneMore(T t, Class<T> c, Annotation... annotations) {
@@ -178,17 +162,13 @@ public class Injector {
     }
 
     /**
-     * Associate a key made of interface type and optional annotations with a
-     * supplier of instances, adding to existing associations
+     * Associate a key made of interface type and optional annotations with a supplier of instances,
+     * adding to existing associations
      * 
-     * @param t
-     *        supplier
-     * @param c
-     *        interface type
-     * @param annotations
-     *        annotations
-     * @param <T>
-     *        type bound
+     * @param t supplier
+     * @param c interface type
+     * @param annotations annotations
+     * @param <T> type bound
      * @return modified injector
      */
     public <T> Injector bindOneMore(Supplier<T> t, Class<T> c, Annotation... annotations) {
@@ -205,12 +185,9 @@ public class Injector {
     }
 
     /**
-     * @param t
-     *        object to inject
-     * @param <T>
-     *        type bound
-     * @return input object with all methods annotated with @Inject having been
-     *         set with instances.
+     * @param t object to inject
+     * @param <T> type bound
+     * @return input object with all methods annotated with @Inject having been set with instances.
      */
     public <T> T inject(T t) {
         LOGGER.debug("Injecting object {}", t);
@@ -244,7 +221,8 @@ public class Injector {
                     LOGGER.debug("Injecting values {} on method {}.", Arrays.toString(args), m);
                 }
                 m.invoke(t, args);
-            } catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+            } catch (IllegalAccessException | IllegalArgumentException
+                | InvocationTargetException e) {
                 LOGGER.error("Injection failed", e);
             }
         }
@@ -254,7 +232,8 @@ public class Injector {
     private static Annotation[] qualifiers(Annotation[] anns) {
         List<Annotation> qualifiers = new ArrayList<>();
         for (Annotation a : anns) {
-            if (a instanceof Qualifier || a.annotationType().getAnnotation(Qualifier.class) != null) {
+            if (a instanceof Qualifier
+                || a.annotationType().getAnnotation(Qualifier.class) != null) {
                 qualifiers.add(a);
             }
         }
@@ -262,12 +241,9 @@ public class Injector {
     }
 
     /**
-     * @param c
-     *        class
-     * @param qualifiers
-     *        optional annotations
-     * @param <T>
-     *        type bound
+     * @param c class
+     * @param qualifiers optional annotations
+     * @param <T> type bound
      * @return instance
      */
     public <T> T getImplementation(Class<T> c, Annotation... qualifiers) {
@@ -275,46 +251,36 @@ public class Injector {
     }
 
     /**
-     * @param c
-     *        type to look up
-     * @param qualifiers
-     *        optional qualifiers
+     * @param c type to look up
+     * @param qualifiers optional qualifiers
      * @return all implementations for the arguments
-     * @param <T>
-     *        type bound
+     * @param <T> type bound
      */
     public <T> Stream<T> getImplementations(Class<T> c, Annotation... qualifiers) {
         return load(c, qualifiers);
     }
 
     /**
-     * @param c
-     *        type to look up
-     * @param v
-     *        local override for configuration properties
-     * @param qualifiers
-     *        optional qualifiers
-     * @param <T>
-     *        type bound
-     * @return implementation for the arguments (first of the list if multiple
-     *         ones exist)
+     * @param c type to look up
+     * @param v local override for configuration properties
+     * @param qualifiers optional qualifiers
+     * @param <T> type bound
+     * @return implementation for the arguments (first of the list if multiple ones exist)
      */
     public <T> T getImplementation(Class<T> c, OntologyConfigurator v, Annotation... qualifiers) {
-        return new Injector(this).bindToOne(v, OntologyConfigurator.class).getImplementation(c, qualifiers);
+        return new Injector(this).bindToOne(v, OntologyConfigurator.class).getImplementation(c,
+            qualifiers);
     }
 
     /**
-     * @param c
-     *        class
-     * @param overrides
-     *        local overrides of existing bindings
-     * @param qualifiers
-     *        optional annotations
-     * @param <T>
-     *        type bound
+     * @param c class
+     * @param overrides local overrides of existing bindings
+     * @param qualifiers optional annotations
+     * @param <T> type bound
      * @return instance
      */
-    public <T> T getImplementation(Class<T> c, Map<Object, List<Supplier<?>>> overrides, Annotation... qualifiers) {
+    public <T> T getImplementation(Class<T> c, Map<Object, List<Supplier<?>>> overrides,
+        Annotation... qualifiers) {
         Injector i = new Injector(this);
         overrides.forEach((a, b) -> i.supplierOverrides.put(a, b));
         return i.getImplementation(c, qualifiers);
@@ -326,17 +292,14 @@ public class Injector {
         // not see the OWLAPI jar, nor any other jar containing implementations.
         // In that case, use this class classloader to load, at a minimum, the
         // services provided by the OWLAPI jar itself.
-        return Arrays.asList(Thread.currentThread().getContextClassLoader(), ClassLoader.getSystemClassLoader(),
-            getClass().getClassLoader());
+        return Arrays.asList(Thread.currentThread().getContextClassLoader(),
+            ClassLoader.getSystemClassLoader(), getClass().getClassLoader());
     }
 
     /**
-     * @param type
-     *        type to load
-     * @param qualifiers
-     *        qualifying annotations
-     * @param <T>
-     *        return type
+     * @param type type to load
+     * @param qualifiers qualifying annotations
+     * @param <T> return type
      * @return iterable over T implementations
      */
     protected <T> Stream<T> load(Class<T> type, Annotation... qualifiers) {
@@ -357,7 +320,8 @@ public class Injector {
         String name = "META-INF/services/" + type.getName();
         LOGGER.debug("Loading file {}", name);
         // J2EE compatible search
-        return prepareClass(urls(name).flatMap(this::entries).distinct(), key, type).map(s -> instantiate(s, key));
+        return prepareClass(urls(name).flatMap(this::entries).distinct(), key, type)
+            .map(s -> instantiate(s, key));
     }
 
     @SuppressWarnings("unchecked")
@@ -374,7 +338,8 @@ public class Injector {
             }
             return (Constructor<T>) findAny.orElse(null);
         } catch (SecurityException e) {
-            LOGGER.error("No injectable constructor found for {} because of security restrictions", c);
+            LOGGER.error("No injectable constructor found for {} because of security restrictions",
+                c);
             LOGGER.error("Security restriction accessing constructor list", e);
             return null;
         }
@@ -429,8 +394,8 @@ public class Injector {
                 supplierOverrides.put(key, Collections.singletonList(() -> newInstance));
             }
             return s.cast(newInstance);
-        } catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException
-            | SecurityException e) {
+        } catch (InstantiationException | IllegalAccessException | IllegalArgumentException
+            | InvocationTargetException | SecurityException e) {
             LOGGER.error("Instantiation failed", e);
             return null;
         }

@@ -36,18 +36,20 @@ import org.semanticweb.owlapi.model.OWLOntology;
 
 public class AnonymousTestCase extends TestBase {
 
+    private static final String URN_TEST = "urn:test#";
+
     @Test
     public void shouldRoundTrip() throws Exception {
-        OWLClass c = Class(IRI("urn:test#", "C"));
-        OWLClass d = Class(IRI("urn:test#", "D"));
-        OWLObjectProperty p = ObjectProperty(IRI("urn:test#", "p"));
-        OWLDataProperty q = DataProperty(IRI("urn:test#", "q"));
+        OWLClass c = Class(IRI(URN_TEST, "C"));
+        OWLClass d = Class(IRI(URN_TEST, "D"));
+        OWLObjectProperty p = ObjectProperty(IRI(URN_TEST, "p"));
+        OWLDataProperty q = DataProperty(IRI(URN_TEST, "q"));
         OWLIndividual i = AnonymousIndividual();
         OWLOntology ontology = getOWLOntology();
         ontology.add(SubClassOf(c, ObjectHasValue(p, i)), ClassAssertion(d, i),
-                        DataPropertyAssertion(q, i, Literal("hello")));
+            DataPropertyAssertion(q, i, Literal("hello")));
         OWLOntology ontologyReloaded =
-                        loadOntologyFromString(saveOntology(ontology), ontology.getNonnullFormat());
+            loadOntologyFromString(saveOntology(ontology), ontology.getNonnullFormat());
         equal(ontology, ontologyReloaded);
     }
 
@@ -61,7 +63,7 @@ public class AnonymousTestCase extends TestBase {
         OWLIndividual ind = df.getOWLAnonymousIndividual();
         OWLObjectPropertyAssertionAxiom ax1 = df.getOWLObjectPropertyAssertionAxiom(p, i, ind);
         OWLDataPropertyAssertionAxiom ax2 =
-                        df.getOWLDataPropertyAssertionAxiom(q, ind, df.getOWLLiteral(5));
+            df.getOWLDataPropertyAssertionAxiom(q, ind, df.getOWLLiteral(5));
         ontology.add(ax1, ax2);
         OWLOntology reload = roundTrip(ontology);
         equal(ontology, reload);

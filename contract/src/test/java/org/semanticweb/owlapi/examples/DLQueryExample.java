@@ -101,12 +101,12 @@ public class DLQueryExample {
             System.out.println(
                 "Please type a class expression in Manchester Syntax and press Enter (or press x to exit):");
             System.out.println("");
-            String classExpression = readInput();
+            String classExpression = readInput().trim();
             // Check for exit condition
             if (classExpression.equalsIgnoreCase("x")) {
                 break;
             }
-            dlQueryPrinter.askQuery(classExpression.trim());
+            dlQueryPrinter.askQuery(classExpression);
             System.out.println();
             System.out.println();
         }
@@ -130,7 +130,6 @@ public class DLQueryExample {
         return reasonerFactory.createReasoner(rootOntology);
     }
 }
-
 
 /**
  * This example shows how to perform a "dlquery". The DLQuery view/tab in Protege 4 works like this.
@@ -162,7 +161,7 @@ class DLQueryEngine {
      *         class expression.
      */
     public Set<OWLClass> getSuperClasses(String classExpressionString, boolean direct) {
-        if (classExpressionString.trim().isEmpty()) {
+        if (classExpressionString.isEmpty()) {
             return Collections.emptySet();
         }
         OWLClassExpression classExpression = parser.parseClassExpression(classExpressionString);
@@ -178,7 +177,7 @@ class DLQueryEngine {
      *         parsing the class expression.
      */
     public Set<OWLClass> getEquivalentClasses(String classExpressionString) {
-        if (classExpressionString.trim().isEmpty()) {
+        if (classExpressionString.isEmpty()) {
             return Collections.emptySet();
         }
         OWLClassExpression classExpression = parser.parseClassExpression(classExpressionString);
@@ -195,7 +194,7 @@ class DLQueryEngine {
      *         class expression.
      */
     public Set<OWLClass> getSubClasses(String classExpressionString, boolean direct) {
-        if (classExpressionString.trim().isEmpty()) {
+        if (classExpressionString.isEmpty()) {
             return Collections.emptySet();
         }
         OWLClassExpression classExpression = parser.parseClassExpression(classExpressionString);
@@ -212,7 +211,7 @@ class DLQueryEngine {
      *         class expression.
      */
     public Set<OWLNamedIndividual> getInstances(String classExpressionString, boolean direct) {
-        if (classExpressionString.trim().isEmpty()) {
+        if (classExpressionString.isEmpty()) {
             return Collections.emptySet();
         }
         OWLClassExpression classExpression = parser.parseClassExpression(classExpressionString);
@@ -220,7 +219,6 @@ class DLQueryEngine {
         return asUnorderedSet(individuals.entities());
     }
 }
-
 
 class DLQueryParser {
 
@@ -267,7 +265,6 @@ class DLQueryParser {
         return parser.parseClassExpression();
     }
 }
-
 
 class DLQueryPrinter {
 

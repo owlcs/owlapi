@@ -68,6 +68,7 @@ import org.semanticweb.owlapi.vocab.XSDVocabulary;
 
 public class ManchesterOWLSyntaxParserTestCase extends TestBase {
 
+    private static final String URN_TEST = "urn:test#";
     private static final OWLClass MAN = Class(IRI("http://example.com/owl/families/", "Man"));
     private static final OWLClass PERSON = Class(IRI("http://example.com/owl/families/", "Person"));
 
@@ -81,8 +82,7 @@ public class ManchesterOWLSyntaxParserTestCase extends TestBase {
     }
 
     @Test
-    public void shouldAcceptOPClassPunning()
-        throws OWLOntologyCreationException, OWLOntologyStorageException {
+    public void shouldAcceptOPClassPunning() throws OWLOntologyStorageException {
         String input = "Prefix: : <http://x.org/>\n" + "Ontology: <http://x.org>\n"
             + "Individual: x\n" + "Class: creator_of\n" + "ObjectProperty: creator_of\n"
             + "Class: Test\n" + "  EquivalentClasses: creator_of value x, creator_of";
@@ -231,9 +231,9 @@ public class ManchesterOWLSyntaxParserTestCase extends TestBase {
     public void shouldDoPrecedenceWithParentheses() {
         // given
         String text1 = "(a and b) or c";
-        OWLClass a = Class(IRI("urn:test#", "a"));
-        OWLClass b = Class(IRI("urn:test#", "b"));
-        OWLClass c = Class(IRI("urn:test#", "c"));
+        OWLClass a = Class(IRI(URN_TEST, "a"));
+        OWLClass b = Class(IRI(URN_TEST, "b"));
+        OWLClass c = Class(IRI(URN_TEST, "c"));
         OWLClassExpression expected =
             df.getOWLObjectUnionOf(df.getOWLObjectIntersectionOf(a, b), c);
         ManchesterOWLSyntaxParser parser = setupPArser(text1, expected);
@@ -292,9 +292,9 @@ public class ManchesterOWLSyntaxParserTestCase extends TestBase {
     public void shouldDoPrecedenceWithoutParentheses() {
         // given
         String text1 = "a and b or c";
-        OWLClass a = Class(IRI("urn:test#", "a"));
-        OWLClass b = Class(IRI("urn:test#", "b"));
-        OWLClass c = Class(IRI("urn:test#", "c"));
+        OWLClass a = Class(IRI(URN_TEST, "a"));
+        OWLClass b = Class(IRI(URN_TEST, "b"));
+        OWLClass c = Class(IRI(URN_TEST, "c"));
         OWLClassExpression expected =
             df.getOWLObjectUnionOf(df.getOWLObjectIntersectionOf(a, b), c);
         ManchesterOWLSyntaxParser parser = setupPArser(text1, expected);

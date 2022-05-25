@@ -26,17 +26,16 @@ import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.utility.OWLEntityRenamer;
 
-@SuppressWarnings("javadoc")
 public class RelativeIRIsRoundTripTestCase extends AbstractRoundTrippingTestCase {
 
-    private String ns = "";
+    private final String ns = "";
     // "urn:test:ns#";
-    private OWLDataProperty d = df.getOWLDataProperty(ns + "d");
-    private OWLObjectProperty o = df.getOWLObjectProperty(ns + "o");
-    private OWLAnnotationProperty x = df.getOWLAnnotationProperty(ns + "X");
-    private OWLAnnotationProperty y = df.getOWLAnnotationProperty(ns + "Y");
-    private OWLAnnotation ann1 = df.getOWLAnnotation(x, df.getOWLLiteral("x"));
-    private OWLAnnotation ann2 = df.getOWLAnnotation(y, df.getOWLLiteral("y"));
+    private final OWLDataProperty d = df.getOWLDataProperty(ns + "d");
+    private final OWLObjectProperty o = df.getOWLObjectProperty(ns + "o");
+    private final OWLAnnotationProperty x = df.getOWLAnnotationProperty(ns + "X");
+    private final OWLAnnotationProperty y = df.getOWLAnnotationProperty(ns + "Y");
+    private final OWLAnnotation ann1 = df.getOWLAnnotation(x, df.getOWLLiteral("x"));
+    private final OWLAnnotation ann2 = df.getOWLAnnotation(y, df.getOWLLiteral("y"));
 
     @Override
     protected OWLOntology createOntology() {
@@ -51,7 +50,8 @@ public class RelativeIRIsRoundTripTestCase extends AbstractRoundTrippingTestCase
     @Override
     public boolean equal(OWLOntology ont1, OWLOntology ont2) {
         if (!ont2.containsDataPropertyInSignature(d.getIRI())) {
-            OWLEntityRenamer renamer = new OWLEntityRenamer(ont2.getOWLOntologyManager(), Arrays.asList(ont2));
+            OWLEntityRenamer renamer =
+                new OWLEntityRenamer(ont2.getOWLOntologyManager(), Arrays.asList(ont2));
             ont2.applyChanges(renamer.changeIRI(relativise(d), d.getIRI()));
             ont2.applyChanges(renamer.changeIRI(relativise(o), o.getIRI()));
             ont2.applyChanges(renamer.changeIRI(relativise(x), x.getIRI()));
@@ -60,7 +60,7 @@ public class RelativeIRIsRoundTripTestCase extends AbstractRoundTrippingTestCase
         return super.equal(ont1, ont2);
     }
 
-    protected IRI relativise(HasIRI d) {
-        return df.getIRI("http://www.semanticweb.org/owlapi/", d.getIRI().toString());
+    protected IRI relativise(HasIRI e) {
+        return df.getIRI("http://www.semanticweb.org/owlapi/", e.getIRI().toString());
     }
 }

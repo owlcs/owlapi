@@ -49,7 +49,7 @@ public class UnparsableOntologyException extends OWLOntologyCreationException {
 
     @Override
     public String getMessage() {
-        StringBuilder msg = new StringBuilder();
+        StringBuilder msg = new StringBuilder(1000);
         msg.append("Problem parsing ").append(documentIRI).append(
             "\nCould not parse ontology.  Either a suitable parser could not be found, or parsing failed.  See parser logs below for explanation.\nThe following parsers were tried:\n");
         int counter = 1;

@@ -158,6 +158,7 @@ import org.semanticweb.owlapi.utility.OWLObjectComponentCollector;
 @RunWith(Parameterized.class)
 public class OWLObjectComponentCollectorTestCase {
 
+    private static final String FALSE = "\"false\"^^xsd:boolean";
     public static final String FIVE = "\"5.0\"^^xsd:double";
     public static final String SIX = "\"6.0\"^^xsd:double";
     public static final String LABEL = "http://www.w3.org/2000/01/rdf-schema#label";
@@ -205,7 +206,7 @@ public class OWLObjectComponentCollectorTestCase {
         map.put(b.ifp(), new String[] { OP, OPI, IFP });
         map.put(b.iop(), new String[] { OP, OPI, IOP });
         map.put(b.irr(), new String[] { OP, OPI, IRR });
-        map.put(b.ndp(), new String[] { BLN, DP, I, DPI, II, ANDP, "\"false\"^^xsd:boolean", BLN });
+        map.put(b.ndp(), new String[] { BLN, DP, I, DPI, II, ANDP, FALSE, BLN });
         map.put(b.nop(), new String[] { I, OP, OPI, II, ANOP });
         map.put(b.opa(), new String[] { I, OP, OPI, II, AOP });
         map.put(b.opaInv(), new String[] { I, OP, OPI, INVERSE, II, AOINV });
@@ -231,9 +232,9 @@ public class OWLObjectComponentCollectorTestCase {
         map.put(b.assAnd(), new String[] { C, I, IRI, CI, IRII, II, ACLAND, AND });
         map.put(b.assOr(), new String[] { C, I, IRI, CI, IRII, II, ACLOR, OR });
         map.put(b.dRangeAnd(),
-            new String[] { BLN, DT, DP, DPI, DPRAND, DTI, DONEOF, DAND, "\"false\"^^xsd:boolean", BLN });
+            new String[] { BLN, DT, DP, DPI, DPRAND, DTI, DONEOF, DAND, FALSE, BLN });
         map.put(b.dRangeOr(),
-            new String[] { BLN, DT, DP, DPI, DOR, DPROR, DTI, DONEOF, "\"false\"^^xsd:boolean", BLN });
+            new String[] { BLN, DT, DP, DPI, DOR, DPROR, DTI, DONEOF, FALSE, BLN });
         map.put(b.assNot(), new String[] { C, I, CI, II, CNOT, NOT });
         map.put(b.assNotAnon(), new String[] { C, CI, "_:id", ACNOT, NOT });
         map.put(b.assSome(), new String[] { C, I, OP, CI, OPI, II, ACSOME, SOME });
@@ -250,15 +251,15 @@ public class OWLObjectComponentCollectorTestCase {
         map.put(b.assDMin(), new String[] { DP, I, DPI, II, ADMIN, DMIN });
         map.put(b.assDMax(), new String[] { DP, I, DPI, II, ADMAX, DMAX });
         map.put(b.assDEq(), new String[] { DP, I, DPI, II, ADEQ, DEQ });
-        map.put(b.dOneOf(), new String[] { BLN, DP, DPI, ADONEOF, "\"false\"^^xsd:boolean", BLN, DONEOF });
-        map.put(b.dNot(), new String[] { BLN, DP, DPI, DPRNOT, DNOT, "\"false\"^^xsd:boolean", BLN, DONEOF });
+        map.put(b.dOneOf(), new String[] { BLN, DP, DPI, ADONEOF, FALSE, BLN, DONEOF });
+        map.put(b.dNot(), new String[] { BLN, DP, DPI, DPRNOT, DNOT, FALSE, BLN, DONEOF });
         map.put(b.dRangeRestrict(), new String[] { DB, DP, DPI, MINMAX, MINMXSIX, MIN5, MAXSIX, FIVE, SIX, DB });
-        map.put(b.assD(), new String[] { BLN, DP, I, DPI, II, dpafalse, "\"false\"^^xsd:boolean", BLN });
+        map.put(b.assD(), new String[] { BLN, DP, I, DPI, II, dpafalse, FALSE, BLN });
         map.put(b.assDPlain(), new String[] { plain, DP, I, DPI, II, adp, plain, "\"string\"@en" });
         map.put(b.dDom(), new String[] { DP, DPI, dpdomain });
         map.put(b.bigRule(),
-            new String[] { "\"false\"^^xsd:boolean", var6, var5, v1, v4, v34, v3, v2, var2, OPI, var236,
-                "\"false\"^^xsd:boolean", diffvar2, DP, VAR1, CI, DT, BLN, IRII, opavar2, DRA, II, BLN, dpvar2, OP, C,
+            new String[] { FALSE, var6, var5, v1, v4, v34, v3, v2, var2, OPI, var236,
+                FALSE, diffvar2, DP, VAR1, CI, DT, BLN, IRII, opavar2, DRA, II, BLN, dpvar2, OP, C,
                 IRI, classvar2, IRII, I, dlsaferule, DTI, II, DPI });
         Collection<Object[]> toReturn = new ArrayList<>();
         map.forEach((k, v) -> toReturn.add(new Object[] { k, v }));

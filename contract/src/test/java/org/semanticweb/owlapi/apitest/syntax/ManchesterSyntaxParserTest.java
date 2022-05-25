@@ -43,8 +43,8 @@ public class ManchesterSyntaxParserTest extends TestBase {
             //@formatter:on
     }
 
-    private String input;
-    private Object expected;
+    private final String input;
+    private final Object expected;
 
     public ManchesterSyntaxParserTest(String input, Object expected) {
         this.input = input;
@@ -64,7 +64,6 @@ public class ManchesterSyntaxParserTest extends TestBase {
     protected OWLEntityChecker checker(OWLOntologyManager manager) {
         BidirectionalShortFormProviderAdapter adapter = new BidirectionalShortFormProviderAdapter(
             asList(manager.ontologies()), new SimpleShortFormProvider());
-        OWLEntityChecker checker = new ShortFormEntityChecker(adapter);
-        return checker;
+        return new ShortFormEntityChecker(adapter);
     }
 }

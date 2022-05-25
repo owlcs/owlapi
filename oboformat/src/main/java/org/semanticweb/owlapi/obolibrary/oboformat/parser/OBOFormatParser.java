@@ -51,30 +51,49 @@ import com.github.benmanes.caffeine.cache.LoadingCache;
  */
 public class OBOFormatParser {
 
+    private static final String BRACE = " !{";
     static final Logger LOG = LoggerFactory.getLogger(OBOFormatParser.class);
     protected final MyStream stream;
     private final LoadingCache<String, String> stringCache;
     private boolean followImport;
     private Object location;
-    private ConcurrentHashMap<String, OBODoc> importCache = new ConcurrentHashMap<>();
-    static final BiFunction<Clause, OBOFormatParser, Clause> idref = (cl, _this) -> _this.parseIdRef(cl);
-    static final BiFunction<Clause, OBOFormatParser, Clause> bool = (cl, _this) -> _this.parseBoolean(cl);
-    static final BiFunction<Clause, OBOFormatParser, Clause> unquoted = (cl, _this) -> _this.parseUnquotedString(cl);
-    static final BiFunction<Clause, OBOFormatParser, Clause> person = (cl, _this) -> _this.parsePerson(cl);
-    static final BiFunction<Clause, OBOFormatParser, Clause> isodate = (cl, _this) -> _this.parseISODate(cl);
-    static final BiFunction<Clause, OBOFormatParser, Clause> def = (cl, _this) -> _this.parseDef(cl);
-    static final BiFunction<Clause, OBOFormatParser, Clause> intersect = (cl, _this) -> _this.parseTermIntersect(cl);
-    static final BiFunction<Clause, OBOFormatParser, Clause> pvalue = (cl, _this) -> _this.parsePropertyValue(cl);
-    static final BiFunction<Clause, OBOFormatParser, Clause> rel = (cl, _this) -> _this.parseRelationship(cl);
-    static final BiFunction<Clause, OBOFormatParser, Clause> unquotSpaces = (cl, _this) -> _this.parseUnquotSpaces(cl);
-    static final BiFunction<Clause, OBOFormatParser, Clause> syn = (cl, _this) -> _this.parseSynonym(cl);
-    static final BiFunction<Clause, OBOFormatParser, Clause> xref = (cl, _this) -> _this.parseDirectXref(cl);
-    static final BiFunction<Clause, OBOFormatParser, Clause> pair = (cl, _this) -> _this.parseIdRefPair(cl);
-    static final BiFunction<Clause, OBOFormatParser, Clause> owldef = (cl, _this) -> _this.parseOwlDef(cl);
-    private EnumMap<OboFormatTag, BiFunction<Clause, OBOFormatParser, Clause>> termFrameParsing = termFrameParsing();
+    private final ConcurrentHashMap<String, OBODoc> importCache = new ConcurrentHashMap<>();
+    static final BiFunction<Clause, OBOFormatParser, Clause> idref =
+        (cl, _this) -> _this.parseIdRef(cl);
+    static final BiFunction<Clause, OBOFormatParser, Clause> bool =
+        (cl, _this) -> _this.parseBoolean(cl);
+    static final BiFunction<Clause, OBOFormatParser, Clause> unquoted =
+        (cl, _this) -> _this.parseUnquotedString(cl);
+    static final BiFunction<Clause, OBOFormatParser, Clause> person =
+        (cl, _this) -> _this.parsePerson(cl);
+    static final BiFunction<Clause, OBOFormatParser, Clause> isodate =
+        (cl, _this) -> _this.parseISODate(cl);
+    static final BiFunction<Clause, OBOFormatParser, Clause> def =
+        (cl, _this) -> _this.parseDef(cl);
+    static final BiFunction<Clause, OBOFormatParser, Clause> intersect =
+        (cl, _this) -> _this.parseTermIntersect(cl);
+    static final BiFunction<Clause, OBOFormatParser, Clause> pvalue =
+        (cl, _this) -> _this.parsePropertyValue(cl);
+    static final BiFunction<Clause, OBOFormatParser, Clause> rel =
+        (cl, _this) -> _this.parseRelationship(cl);
+    static final BiFunction<Clause, OBOFormatParser, Clause> unquotSpaces =
+        (cl, _this) -> _this.parseUnquotSpaces(cl);
+    static final BiFunction<Clause, OBOFormatParser, Clause> syn =
+        (cl, _this) -> _this.parseSynonym(cl);
+    static final BiFunction<Clause, OBOFormatParser, Clause> xref =
+        (cl, _this) -> _this.parseDirectXref(cl);
+    static final BiFunction<Clause, OBOFormatParser, Clause> pair =
+        (cl, _this) -> _this.parseIdRefPair(cl);
+    static final BiFunction<Clause, OBOFormatParser, Clause> owldef =
+        (cl, _this) -> _this.parseOwlDef(cl);
+    private final EnumMap<OboFormatTag, BiFunction<Clause, OBOFormatParser, Clause>> termFrameParsing =
+        termFrameParsing();
+    private final EnumMap<OboFormatTag, BiFunction<Clause, OBOFormatParser, Clause>> typedTermFrameParsing =
+        typedTermFrameParsing();
 
     protected EnumMap<OboFormatTag, BiFunction<Clause, OBOFormatParser, Clause>> termFrameParsing() {
-        EnumMap<OboFormatTag, BiFunction<Clause, OBOFormatParser, Clause>> map = new EnumMap<>(OboFormatTag.class);
+        EnumMap<OboFormatTag, BiFunction<Clause, OBOFormatParser, Clause>> map =
+            new EnumMap<>(OboFormatTag.class);
         map.put(OboFormatTag.TAG_ALT_ID, idref);
         map.put(OboFormatTag.TAG_BUILTIN, bool);
         map.put(OboFormatTag.TAG_COMMENT, unquoted);
@@ -99,8 +118,6 @@ public class OBOFormatParser {
         map.put(OboFormatTag.TAG_XREF, xref);
         return map;
     }
-
-    private EnumMap<OboFormatTag, BiFunction<Clause, OBOFormatParser, Clause>> typedTermFrameParsing = typedTermFrameParsing();
 
     protected EnumMap<OboFormatTag, BiFunction<Clause, OBOFormatParser, Clause>> typedTermFrameParsing() {
         EnumMap<OboFormatTag, BiFunction<Clause, OBOFormatParser, Clause>> map = termFrameParsing();
@@ -134,18 +151,15 @@ public class OBOFormatParser {
     }
 
     /**
-     * @param importsMap
-     *        import map
+     * @param importsMap import map
      */
     public OBOFormatParser(Map<String, OBODoc> importsMap) {
         this(new MyStream(), importsMap);
     }
 
     /**
-     * @param s
-     *        input stream
-     * @param importsMap
-     *        map for imports
+     * @param s input stream
+     * @param importsMap map for imports
      */
     protected OBOFormatParser(MyStream s, Map<String, OBODoc> importsMap) {
         stream = s;
@@ -158,7 +172,8 @@ public class OBOFormatParser {
         stringCache = builder.build(key -> key);
     }
 
-    private static void addOboNamespace(@Nullable Collection<Frame> frames, String defaultOboNamespace) {
+    private static void addOboNamespace(@Nullable Collection<Frame> frames,
+        String defaultOboNamespace) {
         if (frames != null && !frames.isEmpty()) {
             for (Frame termFrame : frames) {
                 Clause clause = termFrame.getClause(OboFormatTag.TAG_NAMESPACE);
@@ -191,10 +206,8 @@ public class OBOFormatParser {
     }
 
     /**
-     * @param key
-     *        key for the import
-     * @param doc
-     *        document
+     * @param key key for the import
+     * @param doc document
      * @return true if the key is new
      */
     public boolean addImport(String key, OBODoc doc) {
@@ -202,8 +215,7 @@ public class OBOFormatParser {
     }
 
     /**
-     * @param r
-     *        reader
+     * @param r reader
      */
     public void setReader(BufferedReader r) {
         stream.reader = r;
@@ -217,8 +229,7 @@ public class OBOFormatParser {
     }
 
     /**
-     * @param followImports
-     *        followImports
+     * @param followImports followImports
      */
     public void setFollowImports(boolean followImports) {
         followImport = followImports;
@@ -227,8 +238,7 @@ public class OBOFormatParser {
     /**
      * Parses a local file or URL to an OBODoc.
      *
-     * @param fn
-     *        fn
+     * @param fn fn
      * @return parsed obo document
      */
     public OBODoc parse(String fn) {
@@ -238,11 +248,9 @@ public class OBOFormatParser {
     /**
      * Parses a local file to an OBODoc.
      *
-     * @param file
-     *        file
+     * @param file file
      * @return parsed obo document
-     * @throws IOException
-     *         io exception
+     * @throws IOException io exception
      */
     public OBODoc parse(File file) throws IOException {
         location = file;
@@ -256,8 +264,7 @@ public class OBOFormatParser {
     /**
      * Parses a remote URL to an OBODoc.
      *
-     * @param url
-     *        url
+     * @param url url
      * @return parsed obo document
      */
     public OBODoc parse(URL url) {
@@ -268,8 +275,7 @@ public class OBOFormatParser {
     /**
      * Parses a remote URL to an OBODoc.
      *
-     * @param urlstr
-     *        urlstr
+     * @param urlstr urlstr
      * @return parsed obo document
      */
     @SuppressWarnings("null")
@@ -303,8 +309,7 @@ public class OBOFormatParser {
     // GRAMMAR
     // ----------------------------------------
     /**
-     * @param reader
-     *        reader
+     * @param reader reader
      * @return parsed obo document
      */
     public OBODoc parse(InputStream reader) {
@@ -312,8 +317,7 @@ public class OBOFormatParser {
     }
 
     /**
-     * @param reader
-     *        reader
+     * @param reader reader
      * @return parsed obo document
      */
     public OBODoc parse(Reader reader) {
@@ -344,8 +348,7 @@ public class OBOFormatParser {
     }
 
     /**
-     * @param obodoc
-     *        obodoc
+     * @param obodoc obodoc
      */
     public void parseOBODoc(OBODoc obodoc) {
         Frame h = new Frame(FrameType.HEADER);
@@ -358,7 +361,8 @@ public class OBOFormatParser {
             parseZeroOrMoreWsOptCmtNl();
         }
         // set OBO namespace in frames
-        String defaultOboNamespace = h.getTagValue(OboFormatTag.TAG_DEFAULT_NAMESPACE, String.class);
+        String defaultOboNamespace =
+            h.getTagValue(OboFormatTag.TAG_DEFAULT_NAMESPACE, String.class);
         if (defaultOboNamespace != null) {
             addOboNamespace(obodoc.getTermFrames(), defaultOboNamespace);
             addOboNamespace(obodoc.getTypedefFrames(), defaultOboNamespace);
@@ -367,16 +371,17 @@ public class OBOFormatParser {
     }
 
     /**
-     * @param doc
-     *        doc
+     * @param doc doc
      * @return list of references
      */
     public List<String> checkDanglingReferences(OBODoc doc) {
         List<String> danglingReferences = new ArrayList<>();
         // check term frames
-        doc.getTermFrames().forEach(f -> f.getTags().forEach(tag -> validate2(doc, danglingReferences, f, tag)));
+        doc.getTermFrames()
+            .forEach(f -> f.getTags().forEach(tag -> validate2(doc, danglingReferences, f, tag)));
         // check typedef frames
-        doc.getTypedefFrames().forEach(f -> f.getTags().forEach(tag -> validate3(doc, danglingReferences, f, tag)));
+        doc.getTypedefFrames()
+            .forEach(f -> f.getTags().forEach(tag -> validate3(doc, danglingReferences, f, tag)));
         return asList(danglingReferences.stream().filter(Objects::nonNull));
     }
 
@@ -389,11 +394,14 @@ public class OBOFormatParser {
         if (OboFormatTag.TYPEDEF_FRAMES.contains(tagConstant)) {
             danglingReferences.add(checkRelation(c.getValue(String.class), tag, f.getId(), doc));
         } else if (tagConstant == OboFormatTag.TAG_HOLDS_OVER_CHAIN
-            || tagConstant == OboFormatTag.TAG_EQUIVALENT_TO_CHAIN || tagConstant == OboFormatTag.TAG_RELATIONSHIP) {
+            || tagConstant == OboFormatTag.TAG_EQUIVALENT_TO_CHAIN
+            || tagConstant == OboFormatTag.TAG_RELATIONSHIP) {
             danglingReferences.add(checkRelation(c.getValue(String.class), tag, f.getId(), doc));
             danglingReferences.add(checkRelation(c.getValue2().toString(), tag, f.getId(), doc));
-        } else if (tagConstant == OboFormatTag.TAG_DOMAIN || tagConstant == OboFormatTag.TAG_RANGE) {
-            danglingReferences.add(checkClassReference(c.getValue(String.class), tag, f.getId(), doc));
+        } else if (tagConstant == OboFormatTag.TAG_DOMAIN
+            || tagConstant == OboFormatTag.TAG_RANGE) {
+            danglingReferences
+                .add(checkClassReference(c.getValue(String.class), tag, f.getId(), doc));
         }
     }
 
@@ -404,10 +412,13 @@ public class OBOFormatParser {
         }
         if (OboFormatTag.TERM_FRAMES.contains(OBOFormatConstants.getTag(tag))) {
             if (c.getValues().size() > 1) {
-                danglingReferences.add(checkRelation(c.getValue(String.class), tag, f.getId(), doc));
-                danglingReferences.add(checkClassReference(c.getValue2(String.class), tag, f.getId(), doc));
+                danglingReferences
+                    .add(checkRelation(c.getValue(String.class), tag, f.getId(), doc));
+                danglingReferences
+                    .add(checkClassReference(c.getValue2(String.class), tag, f.getId(), doc));
             } else {
-                danglingReferences.add(checkClassReference(c.getValue(String.class), tag, f.getId(), doc));
+                danglingReferences
+                    .add(checkClassReference(c.getValue(String.class), tag, f.getId(), doc));
             }
         }
     }
@@ -415,24 +426,24 @@ public class OBOFormatParser {
     @Nullable
     private String checkRelation(String relId, String tag, @Nullable String frameId, OBODoc doc) {
         if (doc.getTypedefFrame(relId, followImport) == null) {
-            return "The relation '" + relId + "' reference in" + " the tag '" + tag + " ' in the frame of id '"
-                + frameId + "' is not declared";
+            return "The relation '" + relId + "' reference in" + " the tag '" + tag
+                + " ' in the frame of id '" + frameId + "' is not declared";
         }
         return null;
     }
 
     @Nullable
-    private String checkClassReference(String classId, String tag, @Nullable String frameId, OBODoc doc) {
+    private String checkClassReference(String classId, String tag, @Nullable String frameId,
+        OBODoc doc) {
         if (doc.getTermFrame(classId, followImport) == null) {
-            return "The class '" + classId + "' reference in" + " the tag '" + tag + " ' in the frame of id '" + frameId
-                + "'is not declared";
+            return "The class '" + classId + "' reference in" + " the tag '" + tag
+                + " ' in the frame of id '" + frameId + "'is not declared";
         }
         return null;
     }
 
     /**
-     * @param h
-     *        header
+     * @param h header
      */
     public void parseHeaderFrame(Frame h) {
         while (parseHeaderClauseNl(h)) {
@@ -443,8 +454,7 @@ public class OBOFormatParser {
     /**
      * header-clause ::= format-version-TVP | ... | ...
      *
-     * @param h
-     *        header frame
+     * @param h header frame
      * @return false if there are no more header clauses, other wise true
      */
     protected boolean parseHeaderClauseNl(Frame h) {
@@ -497,8 +507,7 @@ public class OBOFormatParser {
     // [Term] Frames
     // ----------------------------------------
     /**
-     * @param obodoc
-     *        obodoc
+     * @param obodoc obodoc
      */
     public void parseEntityFrame(OBODoc obodoc) {
         parseZeroOrMoreWsOptCmtNl();
@@ -517,11 +526,9 @@ public class OBOFormatParser {
     }
 
     /**
-     * {@code term-frame ::= nl* '[Term]' nl id-Tag Class-ID EOL {
-     * term-frame-clause EOL }}.
+     * {@code term-frame ::= nl* '[Term]' nl id-Tag Class-ID EOL { term-frame-clause EOL }}.
      *
-     * @param obodoc
-     *        obodoc
+     * @param obodoc obodoc
      */
     public void parseTermFrame(OBODoc obodoc) {
         Frame f = new Frame(FrameType.TERM);
@@ -543,8 +550,8 @@ public class OBOFormatParser {
                 obodoc.addFrame(f);
             } catch (FrameMergeException e) {
                 throw new OBOFormatParserException(
-                    "Could not add frame " + f + " to document, duplicate frame definition?", e, stream.lineNo,
-                    stream.line);
+                    "Could not add frame " + f + " to document, duplicate frame definition?", e,
+                    stream.lineNo, stream.line);
             }
         } else {
             error("Expected a [Term] frame, but found unknown stanza type.");
@@ -552,8 +559,7 @@ public class OBOFormatParser {
     }
 
     /**
-     * @param f
-     *        f
+     * @param f f
      */
     protected void parseTermFrameClauseEOL(Frame f) {
         // comment line:
@@ -594,8 +600,7 @@ public class OBOFormatParser {
 
     /**
      * @return parsed clause
-     * @throws OBOFormatParserException
-     *         parser exception
+     * @throws OBOFormatParserException parser exception
      */
     public Clause parseTypedefFrameClause() {
         String t = getParseTag();
@@ -621,17 +626,14 @@ public class OBOFormatParser {
     }
 
     /**
-     * in the obof1.4 spec, subsets may not contain spaces. unfortunately OE
-     * does not prohibit this, so subsets with spaces frequently escape. We
-     * should either allow spaces in the spec (with complicates parsing) or
-     * forbid them and reject all obo documents that do not conform.
-     * Unfortunately that would limit the utility of this parser, so for now we
-     * allow spaces. We may make it strict again when community is sufficiently
-     * forewarned. (alternatively we may add smarts to OE to translate the
-     * spaces to underscores, so it's a one-off translation)
+     * in the obof1.4 spec, subsets may not contain spaces. unfortunately OE does not prohibit this,
+     * so subsets with spaces frequently escape. We should either allow spaces in the spec (with
+     * complicates parsing) or forbid them and reject all obo documents that do not conform.
+     * Unfortunately that would limit the utility of this parser, so for now we allow spaces. We may
+     * make it strict again when community is sufficiently forewarned. (alternatively we may add
+     * smarts to OE to translate the spaces to underscores, so it's a one-off translation)
      * 
-     * @param cl
-     *        clause
+     * @param cl clause
      * @return modified clause
      */
     private Clause parseUnquotSpaces(Clause cl) {
@@ -639,13 +641,10 @@ public class OBOFormatParser {
     }
 
     /**
-     * {@code Typedef-frame ::= nl* '[Typedef]' nl id-Tag Class-ID EOL {
-     * Typedef-frame-clause EOL }}
+     * {@code Typedef-frame ::= nl* '[Typedef]' nl id-Tag Class-ID EOL { Typedef-frame-clause EOL }}
      *
-     * @param obodoc
-     *        obodoc
-     * @throws OBOFormatParserException
-     *         parser exception
+     * @param obodoc obodoc
+     * @throws OBOFormatParserException parser exception
      */
     public void parseTypedefFrame(OBODoc obodoc) {
         Frame f = new Frame(FrameType.TYPEDEF);
@@ -667,8 +666,8 @@ public class OBOFormatParser {
                 obodoc.addFrame(f);
             } catch (FrameMergeException e) {
                 throw new OBOFormatParserException(
-                    "Could not add frame " + f + " to document, duplicate frame definition?", e, stream.lineNo,
-                    stream.line);
+                    "Could not add frame " + f + " to document, duplicate frame definition?", e,
+                    stream.lineNo, stream.line);
             }
         } else {
             error("Expected a [Typedef] frame, but found unknown stanza type.");
@@ -676,8 +675,7 @@ public class OBOFormatParser {
     }
 
     /**
-     * @param f
-     *        f
+     * @param f f
      */
     protected void parseTypedefFrameClauseEOL(Frame f) {
         // comment line:
@@ -726,7 +724,7 @@ public class OBOFormatParser {
     }
 
     private Clause parseIdRef(Clause cl, boolean optional) {
-        String id = getParseUntil(" !{");
+        String id = getParseUntil(BRACE);
         if (!optional && id.length() < 1) {
             error("");
         }
@@ -745,7 +743,7 @@ public class OBOFormatParser {
     }
 
     private Clause parseISODate(Clause cl) {
-        String dateStr = getParseUntil(" !{");
+        String dateStr = getParseUntil(BRACE);
         cl.setValue(dateStr);
         return cl;
     }
@@ -788,7 +786,8 @@ public class OBOFormatParser {
             cl.addValue(date);
             return cl;
         } catch (ParseException e) {
-            throw new OBOFormatParserException("Could not parse date from string: " + v, e, stream.lineNo, stream.line);
+            throw new OBOFormatParserException("Could not parse date from string: " + v, e,
+                stream.lineNo, stream.line);
         }
     }
 
@@ -816,7 +815,7 @@ public class OBOFormatParser {
             String desc = getParseUntilAdv("\"");
             cl.addValue(desc);
         } else {
-            String desc = getParseUntil(" !{");
+            String desc = getParseUntil(BRACE);
             cl.addValue(desc);
         }
         return parseQualifierAndHiddenComment(cl);
@@ -854,7 +853,7 @@ public class OBOFormatParser {
             String desc = getParseUntilAdv("\"");
             cl.addValue(desc);
         } else {
-            String s = getParseUntil(" !{");
+            String s = getParseUntil(BRACE);
             if (!s.isEmpty()) {
                 cl.addValue(s);
             }
@@ -865,8 +864,7 @@ public class OBOFormatParser {
     /**
      * intersection_of-Tag Class-ID | intersection_of-Tag Relation-ID Class-ID.
      *
-     * @param cl
-     *        cl
+     * @param cl cl
      * @return modified clause
      */
     private Clause parseTermIntersect(Clause cl) {
@@ -965,8 +963,8 @@ public class OBOFormatParser {
                 error("Missing closing ']' for xref list at pos: " + stream.pos);
             }
         } else if (!optional) {
-            error("Clause: " + cl.getTag() + "; expected an xref list, or at least an empty list '[]' at pos: "
-                + stream.pos);
+            error("Clause: " + cl.getTag()
+                + "; expected an xref list, or at least an empty list '[]' at pos: " + stream.pos);
         }
     }
 
@@ -1005,8 +1003,7 @@ public class OBOFormatParser {
     // an xref that is a direct value of a clause
     private Clause parseDirectXref(Clause cl) {
         parseZeroOrMoreWs();
-        String id = getParseUntil("\",]!{", true);
-        id = id.trim();
+        String id = getParseUntil("\",]!{", true).trim();
         if (id.contains(" ")) {
             warn("accepting bad xref with spaces:<" + id + '>');
         }
@@ -1026,8 +1023,7 @@ public class OBOFormatParser {
     /**
      * Qualifier Value blocks - e.g. {@code {a="1",b="foo", ...}}
      *
-     * @param cl
-     *        clause
+     * @param cl clause
      */
     private void parseQualifierBlock(Clause cl) {
         if (stream.consume("{")) {
@@ -1062,7 +1058,8 @@ public class OBOFormatParser {
             v = getParseUntilAdv("\"");
         } else {
             v = getParseUntil(" ,}");
-            warn("qualifier values should be enclosed in quotes. You have: " + q + '=' + stream.rest());
+            warn("qualifier values should be enclosed in quotes. You have: " + q + '='
+                + stream.rest());
         }
         if (v.isEmpty()) {
             warn("Empty value for qualifier in trailing qualifier block.");
@@ -1099,7 +1096,7 @@ public class OBOFormatParser {
         }
         Clause cl = new Clause(t);
         f.addClause(cl);
-        String id = getParseUntil(" !{");
+        String id = getParseUntil(BRACE);
         if (id.isEmpty()) {
             error("Could not find an valid id, id is empty.");
         }
@@ -1109,10 +1106,8 @@ public class OBOFormatParser {
     }
 
     /**
-     * @param cl
-     *        cl
-     * @throws OBOFormatParserException
-     *         parser exception
+     * @param cl cl
+     * @throws OBOFormatParserException parser exception
      */
     public void parseEOL(Clause cl) {
         parseQualifierAndHiddenComment(cl);
@@ -1300,9 +1295,11 @@ public class OBOFormatParser {
     protected static class MyStream {
 
         int pos = 0;
-        @Nullable String line;
+        @Nullable
+        String line;
         int lineNo = 0;
-        @Nullable BufferedReader reader;
+        @Nullable
+        BufferedReader reader;
 
         public MyStream() {
             pos = 0;

@@ -69,7 +69,6 @@ public class MapPointer<K, V extends OWLAxiom> {
     private SoftReference<Set<IRI>> iris;
     private int size = 0;
     private final ObjectObjectHashMap<K, Collection<V>> map = new ObjectObjectHashMap<>(17, 0.75F);
-    private boolean neverTrimmed = true;
     private final Class<V> valueWithness;
 
     /**
@@ -350,9 +349,6 @@ public class MapPointer<K, V extends OWLAxiom> {
      */
     public synchronized int size() {
         init();
-        if (neverTrimmed) {
-            // trimToSize();
-        }
         return size;
     }
 
@@ -408,9 +404,6 @@ public class MapPointer<K, V extends OWLAxiom> {
     }
 
     private boolean removeInternal(K k, V v) {
-        if (neverTrimmed) {
-            // trimToSize();
-        }
         Collection<V> t = map.get(k);
         if (t == null) {
             return false;
@@ -449,7 +442,7 @@ public class MapPointer<K, V extends OWLAxiom> {
 
 
 class HPPCSet<S> implements Collection<S> {
-    private ObjectHashSet<S> delegate;
+    private final ObjectHashSet<S> delegate;
     private final Class<S> witness;
 
     public HPPCSet(Class<S> c) {
@@ -498,7 +491,7 @@ class HPPCSet<S> implements Collection<S> {
     @Override
     public Iterator<S> iterator() {
         final ObjectHashSet<S>.EntryIterator iterator = delegate.iterator();
-        return new Iterator<S>() {
+        return new Iterator<>() {
 
             @Override
             public boolean hasNext() {

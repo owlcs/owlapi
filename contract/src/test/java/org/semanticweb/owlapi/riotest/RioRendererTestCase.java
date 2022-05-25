@@ -37,6 +37,7 @@ import org.semanticweb.owlapi.rioformats.RioRDFXMLDocumentFormat;
  */
 public class RioRendererTestCase extends TestBase {
 
+    private static final String DUPLICATE_STATEMENTS = "Duplicate statements were emitted";
     private final IRI testOntologyUri1 = df.getIRI("urn:test:ontology:uri:1", "");
     private SimpleValueFactory vf;
     private OWLOntology testOntologyEmpty;
@@ -49,7 +50,7 @@ public class RioRendererTestCase extends TestBase {
     private RDFWriter testTurtleRioWriter;
     private StringWriter testNTriplesStringWriter;
     private RDFWriter testNTriplesRioWriter;
-    private RioRDFXMLDocumentFormat format = new RioRDFXMLDocumentFormat();
+    private final RioRDFXMLDocumentFormat format = new RioRDFXMLDocumentFormat();
 
     @Before
     public void setUp() throws Exception {
@@ -57,11 +58,12 @@ public class RioRendererTestCase extends TestBase {
         m.getOntologyStorers().set(new RioNTriplesStorerFactory(), new RioRDFXMLStorerFactory(),
             new RioTurtleStorerFactory());
         testOntologyEmpty = m.createOntology(testOntologyUri1);
-        testOntologyKoala = m.loadOntologyFromOntologyDocument(getClass().getResourceAsStream("/koala.owl"));
+        testOntologyKoala =
+            m.loadOntologyFromOntologyDocument(getClass().getResourceAsStream("/koala.owl"));
         assertEquals(70, testOntologyKoala.getAxiomCount());
         testHandlerStatementCollector = new StatementCollector();
-        testOntologyEmptyStatement = vf.createStatement(vf.createIRI("urn:test:ontology:uri:1"), RDF.TYPE,
-            OWL.ONTOLOGY);
+        testOntologyEmptyStatement =
+            vf.createStatement(vf.createIRI("urn:test:ontology:uri:1"), RDF.TYPE, OWL.ONTOLOGY);
         testRdfXmlStringWriter = new StringWriter();
         testRdfXmlRioWriter = Rio.createWriter(RDFFormat.RDFXML, testRdfXmlStringWriter);
         testTurtleStringWriter = new StringWriter();
@@ -72,14 +74,16 @@ public class RioRendererTestCase extends TestBase {
 
     @Test
     public void testRenderEmptyStatementCollector() {
-        RioRenderer testRenderer = new RioRenderer(testOntologyEmpty, format, testHandlerStatementCollector);
+        RioRenderer testRenderer =
+            new RioRenderer(testOntologyEmpty, format, testHandlerStatementCollector);
         testRenderer.render();
         assertEquals(6, testHandlerStatementCollector.getNamespaces().size());
         assertEquals(1, testHandlerStatementCollector.getStatements().size());
         // Verify that the RDF:TYPE OWL:ONTOLOGY statement was generated for the
         // otherwise empty
         // ontology
-        assertEquals(testOntologyEmptyStatement, testHandlerStatementCollector.getStatements().iterator().next());
+        assertEquals(testOntologyEmptyStatement,
+            testHandlerStatementCollector.getStatements().iterator().next());
     }
 
     @Test
@@ -104,7 +108,8 @@ public class RioRendererTestCase extends TestBase {
 
     @Test
     public void testRenderEmptyNTriplesWriter() {
-        RioRenderer testRenderer = new RioRenderer(testOntologyEmpty, format, testNTriplesRioWriter);
+        RioRenderer testRenderer =
+            new RioRenderer(testOntologyEmpty, format, testNTriplesRioWriter);
         testRenderer.render();
         // testNTriplesRioWriter outputs its results to testNTriplesStringWriter
         String result = testNTriplesStringWriter.toString();
@@ -114,13 +119,15 @@ public class RioRendererTestCase extends TestBase {
 
     @Test
     public void testRenderKoalaStatementCollector() {
-        RioRenderer testRenderer = new RioRenderer(testOntologyKoala, format, testHandlerStatementCollector);
+        RioRenderer testRenderer =
+            new RioRenderer(testOntologyKoala, format, testHandlerStatementCollector);
         testRenderer.render();
         assertEquals(6, testHandlerStatementCollector.getNamespaces().size());
         assertEquals(171, testHandlerStatementCollector.getStatements().size());
         // check for duplicate statements
-        HashSet<Statement> resultStatements = new HashSet<>(testHandlerStatementCollector.getStatements());
-        assertEquals("Duplicate statements were emitted", 171, resultStatements.size());
+        HashSet<Statement> resultStatements =
+            new HashSet<>(testHandlerStatementCollector.getStatements());
+        assertEquals(DUPLICATE_STATEMENTS, 171, resultStatements.size());
     }
 
     @Test
@@ -144,8 +151,9 @@ public class RioRendererTestCase extends TestBase {
         assertEquals(5, testHandlerStatementCollector.getNamespaces().size());
         assertEquals(171, testHandlerStatementCollector.getStatements().size());
         // check for duplicate statements
-        HashSet<Statement> resultStatements = new HashSet<>(testHandlerStatementCollector.getStatements());
-        assertEquals("Duplicate statements were emitted", 171, resultStatements.size());
+        HashSet<Statement> resultStatements =
+            new HashSet<>(testHandlerStatementCollector.getStatements());
+        assertEquals(DUPLICATE_STATEMENTS, 171, resultStatements.size());
     }
 
     @Test
@@ -165,13 +173,15 @@ public class RioRendererTestCase extends TestBase {
         assertEquals(6, testHandlerStatementCollector.getNamespaces().size());
         assertEquals(171, testHandlerStatementCollector.getStatements().size());
         // check for duplicate statements
-        HashSet<Statement> resultStatements = new HashSet<>(testHandlerStatementCollector.getStatements());
-        assertEquals("Duplicate statements were emitted", 171, resultStatements.size());
+        HashSet<Statement> resultStatements =
+            new HashSet<>(testHandlerStatementCollector.getStatements());
+        assertEquals(DUPLICATE_STATEMENTS, 171, resultStatements.size());
     }
 
     @Test
     public void testRenderKoalaNTriplesWriter() throws Exception {
-        RioRenderer testRenderer = new RioRenderer(testOntologyKoala, format, testNTriplesRioWriter);
+        RioRenderer testRenderer =
+            new RioRenderer(testOntologyKoala, format, testNTriplesRioWriter);
         testRenderer.render();
         // testNTriplesRioWriter outputs its results to testNTriplesStringWriter
         String result = testNTriplesStringWriter.toString();
@@ -188,8 +198,9 @@ public class RioRendererTestCase extends TestBase {
         assertEquals(0, testHandlerStatementCollector.getNamespaces().size());
         assertEquals(171, testHandlerStatementCollector.getStatements().size());
         // check for duplicate statements
-        HashSet<Statement> resultStatements = new HashSet<>(testHandlerStatementCollector.getStatements());
-        assertEquals("Duplicate statements were emitted", 171, resultStatements.size());
+        HashSet<Statement> resultStatements =
+            new HashSet<>(testHandlerStatementCollector.getStatements());
+        assertEquals(DUPLICATE_STATEMENTS, 171, resultStatements.size());
     }
 
     @Test

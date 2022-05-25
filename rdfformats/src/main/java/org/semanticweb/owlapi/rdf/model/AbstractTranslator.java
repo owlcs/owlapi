@@ -229,20 +229,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * An abstract translator that can produce an RDF graph from an OWLOntology.
- * Subclasses must provide implementations to create concrete representations of
- * resources, triples etc.
+ * An abstract translator that can produce an RDF graph from an OWLOntology. Subclasses must provide
+ * implementations to create concrete representations of resources, triples etc.
  *
- * @param <N>
- *        the basic node
- * @param <R>
- *        a resource node
- * @param <P>
- *        a predicate node
- * @param <L>
- *        a literal node
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @param <N> the basic node
+ * @param <R> a resource node
+ * @param <P> a predicate node
+ * @param <L> a literal node
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public abstract class AbstractTranslator<N extends Serializable, R extends N, P extends N, L extends N>
@@ -260,27 +254,23 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
      */
     private final Map<OWLObject, N> nodeMap = new ConcurrentHashMap<>(16, 0.75F, 1);
     private final Map<OWLObject, N> expressionMap = new IdentityHashMap<>();
-    private final Map<OWLObject, OWLObject[]> expressionContext = new ConcurrentHashMap<>(16, 0.75F, 1);
+    private final Map<OWLObject, OWLObject[]> expressionContext =
+        new ConcurrentHashMap<>(16, 0.75F, 1);
     protected RDFGraph graph;
     private final OWLObjectDesharer desharer;
-    private Set<OWLAxiom> translatedAxioms;
+    private final Set<OWLAxiom> translatedAxioms;
 
     /**
-     * @param manager
-     *        the manager
-     * @param ontology
-     *        the ontology
-     * @param format
-     *        target format
-     * @param useStrongTyping
-     *        true if strong typing should be used
-     * @param multiple
-     *        will tell whether anonymous individuals need an id or not
-     * @param translatedAxioms
-     *        translated axioms
+     * @param manager the manager
+     * @param ontology the ontology
+     * @param format target format
+     * @param useStrongTyping true if strong typing should be used
+     * @param multiple will tell whether anonymous individuals need an id or not
+     * @param translatedAxioms translated axioms
      */
-    public AbstractTranslator(OWLOntologyManager manager, OWLOntology ontology, @Nullable OWLDocumentFormat format,
-        boolean useStrongTyping, IndividualAppearance multiple, Set<OWLAxiom> translatedAxioms) {
+    public AbstractTranslator(OWLOntologyManager manager, OWLOntology ontology,
+        @Nullable OWLDocumentFormat format, boolean useStrongTyping, IndividualAppearance multiple,
+        Set<OWLAxiom> translatedAxioms) {
         this.ont = checkNotNull(ontology, "ontology cannot be null");
         this.format = format;
         this.manager = checkNotNull(manager, "manager cannot be null");
@@ -294,8 +284,7 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
     /**
      * Process the input only if it has not been seen before
      * 
-     * @param input
-     *        input to process
+     * @param input input to process
      */
     public void translate(OWLObject input) {
         if (input instanceof OWLAxiom) {
@@ -311,7 +300,8 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
 
     @Override
     public void visit(OWLDeclarationAxiom axiom) {
-        addSingleTripleAxiom(axiom, axiom.getEntity(), RDF_TYPE.getIRI(), axiom.getEntity().getEntityType().getIRI());
+        addSingleTripleAxiom(axiom, axiom.getEntity(), RDF_TYPE.getIRI(),
+            axiom.getEntity().getEntityType().getIRI());
     }
 
     @Override
@@ -389,25 +379,26 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
     /**
      * Add type triples and the owl:onProperty triples for an OWLRestriction.
      *
-     * @param desc
-     *        The restriction
-     * @param property
-     *        property
+     * @param desc The restriction
+     * @param property property
      */
-    private void addRestrictionCommonTriplePropertyRange(OWLRestriction desc, OWLPropertyExpression property) {
+    private void addRestrictionCommonTriplePropertyRange(OWLRestriction desc,
+        OWLPropertyExpression property) {
         translateAnonymousNode(desc);
         addTriple(desc, RDF_TYPE.getIRI(), OWL_RESTRICTION.getIRI());
         addTriple(desc, OWL_ON_PROPERTY.getIRI(), property);
     }
 
-    private void addRestrictionCommonTriplePropertyExpression(OWLRestriction desc, OWLPropertyExpression property) {
+    private void addRestrictionCommonTriplePropertyExpression(OWLRestriction desc,
+        OWLPropertyExpression property) {
         translateAnonymousNode(desc);
         addTriple(desc, RDF_TYPE.getIRI(), OWL_RESTRICTION.getIRI());
         addTriple(desc, OWL_ON_PROPERTY.getIRI(), property);
     }
 
-    private void addObjectCardinalityRestrictionTriples(OWLCardinalityRestriction<OWLClassExpression> ce,
-        OWLPropertyExpression p, OWLRDFVocabulary cardiPredicate) {
+    private void addObjectCardinalityRestrictionTriples(
+        OWLCardinalityRestriction<OWLClassExpression> ce, OWLPropertyExpression p,
+        OWLRDFVocabulary cardiPredicate) {
         addRestrictionCommonTriplePropertyRange(ce, p);
         addTriple(ce, cardiPredicate.getIRI(), toTypedConstant(ce.getCardinality()));
         if (ce.isQualified()) {
@@ -462,7 +453,8 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
     @Override
     public void visit(OWLObjectMinCardinality ce) {
         if (ce.isQualified()) {
-            addObjectCardinalityRestrictionTriples(ce, ce.getProperty(), OWL_MIN_QUALIFIED_CARDINALITY);
+            addObjectCardinalityRestrictionTriples(ce, ce.getProperty(),
+                OWL_MIN_QUALIFIED_CARDINALITY);
         } else {
             addObjectCardinalityRestrictionTriples(ce, ce.getProperty(), OWL_MIN_CARDINALITY);
         }
@@ -471,7 +463,8 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
     @Override
     public void visit(OWLObjectMaxCardinality ce) {
         if (ce.isQualified()) {
-            addObjectCardinalityRestrictionTriples(ce, ce.getProperty(), OWL_MAX_QUALIFIED_CARDINALITY);
+            addObjectCardinalityRestrictionTriples(ce, ce.getProperty(),
+                OWL_MAX_QUALIFIED_CARDINALITY);
         } else {
             addObjectCardinalityRestrictionTriples(ce, ce.getProperty(), OWL_MAX_CARDINALITY);
         }
@@ -507,7 +500,8 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
     @Override
     public void visit(OWLDataMinCardinality ce) {
         if (ce.isQualified()) {
-            addDataCardinalityRestrictionTriples(ce, ce.getProperty(), OWL_MIN_QUALIFIED_CARDINALITY);
+            addDataCardinalityRestrictionTriples(ce, ce.getProperty(),
+                OWL_MIN_QUALIFIED_CARDINALITY);
         } else {
             addDataCardinalityRestrictionTriples(ce, ce.getProperty(), OWL_MIN_CARDINALITY);
         }
@@ -516,7 +510,8 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
     @Override
     public void visit(OWLDataMaxCardinality ce) {
         if (ce.isQualified()) {
-            addDataCardinalityRestrictionTriples(ce, ce.getProperty(), OWL_MAX_QUALIFIED_CARDINALITY);
+            addDataCardinalityRestrictionTriples(ce, ce.getProperty(),
+                OWL_MAX_QUALIFIED_CARDINALITY);
         } else {
             addDataCardinalityRestrictionTriples(ce, ce.getProperty(), OWL_MAX_CARDINALITY);
         }
@@ -534,7 +529,8 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
     // Axioms
     @Override
     public void visit(OWLSubClassOfAxiom axiom) {
-        addSingleTripleAxiom(axiom, axiom.getSubClass(), RDFS_SUBCLASS_OF.getIRI(), axiom.getSuperClass());
+        addSingleTripleAxiom(axiom, axiom.getSubClass(), RDFS_SUBCLASS_OF.getIRI(),
+            axiom.getSuperClass());
     }
 
     @Override
@@ -560,12 +556,14 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
 
     @Override
     public void visit(OWLDisjointUnionAxiom axiom) {
-        addSingleTripleAxiom(axiom, axiom.getOWLClass(), OWL_DISJOINT_UNION_OF.getIRI(), axiom.classExpressions());
+        addSingleTripleAxiom(axiom, axiom.getOWLClass(), OWL_DISJOINT_UNION_OF.getIRI(),
+            axiom.classExpressions());
     }
 
     @Override
     public void visit(OWLSubObjectPropertyOfAxiom axiom) {
-        addSingleTripleAxiom(axiom, axiom.getSubProperty(), RDFS_SUB_PROPERTY_OF.getIRI(), axiom.getSuperProperty());
+        addSingleTripleAxiom(axiom, axiom.getSubProperty(), RDFS_SUB_PROPERTY_OF.getIRI(),
+            axiom.getSuperProperty());
     }
 
     @Override
@@ -607,47 +605,56 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
 
     @Override
     public void visit(OWLInverseObjectPropertiesAxiom axiom) {
-        addSingleTripleAxiom(axiom, axiom.getFirstProperty(), OWL_INVERSE_OF.getIRI(), axiom.getSecondProperty());
+        addSingleTripleAxiom(axiom, axiom.getFirstProperty(), OWL_INVERSE_OF.getIRI(),
+            axiom.getSecondProperty());
     }
 
     @Override
     public void visit(OWLFunctionalObjectPropertyAxiom axiom) {
-        addSingleTripleAxiom(axiom, axiom.getProperty(), RDF_TYPE.getIRI(), OWL_FUNCTIONAL_PROPERTY.getIRI());
+        addSingleTripleAxiom(axiom, axiom.getProperty(), RDF_TYPE.getIRI(),
+            OWL_FUNCTIONAL_PROPERTY.getIRI());
     }
 
     @Override
     public void visit(OWLInverseFunctionalObjectPropertyAxiom axiom) {
-        addSingleTripleAxiom(axiom, axiom.getProperty(), RDF_TYPE.getIRI(), OWL_INVERSE_FUNCTIONAL_PROPERTY.getIRI());
+        addSingleTripleAxiom(axiom, axiom.getProperty(), RDF_TYPE.getIRI(),
+            OWL_INVERSE_FUNCTIONAL_PROPERTY.getIRI());
     }
 
     @Override
     public void visit(OWLReflexiveObjectPropertyAxiom axiom) {
-        addSingleTripleAxiom(axiom, axiom.getProperty(), RDF_TYPE.getIRI(), OWL_REFLEXIVE_PROPERTY.getIRI());
+        addSingleTripleAxiom(axiom, axiom.getProperty(), RDF_TYPE.getIRI(),
+            OWL_REFLEXIVE_PROPERTY.getIRI());
     }
 
     @Override
     public void visit(OWLIrreflexiveObjectPropertyAxiom axiom) {
-        addSingleTripleAxiom(axiom, axiom.getProperty(), RDF_TYPE.getIRI(), OWL_IRREFLEXIVE_PROPERTY.getIRI());
+        addSingleTripleAxiom(axiom, axiom.getProperty(), RDF_TYPE.getIRI(),
+            OWL_IRREFLEXIVE_PROPERTY.getIRI());
     }
 
     @Override
     public void visit(OWLSymmetricObjectPropertyAxiom axiom) {
-        addSingleTripleAxiom(axiom, axiom.getProperty(), RDF_TYPE.getIRI(), OWL_SYMMETRIC_PROPERTY.getIRI());
+        addSingleTripleAxiom(axiom, axiom.getProperty(), RDF_TYPE.getIRI(),
+            OWL_SYMMETRIC_PROPERTY.getIRI());
     }
 
     @Override
     public void visit(OWLAsymmetricObjectPropertyAxiom axiom) {
-        addSingleTripleAxiom(axiom, axiom.getProperty(), RDF_TYPE.getIRI(), OWL_ASYMMETRIC_PROPERTY.getIRI());
+        addSingleTripleAxiom(axiom, axiom.getProperty(), RDF_TYPE.getIRI(),
+            OWL_ASYMMETRIC_PROPERTY.getIRI());
     }
 
     @Override
     public void visit(OWLTransitiveObjectPropertyAxiom axiom) {
-        addSingleTripleAxiom(axiom, axiom.getProperty(), RDF_TYPE.getIRI(), OWL_TRANSITIVE_PROPERTY.getIRI());
+        addSingleTripleAxiom(axiom, axiom.getProperty(), RDF_TYPE.getIRI(),
+            OWL_TRANSITIVE_PROPERTY.getIRI());
     }
 
     @Override
     public void visit(OWLSubDataPropertyOfAxiom axiom) {
-        addSingleTripleAxiom(axiom, axiom.getSubProperty(), RDFS_SUB_PROPERTY_OF.getIRI(), axiom.getSuperProperty());
+        addSingleTripleAxiom(axiom, axiom.getSubProperty(), RDFS_SUB_PROPERTY_OF.getIRI(),
+            axiom.getSuperProperty());
     }
 
     @Override
@@ -683,23 +690,26 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
 
     @Override
     public void visit(OWLFunctionalDataPropertyAxiom axiom) {
-        addSingleTripleAxiom(axiom, axiom.getProperty(), RDF_TYPE.getIRI(), OWL_FUNCTIONAL_PROPERTY.getIRI());
+        addSingleTripleAxiom(axiom, axiom.getProperty(), RDF_TYPE.getIRI(),
+            OWL_FUNCTIONAL_PROPERTY.getIRI());
     }
 
     @Override
     public void visit(OWLDatatypeDefinitionAxiom axiom) {
-        addSingleTripleAxiom(axiom, axiom.getDatatype(), OWL_EQUIVALENT_CLASS.getIRI(), axiom.getDataRange());
+        addSingleTripleAxiom(axiom, axiom.getDatatype(), OWL_EQUIVALENT_CLASS.getIRI(),
+            axiom.getDataRange());
     }
 
     @Override
     public void visit(OWLHasKeyAxiom axiom) {
-        addSingleTripleAxiom(axiom, axiom.getClassExpression(), OWL_HAS_KEY.getIRI(), axiom.propertyExpressions());
+        addSingleTripleAxiom(axiom, axiom.getClassExpression(), OWL_HAS_KEY.getIRI(),
+            axiom.propertyExpressions());
     }
 
     @Override
     public void visit(OWLSameIndividualAxiom axiom) {
-        axiom.splitToAnnotatedPairs().forEach(a -> addSingleTripleAxiom(a, a.getOperandsAsList().get(0),
-            OWL_SAME_AS.getIRI(), a.getOperandsAsList().get(1)));
+        axiom.splitToAnnotatedPairs().forEach(a -> addSingleTripleAxiom(a,
+            a.getOperandsAsList().get(0), OWL_SAME_AS.getIRI(), a.getOperandsAsList().get(1)));
         processIfAnonymous(axiom.individuals(), axiom);
     }
 
@@ -715,14 +725,16 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
     @Override
     public void visit(OWLClassAssertionAxiom axiom) {
         axiom.getIndividual().accept(this);
-        addSingleTripleAxiom(axiom, axiom.getIndividual(), RDF_TYPE.getIRI(), axiom.getClassExpression());
+        addSingleTripleAxiom(axiom, axiom.getIndividual(), RDF_TYPE.getIRI(),
+            axiom.getClassExpression());
         processIfAnonymous(axiom.getIndividual(), axiom);
     }
 
     @Override
     public void visit(OWLObjectPropertyAssertionAxiom axiom) {
         OWLObjectPropertyAssertionAxiom simplified = axiom.getSimplified();
-        addSingleTripleAxiom(simplified, simplified.getSubject(), simplified.getProperty(), simplified.getObject());
+        addSingleTripleAxiom(simplified, simplified.getSubject(), simplified.getProperty(),
+            simplified.getObject());
         processIfAnonymous(simplified.getObject(), axiom);
         processIfAnonymous(simplified.getSubject(), axiom);
     }
@@ -765,7 +777,8 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
 
     @Override
     public void visit(OWLSubAnnotationPropertyOfAxiom axiom) {
-        addSingleTripleAxiom(axiom, axiom.getSubProperty(), RDFS_SUB_PROPERTY_OF.getIRI(), axiom.getSuperProperty());
+        addSingleTripleAxiom(axiom, axiom.getSubProperty(), RDFS_SUB_PROPERTY_OF.getIRI(),
+            axiom.getSuperProperty());
     }
 
     @Override
@@ -882,7 +895,8 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
     }
 
     private void addImportsDeclarationsToOntologyHeader(OWLOntology ontology) {
-        ontology.importsDeclarations().forEach(decl -> addTriple(ontology, OWL_IMPORTS.getIRI(), decl.getIRI()));
+        ontology.importsDeclarations()
+            .forEach(decl -> addTriple(ontology, OWL_IMPORTS.getIRI(), decl.getIRI()));
     }
 
     private void addAnnotationsToOntologyHeader(OWLOntology ontology) {
@@ -1001,15 +1015,18 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
 
     // Methods to add triples
     private void addSingleTripleAxiom(OWLAxiom ax, OWLObject subject, IRI pred, OWLObject obj) {
-        addSingleTripleAxiomRPN(ax, getNode(subject), getPredicateNode(pred), getNode(obj, subject, pred));
+        addSingleTripleAxiomRPN(ax, getNode(subject), getPredicateNode(pred),
+            getNode(obj, subject, pred));
     }
 
     private void addSingleTripleAxiom(OWLAxiom ax, OWLObject subject, IRI pred, IRI obj) {
         addSingleTripleAxiomRPN(ax, getNode(subject), getPredicateNode(pred), getResourceNode(obj));
     }
 
-    private void addSingleTripleAxiom(OWLAxiom ax, OWLObject subj, IRI pred, Stream<? extends OWLObject> obj) {
-        addSingleTripleAxiomRPN(ax, getNode(subj), getPredicateNode(pred), translateList(asList(obj)));
+    private void addSingleTripleAxiom(OWLAxiom ax, OWLObject subj, IRI pred,
+        Stream<? extends OWLObject> obj) {
+        addSingleTripleAxiomRPN(ax, getNode(subj), getPredicateNode(pred),
+            translateList(asList(obj)));
     }
 
     private void addSingleTripleAxiom(OWLAxiom ax, OWLObject subj, OWLObject pred, OWLObject obj) {
@@ -1017,25 +1034,18 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
     }
 
     /**
-     * Adds the representation of an axiom to the RDF graph where the axiom has
-     * a SINGLE MAIN TRIPLE (specified by the subject, predicate, object
-     * parameters). The triple specified by the subject, predicate and object
-     * parameters will be added to the graph. If the axiom has any annotations
-     * on it then extra triples will be added. These will consist of three
-     * triples, that "reify" (not in the RDF sense) the specified triple using
-     * the OWL 2 annotation vocabulary: owl:annotatedSource,
-     * owl:annotatedProperty, owl:annotatedTarget, and other triples to encode
+     * Adds the representation of an axiom to the RDF graph where the axiom has a SINGLE MAIN TRIPLE
+     * (specified by the subject, predicate, object parameters). The triple specified by the
+     * subject, predicate and object parameters will be added to the graph. If the axiom has any
+     * annotations on it then extra triples will be added. These will consist of three triples, that
+     * "reify" (not in the RDF sense) the specified triple using the OWL 2 annotation vocabulary:
+     * owl:annotatedSource, owl:annotatedProperty, owl:annotatedTarget, and other triples to encode
      * the annotations.
      *
-     * @param ax
-     *        The axiom that the triple specified as subject, pred, obj
-     *        represents.
-     * @param subject
-     *        The subject of the triple representing the axiom
-     * @param predicate
-     *        The predicate of the triple representing the axiom
-     * @param object
-     *        The object of the triple representing the axiom
+     * @param ax The axiom that the triple specified as subject, pred, obj represents.
+     * @param subject The subject of the triple representing the axiom
+     * @param predicate The predicate of the triple representing the axiom
+     * @param object The object of the triple representing the axiom
      */
     private void addSingleTripleAxiomRPN(OWLAxiom ax, R subject, P predicate, N object) {
         // Base triple
@@ -1046,7 +1056,8 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
         // The axiom has annotations and we therefore need to reify the axiom in
         // order to add the annotations
         translateAnonymousNode(ax);
-        addTriple(getNode(ax), getPredicateNode(RDF_TYPE.getIRI()), getResourceNode(OWL_AXIOM.getIRI()));
+        addTriple(getNode(ax), getPredicateNode(RDF_TYPE.getIRI()),
+            getResourceNode(OWL_AXIOM.getIRI()));
         addTriple(getNode(ax), getPredicateNode(OWL_ANNOTATED_SOURCE.getIRI()), subject);
         addTriple(getNode(ax), getPredicateNode(OWL_ANNOTATED_PROPERTY.getIRI()), predicate);
         addTriple(getNode(ax), getPredicateNode(OWL_ANNOTATED_TARGET.getIRI()), object);
@@ -1059,13 +1070,11 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
     }
 
     /**
-     * Translates an annotation on a given subject. This method implements the
-     * TANN(ann, y) translation in the spec
+     * Translates an annotation on a given subject. This method implements the TANN(ann, y)
+     * translation in the spec
      *
-     * @param subject
-     *        The subject of the annotation
-     * @param annotation
-     *        The annotation
+     * @param subject The subject of the annotation
+     * @param annotation The annotation
      */
     private void translateAnnotation(OWLObject subject, OWLAnnotation annotation) {
         // We first add the base triple
@@ -1109,10 +1118,8 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
     }
 
     /**
-     * @param object
-     *        that has already been mapped
-     * @param <T>
-     *        type needed
+     * @param object that has already been mapped
+     * @param <T> type needed
      * @return mapped node, or null if the node is absent
      */
     @SuppressWarnings("unchecked")
@@ -1122,24 +1129,18 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
     }
 
     /**
-     * @param subject
-     *        subject
-     * @param pred
-     *        predicate
-     * @param object
-     *        object
+     * @param subject subject
+     * @param pred predicate
+     * @param object object
      */
     public void addTriple(R subject, IRI pred, IRI object) {
         addTriple(subject, getPredicateNode(pred), getResourceNode(object));
     }
 
     /**
-     * @param subject
-     *        subject
-     * @param pred
-     *        predicate
-     * @param object
-     *        object
+     * @param subject subject
+     * @param pred predicate
+     * @param object object
      */
     public void addTriple(R subject, IRI pred, OWLObject object) {
         addTriple(subject, getPredicateNode(pred), getNode(object));
@@ -1148,8 +1149,7 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
     /**
      * Gets a resource that has a IRI.
      *
-     * @param iri
-     *        The IRI of the resource
+     * @param iri The IRI of the resource
      * @return The resource with the specified IRI
      */
     protected abstract R getResourceNode(IRI iri);
@@ -1159,9 +1159,8 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
     /**
      * Gets an anonymous resource.
      *
-     * @param key
-     *        A key for the resource. For a given key identity, the resources
-     *        that are returned should be equal and have the same hashcode.
+     * @param key A key for the resource. For a given key identity, the resources that are returned
+     *        should be equal and have the same hashcode.
      * @return The resource
      */
     protected abstract R getAnonymousNode(Object key);
@@ -1186,7 +1185,7 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
         if (obj.isAnonymousExpression()) {
             OWLObject[] context = expressionContext.get(obj);
             if (context == null) {
-                context = new OWLObject[] { s, p, obj };
+                context = new OWLObject[] {s, p, obj};
                 expressionContext.put(obj, context);
                 return getNode(obj);
             }
@@ -1199,7 +1198,7 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
                 // both translate to one single triple.
                 return getNode(context[2]);
             } else {
-                context = new OWLObject[] { s, p, obj };
+                context = new OWLObject[] {s, p, obj};
                 expressionContext.put(obj, context);
                 return getNode(obj);
             }
@@ -1237,16 +1236,19 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
     }
 
     private void addListTriples(OWLObject subject, IRI pred, Stream<? extends OWLObject> objects) {
-        addTriple(getNode(subject), getPredicateNode(pred), translateList(asList(objects.sorted())));
+        addTriple(getNode(subject), getPredicateNode(pred),
+            translateList(asList(objects.sorted())));
     }
 
-    private void addTriple(OWLObject subject, IRI pred, Stream<? extends OWLObject> objects, IRI listType) {
-        addTriple(getNode(subject), getPredicateNode(pred), translateList(asList(objects), listType));
+    private void addTriple(OWLObject subject, IRI pred, Stream<? extends OWLObject> objects,
+        IRI listType) {
+        addTriple(getNode(subject), getPredicateNode(pred),
+            translateList(asList(objects), listType));
     }
 
     private OWLLiteral toTypedConstant(int i) {
-        return manager.getOWLDataFactory().getOWLLiteral(Integer.toString(i),
-            manager.getOWLDataFactory().getOWLDatatype(XSDVocabulary.NON_NEGATIVE_INTEGER.getIRI()));
+        return manager.getOWLDataFactory().getOWLLiteral(Integer.toString(i), manager
+            .getOWLDataFactory().getOWLDatatype(XSDVocabulary.NON_NEGATIVE_INTEGER.getIRI()));
     }
 
     private void processIfAnonymous(Stream<? extends OWLIndividual> inds, @Nullable OWLAxiom root) {
@@ -1261,7 +1263,8 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
         if (!currentIndividuals.contains(ind)) {
             currentIndividuals.add(ind);
             if (ind.isAnonymous()) {
-                ont.axioms(ind).filter(include).map(desharer::deshareObject).sorted().forEach(this::translate);
+                ont.axioms(ind).filter(include).map(desharer::deshareObject).sorted()
+                    .forEach(this::translate);
                 ont.annotationAssertionAxioms(ind.asOWLAnonymousIndividual()).filter(include)
                     .map(desharer::deshareObject).sorted().forEach(this::translate);
             }
@@ -1278,12 +1281,10 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
     }
 
     /**
-     * Adds triples to strong type an entity. Triples are only added if the
-     * useStrongTyping flag is set to {@code true} and the entity is not a built
-     * in entity.
+     * Adds triples to strong type an entity. Triples are only added if the useStrongTyping flag is
+     * set to {@code true} and the entity is not a built in entity.
      *
-     * @param entity
-     *        The entity for which strong typing triples should be added.
+     * @param entity The entity for which strong typing triples should be added.
      */
     private void addStrongTyping(OWLEntity entity) {
         if (!useStrongTyping) {

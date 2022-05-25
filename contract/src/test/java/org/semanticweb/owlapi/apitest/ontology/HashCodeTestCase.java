@@ -37,6 +37,8 @@ import org.semanticweb.owlapi.vocab.OWL2Datatype;
  */
 public class HashCodeTestCase extends TestBase {
 
+    private static final String THREE = "3.0";
+
     @Test
     public void testSetContainsInt() {
         OWLDatatype datatype = df.getOWLDatatype(OWL2Datatype.XSD_INTEGER.getIRI());
@@ -55,8 +57,8 @@ public class HashCodeTestCase extends TestBase {
     @Test
     public void testSetContainsDouble() {
         OWLDatatype datatype = df.getOWLDatatype(OWL2Datatype.XSD_DOUBLE.getIRI());
-        OWLLiteral litNoComp = df.getOWLLiteral("3.0", datatype);
-        OWLLiteral litNoComp2 = df.getOWLLiteral("3.0", datatype);
+        OWLLiteral litNoComp = df.getOWLLiteral(THREE, datatype);
+        OWLLiteral litNoComp2 = df.getOWLLiteral(THREE, datatype);
         OWLLiteral litIntImpl = df.getOWLLiteral(3.0D);
         assertEquals(litNoComp, litIntImpl);
         assertEquals(litNoComp.hashCode(), litIntImpl.hashCode());
@@ -70,8 +72,8 @@ public class HashCodeTestCase extends TestBase {
     @Test
     public void testSetContainsFloat() {
         OWLDatatype datatype = df.getOWLDatatype(OWL2Datatype.XSD_FLOAT.getIRI());
-        OWLLiteral litNoComp = df.getOWLLiteral("3.0", datatype);
-        OWLLiteral litNoComp2 = df.getOWLLiteral("3.0", datatype);
+        OWLLiteral litNoComp = df.getOWLLiteral(THREE, datatype);
+        OWLLiteral litNoComp2 = df.getOWLLiteral(THREE, datatype);
         OWLLiteral litIntImpl = df.getOWLLiteral(3.0F);
         assertEquals(litNoComp, litIntImpl);
         assertEquals(litNoComp.hashCode(), litIntImpl.hashCode());

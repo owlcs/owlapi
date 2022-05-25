@@ -34,7 +34,7 @@ public class CommonBaseIRIMapper implements OWLOntologyIRIMapper {
 
     private final IRI base;
     private final Map<IRI, IRI> iriMap = new HashMap<>();
-    private OWLDataFactory df;
+    private final OWLDataFactory df;
 
     /**
      * Creates a mapper, which maps ontology URIs to URIs which share the specified base.

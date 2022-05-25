@@ -56,7 +56,7 @@ import org.semanticweb.owlapi.vocab.OWLXMLVocabulary;
 public class OWLXMLObjectRenderer implements OWLObjectVisitor {
 
     private final OWLXMLWriter writer;
-    private OWLDataFactory df;
+    private final OWLDataFactory df;
 
     /**
      * @param writer writer

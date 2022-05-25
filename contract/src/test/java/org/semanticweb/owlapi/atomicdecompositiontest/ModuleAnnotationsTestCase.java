@@ -20,11 +20,9 @@ import org.semanticweb.owlapi.modularity.SyntacticLocalityModuleExtractor;
 
 public class ModuleAnnotationsTestCase extends TestBase {
 
-    private static final String input = "annotationproperty(term_replaced_by)\n"
-        + "A term_replaced_by (annotationproperty) B\n" + "B owl:deprecated true";
-    private OWLAnnotationProperty a = df.getOWLAnnotationProperty("urn:test:a");
-    private OWLAnnotationProperty b = df.getOWLAnnotationProperty("urn:test:b");
-    private OWLAnnotationProperty replaced =
+    private final OWLAnnotationProperty a = df.getOWLAnnotationProperty("urn:test:a");
+    private final OWLAnnotationProperty b = df.getOWLAnnotationProperty("urn:test:b");
+    private final OWLAnnotationProperty replaced =
         df.getOWLAnnotationProperty("urn:test:term_replaced_by");
     OWLDeclarationAxiom dA = df.getOWLDeclarationAxiom(a);
     OWLDeclarationAxiom dR = df.getOWLDeclarationAxiom(replaced);
@@ -35,7 +33,7 @@ public class ModuleAnnotationsTestCase extends TestBase {
 
     @Test
     public void shouldNotAddAnnotations() throws OWLOntologyCreationException {
-        Set<OWLAxiom> expected = new HashSet<OWLAxiom>();
+        Set<OWLAxiom> expected = new HashSet<>();
         OWLOntology o = m.createOntology(df.getIRI("urn:test:noanns"));
         o.getOntologyConfigurator().withSkipModuleAnnotations(true);
         o.add(dR, dA, dB, ax);
@@ -46,7 +44,7 @@ public class ModuleAnnotationsTestCase extends TestBase {
 
     @Test
     public void shouldAddAnnotations() throws OWLOntologyCreationException {
-        Set<OWLAxiom> expected = new HashSet<OWLAxiom>();
+        Set<OWLAxiom> expected = new HashSet<>();
         expected.add(ax);
         expected.add(dA);
         OWLOntology o = m.createOntology(df.getIRI("urn:test:anns"));

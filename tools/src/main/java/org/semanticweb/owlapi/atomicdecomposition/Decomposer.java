@@ -29,11 +29,11 @@ public class Decomposer {
     /**
      * modularizer to build modules
      */
-    private Modularizer modularizer;
+    private final Modularizer modularizer;
     /**
      * tautologies of the ontology
      */
-    private List<AxiomWrapper> tautologies = new ArrayList<>();
+    private final List<AxiomWrapper> tautologies = new ArrayList<>();
     /**
      * fake atom that represents the whole ontology
      */
@@ -43,7 +43,7 @@ public class Decomposer {
      * module type for current AOS creation
      */
     private ModuleType type;
-    private List<AxiomWrapper> axioms;
+    private final List<AxiomWrapper> axioms;
 
     /**
      * @param axioms axiom wrappers to decompose

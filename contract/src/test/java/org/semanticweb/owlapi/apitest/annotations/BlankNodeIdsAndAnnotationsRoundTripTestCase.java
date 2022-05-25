@@ -37,53 +37,55 @@ import org.semanticweb.owlapi.rioformats.RioRDFXMLDocumentFormat;
 import org.semanticweb.owlapi.rioformats.RioTurtleDocumentFormat;
 import org.semanticweb.owlapi.rioformats.TrigDocumentFormat;
 
-@SuppressWarnings("javadoc")
 public class BlankNodeIdsAndAnnotationsRoundTripTestCase extends AbstractRoundTrippingTestCase {
 
-    private OWLAnnotation ann1 = df.getRDFSComment("test for anon class in object position");
-    private OWLAnnotation ann2 = df.getRDFSComment("test for named class in object position");
-    private OWLAnnotation ann3 = df.getRDFSComment("test for anon individual in object position");
-    private OWLAnnotation ann4 = df.getOWLAnnotation(df.getRDFSComment(),
-        df.getOWLLiteral("test for second anon class in object position"), df.getRDFSLabel("nested label"));
-    private OWLAnnotation ann5 = df.getRDFSComment("test for second named class in object position");
-    private OWLAnnotation ann6 = df.getRDFSComment("test for third anon class in object position");
-    private OWLClass c4 = df.getOWLClass("urn:test:c4");
-    private OWLClass c5 = df.getOWLClass("urn:test:c5");
-    private OWLObjectProperty op = df.getOWLObjectProperty("urn:test:op");
-    private OWLDataProperty dp = df.getOWLDataProperty("urn:test:dp");
-    private OWLAnonymousIndividual a = df.getOWLAnonymousIndividual();
-    private OWLAnonymousIndividual b = df.getOWLAnonymousIndividual();
-    private OWLAnonymousIndividual a1 = df.getOWLAnonymousIndividual();
-    private OWLAnonymousIndividual a2 = df.getOWLAnonymousIndividual();
-    private OWLClassExpression ce1 = df.getOWLObjectAllValuesFrom(op, c4);
-    private OWLClassExpression ce2 = df.getOWLObjectSomeValuesFrom(op, df.getOWLThing());
-    private OWLClassExpression ce3 = df.getOWLObjectExactCardinality(1, op);
-    private OWLClassExpression ce4 = df.getOWLObjectIntersectionOf(df.getOWLObjectExactCardinality(2, op),
-        df.getOWLDataExactCardinality(3, dp), df.getOWLObjectComplementOf(ce3), ce3);
-    private Set<OWLDocumentFormat> singleAxiomsLost = new HashSet<>(
-        Arrays.asList(new TrigDocumentFormat(), new RDFJsonLDDocumentFormat(), new NTriplesDocumentFormat(),
-            new RDFXMLDocumentFormat(), new RDFJsonDocumentFormat(), new NQuadsDocumentFormat(),
-            new TurtleDocumentFormat(), new RioTurtleDocumentFormat(), new RioRDFXMLDocumentFormat()));
+    private final OWLAnnotation ann1 = df.getRDFSComment("test for anon class in object position");
+    private final OWLAnnotation ann2 = df.getRDFSComment("test for named class in object position");
+    private final OWLAnnotation ann3 =
+        df.getRDFSComment("test for anon individual in object position");
+    private final OWLAnnotation ann4 = df.getOWLAnnotation(df.getRDFSComment(),
+        df.getOWLLiteral("test for second anon class in object position"),
+        df.getRDFSLabel("nested label"));
+    private final OWLAnnotation ann5 =
+        df.getRDFSComment("test for second named class in object position");
+    private final OWLAnnotation ann6 =
+        df.getRDFSComment("test for third anon class in object position");
+    private final OWLClass c4 = df.getOWLClass("urn:test:c4");
+    private final OWLClass c5 = df.getOWLClass("urn:test:c5");
+    private final OWLObjectProperty op = df.getOWLObjectProperty("urn:test:op");
+    private final OWLDataProperty dp = df.getOWLDataProperty("urn:test:dp");
+    private final OWLAnonymousIndividual a = df.getOWLAnonymousIndividual();
+    private final OWLAnonymousIndividual b = df.getOWLAnonymousIndividual();
+    private final OWLAnonymousIndividual a1 = df.getOWLAnonymousIndividual();
+    private final OWLAnonymousIndividual a2 = df.getOWLAnonymousIndividual();
+    private final OWLClassExpression ce1 = df.getOWLObjectAllValuesFrom(op, c4);
+    private final OWLClassExpression ce2 = df.getOWLObjectSomeValuesFrom(op, df.getOWLThing());
+    private final OWLClassExpression ce3 = df.getOWLObjectExactCardinality(1, op);
+    private final OWLClassExpression ce4 =
+        df.getOWLObjectIntersectionOf(df.getOWLObjectExactCardinality(2, op),
+            df.getOWLDataExactCardinality(3, dp), df.getOWLObjectComplementOf(ce3), ce3);
+    private final Set<OWLDocumentFormat> singleAxiomsLost =
+        new HashSet<>(Arrays.asList(new TrigDocumentFormat(), new RDFJsonLDDocumentFormat(),
+            new NTriplesDocumentFormat(), new RDFXMLDocumentFormat(), new RDFJsonDocumentFormat(),
+            new NQuadsDocumentFormat(), new TurtleDocumentFormat(), new RioTurtleDocumentFormat(),
+            new RioRDFXMLDocumentFormat()));
 
     @Override
     protected OWLOntology createOntology() {
         OWLOntology ont1 = getOWLOntology();
-        ont1.add(df.getOWLClassAssertionAxiom(df.getOWLObjectComplementOf(c4), a, Arrays.asList(ann1)),
+        ont1.add(
+            df.getOWLClassAssertionAxiom(df.getOWLObjectComplementOf(c4), a, Arrays.asList(ann1)),
             df.getOWLClassAssertionAxiom(df.getOWLObjectComplementOf(c5), a, Arrays.asList(ann5)),
             df.getOWLClassAssertionAxiom(ce1, a), df.getOWLClassAssertionAxiom(ce2, a),
-            df.getOWLClassAssertionAxiom(ce3, a), df.getOWLClassAssertionAxiom(ce3, a, Arrays.asList(ann6)),
-            df.getOWLClassAssertionAxiom(ce4, a), df.getOWLClassAssertionAxiom(ce4, a, Arrays.asList(ann4)),
+            df.getOWLClassAssertionAxiom(ce3, a),
+            df.getOWLClassAssertionAxiom(ce3, a, Arrays.asList(ann6)),
+            df.getOWLClassAssertionAxiom(ce4, a),
+            df.getOWLClassAssertionAxiom(ce4, a, Arrays.asList(ann4)),
             df.getOWLObjectPropertyAssertionAxiom(op, a1, a2, Arrays.asList(ann3)),
             df.getOWLClassAssertionAxiom(ce1, b), df.getOWLClassAssertionAxiom(ce2, b),
-            df.getOWLClassAssertionAxiom(c4, a), df.getOWLClassAssertionAxiom(c4, a, Arrays.asList(ann2)));
+            df.getOWLClassAssertionAxiom(c4, a),
+            df.getOWLClassAssertionAxiom(c4, a, Arrays.asList(ann2)));
         return ont1;
-    }
-
-    @Override
-    public void testTurtle() throws Exception {
-        System.out.println("BlankNodeIdsAndAnnotationsRoundTripTestCase.testTurtle() "
-            + saveOntology(createOntology(), new TurtleDocumentFormat()));
-        // super.testTurtle();
     }
 
     @Override
@@ -95,8 +97,9 @@ public class BlankNodeIdsAndAnnotationsRoundTripTestCase extends AbstractRoundTr
         // are accurately
         // written out and parsed, this method adds the lost unannotated axioms.
         if (singleAxiomsLost.contains(ont2.getFormat())) {
-            OWLIndividual i = ont2.axioms(AxiomType.CLASS_ASSERTION).filter(x -> x.annotations().anyMatch(ann2::equals))
-                .map(x -> x.getIndividual()).findAny().orElse(null);
+            OWLIndividual i = ont2.axioms(AxiomType.CLASS_ASSERTION)
+                .filter(x -> x.annotations().anyMatch(ann2::equals)).map(x -> x.getIndividual())
+                .findAny().orElse(null);
             if (i != null) {
                 ont2.add(df.getOWLClassAssertionAxiom(ce3, i), df.getOWLClassAssertionAxiom(c4, i),
                     df.getOWLClassAssertionAxiom(ce4, i));

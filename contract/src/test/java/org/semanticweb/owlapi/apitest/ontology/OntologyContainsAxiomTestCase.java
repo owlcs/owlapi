@@ -51,8 +51,7 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group
+ * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
  */
 public class OntologyContainsAxiomTestCase extends TestBase {
@@ -77,7 +76,8 @@ public class OntologyContainsAxiomTestCase extends TestBase {
         assertTrue(ont.containsAxiom(axiom));
         assertTrue(ont.containsAxiom(axiom, EXCLUDED, IGNORE_AXIOM_ANNOTATIONS));
         assertFalse(ont.containsAxiom(axiom.getAxiomWithoutAnnotations()));
-        assertTrue(ont.containsAxiom(axiom.getAxiomWithoutAnnotations(), EXCLUDED, IGNORE_AXIOM_ANNOTATIONS));
+        assertTrue(ont.containsAxiom(axiom.getAxiomWithoutAnnotations(), EXCLUDED,
+            IGNORE_AXIOM_ANNOTATIONS));
     }
 
     @Test
@@ -259,7 +259,7 @@ public class OntologyContainsAxiomTestCase extends TestBase {
             ont2.saveOntology(format, writer2);
         }
         OWLOntologyManager man = setupManager();
-        OWLOntology ont1L = man.loadOntologyFromOntologyDocument(savedLocation1);
+        man.loadOntologyFromOntologyDocument(savedLocation1);
         OWLOntology ont2L = man.loadOntologyFromOntologyDocument(savedLocation2);
         ont2L.imports().forEach(o -> o.axioms().forEach(ax -> {
             assertTrue(containsConsiderEx(o, ax));

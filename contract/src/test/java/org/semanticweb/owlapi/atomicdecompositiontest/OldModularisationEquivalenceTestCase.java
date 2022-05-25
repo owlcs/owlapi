@@ -94,7 +94,8 @@ public class OldModularisationEquivalenceTestCase extends TestBase {
         l.add(l(koala, kwp, quokka));
         l.add(l(koala, kwp, quokka, taz));
         l.add(l(koala, kwp, quokka, uni));
-        l.add(l(an, female, gstudent, koala, kwp, male, m3d, mars, parent, pers, quokka, student, taz));
+        l.add(l(an, female, gstudent, koala, kwp, male, m3d, mars, parent, pers, quokka, student,
+            taz));
         l.add(l(koala, kwp, male, m3d, quokka));
         l.add(l(koala, kwp, m3d, quokka));
         l.add(l(female, koala, kwp, quokka));
@@ -106,7 +107,7 @@ public class OldModularisationEquivalenceTestCase extends TestBase {
         return l;
     }
 
-    private Set<OWLEntity> signature;
+    private final Set<OWLEntity> signature;
 
     public OldModularisationEquivalenceTestCase(Set<OWLEntity> l) {
         signature = l;
@@ -115,31 +116,34 @@ public class OldModularisationEquivalenceTestCase extends TestBase {
     @Test
     @Ignore
     public void testModularizationWithAtomicDecompositionStar() throws OWLException {
-        OWLOntology o = m
-            .loadOntologyFromOntologyDocument(new StringDocumentSource(TestFiles.KOALA, new RDFXMLDocumentFormat()));
-        List<OWLAxiom> module1 = asList(getADModule1(o, signature, ModuleType.STAR).stream().sorted());
-        List<OWLAxiom> module2 = asList(
-            getTraditionalModule(m, o, signature, ModuleType.STAR).stream().filter(ax -> ax.isLogicalAxiom()).sorted());
+        OWLOntology o = m.loadOntologyFromOntologyDocument(
+            new StringDocumentSource(TestFiles.KOALA, new RDFXMLDocumentFormat()));
+        List<OWLAxiom> module1 =
+            asList(getADModule1(o, signature, ModuleType.STAR).stream().sorted());
+        List<OWLAxiom> module2 = asList(getTraditionalModule(m, o, signature, ModuleType.STAR)
+            .stream().filter(ax -> ax.isLogicalAxiom()).sorted());
         makeAssertion(module1, module2);
     }
 
     @Test
     public void testModularizationWithAtomicDecompositionTop() throws OWLException {
-        OWLOntology o = m
-            .loadOntologyFromOntologyDocument(new StringDocumentSource(TestFiles.KOALA, new RDFXMLDocumentFormat()));
-        List<OWLAxiom> module1 = asList(getADModule1(o, signature, ModuleType.TOP).stream().sorted());
-        List<OWLAxiom> module2 = asList(
-            getTraditionalModule(m, o, signature, ModuleType.TOP).stream().filter(ax -> ax.isLogicalAxiom()).sorted());
+        OWLOntology o = m.loadOntologyFromOntologyDocument(
+            new StringDocumentSource(TestFiles.KOALA, new RDFXMLDocumentFormat()));
+        List<OWLAxiom> module1 =
+            asList(getADModule1(o, signature, ModuleType.TOP).stream().sorted());
+        List<OWLAxiom> module2 = asList(getTraditionalModule(m, o, signature, ModuleType.TOP)
+            .stream().filter(ax -> ax.isLogicalAxiom()).sorted());
         makeAssertion(module1, module2);
     }
 
     @Test
     public void testModularizationWithAtomicDecompositionBottom() throws OWLException {
-        OWLOntology o = m
-            .loadOntologyFromOntologyDocument(new StringDocumentSource(TestFiles.KOALA, new RDFXMLDocumentFormat()));
-        List<OWLAxiom> module1 = asList(getADModule1(o, signature, ModuleType.BOT).stream().sorted());
-        List<OWLAxiom> module2 = asList(
-            getTraditionalModule(m, o, signature, ModuleType.BOT).stream().filter(ax -> ax.isLogicalAxiom()).sorted());
+        OWLOntology o = m.loadOntologyFromOntologyDocument(
+            new StringDocumentSource(TestFiles.KOALA, new RDFXMLDocumentFormat()));
+        List<OWLAxiom> module1 =
+            asList(getADModule1(o, signature, ModuleType.BOT).stream().sorted());
+        List<OWLAxiom> module2 = asList(getTraditionalModule(m, o, signature, ModuleType.BOT)
+            .stream().filter(ax -> ax.isLogicalAxiom()).sorted());
         makeAssertion(module1, module2);
     }
 
@@ -151,13 +155,14 @@ public class OldModularisationEquivalenceTestCase extends TestBase {
         String s2 = module2.toString().replace(ns, "");
         if (!s1.equals(s2)) {
             System.out.println(
-                "OldModularisationEquivalenceTestCase.testModularizationWithAtomicDecomposition() \n" + s1 + "\n" + s2);
+                "OldModularisationEquivalenceTestCase.testModularizationWithAtomicDecomposition() \n"
+                    + s1 + "\n" + s2);
         }
         assertEquals(s1, s2);
     }
 
-    protected Set<OWLAxiom> getTraditionalModule(OWLOntologyManager man, OWLOntology o, Set<OWLEntity> seedSig,
-        ModuleType type) {
+    protected Set<OWLAxiom> getTraditionalModule(OWLOntologyManager man, OWLOntology o,
+        Set<OWLEntity> seedSig, ModuleType type) {
         SyntacticLocalityModuleExtractor sme = new SyntacticLocalityModuleExtractor(man, o, type);
         return sme.extract(seedSig);
     }

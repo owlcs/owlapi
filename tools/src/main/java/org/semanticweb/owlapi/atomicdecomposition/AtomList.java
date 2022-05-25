@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Stream;
 
 /**
  * atomical ontology structure
@@ -13,7 +14,7 @@ public class AtomList {
     /**
      * all the atoms
      */
-    private List<OntologyAtom> atoms = new ArrayList<>();
+    private final List<OntologyAtom> atoms = new ArrayList<>();
 
     /**
      * @return a new atom
@@ -30,9 +31,11 @@ public class AtomList {
      */
     public void reduceGraph() {
         Set<OntologyAtom> checked = new HashSet<>();
-        for (OntologyAtom p : atoms) {
-            p.getAllDepAtoms(checked);
-        }
+        atoms.forEach(p -> p.getAllDepAtoms(checked));
+    }
+
+    Stream<OntologyAtom> begin() {
+        return atoms.stream();
     }
 
     /**

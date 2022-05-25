@@ -27,8 +27,7 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
  * @author Matthew Horridge, The University of Manchester, Bio-Health Informatics Group
  * @since 3.2
  */
-public class RDFTriple
-    implements Serializable, Comparable<RDFTriple>, org.apache.commons.rdf.api.Triple {
+public class RDFTriple implements Serializable, Comparable<RDFTriple>, Triple {
 
     private final RDFResource subject;
     private final RDFResourceIRI predicate;

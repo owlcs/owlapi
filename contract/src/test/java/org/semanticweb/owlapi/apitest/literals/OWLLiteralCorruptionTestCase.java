@@ -40,14 +40,16 @@ import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
 public class OWLLiteralCorruptionTestCase extends TestBase {
 
-    private static final OWLLiteral ONESHORT = df.getOWLLiteral("1", OWL2Datatype.XSD_SHORT.getDatatype(df));
+    private static final String URN_TEST = "urn:test#";
+    private static final OWLLiteral ONESHORT =
+        df.getOWLLiteral("1", OWL2Datatype.XSD_SHORT.getDatatype(df));
     private static final OWLLiteral ZERO_ONE = df.getOWLLiteral("01", df.getIntegerOWLDatatype());
     private static final OWLLiteral ONE = df.getOWLLiteral("1", df.getIntegerOWLDatatype());
 
     @Test
     public void shouldroundTripLiteral() {
         String testString;
-        StringBuilder sb = new StringBuilder();
+        StringBuilder sb = new StringBuilder(1000);
         int count = 17;
         while (count-- > 0) {
             sb.append("200 \u00B5Liters + character above U+0FFFF = ");
@@ -62,9 +64,9 @@ public class OWLLiteralCorruptionTestCase extends TestBase {
     @Test
     public void shouldRoundTripXMLLiteral() throws OWLOntologyStorageException {
         OWLOntology o = getOWLOntology();
-        OWLDataProperty p = df.getOWLDataProperty(df.getIRI("urn:test#", "p"));
+        OWLDataProperty p = df.getOWLDataProperty(df.getIRI(URN_TEST, "p"));
         OWLLiteral l = df.getOWLLiteral(literalXMl, OWL2Datatype.RDF_XML_LITERAL);
-        OWLNamedIndividual i = df.getOWLNamedIndividual(df.getIRI("urn:test#", "i"));
+        OWLNamedIndividual i = df.getOWLNamedIndividual(df.getIRI(URN_TEST, "i"));
         o.add(df.getOWLDataPropertyAssertionAxiom(p, i, l));
         String string = saveOntology(o).toString();
         assertTrue(string.contains(literalXMl));
@@ -73,12 +75,12 @@ public class OWLLiteralCorruptionTestCase extends TestBase {
     @Test
     public void shouldFailOnMalformedXMLLiteral() throws OWLOntologyCreationException {
         OWLOntology o = m.createOntology();
-        OWLDataProperty p = df.getOWLDataProperty(df.getIRI("urn:test#", "p"));
+        OWLDataProperty p = df.getOWLDataProperty(df.getIRI(URN_TEST, "p"));
         OWLLiteral l = df.getOWLLiteral(literalMalformedXML, OWL2Datatype.RDF_XML_LITERAL);
-        OWLNamedIndividual i = df.getOWLNamedIndividual(df.getIRI("urn:test#", "i"));
+        OWLNamedIndividual i = df.getOWLNamedIndividual(df.getIRI(URN_TEST, "i"));
         o.add(df.getOWLDataPropertyAssertionAxiom(p, i, l));
-        assertThrowsWithMessage("XML literal is not self contained", OWLOntologyStorageException.class,
-            () -> saveOntology(o));
+        assertThrowsWithMessage("XML literal is not self contained",
+            OWLOntologyStorageException.class, () -> saveOntology(o));
     }
 
     @Test
@@ -87,20 +89,23 @@ public class OWLLiteralCorruptionTestCase extends TestBase {
         // produced.
         // They should be understood in input and saved correctly on roundtrip
         String input = preamble + wrong + closure;
-        OWLOntology o = loadOntologyFromString(input, df.generateDocumentIRI(), new RDFXMLDocumentFormat());
-        OWLOntology o1 = loadOntologyFromString(preamble + correct + closure, df.generateDocumentIRI(),
-            new RDFXMLDocumentFormat());
+        OWLOntology o =
+            loadOntologyFromString(input, df.generateDocumentIRI(), new RDFXMLDocumentFormat());
+        OWLOntology o1 = loadOntologyFromString(preamble + correct + closure,
+            df.generateDocumentIRI(), new RDFXMLDocumentFormat());
         equal(o, o1);
         assertTrue(saveOntology(o, new RDFXMLDocumentFormat()).toString().contains(correct));
     }
 
     @Test
-    public void shouldRoundtripPaddedLiterals() throws OWLOntologyCreationException, OWLOntologyStorageException {
-        OWLOntology o = loadOntologyFromString(new StringDocumentSource(roundtripPaddedLiterals, "urn:test:test",
-            new FunctionalSyntaxDocumentFormat(), null));
+    public void shouldRoundtripPaddedLiterals()
+        throws OWLOntologyCreationException, OWLOntologyStorageException {
+        OWLOntology o = loadOntologyFromString(new StringDocumentSource(roundtripPaddedLiterals,
+            "urn:test:test", new FunctionalSyntaxDocumentFormat(), null));
         OWLOntology o2 = roundTrip(o, new FunctionalSyntaxDocumentFormat());
         equal(o, o2);
-        OWLNamedIndividual i = df.getOWLNamedIndividual(df.getIRI("http://www.semanticweb.org/owlapi/test#", "c"));
+        OWLNamedIndividual i =
+            df.getOWLNamedIndividual(df.getIRI("http://www.semanticweb.org/owlapi/test#", "c"));
         assertTrue(o.containsAxiom(df.getOWLDataPropertyAssertionAxiom(DP, i, ZERO_ONE)));
         assertTrue(o.containsAxiom(df.getOWLDataPropertyAssertionAxiom(DP, i, ONE)));
         assertTrue(o.containsAxiom(df.getOWLDataPropertyAssertionAxiom(DP, i, ONESHORT)));

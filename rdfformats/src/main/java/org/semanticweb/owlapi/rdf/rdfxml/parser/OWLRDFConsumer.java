@@ -717,6 +717,15 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousIndividualByIdProvi
         }
     }
 
+    protected static final boolean isBlank(CharSequence c) {
+        for (int i = 0; i < c.length(); i++) {
+            if (!Character.isWhitespace(c.charAt(i))) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     /**
      * A convenience method to obtain an {@code OWLLiteral}.
      *
@@ -726,7 +735,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousIndividualByIdProvi
      * @return The {@code OWLLiteral} (either typed or untyped depending on the params)
      */
     OWLLiteral getOWLLiteral(String literal, @Nullable IRI datatype, @Nullable String lang) {
-        if (lang != null && !lang.trim().isEmpty()) {
+        if (lang != null && !isBlank(lang)) {
             return df.getOWLLiteral(literal, lang);
         } else if (datatype != null) {
             return df.getOWLLiteral(literal, df.getOWLDatatype(datatype));
@@ -964,7 +973,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousIndividualByIdProvi
         return triples;
     }
 
-    private List<RDFResourceParseError> errors = new ArrayList<>();
+    private final List<RDFResourceParseError> errors = new ArrayList<>();
 
     private void logError(RDFResourceParseError error) {
         errors.add(error);
@@ -985,12 +994,12 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousIndividualByIdProvi
     }
 
     protected boolean addFirst(IRI s, IRI p, IRI o) {
-        lists.addFirst(s, p, o);
+        lists.addFirst(s, o);
         return tripleIndex.consumeTriple(s, p, o);
     }
 
     protected boolean addFirst(IRI s, IRI p, OWLLiteral o) {
-        lists.addFirst(s, p, o);
+        lists.addFirst(s, o);
         return tripleIndex.consumeTriple(s, p, o);
     }
 
@@ -1227,10 +1236,6 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousIndividualByIdProvi
         return false;
     }
 
-    protected boolean canHandleAnnotationResourceStreaming(IRI s, IRI p, IRI o) {
-        return false;
-    }
-
     protected boolean canHandleAnnotationResource(IRI s, IRI p) {
         return !isAxiom(s) && !iris.isAnnotation(s)
             && (BUILT_IN_AP_IRIS.contains(p) || !p.isReservedVocabulary());
@@ -1289,10 +1294,6 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousIndividualByIdProvi
     protected boolean handleDataAssertionTriple(IRI s, IRI p, OWLLiteral o) {
         add(df.getOWLDataPropertyAssertionAxiom(dp(p), individual(s), o, pendingAnns()));
         return tripleIndex.consumeTriple(s, p, o);
-    }
-
-    protected boolean canHandleAnnotationLiteralStreaming(IRI s, IRI p) {
-        return false;
     }
 
     protected boolean canHandleAnnotationLiteral(IRI s, IRI p) {
@@ -1451,9 +1452,9 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousIndividualByIdProvi
             IRI property = tripleIndex.resource(s, OWL_ON_PROPERTY, false);
             if (property != null) {
                 iris.addDataProperty(property, false);
+                return tripleIndex.consumeTriple(s, p, o);
             }
         }
-        // XXX no consumption?
         return false;
     }
 
@@ -1655,14 +1656,17 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousIndividualByIdProvi
     protected boolean handleDeclarationTriple(IRI s, IRI p, IRI o) {
         if (o.equals(OWL_CLASS.getIRI())) {
             add(df.getOWLDeclarationAxiom(df.getOWLClass(s), pendingAnns()));
+            return tripleIndex.consumeTriple(s, p, o);
         } else if (o.equals(OWL_OBJECT_PROPERTY.getIRI())) {
             add(df.getOWLDeclarationAxiom(objectProperty(s), pendingAnns()));
+            return tripleIndex.consumeTriple(s, p, o);
         } else if (o.equals(OWL_DATA_PROPERTY.getIRI())) {
             add(df.getOWLDeclarationAxiom(df.getOWLDataProperty(s), pendingAnns()));
+            return tripleIndex.consumeTriple(s, p, o);
         } else if (o.equals(OWL_DATATYPE.getIRI())) {
             add(df.getOWLDeclarationAxiom(df.getOWLDatatype(s), pendingAnns()));
+            return tripleIndex.consumeTriple(s, p, o);
         }
-        // XXX no consumption of declaration triple?
         return false;
     }
 
@@ -1808,8 +1812,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousIndividualByIdProvi
             add(df.getOWLDeclarationAxiom(objectProperty(s), pendingAnns()));
         }
         iris.addObjectProperty(s, true);
-        // XXX no consume?
-        return false;
+        return tripleIndex.consumeTriple(s, p, o);
     }
 
     protected boolean handleNegAssertionTriple(IRI s, IRI p, IRI o) {
@@ -1853,8 +1856,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousIndividualByIdProvi
             add(df.getOWLDeclarationAxiom(df.getOWLNamedIndividual(s), pendingAnns()));
         }
         iris.addOWLNamedIndividual(s, true);
-        // XXX no consume?
-        return false;
+        return tripleIndex.consumeTriple(s, p, o);
     }
 
     protected boolean canHandleIrreflexiveStreaming(IRI s) {
@@ -1911,8 +1913,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousIndividualByIdProvi
             add(df.getOWLDeclarationAxiom(df.getOWLDatatype(s), pendingAnns()));
         }
         iris.addDataRange(s, true);
-        // XXX no consume?
-        return false;
+        return tripleIndex.consumeTriple(s, p, o);
     }
 
     protected boolean handleDatarangeTriple(IRI s, IRI p, IRI o) {
@@ -1927,8 +1928,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousIndividualByIdProvi
             add(df.getOWLDeclarationAxiom(df.getOWLDataProperty(s), pendingAnns()));
         }
         iris.addDataProperty(s, true);
-        // XXX no consuming?
-        return false;
+        return tripleIndex.consumeTriple(s, p, o);
     }
 
     protected boolean canHandleAsymmetricStreaming(IRI s) {
@@ -2253,8 +2253,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousIndividualByIdProvi
 
     protected boolean handleAnnotationTriple(IRI s, IRI p, IRI o) {
         iris.addAnnotationIRI(s);
-        // XXX no consumption?
-        return false;
+        return tripleIndex.consumeTriple(s, p, o);
     }
 
     protected boolean canHandleAxiomStreaming(IRI s) {

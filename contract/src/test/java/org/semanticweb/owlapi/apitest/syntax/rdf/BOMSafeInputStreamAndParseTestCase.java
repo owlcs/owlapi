@@ -21,20 +21,22 @@ import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 @RunWith(Parameterized.class)
 public class BOMSafeInputStreamAndParseTestCase extends TestBase {
 
+    private static final String ISA14_O = "http://www.example.org/ISA14#o";
+
     @Parameters
     public static Collection<String> data() {
         OWLDataFactory f = OWLManager.getOWLDataFactory();
         return Arrays.asList("<Ontology xml:base=\""
-            + f.getNextDocumentIRI("http://www.example.org/ISA14#o")
+            + f.getNextDocumentIRI(ISA14_O)
             + "\" ontologyIRI=\"http://www.example.org/ISA14#\"> <Declaration><Class IRI=\"Researcher\"/></Declaration></Ontology>",
-            "Ontology: <" + f.getNextDocumentIRI("http://www.example.org/ISA14#o")
+            "Ontology: <" + f.getNextDocumentIRI(ISA14_O)
                 + ">\nClass: <http://www.example.org/ISA14#Researcher>",
-            "Ontology(<" + f.getNextDocumentIRI("http://www.example.org/ISA14#o")
+            "Ontology(<" + f.getNextDocumentIRI(ISA14_O)
                 + ">\nDeclaration(Class(<http://www.example.org/ISA14#Researcher>)))",
             "@prefix owl: <http://www.w3.org/2002/07/owl#> .\n@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .\n<"
-                + f.getNextDocumentIRI("http://www.example.org/ISA14#o")
+                + f.getNextDocumentIRI(ISA14_O)
                 + "> rdf:type owl:Ontology .\n<http://www.example.org/ISA14#Researcher> rdf:type owl:Class .",
-            "<rdf:RDF xml:base=\"" + f.getNextDocumentIRI("http://www.example.org/ISA14#o")
+            "<rdf:RDF xml:base=\"" + f.getNextDocumentIRI(ISA14_O)
                 + "\" xmlns:owl =\"http://www.w3.org/2002/07/owl#\" xmlns:rdf =\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" ><owl:Ontology rdf:about=\"#\" /><owl:Class rdf:about=\"http://www.example.org/ISA14#Researcher\"/></rdf:RDF>");
     }
 

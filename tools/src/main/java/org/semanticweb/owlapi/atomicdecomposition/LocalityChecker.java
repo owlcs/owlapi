@@ -3,12 +3,13 @@ package org.semanticweb.owlapi.atomicdecomposition;
 import java.util.Collection;
 
 import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLAxiomVisitor;
 import org.semanticweb.owlapi.model.OWLObject;
 
 /**
  * @author ignazio Locality checker
  */
-public interface LocalityChecker {
+public interface LocalityChecker extends OWLAxiomVisitor {
 
     /**
      * @param axiom axiom to check

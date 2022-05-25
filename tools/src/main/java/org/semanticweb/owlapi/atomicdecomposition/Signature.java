@@ -1,8 +1,6 @@
 package org.semanticweb.owlapi.atomicdecomposition;
 
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 import java.util.stream.Stream;
 
@@ -74,6 +72,15 @@ public class Signature {
         topRLocality = topR;
     }
 
+    /**
+     * @param s signature to copy
+     */
+    public void setSignature(Signature s) {
+        setSignature(s.set.stream());
+        topCLocality = s.topCLocality;
+        topRLocality = s.topRLocality;
+    }
+
     @Override
     public boolean equals(@Nullable Object obj) {
         if (obj == null) {
@@ -90,8 +97,9 @@ public class Signature {
 
     @Override
     public int hashCode() {
-        return set.hashCode();
+        return set.hashCode() * 37 + (topCLocality ? 1 : 0) + (topCLocality ? 1 : 0);
     }
+    // comparison
 
     /**
      * @param p entity to find
@@ -109,6 +117,14 @@ public class Signature {
     }
 
     /**
+     * @param s signature to copy
+     */
+    public void setSignature(Stream<OWLEntity> s) {
+        set.clear();
+        addAll(s);
+    }
+
+    /**
      * @return true iff concepts are treated as TOPs
      */
     public boolean topCLocal() {
@@ -120,17 +136,5 @@ public class Signature {
      */
     public boolean topRLocal() {
         return topRLocality;
-    }
-
-    /**
-     * @param s2 signature to intersect
-     * @return intersection
-     */
-    public List<OWLEntity> intersect(Signature s2) {
-        List<OWLEntity> ret = new ArrayList<>();
-        Set<OWLEntity> s = new HashSet<>(set);
-        s.retainAll(s2.set);
-        ret.addAll(s);
-        return ret;
     }
 }

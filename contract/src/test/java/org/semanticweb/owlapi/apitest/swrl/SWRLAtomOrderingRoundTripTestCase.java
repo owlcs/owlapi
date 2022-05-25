@@ -1,8 +1,10 @@
 package org.semanticweb.owlapi.apitest.swrl;
 
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
 import static org.semanticweb.owlapi.OWLFunctionalSyntaxFactory.Class;
 import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asUnorderedSet;
 
@@ -82,15 +84,15 @@ public class SWRLAtomOrderingRoundTripTestCase extends TestBase {
         ont.saveOntology(ontologyFormat, documentTarget);
         OWLOntology ont2 = loadOntologyFromString(documentTarget, ontologyFormat);
         Set<SWRLRule> rules = asUnorderedSet(ont2.axioms(AxiomType.SWRL_RULE));
-        assertTrue(rules.size() == 1);
+        assertEquals(1, rules.size());
         SWRLRule parsedRule = rules.iterator().next();
-        assertEquals(rule, parsedRule);
+        assertThat(parsedRule, is(equalTo(rule)));
         List<SWRLAtom> originalBody = new ArrayList<>(body);
         List<SWRLAtom> parsedBody = parsedRule.bodyList();
-        assertEquals(originalBody, parsedBody);
+        assertThat(parsedBody, is(equalTo(originalBody)));
         List<SWRLAtom> originalHead = new ArrayList<>(head);
         List<SWRLAtom> parsedHead = parsedRule.headList();
-        assertEquals(parsedHead, originalHead);
+        assertThat(originalHead, is(equalTo(parsedHead)));
     }
 
     @Test

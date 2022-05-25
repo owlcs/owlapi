@@ -96,7 +96,7 @@ public class RaceTestCase {
         protected RaceCallback callback;
         final AtomicBoolean done = new AtomicBoolean(false);
         ExecutorService exec = Executors.newFixedThreadPool(5);
-        private Runnable writer = () -> {
+        private final Runnable writer = () -> {
             while (!done.get()) {
                 callback.add();
             }
@@ -117,7 +117,7 @@ public class RaceTestCase {
 
         public static class SubClassLHSCallback implements RaceCallback {
 
-            private AtomicInteger counter = new AtomicInteger();
+            private final AtomicInteger counter = new AtomicInteger();
             OWLDataFactory factory;
             OWLOntologyManager manager;
             OWLOntology ontology;
@@ -160,12 +160,14 @@ public class RaceTestCase {
 
             @Override
             public void diagnose() {
-                List<OWLSubClassOfAxiom> axiomsFound = asList(ontology.subClassAxiomsForSubClass(x));
+                List<OWLSubClassOfAxiom> axiomsFound =
+                    asList(ontology.subClassAxiomsForSubClass(x));
                 System.out.println("Expected getSubClassAxiomsForSubClass to return " + counter
                     + " axioms but it only found " + axiomsFound.size());
                 for (int i = 0; i < counter.get(); i++) {
                     OWLAxiom checkMe = factory.getOWLSubClassOfAxiom(x, createMiddleClass(i));
-                    if (!contains(ontology.subClassAxiomsForSubClass(x), checkMe) && ontology.containsAxiom(checkMe)) {
+                    if (!contains(ontology.subClassAxiomsForSubClass(x), checkMe)
+                        && ontology.containsAxiom(checkMe)) {
                         System.out.println(checkMe.toString()
                             + " is an axiom in the ontology that is not found by getSubClassAxiomsForSubClass");
                         return;
@@ -176,9 +178,13 @@ public class RaceTestCase {
             @Override
             public void race() {
                 ontology
-                    .subClassAxiomsForSubClass(factory.getOWLClass(factory.getIRI("http://www.race.org#", "testclass")))
-                    .forEach(x -> {
-                    });
+                    .subClassAxiomsForSubClass(
+                        factory.getOWLClass(factory.getIRI("http://www.race.org#", "testclass")))
+                    .forEach(this::lose);
+            }
+
+            private void lose(@SuppressWarnings("unused") Object o) {
+                // no op
             }
 
             public OWLClass createMiddleClass(int i) {

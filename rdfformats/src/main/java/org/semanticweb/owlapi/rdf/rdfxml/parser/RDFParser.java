@@ -118,7 +118,7 @@ public class RDFParser extends DefaultHandler {
      */
     @Nullable
     protected Locator documentLocator;
-    private OWLDataFactory df;
+    private final OWLDataFactory df;
 
     /**
      * @param df data factory

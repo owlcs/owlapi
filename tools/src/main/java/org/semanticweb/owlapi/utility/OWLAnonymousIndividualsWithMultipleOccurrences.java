@@ -34,9 +34,9 @@ import org.semanticweb.owlapi.model.OWLOntology;
 public class OWLAnonymousIndividualsWithMultipleOccurrences extends AbstractCollector
     implements IndividualAppearance {
 
-    private Set<OWLObject> singleAppearanceAsSubject = new HashSet<>();
-    private Set<OWLObject> singleAppearance = new HashSet<>();
-    private Set<OWLObject> multipleAppearances = new HashSet<>();
+    private final Set<OWLObject> singleAppearanceAsSubject = new HashSet<>();
+    private final Set<OWLObject> singleAppearance = new HashSet<>();
+    private final Set<OWLObject> multipleAppearances = new HashSet<>();
 
     @Override
     public boolean appearsMultipleTimes(OWLAnonymousIndividual i) {

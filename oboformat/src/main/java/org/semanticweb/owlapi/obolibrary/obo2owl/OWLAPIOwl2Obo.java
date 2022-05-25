@@ -932,10 +932,11 @@ public class OWLAPIOwl2Obo {
             return trGenericPropertyValue(prop, annVal, qualifiers.stream(), frame);
         }
         Object value = getValue(annVal, tagString);
-        if (!value.toString().trim().isEmpty()) {
+        String valueString = value.toString().trim();
+        if (!valueString.isEmpty()) {
             if (tag == OboFormatTag.TAG_ID) {
-                if (!value.equals(frame.getId())) {
-                    warn("Conflicting id definitions: 1) " + frame.getId() + "  2)" + value);
+                if (!valueString.equals(frame.getId())) {
+                    warn("Conflicting id definitions: 1) " + frame.getId() + "  2)" + valueString);
                     return false;
                 }
                 return true;
@@ -943,10 +944,9 @@ public class OWLAPIOwl2Obo {
             Clause clause = new Clause(tag);
             if (tag == OboFormatTag.TAG_DATE) {
                 try {
-                    clause.addValue(
-                        OBOFormatConstants.headerDateFormat().parseObject(value.toString()));
+                    clause.addValue(OBOFormatConstants.headerDateFormat().parseObject(valueString));
                 } catch (@SuppressWarnings("unused") ParseException e) {
-                    error("Could not parse date string: " + value, true);
+                    error("Could not parse date string: " + valueString, true);
                     return false;
                 }
             } else {
@@ -970,14 +970,14 @@ public class OWLAPIOwl2Obo {
                     }
                 }
             } else if (tag == OboFormatTag.TAG_XREF) {
-                Xref xref = new Xref(value.toString());
+                Xref xref = new Xref(valueString);
                 for (OWLAnnotation annotation : qualifiers) {
                     if (df.getRDFSLabel().equals(annotation.getProperty())) {
                         OWLAnnotationValue owlAnnotationValue = annotation.getValue();
                         if (owlAnnotationValue instanceof OWLLiteral) {
                             unprocessedQualifiers.remove(annotation);
-                            String xrefAnnotation = ((OWLLiteral) owlAnnotationValue).getLiteral();
-                            xrefAnnotation = xrefAnnotation.trim();
+                            String xrefAnnotation =
+                                ((OWLLiteral) owlAnnotationValue).getLiteral().trim();
                             if (!xrefAnnotation.isEmpty()) {
                                 xref.setAnnotation(xrefAnnotation);
                             }
