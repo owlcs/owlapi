@@ -38,6 +38,7 @@ import javax.annotation.Nullable;
 import org.junit.Test;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.documents.StringDocumentTarget;
+import org.semanticweb.owlapi.formats.FunctionalSyntaxDocumentFormat;
 import org.semanticweb.owlapi.formats.OBODocumentFormat;
 import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentTarget;
@@ -1198,5 +1199,29 @@ public class BasicsTestCase extends OboFormatTestBasics {
         Set<OWLEquivalentClassesAxiom> convertedEqAxioms =
             asUnorderedSet(converted.axioms(EQUIVALENT_CLASSES));
         assertEquals(originalEqAxioms, convertedEqAxioms);
+    }
+
+    @Test
+    public void testPropertyValueQuotes() throws OWLOntologyStorageException {
+        String in = "Prefix(:=<http://purl.obolibrary.org/obo/test.owl#>)\n"
+            + "Prefix(owl:=<http://www.w3.org/2002/07/owl#>)\n"
+            + "Prefix(rdf:=<http://www.w3.org/1999/02/22-rdf-syntax-ns#>)\n"
+            + "Prefix(xml:=<http://www.w3.org/XML/1998/namespace>)\n"
+            + "Prefix(xsd:=<http://www.w3.org/2001/XMLSchema#>)\n"
+            + "Prefix(rdfs:=<http://www.w3.org/2000/01/rdf-schema#>)\n\n"
+            + "Ontology(<http://purl.obolibrary.org/obo/test.owl>\n"
+            + "Declaration(Class(<http://purl.obolibrary.org/obo/X_1>))\n"
+            + "Declaration(Class(<http://purl.obolibrary.org/obo/X_2>))\n"
+            + "AnnotationAssertion(<http://purl.obolibrary.org/obo/rdfs_seeAlso> <http://purl.obolibrary.org/obo/X_1> \"xx\"^^xsd:string)\n\n"
+            + "AnnotationAssertion(<http://purl.obolibrary.org/obo/rdfs_seeAlso> <http://purl.obolibrary.org/obo/X_2> \"1\"^^xsd:int)\n\n"
+            + ")";
+        OWLOntology o = loadOntologyFromString(in, new FunctionalSyntaxDocumentFormat());
+        StringDocumentTarget target = new StringDocumentTarget();
+        o.saveOntology(new OBODocumentFormat(), target);
+        assertEquals(
+            "format-version: 1.2\nontology: test\n\n"
+                + "[Term]\nid: X:1\nproperty_value: rdfs:seeAlso \"xx\" xsd:string\n\n"
+                + "[Term]\nid: X:2\nproperty_value: rdfs:seeAlso \"1\" xsd:int\n\n",
+            target.toString());
     }
 }
