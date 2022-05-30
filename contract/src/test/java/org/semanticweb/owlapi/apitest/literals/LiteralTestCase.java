@@ -20,13 +20,16 @@ import static org.semanticweb.owlapi.OWLFunctionalSyntaxFactory.Literal;
 import static org.semanticweb.owlapi.OWLFunctionalSyntaxFactory.PlainLiteral;
 import static org.semanticweb.owlapi.OWLFunctionalSyntaxFactory.createIndividual;
 
+import java.util.Collections;
+import java.util.stream.Stream;
+
 import org.junit.Test;
 import org.semanticweb.owlapi.apitest.baseclasses.TestBase;
 import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLDatatype;
-import org.semanticweb.owlapi.model.OWLLiteral;
+import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
@@ -153,5 +156,27 @@ public class LiteralTestCase extends TestBase {
         OWLOntology o1 = roundTrip(o, new RDFXMLDocumentFormat());
         assertTrue(o1.containsAxiom(ax));
         equal(o, o1);
+    }
+
+    @Test
+    public void shouldFindReferencingAxiomsForIntLiteral() throws OWLOntologyCreationException {
+        OWLLiteral x = df.getOWLLiteral(32);
+        OWLClass c = df.getOWLClass("C");
+        OWLAxiom a = df.getOWLSubClassOfAxiom(c, df.getOWLThing(),
+            Collections.singleton(df.getRDFSLabel("x", Stream.of(df.getRDFSComment(x)))));
+        OWLOntology o = m.createOntology();
+        o.add(a);
+        assertEquals(1, o.referencingAxioms(x).count());
+    }
+
+    @Test
+    public void shouldFindReferencingAxiomsForBooleanLiteral() throws OWLOntologyCreationException {
+        OWLLiteral x = df.getOWLLiteral(true);
+        OWLClass c = df.getOWLClass("C");
+        OWLAxiom a =
+            df.getOWLSubClassOfAxiom(c, df.getOWLDataHasValue(df.getOWLDataProperty("P"), x));
+        OWLOntology o = m.createOntology();
+        o.add(a);
+        assertEquals(1, o.referencingAxioms(x).count());
     }
 }
