@@ -16,7 +16,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 import javax.annotation.Nullable;
 
-import org.semanticweb.owlapi.manchestersyntax.parser.ParserException;
+import org.semanticweb.owlapi.io.OWLParserException;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
@@ -76,7 +76,7 @@ public abstract class AbstractMacroExpansionVisitor implements OWLAxiomVisitorEx
     static final Logger LOG = LoggerFactory.getLogger(AbstractMacroExpansionVisitor.class);
     static final Set<OWLAnnotation> EMPTY_ANNOTATIONS = Collections.emptySet();
     protected final Map<IRI, String> expandExpressionMap;
-    protected final OWLAnnotationProperty oio_isexpansion;
+    protected final OWLAnnotationProperty oioIsexpansion;
     protected final OWLAnnotation expansionMarkerAnnotation;
     final OWLDataFactory df;
     final Map<IRI, String> expandAssertionToMap;
@@ -100,9 +100,9 @@ public abstract class AbstractMacroExpansionVisitor implements OWLAxiomVisitorEx
             .forEach(p -> getAnnotationObjects(p, o.importsClosure(), ap424)
                 .forEach(a -> mapToExpand(p, a)));
         o.annotationPropertiesInSignature().forEach(p -> expandAssertions(o, p));
-        oio_isexpansion = df.getOWLAnnotationProperty(
+        oioIsexpansion = df.getOWLAnnotationProperty(
             df.getIRI(Obo2OWLConstants.OIOVOCAB_IRI_PREFIX, "is_expansion"));
-        expansionMarkerAnnotation = df.getOWLAnnotation(oio_isexpansion, df.getOWLLiteral(true));
+        expansionMarkerAnnotation = df.getOWLAnnotation(oioIsexpansion, df.getOWLLiteral(true));
     }
 
     protected void mapToExpand(OWLObjectProperty p, OWLAnnotation a) {
@@ -130,7 +130,7 @@ public abstract class AbstractMacroExpansionVisitor implements OWLAxiomVisitorEx
      * @return value for OIO isexpansion
      */
     public OWLAnnotationProperty getOIOISEXPANSION() {
-        return oio_isexpansion;
+        return oioIsexpansion;
     }
 
     /**
@@ -182,7 +182,7 @@ public abstract class AbstractMacroExpansionVisitor implements OWLAxiomVisitorEx
         String exStr = tStr.replace("?Y", manchesterSyntaxTool.getId(templateVal));
         try {
             return manchesterSyntaxTool.parseManchesterExpression(exStr);
-        } catch (ParserException e) {
+        } catch (OWLParserException e) {
             LOG.error(e.getMessage(), e);
             return null;
         }

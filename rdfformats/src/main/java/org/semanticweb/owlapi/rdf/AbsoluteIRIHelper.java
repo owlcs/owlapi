@@ -7,15 +7,18 @@ import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLOntology;
 
 /** Helper class for absolute and relative IRIs on rendering. */
-public class AbsoluteIRIHelper {
+public final class AbsoluteIRIHelper {
+    private AbsoluteIRIHelper() {
+        // no instances
+    }
 
     /**
      * @param iri iri to check
-     * @param f format used in rendering
-     * @param o ontology being rendered
+     * @param f   format used in rendering
+     * @param o   ontology being rendered
      * @return absolute version of iri; same as input if the input is absolute, else the prefix is
      *         taken from the prefix mappings or from the ontology id. If none of them are
-     *         available, a hardcoded prefix is used.
+     *         available, a hard coded prefix is used.
      */
     public static IRI verifyAbsolute(IRI iri, @Nullable OWLDocumentFormat f, OWLOntology o) {
         if (iri.isAbsolute()) {

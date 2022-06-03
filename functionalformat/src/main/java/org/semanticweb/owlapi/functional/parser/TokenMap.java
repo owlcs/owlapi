@@ -85,15 +85,16 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 import org.semanticweb.owlapi.model.OWLObjectType;
+import org.semanticweb.owlapi.model.OWLRuntimeException;
 
 /**
- * Map between string tokens and indexes as defined in
- * OWLFunctionalSyntaxParserConstants. This will get updated automatically every
- * time the parser is updated.
+ * Map between string tokens and indexes as defined in OWLFunctionalSyntaxParserConstants. This will
+ * get updated automatically every time the parser is updated.
  */
 public class TokenMap {
 
-    private static Integer DEFAULT = Integer.valueOf(OWLFunctionalSyntaxParserConstants.PN_LOCAL);
+    private static final Integer DEFAULT =
+        Integer.valueOf(OWLFunctionalSyntaxParserConstants.PN_LOCAL);
     private static final Map<String, Integer> makeTokenMap = makeTokenMap();
     private static final String[] index = reverse(makeTokenMap);
 
@@ -113,7 +114,7 @@ public class TokenMap {
                         map.put(key, Integer.valueOf(indexValue));
                     }
                 } catch (IllegalArgumentException | IllegalAccessException e) {
-                    throw new RuntimeException(e);
+                    throw new OWLRuntimeException(e);
                 }
             }
         }
@@ -121,29 +122,27 @@ public class TokenMap {
     }
 
     private static String[] reverse(Map<String, Integer> map) {
-        String[] reverse = new String[map.values().stream().mapToInt(Integer::intValue).max().orElse(-1) + 1];
+        String[] reverse =
+            new String[map.values().stream().mapToInt(Integer::intValue).max().orElse(-1) + 1];
         Arrays.fill(reverse, "");
         map.forEach((a, b) -> reverse[b.intValue()] = a);
         return reverse;
     }
 
     /**
-     * @param s
-     *        String to match
-     * @return index of the corresponding token in
-     *         OWLFunctionalSyntaxParserConstants.tokenImage if one found, index
-     *         of {@code <PN_LOCAL>} otherwise
+     * @param s String to match
+     * @return index of the corresponding token in OWLFunctionalSyntaxParserConstants.tokenImage if
+     *         one found, index of {@code <PN_LOCAL>} otherwise
      */
     public static int tokenIndex(String s) {
         return makeTokenMap.getOrDefault(s, DEFAULT).intValue();
     }
 
     /**
-     * @param in
-     *        index to match
+     * @param in index to match
      * @return String corresponding to index of the corresponding token in
-     *         OWLFunctionalSyntaxParserConstants.tokenImage if one found, index
-     *         of {@code <PN_LOCAL>} otherwise
+     *         OWLFunctionalSyntaxParserConstants.tokenImage if one found, index of
+     *         {@code <PN_LOCAL>} otherwise
      */
     public static String indexToken(int in) {
         if (in >= index.length || in < 0) {
@@ -155,8 +154,7 @@ public class TokenMap {
     private static EnumMap<OWLObjectType, Integer> typeTokens = typeTokens();
 
     /**
-     * @param t
-     *        type
+     * @param t type
      * @return token, or empty string if no type is matched
      */
     public static String tokenForType(OWLObjectType t) {
@@ -191,8 +189,10 @@ public class TokenMap {
         map.put(OWLObjectType.INVERSE_FUNCTIONAL, Integer.valueOf(INVERSEFUNCTIONALOBJECTPROPERTY));
         map.put(OWLObjectType.INVERSE, Integer.valueOf(INVERSEOBJECTPROPERTIES));
         map.put(OWLObjectType.IRREFLEXIVE, Integer.valueOf(IRREFLEXIVEOBJECTPROPERTY));
-        map.put(OWLObjectType.NEGATIVE_DATA_ASSERTION, Integer.valueOf(NEGATIVEDATAPROPERTYASSERTION));
-        map.put(OWLObjectType.NEGATIVE_OBJECT_ASSERTION, Integer.valueOf(NEGATIVEOBJECTPROPERTYASSERTION));
+        map.put(OWLObjectType.NEGATIVE_DATA_ASSERTION,
+            Integer.valueOf(NEGATIVEDATAPROPERTYASSERTION));
+        map.put(OWLObjectType.NEGATIVE_OBJECT_ASSERTION,
+            Integer.valueOf(NEGATIVEOBJECTPROPERTYASSERTION));
         map.put(OWLObjectType.OBJECT_ASSERTION, Integer.valueOf(OBJECTPROPERTYASSERTION));
         map.put(OWLObjectType.OBJECT_DOMAIN, Integer.valueOf(OBJECTPROPERTYDOMAIN));
         map.put(OWLObjectType.OBJECT_RANGE, Integer.valueOf(OBJECTPROPERTYRANGE));

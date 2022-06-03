@@ -153,21 +153,37 @@ public enum OWL2Datatype implements HasIRI, HasShortForm, HasPrefixedName {
     /**
      * Datatypes allowed in the EL and QL profiles.
      */
-    public static final List<OWL2Datatype> EL_DATATYPES =
+    private static final List<OWL2Datatype> EL_DATATYPES =
         Arrays.asList(RDF_PLAIN_LITERAL, RDF_XML_LITERAL, RDFS_LITERAL, OWL_RATIONAL, OWL_REAL,
             XSD_DECIMAL, XSD_INTEGER, XSD_NON_NEGATIVE_INTEGER, XSD_STRING, XSD_NORMALIZED_STRING,
             XSD_TOKEN, XSD_NAME, XSD_NCNAME, XSD_NMTOKEN, XSD_HEX_BINARY, XSD_BASE_64_BINARY,
             XSD_ANY_URI, XSD_DATE_TIME, XSD_DATE_TIME_STAMP);
+
+    /**
+     * @return Datatypes allowed in the EL and QL profiles.
+     */
+    public static List<OWL2Datatype> elDatatypes() {
+        return EL_DATATYPES;
+    }
+
     /**
      * Datatypes supported in the RL profile.
      */
-    public static final List<OWL2Datatype> RL_DATATYPES =
+    private static final List<OWL2Datatype> RL_DATATYPES =
         Arrays.asList(RDF_PLAIN_LITERAL, RDF_XML_LITERAL, RDFS_LITERAL, XSD_DECIMAL, XSD_INTEGER,
             XSD_NON_NEGATIVE_INTEGER, XSD_NON_POSITIVE_INTEGER, XSD_POSITIVE_INTEGER,
             XSD_NEGATIVE_INTEGER, XSD_LONG, XSD_INT, XSD_SHORT, XSD_BYTE, XSD_UNSIGNED_LONG,
             XSD_UNSIGNED_BYTE, XSD_FLOAT, XSD_DOUBLE, XSD_STRING, XSD_NORMALIZED_STRING, XSD_TOKEN,
             XSD_LANGUAGE, XSD_NAME, XSD_NCNAME, XSD_NMTOKEN, XSD_BOOLEAN, XSD_HEX_BINARY,
             XSD_BASE_64_BINARY, XSD_ANY_URI, XSD_DATE_TIME, XSD_DATE_TIME_STAMP);
+
+    /**
+     * @return Datatypes supported in the RL profile.
+     */
+    public static List<OWL2Datatype> rlDatatypes() {
+        return RL_DATATYPES;
+    }
+
     private static final Map<IRI, OWL2Datatype> ALL_IRIS = asMap(stream(), HasIRI::getIRI);
     private final String shortForm;
     private final IRI iri;
@@ -370,7 +386,7 @@ public enum OWL2Datatype implements HasIRI, HasShortForm, HasPrefixedName {
 
         Category(String name, OWLFacet... facets) {
             this.name = name;
-            this.facets = sorted(OWLFacet.class, Arrays.asList(facets));
+            this.facets = sorted(OWLFacet.class, facets);
         }
 
         /**

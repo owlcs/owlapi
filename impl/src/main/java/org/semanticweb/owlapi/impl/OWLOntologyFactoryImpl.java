@@ -127,21 +127,15 @@ public class OWLOntologyFactoryImpl implements OWLOntologyFactory {
                     return ont;
                 } catch (UnloadableImportException e) {
                     // If an import cannot be located, all parsers will fail.
-                    // Again,
-                    // terminate early
-                    // First clean up
+                    // Again, terminate early.
                     manager.removeOntology(ont);
                     throw e;
                 } catch (OWLParserException e) {
                     if (e.getCause() instanceof IOException
                         || e.getCause() instanceof OWLOntologyInputSourceException) {
                         // For input/output exceptions, we assume that it means
-                        // the
-                        // source cannot be read regardless of the parsers, so
-                        // we
-                        // stop
-                        // early
-                        // First clean up
+                        // the source cannot be read regardless of the parsers,
+                        // so we stop early.
                         manager.removeOntology(ont);
                         throw new OWLOntologyCreationIOException(e.getCause());
                     }

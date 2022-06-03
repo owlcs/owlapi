@@ -23,6 +23,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.BiFunction;
 
@@ -58,34 +59,27 @@ public class OBOFormatParser {
     private boolean followImport;
     private Object location;
     private final ConcurrentHashMap<String, OBODoc> importCache = new ConcurrentHashMap<>();
-    static final BiFunction<Clause, OBOFormatParser, Clause> idref =
-        (cl, _this) -> _this.parseIdRef(cl);
-    static final BiFunction<Clause, OBOFormatParser, Clause> bool =
-        (cl, _this) -> _this.parseBoolean(cl);
+    static final BiFunction<Clause, OBOFormatParser, Clause> idref = (cl, o) -> o.parseIdRef(cl);
+    static final BiFunction<Clause, OBOFormatParser, Clause> bool = (cl, o) -> o.parseBoolean(cl);
     static final BiFunction<Clause, OBOFormatParser, Clause> unquoted =
-        (cl, _this) -> _this.parseUnquotedString(cl);
-    static final BiFunction<Clause, OBOFormatParser, Clause> person =
-        (cl, _this) -> _this.parsePerson(cl);
+        (cl, o) -> o.parseUnquotedString(cl);
+    static final BiFunction<Clause, OBOFormatParser, Clause> person = (cl, o) -> o.parsePerson(cl);
     static final BiFunction<Clause, OBOFormatParser, Clause> isodate =
-        (cl, _this) -> _this.parseISODate(cl);
-    static final BiFunction<Clause, OBOFormatParser, Clause> def =
-        (cl, _this) -> _this.parseDef(cl);
+        (cl, o) -> o.parseISODate(cl);
+    static final BiFunction<Clause, OBOFormatParser, Clause> def = (cl, o) -> o.parseDef(cl);
     static final BiFunction<Clause, OBOFormatParser, Clause> intersect =
-        (cl, _this) -> _this.parseTermIntersect(cl);
+        (cl, o) -> o.parseTermIntersect(cl);
     static final BiFunction<Clause, OBOFormatParser, Clause> pvalue =
-        (cl, _this) -> _this.parsePropertyValue(cl);
+        (cl, o) -> o.parsePropertyValue(cl);
     static final BiFunction<Clause, OBOFormatParser, Clause> rel =
-        (cl, _this) -> _this.parseRelationship(cl);
+        (cl, o) -> o.parseRelationship(cl);
     static final BiFunction<Clause, OBOFormatParser, Clause> unquotSpaces =
-        (cl, _this) -> _this.parseUnquotSpaces(cl);
-    static final BiFunction<Clause, OBOFormatParser, Clause> syn =
-        (cl, _this) -> _this.parseSynonym(cl);
+        (cl, o) -> o.parseUnquotSpaces(cl);
+    static final BiFunction<Clause, OBOFormatParser, Clause> syn = (cl, o) -> o.parseSynonym(cl);
     static final BiFunction<Clause, OBOFormatParser, Clause> xref =
-        (cl, _this) -> _this.parseDirectXref(cl);
-    static final BiFunction<Clause, OBOFormatParser, Clause> pair =
-        (cl, _this) -> _this.parseIdRefPair(cl);
-    static final BiFunction<Clause, OBOFormatParser, Clause> owldef =
-        (cl, _this) -> _this.parseOwlDef(cl);
+        (cl, o) -> o.parseDirectXref(cl);
+    static final BiFunction<Clause, OBOFormatParser, Clause> pair = (cl, o) -> o.parseIdRefPair(cl);
+    static final BiFunction<Clause, OBOFormatParser, Clause> owldef = (cl, o) -> o.parseOwlDef(cl);
     private final EnumMap<OboFormatTag, BiFunction<Clause, OBOFormatParser, Clause>> termFrameParsing =
         termFrameParsing();
     private final EnumMap<OboFormatTag, BiFunction<Clause, OBOFormatParser, Clause>> typedTermFrameParsing =
@@ -158,7 +152,7 @@ public class OBOFormatParser {
     }
 
     /**
-     * @param s input stream
+     * @param s          input stream
      * @param importsMap map for imports
      */
     protected OBOFormatParser(MyStream s, Map<String, OBODoc> importsMap) {
@@ -282,7 +276,8 @@ public class OBOFormatParser {
     public OBODoc parseURL(String urlstr) {
         AtomicReference<OBODoc> doc = new AtomicReference<>();
         OBOFormatOWLAPIParser parser = new OBOFormatOWLAPIParser((o, d) -> doc.set(d));
-        // Ontology can be null here - it is ignored in the parser object
+        // Ontology can be null here - it is ignored in the parser object (the argument o in the
+        // above lambda is unused)
         new IRIDocumentSource(urlstr).acceptParser(parser, null, new OntologyConfigurator());
         return doc.get();
     }
@@ -391,7 +386,7 @@ public class OBOFormatParser {
             return;
         }
         OboFormatTag tagConstant = OBOFormatConstants.getTag(tag);
-        if (OboFormatTag.TYPEDEF_FRAMES.contains(tagConstant)) {
+        if (OboFormatTag.typedefFrames().contains(tagConstant)) {
             danglingReferences.add(checkRelation(c.getValue(String.class), tag, f.getId(), doc));
         } else if (tagConstant == OboFormatTag.TAG_HOLDS_OVER_CHAIN
             || tagConstant == OboFormatTag.TAG_EQUIVALENT_TO_CHAIN
@@ -410,7 +405,7 @@ public class OBOFormatParser {
         if (c == null) {
             return;
         }
-        if (OboFormatTag.TERM_FRAMES.contains(OBOFormatConstants.getTag(tag))) {
+        if (OboFormatTag.termFrames().contains(OBOFormatConstants.getTag(tag))) {
             if (c.getValues().size() > 1) {
                 danglingReferences
                     .add(checkRelation(c.getValue(String.class), tag, f.getId(), doc));
@@ -1037,10 +1032,9 @@ public class OBOFormatParser {
     }
 
     private void parseZeroOrMoreQuals(Clause cl) {
-        if (parseQual(cl)) {
-            while (stream.consume(",") && parseQual(cl)) {
-                // repeat while more available
-            }
+        parseQual(cl);
+        while (stream.consume(",")) {
+            parseQual(cl);
         }
     }
 
@@ -1212,43 +1206,50 @@ public class OBOFormatParser {
 
     private String getParseUntil(String compl, boolean commaWhitespace) {
         String r = stream.rest();
-        int i = 0;
-        boolean hasEscapedChars = false;
-        while (i < r.length()) {
-            if (r.charAt(i) == '\\') {
-                hasEscapedChars = true;
-                i += 2;// Escape
-                continue;
-            }
-            if (compl.contains(r.subSequence(i, i + 1))) {
-                if (commaWhitespace && r.charAt(i) == ',') {
-                    // a comma is only a valid separator with a following
-                    // whitespace
-                    // see bug and specification update
-                    // http://code.google.com/p/oboformat/issues/detail?id=54
-                    if (i + 1 < r.length() && r.charAt(i + 1) == ' ') {
-                        break;
-                    }
-                } else {
-                    break;
-                }
-            }
-            i++;
-        }
+        final AtomicBoolean hasEscapedChars = new AtomicBoolean(false);
+        int i = parseUntil(compl, commaWhitespace, r, hasEscapedChars);
         if (i == 0) {
             return "";
         }
         String ret = r.substring(0, i);
-        if (hasEscapedChars) {
+        if (hasEscapedChars.get()) {
             ret = handleEscapedChars(ret);
         }
         stream.advance(i);
         return stringCache.get(ret);
     }
 
+    protected int parseUntil(String compl, boolean commaWhitespace, String r,
+        AtomicBoolean hasEscapedChars) {
+        int i = 0;
+        while (i < r.length()) {
+            if (r.charAt(i) == '\\') {
+                hasEscapedChars.set(true);
+                // Escape
+                i += 2;
+            } else {
+                if (compl.contains(r.subSequence(i, i + 1))) {
+                    if (commaWhitespace && r.charAt(i) == ',') {
+                        // A comma is only a valid separator with a following
+                        // whitespace. See bug and specification update
+                        // http://code.google.com/p/oboformat/issues/detail?id=54
+                        if (i + 1 < r.length() && r.charAt(i + 1) == ' ') {
+                            return i;
+                        }
+                    } else {
+                        return i;
+                    }
+                }
+                i++;
+            }
+        }
+        return i;
+    }
+
     protected String handleEscapedChars(String ret) {
         StringBuilder sb = new StringBuilder();
-        for (int j = 0; j < ret.length(); j++) {
+        int j = 0;
+        for (; j < ret.length(); j++) {
             char c = ret.charAt(j);
             if (c == '\\') {
                 int next = j + 1;
@@ -1307,10 +1308,6 @@ public class OBOFormatParser {
 
         public MyStream(BufferedReader r) {
             reader = r;
-        }
-
-        public static String getTag() {
-            return "";
         }
 
         protected String line() {
@@ -1395,7 +1392,7 @@ public class OBOFormatParser {
             if (line == null) {
                 return -1;
             }
-            return line().substring(pos).indexOf(c);
+            return line().indexOf(c, pos);
         }
 
         @Override

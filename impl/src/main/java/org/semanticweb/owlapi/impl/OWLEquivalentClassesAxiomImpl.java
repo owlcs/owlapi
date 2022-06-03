@@ -34,7 +34,7 @@ public class OWLEquivalentClassesAxiomImpl extends OWLNaryClassAxiomImpl
 
     /**
      * @param classExpressions equivalent classes
-     * @param annotations annotations
+     * @param annotations      annotations
      */
     public OWLEquivalentClassesAxiomImpl(Collection<? extends OWLClassExpression> classExpressions,
         Collection<OWLAnnotation> annotations) {
@@ -45,18 +45,18 @@ public class OWLEquivalentClassesAxiomImpl extends OWLNaryClassAxiomImpl
     @SuppressWarnings("unchecked")
     public OWLEquivalentClassesAxiom getAxiomWithoutAnnotations() {
         return !isAnnotated() ? this
-            : new OWLEquivalentClassesAxiomImpl(classExpressions, NO_ANNOTATIONS);
+            : new OWLEquivalentClassesAxiomImpl(getOperandsAsList(), NO_ANNOTATIONS);
     }
 
     @Override
     @SuppressWarnings("unchecked")
     public <T extends OWLAxiom> T getAnnotatedAxiom(Stream<OWLAnnotation> anns) {
-        return (T) new OWLEquivalentClassesAxiomImpl(classExpressions, mergeAnnos(anns));
+        return (T) new OWLEquivalentClassesAxiomImpl(getOperandsAsList(), mergeAnnos(anns));
     }
 
     @Override
     public Collection<OWLEquivalentClassesAxiom> asPairwiseAxioms() {
-        if (classExpressions.size() == 2) {
+        if (getOperandsAsList().size() == 2) {
             return CollectionFactory.createSet(this);
         }
         return walkPairwise((a, b) -> new OWLEquivalentClassesAxiomImpl(
@@ -65,11 +65,11 @@ public class OWLEquivalentClassesAxiomImpl extends OWLNaryClassAxiomImpl
 
     @Override
     public Collection<OWLEquivalentClassesAxiom> splitToAnnotatedPairs() {
-        if (classExpressions.size() == 2) {
+        if (getOperandsAsList().size() == 2) {
             return CollectionFactory.createSet(this);
         }
         return walkPairwise((a, b) -> new OWLEquivalentClassesAxiomImpl(
-            sorted(OWLClassExpression.class, a, b), annotations));
+            sorted(OWLClassExpression.class, a, b), annotationsAsList()));
     }
 
     private static boolean named(OWLClassExpression d) {

@@ -292,17 +292,17 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl
 
     @Override
     public Stream<OWLAxiom> tboxAxioms(Imports imports) {
-        return AxiomType.TBoxAxiomTypes.stream().flatMap(t -> axioms(t, imports));
+        return AxiomType.tboxAxiomTypes().stream().flatMap(t -> axioms(t, imports));
     }
 
     @Override
     public Stream<OWLAxiom> aboxAxioms(Imports imports) {
-        return AxiomType.ABoxAxiomTypes.stream().flatMap(t -> axioms(t, imports));
+        return AxiomType.aboxAxiomTypes().stream().flatMap(t -> axioms(t, imports));
     }
 
     @Override
     public Stream<OWLAxiom> rboxAxioms(Imports imports) {
-        return AxiomType.RBoxAxiomTypes.stream().flatMap(t -> axioms(t, imports));
+        return AxiomType.rboxAxiomTypes().stream().flatMap(t -> axioms(t, imports));
     }
 
     @Override
@@ -396,8 +396,8 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl
 
     @Override
     public Stream<OWLEntity> entitiesInSignature(IRI iri) {
-        return unsortedSignature()
-            .filter((Predicate<? super OWLEntity>) c -> c.getIRI().equals(iri)).sorted();
+        // XXX cache?
+        return unsortedSignature().filter(c -> c.getIRI().equals(iri)).sorted();
     }
 
     @Override
@@ -564,7 +564,7 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl
         } else if (owlEntity instanceof OWLLiteral) {
             Set<OWLAxiom> axioms = new HashSet<>();
             FindLiterals v = new FindLiterals((OWLLiteral) owlEntity);
-            AxiomType.AXIOM_TYPES.stream().flatMap(this::axioms)
+            AxiomType.axiomTypes().stream().flatMap(this::axioms)
                 .filter(ax -> ax.accept(v).booleanValue()).forEach(axioms::add);
             return axioms.stream();
         }

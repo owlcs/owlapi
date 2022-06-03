@@ -36,7 +36,7 @@ public interface HasAxiomsByType {
     default boolean equalAxioms(HasAxiomsByType o) {
         // using collect(toSet()) to avoid ordering issues and avoid
         // LinkedHashSet cost
-        return AxiomType.AXIOM_TYPES.stream()
+        return AxiomType.axiomTypes().stream()
             .allMatch(t -> axioms(t).collect(toSet()).equals(o.axioms(t).collect(toSet())));
     }
 
@@ -44,7 +44,7 @@ public interface HasAxiomsByType {
      * Filter axioms according to the specified type.
      *
      * @param axiomType The type of axioms to be retrieved.
-     * @param <T> axiom type
+     * @param <T>       axiom type
      * @return Stream of axioms of the specified type.
      */
     <T extends OWLAxiom> Stream<T> axioms(AxiomType<T> axiomType);

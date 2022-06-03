@@ -19,7 +19,6 @@ import java.util.stream.Stream;
 
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAsymmetricObjectPropertyAxiom;
-import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLCardinalityRestriction;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassAssertionAxiom;
@@ -97,6 +96,7 @@ import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
  */
 public class OWLTutorialSyntaxObjectRenderer implements OWLObjectVisitor {
 
+    private static final String SUB_PROPERTY = "subProperty";
     private static final String ENDSPAN = "</span>";
     private final Writer writer;
     private int pos;
@@ -253,10 +253,6 @@ public class OWLTutorialSyntaxObjectRenderer implements OWLObjectVisitor {
         return write(" ");
     }
 
-    public OWLTutorialSyntaxObjectRenderer writeAnnotations(OWLAxiom ax) {
-        return this;
-    }
-
     public OWLTutorialSyntaxObjectRenderer writeListStart() {
         return write("<ul>\n");
     }
@@ -348,7 +344,7 @@ public class OWLTutorialSyntaxObjectRenderer implements OWLObjectVisitor {
     public void visit(OWLSubDataPropertyOfAxiom axiom) {
         axiom.getSubProperty().accept(this);
         writeSpace();
-        write(keyword("subProperty"));
+        write(keyword(SUB_PROPERTY));
         writeSpace();
         axiom.getSuperProperty().accept(this);
     }
@@ -457,7 +453,7 @@ public class OWLTutorialSyntaxObjectRenderer implements OWLObjectVisitor {
     public void visit(OWLSubPropertyChainOfAxiom axiom) {
         write("chain").writeOpenBracket().write(axiom.getPropertyChain().stream())
             .writeCloseBracket();
-        writeSpace().write(keyword("subProperty")).writeSpace();
+        writeSpace().write(keyword(SUB_PROPERTY)).writeSpace();
         axiom.getSuperProperty().accept(this);
     }
 
@@ -478,7 +474,7 @@ public class OWLTutorialSyntaxObjectRenderer implements OWLObjectVisitor {
     @Override
     public void visit(OWLSubObjectPropertyOfAxiom axiom) {
         axiom.getSubProperty().accept(this);
-        writeSpace().write(keyword("subProperty")).writeSpace();
+        writeSpace().write(keyword(SUB_PROPERTY)).writeSpace();
         axiom.getSuperProperty().accept(this);
     }
 

@@ -14,7 +14,7 @@ package org.semanticweb.owlapi.rdf.rdfxml.renderer;
 
 import static org.semanticweb.owlapi.utilities.OWLAPIPreconditions.checkNotNull;
 import static org.semanticweb.owlapi.utilities.OWLAPIPreconditions.verifyNotNull;
-import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.BUILT_IN_VOCABULARY_IRIS;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.builtInVocabularyIris;
 import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.RDFS_LITERAL;
 import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.RDF_DESCRIPTION;
 import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.RDF_TYPE;
@@ -28,6 +28,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+
+import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.documents.RDFLiteral;
 import org.semanticweb.owlapi.documents.RDFNode;
@@ -53,8 +55,7 @@ import org.semanticweb.owlapi.utility.VersionInfo;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public class RDFXMLRenderer extends RDFRendererBase {
@@ -65,30 +66,22 @@ public class RDFXMLRenderer extends RDFRendererBase {
     private final ShortFormProvider labelMaker;
 
     /**
-     * @param ontology
-     *        ontology
-     * @param w
-     *        writer
-     * @param encoding
-     *        encoding for the writer, to use for the encoding attribute on the
-     *        prologue
+     * @param ontology ontology
+     * @param w        writer
+     * @param encoding encoding for the writer, to use for the encoding attribute on the prologue
      */
     public RDFXMLRenderer(OWLOntology ontology, PrintWriter w, Charset encoding) {
         this(ontology, w, verifyNotNull(ontology.getFormat()), encoding);
     }
 
     /**
-     * @param ontology
-     *        ontology
-     * @param w
-     *        writer
-     * @param format
-     *        format
-     * @param encoding
-     *        encoding for the writer, to use for the encoding attribute on the
-     *        prologue
+     * @param ontology ontology
+     * @param w        writer
+     * @param format   format
+     * @param encoding encoding for the writer, to use for the encoding attribute on the prologue
      */
-    public RDFXMLRenderer(OWLOntology ontology, PrintWriter w, OWLDocumentFormat format, Charset encoding) {
+    public RDFXMLRenderer(OWLOntology ontology, PrintWriter w, OWLDocumentFormat format,
+        Charset encoding) {
         super(checkNotNull(ontology, "ontology cannot be null"), format,
             ontology.getOWLOntologyManager().getOntologyConfigurator());
         checkNotNull(w, "w cannot be null");
@@ -102,7 +95,8 @@ public class RDFXMLRenderer extends RDFRendererBase {
         Map<OWLAnnotationProperty, List<String>> prefLangMap = new HashMap<>();
         OWLOntologyManager manager = ontology.getOWLOntologyManager();
         OWLAnnotationProperty labelProp = manager.getOWLDataFactory().getRDFSLabel();
-        labelMaker = new AnnotationValueShortFormProvider(Collections.singletonList(labelProp), prefLangMap, manager);
+        labelMaker = new AnnotationValueShortFormProvider(Collections.singletonList(labelProp),
+            prefLangMap, manager);
     }
 
     private static String base(String defaultNamespace) {
@@ -196,49 +190,18 @@ public class RDFXMLRenderer extends RDFRendererBase {
         }
         Collection<RDFTriple> triples = getRDFGraph().getTriplesForSubject(node);
         pending.add(node);
-        RDFTriple candidatePrettyPrintTypeTriple = null;
+        RDFTriple candidatePrettyPrintTypeTriple = findPrettyPrintCandidate(triples);
+        writeElementStart(candidatePrettyPrintTypeTriple);
+        writeAboutOrID(node);
         for (RDFTriple triple : triples) {
-            IRI propertyIRI = triple.getPredicate().getIRI();
-            if (propertyIRI.equals(RDF_TYPE.getIRI()) && !triple.getObject().isAnonymous()
-                && BUILT_IN_VOCABULARY_IRIS.contains(triple.getObject().getIRI())
-                && prettyPrintedTypes.contains(triple.getObject().getIRI())) {
-                candidatePrettyPrintTypeTriple = triple;
-            }
-        }
-        if (candidatePrettyPrintTypeTriple == null) {
-            writer.writeStartElement(RDF_DESCRIPTION.getIRI());
-        } else {
-            writer.writeStartElement(candidatePrettyPrintTypeTriple.getObject().getIRI());
-        }
-        if (!node.isAnonymous()) {
-            writer.writeAboutAttribute(node.getIRI());
-        } else if (node.idRequired()) {
-            writer.writeNodeIDAttribute(node);
-        }
-        for (RDFTriple triple : triples) {
-            if (candidatePrettyPrintTypeTriple != null && candidatePrettyPrintTypeTriple.equals(triple)) {
+            if (candidatePrettyPrintTypeTriple != null
+                && candidatePrettyPrintTypeTriple.equals(triple)) {
                 continue;
             }
             writer.writeStartElement(triple.getPredicate().getIRI());
             RDFNode objectNode = triple.getObject();
             if (!objectNode.isLiteral()) {
-                RDFResource objectRes = (RDFResource) objectNode;
-                if (objectRes.isAnonymous()) {
-                    // Special rendering for lists
-                    if (isObjectList(objectRes)) {
-                        writer.writeParseTypeAttribute();
-                        List<RDFNode> list = new ArrayList<>();
-                        toJavaList(objectRes, list);
-                        list.forEach(this::renderList);
-                    } else if (objectRes.equals(node)) {
-                        // special case for triples with same object and subject
-                        writer.writeNodeIDAttribute(objectRes);
-                    } else {
-                        renderObject(objectRes);
-                    }
-                } else {
-                    writer.writeResourceAttribute(objectRes.getIRI());
-                }
+                renderResource(node, objectNode);
             } else {
                 writew((RDFLiteral) objectNode);
             }
@@ -249,6 +212,55 @@ public class RDFXMLRenderer extends RDFRendererBase {
             deferredRendering();
         }
         pending.remove(node);
+    }
+
+    protected void renderResource(RDFResource node, RDFNode objectNode) {
+        RDFResource objectRes = (RDFResource) objectNode;
+        if (objectRes.isAnonymous()) {
+            // Special rendering for lists
+            if (isObjectList(objectRes)) {
+                writer.writeParseTypeAttribute();
+                List<RDFNode> list = new ArrayList<>();
+                toJavaList(objectRes, list);
+                list.forEach(this::renderList);
+            } else if (objectRes.equals(node)) {
+                // special case for triples with same object and subject
+                writer.writeNodeIDAttribute(objectRes);
+            } else {
+                renderObject(objectRes);
+            }
+        } else {
+            writer.writeResourceAttribute(objectRes.getIRI());
+        }
+    }
+
+    protected void writeAboutOrID(RDFResource node) {
+        if (!node.isAnonymous()) {
+            writer.writeAboutAttribute(node.getIRI());
+        } else if (node.idRequired()) {
+            writer.writeNodeIDAttribute(node);
+        }
+    }
+
+    protected void writeElementStart(@Nullable RDFTriple candidatePrettyPrintTypeTriple) {
+        if (candidatePrettyPrintTypeTriple == null) {
+            writer.writeStartElement(RDF_DESCRIPTION.getIRI());
+        } else {
+            writer.writeStartElement(candidatePrettyPrintTypeTriple.getObject().getIRI());
+        }
+    }
+
+    protected RDFTriple findPrettyPrintCandidate(Collection<RDFTriple> triples) {
+        RDFTriple candidatePrettyPrintTypeTriple = null;
+        for (RDFTriple triple : triples) {
+            IRI propertyIRI = triple.getPredicate().getIRI();
+            if (propertyIRI.equals(RDF_TYPE.getIRI()) && !triple.getObject().isAnonymous()
+                && builtInVocabularyIris().contains(triple.getObject().getIRI())
+                && prettyPrintedTypes.contains(triple.getObject().getIRI())) {
+                candidatePrettyPrintTypeTriple = triple;
+            }
+        }
+        return candidatePrettyPrintTypeTriple;
     }
 
     protected void renderList(RDFNode n) {

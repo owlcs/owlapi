@@ -30,7 +30,7 @@ import org.semanticweb.owlapi.utility.NNF;
  */
 public abstract class OWLAxiomImpl extends OWLObjectImpl implements OWLAxiom {
 
-    protected final List<OWLAnnotation> annotations;
+    private final List<OWLAnnotation> annotations;
 
     /**
      * @param annotations annotations on the axiom

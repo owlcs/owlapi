@@ -1,48 +1,48 @@
 package org.semanticweb.owlapi.model;
 
-import static org.semanticweb.owlapi.model.accessors.annotationsAsList;
-import static org.semanticweb.owlapi.model.accessors.bodyList;
-import static org.semanticweb.owlapi.model.accessors.facetRestrictionsAsList;
-import static org.semanticweb.owlapi.model.accessors.getAnnSubProperty;
-import static org.semanticweb.owlapi.model.accessors.getAnnSuperProperty;
-import static org.semanticweb.owlapi.model.accessors.getAnnotationValue;
-import static org.semanticweb.owlapi.model.accessors.getArgument;
-import static org.semanticweb.owlapi.model.accessors.getArguments;
-import static org.semanticweb.owlapi.model.accessors.getCardinality;
-import static org.semanticweb.owlapi.model.accessors.getClassExpression;
-import static org.semanticweb.owlapi.model.accessors.getDataRange;
-import static org.semanticweb.owlapi.model.accessors.getDatatype;
-import static org.semanticweb.owlapi.model.accessors.getDomain;
-import static org.semanticweb.owlapi.model.accessors.getEntity;
-import static org.semanticweb.owlapi.model.accessors.getFacet;
-import static org.semanticweb.owlapi.model.accessors.getFacetValue;
-import static org.semanticweb.owlapi.model.accessors.getFiller;
-import static org.semanticweb.owlapi.model.accessors.getFirstArgument;
-import static org.semanticweb.owlapi.model.accessors.getID;
-import static org.semanticweb.owlapi.model.accessors.getIRI;
-import static org.semanticweb.owlapi.model.accessors.getIndividual;
-import static org.semanticweb.owlapi.model.accessors.getInverse;
-import static org.semanticweb.owlapi.model.accessors.getLang;
-import static org.semanticweb.owlapi.model.accessors.getLiteral;
-import static org.semanticweb.owlapi.model.accessors.getObject;
-import static org.semanticweb.owlapi.model.accessors.getOntologyID;
-import static org.semanticweb.owlapi.model.accessors.getOperand;
-import static org.semanticweb.owlapi.model.accessors.getOperandsAsList;
-import static org.semanticweb.owlapi.model.accessors.getPredicate;
-import static org.semanticweb.owlapi.model.accessors.getProperty;
-import static org.semanticweb.owlapi.model.accessors.getPropertyChain;
-import static org.semanticweb.owlapi.model.accessors.getRange;
-import static org.semanticweb.owlapi.model.accessors.getSecondArgument;
-import static org.semanticweb.owlapi.model.accessors.getSubClass;
-import static org.semanticweb.owlapi.model.accessors.getSubProperty;
-import static org.semanticweb.owlapi.model.accessors.getSubject;
-import static org.semanticweb.owlapi.model.accessors.getSuperClass;
-import static org.semanticweb.owlapi.model.accessors.getSuperProperty;
-import static org.semanticweb.owlapi.model.accessors.getSuperPropertyChain;
-import static org.semanticweb.owlapi.model.accessors.getValue;
-import static org.semanticweb.owlapi.model.accessors.getWrappedLiteral;
-import static org.semanticweb.owlapi.model.accessors.headList;
-import static org.semanticweb.owlapi.model.accessors.specificHash;
+import static org.semanticweb.owlapi.model.Accessors.annotationsAsList;
+import static org.semanticweb.owlapi.model.Accessors.bodyList;
+import static org.semanticweb.owlapi.model.Accessors.facetRestrictionsAsList;
+import static org.semanticweb.owlapi.model.Accessors.getAnnSubProperty;
+import static org.semanticweb.owlapi.model.Accessors.getAnnSuperProperty;
+import static org.semanticweb.owlapi.model.Accessors.getAnnotationValue;
+import static org.semanticweb.owlapi.model.Accessors.getArgument;
+import static org.semanticweb.owlapi.model.Accessors.getArguments;
+import static org.semanticweb.owlapi.model.Accessors.getCardinality;
+import static org.semanticweb.owlapi.model.Accessors.getClassExpression;
+import static org.semanticweb.owlapi.model.Accessors.getDataRange;
+import static org.semanticweb.owlapi.model.Accessors.getDatatype;
+import static org.semanticweb.owlapi.model.Accessors.getDomain;
+import static org.semanticweb.owlapi.model.Accessors.getEntity;
+import static org.semanticweb.owlapi.model.Accessors.getFacet;
+import static org.semanticweb.owlapi.model.Accessors.getFacetValue;
+import static org.semanticweb.owlapi.model.Accessors.getFiller;
+import static org.semanticweb.owlapi.model.Accessors.getFirstArgument;
+import static org.semanticweb.owlapi.model.Accessors.getID;
+import static org.semanticweb.owlapi.model.Accessors.getIRI;
+import static org.semanticweb.owlapi.model.Accessors.getIndividual;
+import static org.semanticweb.owlapi.model.Accessors.getInverse;
+import static org.semanticweb.owlapi.model.Accessors.getLang;
+import static org.semanticweb.owlapi.model.Accessors.getLiteral;
+import static org.semanticweb.owlapi.model.Accessors.getObject;
+import static org.semanticweb.owlapi.model.Accessors.getOntologyID;
+import static org.semanticweb.owlapi.model.Accessors.getOperand;
+import static org.semanticweb.owlapi.model.Accessors.getOperandsAsList;
+import static org.semanticweb.owlapi.model.Accessors.getPredicate;
+import static org.semanticweb.owlapi.model.Accessors.getProperty;
+import static org.semanticweb.owlapi.model.Accessors.getPropertyChain;
+import static org.semanticweb.owlapi.model.Accessors.getRange;
+import static org.semanticweb.owlapi.model.Accessors.getSecondArgument;
+import static org.semanticweb.owlapi.model.Accessors.getSubClass;
+import static org.semanticweb.owlapi.model.Accessors.getSubProperty;
+import static org.semanticweb.owlapi.model.Accessors.getSubject;
+import static org.semanticweb.owlapi.model.Accessors.getSuperClass;
+import static org.semanticweb.owlapi.model.Accessors.getSuperProperty;
+import static org.semanticweb.owlapi.model.Accessors.getSuperPropertyChain;
+import static org.semanticweb.owlapi.model.Accessors.getValue;
+import static org.semanticweb.owlapi.model.Accessors.getWrappedLiteral;
+import static org.semanticweb.owlapi.model.Accessors.headList;
+import static org.semanticweb.owlapi.model.Accessors.specificHash;
 import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.compareIterators;
 import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.equalStreams;
 
@@ -296,6 +296,10 @@ public enum OWLObjectType {
         if (first.type() != second.type() || first.hashCode() != second.hashCode()) {
             return false;
         }
+        return useFunctionsForEqual(first, second);
+    }
+
+    protected static boolean useFunctionsForEqual(OWLObject first, OWLObject second) {
         Function<OWLObject, Object>[] functions = first.type().componentsAnnotationsLast;
         for (Function<OWLObject, Object> f : functions) {
             Object o1 = f.apply(first);
@@ -353,7 +357,7 @@ public enum OWLObjectType {
     }
 }
 
-interface accessors {
+interface Accessors {
 
     static int specificHash(OWLLiteral l) {
         try {

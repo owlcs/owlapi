@@ -57,17 +57,6 @@ public class Xref {
         }
         Xref other = (Xref) obj;
         return idref.equals(other.idref);
-        // if (false) {
-        // // TODO: make this configurable?
-        // // xref comments are treated as semi-invisible
-        // if (annotation == null && other.annotation == null) {
-        // return true;
-        // }
-        // if (annotation == null || other.annotation == null) {
-        // return false;
-        // }
-        // return annotation.equals(other.annotation);
-        // }
     }
 
     @Override

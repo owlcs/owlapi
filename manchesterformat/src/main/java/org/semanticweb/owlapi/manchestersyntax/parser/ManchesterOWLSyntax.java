@@ -22,9 +22,6 @@ import javax.annotation.Nullable;
  */
 public enum ManchesterOWLSyntax {
     //@formatter:off
-//    public static final String VALUE_PARTITION = "ValuePartition:";
-//    public static final String INSTANCES = "Instances:";
-    
     /** VALUE_PARTITION.             */   VALUE_PARTITION             ("ValuePartition",            false, false, false, false, false),
     /** DASH.                        */   DASH                        ("-",                         false, false, false, false, false, "-"),
     /** OPEN.                        */   OPEN                        ("(",                         false, false, false, false, false, "("),

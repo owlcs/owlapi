@@ -98,7 +98,7 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
             }
         }
         Stream<? extends OWLAxiom> flatMap =
-            AxiomType.skipDeclarations().flatMap(t -> ontology.axioms(t));
+            AxiomType.skipDeclarations().flatMap(ontology::axioms);
         flatMap.distinct().sorted().forEach(this::accept);
     }
 

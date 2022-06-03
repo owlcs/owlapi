@@ -70,7 +70,7 @@ public class OWLDifferentIndividualsAxiomImpl extends OWLNaryIndividualAxiomImpl
             return CollectionFactory.createSet(this);
         }
         return walkPairwise((a, b) -> new OWLDifferentIndividualsAxiomImpl(
-            sorted(OWLIndividual.class, a, b), annotations));
+            sorted(OWLIndividual.class, a, b), annotationsAsList()));
     }
 
     @Override

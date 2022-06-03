@@ -14,6 +14,7 @@ package org.semanticweb.owlapi.builders;
 
 import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.add;
 
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
@@ -79,11 +80,7 @@ public abstract class BaseSetBuilder<T extends OWLObject, B, I> extends BaseBuil
      * @return builder
      */
     @java.lang.SafeVarargs
-    @SuppressWarnings("unchecked")
     public final B withItems(I... arg) {
-        for (I i : arg) {
-            items.add(i);
-        }
-        return (B) this;
+        return withItems(Arrays.asList(arg));
     }
 }

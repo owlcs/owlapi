@@ -14,13 +14,13 @@ package org.semanticweb.owlapi.search;
 
 import static org.semanticweb.owlapi.model.AxiomType.ANNOTATION_PROPERTY_DOMAIN;
 import static org.semanticweb.owlapi.model.AxiomType.ANNOTATION_PROPERTY_RANGE;
-import static org.semanticweb.owlapi.model.AxiomType.AXIOM_TYPES;
 import static org.semanticweb.owlapi.model.AxiomType.DATATYPE_DEFINITION;
 import static org.semanticweb.owlapi.model.AxiomType.SUBCLASS_OF;
 import static org.semanticweb.owlapi.model.AxiomType.SUB_ANNOTATION_PROPERTY_OF;
 import static org.semanticweb.owlapi.model.AxiomType.SUB_DATA_PROPERTY;
 import static org.semanticweb.owlapi.model.AxiomType.SUB_OBJECT_PROPERTY;
-import static org.semanticweb.owlapi.model.AxiomType.TBoxAndRBoxAxiomTypes;
+import static org.semanticweb.owlapi.model.AxiomType.axiomTypes;
+import static org.semanticweb.owlapi.model.AxiomType.tboxAndRboxAxiomTypes;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -105,7 +105,7 @@ public class Filters {
      * SWRL rules.
      */
     public static final OWLAxiomSearchFilter axiomsFromTBoxAndRBox =
-        new AxiomFilter<>(TBoxAndRBoxAxiomTypes, a -> a) {
+        new AxiomFilter<>(tboxAndRboxAxiomTypes(), a -> a) {
 
             @Override
             public boolean pass(OWLAxiom axiom, Object key) {
@@ -118,13 +118,13 @@ public class Filters {
      * and SWRL rules.
      */
     public static final OWLAxiomSearchFilter axiomsNotInTBoxOrRBox =
-        new AxiomFilter<>(AXIOM_TYPES, a -> a) {
+        new AxiomFilter<>(axiomTypes(), a -> a) {
 
             @Override
             public boolean pass(OWLAxiom axiom, Object key) {
                 // for this filter, only accept the axioms whose types are not in
                 // tbox or rbox
-                return !TBoxAndRBoxAxiomTypes.contains(axiom.getAxiomType());
+                return !tboxAndRboxAxiomTypes().contains(axiom.getAxiomType());
             }
         };
 

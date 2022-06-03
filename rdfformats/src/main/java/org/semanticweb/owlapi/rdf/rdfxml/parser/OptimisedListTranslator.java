@@ -41,28 +41,32 @@ class OptimisedListTranslator<O extends OWLObject> {
     private void translateList(IRI mainNode, List<O> list) {
         IRI current = mainNode;
         while (current != null) {
-            IRI firstResource = consumer.lists.getFirstResource(current, true);
-            if (firstResource != null) {
-                O translate = translator.translate(firstResource);
+            translateCurrent(list, current);
+            current = consumer.lists.getRest(current, true);
+        }
+    }
+
+    protected void translateCurrent(List<O> list, IRI current) {
+        IRI firstResource = consumer.lists.getFirstResource(current, true);
+        if (firstResource != null) {
+            O translate = translator.translate(firstResource);
+            if (translate != null) {
+                LOGGER.debug("list: {}", translate);
+                list.add(translate);
+            } else {
+                LOGGER.warn("Possible malformed list: cannot translate it {}", firstResource);
+            }
+        } else {
+            OWLLiteral literal = consumer.lists.getFirstLiteral(current);
+            if (literal != null) {
+                O translate = translator.translate(literal);
                 if (translate != null) {
-                    LOGGER.debug("list: {}", translate);
                     list.add(translate);
-                } else {
-                    LOGGER.warn("Possible malformed list: cannot translate it {}", firstResource);
                 }
             } else {
-                OWLLiteral literal = consumer.lists.getFirstLiteral(current);
-                if (literal != null) {
-                    O translate = translator.translate(literal);
-                    if (translate != null) {
-                        list.add(translate);
-                    }
-                } else {
-                    // Empty list?
-                    LOGGER.warn("Possible malformed list: rdf:first triple missing");
-                }
+                // Empty list?
+                LOGGER.warn("Possible malformed list: rdf:first triple missing");
             }
-            current = consumer.lists.getRest(current, true);
         }
     }
 

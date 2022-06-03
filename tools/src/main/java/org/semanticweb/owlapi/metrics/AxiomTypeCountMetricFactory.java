@@ -34,7 +34,7 @@ public final class AxiomTypeCountMetricFactory {
      */
     public static Set<OWLMetric<?>> createMetrics(OWLOntology o) {
         Set<OWLMetric<?>> metrics = new HashSet<>();
-        AxiomType.AXIOM_TYPES.forEach(t -> metrics.add(new AxiomTypeMetric(o, t)));
+        AxiomType.axiomTypes().forEach(t -> metrics.add(new AxiomTypeMetric(o, t)));
         return metrics;
     }
 }

@@ -90,10 +90,10 @@ import org.semanticweb.owlapi.utility.OWLOntologyWalker;
 public class ProfileVisitor extends ProfileVisitorBase {
 
     /**
-     * @param walker onotlogy walker to use
+     * @param walker     onotlogy walker to use
      * @param violations collection of violations; the collection is modified during the visit
-     * @param profiles the profiles to check. An empty collection means OWL 2 FULL will be the
-     *        pofile used.
+     * @param profiles   the profiles to check. An empty collection means OWL 2 FULL will be the
+     *                   pofile used.
      */
     public ProfileVisitor(OWLOntologyWalker walker, Collection<OWLProfileViolation> violations,
         Collection<Profiles> profiles) {
@@ -110,7 +110,7 @@ public class ProfileVisitor extends ProfileVisitorBase {
         // The datatype MUST be declared
         undeclaredDatatype(axiom.getDatatype());
         dl(() -> reservedForDatatype(axiom), () -> cycleInDefinition(axiom));
-        rl(() -> illegalAxiom());
+        rl(this::illegalAxiom);
     }
 
     @Override
@@ -155,7 +155,7 @@ public class ProfileVisitor extends ProfileVisitorBase {
     @Override
     public void visit(OWLAsymmetricObjectPropertyAxiom axiom) {
         dl(() -> asymmetricNonSimple(axiom));
-        el(() -> illegalAxiom());
+        el(this::illegalAxiom);
     }
 
     @Override
@@ -225,22 +225,22 @@ public class ProfileVisitor extends ProfileVisitorBase {
     @Override
     public void visit(OWLDisjointDataPropertiesAxiom axiom) {
         dl(() -> insufficientProperties(axiom));
-        el(() -> illegalAxiom());
+        el(this::illegalAxiom);
     }
 
     @Override
     public void visit(OWLDisjointObjectPropertiesAxiom axiom) {
         dl(() -> insufficientProperties(axiom), () -> axiom.properties()
             .filter(getPropertyManager()::isNonSimple).forEach(this::disjointNonSimple));
-        el(() -> illegalAxiom());
+        el(this::illegalAxiom);
     }
 
     @Override
     public void visit(OWLDisjointUnionAxiom axiom) {
         dl(() -> insufficientOperands(axiom));
-        el(() -> illegalAxiom());
-        ql(() -> illegalAxiom());
-        rl(() -> illegalAxiom());
+        el(this::illegalAxiom);
+        ql(this::illegalAxiom);
+        rl(this::illegalAxiom);
     }
 
     @Override
@@ -266,33 +266,33 @@ public class ProfileVisitor extends ProfileVisitorBase {
     @Override
     public void visit(OWLFunctionalObjectPropertyAxiom axiom) {
         dl(() -> functionalNonSimple(axiom));
-        el(() -> illegalAxiom());
-        ql(() -> illegalAxiom());
+        el(this::illegalAxiom);
+        ql(this::illegalAxiom);
     }
 
     @Override
     public void visit(OWLHasKeyAxiom axiom) {
         dl(() -> emptyProperties(axiom));
-        ql(() -> illegalAxiom());
+        ql(this::illegalAxiom);
         rl(() -> nonSubClassRL(axiom.getClassExpression()));
     }
 
     @Override
     public void visit(OWLInverseFunctionalObjectPropertyAxiom axiom) {
         dl(() -> inverseFunctionalNonSimple(axiom));
-        el(() -> illegalAxiom());
-        ql(() -> illegalAxiom());
+        el(this::illegalAxiom);
+        ql(this::illegalAxiom);
     }
 
     @Override
     public void visit(OWLIrreflexiveObjectPropertyAxiom axiom) {
         dl(() -> irreflexiveNonSimple(axiom));
-        el(() -> illegalAxiom());
+        el(this::illegalAxiom);
     }
 
     @Override
     public void visit(OWLReflexiveObjectPropertyAxiom axiom) {
-        rl(() -> illegalAxiom());
+        rl(this::illegalAxiom);
     }
 
     @Override
@@ -349,7 +349,7 @@ public class ProfileVisitor extends ProfileVisitorBase {
     @Override
     public void visit(OWLSameIndividualAxiom axiom) {
         dl(() -> insufficientIndividuals(axiom));
-        ql(() -> illegalAxiom());
+        ql(this::illegalAxiom);
     }
 
     @Override
@@ -378,7 +378,7 @@ public class ProfileVisitor extends ProfileVisitorBase {
         // Do we have a range restriction imposed on our super property?
         el(() -> getCurrentOntology().axioms(AxiomType.OBJECT_PROPERTY_RANGE, INCLUDED)
             .forEach(this::chainRange));
-        ql(() -> illegalAxiom());
+        ql(this::illegalAxiom);
     }
 
     @Override
@@ -423,7 +423,7 @@ public class ProfileVisitor extends ProfileVisitorBase {
 
     @Override
     public void visit(OWLInverseObjectPropertiesAxiom axiom) {
-        el(() -> illegalAxiom());
+        el(this::illegalAxiom);
     }
 
     @Override
@@ -443,14 +443,14 @@ public class ProfileVisitor extends ProfileVisitorBase {
 
     @Override
     public void visit(OWLSymmetricObjectPropertyAxiom axiom) {
-        el(() -> illegalAxiom());
+        el(this::illegalAxiom);
     }
 
     @Override
     public void visit(SWRLRule rule) {
-        el(() -> illegalAxiom());
-        ql(() -> illegalAxiom());
-        rl(() -> illegalAxiom());
+        el(this::illegalAxiom);
+        ql(this::illegalAxiom);
+        rl(this::illegalAxiom);
     }
 
     @Override
@@ -461,17 +461,17 @@ public class ProfileVisitor extends ProfileVisitorBase {
 
     @Override
     public void visit(OWLFunctionalDataPropertyAxiom axiom) {
-        ql(() -> illegalAxiom());
+        ql(this::illegalAxiom);
     }
 
     @Override
     public void visit(OWLNegativeDataPropertyAssertionAxiom axiom) {
-        ql(() -> illegalAxiom());
+        ql(this::illegalAxiom);
     }
 
     @Override
     public void visit(OWLNegativeObjectPropertyAssertionAxiom axiom) {
-        ql(() -> illegalAxiom());
+        ql(this::illegalAxiom);
     }
 
     @Override
@@ -494,6 +494,6 @@ public class ProfileVisitor extends ProfileVisitorBase {
 
     @Override
     public void visit(OWLTransitiveObjectPropertyAxiom axiom) {
-        ql(() -> illegalAxiom());
+        ql(this::illegalAxiom);
     }
 }

@@ -27,40 +27,37 @@ import org.semanticweb.owlapi.model.OWLNaryPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLPropertyExpression;
 
 /**
- * @param <P>
- *        the property expression
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @param <P> the property expression
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
-public abstract class OWLNaryPropertyAxiomImpl<P extends OWLPropertyExpression> extends OWLPropertyAxiomImpl
-    implements OWLNaryPropertyAxiom<P> {
+public abstract class OWLNaryPropertyAxiomImpl<P extends OWLPropertyExpression>
+    extends OWLPropertyAxiomImpl implements OWLNaryPropertyAxiom<P> {
 
-    protected final List<P> properties;
+    private static final String PROPERTIES_CANNOT_BE_NULL = "properties cannot be null";
+    private final List<P> properties;
 
     /**
-     * @param properties
-     *        properties
-     * @param annotations
-     *        annotations
+     * @param properties  properties
+     * @param annotations annotations
      */
     @SuppressWarnings("unchecked")
-    public OWLNaryPropertyAxiomImpl(Collection<? extends P> properties, Collection<OWLAnnotation> annotations) {
+    public OWLNaryPropertyAxiomImpl(Collection<? extends P> properties,
+        Collection<OWLAnnotation> annotations) {
         super(annotations);
-        checkNotNull(properties, "properties cannot be null");
+        checkNotNull(properties, PROPERTIES_CANNOT_BE_NULL);
         this.properties = (List<P>) sorted(OWLPropertyExpression.class, properties);
     }
 
     /**
-     * @param properties
-     *        properties
-     * @param annotations
-     *        annotations
+     * @param properties  properties
+     * @param annotations annotations
      */
     @SuppressWarnings("unchecked")
-    public OWLNaryPropertyAxiomImpl(Stream<? extends P> properties, Collection<OWLAnnotation> annotations) {
+    public OWLNaryPropertyAxiomImpl(Stream<? extends P> properties,
+        Collection<OWLAnnotation> annotations) {
         super(annotations);
-        checkNotNull(properties, "properties cannot be null");
+        checkNotNull(properties, PROPERTIES_CANNOT_BE_NULL);
         this.properties = (List<P>) sorted(OWLPropertyExpression.class, properties);
     }
 
@@ -70,18 +67,15 @@ public abstract class OWLNaryPropertyAxiomImpl<P extends OWLPropertyExpression> 
     }
 
     /**
-     * Constructor to be used to override the order and duplicate removal, for
-     * cases where the n-ary property axiom contains a list not a set - i.e.,
-     * inverse properties.
+     * Constructor to be used to override the order and duplicate removal, for cases where the n-ary
+     * property axiom contains a list not a set - i.e., inverse properties.
      * 
-     * @param annotations
-     *        annotations
-     * @param properties
-     *        properties
+     * @param annotations annotations
+     * @param properties  properties
      */
     protected OWLNaryPropertyAxiomImpl(Collection<OWLAnnotation> annotations, List<P> properties) {
         super(annotations);
-        checkNotNull(properties, "properties cannot be null");
+        checkNotNull(properties, PROPERTIES_CANNOT_BE_NULL);
         this.properties = properties;
     }
 

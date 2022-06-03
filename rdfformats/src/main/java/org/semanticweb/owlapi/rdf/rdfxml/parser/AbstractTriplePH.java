@@ -40,6 +40,7 @@ import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.RDF_TYPE;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -281,7 +282,8 @@ enum AbstractTriplePH
             PROPERTYCHAINAH, ANNOTATEDSOURCEHANDLER, ANNOTATEDPROPERTYHANDLER,
             ANNOTATEDTARGETHANDLER, PROPERTYDISJOINTWITHHANDLER, INVERSEOFHANDLER,
             ONPROPERTYHANDLER, ONCLASSHANDLER, ONDATARANGEHANDLER, DATATYPECOMPLEMENTOFHANDLER)
-            .collect(Collectors.toConcurrentMap(TriplePredicateHandler::getPredicateIRI, x -> x));
+            .collect(Collectors.toUnmodifiableMap(TriplePredicateHandler::getPredicateIRI,
+                Function.identity()));
     }
 
     public static boolean defaultCanHandle(HasIRI iri, OWLRDFConsumer c, IRI s, IRI p, IRI o) {

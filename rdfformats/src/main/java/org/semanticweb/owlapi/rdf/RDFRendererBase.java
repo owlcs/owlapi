@@ -152,7 +152,7 @@ public abstract class RDFRendererBase {
 
     /**
      * @param ontology ontology
-     * @param format format
+     * @param format   format
      */
     public RDFRendererBase(OWLOntology ontology, @Nullable OWLDocumentFormat format) {
         this(ontology, format, ontology.getOWLOntologyManager().getOntologyConfigurator());
@@ -183,7 +183,7 @@ public abstract class RDFRendererBase {
      * Determines if a declaration axiom (type triple) needs to be added to the specified ontology
      * for the given entity.
      *
-     * @param entity The entity
+     * @param entity   The entity
      * @param ontology The ontology.
      * @return {@code false} if the entity is built in. {@code false} if the ontology doesn't
      *         contain the entity in its signature. {@code false} if the entity is already declared
@@ -321,9 +321,10 @@ public abstract class RDFRendererBase {
     /**
      * Renders a set of entities.
      *
-     * @param entities The entities. Not null.
-     * @param bannerText The banner text that will prefix the rendering of the entities if anything
-     *        is rendered. Not null. May be empty, in which case no banner will be written.
+     * @param entities    The entities. Not null.
+     * @param bannerText  The banner text that will prefix the rendering of the entities if anything
+     *                    is rendered. Not null. May be empty, in which case no banner will be
+     *                    written.
      * @param illegalPuns illegal puns
      */
     private void renderEntities(Stream<? extends OWLEntity> entities, String bannerText,
@@ -516,9 +517,9 @@ public abstract class RDFRendererBase {
 
     protected void createGraph(List<? extends OWLObject> objects) {
         objects.sort(null);
-        RDFTranslator translator = new RDFTranslator(ontology.getOWLOntologyManager(), ontology,
-            format, shouldInsertDeclarations(), occurrences, axiomOccurrences, nextBlankNodeId,
-            blankNodeMap, translatedAxioms);
+        RDFTranslator translator =
+            new RDFTranslator(ontology, format, shouldInsertDeclarations(), occurrences,
+                translatedAxioms).withOccurrences(axiomOccurrences, nextBlankNodeId, blankNodeMap);
         objects.stream().map(this::deshare).forEach(translator::translate);
         graph = translator.getGraph();
         getRDFGraph().forceIdOutput();
@@ -569,25 +570,34 @@ public abstract class RDFRendererBase {
     protected void toJavaList(RDFNode n, List<RDFNode> list) {
         RDFNode currentNode = n;
         while (currentNode != null) {
+            renderRDFFirst(list, currentNode);
             for (RDFTriple triple : getRDFGraph().getTriplesForSubject(currentNode)) {
-                if (triple.getPredicate().getIRI().equals(RDF_FIRST.getIRI())) {
-                    list.add(triple.getObject());
+                currentNode = renderCurrent(currentNode, triple);
+            }
+        }
+    }
+
+    protected RDFNode renderCurrent(RDFNode currentNode, RDFTriple triple) {
+        if (triple.getPredicate().getIRI().equals(RDF_REST.getIRI())) {
+            if (!triple.getObject().isAnonymous()) {
+                if (triple.getObject().getIRI().equals(RDF_NIL.getIRI())) {
+                    // End of list
+                    return null;
+                }
+            } else {
+                if (triple.getObject() instanceof RDFResource) {
+                    // Should be another list
+                    return triple.getObject();
                 }
             }
-            for (RDFTriple triple : getRDFGraph().getTriplesForSubject(currentNode)) {
-                if (triple.getPredicate().getIRI().equals(RDF_REST.getIRI())) {
-                    if (!triple.getObject().isAnonymous()) {
-                        if (triple.getObject().getIRI().equals(RDF_NIL.getIRI())) {
-                            // End of list
-                            currentNode = null;
-                        }
-                    } else {
-                        if (triple.getObject() instanceof RDFResource) {
-                            // Should be another list
-                            currentNode = triple.getObject();
-                        }
-                    }
-                }
+        }
+        return currentNode;
+    }
+
+    protected void renderRDFFirst(List<RDFNode> list, RDFNode currentNode) {
+        for (RDFTriple triple : getRDFGraph().getTriplesForSubject(currentNode)) {
+            if (triple.getPredicate().getIRI().equals(RDF_FIRST.getIRI())) {
+                list.add(triple.getObject());
             }
         }
     }

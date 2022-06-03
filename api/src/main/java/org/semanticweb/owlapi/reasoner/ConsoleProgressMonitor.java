@@ -12,6 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.reasoner;
 
+import java.io.PrintStream;
 import java.io.Serializable;
 
 /**
@@ -21,16 +22,17 @@ import java.io.Serializable;
 public class ConsoleProgressMonitor implements ReasonerProgressMonitor, Serializable {
 
     private int lastPercentage;
+    protected PrintStream output = System.out;
 
     @Override
     public void reasonerTaskStarted(String taskName) {
-        System.out.print(taskName);
-        System.out.println(" ...");
+        output.print(taskName);
+        output.println(" ...");
     }
 
     @Override
     public void reasonerTaskStopped() {
-        System.out.println("    ... finished");
+        output.println("    ... finished");
         lastPercentage = 0;
     }
 
@@ -39,9 +41,9 @@ public class ConsoleProgressMonitor implements ReasonerProgressMonitor, Serializ
         if (max > 0) {
             int percent = value * 100 / max;
             if (lastPercentage != percent) {
-                System.out.print("    ");
-                System.out.print(percent);
-                System.out.println("%");
+                output.print("    ");
+                output.print(percent);
+                output.println("%");
                 lastPercentage = percent;
             }
         }
@@ -49,6 +51,6 @@ public class ConsoleProgressMonitor implements ReasonerProgressMonitor, Serializ
 
     @Override
     public void reasonerTaskBusy() {
-        System.out.println("    busy ...");
+        output.println("    busy ...");
     }
 }

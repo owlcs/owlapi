@@ -12,6 +12,9 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.reasoner.impl;
 
+import static org.semanticweb.owlapi.impl.InternalizedEntities.OWL_NOTHING;
+import static org.semanticweb.owlapi.impl.InternalizedEntities.OWL_THING;
+
 import java.util.Collection;
 import java.util.Optional;
 import java.util.stream.Stream;
@@ -24,6 +27,8 @@ import org.semanticweb.owlapi.model.OWLClass;
  * @since 3.0.0
  */
 public class OWLClassNode extends DefaultNode<OWLClass> {
+    protected static final OWLClassNode TOP_NODE = new OWLClassNode(OWL_THING);
+    protected static final OWLClassNode BOTTOM_NODE = new OWLClassNode(OWL_NOTHING);
 
     /**
      * @param entity the class to be contained

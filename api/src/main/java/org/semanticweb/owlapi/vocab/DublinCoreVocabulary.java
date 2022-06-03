@@ -51,7 +51,15 @@ public enum DublinCoreVocabulary implements HasShortForm, HasIRI, HasPrefixedNam
     /**
      * All IRIs.
      */
-    public static final Set<IRI> ALL_URIS = asSet(Stream.of(values()).map(x -> x.getIRI()));
+    private static final Set<IRI> ALL_URIS = asSet(Stream.of(values()).map(HasIRI::getIRI));
+
+    /**
+     * @return All IRIs.
+     */
+    public static Set<IRI> allURIs() {
+        return ALL_URIS;
+    }
+
     private final String shortName;
     private final String qname;
     private final IRI iri;

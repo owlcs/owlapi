@@ -16,22 +16,22 @@ public interface EntityTypeVisitorEx<T> {
      */
     default Optional<T> visit(EntityType<?> entity) {
         if (entity.equals(EntityType.CLASS)) {
-            return visitCLASS();
+            return visitClass();
         }
         if (entity.equals(EntityType.OBJECT_PROPERTY)) {
-            return visitOBJECT_PROPERTY();
+            return visitObjectProperty();
         }
         if (entity.equals(EntityType.DATA_PROPERTY)) {
-            return visitDATA_PROPERTY();
+            return visitDataProperty();
         }
         if (entity.equals(EntityType.ANNOTATION_PROPERTY)) {
-            return visitANNOTATION_PROPERTY();
+            return visitAnnotationProperty();
         }
         if (entity.equals(EntityType.NAMED_INDIVIDUAL)) {
-            return visitNAMED_INDIVIDUAL();
+            return visitNamedIndividual();
         }
         if (entity.equals(EntityType.DATATYPE)) {
-            return visitDATATYPE();
+            return visitDatatype();
         }
         return doDefault();
     }
@@ -46,30 +46,30 @@ public interface EntityTypeVisitorEx<T> {
     /**
      * @return value for class
      */
-    Optional<T> visitCLASS();
+    Optional<T> visitClass();
 
     /**
      * @return value for object property
      */
-    Optional<T> visitOBJECT_PROPERTY();
+    Optional<T> visitObjectProperty();
 
     /**
      * @return value for data property
      */
-    Optional<T> visitDATA_PROPERTY();
+    Optional<T> visitDataProperty();
 
     /**
      * @return value for annotation property
      */
-    Optional<T> visitANNOTATION_PROPERTY();
+    Optional<T> visitAnnotationProperty();
 
     /**
      * @return value for individual
      */
-    Optional<T> visitNAMED_INDIVIDUAL();
+    Optional<T> visitNamedIndividual();
 
     /**
      * @return value for datatype
      */
-    Optional<T> visitDATATYPE();
+    Optional<T> visitDatatype();
 }

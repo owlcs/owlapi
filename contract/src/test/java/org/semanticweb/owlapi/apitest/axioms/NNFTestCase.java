@@ -40,20 +40,19 @@ import org.semanticweb.owlapi.model.OWLObjectSomeValuesFrom;
 import org.semanticweb.owlapi.utility.NNF;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group
+ * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
  */
 public class NNFTestCase extends TestBase {
 
     @Test
     public void testPosOWLClass() {
-        assertEquals(A.getNNF(), A);
+        assertEquals(A, A.getNNF());
     }
 
     @Test
     public void testNegOWLClass() {
-        assertEquals(notA.getNNF(), notA);
+        assertEquals(notA, notA.getNNF());
     }
 
     @Test
@@ -229,7 +228,8 @@ public class NNFTestCase extends TestBase {
         OWLClassExpression fillerA = ObjectUnionOf(A, B);
         OWLClassExpression opA = ObjectSomeValuesFrom(P, fillerA);
         OWLClassExpression desc = ObjectUnionOf(opA, B);
-        OWLClassExpression nnf = ObjectIntersectionOf(notB, ObjectAllValuesFrom(P, ObjectIntersectionOf(notA, notB)));
+        OWLClassExpression nnf =
+            ObjectIntersectionOf(notB, ObjectAllValuesFrom(P, ObjectIntersectionOf(notA, notB)));
         OWLClassExpression neg = ObjectComplementOf(desc);
         OWLClassExpression comp = getNNF(neg);
         assertEquals(comp, nnf);

@@ -103,7 +103,8 @@ public class OwlOntologyMultipleThreadsTest extends TestBase {
                 List<OWLClass> classes = asList(o1.classesInSignature());
                 o1.classesInSignature(INCLUDED).forEach(this::consume);
                 o1.classesInSignature(EXCLUDED).forEach(this::consume);
-                List<OWLObjectProperty> objectProperties = asList(o1.objectPropertiesInSignature(INCLUDED));
+                List<OWLObjectProperty> objectProperties =
+                    asList(o1.objectPropertiesInSignature(INCLUDED));
                 o1.objectPropertiesInSignature(EXCLUDED).forEach(this::consume);
                 o1.objectPropertiesInSignature().forEach(this::consume);
                 List<OWLDataProperty> dataProperties = asList(o1.dataPropertiesInSignature());
@@ -112,7 +113,8 @@ public class OwlOntologyMultipleThreadsTest extends TestBase {
                 List<OWLNamedIndividual> individuals = asList(o1.individualsInSignature());
                 o1.individualsInSignature(INCLUDED).forEach(this::consume);
                 o1.individualsInSignature(EXCLUDED).forEach(this::consume);
-                List<OWLAnonymousIndividual> anonIndividuals = asList(o1.referencedAnonymousIndividuals(EXCLUDED));
+                List<OWLAnonymousIndividual> anonIndividuals =
+                    asList(o1.referencedAnonymousIndividuals(EXCLUDED));
                 o1.datatypesInSignature().forEach(this::consume);
                 o1.datatypesInSignature(INCLUDED).forEach(this::consume);
                 o1.datatypesInSignature(EXCLUDED).forEach(this::consume);
@@ -180,7 +182,7 @@ public class OwlOntologyMultipleThreadsTest extends TestBase {
                     assert i != null;
                     o1.axioms(i, EXCLUDED).forEach(this::consume);
                 }
-                for (AxiomType<?> ax : AxiomType.AXIOM_TYPES) {
+                for (AxiomType<?> ax : AxiomType.axiomTypes()) {
                     assert ax != null;
                     o1.axioms(ax).forEach(this::consume);
                     o1.axioms(ax, INCLUDED).forEach(this::consume);
@@ -193,7 +195,8 @@ public class OwlOntologyMultipleThreadsTest extends TestBase {
                     o1.containsDatatypeInSignature(t.getIRI(), EXCLUDED);
                     o1.datatypeDefinitions(t).forEach(this::consume);
                 }
-                for (OWLAnnotationProperty p : asList(o1.annotationPropertiesInSignature(EXCLUDED))) {
+                for (OWLAnnotationProperty p : asList(
+                    o1.annotationPropertiesInSignature(EXCLUDED))) {
                     assert p != null;
                     o1.axioms(p, EXCLUDED).forEach(this::consume);
                     o1.containsAnnotationPropertyInSignature(p.getIRI(), EXCLUDED);
@@ -203,7 +206,7 @@ public class OwlOntologyMultipleThreadsTest extends TestBase {
                     o1.annotationPropertyDomainAxioms(p).forEach(this::consume);
                     o1.annotationPropertyRangeAxioms(p).forEach(this::consume);
                 }
-                for (AxiomType<?> ax : AxiomType.AXIOM_TYPES) {
+                for (AxiomType<?> ax : AxiomType.axiomTypes()) {
                     assert ax != null;
                     o1.getAxiomCount(ax);
                     o1.getAxiomCount(ax, INCLUDED);
@@ -249,7 +252,8 @@ public class OwlOntologyMultipleThreadsTest extends TestBase {
                     o1.isDeclared(e, INCLUDED);
                     o1.isDeclared(e, EXCLUDED);
                     if (e instanceof OWLAnnotationSubject) {
-                        o1.annotationAssertionAxioms((OWLAnnotationSubject) e).forEach(this::consume);
+                        o1.annotationAssertionAxioms((OWLAnnotationSubject) e)
+                            .forEach(this::consume);
                     }
                 });
                 List<OWLAxiom> axioms = asList(o1.axioms());
@@ -318,8 +322,8 @@ public class OwlOntologyMultipleThreadsTest extends TestBase {
 
         protected void printout(long end, AtomicLong counter) {
             long expected = rep * rep;
-            p.println(
-                "elapsed time (ms): " + end + "\nSuccessful threads: " + counter.get() + "\t expected: " + expected);
+            p.println("elapsed time (ms): " + end + "\nSuccessful threads: " + counter.get()
+                + "\t expected: " + expected);
             successful = counter.get() == expected;
         }
 

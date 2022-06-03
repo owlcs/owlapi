@@ -14,7 +14,6 @@ package org.semanticweb.owlapi.documents;
 
 import java.io.ByteArrayInputStream;
 import java.io.Serializable;
-import java.util.Arrays;
 
 /**
  * A ByteArrayOutputStream that allows access to the underlying byte array without a copy. To be
@@ -24,16 +23,12 @@ import java.util.Arrays;
  */
 public class BufferByteArrayInput extends ByteArrayInputStream implements Serializable {
 
+    // XXX use inputstream markers and identify format from first few lines
     /**
      * @param in byte array to read (without copy). ensure no further writes are made to in.
      */
     public BufferByteArrayInput(BufferByteArray in) {
         super(in.byteArray());
         count = in.size();
-    }
-
-    @Override
-    public int hashCode() {
-        return Arrays.hashCode(buf);
     }
 }

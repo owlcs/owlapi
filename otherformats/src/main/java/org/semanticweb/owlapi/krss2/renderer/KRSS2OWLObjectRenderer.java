@@ -86,45 +86,12 @@ public class KRSS2OWLObjectRenderer extends KRSSObjectRenderer {
                 Collection<OWLClassExpression> classes =
                     asList(equivalent(ontology.equivalentClassesAxioms(eachClass),
                         OWLClassExpression.class));
-                for (OWLClassExpression classExpression : classes) {
-                    writeOpenBracket();
-                    write(eachClass);
-                    write(EQUIVALENT);
-                    writeSpace();
-                    classExpression.accept(this);
-                    writeCloseBracket();
-                    writeln();
-                }
+                writeClasses(eachClass, classes);
             } else {
                 writeOpenBracket();
                 write(DEFINE_CONCEPT);
                 write(eachClass);
-                Collection<OWLClassExpression> classes =
-                    asList(equivalent(ontology.equivalentClassesAxioms(eachClass),
-                        OWLClassExpression.class));
-                if (classes.isEmpty()) {
-                    // ?
-                    writeCloseBracket();
-                    writeln();
-                } else if (classes.size() == 1) {
-                    write(classes.iterator().next());
-                    writeCloseBracket();
-                    writeln();
-                } else {
-                    Iterator<OWLClassExpression> iter = classes.iterator();
-                    write(iter.next());
-                    writeCloseBracket();
-                    writeln();
-                    while (iter.hasNext()) {
-                        writeOpenBracket();
-                        write(EQUIVALENT);
-                        write(eachClass);
-                        writeSpace();
-                        iter.next().accept(this);
-                        writeCloseBracket();
-                        writeln();
-                    }
-                }
+                writeDefinitionClasses(ontology, eachClass);
             }
         }
         ontology.generalClassAxioms().forEach(a -> a.accept(this));
@@ -142,33 +109,86 @@ public class KRSS2OWLObjectRenderer extends KRSSObjectRenderer {
                 writeSpace();
                 write(TRUE);
             }
-            List<OWLClassExpression> domains =
-                asList(domain(ontology.objectPropertyDomainAxioms(property)));
-            if (!domains.isEmpty()) {
-                writeAttribute(DOMAIN);
-                flatten(domains);
-            }
-            List<OWLClassExpression> ranges =
-                asList(range(ontology.objectPropertyRangeAxioms(property)));
-            if (!ranges.isEmpty()) {
-                writeAttribute(RANGE_ATTR);
-                flatten(ranges);
-            }
-            Stream<OWLObjectPropertyExpression> superProperties =
-                sup(ontology.axioms(Filters.subObjectPropertyWithSub, property, INCLUDED),
-                    OWLObjectPropertyExpression.class);
-            Iterator<OWLObjectPropertyExpression> it = superProperties.iterator();
-            if (it.hasNext()) {
-                writeAttribute(PARENTS_ATTR);
-                writeOpenBracket();
-                while (it.hasNext()) {
-                    write(it.next());
-                }
-                writeCloseBracket();
-            }
+            writeDomains(ontology, property);
+            writeRanges(ontology, property);
+            writeSuperProperties(ontology, property);
             writeCloseBracket();
         }
         writer.flush();
+    }
+
+    protected void writeSuperProperties(OWLOntology ontology, OWLObjectProperty property) {
+        Stream<OWLObjectPropertyExpression> superProperties =
+            sup(ontology.axioms(Filters.subObjectPropertyWithSub, property, INCLUDED),
+                OWLObjectPropertyExpression.class);
+        Iterator<OWLObjectPropertyExpression> it = superProperties.iterator();
+        if (it.hasNext()) {
+            writeAttribute(PARENTS_ATTR);
+            writeOpenBracket();
+            while (it.hasNext()) {
+                write(it.next());
+            }
+            writeCloseBracket();
+        }
+    }
+
+    protected void writeRanges(OWLOntology ontology, OWLObjectProperty property) {
+        List<OWLClassExpression> ranges =
+            asList(range(ontology.objectPropertyRangeAxioms(property)));
+        if (!ranges.isEmpty()) {
+            writeAttribute(RANGE_ATTR);
+            flatten(ranges);
+        }
+    }
+
+    protected void writeDomains(OWLOntology ontology, OWLObjectProperty property) {
+        List<OWLClassExpression> domains =
+            asList(domain(ontology.objectPropertyDomainAxioms(property)));
+        if (!domains.isEmpty()) {
+            writeAttribute(DOMAIN);
+            flatten(domains);
+        }
+    }
+
+    protected void writeDefinitionClasses(OWLOntology ontology, OWLClass eachClass) {
+        Collection<OWLClassExpression> classes =
+            asList(equivalent(ontology.equivalentClassesAxioms(eachClass),
+                OWLClassExpression.class));
+        if (classes.isEmpty()) {
+            // ?
+            writeCloseBracket();
+            writeln();
+        } else if (classes.size() == 1) {
+            write(classes.iterator().next());
+            writeCloseBracket();
+            writeln();
+        } else {
+            Iterator<OWLClassExpression> iter = classes.iterator();
+            write(iter.next());
+            writeCloseBracket();
+            writeln();
+            while (iter.hasNext()) {
+                writeOpenBracket();
+                write(EQUIVALENT);
+                write(eachClass);
+                writeSpace();
+                iter.next().accept(this);
+                writeCloseBracket();
+                writeln();
+            }
+        }
+    }
+
+    protected void writeClasses(OWLClass eachClass, Collection<OWLClassExpression> classes) {
+        for (OWLClassExpression classExpression : classes) {
+            writeOpenBracket();
+            write(eachClass);
+            write(EQUIVALENT);
+            writeSpace();
+            classExpression.accept(this);
+            writeCloseBracket();
+            writeln();
+        }
     }
 
     @Override

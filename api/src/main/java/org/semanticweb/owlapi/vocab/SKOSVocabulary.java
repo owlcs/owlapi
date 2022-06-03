@@ -91,7 +91,15 @@ public enum SKOSVocabulary implements HasShortForm, HasIRI, HasPrefixedName {
     /**
      * All IRIs.
      */
-    public static final Set<IRI> ALL_IRIS = asSet(stream().map(v -> v.getIRI()));
+    private static final Set<IRI> ALL_IRIS = asSet(stream().map(HasIRI::getIRI));
+
+    /**
+     * @return All IRIs.
+     */
+    public static Set<IRI> allIris() {
+        return ALL_IRIS;
+    }
+
     private final String localName;
     private final IRI iri;
     private final EntityType<?> entityType;

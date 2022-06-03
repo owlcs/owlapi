@@ -28,8 +28,8 @@ import org.semanticweb.owlapi.model.OntologyConfigurator;
 public class FunctionalSyntaxForAxiomsOnlyParser {
 
     /**
-     * @param o ontology to add axioms to
-     * @param config configuration
+     * @param o       ontology to add axioms to
+     * @param config  configuration
      * @param content content
      */
     public void parse(OWLOntology o, OntologyConfigurator config, String content) {
@@ -43,7 +43,7 @@ public class FunctionalSyntaxForAxiomsOnlyParser {
 
                 @Override
                 protected void applyChange(OWLOntologyChange chg) {
-                    // ignore;
+                    // ignore
                 }
             };
         parser.setUp(o, config);

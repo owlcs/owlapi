@@ -99,13 +99,12 @@ public class RDFXMLWriter {
      * @param node node
      */
     public void writeNodeIDAttribute(RDFResource node) {
-        assert node.isAnonymous();
         writer.writeAttribute(OWLRDFVocabulary.RDF_NODEID.getIRI(), node.getNodeIDValue());
     }
 
     /**
      * @param attributeName attribute name
-     * @param value value
+     * @param value         value
      */
     public void writeAttribute(IRI attributeName, IRI value) {
         writer.writeAttribute(attributeName,

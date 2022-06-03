@@ -32,14 +32,14 @@ import org.semanticweb.owlapi.model.OWLNaryClassAxiom;
  */
 public abstract class OWLNaryClassAxiomImpl extends OWLClassAxiomImpl implements OWLNaryClassAxiom {
 
-    protected final List<OWLClassExpression> classExpressions;
+    private final List<OWLClassExpression> classExpressions;
 
     /**
      * @param classExpressions classes
-     * @param annotations annotations
+     * @param annotations      annotations
      */
     public OWLNaryClassAxiomImpl(Collection<? extends OWLClassExpression> classExpressions,
-                    Collection<OWLAnnotation> annotations) {
+        Collection<OWLAnnotation> annotations) {
         super(annotations);
         checkNotNull(classExpressions, "classExpressions cannot be null");
         this.classExpressions = sorted(OWLClassExpression.class, classExpressions);

@@ -12,6 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.reasoner;
 
+import java.io.PrintStream;
 import java.io.Serializable;
 
 /**
@@ -23,18 +24,19 @@ public class TimedConsoleProgressMonitor implements ReasonerProgressMonitor, Ser
     private int lastPercentage;
     private long lastTime;
     private long beginTime;
+    protected PrintStream output = System.out;
 
     @Override
     public void reasonerTaskStarted(String taskName) {
-        System.out.print(taskName);
-        System.out.println(" ...");
+        output.print(taskName);
+        output.println(" ...");
         lastTime = System.nanoTime();
         beginTime = lastTime;
     }
 
     @Override
     public void reasonerTaskStopped() {
-        System.out.println("    ... finished in " + (System.nanoTime() - beginTime) / 1000000.0D);
+        output.println("    ... finished in " + (System.nanoTime() - beginTime) / 1000000.0D);
         lastPercentage = 0;
     }
 
@@ -44,7 +46,7 @@ public class TimedConsoleProgressMonitor implements ReasonerProgressMonitor, Ser
         if (max > 0) {
             int percent = value * 100 / max;
             if (lastPercentage != percent) {
-                System.out.println("    " + percent + "%\t" + (time - lastTime) / 1000000);
+                output.println("    " + percent + "%\t" + (time - lastTime) / 1000000);
                 lastTime = time;
                 lastPercentage = percent;
             }
@@ -53,6 +55,6 @@ public class TimedConsoleProgressMonitor implements ReasonerProgressMonitor, Ser
 
     @Override
     public void reasonerTaskBusy() {
-        System.out.println("    busy ...");
+        output.println("    busy ...");
     }
 }

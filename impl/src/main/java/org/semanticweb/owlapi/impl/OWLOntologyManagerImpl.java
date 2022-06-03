@@ -156,7 +156,7 @@ public class OWLOntologyManagerImpl
     private final ReadWriteLock lock;
 
     /**
-     * @param dataFactory data factory
+     * @param dataFactory   data factory
      * @param readWriteLock lock
      */
     @Inject
@@ -165,9 +165,9 @@ public class OWLOntologyManagerImpl
     }
 
     /**
-     * @param dataFactory data factory
+     * @param dataFactory   data factory
      * @param readWriteLock lock
-     * @param sorting sorting option
+     * @param sorting       sorting option
      */
     public OWLOntologyManagerImpl(OWLDataFactory dataFactory, ReadWriteLock readWriteLock,
         PriorityCollectionSorting sorting) {
@@ -440,9 +440,9 @@ public class OWLOntologyManagerImpl
     /**
      * A method that gets the imports of a given ontology.
      * 
-     * @param ont The ontology whose (transitive) imports are to be retrieved.
+     * @param ont    The ontology whose (transitive) imports are to be retrieved.
      * @param result A place to store the result - the transitive closure of the imports will be
-     *        stored in this result set.
+     *               stored in this result set.
      * @return modified result
      */
     private Set<OWLOntology> getImports(OWLOntology ont, Set<OWLOntology> result) {
@@ -472,7 +472,7 @@ public class OWLOntologyManagerImpl
      * A recursive method that gets the reflexive transitive closure of the ontologies that are
      * imported by this ontology.
      * 
-     * @param ontology The ontology whose reflexive transitive closure is to be retrieved
+     * @param ontology   The ontology whose reflexive transitive closure is to be retrieved
      * @param ontologies a place to store the result
      * @return modified ontologies
      */
@@ -620,7 +620,7 @@ public class OWLOntologyManagerImpl
                 case SHALLOW:
                 case DEEP:
                     OWLOntology o = createOntology(toCopy.getOntologyID());
-                    AxiomType.AXIOM_TYPES.forEach(t -> o.addAxioms(toCopy.axioms(t)));
+                    AxiomType.axiomTypes().forEach(t -> o.addAxioms(toCopy.axioms(t)));
                     toCopy.annotations()
                         .forEach(a -> o.applyChange(new AddOntologyAnnotation(o, a)));
                     toCopy.importsDeclarations().forEach(a -> o.applyChange(new AddImport(o, a)));
@@ -784,11 +784,11 @@ public class OWLOntologyManagerImpl
     /**
      * This is the method that all the other load method delegate to.
      * 
-     * @param ontologyIRI The URI of the ontology to be loaded. This is only used to report to
-     *        listeners and may be {@code null}
+     * @param ontologyIRI    The URI of the ontology to be loaded. This is only used to report to
+     *                       listeners and may be {@code null}
      * @param documentSource The input source that specifies where the ontology should be loaded
-     *        from.
-     * @param configuration load configuration
+     *                       from.
+     * @param configuration  load configuration
      * @return The ontology that was loaded.
      * @throws OWLOntologyCreationException If the ontology could not be loaded.
      */
@@ -853,6 +853,11 @@ public class OWLOntologyManagerImpl
             }
         }
         IRI documentIRI = dataFactory.getIRI(documentSource.getDocumentIRI());
+        return attemptLoading(documentSource, configuration, documentIRI);
+    }
+
+    protected OWLOntology attemptLoading(OWLOntologyDocumentSource documentSource,
+        OntologyConfigurator configuration, IRI documentIRI) throws OWLOntologyCreationException {
         for (OWLOntologyFactory factory : ontologyFactories) {
             if (factory.canAttemptLoading(documentSource)) {
                 try {
@@ -1528,14 +1533,14 @@ public class OWLOntologyManagerImpl
         if (existingOntology != null && !o.equals(existingOntology)
             && !o.equalAxioms(existingOntology)) {
             String location = "OWLOntologyManagerImpl.checkForOntologyIDChange()";
-            LOGGER.error(location + " existing:{}", existingOntology);
-            LOGGER.error(location + " new:{}", o);
+            LOGGER.error("{} existing:{}", location, existingOntology);
+            LOGGER.error("{} new:{}", location, o);
             Set<OWLLogicalAxiom> diff1 = asUnorderedSet(o.logicalAxioms());
             Set<OWLLogicalAxiom> diff2 = asUnorderedSet(existingOntology.logicalAxioms());
             existingOntology.logicalAxioms().forEach(diff1::remove);
             o.logicalAxioms().forEach(diff2::remove);
-            LOGGER.error(location + " only in existing:{}", diff2);
-            LOGGER.error(location + " only in new:{}", diff1);
+            LOGGER.error("{} only in existing:{}", location, diff2);
+            LOGGER.error("{} only in new:{}", location, diff1);
             throw new OWLOntologyRenameException(setID.getChangeData(), setID.getNewOntologyID());
         }
         renameOntology(setID.getOriginalOntologyID(), setID.getNewOntologyID());

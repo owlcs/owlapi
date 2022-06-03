@@ -165,7 +165,7 @@ public class ProfileVisitorBase extends OWLOntologyWalkerVisitor {
             @Override
             public Boolean visit(OWLObjectIntersectionOf ce) {
                 return Boolean
-                    .valueOf(ce.operands().noneMatch(e -> e.accept(this) == Boolean.FALSE));
+                    .valueOf(ce.operands().noneMatch(e -> !e.accept(this).booleanValue()));
             }
 
             @Override
@@ -226,8 +226,8 @@ public class ProfileVisitorBase extends OWLOntologyWalkerVisitor {
 
             @Override
             public Boolean visit(OWLObjectIntersectionOf ce) {
-                return Boolean
-                    .valueOf(ce.operands().allMatch(op -> isOWL2RLSubClassExpression(op)));
+                return Boolean.valueOf(
+                    ce.operands().allMatch(ProfileVisitorBase::isOWL2RLSubClassExpression));
             }
 
             @Override
@@ -243,8 +243,8 @@ public class ProfileVisitorBase extends OWLOntologyWalkerVisitor {
 
             @Override
             public Boolean visit(OWLObjectUnionOf ce) {
-                return Boolean
-                    .valueOf(ce.operands().allMatch(op -> isOWL2RLSubClassExpression(op)));
+                return Boolean.valueOf(
+                    ce.operands().allMatch(ProfileVisitorBase::isOWL2RLSubClassExpression));
             }
         };
     static final OWLClassExpressionVisitorEx<Boolean> superClassRLExpressionChecker =
@@ -348,21 +348,21 @@ public class ProfileVisitorBase extends OWLOntologyWalkerVisitor {
     }
 
     protected static final Set<IRI> ALLOWED_RL_DATATYPES =
-        asUnorderedSet(OWL2Datatype.RL_DATATYPES.stream().map(HasIRI::getIRI));
+        asUnorderedSet(OWL2Datatype.rlDatatypes().stream().map(HasIRI::getIRI));
     protected static final Set<IRI> ALLOWED_EL_DATATYPES =
-        asUnorderedSet(OWL2Datatype.EL_DATATYPES.stream().map(HasIRI::getIRI));
+        asUnorderedSet(OWL2Datatype.elDatatypes().stream().map(HasIRI::getIRI));
     protected static final Set<IRI> ALLOWED_QL_DATATYPES =
-        asUnorderedSet(OWL2Datatype.EL_DATATYPES.stream().map(HasIRI::getIRI));
+        asUnorderedSet(OWL2Datatype.elDatatypes().stream().map(HasIRI::getIRI));
     protected final Set<Profiles> validating;
     protected Collection<OWLProfileViolation> violations;
     @Nullable
     protected OWLObjectPropertyManager propertyManager = null;
 
     /**
-     * @param walker onotlogy walker to use
+     * @param walker     onotlogy walker to use
      * @param violations collection of violations; the collection is modified during the visit
-     * @param profiles the profiles to check. An empty collection means OWL 2 FULL will be the
-     *        pofile used.
+     * @param profiles   the profiles to check. An empty collection means OWL 2 FULL will be the
+     *                   pofile used.
      */
     protected ProfileVisitorBase(OWLOntologyWalker walker,
         Collection<OWLProfileViolation> violations, Collection<Profiles> profiles) {
@@ -691,7 +691,7 @@ public class ProfileVisitorBase extends OWLOntologyWalkerVisitor {
     }
 
     protected void emptyOneOf(HasOperands<?> node) {
-        if (node.getOperandsAsList().size() < 1) {
+        if (node.getOperandsAsList().isEmpty()) {
             violations.add(new EmptyOneOfAxiom(getCurrentOntology(), getCurrentAxiom()));
         }
     }
@@ -858,8 +858,18 @@ public class ProfileVisitorBase extends OWLOntologyWalkerVisitor {
         OWLObjectPropertyExpression first = chain.get(0);
         OWLObjectPropertyExpression last = chain.get(chain.size() - 1);
         checkCenter(superProp, chain);
-        checkExtremes(superProp, first, last);
-        checkExtremes(superProp, last, first);
+        if (first.equals(superProp)) {
+            // first equals, last must be smaller
+            chainIfLess(superProp, last);
+        } else {
+            chainIfLess(superProp, first);
+        }
+        if (last.equals(superProp)) {
+            // last equals, first must be smaller
+            chainIfLess(superProp, first);
+        } else {
+            chainIfLess(superProp, last);
+        }
     }
 
     protected void asymmetricNonSimple(OWLAsymmetricObjectPropertyAxiom axiom) {
@@ -879,18 +889,10 @@ public class ProfileVisitorBase extends OWLOntologyWalkerVisitor {
         }
     }
 
-    protected void checkExtremes(OWLObjectPropertyExpression superProp,
-        OWLObjectPropertyExpression first, OWLObjectPropertyExpression last) {
-        if (first.equals(superProp)) {
-            // first equals, last must be smaller
-            if (getPropertyManager().isLessThan(superProp, last)) {
-                chainCycle(last);
-            }
-        } else {
-            // first not equal, it must be smaller
-            if (getPropertyManager().isLessThan(superProp, first)) {
-                chainCycle(first);
-            }
+    protected void chainIfLess(OWLObjectPropertyExpression superProp,
+        OWLObjectPropertyExpression last) {
+        if (getPropertyManager().isLessThan(superProp, last)) {
+            chainCycle(last);
         }
     }
 }

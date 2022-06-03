@@ -90,8 +90,16 @@ public enum Namespaces {
     /**
      * Ignored imports.
      */
-    public static final Set<Namespaces> defaultIgnoredImports =
+    private static final Set<Namespaces> DEFAULT_IGNORED_IMPORTS =
         EnumSet.of(OWL, RDF, RDFS, SWRL, SWRLB, XML, XSD);
+
+    /**
+     * @return Ignored imports.
+     */
+    public static Set<Namespaces> defaultIgnoredImports() {
+        return DEFAULT_IGNORED_IMPORTS;
+    }
+
     final Status status;
     final BuiltIn builtIn;
     final String hashless;
@@ -131,7 +139,7 @@ public enum Namespaces {
      * @return true if the iri is for a namespace ignored by default
      */
     public static boolean isDefaultIgnoredImport(IRI i) {
-        return defaultIgnoredImports.stream().anyMatch(n -> n.hashless.equals(i.toString()));
+        return DEFAULT_IGNORED_IMPORTS.stream().anyMatch(n -> n.hashless.equals(i.toString()));
     }
 
     /**
@@ -139,7 +147,7 @@ public enum Namespaces {
      * @return true if the string is for a namespace ignored by default
      */
     public static boolean isDefaultIgnoredImport(String i) {
-        return defaultIgnoredImports.stream().anyMatch(n -> n.hashless.equals(i));
+        return DEFAULT_IGNORED_IMPORTS.stream().anyMatch(n -> n.hashless.equals(i));
     }
 
     /**

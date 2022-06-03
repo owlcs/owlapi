@@ -18,7 +18,8 @@ public class XZStreamDocumentSourceTestCase {
 
     @Test
     public void testReadKoalaDoc() {
-        XZStreamDocumentSource source = new XZStreamDocumentSource(getClass().getResourceAsStream("/koala.owl.xz"));
+        XZStreamDocumentSource source =
+            new XZStreamDocumentSource(getClass().getResourceAsStream("/koala.owl.xz"));
         String input = "<?xml version=\"1.0\"?>\n"
             + "<rdf:RDF\n    xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\"\n    xmlns:rdfs=\"http://www.w3.org/2000/01/rdf-schema#\"\n    xmlns:owl=\"http://www.w3.org/2002/07/owl#\"\n    xmlns=\"http://protege.stanford.edu/plugins/owl/owl-library/koala.owl#\"\n  xml:base=\"http://protege.stanford.edu/plugins/owl/owl-library/koala.owl\">\n"
             + "  <owl:Ontology rdf:about=\"\"/>\n"
@@ -49,7 +50,7 @@ public class XZStreamDocumentSourceTestCase {
             + "  <Degree rdf:ID=\"MA\"/>\n</rdf:RDF>\n\n"
             + "<!-- Created with Protege (with OWL Plugin, Build 60)  http://protege.stanford.edu -->\n";
         StringWriter w = new StringWriter();
-        OWLParser mockParser = new ParserForTest(w);
+        OWLParser mockParser = new ParserForTestOperations(w);
         source.acceptParser(mockParser, mock(OWLOntology.class), mock(OntologyConfigurator.class));
         assertEquals(input, w.toString());
     }

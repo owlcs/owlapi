@@ -59,10 +59,10 @@ public class XMLWriterImpl implements XMLWriter {
     private boolean preambleWritten;
 
     /**
-     * @param writer writer
+     * @param writer                    writer
      * @param xmlWriterNamespaceManager xmlWriterNamespaceManager
-     * @param xmlBase xmlBase
-     * @param preferences xml writer preferences instance
+     * @param xmlBase                   xmlBase
+     * @param preferences               xml writer preferences instance
      */
     public XMLWriterImpl(PrintWriter writer, XMLWriterNamespaceManager xmlWriterNamespaceManager,
         String xmlBase, OntologyConfigurator preferences) {
@@ -269,7 +269,7 @@ public class XMLWriterImpl implements XMLWriter {
         private boolean wrapAttributes = false;
 
         /**
-         * @param name name
+         * @param name        name
          * @param indentation indentation
          */
         public XMLElement(@Nullable String name, int indentation) {
@@ -286,7 +286,7 @@ public class XMLWriterImpl implements XMLWriter {
 
         /**
          * @param attribute attribute
-         * @param value value
+         * @param value     value
          */
         public void setAttribute(String attribute, String value) {
             attributes.put(attribute, value);
@@ -310,46 +310,58 @@ public class XMLWriterImpl implements XMLWriter {
                     writer.write('<');
                     writer.write(name);
                     writeAttributes();
-                    if (textContent != null) {
-                        boolean wrap = textContent.length() > TEXT_CONTENT_WRAP_LIMIT;
-                        if (wrap) {
-                            writeNewLine();
-                            indentation++;
-                            insertIndentation();
-                        }
-                        writer.write('>');
-                        writeTextContent();
-                        if (wrap) {
-                            indentation--;
-                        }
-                    }
-                    if (close) {
-                        if (textContent != null) {
-                            writeElementEnd();
-                        } else {
-                            writer.write("/>");
-                            writeNewLine();
-                        }
-                    } else {
-                        if (textContent == null) {
-                            writer.write('>');
-                            writeNewLine();
-                        }
-                    }
+                    wrap();
+                    close(close);
                 } else {
                     // Name is null so by convention this is a comment
-                    if (textContent != null) {
-                        writer.write("\n\n\n");
-                        for (String token : verifyNotNull(textContent).split("\n")) {
-                            if (!"\n".equals(token)) {
-                                insertIndentation();
-                            }
-                            writer.write(token);
-                            writer.write("\n");
-                        }
-                        writer.write("\n\n");
-                    }
+                    writeComment();
                 }
+            }
+        }
+
+        protected void wrap() {
+            if (textContent != null) {
+                boolean wrap = textContent.length() > TEXT_CONTENT_WRAP_LIMIT;
+                if (wrap) {
+                    writeNewLine();
+                    indentation++;
+                    insertIndentation();
+                }
+                writer.write('>');
+                writeTextContent();
+                if (wrap) {
+                    indentation--;
+                }
+            }
+        }
+
+        protected void close(boolean close) {
+            if (close) {
+                if (textContent != null) {
+                    writeElementEnd();
+                } else {
+                    writer.write("/>");
+                    writeNewLine();
+                }
+            } else {
+                if (textContent == null) {
+                    writer.write('>');
+                    writeNewLine();
+                }
+            }
+        }
+
+        protected void writeComment() {
+            if (textContent != null) {
+                writer.write("\n\n\n");
+                for (String token : verifyNotNull(textContent).split("\n")) {
+                    if (!"\n".equals(token)) {
+                        insertIndentation();
+                    }
+                    writer.write(token);
+                    writer.write("\n");
+                }
+                writer.write("\n\n");
             }
         }
 

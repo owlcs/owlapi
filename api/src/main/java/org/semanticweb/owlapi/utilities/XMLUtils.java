@@ -53,50 +53,103 @@ public final class XMLUtils {
 
     private XMLUtils() {}
 
+    private static boolean letter(int codePoint) {
+        return codePoint >= 'A' && codePoint <= 'Z' || codePoint >= 'a' && codePoint <= 'z';
+    }
+
     /**
      * Determines if a character is an XML name start character.
      *
      * @param codePoint The code point of the character to be tested. For UTF-16 characters the code
-     *        point corresponds to the value of the char that represents the character.
+     *                  point corresponds to the value of the char that represents the character.
      * @return {@code true} if {@code codePoint} is an XML name start character, otherwise {@code
      * false}
      */
     public static boolean isXMLNameStartCharacter(int codePoint) {
-        return codePoint == ':' || codePoint >= 'A' && codePoint <= 'Z' || codePoint == '_'
-            || codePoint >= 'a' && codePoint <= 'z' || codePoint >= 0xC0 && codePoint <= 0xD6
-            || codePoint >= 0xD8 && codePoint <= 0xF6 || codePoint >= 0xF8 && codePoint <= 0x2FF
-            || codePoint >= 0x370 && codePoint <= 0x37D || codePoint >= 0x37F && codePoint <= 0x1FFF
-            || codePoint >= 0x200C && codePoint <= 0x200D
-            || codePoint >= 0x2070 && codePoint <= 0x218F
-            || codePoint >= 0x2C00 && codePoint <= 0x2FEF
-            || codePoint >= 0x3001 && codePoint <= 0xD7FF
-            || codePoint >= 0xF900 && codePoint <= 0xFDCF
-            || codePoint >= 0xFDF0 && codePoint <= 0xFFFD
-            || codePoint >= 0x10000 && codePoint <= 0xEFFFF;
+        return codePoint == ':' || codePoint == '_' || letter(codePoint) || charC0toD6(codePoint)
+            || charD8toF6(codePoint) || charF8to2FF(codePoint) || char370to37D(codePoint)
+            || char37Fto1FFF(codePoint) || char200Cto200D(codePoint) || char2070to218F(codePoint)
+            || char2C00to2FEF(codePoint) || char3001toD7FF(codePoint) || charF900toFDCF(codePoint)
+            || charFDF0toFFFD(codePoint) || char10000toEFFFF(codePoint);
+    }
+
+    private static boolean char10000toEFFFF(int codePoint) {
+        return codePoint >= 0x10000 && codePoint <= 0xEFFFF;
+    }
+
+    private static boolean charFDF0toFFFD(int codePoint) {
+        return codePoint >= 0xFDF0 && codePoint <= 0xFFFD;
+    }
+
+    private static boolean charF900toFDCF(int codePoint) {
+        return codePoint >= 0xF900 && codePoint <= 0xFDCF;
+    }
+
+    private static boolean char3001toD7FF(int codePoint) {
+        return codePoint >= 0x3001 && codePoint <= 0xD7FF;
+    }
+
+    private static boolean char2C00to2FEF(int codePoint) {
+        return codePoint >= 0x2C00 && codePoint <= 0x2FEF;
+    }
+
+    private static boolean char2070to218F(int codePoint) {
+        return codePoint >= 0x2070 && codePoint <= 0x218F;
+    }
+
+    private static boolean char200Cto200D(int codePoint) {
+        return codePoint >= 0x200C && codePoint <= 0x200D;
+    }
+
+    private static boolean char37Fto1FFF(int codePoint) {
+        return codePoint >= 0x37F && codePoint <= 0x1FFF;
+    }
+
+    private static boolean char370to37D(int codePoint) {
+        return codePoint >= 0x370 && codePoint <= 0x37D;
+    }
+
+    private static boolean charF8to2FF(int codePoint) {
+        return codePoint >= 0xF8 && codePoint <= 0x2FF;
+    }
+
+    private static boolean charD8toF6(int codePoint) {
+        return codePoint >= 0xD8 && codePoint <= 0xF6;
+    }
+
+    private static boolean charC0toD6(int codePoint) {
+        return codePoint >= 0xC0 && codePoint <= 0xD6;
     }
 
     /**
      * Determines if a character is an XML name character.
      *
      * @param codePoint The code point of the character to be tested. For UTF-8 and UTF-16
-     *        characters the code point corresponds to the value of the char that represents the
-     *        character.
+     *                  characters the code point corresponds to the value of the char that
+     *                  represents the character.
      * @return {@code true} if {@code codePoint} is an XML name start character, otherwise {@code
      * false}
      */
     public static boolean isXMLNameChar(int codePoint) {
         return isXMLNameStartCharacter(codePoint) || codePoint == '-' || codePoint == '.'
-            || codePoint >= '0' && codePoint <= '9' || codePoint == 0xB7
-            || codePoint >= 0x0300 && codePoint <= 0x036F
-            || codePoint >= 0x203F && codePoint <= 0x2040;
+            || codePoint >= '0' && codePoint <= '9' || codePoint == 0xB7 || char300to36F(codePoint)
+            || char203Fto2040(codePoint);
+    }
+
+    private static boolean char203Fto2040(int codePoint) {
+        return codePoint >= 0x203F && codePoint <= 0x2040;
+    }
+
+    private static boolean char300to36F(int codePoint) {
+        return codePoint >= 0x0300 && codePoint <= 0x036F;
     }
 
     /**
-     * Deterimines if a character is an NCName (Non-Colonised Name) start character.
+     * Determines if a character is an NCName (Non-Colonised Name) start character.
      *
      * @param codePoint The code point of the character to be tested. For UTF-8 and UTF-16
-     *        characters the code point corresponds to the value of the char that represents the
-     *        character.
+     *                  characters the code point corresponds to the value of the char that
+     *                  represents the character.
      * @return {@code true} if {@code codePoint} is a NCName start character, otherwise {@code
      * false}.
      */
@@ -105,11 +158,11 @@ public final class XMLUtils {
     }
 
     /**
-     * Deterimines if a character is an NCName (Non-Colonised Name) character.
+     * Determines if a character is an NCName (Non-Colonised Name) character.
      *
      * @param codePoint The code point of the character to be tested. For UTF-8 and UTF-16
-     *        characters the code point corresponds to the value of the char that represents the
-     *        character.
+     *                  characters the code point corresponds to the value of the char that
+     *                  represents the character.
      * @return {@code true} if {@code codePoint} is a NCName character, otherwise {@code false}.
      */
     public static boolean isNCNameChar(int codePoint) {
@@ -133,7 +186,8 @@ public final class XMLUtils {
         if (!isNCNameStartChar(firstCodePoint)) {
             return false;
         }
-        for (int i = Character.charCount(firstCodePoint); i < s.length();) {
+        int i = Character.charCount(firstCodePoint);
+        while (i < s.length()) {
             int codePoint = Character.codePointAt(s, i);
             if (!isNCNameChar(codePoint)) {
                 return false;
@@ -162,7 +216,7 @@ public final class XMLUtils {
      * as the 'Prefix Name' and the second NCName is referred to as the 'Local Name' - i.e.
      * PrefixName:LocalName).
      *
-     * @param s The character sequence to be tested.
+     * @param s     The character sequence to be tested.
      * @param start start index to check
      * @return {@code true} if {@code s} is a QName, otherwise {@code false}.
      */
@@ -172,7 +226,8 @@ public final class XMLUtils {
         }
         boolean foundColon = false;
         boolean inNCName = false;
-        for (int i = start; i < s.length();) {
+        int i = start;
+        while (i < s.length()) {
             int codePoint = Character.codePointAt(s, i);
             if (codePoint == ':') {
                 if (foundColon) {
@@ -291,7 +346,8 @@ public final class XMLUtils {
         // greater than -- gt
         // apostrophe -- apos
         StringBuilder sb = new StringBuilder(s.length() * 2);
-        for (int i = 0; i < s.length();) {
+        int i = 0;
+        while (i < s.length()) {
             int codePoint = Character.codePointAt(s, i);
             if (codePoint == '<') {
                 sb.append(LT);
@@ -315,9 +371,9 @@ public final class XMLUtils {
      * Escapes a subset of a char sequence so that it is valid XML. Escaped or unchanged characters
      * are added to destination.
      *
-     * @param chars chars to check
-     * @param start start index (inclusive)
-     * @param count number of characters
+     * @param chars       chars to check
+     * @param start       start index (inclusive)
+     * @param count       number of characters
      * @param destination destination for escaped chars
      * @return The modified destination.
      */
@@ -358,7 +414,8 @@ public final class XMLUtils {
         // less than -- lt
         // greater than -- gt
         // apostrophe -- apos
-        for (int i = 0; i < sb.length();) {
+        int i = 0;
+        while (i < sb.length()) {
             int codePoint = Character.codePointAt(sb, i);
             int length = Character.charCount(codePoint);
             if (codePoint == '<') {

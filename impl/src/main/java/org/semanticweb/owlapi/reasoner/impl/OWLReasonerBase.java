@@ -23,6 +23,7 @@ import java.util.Set;
 import java.util.stream.Stream;
 
 import org.semanticweb.owlapi.model.AxiomType;
+import org.semanticweb.owlapi.model.HasLogicalAxioms;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -143,16 +144,16 @@ public abstract class OWLReasonerBase implements OWLReasoner {
      * list of pending changes. Note that even if the list of pending changes is non-empty then
      * there may be no changes for the reasoner to deal with.
      *
-     * @param added The logical axioms that have been added to the imports closure of the reasoner
-     *        root ontology
+     * @param added   The logical axioms that have been added to the imports closure of the reasoner
+     *                root ontology
      * @param removed The logical axioms that have been removed from the imports closure of the
-     *        reasoner root ontology
+     *                reasoner root ontology
      */
     private void computeDiff(Set<OWLAxiom> added, Set<OWLAxiom> removed) {
         if (rawChanges.isEmpty()) {
             return;
         }
-        rootOntology.importsClosure().flatMap(o -> o.logicalAxioms())
+        rootOntology.importsClosure().flatMap(HasLogicalAxioms::logicalAxioms)
             .filter(ax -> !reasonerAxioms.contains(ax.getAxiomWithoutAnnotations()))
             .forEach(added::add);
         rootOntology.importsClosure().flatMap(o -> o.axioms(AxiomType.DECLARATION))
@@ -183,7 +184,7 @@ public abstract class OWLReasonerBase implements OWLReasoner {
      * closure of the root ontology. The changes will not include annotation axiom additions and
      * removals.
      *
-     * @param addAxioms The axioms to be added to the reasoner.
+     * @param addAxioms    The axioms to be added to the reasoner.
      * @param removeAxioms The axioms to be removed from the reasoner
      */
     protected abstract void handleChanges(Set<OWLAxiom> addAxioms, Set<OWLAxiom> removeAxioms);

@@ -7,6 +7,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 import org.semanticweb.owlapi.obolibrary.oboformat.model.Clause;
 import org.semanticweb.owlapi.obolibrary.oboformat.model.Frame;
@@ -69,23 +70,30 @@ public class OBODocDiffer {
     private static List<Diff> getDiffsAsym(String ftype, Frame f1, Frame f2, int n) {
         List<Diff> diffs = new ArrayList<>();
         for (Clause c : f1.getClauses()) {
-            boolean isMatched = false;
-            for (Clause c2 : f2.getClauses()) {
-                if (sameTag(c, c2) && c.equals(c2)) {
-                    isMatched = true;
-                    if (OboFormatTag.TAG_XREF.getTag().equals(c.getTag())) {
-                        String a1 = c.getValue(Xref.class).getAnnotation();
-                        String a2 = c2.getValue(Xref.class).getAnnotation();
-                        isMatched = a1 == null && a2 == null || a1 != null && a1.equals(a2);
-                    }
-                    break;
-                }
-            }
-            if (!isMatched) {
+            if (!isMatched(f2, c)) {
                 diffs.add(new Diff(ftype, "cannot_match_clause", f1, f2, c, n));
             }
         }
         return diffs;
+    }
+
+    protected static boolean isMatched(Frame f2, Clause c) {
+        for (Clause c2 : f2.getClauses()) {
+            if (sameTag(c, c2) && c.equals(c2)) {
+                return updateIsMatched(c, c2);
+            }
+        }
+        return false;
+    }
+
+    protected static boolean updateIsMatched(Clause c, Clause c2) {
+        boolean isMatched = true;
+        if (OboFormatTag.TAG_XREF.getTag().equals(c.getTag())) {
+            String a1 = c.getValue(Xref.class).getAnnotation();
+            String a2 = c2.getValue(Xref.class).getAnnotation();
+            isMatched = Objects.equals(a1, a2);
+        }
+        return isMatched;
     }
 
     private static boolean sameTag(Clause tag1, Clause tag2) {
@@ -96,9 +104,9 @@ public class OBODocDiffer {
         return tag.equals(tag2.getTag());
     }
 
-    private static List<Diff> getDiffs(String ftype, Frame f1, Frame f2) {
-        List<Diff> diffs = getDiffsAsym(ftype, f1, f2, 1);
-        diffs.addAll(getDiffsAsym(ftype, f2, f1, 2));
+    private static List<Diff> getDiffs(String ftype, Frame frame1, Frame frame2) {
+        List<Diff> diffs = getDiffsAsym(ftype, frame1, frame2, 1);
+        diffs.addAll(getDiffsAsym(ftype, frame2, frame1, 2));
         return diffs;
     }
 }

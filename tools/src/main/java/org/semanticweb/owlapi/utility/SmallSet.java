@@ -5,7 +5,7 @@ import static org.semanticweb.owlapi.utilities.OWLAPIPreconditions.checkNotNull;
 import java.util.AbstractSet;
 import java.util.Collection;
 import java.util.Iterator;
-import java.util.NoSuchElementException;
+import java.util.Objects;
 import java.util.stream.Stream;
 
 import javax.annotation.Nullable;
@@ -95,77 +95,12 @@ public class SmallSet<T> extends AbstractSet<T> {
 
     @Override
     public Iterator<T> iterator() {
-        return new Iterator<>() {
-
-            int cp = 1;
-
-            @Override
-            public void remove() {
-                throw new UnsupportedOperationException("remove");
-            }
-
-            @Override
-            public boolean hasNext() {
-                switch (cp) {
-                    case 1:
-                        if (element1 != null) {
-                            return true;
-                        } else {
-                            cp++;
-                        }
-                        //$FALL-THROUGH$
-                    case 2:
-                        if (element2 != null) {
-                            return true;
-                        } else {
-                            cp++;
-                        }
-                        //$FALL-THROUGH$
-                    case 3:
-                        if (element3 != null) {
-                            return true;
-                        } else {
-                            cp++;
-                        }
-                        //$FALL-THROUGH$
-                    default:
-                        return false;
-                }
-            }
-
-            @Override
-            public T next() {
-                if (!hasNext()) {
-                    throw new NoSuchElementException("No Next Element");
-                }
-                switch (cp++) {
-                    case 1:
-                        return element1;
-                    case 2:
-                        return element2;
-                    case 3:
-                        return element3;
-                    default:
-                        throw new IllegalStateException(
-                            "Iterator pointing past end of virtual array");
-                }
-            }
-        };
+        return stream().iterator();
     }
 
     @Override
     public Stream<T> stream() {
-        Stream<T> stream = Stream.empty();
-        if (element1 != null) {
-            stream = Stream.of(element1);
-        }
-        if (element2 != null) {
-            stream = Stream.concat(stream, Stream.of(element2));
-        }
-        if (element3 != null) {
-            stream = Stream.concat(stream, Stream.of(element3));
-        }
-        return stream;
+        return Stream.of(element1, element2, element3).filter(Objects::nonNull);
     }
 
     @Override

@@ -24,12 +24,11 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 /**
  * Represents International Resource Identifiers.
  *
- * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group
+ * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
  */
-public interface IRI extends OWLAnnotationSubject, OWLAnnotationValue, SWRLPredicate, CharSequence, OWLPrimitive,
-    HasShortForm, org.apache.commons.rdf.api.IRI {
+public interface IRI extends OWLAnnotationSubject, OWLAnnotationValue, SWRLPredicate, CharSequence,
+    OWLPrimitive, HasShortForm, org.apache.commons.rdf.api.IRI {
 
     @Override
     default boolean isIRI() {
@@ -37,16 +36,15 @@ public interface IRI extends OWLAnnotationSubject, OWLAnnotationValue, SWRLPredi
     }
 
     /**
-     * @return the IRI scheme, e.g., http, urn, or the empty string if no scheme
-     *         exists
+     * @return the IRI scheme, e.g., http, urn, or the empty string if no scheme exists
      */
     default String getScheme() {
         return XMLUtils.schema(getNamespace());
     }
 
     /**
-     * Obtains this IRI as a URI. Note that Java URIs handle unicode characters,
-     * so there is no loss during this translation.
+     * Obtains this IRI as a URI. Note that Java URIs handle unicode characters, so there is no loss
+     * during this translation.
      *
      * @return The URI
      */
@@ -57,8 +55,7 @@ public interface IRI extends OWLAnnotationSubject, OWLAnnotationValue, SWRLPredi
     /**
      * Determines if this IRI is absolute.
      *
-     * @return {@code true} if this IRI is absolute or {@code false} if this IRI
-     *         is not absolute
+     * @return {@code true} if this IRI is absolute or {@code false} if this IRI is not absolute
      */
     default boolean isAbsolute() {
         return XMLUtils.isAbsolute(getNamespace());
@@ -87,77 +84,67 @@ public interface IRI extends OWLAnnotationSubject, OWLAnnotationValue, SWRLPredi
     String getNamespace();
 
     /**
-     * Determines if this IRI is in the reserved vocabulary. An IRI is in the
-     * reserved vocabulary if it starts with
-     * &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; or
-     * &lt;http://www.w3.org/2000/01/rdf-schema#&gt; or
-     * &lt;http://www.w3.org/2001/XMLSchema#&gt; or
+     * Determines if this IRI is in the reserved vocabulary. An IRI is in the reserved vocabulary if
+     * it starts with &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; or
+     * &lt;http://www.w3.org/2000/01/rdf-schema#&gt; or &lt;http://www.w3.org/2001/XMLSchema#&gt; or
      * &lt;http://www.w3.org/2002/07/owl#&gt;
      *
-     * @return {@code true} if the IRI is in the reserved vocabulary, otherwise
-     *         {@code false}.
+     * @return {@code true} if the IRI is in the reserved vocabulary, otherwise {@code false}.
      */
     default boolean isReservedVocabulary() {
         String ns = getNamespace();
-        return Namespaces.OWL.inNamespace(ns) || Namespaces.RDF.inNamespace(ns) || Namespaces.RDFS.inNamespace(ns)
-            || Namespaces.XSD.inNamespace(ns);
+        return Namespaces.OWL.inNamespace(ns) || Namespaces.RDF.inNamespace(ns)
+            || Namespaces.RDFS.inNamespace(ns) || Namespaces.XSD.inNamespace(ns);
     }
 
     /**
-     * Built in annotation properties do not need declarations. Adding this
-     * method to IRIs so during parsing any undeclared properties can easily be
-     * disambiguated between builtin annotation properties and properties that
-     * are guessed to be annotation properties because of missing declarations.
+     * Built in annotation properties do not need declarations. Adding this method to IRIs so during
+     * parsing any undeclared properties can easily be disambiguated between builtin annotation
+     * properties and properties that are guessed to be annotation properties because of missing
+     * declarations.
      * 
-     * @return true if this IRI equals one of the vocabulary annotation
-     *         properties
+     * @return true if this IRI equals one of the vocabulary annotation properties
      */
     default boolean isBuiltinAnnotationProperty() {
-        return OWLRDFVocabulary.BUILT_IN_AP_IRIS.contains(this);
+        return OWLRDFVocabulary.builtInAPIris().contains(this);
     }
 
     /**
-     * Determines if this IRI is equal to the IRI that {@code owl:Thing} is
-     * named with.
+     * Determines if this IRI is equal to the IRI that {@code owl:Thing} is named with.
      *
-     * @return {@code true} if this IRI is equal to
-     *         &lt;http://www.w3.org/2002/07/owl#Thing&gt; and otherwise
-     *         {@code false}
+     * @return {@code true} if this IRI is equal to &lt;http://www.w3.org/2002/07/owl#Thing&gt; and
+     *         otherwise {@code false}
      */
     default boolean isThing() {
         return equals(OWLRDFVocabulary.OWL_THING.getIRI());
     }
 
     /**
-     * Determines if this IRI is equal to the IRI that {@code owl:Nothing} is
-     * named with.
+     * Determines if this IRI is equal to the IRI that {@code owl:Nothing} is named with.
      *
-     * @return {@code true} if this IRI is equal to
-     *         &lt;http://www.w3.org/2002/07/owl#Nothing&gt; and otherwise
-     *         {@code false}
+     * @return {@code true} if this IRI is equal to &lt;http://www.w3.org/2002/07/owl#Nothing&gt;
+     *         and otherwise {@code false}
      */
     default boolean isNothing() {
         return equals(OWLRDFVocabulary.OWL_NOTHING.getIRI());
     }
 
     /**
-     * Determines if this IRI is equal to the IRI that is named
-     * {@code rdf:PlainLiteral}.
+     * Determines if this IRI is equal to the IRI that is named {@code rdf:PlainLiteral}.
      *
      * @return {@code true} if this IRI is equal to
-     *         &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral&gt;,
-     *         otherwise {@code false}
+     *         &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral&gt;, otherwise
+     *         {@code false}
      */
     default boolean isPlainLiteral() {
         return "PlainLiteral".equals(getFragment()) && Namespaces.RDF.inNamespace(getNamespace());
     }
 
     /**
-     * Gets the last part of the IRI that is a valid NCName; note that for some
-     * IRIs this can be empty.
+     * Gets the last part of the IRI that is a valid NCName; note that for some IRIs this can be
+     * empty.
      *
-     * @return The IRI fragment, or empty string if the IRI does not have a
-     *         fragment
+     * @return The IRI fragment, or empty string if the IRI does not have a fragment
      */
     String getFragment();
 
@@ -189,8 +176,7 @@ public interface IRI extends OWLAnnotationSubject, OWLAnnotationValue, SWRLPredi
     }
 
     /**
-     * @param prefix
-     *        prefix to use for replacing the IRI namespace
+     * @param prefix prefix to use for replacing the IRI namespace
      * @return prefix plus IRI ncname
      */
     default String prefixedBy(String prefix) {
@@ -256,12 +242,10 @@ public interface IRI extends OWLAnnotationSubject, OWLAnnotationValue, SWRLPredi
     }
 
     /**
-     * @param iri
-     *        iri to shorten
-     * @return short form. If ther eis a remainder, that is returned. If there
-     *         is no remainder, the last segment is returned. If there is no
-     *         segment, the input bracketed between &lt; and &gt; will be
-     *         returned.
+     * @param iri iri to shorten
+     * @return short form. If ther eis a remainder, that is returned. If there is no remainder, the
+     *         last segment is returned. If there is no segment, the input bracketed between &lt;
+     *         and &gt; will be returned.
      */
     static String getShortForm(String iri) {
         String r = XMLUtils.getNCNameSuffix(iri);
@@ -277,10 +261,8 @@ public interface IRI extends OWLAnnotationSubject, OWLAnnotationValue, SWRLPredi
     }
 
     /**
-     * @param iri
-     *        iri to prefix
-     * @param prefix
-     *        prefix to use
+     * @param iri    iri to prefix
+     * @param prefix prefix to use
      * @return prefixed iri
      */
     static String prefixedBy(String iri, String prefix) {

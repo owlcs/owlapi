@@ -79,10 +79,6 @@ public class BlackBoxExplanation extends SingleExplanationGeneratorImpl
      */
     private final Set<OWLAxiom> expandedWithReferencingAxioms = new HashSet<>();
     /**
-     * The initial expansion limit.
-     */
-    private final int initialExpansionLimit = DEFAULT_INITIAL_EXPANSION_LIMIT;
-    /**
      * The owl ontology manager.
      */
     private final OWLOntologyManager man;
@@ -98,7 +94,7 @@ public class BlackBoxExplanation extends SingleExplanationGeneratorImpl
     /**
      * The expansion limit.
      */
-    private int expansionLimit = initialExpansionLimit;
+    private int expansionLimit = DEFAULT_INITIAL_EXPANSION_LIMIT;
     /**
      * The fast pruning window size.
      */
@@ -109,9 +105,9 @@ public class BlackBoxExplanation extends SingleExplanationGeneratorImpl
     /**
      * Instantiates a new black box explanation.
      *
-     * @param ontology the ontology
+     * @param ontology        the ontology
      * @param reasonerFactory the reasoner factory
-     * @param reasoner the reasoner
+     * @param reasoner        the reasoner
      */
     public BlackBoxExplanation(OWLOntology ontology, OWLReasonerFactory reasonerFactory,
         OWLReasoner reasoner) {
@@ -123,10 +119,10 @@ public class BlackBoxExplanation extends SingleExplanationGeneratorImpl
      * A utility method. Adds axioms from one set to another set upto a specified limit. Annotation
      * axioms are stripped out
      *
-     * @param <N> the number type
+     * @param <N>    the number type
      * @param source The source set. Objects from this set will be added to the destination set
-     * @param dest The destination set. Objects will be added to this set
-     * @param limit The maximum number of objects to be added.
+     * @param dest   The destination set. Objects will be added to this set
+     * @param limit  The maximum number of objects to be added.
      * @return The number of objects that were actually added.
      */
     private static <N extends OWLAxiom> int addMax(Set<N> source, Set<N> dest, int limit) {
@@ -158,7 +154,7 @@ public class BlackBoxExplanation extends SingleExplanationGeneratorImpl
         objectsExpandedWithReferencingAxioms.clear();
         expandedWithDefiningAxioms.clear();
         expandedWithReferencingAxioms.clear();
-        expansionLimit = initialExpansionLimit;
+        expansionLimit = DEFAULT_INITIAL_EXPANSION_LIMIT;
     }
 
     @Override
@@ -242,7 +238,7 @@ public class BlackBoxExplanation extends SingleExplanationGeneratorImpl
      * Creates a set of axioms to expands the debugging axiom set by adding the defining axioms for
      * the specified entity.
      *
-     * @param obj the obj
+     * @param obj   the obj
      * @param limit the limit
      * @return the int
      */
@@ -270,7 +266,7 @@ public class BlackBoxExplanation extends SingleExplanationGeneratorImpl
     /**
      * Expands the axiom set by adding the referencing axioms for the specified entity.
      *
-     * @param obj the obj
+     * @param obj   the obj
      * @param limit the limit
      * @return the int
      */
@@ -347,9 +343,10 @@ public class BlackBoxExplanation extends SingleExplanationGeneratorImpl
     private boolean isSatisfiable(OWLClassExpression unsatClass) throws OWLException {
         try {
             createDebuggingOntology();
-            OWLReasoner reasoner = getReasonerFactory()
-                .createNonBufferingReasoner(verifyNotNull(debuggingOntology));
-            if (OntologyUtils.containsUnreferencedEntity(verifyNotNull(debuggingOntology), unsatClass)) {
+            OWLReasoner reasoner =
+                getReasonerFactory().createNonBufferingReasoner(verifyNotNull(debuggingOntology));
+            if (OntologyUtils.containsUnreferencedEntity(verifyNotNull(debuggingOntology),
+                unsatClass)) {
                 reasoner.dispose();
                 return true;
             }
@@ -358,9 +355,10 @@ public class BlackBoxExplanation extends SingleExplanationGeneratorImpl
             reasoner.dispose();
             return sat;
         } catch (IllegalArgumentException e) {
+            LOGGER.warn(e.getMessage(), e);
             LOGGER.warn(
                 "Illegal argument found - satisfiability cannot be checked for {} because of {}",
-                unsatClass, e);
+                unsatClass, e.getMessage());
             return false;
         }
     }
@@ -439,8 +437,8 @@ public class BlackBoxExplanation extends SingleExplanationGeneratorImpl
     }
 
     private void removeDeclarations() {
-        debuggingAxioms = asUnorderedSet(debuggingAxioms.stream()
-            .filter(ax -> !(ax instanceof OWLDeclarationAxiom)));
+        debuggingAxioms = asUnorderedSet(
+            debuggingAxioms.stream().filter(ax -> !(ax instanceof OWLDeclarationAxiom)));
     }
 
     @Override

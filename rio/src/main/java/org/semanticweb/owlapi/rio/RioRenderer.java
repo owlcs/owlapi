@@ -76,14 +76,10 @@ public class RioRenderer extends RDFRendererBase {
     private final Resource[] contexts;
 
     /**
-     * @param ontology
-     *        ontology
-     * @param format
-     *        target format
-     * @param writer
-     *        writer
-     * @param contexts
-     *        contexts
+     * @param ontology ontology
+     * @param format   target format
+     * @param writer   writer
+     * @param contexts contexts
      */
     public RioRenderer(OWLOntology ontology, @Nullable OWLDocumentFormat format, RDFHandler writer,
         Resource... contexts) {
@@ -93,7 +89,8 @@ public class RioRenderer extends RDFRendererBase {
         this.writer = writer;
         pm = ontology.getPrefixManager();
         if (ontology.isNamed()) {
-            String ontologyIRIString = ontology.getOntologyID().getOntologyIRI().map(Object::toString).orElse("");
+            String ontologyIRIString =
+                ontology.getOntologyID().getOntologyIRI().map(Object::toString).orElse("");
             String defaultPrefix = ontologyIRIString;
             if (!ontologyIRIString.endsWith("/") && !ontologyIRIString.endsWith("#")) {
                 defaultPrefix = ontologyIRIString + '#';
@@ -213,31 +210,38 @@ public class RioRenderer extends RDFRendererBase {
         }
         pending.add(node);
         final Collection<RDFTriple> triples = getRDFGraph().getTriplesForSubject(node);
+        logTrace(triples);
+        triples.forEach(this::processTriple);
+        pending.remove(node);
+    }
+
+    protected void logTrace(final Collection<RDFTriple> triples) {
         if (LOGGER.isTraceEnabled()) {
             LOGGER.trace("triples.size()={}", Integer.valueOf(triples.size()));
             if (!triples.isEmpty()) {
                 LOGGER.trace("triples={}", triples);
             }
         }
-        for (RDFTriple tripleToRender : triples) {
-            try {
-                if (!renderedStatements.contains(tripleToRender)) {
-                    renderedStatements.add(tripleToRender);
-                    // then we go back and get context-sensitive statements and
-                    // actually pass those to the RDFHandler
-                    for (Statement statement : RioUtils.tripleAsStatements(tripleToRender, contexts)) {
-                        writer.handleStatement(statement);
-                        if (tripleToRender.getObject() instanceof RDFResource) {
-                            render((RDFResource) tripleToRender.getObject(), false);
-                        }
+    }
+
+    protected void processTriple(RDFTriple tripleToRender) {
+        try {
+            if (!renderedStatements.contains(tripleToRender)) {
+                renderedStatements.add(tripleToRender);
+                // then we go back and get context-sensitive statements and
+                // actually pass those to the RDFHandler
+                for (Statement statement : RioUtils.tripleAsStatements(tripleToRender, contexts)) {
+                    writer.handleStatement(statement);
+                    if (tripleToRender.getObject() instanceof RDFResource) {
+                        render((RDFResource) tripleToRender.getObject(), false);
                     }
-                } else if (LOGGER.isTraceEnabled()) {
-                    LOGGER.trace("not printing duplicate statement, or recursing on its object: {}", tripleToRender);
                 }
-            } catch (RDFHandlerException e) {
-                throw new OWLRuntimeException(e);
+            } else {
+                LOGGER.trace("not printing duplicate statement, or recursing on its object: {}",
+                    tripleToRender);
             }
+        } catch (RDFHandlerException e) {
+            throw new OWLRuntimeException(e);
         }
-        pending.remove(node);
     }
 }

@@ -22,6 +22,7 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 import java.util.function.Function;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -83,8 +84,8 @@ public final class AxiomType<C extends OWLAxiom> implements Serializable, Compar
     /** AnnotationPropertyDomain. */          public static final AxiomType<OWLAnnotationPropertyDomainAxiom>         ANNOTATION_PROPERTY_DOMAIN          = getInstance(OWLAnnotationPropertyDomainAxiom.class,        37, "AnnotationPropertyDomain",        true, true, false);
 //@formatter:on
     /** Axiom types. */
-    public static final Set<AxiomType<? extends OWLAxiom>> AXIOM_TYPES = asUnorderedSet(SUBCLASS_OF,
-        EQUIVALENT_CLASSES, DISJOINT_CLASSES, CLASS_ASSERTION, SAME_INDIVIDUAL,
+    private static final Set<AxiomType<? extends OWLAxiom>> AXIOM_TYPES = asUnorderedSet(
+        SUBCLASS_OF, EQUIVALENT_CLASSES, DISJOINT_CLASSES, CLASS_ASSERTION, SAME_INDIVIDUAL,
         DIFFERENT_INDIVIDUALS, OBJECT_PROPERTY_ASSERTION, NEGATIVE_OBJECT_PROPERTY_ASSERTION,
         DATA_PROPERTY_ASSERTION, NEGATIVE_DATA_PROPERTY_ASSERTION, OBJECT_PROPERTY_DOMAIN,
         OBJECT_PROPERTY_RANGE, DISJOINT_OBJECT_PROPERTIES, SUB_OBJECT_PROPERTY,
@@ -96,38 +97,80 @@ public final class AxiomType<C extends OWLAxiom> implements Serializable, Compar
         FUNCTIONAL_DATA_PROPERTY, DATATYPE_DEFINITION, DISJOINT_UNION, DECLARATION, SWRL_RULE,
         ANNOTATION_ASSERTION, SUB_ANNOTATION_PROPERTY_OF, ANNOTATION_PROPERTY_DOMAIN,
         ANNOTATION_PROPERTY_RANGE, HAS_KEY);
+
+    /** @return Axiom types. */
+    public static Set<AxiomType<? extends OWLAxiom>> axiomTypes() {
+        return AXIOM_TYPES;
+    }
+
     /** Axiom types. */
-    public static final Set<AxiomType<?>> LOGICAL_AXIOM_TYPES =
+    private static final Set<AxiomType<?>> LOGICAL_AXIOM_TYPES =
         asSet(AXIOM_TYPES.stream().filter(AxiomType::isLogical));
+
+    /** @return Axiom types. */
+    public static Set<AxiomType<?>> logicalAxiomTypes() {
+        return LOGICAL_AXIOM_TYPES;
+    }
+
     /** Logical axioms and declarations */
-    public static final Set<AxiomType<? extends OWLAxiom>> LOGICAL_AXIOMS_AND_DECLARATIONS_TYPES =
+    private static final Set<AxiomType<? extends OWLAxiom>> LOGICAL_AXIOMS_AND_DECLARATIONS_TYPES =
         asSet(Stream.concat(LOGICAL_AXIOM_TYPES.stream(), Stream.of(DECLARATION)));
+
+    /** @return Logical axioms and declarations */
+    public static Set<AxiomType<? extends OWLAxiom>> logicalAxiomsAndDeclarationsTypes() {
+        return LOGICAL_AXIOMS_AND_DECLARATIONS_TYPES;
+    }
+
     /** set of tbox axiom types */
-    public static final Set<AxiomType<?>> TBoxAxiomTypes =
+    private static final Set<AxiomType<?>> TBOX_AXIOM_TYPES =
         asUnorderedSet((AxiomType<?>) SUBCLASS_OF, EQUIVALENT_CLASSES, DISJOINT_CLASSES,
             OBJECT_PROPERTY_DOMAIN, OBJECT_PROPERTY_RANGE, FUNCTIONAL_OBJECT_PROPERTY,
             INVERSE_FUNCTIONAL_OBJECT_PROPERTY, DATA_PROPERTY_DOMAIN, DATA_PROPERTY_RANGE,
             FUNCTIONAL_DATA_PROPERTY, DATATYPE_DEFINITION, DISJOINT_UNION, HAS_KEY);
+
+    /** @return set of tbox axiom types */
+    public static Set<AxiomType<?>> tboxAxiomTypes() {
+        return TBOX_AXIOM_TYPES;
+    }
+
     /** set of abox axiom types */
-    public static final Set<AxiomType<?>> ABoxAxiomTypes =
+    private static final Set<AxiomType<?>> ABOX_AXIOM_TYPES =
         asUnorderedSet((AxiomType<?>) CLASS_ASSERTION, SAME_INDIVIDUAL, DIFFERENT_INDIVIDUALS,
             OBJECT_PROPERTY_ASSERTION, NEGATIVE_OBJECT_PROPERTY_ASSERTION, DATA_PROPERTY_ASSERTION,
             NEGATIVE_DATA_PROPERTY_ASSERTION);
+
+    /** @return set of abox axiom types */
+    public static Set<AxiomType<?>> aboxAxiomTypes() {
+        return ABOX_AXIOM_TYPES;
+    }
+
     /** set of rbox axiom types */
-    public static final Set<AxiomType<?>> RBoxAxiomTypes =
+    private static final Set<AxiomType<?>> RBOX_AXIOM_TYPES =
         asUnorderedSet((AxiomType<?>) TRANSITIVE_OBJECT_PROPERTY, DISJOINT_DATA_PROPERTIES,
             SUB_DATA_PROPERTY, EQUIVALENT_DATA_PROPERTIES, DISJOINT_OBJECT_PROPERTIES,
             SUB_OBJECT_PROPERTY, EQUIVALENT_OBJECT_PROPERTIES, SUB_PROPERTY_CHAIN_OF,
             INVERSE_OBJECT_PROPERTIES, SYMMETRIC_OBJECT_PROPERTY, ASYMMETRIC_OBJECT_PROPERTY,
             REFLEXIVE_OBJECT_PROPERTY, IRREFLEXIVE_OBJECT_PROPERTY);
+
+    /** @return set of rbox axiom types */
+    public static Set<AxiomType<?>> rboxAxiomTypes() {
+        return RBOX_AXIOM_TYPES;
+    }
+
     /** set of tbox and rbox axiom types */
-    public static final Set<AxiomType<?>> TBoxAndRBoxAxiomTypes =
-        asSet(Stream.concat(TBoxAxiomTypes.stream(), RBoxAxiomTypes.stream()));
+    private static final Set<AxiomType<?>> TBOX_AND_RBOX_AXIOM_TYPES =
+        asSet(Stream.concat(TBOX_AXIOM_TYPES.stream(), RBOX_AXIOM_TYPES.stream()));
+
+    /** @return set of tbox and rbox axiom types */
+    public static Set<AxiomType<?>> tboxAndRboxAxiomTypes() {
+        return TBOX_AND_RBOX_AXIOM_TYPES;
+    }
+
     private static final Map<String, AxiomType<? extends OWLAxiom>> NAME_TYPE_MAP = AXIOM_TYPES
-        .stream().collect(Collectors.toConcurrentMap(AxiomType::getName, Function.identity()));
+        .stream().collect(Collectors.toUnmodifiableMap(AxiomType::getName, Function.identity()));
     private static final Map<Class<?>, AxiomType<? extends OWLAxiom>> CLASS_TYPE_MAP =
         AXIOM_TYPES.stream()
-            .collect(Collectors.toConcurrentMap(AxiomType::getActualClass, Function.identity()));
+            .collect(Collectors.toUnmodifiableMap(AxiomType::getActualClass, Function.identity()));
     private final String name;
     private final boolean owl2Axiom;
     private final boolean nonSyntacticOWL2Axiom;
@@ -158,11 +201,11 @@ public final class AxiomType<C extends OWLAxiom> implements Serializable, Compar
      * @return all axiom types minus DECLARATION
      */
     public static Stream<AxiomType<?>> skipDeclarations() {
-        return AXIOM_TYPES.stream().filter(t -> t != DECLARATION);
+        return AXIOM_TYPES.stream().filter(Predicate.not(DECLARATION::equals));
     }
 
     /**
-     * @param t axiom class to match
+     * @param t   axiom class to match
      * @param <T> axiom type
      * @return axiom type for axiom class
      */
@@ -178,9 +221,9 @@ public final class AxiomType<C extends OWLAxiom> implements Serializable, Compar
      * Gets the set of axioms from a source set of axioms that are not of the specified type.
      *
      * @param sourceAxioms The source set of axioms
-     * @param axiomTypes The types that will be filtered out of the source set
-     * @return A set of axioms that represents the sourceAxioms without the specified types. Note
-     *         that sourceAxioms will not be modified. The returned set is a copy.
+     * @param axiomTypes   The types that will be filtered out of the source set
+     * @return A set of axioms that represents the source axioms without the specified types. Note
+     *         that source axioms will not be modified. The returned set is a copy.
      */
     public static Set<OWLAxiom> getAxiomsWithoutTypes(Collection<OWLAxiom> sourceAxioms,
         AxiomType<?>... axiomTypes) {
@@ -192,9 +235,9 @@ public final class AxiomType<C extends OWLAxiom> implements Serializable, Compar
      * Gets the set of axioms from a source set of axioms that have a specified type.
      *
      * @param sourceAxioms The source set of axioms
-     * @param axiomTypes The types of axioms that will be returned
-     * @return A set of axioms that represents the sourceAxioms that have the specified types. Note
-     *         that sourceAxioms will not be modified. The returned set is a copy.
+     * @param axiomTypes   The types of axioms that will be returned
+     * @return A set of axioms that represents the source axioms that have the specified types. Note
+     *         that source axioms will not be modified. The returned set is a copy.
      */
     public static Set<OWLAxiom> getAxiomsOfTypes(Collection<OWLAxiom> sourceAxioms,
         AxiomType<?>... axiomTypes) {

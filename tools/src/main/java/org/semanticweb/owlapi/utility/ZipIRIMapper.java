@@ -75,9 +75,9 @@ public class ZipIRIMapper extends DefaultHandler implements OWLOntologyIRIMapper
     /**
      * Creates an auto-mapper which examines ontologies that reside in the specified zip file.
      *
-     * @param zip The zip file to map.
+     * @param zip     The zip file to map.
      * @param baseIRI base iri for physical IRIs
-     * @param df data factory
+     * @param df      data factory
      * @throws IOException if an exception reading from input is raised
      */
     @SuppressWarnings("resource")
@@ -88,9 +88,9 @@ public class ZipIRIMapper extends DefaultHandler implements OWLOntologyIRIMapper
     /**
      * Creates an auto-mapper which examines ontologies that reside in the specified zip file.
      *
-     * @param zip The zip file to map.
+     * @param zip     The zip file to map.
      * @param baseIRI base iri for physical IRIs
-     * @param df data factory
+     * @param df      data factory
      * @throws IOException if an exception reading from input is raised
      */
     public ZipIRIMapper(ZipFile zip, String baseIRI, OWLDataFactory df) throws IOException {
@@ -216,6 +216,11 @@ public class ZipIRIMapper extends DefaultHandler implements OWLOntologyIRIMapper
         }
         IRI physicalIRI = df.getIRI(baseIRI + name);
         String extension = name.substring(lastIndexOf);
+        parseByExtenson(file, e, name, physicalIRI, extension);
+    }
+
+    protected void parseByExtenson(ZipFile file, ZipEntry e, String name, IRI physicalIRI,
+        String extension) throws IOException {
         if (".obo".equals(extension)) {
             oboFileMap.put(name, physicalIRI);
         } else {
@@ -248,7 +253,7 @@ public class ZipIRIMapper extends DefaultHandler implements OWLOntologyIRIMapper
      */
     @Nullable
     private IRI parseFSSFile(InputStream input) {
-        try (Reader reader = new InputStreamReader(input, "UTF-8");
+        try (Reader reader = new InputStreamReader(input, StandardCharsets.UTF_8);
             BufferedReader br = new BufferedReader(reader)) {
             String line = "";
             Matcher m = pattern.matcher(line);
@@ -328,7 +333,7 @@ public class ZipIRIMapper extends DefaultHandler implements OWLOntologyIRIMapper
 
     /**
      * @param ontologyIRI ontology
-     * @param file file
+     * @param file        file
      */
     protected void addMapping(IRI ontologyIRI, File file) {
         ontologyIRI2PhysicalURIMap.put(ontologyIRI, df.getIRI(file));
