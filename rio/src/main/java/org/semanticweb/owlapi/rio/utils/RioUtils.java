@@ -39,9 +39,9 @@ import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asList;
 
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Objects;
 import java.util.stream.Stream;
 import javax.annotation.Nullable;
-import org.eclipse.rdf4j.OpenRDFUtil;
 import org.eclipse.rdf4j.model.BNode;
 import org.eclipse.rdf4j.model.Resource;
 import org.eclipse.rdf4j.model.Statement;
@@ -89,7 +89,8 @@ public final class RioUtils {
      */
     public static Collection<Statement> tripleAsStatements(final RDFTriple triple,
         final Resource... contexts) {
-        OpenRDFUtil.verifyContextNotNull(contexts);
+        Objects.requireNonNull(contexts,
+            "contexts argument may not be null; either the value should be cast to Resource or an empty array should be supplied");
         final ValueFactory vf = SimpleValueFactory.getInstance();
         Resource subject;
         if (triple.getSubject() instanceof RDFResourceIRI) {

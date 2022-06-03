@@ -57,7 +57,7 @@
 		<dependency><groupId>org.eclipse.rdf4j</groupId><artifactId>rdf4j-rio-turtle</artifactId><version>${inherited.rdf4j.version}</version></dependency>
 		<dependency><groupId>org.eclipse.rdf4j</groupId><artifactId>rdf4j-rio-trig</artifactId><version>${inherited.rdf4j.version}</version></dependency>
 		<dependency><groupId>org.eclipse.rdf4j</groupId><artifactId>rdf4j-rio-hdt</artifactId><version>${inherited.rdf4j.version}</version></dependency>
-		<dependency><groupId>org.eclipse.rdf4j</groupId><artifactId>rdf4j-util</artifactId><version>${inherited.rdf4j.version}</version></dependency>
+		<dependency><groupId>org.eclipse.rdf4j</groupId><artifactId>rdf4j-common-util</artifactId><version>${inherited.rdf4j.version}</version></dependency>
 		<dependency><groupId>com.github.jsonld-java</groupId><artifactId>jsonld-java</artifactId><version>0.13.4</version></dependency>
 		<!-- Disable until updated to use RDF4J  <dependency><groupId>org.semarglproject</groupId><artifactId>semargl-sesame</artifactId><version>0.7</version></dependency> -->
 

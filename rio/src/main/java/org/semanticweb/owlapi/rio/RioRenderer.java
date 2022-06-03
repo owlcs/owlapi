@@ -41,11 +41,11 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 
 import javax.annotation.Nullable;
 
-import org.eclipse.rdf4j.OpenRDFUtil;
 import org.eclipse.rdf4j.model.Resource;
 import org.eclipse.rdf4j.rio.RDFHandler;
 import org.eclipse.rdf4j.rio.RDFHandlerException;
@@ -89,7 +89,8 @@ public class RioRenderer extends RDFRendererBase {
     public RioRenderer(final OWLOntology ontology, final RDFHandler writer,
         @Nullable OWLDocumentFormat format, final Resource... contexts) {
         super(ontology, format, ontology.getOWLOntologyManager().getOntologyWriterConfiguration());
-        OpenRDFUtil.verifyContextNotNull(contexts);
+        Objects.requireNonNull(contexts,
+            "contexts argument may not be null; either the value should be cast to Resource or an empty array should be supplied");
         this.contexts = contexts;
         this.writer = writer;
         pm = new DefaultPrefixManager();

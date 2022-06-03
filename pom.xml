@@ -24,7 +24,7 @@
 	<properties>
 		<!-- Specify the encoding of the source files. -->
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<rdf4j.version>3.7.7</rdf4j.version>
+		<rdf4j.version>4.0.1</rdf4j.version>
 		<!-- remove this line for releases, if the release process fails because 
 			of missing javadoc jars -->
 		<no-javadoc>false</no-javadoc>
@@ -372,10 +372,10 @@
 					</execution>
 				</executions>
 			</plugin>
-			<plugin>
+			<!--plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>animal-sniffer-maven-plugin</artifactId>
-				<version>1.16</version>
+				<version>1.21</version>
 				<executions>
 					<execution>
 						<phase>test</phase>
@@ -385,19 +385,21 @@
 					</execution>
 				</executions>
 				<configuration>
-				<ignores><ignore>com.sun.management.*</ignore></ignores>
+					<ignores>
+						<ignore>com.sun.management.*</ignore>
+					</ignores>
 					<signature>
 						<groupId>org.codehaus.mojo.signature</groupId>
 						<artifactId>java18</artifactId>
 						<version>1.0</version>
 					</signature>
 				</configuration>
-			</plugin>
+			</plugin-->
 			<plugin>
 				<!-- verify all bytecode (including third party libs) is Java 8 max -->
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-enforcer-plugin</artifactId>
-				<version>3.0.0-M3</version>
+				<version>3.0.0</version>
 				<executions>
 					<execution>
 						<id>enforce-bytecode-version</id>
@@ -407,17 +409,17 @@
 						<configuration>
 							<rules>
 								<enforceBytecodeVersion>
-									<maxJdkVersion>1.8</maxJdkVersion>
-									 <excludes>
-					                    <exclude>org.junit.jupiter:junit-jupiter</exclude>
-					                    <exclude>org.junit.jupiter:junit-jupiter-engine</exclude>
-					                    <exclude>org.junit.platform:junit-platform-engine</exclude>
-					                    <exclude>org.junit.jupiter:junit-jupiter-params</exclude>
-					                    <exclude>org.junit.jupiter:junit-jupiter-api</exclude>
-					                    <exclude>org.opentest4j:opentest4j</exclude>
-					                    <exclude>org.apiguardian:apiguardian-api</exclude>
-					                    <exclude>org.junit.platform:junit-platform-commons</exclude>
-                  					</excludes>
+									<maxJdkVersion>11</maxJdkVersion>
+									<excludes>
+										<exclude>org.junit.jupiter:junit-jupiter</exclude>
+										<exclude>org.junit.jupiter:junit-jupiter-engine</exclude>
+										<exclude>org.junit.platform:junit-platform-engine</exclude>
+										<exclude>org.junit.jupiter:junit-jupiter-params</exclude>
+										<exclude>org.junit.jupiter:junit-jupiter-api</exclude>
+										<exclude>org.opentest4j:opentest4j</exclude>
+										<exclude>org.apiguardian:apiguardian-api</exclude>
+										<exclude>org.junit.platform:junit-platform-commons</exclude>
+									</excludes>
 								</enforceBytecodeVersion>
 							</rules>
 							<fail>true</fail>
@@ -428,7 +430,7 @@
 					<dependency>
 						<groupId>org.codehaus.mojo</groupId>
 						<artifactId>extra-enforcer-rules</artifactId>
-						<version>1.0-beta-6</version>
+						<version>1.5.1</version>
 					</dependency>
 				</dependencies>
 			</plugin>
