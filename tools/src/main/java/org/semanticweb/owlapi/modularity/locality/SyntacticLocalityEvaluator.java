@@ -37,7 +37,7 @@ import java.util.Objects;
 
 import javax.annotation.Nonnull;
 
-import org.semanticweb.owlapi.model.AxiomType;
+import org.semanticweb.owlapi.model.HasOperands;
 import org.semanticweb.owlapi.model.OWLAsymmetricObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLAxiomVisitor;
@@ -95,8 +95,6 @@ import org.semanticweb.owlapi.model.OWLSubPropertyChainOfAxiom;
 import org.semanticweb.owlapi.model.OWLSymmetricObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.SWRLRule;
-import org.semanticweb.owlapi.modularity.locality.SyntacticLocalityEvaluator.BottomLocalityAxiomVisitor.BottomLocalityBottomEquivalenceEvaluator;
-import org.semanticweb.owlapi.modularity.locality.SyntacticLocalityEvaluator.TopLocalityAxiomVisitor.TopLocalityTopEquivalenceEvaluator;
 
 /**
  * Thread safe class for checking syntactic locality.
@@ -140,7 +138,7 @@ public enum SyntacticLocalityEvaluator implements LocalityEvaluator {
      * @author Marc Robin Nolte (modified version)
      *
      */
-    final class BottomLocalityAxiomVisitor extends LocalityAxiomVisitor {
+    private final class BottomLocalityAxiomVisitor extends LocalityAxiomVisitor {
 
         /**
          * Class to determine if class expressions are syntactically equivalent to \bottom for
@@ -324,7 +322,7 @@ public enum SyntacticLocalityEvaluator implements LocalityEvaluator {
         /**
          * Instantiates a new {@link BottomLocalityAxiomVisitor}.
          *
-         * @param axiom the axiom to test
+         * @param axiom     the axiom to test
          * @param signature the signature to test against
          */
         BottomLocalityAxiomVisitor(OWLAxiom axiom, Collection<OWLEntity> signature) {
@@ -510,12 +508,16 @@ public enum SyntacticLocalityEvaluator implements LocalityEvaluator {
 
             @Override
             public final void visit(OWLObjectIntersectionOf ce) {
-                isEquivalent = !ce.operands().anyMatch(this::isEquivalent);
+                isEquivalent = !anyEquivalent(ce);
             }
 
             @Override
             public final void visit(OWLObjectUnionOf ce) {
-                isEquivalent = ce.operands().anyMatch(this::isEquivalent);
+                isEquivalent = anyEquivalent(ce);
+            }
+
+            protected boolean anyEquivalent(HasOperands<OWLClassExpression> ce) {
+                return ce.operands().anyMatch(this::isEquivalent);
             }
         }
 
@@ -566,7 +568,7 @@ public enum SyntacticLocalityEvaluator implements LocalityEvaluator {
          * local w.r.t the given signature. The result may be retrieved calling
          * {@link LocalityAxiomVisitor#isLocal()}.
          *
-         * @param axiom the axiom to test
+         * @param axiom     the axiom to test
          * @param signature the signature to test against
          */
         protected LocalityAxiomVisitor(OWLAxiom axiom, Collection<OWLEntity> signature) {
@@ -756,7 +758,7 @@ public enum SyntacticLocalityEvaluator implements LocalityEvaluator {
      * @author Marc Robin Nolte (modified version)
      *
      */
-    final class TopLocalityAxiomVisitor extends LocalityAxiomVisitor {
+    private final class TopLocalityAxiomVisitor extends LocalityAxiomVisitor {
 
         /**
          * Class to determine if class expressions are syntactically equivalent to \bottom for
@@ -946,7 +948,7 @@ public enum SyntacticLocalityEvaluator implements LocalityEvaluator {
         /**
          * Instantiates a new {@link TopLocalityAxiomVisitor}.
          *
-         * @param axiom the axiom to test
+         * @param axiom     the axiom to test
          * @param signature the signature to test against
          */
         TopLocalityAxiomVisitor(OWLAxiom axiom, Collection<OWLEntity> signature) {
@@ -1049,8 +1051,10 @@ public enum SyntacticLocalityEvaluator implements LocalityEvaluator {
     /**
      * This is a convenience method for determining whether a given data range expression is the top
      * datatype or a built-in datatype. This is used in the
-     * {@link BottomLocalityBottomEquivalenceEvaluator} and
-     * {@link TopLocalityTopEquivalenceEvaluator} for treating cardinality restrictions.
+     * {@link org.semanticweb.owlapi.modularity.locality.SyntacticLocalityEvaluator.BottomLocalityAxiomVisitor.BottomLocalityBottomEquivalenceEvaluator}
+     * and
+     * {@link org.semanticweb.owlapi.modularity.locality.SyntacticLocalityEvaluator.TopLocalityAxiomVisitor.TopLocalityTopEquivalenceEvaluator}
+     * for treating cardinality restrictions.
      *
      * @param dataRange a data range expression
      * @return <code>true</code> if the specified data range expression is the top datatype or a
@@ -1067,8 +1071,10 @@ public enum SyntacticLocalityEvaluator implements LocalityEvaluator {
     /**
      * This is a convenience method for determining whether a given data range expression is the top
      * datatype or a built-in infinite datatype. This is used in the
-     * {@link BottomLocalityBottomEquivalenceEvaluator} and
-     * {@link TopLocalityTopEquivalenceEvaluator} for treating cardinality restrictions.
+     * {@link org.semanticweb.owlapi.modularity.locality.SyntacticLocalityEvaluator.BottomLocalityAxiomVisitor.BottomLocalityBottomEquivalenceEvaluator}
+     * and
+     * {@link org.semanticweb.owlapi.modularity.locality.SyntacticLocalityEvaluator.TopLocalityAxiomVisitor.TopLocalityTopEquivalenceEvaluator}
+     * for treating cardinality restrictions.
      *
      * @param dataRange a data range expression
      * @return <code>true</code> if the specified data range expression is the top datatype or a
@@ -1087,7 +1093,7 @@ public enum SyntacticLocalityEvaluator implements LocalityEvaluator {
      * Creates the {@link LocalityAxiomVisitor} to check locality associated with the locality class
      * represented by this {@link SyntacticLocalityEvaluator}.
      *
-     * @param axiom The axiom to visit
+     * @param axiom     The axiom to visit
      * @param signature The signature to check against
      * @return {@link LocalityAxiomVisitor} to check locality
      */
@@ -1096,15 +1102,6 @@ public enum SyntacticLocalityEvaluator implements LocalityEvaluator {
 
     @Override
     public final boolean isLocal(OWLAxiom axiom, Collection<OWLEntity> signature) {
-        // if (axiom.isOfType(AxiomType.SUBCLASS_OF) &&
-        // axiom.classesInSignature().map(Object::toString)
-        // .allMatch(string -> string.contains("http://mouse.brain-map.org/atlas/index.html#MY-mot")
-        // || string.contains("http://mouse.brain-map.org/atlas/index.html#MY"))) {
-        // System.out.println("new");
-        // }
-        if (this == TOP && axiom.isOfType(AxiomType.DISJOINT_CLASSES)) {
-            System.out.println("new");
-        }
         return !axiom.isLogicalAxiom() || createLocalityAxiomVisitor(
             Objects.requireNonNull(axiom, "The given axiom may not be null"),
             Objects.requireNonNull(signature, "The given signature may not be null")).isLocal();

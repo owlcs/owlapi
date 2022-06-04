@@ -87,13 +87,14 @@ public interface ModuleExtractor {
      * Extracts a module with respect to the given signature against the subset of the axiom base
      * this {@link ModuleExtractor}s axiom base that matches the given {@link Predicate}, if any.
      *
-     * @param signature The signature the module should be extracted against.
+     * @param signature   The signature the module should be extracted against.
      * @param axiomFilter An {@link Optional} {@link Predicate} that filters a subset of the axiom
-     *        base to extract the module against. Note that ignoring some axiom may lead to other
-     *        axioms not be contained in the module either. For example, consider the Ontology O:=
-     *        {A⊑B, B⊑C, C⊑D} and the signature {A}. {@link SyntacticLocalityEvaluator} with
-     *        {@link LocalityClass#BOTTOM} returns O as a whole, but when ignoring the axiom B⊑C it
-     *        only returns {A⊑B}.
+     *                    base to extract the module against. Note that ignoring some axiom may lead
+     *                    to other axioms not be contained in the module either. For example,
+     *                    consider the Ontology O:= {A⊑B, B⊑C, C⊑D} and the signature {A}.
+     *                    {@link org.semanticweb.owlapi.modularity.locality.SyntacticLocalityEvaluator}
+     *                    with {@link LocalityClass#BOTTOM} returns O as a whole, but when ignoring
+     *                    the axiom B⊑C it only returns {A⊑B}.
      * @return The axioms of the module with respect to the given signature
      */
     @Nonnull
@@ -104,13 +105,14 @@ public interface ModuleExtractor {
      * Extracts a module with respect to the given signature against the subset of the axiom base
      * this {@link ModuleExtractor}s axiom base that matches the given {@link Predicate}.
      *
-     * @param signature The signature the module should be extracted against.
+     * @param signature   The signature the module should be extracted against.
      * @param axiomFilter An {@link Predicate} that filters a subset of the axiom base to extract
-     *        the module against. Note that ignoring some axiom may lead to other axioms not be
-     *        contained in the module either. For example, consider the Ontology O:= {A⊑B, B⊑C, C⊑D}
-     *        and the signature {A,E}. {@link SyntacticLocalityEvaluator} with
-     *        {@link LocalityClass#BOTTOM} returns O as a whole, but when ignoring the axiom B⊑C, it
-     *        will only return {A⊑B}.
+     *                    the module against. Note that ignoring some axiom may lead to other axioms
+     *                    not be contained in the module either. For example, consider the Ontology
+     *                    O:= {A⊑B, B⊑C, C⊑D} and the signature {A,E}.
+     *                    {@link org.semanticweb.owlapi.modularity.locality.SyntacticLocalityEvaluator}
+     *                    with {@link LocalityClass#BOTTOM} returns O as a whole, but when ignoring
+     *                    the axiom B⊑C, it will only return {A⊑B}.
      * @return The axioms of the module with respect to the given signature
      */
     default @Nonnull Stream<OWLAxiom> extract(Stream<OWLEntity> signature,
@@ -122,13 +124,13 @@ public interface ModuleExtractor {
      * Extracts a module as an {@link OWLOntology} with respect to the given signature over the
      * given axiom base.
      *
-     * @param signature The signature the module should be extracted against
+     * @param signature       The signature the module should be extracted against
      * @param ontologyManager The {@link OWLOntologyManager} used to create the new
-     *        {@link OWLOntology}
-     * @param ontologyIRI The {@link IRI} of the new {@link OWLOntology}
+     *                        {@link OWLOntology}
+     * @param ontologyIRI     The {@link IRI} of the new {@link OWLOntology}
      * @return The module as an {@link OWLOntology}
      * @throws OWLOntologyCreationException If there is an exception when creating the
-     *         {@link OWLOntology}
+     *                                      {@link OWLOntology}
      */
     default @Nonnull OWLOntology extractAsOntology(Stream<OWLEntity> signature,
         OWLOntologyManager ontologyManager, IRI ontologyIRI) throws OWLOntologyCreationException {

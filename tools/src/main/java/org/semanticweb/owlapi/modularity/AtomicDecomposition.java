@@ -84,8 +84,8 @@ public final class AtomicDecomposition implements HasAxioms {
         }
 
         /**
-         * Returns the {@link Atom}s this {@link Atom} depends on. In the literature, this
-         * {@link Atom} <= returned atoms.
+         * Returns the {@link Atom}s this {@link Atom} depends on. In the literature,
+         * {@code this Atom <= returned atoms}.
          *
          * @return The {@link Atom}s this {@link Atom} depends on
          */
@@ -94,8 +94,9 @@ public final class AtomicDecomposition implements HasAxioms {
         }
 
         /**
-         * Returns the {@link Atom}s that depend on this {@link Atom}. In the literature, returned
-         * atoms <= this {@link Atom}.
+         * Returns the {@link Atom}s that depend on this {@link Atom}. In the literature,
+         * {@code returned
+         * atoms <= this Atom}.
          *
          * @return The {@link Atom}s that depend on this {@link Atom}
          */
@@ -157,7 +158,7 @@ public final class AtomicDecomposition implements HasAxioms {
      * the used module extraction algorithm.
      *
      * @param ontology The {@link OWLOntology} that is to be decomposed. Changes of the ontology
-     *        will not be considered
+     *                 will not be considered
      */
     public AtomicDecomposition(OWLOntology ontology) {
         this(ontology.axioms(Imports.INCLUDED));
@@ -169,9 +170,9 @@ public final class AtomicDecomposition implements HasAxioms {
      * may take some time based on the ontology size and the used module extraction algorithm.
      *
      * @param ontology The {@link OWLOntology} that is to be decomposed. Changes of the ontology
-     *        will not be considered
+     *                 will not be considered
      * @param function The function used to build a {@link ModuleExtractor}. We recommend performing
-     *        possible precalculations by the module extractor
+     *                 possible precalculations by the module extractor
      */
     public AtomicDecomposition(OWLOntology ontology,
         Function<Stream<OWLAxiom>, ? extends ModuleExtractor> function) {
@@ -202,9 +203,9 @@ public final class AtomicDecomposition implements HasAxioms {
      * This operation may take some time based on the ontology size and the used module extraction
      * algorithm.
      *
-     * @param axioms The axiom base that is to be decomposed
+     * @param axioms   The axiom base that is to be decomposed
      * @param function The function used to build a {@link ModuleExtractor}. We recommend performing
-     *        possible precalculations by the module extractor
+     *                 possible precalculations by the module extractor
      */
     public AtomicDecomposition(Stream<OWLAxiom> axioms,
         Function<Stream<OWLAxiom>, ? extends ModuleExtractor> function) {
@@ -225,7 +226,7 @@ public final class AtomicDecomposition implements HasAxioms {
      * @param axiom The {@link OWLAxiom} whose {@link Atom} should be returned
      * @return The {@link Atom} as specified above
      * @throws IllegalArgumentException If the given {@link OWLAxiom} is not part of the axiom base
-     *         of this {@link AtomicDecomposition}
+     *                                  of this {@link AtomicDecomposition}
      */
     public @Nonnull Atom atomOf(OWLAxiom axiom) {
         if (!containsAxiom(Objects.requireNonNull(axiom, "The given axiom may not be null"))) {
@@ -254,12 +255,10 @@ public final class AtomicDecomposition implements HasAxioms {
      * Algorithms for Module Extraction and Atomic Decomposition" by Dmitry Tsarkov, 2012
      * 
      * @param alpha alpha axiom
-     * @param beta beta axiom
+     * @param beta  beta axiom
      * @return seed for alpha
      */
     private @Nonnull OWLAxiom buildAtomsInModule(OWLAxiom alpha, Optional<OWLAxiom> beta) {
-
-        assert alpha != null && beta != null;
 
         // The atom for alpha is already known
         if (atomOf.containsKey(alpha)) {
@@ -279,7 +278,8 @@ public final class AtomicDecomposition implements HasAxioms {
             OWLAxiom axiom = buildAtomsInModule(gamma, Optional.of(alpha));
             Atom first = atomOf.get(axiom);
             Atom second = atomOf.get(alpha);
-            first.dependencies.add(second); // first <= second
+            // first <= second
+            first.dependencies.add(second);
             second.dependents.add(first);
         });
 
@@ -313,12 +313,10 @@ public final class AtomicDecomposition implements HasAxioms {
      * Algorithms for Module Extraction and Atomic Decomposition" by Dmitry Tsarkov, 2012
      * 
      * @param alpha alpha axiom
-     * @param beta beta axiom
+     * @param beta  beta axiom
      * @return seed for alpha
      */
     private @Nonnull OWLAxiom getAtomSeed(OWLAxiom alpha, Optional<OWLAxiom> beta) {
-
-        assert alpha != null && beta != null;
 
         Set<OWLAxiom> moduleOfBeta;
         if (beta.isPresent()) {
@@ -333,7 +331,7 @@ public final class AtomicDecomposition implements HasAxioms {
         }
 
         // modules are equal if size are equal
-        if (moduleToSignatureOf.get(alpha).size() == moduleOfBeta.size()) {
+        if (moduleToSignatureOf.get(alpha).size() == moduleOfBeta.size() && beta.isPresent()) {
             return beta.get();
         }
 
@@ -348,7 +346,7 @@ public final class AtomicDecomposition implements HasAxioms {
      * @param axiom The axiom for whose signature the precomputed module should be returned
      * @return The module as specified above
      * @throws IllegalArgumentException If the given axiom is not part of the axiom base of this
-     *         {@link AtomicDecomposition}
+     *                                  {@link AtomicDecomposition}
      */
     public @Nonnull Stream<OWLAxiom> moduleToSignatureOf(OWLAxiom axiom) {
         if (!containsAxiom(Objects.requireNonNull(axiom, "The given axiom may not be null"))) {

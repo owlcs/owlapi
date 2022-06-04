@@ -52,22 +52,23 @@ public class ConciseExplanationRenderer implements ExplanationRenderer {
     @Override
     public void render(OWLAxiom axiom, Set<Set<OWLAxiom>> explanations) {
         checkNotNull(axiom, "axiom cannot be null");
+        Writer p = verifyNotNull(printWriter, "printWriter not set yet");
         try {
-            getWriter().write("Axiom: " + renderer.render(axiom) + "\n");
+            p.write("Axiom: " + renderer.render(axiom) + "\n");
             int expSize = explanations.size();
             if (expSize == 0) {
-                getWriter().write("Explanation: AXIOM IS NOT ENTAILED!\n");
+                p.write("Explanation: AXIOM IS NOT ENTAILED!\n");
                 return;
             }
             if (expSize == 1) {
-                getWriter().write("Explanation: ");
+                p.write("Explanation: ");
                 Set<OWLAxiom> explanation = explanations.iterator().next();
                 renderSingleExplanation(INDENT, explanation);
             } else {
-                getWriter().write("Explanations (" + expSize + "): \n");
+                p.write("Explanations (" + expSize + "): \n");
                 renderMultipleExplanations(explanations);
             }
-            getWriter().write("\n");
+            p.write("\n");
         } catch (IOException e) {
             throw new OWLRuntimeException(e);
         }
@@ -95,7 +96,7 @@ public class ConciseExplanationRenderer implements ExplanationRenderer {
                 header = INDENT;
             }
             try {
-                getWriter().write(header + renderer.render(axiom) + "\n");
+                printWriter.write(header + renderer.render(axiom) + "\n");
             } catch (IOException e) {
                 throw new OWLRuntimeException(e);
             }
@@ -105,7 +106,7 @@ public class ConciseExplanationRenderer implements ExplanationRenderer {
     @Override
     public void endRendering() {
         try {
-            getWriter().flush();
+            printWriter.flush();
         } catch (IOException e) {
             throw new OWLRuntimeException(e);
         }
