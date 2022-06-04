@@ -34,6 +34,7 @@ import static org.semanticweb.owlapi.model.parameters.ConfigurationOptions.REPOR
 import static org.semanticweb.owlapi.model.parameters.ConfigurationOptions.RETRIES_TO_ATTEMPT;
 import static org.semanticweb.owlapi.model.parameters.ConfigurationOptions.SAVE_IDS;
 import static org.semanticweb.owlapi.model.parameters.ConfigurationOptions.SKIP_MODULE_ANNOTATIONS;
+import static org.semanticweb.owlapi.model.parameters.ConfigurationOptions.STREAM_MARK_LIMIT;
 import static org.semanticweb.owlapi.model.parameters.ConfigurationOptions.TREAT_DUBLINCORE_AS_BUILTIN;
 import static org.semanticweb.owlapi.model.parameters.ConfigurationOptions.TRIM_TO_SIZE;
 import static org.semanticweb.owlapi.model.parameters.ConfigurationOptions.USE_NAMESPACE_ENTITIES;
@@ -89,7 +90,7 @@ public class OntologyConfigurator implements Serializable {
 
     /**
      * @param ban list of parser factory class names that should be skipped when attempting ontology
-     *        parsing. The list is space separated.
+     *            parsing. The list is space separated.
      * @return An {@code OntologyConfigurator} with the new option set.
      */
     public OntologyConfigurator withBannedParsers(String ban) {
@@ -141,7 +142,7 @@ public class OntologyConfigurator implements Serializable {
      * ontology loading.
      *
      * @param ontologyDocumentIRI The ontology document IRI that will be ignored if it is
-     *        encountered as an imported ontology during loading.
+     *                            encountered as an imported ontology during loading.
      * @return An {@code OWLOntologyLoaderConfiguration} with the ignored ontology document IRI set.
      */
     public OntologyConfigurator addIgnoredImport(IRI ontologyDocumentIRI) {
@@ -165,7 +166,7 @@ public class OntologyConfigurator implements Serializable {
      * during ontology loading.
      *
      * @param ontologyDocumentIRI The ontology document IRI that would be ignored if it is
-     *        encountered as an imported ontology during loading.
+     *                            encountered as an imported ontology during loading.
      * @return An {@code OWLOntologyLoaderConfiguration} with the ignored ontology document IRI
      *         removed.
      */
@@ -190,12 +191,31 @@ public class OntologyConfigurator implements Serializable {
     }
 
     /**
+     * @return Size of cached data in StreamDocumentSource. This might need to be increased if more
+     *         bytes are required to disambiguate between languages.
+     */
+    public int getStreamMarkLimit() {
+        return STREAM_MARK_LIMIT.getValue(Integer.class, overrides).intValue();
+    }
+
+    /**
+     * @param l new size of cached data in StreamDocumentSource. This might need to be increased if
+     *          more bytes are required to disambiguate between languages.
+     * @return A {@code OWLOntologyLoaderConfiguration} with the size of cached data set to the new
+     *         value.
+     */
+    public OntologyConfigurator setStreamMarkLimit(int l) {
+        overrides.put(STREAM_MARK_LIMIT, Integer.valueOf(l));
+        return this;
+    }
+
+    /**
      * Specifies whether or not annotation axioms (instances of {@code OWLAnnotationAxiom}) should
      * be loaded or whether they should be discarded on loading. By default, the loading of
      * annotation axioms is enabled.
      *
      * @param b {@code true} if annotation axioms should be loaded, or {@code false} if annotation
-     *        axioms should not be loaded and should be discarded on loading.
+     *          axioms should not be loaded and should be discarded on loading.
      * @return An {@code OWLOntologyLoaderConfiguration} object with the option set.
      */
     public OntologyConfigurator setLoadAnnotationAxioms(boolean b) {
@@ -305,7 +325,7 @@ public class OntologyConfigurator implements Serializable {
 
     /**
      * @param b True if ids for blank nodes should always be written (axioms and anonymous
-     *        individuals only).
+     *          individuals only).
      * @return new config object
      */
     public OntologyConfigurator withSaveIdsForAllAnonymousIndividuals(boolean b) {
@@ -429,8 +449,8 @@ public class OntologyConfigurator implements Serializable {
 
     /**
      * @param addMissing true if untyped entities should automatically be typed (declared) during
-     *        rendering. (This is a hint to an RDF renderer - the reference implementation will
-     *        respect this).
+     *                   rendering. (This is a hint to an RDF renderer - the reference
+     *                   implementation will respect this).
      * @return new config object
      */
     public OntologyConfigurator withAddMissingTypes(boolean addMissing) {

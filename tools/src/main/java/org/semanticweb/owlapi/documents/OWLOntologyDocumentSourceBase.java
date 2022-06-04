@@ -133,6 +133,10 @@ public abstract class OWLOntologyDocumentSourceBase implements OWLOntologyDocume
         acceptHeaders = headers;
     }
 
+    protected void closeStream() throws IOException {
+        inputStream.close();
+    }
+
     @Override
     @SuppressWarnings("null")
     public Optional<OWLOntologyLoaderMetaData> getOntologyLoaderMetaData() {
@@ -401,6 +405,11 @@ public abstract class OWLOntologyDocumentSourceBase implements OWLOntologyDocume
     interface Streamer<T> {
 
         T get() throws IOException;
+
+        @SuppressWarnings("unused")
+        default void close() throws IOException {
+            // no operation for default implementation
+        }
     }
 
     interface StreamerWrapper<T, Q> {

@@ -26,6 +26,12 @@ public enum ConfigurationOptions {
     //@formatter:off
     /** Timeout for connections. */
     CONNECTION_TIMEOUT                  (Integer.valueOf(20000)),
+    /** Size of cached data in 
+     * StreamDocumentSource. This 
+     * might need to be increased if 
+     * more bytes are required to 
+     * disambiguate between languages.*/
+    STREAM_MARK_LIMIT                   (Integer.valueOf(10_000_000)),
     /** True if annotations should 
      * be loaded, false if skipped. */
     LOAD_ANNOTATIONS                    (Boolean.TRUE),
@@ -105,8 +111,8 @@ public enum ConfigurationOptions {
     /** Pretty print functional 
      * syntax. */
     PRETTY_PRINT_FUNCTIONAL_SYNTAX      (Boolean.FALSE),
-    /** Class to use for {@link org.semanticweb.owlapi.model.OWLObject }{@code toString() }*/
-    TO_STRING_RENDERER                  ("org.semanticweb.owlapi.utility.SimpleRenderer"),
+    /** Class to use for {@link org.semanticweb.owlapi6.model.OWLObject }{@code toString() }*/
+    TO_STRING_RENDERER                  ("org.semanticweb.owlapi6.utility.SimpleRenderer"),
     /** Authorization
      * header Value. */
     AUTHORIZATION_VALUE                 (""),

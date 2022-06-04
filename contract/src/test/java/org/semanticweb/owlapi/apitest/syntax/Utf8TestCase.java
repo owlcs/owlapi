@@ -12,7 +12,6 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.apitest.syntax;
 
-import static org.junit.Assert.fail;
 import static org.semanticweb.owlapi.OWLFunctionalSyntaxFactory.AnnotationAssertion;
 import static org.semanticweb.owlapi.OWLFunctionalSyntaxFactory.Class;
 import static org.semanticweb.owlapi.OWLFunctionalSyntaxFactory.IRI;
@@ -41,18 +40,21 @@ public class Utf8TestCase extends TestBase {
 
     @Test
     public void testUTF8roundTrip() throws Exception {
-        saveOntology(loadOntologyFromString(TestFiles.roundtripUTF8String, new FunctionalSyntaxDocumentFormat()));
+        saveOntology(loadOntologyFromString(TestFiles.roundtripUTF8String,
+            new FunctionalSyntaxDocumentFormat()));
     }
 
     @Test(expected = Exception.class)
-    public void testInvalidUTF8roundTripOWLXML() {
+    public void testInvalidUTF8roundTripOWLXML() throws Exception {
         // this test checks for the condition described in issue #47
         // Input with character = 0240 (octal) should fail parsing but is read
         // in as an owl/xml file
-        ByteArrayInputStream in = new ByteArrayInputStream(
-            TestFiles.INVALID_UTF8.getBytes(StandardCharsets.ISO_8859_1));
+        ByteArrayInputStream in =
+            new ByteArrayInputStream(TestFiles.INVALID_UTF8.getBytes(StandardCharsets.ISO_8859_1));
         OWLXMLParser parser = new OWLXMLParser();
-        new StreamDocumentSource(in).acceptParser(parser, getOWLOntology(), config);
+        try (StreamDocumentSource n = new StreamDocumentSource(in)) {
+            n.acceptParser(parser, getOWLOntology(), config);
+        }
     }
 
     @Test
@@ -60,8 +62,8 @@ public class Utf8TestCase extends TestBase {
         // this test checks for the condition described in issue #47
         // Input with character = 0240 (octal) should work with an input stream,
         // not with a reader
-        ByteArrayInputStream in = new ByteArrayInputStream(
-            TestFiles.INVALID_UTF8.getBytes(StandardCharsets.ISO_8859_1));
+        ByteArrayInputStream in =
+            new ByteArrayInputStream(TestFiles.INVALID_UTF8.getBytes(StandardCharsets.ISO_8859_1));
         m.loadOntologyFromOntologyDocument(in);
     }
 
