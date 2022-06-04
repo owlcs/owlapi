@@ -44,6 +44,7 @@ import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.PrefixManager;
 import org.semanticweb.owlapi.rdf.RDFRendererBase;
+import org.semanticweb.owlapi.utilities.XMLUtils;
 import org.semanticweb.owlapi.utility.EscapeUtils;
 import org.semanticweb.owlapi.utility.VersionInfo;
 import org.semanticweb.owlapi.vocab.Namespaces;
@@ -73,14 +74,9 @@ public class TurtleRenderer extends RDFRendererBase {
         super(ontology, format, ontology.getOWLOntologyManager().getOntologyConfigurator());
         this.writer = new PrintWriter(writer);
         pm = ontology.getPrefixManager();
-        if (ontology.isNamed()) {
-            String ontologyIRIString =
-                ontology.getOntologyID().getOntologyIRI().map(Object::toString).orElse("");
-            String defaultPrefix = ontologyIRIString;
-            if (!ontologyIRIString.endsWith("/") && !ontologyIRIString.endsWith("#")) {
-                defaultPrefix = ontologyIRIString + '#';
-            }
-            pm.withDefaultPrefix(defaultPrefix);
+        if (pm.getDefaultPrefix() == null && ontology.isNamed()) {
+            ontology.getOntologyID().getOntologyIRI().map(Object::toString)
+                .ifPresent(s -> pm.withDefaultPrefix(XMLUtils.iriWithTerminatingHash(s)));
         }
         base = "";
     }
@@ -291,7 +287,10 @@ public class TurtleRenderer extends RDFRendererBase {
         writeNamespaces();
         write("@base ");
         write("<");
-        if (ontology.isNamed()) {
+        String defaultPrefix = ontology.getPrefixManager().getDefaultPrefix();
+        if (defaultPrefix != null && !defaultPrefix.isEmpty()) {
+            write(defaultPrefix);
+        } else if (ontology.isNamed()) {
             write(ontology.getOntologyID().getOntologyIRI().map(Object::toString).orElse(""));
         } else {
             write(Namespaces.OWL.toString());

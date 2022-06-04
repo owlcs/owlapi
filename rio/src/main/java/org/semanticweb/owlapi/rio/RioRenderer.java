@@ -59,6 +59,7 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.model.PrefixManager;
 import org.semanticweb.owlapi.rdf.RDFRendererBase;
+import org.semanticweb.owlapi.utilities.XMLUtils;
 import org.semanticweb.owlapi.utility.VersionInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -88,14 +89,9 @@ public class RioRenderer extends RDFRendererBase {
         this.contexts = contexts;
         this.writer = writer;
         pm = ontology.getPrefixManager();
-        if (ontology.isNamed()) {
-            String ontologyIRIString =
-                ontology.getOntologyID().getOntologyIRI().map(Object::toString).orElse("");
-            String defaultPrefix = ontologyIRIString;
-            if (!ontologyIRIString.endsWith("/") && !ontologyIRIString.endsWith("#")) {
-                defaultPrefix = ontologyIRIString + '#';
-            }
-            pm.withDefaultPrefix(defaultPrefix);
+        if (pm.getDefaultPrefix() == null && ontology.isNamed()) {
+            ontology.getOntologyID().getOntologyIRI().map(Object::toString)
+                .ifPresent(s -> pm.withDefaultPrefix(XMLUtils.iriWithTerminatingHash(s)));
         }
     }
 
