@@ -1,4 +1,4 @@
-package org.semanticweb.owlapi.oboformattest;
+package org.semanticweb.owlapi.obolibrarytest.oboformat;
 
 import java.util.Arrays;
 import java.util.List;

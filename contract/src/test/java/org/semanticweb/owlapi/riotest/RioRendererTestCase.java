@@ -6,6 +6,7 @@ package org.semanticweb.owlapi.riotest;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+import java.io.File;
 import java.io.StringReader;
 import java.io.StringWriter;
 import java.util.HashSet;
@@ -58,8 +59,8 @@ public class RioRendererTestCase extends TestBase {
         m.getOntologyStorers().set(new RioNTriplesStorerFactory(), new RioRDFXMLStorerFactory(),
             new RioTurtleStorerFactory());
         testOntologyEmpty = m.createOntology(testOntologyUri1);
-        testOntologyKoala =
-            m.loadOntologyFromOntologyDocument(getClass().getResourceAsStream("/koala.owl"));
+        File in = new File(getClass().getResource("/koala.owl").toURI());
+        testOntologyKoala = m.loadOntologyFromOntologyDocument(in);
         assertEquals(70, testOntologyKoala.getAxiomCount());
         testHandlerStatementCollector = new StatementCollector();
         testOntologyEmptyStatement =

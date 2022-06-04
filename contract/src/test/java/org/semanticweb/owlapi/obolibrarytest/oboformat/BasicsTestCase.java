@@ -1,4 +1,4 @@
-package org.semanticweb.owlapi.oboformattest;
+package org.semanticweb.owlapi.obolibrarytest.oboformat;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;

@@ -1,4 +1,4 @@
-package org.semanticweb.owlapi.oboformattest;
+package org.semanticweb.owlapi.obolibrarytest.oboformat;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.apitest.baseclasses.TestBase;

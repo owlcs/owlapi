@@ -1,4 +1,4 @@
-package org.semanticweb.owlapi.oboformattest;
+package org.semanticweb.owlapi.obolibrarytest.oboformat;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
@@ -7,7 +7,6 @@ import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -15,6 +14,8 @@ import java.io.PrintWriter;
 import java.io.Reader;
 import java.io.StringReader;
 import java.io.StringWriter;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.Collections;
 import java.util.Map;
 import java.util.Optional;
@@ -62,7 +63,7 @@ public class OboFormatTestBasics extends TestBase {
     }
 
     protected OBODoc parseOBOFile(String fn, boolean allowEmptyFrames, Map<String, OBODoc> cache) {
-        try (InputStream inputStream = getInputStream(fn)) {
+        try (InputStream inputStream = new FileInputStream(getFile(fn))) {
             OBOFormatParser p = new OBOFormatParser(cache);
             OBODoc obodoc = p.parse(new BufferedReader(new InputStreamReader(inputStream)));
             assertNotNull(obodoc);
@@ -85,32 +86,31 @@ public class OboFormatTestBasics extends TestBase {
         return obodoc;
     }
 
-    @SuppressWarnings("resource")
-    protected InputStream getInputStream(String fn) {
-        InputStream inputStream = OboFormatTestBasics.class.getResourceAsStream(fn);
+    protected File getFile(String fn) {
+        URL inputStream = OboFormatTestBasics.class.getResource(fn);
         if (inputStream == null) {
-            inputStream = getClass().getResourceAsStream("obo/" + fn);
+            inputStream = getClass().getResource("obo/" + fn);
         }
         if (inputStream == null) {
-            inputStream = ClassLoader.getSystemResourceAsStream(fn);
+            inputStream = ClassLoader.getSystemResource(fn);
         }
         if (inputStream == null) {
-            inputStream = ClassLoader.getSystemResourceAsStream("obo/" + fn);
+            inputStream = ClassLoader.getSystemResource("obo/" + fn);
         }
         if (inputStream == null) {
-            try {
-                inputStream = new FileInputStream(new File("obo/" + fn));
-            } catch (FileNotFoundException e) {
-                throw new OWLRuntimeException(e);
-            }
+            return new File("obo/" + fn);
         }
-        return inputStream;
+        try {
+            return new File(inputStream.toURI());
+        } catch (URISyntaxException e) {
+            throw new OWLRuntimeException(e);
+        }
     }
 
     protected OWLOntology parseOWLFile(String fn) throws OWLOntologyCreationException {
         OWLOntologyManager manager = setupManager();
         // TODO replace
-        return manager.loadOntologyFromOntologyDocument(getInputStream(fn));
+        return manager.loadOntologyFromOntologyDocument(getFile(fn));
     }
 
     protected OWLOntology convert(OBODoc obodoc) {
@@ -177,7 +177,7 @@ public class OboFormatTestBasics extends TestBase {
 
     protected String readResource(String resource) throws IOException {
         StringBuilder sb = new StringBuilder();
-        try (InputStream inputStream = getInputStream(resource);
+        try (InputStream inputStream = new FileInputStream(getFile(resource));
             Reader r = new InputStreamReader(inputStream);
             BufferedReader reader = new BufferedReader(r);) {
             String line;

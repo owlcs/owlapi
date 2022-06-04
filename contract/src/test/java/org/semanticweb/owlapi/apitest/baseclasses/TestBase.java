@@ -14,7 +14,8 @@ package org.semanticweb.owlapi.apitest.baseclasses;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertThrows;
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 import static org.semanticweb.owlapi.OWLFunctionalSyntaxFactory.IRI;
 import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asSet;
@@ -43,8 +44,8 @@ import org.junit.rules.TemporaryFolder;
 import org.junit.rules.Timeout;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.apitest.anonymous.AnonymousIndividualsNormaliser;
+import org.semanticweb.owlapi.documents.FileDocumentSource;
 import org.semanticweb.owlapi.documents.IRIDocumentSource;
-import org.semanticweb.owlapi.documents.StreamDocumentSource;
 import org.semanticweb.owlapi.documents.StringDocumentSource;
 import org.semanticweb.owlapi.documents.StringDocumentTarget;
 import org.semanticweb.owlapi.formats.ManchesterSyntaxDocumentFormat;
@@ -104,9 +105,9 @@ public abstract class TestBase {
         OntologyConfigurator configuration) {
         try {
             return m1.loadOntologyFromOntologyDocument(
-                new StreamDocumentSource(getClass().getResourceAsStream('/' + fileName)),
+                new FileDocumentSource(new File(getClass().getResource('/' + fileName).toURI())),
                 configuration);
-        } catch (OWLOntologyCreationException e) {
+        } catch (OWLOntologyCreationException | URISyntaxException e) {
             throw new OWLRuntimeException(e);
         }
     }

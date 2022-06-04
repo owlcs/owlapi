@@ -5,13 +5,17 @@ package org.semanticweb.owlapi.riotest;
 
 import static org.junit.Assert.assertEquals;
 
+import java.io.File;
+import java.net.URISyntaxException;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.semanticweb.owlapi.apitest.baseclasses.TestBase;
-import org.semanticweb.owlapi.documents.StreamDocumentSource;
+import org.semanticweb.owlapi.documents.FileDocumentSource;
 import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.rdf.rdfxml.parser.RDFXMLParser;
 import org.semanticweb.owlapi.rio.RioParserImpl;
 import org.semanticweb.owlapi.rio.RioRDFXMLParserFactory;
@@ -38,8 +42,8 @@ public class RioParserTestCase extends TestBase {
 
     /*
      * Test method for {@link
-     * org.semanticweb.owlapi.impl.rio.RioParserImpl#parse(org.semanticweb.owlapi.impl.documents.
-     * OWLOntologyDocumentSource, org.semanticweb.owlapi.impl.model.OWLOntology)}
+     * org.semanticweb.owlapi.rio.RioParserImpl#parse(org.semanticweb.owlapi.io.
+     * OWLOntologyDocumentSource, org.semanticweb.owlapi.model.OWLOntology)}
      */
     @Test
     public void testParse() throws Exception {
@@ -63,8 +67,8 @@ public class RioParserTestCase extends TestBase {
 
     /*
      * Test method for {@link
-     * org.semanticweb.owlapi.impl.rio.RioParserImpl#parse(org.semanticweb.owlapi.impl.documents.
-     * OWLOntologyDocumentSource, org.semanticweb.owlapi.impl.model.OWLOntology)}
+     * org.semanticweb.owlapi.rio.RioParserImpl#parse(org.semanticweb.owlapi.io.
+     * OWLOntologyDocumentSource, org.semanticweb.owlapi.model.OWLOntology)}
      */
     @Test
     public void testParsePrimer() throws Exception {
@@ -89,14 +93,18 @@ public class RioParserTestCase extends TestBase {
     /**
      * @return stream
      */
-    StreamDocumentSource getStream(String name) {
-        return new StreamDocumentSource(getClass().getResourceAsStream(name));
+    FileDocumentSource getStream(String name) {
+        try {
+            return new FileDocumentSource(new File(getClass().getResource(name).toURI()));
+        } catch (URISyntaxException e) {
+            throw new OWLRuntimeException(e);
+        }
     }
 
     /*
      * Test method for {@link
-     * org.semanticweb.owlapi.impl.rio.RioParserImpl#parse(org.semanticweb.owlapi.impl.documents.
-     * OWLOntologyDocumentSource, org.semanticweb.owlapi.impl.model.OWLOntology)}
+     * org.semanticweb.owlapi.rio.RioParserImpl#parse(org.semanticweb.owlapi.io.
+     * OWLOntologyDocumentSource, org.semanticweb.owlapi.model.OWLOntology)}
      */
     @Test
     public void testParsePrimerSubset() throws Exception {
@@ -104,7 +112,7 @@ public class RioParserTestCase extends TestBase {
         // output:
         // Rio:
         // DatatypeDefinition(<http://example.com/owl/families/majorAge>
-        // DataIntersectionOf(<http://org.semanticweb.owlapi.impl/error#Error1>
+        // DataIntersectionOf(<http://org.semanticweb.owlapi/error#Error1>
         // DataComplementOf(<http://example.com/owl/families/minorAge>) ))
         // OWLAPI:
         // DatatypeDefinition(<http://example.com/owl/families/majorAge>

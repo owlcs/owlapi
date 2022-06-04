@@ -1,4 +1,4 @@
-package org.semanticweb.owlapi.oboformattest.parser;
+package org.semanticweb.owlapi.obolibrarytest.oboformat.parser;
 
 import static org.junit.Assert.assertNotNull;
 

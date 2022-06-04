@@ -1,10 +1,11 @@
-package org.semanticweb.owlapi.oboformattest;
+package org.semanticweb.owlapi.obolibrarytest.oboformat;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.FileInputStream;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.StringWriter;
@@ -116,7 +117,7 @@ public class OBOFormatWriterTestCase extends OboFormatTestBasics {
     @Test
     public void testPropertyValueOrder() throws Exception {
         StringBuilder sb = new StringBuilder();
-        try (InputStream inputStream = getInputStream("tag_order_test.obo");
+        try (InputStream inputStream = new FileInputStream(getFile("tag_order_test.obo"));
             InputStreamReader in = new InputStreamReader(inputStream);
             BufferedReader reader = new BufferedReader(in);) {
             String line;

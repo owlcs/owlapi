@@ -273,12 +273,12 @@ public class ImportsTestCase extends TestBase {
         AutoIRIMapper mapper = new AutoIRIMapper(new File(RESOURCES, IMPORTS), true, df);
         man.getIRIMappers().add(mapper);
         String name = "/imports/thesubont.omn";
-        OWLOntology root =
-            man.loadOntologyFromOntologyDocument(getClass().getResourceAsStream(name));
+        File file = new File(getClass().getResource(name).toURI());
+        OWLOntology root = man.loadOntologyFromOntologyDocument(file);
         assertEquals(1, root.imports().count());
         man.ontologies().forEach(o -> man.removeOntology(o));
         assertEquals(0, man.ontologies().count());
-        root = man.loadOntologyFromOntologyDocument(getClass().getResourceAsStream(name));
+        root = man.loadOntologyFromOntologyDocument(file);
         assertEquals(1, root.imports().count());
     }
 
