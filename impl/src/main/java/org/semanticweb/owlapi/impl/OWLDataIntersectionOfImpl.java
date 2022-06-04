@@ -12,8 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.impl;
 
-import java.util.Collection;
-import java.util.stream.Stream;
+import java.util.List;
 
 import org.semanticweb.owlapi.model.OWLDataIntersectionOf;
 import org.semanticweb.owlapi.model.OWLDataRange;
@@ -23,19 +22,12 @@ import org.semanticweb.owlapi.model.OWLDataRange;
  * @since 3.0.0
  */
 public class OWLDataIntersectionOfImpl extends OWLNaryDataRangeImpl
-                implements OWLDataIntersectionOf {
+    implements OWLDataIntersectionOf {
 
     /**
      * @param operands operands
      */
-    public OWLDataIntersectionOfImpl(Collection<OWLDataRange> operands) {
-        super(operands);
-    }
-
-    /**
-     * @param operands operands
-     */
-    public OWLDataIntersectionOfImpl(Stream<OWLDataRange> operands) {
+    public OWLDataIntersectionOfImpl(List<OWLDataRange> operands) {
         super(operands);
     }
 }

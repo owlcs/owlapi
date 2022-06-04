@@ -16,6 +16,7 @@ import static org.semanticweb.owlapi.utilities.OWLAPIPreconditions.checkNotNull;
 import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.sorted;
 import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.streamFromSorted;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Stream;
 
@@ -32,25 +33,17 @@ public class OWLObjectOneOfImpl extends OWLAnonymousClassExpressionImpl implemen
     private final List<OWLIndividual> values;
 
     /**
-     * @param values values for oneof
+     * @param values values for oneof (list must be sorted in the factory)
      */
-    public OWLObjectOneOfImpl(Stream<OWLIndividual> values) {
-        checkNotNull(values, "values cannot be null");
-        this.values = sorted(OWLIndividual.class, values);
-    }
-
-    /**
-     * @param values values for oneof
-     */
-    public OWLObjectOneOfImpl(OWLIndividual... values) {
-        this(Stream.of(values));
+    public OWLObjectOneOfImpl(List<OWLIndividual> values) {
+        this.values = Collections.unmodifiableList(checkNotNull(values, "values cannot be null"));
     }
 
     /**
      * @param value value for oneof
      */
     public OWLObjectOneOfImpl(OWLIndividual value) {
-        this(Stream.of(value));
+        values = Collections.singletonList(checkNotNull(value, "value cannot be null"));
     }
 
     @Override
@@ -67,8 +60,8 @@ public class OWLObjectOneOfImpl extends OWLAnonymousClassExpressionImpl implemen
     public OWLClassExpression asObjectUnionOf() {
         if (values.size() == 1) {
             return this;
-        } else {
-            return new OWLObjectUnionOfImpl(individuals().map(OWLObjectOneOfImpl::new));
         }
+        return new OWLObjectUnionOfImpl(sorted(OWLClassExpression.class,
+            values.stream().map(Collections::singletonList).map(OWLObjectOneOfImpl::new)));
     }
 }

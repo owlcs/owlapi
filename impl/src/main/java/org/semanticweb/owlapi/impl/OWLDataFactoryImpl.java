@@ -43,18 +43,22 @@ import static org.semanticweb.owlapi.utilities.OWLAPIPreconditions.verifyNotNull
 
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicLong;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import javax.annotation.Nullable;
+import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import org.semanticweb.owlapi.model.EntityType;
@@ -144,6 +148,7 @@ import org.semanticweb.owlapi.model.OWLSubObjectPropertyOfAxiom;
 import org.semanticweb.owlapi.model.OWLSubPropertyChainOfAxiom;
 import org.semanticweb.owlapi.model.OWLSymmetricObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.OntologyConfigurator;
 import org.semanticweb.owlapi.model.PrefixManager;
 import org.semanticweb.owlapi.model.SWRLAtom;
 import org.semanticweb.owlapi.model.SWRLBuiltInAtom;
@@ -161,6 +166,7 @@ import org.semanticweb.owlapi.model.SWRLSameIndividualAtom;
 import org.semanticweb.owlapi.model.SWRLVariable;
 import org.semanticweb.owlapi.model.parameters.ConfigurationOptions;
 import org.semanticweb.owlapi.model.providers.ClassProvider;
+import org.semanticweb.owlapi.utilities.OWLAPIStreamUtils;
 import org.semanticweb.owlapi.utilities.XMLUtils;
 import org.semanticweb.owlapi.utility.VersionInfo;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
@@ -195,6 +201,30 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable, ClassPr
     private static final LoadingCache<IRI,           OWLAnnotationProperty>  annotationProperties = builder(OWLAnnotationPropertyImpl::new);
 //@formatter:on
     private static final AtomicLong COUNTER = new AtomicLong(System.nanoTime());
+
+    private OntologyConfigurator config;
+
+    /**
+     * @param config configuration parameter
+     */
+    public OWLDataFactoryImpl(OntologyConfigurator config) {
+        this.config = config;
+    }
+
+    /**
+     * Defaults toa new Ontologyconfigurator instance
+     */
+    @Inject
+    public OWLDataFactoryImpl() {
+        this(new OntologyConfigurator());
+    }
+
+    private <T> List<T> sortedList(Class<T> witness, Stream<? extends T> stream) {
+        if (config.shouldAllowDuplicatesInConstructSets()) {
+            return stream.filter(Objects::nonNull).sorted().collect(Collectors.toList());
+        }
+        return OWLAPIStreamUtils.sorted(witness, stream);
+    }
 
     @Override
     public void purge() {
@@ -522,7 +552,7 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable, ClassPr
 
     @Override
     public OWLDataOneOf getOWLDataOneOf(Stream<? extends OWLLiteral> values) {
-        return new OWLDataOneOfImpl(values);
+        return new OWLDataOneOfImpl(sortedList(OWLLiteral.class, values));
     }
 
     @Override
@@ -538,12 +568,12 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable, ClassPr
     @Override
     public OWLDataIntersectionOf getOWLDataIntersectionOf(
         Stream<? extends OWLDataRange> dataRanges) {
-        return new OWLDataIntersectionOfImpl(dataRanges.map(x -> x));
+        return new OWLDataIntersectionOfImpl(sortedList(OWLDataRange.class, dataRanges));
     }
 
     @Override
     public OWLDataUnionOf getOWLDataUnionOf(Stream<? extends OWLDataRange> dataRanges) {
-        return new OWLDataUnionOfImpl(dataRanges.map(x -> x));
+        return new OWLDataUnionOfImpl(sortedList(OWLDataRange.class, dataRanges));
     }
 
     @Override
@@ -567,13 +597,7 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable, ClassPr
     @Override
     public OWLObjectIntersectionOf getOWLObjectIntersectionOf(
         Stream<? extends OWLClassExpression> operands) {
-        return new OWLObjectIntersectionOfImpl(operands.map(x -> x));
-    }
-
-    @Override
-    public OWLObjectIntersectionOf getOWLObjectIntersectionOf(
-        Collection<? extends OWLClassExpression> operands) {
-        return new OWLObjectIntersectionOfImpl(operands);
+        return new OWLObjectIntersectionOfImpl(sortedList(OWLClassExpression.class, operands));
     }
 
     @Override
@@ -673,7 +697,7 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable, ClassPr
 
     @Override
     public OWLObjectOneOf getOWLObjectOneOf(Stream<? extends OWLIndividual> values) {
-        return new OWLObjectOneOfImpl(values.map(x -> x));
+        return new OWLObjectOneOfImpl(sortedList(OWLIndividual.class, values));
     }
 
     @Override
@@ -731,12 +755,7 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable, ClassPr
 
     @Override
     public OWLObjectUnionOf getOWLObjectUnionOf(Stream<? extends OWLClassExpression> operands) {
-        return new OWLObjectUnionOfImpl(operands.map(x -> x));
-    }
-
-    @Override
-    public OWLObjectUnionOf getOWLObjectUnionOf(Collection<? extends OWLClassExpression> operands) {
-        return new OWLObjectUnionOfImpl(operands);
+        return new OWLObjectUnionOfImpl(sortedList(OWLClassExpression.class, operands));
     }
 
     @Override
@@ -782,7 +801,8 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable, ClassPr
     @Override
     public OWLDifferentIndividualsAxiom getOWLDifferentIndividualsAxiom(
         Collection<? extends OWLIndividual> inds, Collection<OWLAnnotation> anns) {
-        return new OWLDifferentIndividualsAxiomImpl(inds, anns);
+        return new OWLDifferentIndividualsAxiomImpl(sortedList(OWLIndividual.class, inds.stream()),
+            anns);
     }
 
     @Override
@@ -794,7 +814,9 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable, ClassPr
         // Hack to handle the case where classExpressions has only a single
         // member
         // which will usually be the result of :x owl:disjointWith :x .
-        if (classExpressions.size() == 1) {
+        List<OWLClassExpression> sortedList =
+            sortedList(OWLClassExpression.class, classExpressions.stream());
+        if (sortedList.size() == 1 && !config.shouldAllowDuplicatesInConstructSets()) {
             OWLClassExpression classExpression = classExpressions.iterator().next();
             if (classExpression.isOWLThing()) {
                 throw new OWLRuntimeException(
@@ -804,13 +826,12 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable, ClassPr
                 throw new OWLRuntimeException(
                     "DisjointClasses(owl:Nothing) cannot be created. It is not a syntactically valid OWL 2 axiom. If the intent is to declare owl:Nothing as disjoint with itself and therefore empty, it cannot be created as a DisjointClasses axiom, and it is also redundant as owl:Nothing is always empty. Please rewrite it as SubClassOf(owl:Nothing, owl:Nothing) or remove the axiom.");
             }
-            Set<OWLClassExpression> modifiedClassExpressions = new HashSet<>(2);
-            modifiedClassExpressions.add(OWL_THING);
-            modifiedClassExpressions.add(classExpression);
-            return getOWLDisjointClassesAxiom(modifiedClassExpressions,
+            List<OWLClassExpression> modifiedClassExpressions =
+                Arrays.asList(OWL_THING, classExpression);
+            return new OWLDisjointClassesAxiomImpl(modifiedClassExpressions,
                 makeSingletonDisjoinClassWarningAnnotation(anns, classExpression, OWL_THING));
         }
-        return new OWLDisjointClassesAxiomImpl(classExpressions, anns);
+        return new OWLDisjointClassesAxiomImpl(sortedList, anns);
     }
 
     protected Set<OWLAnnotation> makeSingletonDisjoinClassWarningAnnotation(
@@ -836,27 +857,31 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable, ClassPr
     public OWLDisjointDataPropertiesAxiom getOWLDisjointDataPropertiesAxiom(
         Collection<? extends OWLDataPropertyExpression> properties,
         Collection<OWLAnnotation> anns) {
-        return new OWLDisjointDataPropertiesAxiomImpl(properties, anns);
+        return new OWLDisjointDataPropertiesAxiomImpl(
+            sortedList(OWLDataPropertyExpression.class, properties.stream()), anns);
     }
 
     @Override
     public OWLDisjointObjectPropertiesAxiom getOWLDisjointObjectPropertiesAxiom(
         Collection<? extends OWLObjectPropertyExpression> properties,
         Collection<OWLAnnotation> anns) {
-        return new OWLDisjointObjectPropertiesAxiomImpl(properties, anns);
+        return new OWLDisjointObjectPropertiesAxiomImpl(
+            sortedList(OWLObjectPropertyExpression.class, properties.stream()), anns);
     }
 
     @Override
     public OWLEquivalentClassesAxiom getOWLEquivalentClassesAxiom(
         Collection<? extends OWLClassExpression> classExpressions, Collection<OWLAnnotation> anns) {
-        return new OWLEquivalentClassesAxiomImpl(classExpressions, anns);
+        return new OWLEquivalentClassesAxiomImpl(
+            sortedList(OWLClassExpression.class, classExpressions.stream()), anns);
     }
 
     @Override
     public OWLEquivalentDataPropertiesAxiom getOWLEquivalentDataPropertiesAxiom(
         Collection<? extends OWLDataPropertyExpression> properties,
         Collection<OWLAnnotation> anns) {
-        return new OWLEquivalentDataPropertiesAxiomImpl(properties, anns);
+        return new OWLEquivalentDataPropertiesAxiomImpl(
+            sortedList(OWLDataPropertyExpression.class, properties.stream()), anns);
     }
 
     @Override
@@ -945,7 +970,7 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable, ClassPr
     @Override
     public OWLSameIndividualAxiom getOWLSameIndividualAxiom(
         Collection<? extends OWLIndividual> inds, Collection<OWLAnnotation> anns) {
-        return new OWLSameIndividualAxiomImpl(inds, anns);
+        return new OWLSameIndividualAxiomImpl(sortedList(OWLIndividual.class, inds.stream()), anns);
     }
 
     @Override
@@ -994,14 +1019,16 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable, ClassPr
     @Override
     public OWLDisjointUnionAxiom getOWLDisjointUnionAxiom(OWLClass owlClass,
         Stream<? extends OWLClassExpression> classExpressions, Collection<OWLAnnotation> anns) {
-        return new OWLDisjointUnionAxiomImpl(owlClass, classExpressions.map(x -> x), anns);
+        return new OWLDisjointUnionAxiomImpl(owlClass,
+            sortedList(OWLClassExpression.class, classExpressions), anns);
     }
 
     @Override
     public OWLEquivalentObjectPropertiesAxiom getOWLEquivalentObjectPropertiesAxiom(
         Collection<? extends OWLObjectPropertyExpression> properties,
         Collection<OWLAnnotation> anns) {
-        return new OWLEquivalentObjectPropertiesAxiomImpl(properties, anns);
+        return new OWLEquivalentObjectPropertiesAxiomImpl(
+            sortedList(OWLObjectPropertyExpression.class, properties.stream()), anns);
     }
 
     @Override

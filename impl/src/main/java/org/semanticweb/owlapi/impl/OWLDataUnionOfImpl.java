@@ -12,8 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.impl;
 
-import java.util.Collection;
-import java.util.stream.Stream;
+import java.util.List;
 
 import org.semanticweb.owlapi.model.OWLDataRange;
 import org.semanticweb.owlapi.model.OWLDataUnionOf;
@@ -27,14 +26,7 @@ public class OWLDataUnionOfImpl extends OWLNaryDataRangeImpl implements OWLDataU
     /**
      * @param operands operands
      */
-    public OWLDataUnionOfImpl(Collection<OWLDataRange> operands) {
-        super(operands);
-    }
-
-    /**
-     * @param operands operands
-     */
-    public OWLDataUnionOfImpl(Stream<OWLDataRange> operands) {
+    public OWLDataUnionOfImpl(List<OWLDataRange> operands) {
         super(operands);
     }
 }

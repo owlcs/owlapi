@@ -13,6 +13,7 @@
 package org.semanticweb.owlapi.model;
 
 import static org.semanticweb.owlapi.model.parameters.ConfigurationOptions.ADD_MISSING_TYPES;
+import static org.semanticweb.owlapi.model.parameters.ConfigurationOptions.ALLOW_DUPLICATES_IN_CONSTRUCT_SETS;
 import static org.semanticweb.owlapi.model.parameters.ConfigurationOptions.AUTHORIZATION_VALUE;
 import static org.semanticweb.owlapi.model.parameters.ConfigurationOptions.BANNED_PARSERS;
 import static org.semanticweb.owlapi.model.parameters.ConfigurationOptions.BANNERS_ENABLED;
@@ -540,6 +541,26 @@ public class OntologyConfigurator implements Serializable {
      */
     public OntologyConfigurator withSkipModuleAnnotations(boolean value) {
         overrides.put(SKIP_MODULE_ANNOTATIONS, Boolean.valueOf(value));
+        return this;
+    }
+
+    /**
+     * @return false if collections used in constructs such as equivalent classes and properties
+     *         should be duplicate free. Some systems might need to allow this, e.g., reasoners
+     *         which require the creation of a tautology like {@code Equivalent(A, A)}.
+     */
+    public boolean shouldAllowDuplicatesInConstructSets() {
+        return ALLOW_DUPLICATES_IN_CONSTRUCT_SETS.getValue(Boolean.class, overrides).booleanValue();
+    }
+
+    /**
+     * @param value false if collections used in constructs such as equivalent classes and
+     *              properties should be duplicate free.
+     * @return A {@code OWLOntologyLoaderConfiguration} with the allow duplicates flag set to the
+     *         new value.
+     */
+    public OntologyConfigurator withAllowDuplicatesInConstructSets(boolean value) {
+        overrides.put(ALLOW_DUPLICATES_IN_CONSTRUCT_SETS, Boolean.valueOf(value));
         return this;
     }
 }

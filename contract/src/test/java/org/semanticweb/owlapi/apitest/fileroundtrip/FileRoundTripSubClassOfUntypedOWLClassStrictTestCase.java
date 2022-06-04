@@ -21,6 +21,7 @@ import java.util.stream.Stream;
 
 import org.apache.commons.rdf.api.Triple;
 import org.junit.Test;
+import org.semanticweb.owlapi.apitest.baseclasses.TestBase;
 import org.semanticweb.owlapi.documents.FileDocumentSource;
 import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
 import org.semanticweb.owlapi.model.AxiomType;
@@ -32,18 +33,13 @@ import org.semanticweb.owlapi.model.OWLOntologyCreationException;
  * @author Matthew Horridge, The University of Manchester, Bio-Health Informatics Group
  * @since 3.2.3
  */
-public class FileRoundTripSubClassOfUntypedOWLClassStrictTestCase
-    extends AbstractFileRoundTrippingTestCase {
-
-    public FileRoundTripSubClassOfUntypedOWLClassStrictTestCase() {
-        super("SubClassOfUntypedOWLClass.rdf");
-    }
+public class FileRoundTripSubClassOfUntypedOWLClassStrictTestCase extends TestBase {
 
     @Test
     public void testAxioms() throws OWLOntologyCreationException, URISyntaxException {
         config = config.setStrict(true);
-        FileDocumentSource documentSource =
-            new FileDocumentSource(new File(getClass().getResource('/' + fileName).toURI()));
+        FileDocumentSource documentSource = new FileDocumentSource(
+            new File(getClass().getResource('/' + "SubClassOfUntypedOWLClass.rdf").toURI()));
         OWLOntology ont = m1.loadOntologyFromOntologyDocument(documentSource, config);
         assertEquals(0, ont.axioms(AxiomType.SUBCLASS_OF).count());
         OWLDocumentFormat format = ont.getFormat();

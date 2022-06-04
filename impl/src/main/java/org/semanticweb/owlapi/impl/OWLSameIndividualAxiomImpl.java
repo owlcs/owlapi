@@ -16,6 +16,7 @@ import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.sorted;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -37,10 +38,10 @@ public class OWLSameIndividualAxiomImpl extends OWLNaryIndividualAxiomImpl
     implements OWLSameIndividualAxiom {
 
     /**
-     * @param individuals individuals
+     * @param individuals individuals (list must be sorted in the factory)
      * @param annotations annotations on the axiom
      */
-    public OWLSameIndividualAxiomImpl(Collection<? extends OWLIndividual> individuals,
+    public OWLSameIndividualAxiomImpl(List<OWLIndividual> individuals,
         Collection<OWLAnnotation> annotations) {
         super(individuals, annotations);
     }
@@ -59,7 +60,7 @@ public class OWLSameIndividualAxiomImpl extends OWLNaryIndividualAxiomImpl
 
     @Override
     public Collection<OWLSameIndividualAxiom> asPairwiseAxioms() {
-        if (individuals.size() == 2) {
+        if (individuals.size() < 3) {
             return CollectionFactory.createSet(this);
         }
         return walkPairwise((a, b) -> new OWLSameIndividualAxiomImpl(
@@ -68,7 +69,7 @@ public class OWLSameIndividualAxiomImpl extends OWLNaryIndividualAxiomImpl
 
     @Override
     public Collection<OWLSameIndividualAxiom> splitToAnnotatedPairs() {
-        if (individuals.size() == 2) {
+        if (individuals.size() < 3) {
             return CollectionFactory.createSet(this);
         }
         return walkPairwise((a, b) -> new OWLSameIndividualAxiomImpl(
@@ -83,7 +84,8 @@ public class OWLSameIndividualAxiomImpl extends OWLNaryIndividualAxiomImpl
     @Override
     public Set<OWLSubClassOfAxiom> asOWLSubClassOfAxioms() {
         List<OWLClassExpression> nominalsList = new ArrayList<>();
-        individuals().forEach(i -> nominalsList.add(new OWLObjectOneOfImpl(i)));
+        individuals()
+            .forEach(i -> nominalsList.add(new OWLObjectOneOfImpl(Collections.singletonList(i))));
         Set<OWLSubClassOfAxiom> result = new HashSet<>();
         for (int i = 0; i < nominalsList.size() - 1; i++) {
             OWLClassExpression ceI = nominalsList.get(i);

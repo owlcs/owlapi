@@ -123,6 +123,7 @@ import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
+import org.semanticweb.owlapi.model.OntologyConfigurator;
 import org.semanticweb.owlapi.model.SWRLRule;
 import org.semanticweb.owlapi.profiles.OWLProfile;
 import org.semanticweb.owlapi.profiles.OWLProfileViolation;
@@ -238,20 +239,23 @@ public class OWLProfileTestCase extends TestBase {
     private static final String OBJMAX = "OWLObjectMaxCardinality";
     private static final String HASKEY = "OWLHasKeyAxiom";
     private static final String CHAIN = "OWLSubPropertyChainOfAxiom";
-    private static final OWLDisjointClassesAxiom DISJOINT_TOP = DisjointClasses(ObjectComplementOf(OWLThing()),
-        OWLThing());
+    private static final OWLDisjointClassesAxiom DISJOINT_TOP =
+        DisjointClasses(ObjectComplementOf(OWLThing()), OWLThing());
     private static final OWLDataFactory DF = OWLManager.getOWLDataFactory();
-    private static final OWLClassAssertionAxiom ANON_INDIVIDUAL = ClassAssertion(OWLThing(),
-        DF.getOWLAnonymousIndividual());
-    private static final OWLLiteral LW2 = Literal("wrong", DF.getOWLDatatype("urn:test:defineddatatype"));
+    private static final OWLClassAssertionAxiom ANON_INDIVIDUAL =
+        ClassAssertion(OWLThing(), DF.getOWLAnonymousIndividual());
+    private static final OWLLiteral LW2 =
+        Literal("wrong", DF.getOWLDatatype("urn:test:defineddatatype"));
     private static final OWLLiteral LW1 = Literal("wrong", OWL2Datatype.XSD_INTEGER);
-    private static final SWRLRule SWRL_RULE = DF.getSWRLRule(Collections.emptyList(), Collections.emptyList());
+    private static final SWRLRule SWRL_RULE =
+        DF.getSWRLRule(Collections.emptyList(), Collections.emptyList());
     private static final String t = "urn:test#";
     private static final OWLAnnotationProperty APT = AnnotationProperty(IRI(t, "t"));
     private static final OWLDatatype FAKEDT2 = Datatype(IRI(t, "fakeundeclareddatatype"));
     private static final OWLLiteral _1 = Literal(1);
     private static final OWLDatatype FAKEDT = Datatype(IRI("urn:datatype#", "fakedatatype"));
-    private static final OWLDatatypeDefinitionAxiom DT_BOOL_DEF = DatatypeDefinition(FAKEDT, Boolean());
+    private static final OWLDatatypeDefinitionAxiom DT_BOOL_DEF =
+        DatatypeDefinition(FAKEDT, Boolean());
     private static final OWLDataOneOf DATA_ONE_OF = DataOneOf(_1, Literal(2));
     private static final OWLNamedIndividual I = NamedIndividual(IRI(t, "ind"));
     private static final OWLNamedIndividual I1 = NamedIndividual(IRI(t, "i1"));
@@ -278,12 +282,14 @@ public class OWLProfileTestCase extends TestBase {
     private static final OWLDatatype OWLTEST_DT = Datatype(OWL_TEST);
     private static final OWLClass CL = Class(IRI(t, "fakeclass"));
     private static final OWLDataProperty DATAP = DataProperty(IRI(t, "fakedatatypeproperty"));
-    private static final OWLDataPropertyRangeAxiom ILLEGAL_DATAP_RANGE_2 = DataPropertyRange(DATAP,
-        DataComplementOf(Integer()));
-    private static final OWLDataPropertyRangeAxiom ONEOF_DATAP_RANGE = DataPropertyRange(DATAP, DATA_ONE_OF);
+    private static final OWLDataPropertyRangeAxiom ILLEGAL_DATAP_RANGE_2 =
+        DataPropertyRange(DATAP, DataComplementOf(Integer()));
+    private static final OWLDataPropertyRangeAxiom ONEOF_DATAP_RANGE =
+        DataPropertyRange(DATAP, DATA_ONE_OF);
     private static final OWLDataPropertyRangeAxiom ILLEGAL_DATAP_RANGE = DataPropertyRange(DATAP,
         DatatypeRestriction(Integer(), FacetRestriction(OWLFacet.MAX_EXCLUSIVE, _1)));
-    private static final OWLFunctionalDataPropertyAxiom DATAP_FUNCTIONAL = FunctionalDataProperty(DATAP);
+    private static final OWLFunctionalDataPropertyAxiom DATAP_FUNCTIONAL =
+        FunctionalDataProperty(DATAP);
     private static final OWLObjectProperty OPP = ObjectProperty(DATAP.getIRI());
     private static final OWLAnnotationProperty APP = AnnotationProperty(DATAP.getIRI());
     private static final OWLObjectProperty OP = ObjectProperty(IRI(t, "fakeobjectproperty"));
@@ -296,12 +302,14 @@ public class OWLProfileTestCase extends TestBase {
         return Arrays.asList(e);
     }
 
-    private static void checkInCollection(List<OWLProfileViolation> violations, List<Class<?>> inputList) {
+    private static void checkInCollection(List<OWLProfileViolation> violations,
+        List<Class<?>> inputList) {
         inputList.sort(comp);
         assertEquals(inputList, asList(violations.stream().map(Object::getClass).sorted(comp)));
     }
 
-    public void runAssert(OWLOntology ontology, OWLProfile profile, List<Class<?>> expectedViolations) {
+    public void runAssert(OWLOntology ontology, OWLProfile profile,
+        List<Class<?>> expectedViolations) {
         List<OWLProfileViolation> violations = profile.checkOntology(ontology).getViolations();
         assertEquals(violations.toString(), expectedViolations.size(), violations.size());
         checkInCollection(violations, expectedViolations);
@@ -315,8 +323,8 @@ public class OWLProfileTestCase extends TestBase {
     Supplier<OWLOntology> onts;
     List<Class<?>> exceptions;
 
-    public OWLProfileTestCase(Supplier<OWLOntology> os, String name, List<OWLEntity> entities, List<OWLAxiom> axioms,
-        Profiles p, List<Class<?>> exceptions) {
+    public OWLProfileTestCase(Supplier<OWLOntology> os, String name, List<OWLEntity> entities,
+        List<OWLAxiom> axioms, Profiles p, List<Class<?>> exceptions) {
         this.p = p;
         this.entities = entities;
         this.axioms = axioms;
@@ -343,8 +351,8 @@ public class OWLProfileTestCase extends TestBase {
 
     static OWLOntology os2() {
         try {
-            return OWLManager.createOWLOntologyManager()
-                .createOntology(DF.getOWLOntologyID(Optional.of(RELATIVE_TEST), Optional.of(IRI("test1", ""))));
+            return OWLManager.createOWLOntologyManager().createOntology(
+                DF.getOWLOntologyID(Optional.of(RELATIVE_TEST), Optional.of(IRI("test1", ""))));
         } catch (OWLOntologyCreationException e) {
             throw new OWLRuntimeException(e);
         }
@@ -358,14 +366,18 @@ public class OWLProfileTestCase extends TestBase {
         runAssert(o, p, exceptions);
     }
 
-    static Object[] arg(Supplier<OWLOntology> supplier, String name, List<OWLEntity> e, List<OWLAxiom> a, Profiles p,
-        List<Class<?>> exceptions) {
-        return new Object[] { supplier, name, e, a, p, exceptions };
+    static Object[] arg(Supplier<OWLOntology> supplier, String name, List<OWLEntity> e,
+        List<OWLAxiom> a, Profiles p, List<Class<?>> exceptions) {
+        return new Object[] {supplier, name, e, a, p, exceptions};
     }
 
     static Supplier<OWLOntology> os = OWLProfileTestCase::os0;
     static Supplier<OWLOntology> o1 = OWLProfileTestCase::os1;
     static Supplier<OWLOntology> o2 = OWLProfileTestCase::os2;
+
+
+    private static OWLDataFactory DFLIST= OWLManager
+            .getOWLDataFactory(new OntologyConfigurator().withAllowDuplicatesInConstructSets(true));
 
     @Parameters
     public static Collection<Object[]> getData() {
@@ -396,7 +408,7 @@ public class OWLProfileTestCase extends TestBase {
         toReturn.add(arg(os, DATANOT,  l(DATAP), l(DataPropertyRange(DATAP, DataComplementOf(Double()))), OWL2_EL, l(UseOfIllegalDataRange.class, UseOfIllegalDataRange.class)));
         toReturn.add(arg(os, DATANOT,  l(DATAP), l(ILLEGAL_DATAP_RANGE_2), OWL2_QL, l(UseOfIllegalDataRange.class)));
         toReturn.add(arg(os, DATANOT,  l(DATAP), l(ILLEGAL_DATAP_RANGE_2), OWL2_RL, l(UseOfIllegalDataRange.class)));
-        toReturn.add(arg(os, DATAAND,  l(DATAP), l(DataPropertyRange(DATAP, DataIntersectionOf())), OWL2_DL, l(InsufficientOperands.class)));
+        toReturn.add(arg(os, DATAAND,  l(DATAP), l(DataPropertyRange(DATAP, DataIntersectionOf(DatatypeRestriction(Integer(), FacetRestriction(OWLFacet.MAX_EXCLUSIVE, Literal(1)))))), OWL2_DL, l(InsufficientOperands.class)));
         toReturn.add(arg(os, DATAAND,  l(DATAP), l(DataPropertyRange(DATAP, DataIntersectionOf(Integer(), Boolean()))), OWL2_RL, l()));
         toReturn.add(arg(os, DATAONE,  l(DATAP), l(ONEOF_DATAP_RANGE), OWL2_EL, l(UseOfDataOneOfWithMultipleLiterals.class)));
         toReturn.add(arg(os, DATAONE,  l(DATAP), l(ONEOF_DATAP_RANGE), OWL2_QL, l(UseOfIllegalDataRange.class)));
@@ -406,7 +418,7 @@ public class OWLProfileTestCase extends TestBase {
         toReturn.add(arg(os, DATAREST, l(DATAP), l(ILLEGAL_DATAP_RANGE), OWL2_QL, l(UseOfIllegalDataRange.class)));
         toReturn.add(arg(os, DATAREST, l(DATAP), l(ILLEGAL_DATAP_RANGE), OWL2_RL, l(UseOfIllegalDataRange.class)));
         toReturn.add(arg(os, DATAREST, l(DATAP), l(DatatypeDefinition(Integer(), Boolean()), DT_BOOL_DEF, DataPropertyRange(DATAP, DatatypeRestriction(Integer(), FacetRestriction(OWLFacet.LANG_RANGE, _1)))), OWL2_FULL, l(UseOfDefinedDatatypeInDatatypeRestriction.class, UseOfIllegalFacetRestriction.class, UseOfUndeclaredDatatype.class)));
-        toReturn.add(arg(os, DATAOR,   l(DATAP), l(DataPropertyRange(DATAP, DataUnionOf())), OWL2_DL, l(InsufficientOperands.class)));
+        toReturn.add(arg(os, DATAOR,   l(DATAP), l(DataPropertyRange(DATAP, DataUnionOf(Double()))), OWL2_DL, l(InsufficientOperands.class)));
         toReturn.add(arg(os, DATAOR,   l(DATAP), l(DataPropertyRange(DATAP, DataUnionOf(Double(), Integer()))), OWL2_EL, l(UseOfIllegalDataRange.class, UseOfIllegalDataRange.class)));
         toReturn.add(arg(os, DATAOR,   l(DATAP), l(DataPropertyRange(DATAP, DataUnionOf(Double(), Integer()))), OWL2_RL, l(UseOfIllegalDataRange.class)));
         toReturn.add(arg(os, DATAOR,   l(DATAP), l(DataPropertyRange(DATAP, DataUnionOf(Integer(), Boolean()))), OWL2_QL, l(UseOfIllegalDataRange.class, UseOfIllegalDataRange.class)));
@@ -433,7 +445,7 @@ public class OWLProfileTestCase extends TestBase {
         toReturn.add(arg(os, ANNP,   l(OWLTEST_OP, OWLTEST_DP, OWLTEST_AP),  l(SubAnnotationPropertyOf(APT, OWLTEST_AP)), OWL2_DL, l(UseOfReservedVocabularyForAnnotationPropertyIRI.class, UseOfUndeclaredAnnotationProperty.class, IllegalPunning.class, IllegalPunning.class)));
         toReturn.add(arg(os, CLA,    l(Class(OWL_TEST), FAKEDT),             l(ClassAssertion(Class(FAKEDT.getIRI()), AnonymousIndividual())), OWL2_DL, l(UseOfUndeclaredClass.class, DatatypeIRIAlsoUsedAsClassIRI.class)));
         toReturn.add(arg(os, DATADEF,l(OWLTEST_DT, Integer(), Boolean(), FAKEDT), l(DatatypeDefinition(OWLTEST_DT, Boolean()), DatatypeDefinition(Boolean(), OWLTEST_DT), DatatypeDefinition(FAKEDT, Integer()), DatatypeDefinition(Integer(), FAKEDT)), OWL2_DL, l(CycleInDatatypeDefinition.class, CycleInDatatypeDefinition.class, CycleInDatatypeDefinition.class, CycleInDatatypeDefinition.class, UseOfBuiltInDatatypeInDatatypeDefinition.class, UseOfBuiltInDatatypeInDatatypeDefinition.class, UseOfBuiltInDatatypeInDatatypeDefinition.class, UseOfUnknownDatatype.class, UseOfUnknownDatatype.class)));
-        toReturn.add(arg(os, DISJ,  l(OP), l(DisjointClasses()), OWL2_DL, l(InsufficientOperands.class)));
+        toReturn.add(arg(os, DISJ,  l(OP, CL), l(DFLIST.getOWLDisjointClassesAxiom(CL)), OWL2_DL, l(InsufficientOperands.class)));
         toReturn.add(arg(os, DDISJ, l(DATAP, DATA_PROPERTY), l(DisjointDataProperties(DATAP, DATA_PROPERTY)), OWL2_RL, l()));
         toReturn.add(arg(os, DDISJ, l(DATAP, OTHER_DP), l(DisjointDataProperties(DATAP, OTHER_DP)), OWL2_EL, l(UseOfIllegalAxiom.class)));
         toReturn.add(arg(os, DUN,   l(CL), l(DisjointUnion(CL, OWLThing(), OWLNothing())), OWL2_EL, l(UseOfIllegalAxiom.class)));
@@ -443,7 +455,7 @@ public class OWLProfileTestCase extends TestBase {
         toReturn.add(arg(os, ASYMM, l(OP), l(AsymmetricObjectProperty(OP)), OWL2_EL, l(UseOfIllegalAxiom.class)));
         toReturn.add(arg(os, ASYMM, l(OP), l(TransitiveObjectProperty(OP), AsymmetricObjectProperty(OP)), OWL2_DL, l(UseOfNonSimplePropertyInAsymmetricObjectPropertyAxiom.class)));
         toReturn.add(arg(os, CLASS, l(OP), l(ClassAssertion(ObjectMinCardinality(1, OP, OWLThing()), NamedIndividual(IRI(t, "i")))), OWL2_RL, l(UseOfNonSuperClassExpression.class)));
-        toReturn.add(arg(os, EQUIV, l(OP), l(EquivalentClasses()), OWL2_DL, l(InsufficientOperands.class)));
+        toReturn.add(arg(os, EQUIV, l(OP, CL), l(DFLIST.getOWLEquivalentClassesAxiom(CL)), OWL2_DL, l(InsufficientOperands.class)));
         toReturn.add(arg(os, OFUNC, l(OP), l(FunctionalObjectProperty(OP)), OWL2_EL, l(UseOfIllegalAxiom.class)));
         toReturn.add(arg(os, OFUNC, l(OP), l(FunctionalObjectProperty(OP)), OWL2_QL, l(UseOfIllegalAxiom.class)));
         toReturn.add(arg(os, OFUNC, l(OP), l(TransitiveObjectProperty(OP), FunctionalObjectProperty(OP)), OWL2_DL, l(UseOfNonSimplePropertyInFunctionalPropertyAxiom.class)));
@@ -454,7 +466,7 @@ public class OWLProfileTestCase extends TestBase {
         toReturn.add(arg(os, IRR,   l(OP), l(TransitiveObjectProperty(OP), IrreflexiveObjectProperty(OP)), OWL2_DL, l(UseOfNonSimplePropertyInIrreflexivePropertyAxiom.class)));
         toReturn.add(arg(os, NOT,   l(OP), l(ObjectPropertyRange(OP, ObjectComplementOf(OWLNothing()))), OWL2_EL, l(UseOfIllegalClassExpression.class)));
         toReturn.add(arg(os, SELF,  l(OP), l(TransitiveObjectProperty(OP), ObjectPropertyRange(OP, ObjectHasSelf(OP))), OWL2_DL, l(UseOfNonSimplePropertyInObjectHasSelf.class)));
-        toReturn.add(arg(os, AND,   l(OP), l(ObjectPropertyRange(OP, ObjectIntersectionOf())), OWL2_DL, l(InsufficientOperands.class)));
+        toReturn.add(arg(os, AND,   l(OP, CL), l(ObjectPropertyRange(OP, ObjectIntersectionOf(CL))), OWL2_DL, l(InsufficientOperands.class)));
         toReturn.add(arg(os, INV,   l(OP), l(SubObjectPropertyOf(OP, ObjectInverseOf(OP))), OWL2_EL, l(UseOfObjectPropertyInverse.class)));
         toReturn.add(arg(os, ONE,   l(OP), l(ObjectPropertyRange(OP, ObjectOneOf())), OWL2_DL, l(EmptyOneOfAxiom.class)));
         toReturn.add(arg(os, ONE,   l(OP), l(ObjectPropertyRange(OP, ObjectOneOf(I1, I2))), OWL2_EL, l(UseOfObjectOneOfWithMultipleIndividuals.class)));
@@ -462,7 +474,7 @@ public class OWLProfileTestCase extends TestBase {
         toReturn.add(arg(os, ODOM,  l(OP), l(ObjectPropertyDomain(OP, ObjectUnionOf(OWLNothing(), OWLThing()))), OWL2_QL, l(UseOfNonSuperClassExpression.class)));
         toReturn.add(arg(os, ORANGE,l(OP), l(ObjectPropertyRange(OP, ObjectMinCardinality(1, OP, OWLThing()))), OWL2_RL, l(UseOfNonSuperClassExpression.class)));
         toReturn.add(arg(os, ORANGE,l(OP), l(ObjectPropertyRange(OP, ObjectUnionOf(OWLNothing(), OWLThing()))), OWL2_QL, l(UseOfNonSuperClassExpression.class)));
-        toReturn.add(arg(os, OR,    l(OP), l(ObjectPropertyRange(OP, ObjectUnionOf())), OWL2_DL, l(InsufficientOperands.class)));
+        toReturn.add(arg(os, OR,    l(OP, CL), l(ObjectPropertyRange(OP, ObjectUnionOf(CL))), OWL2_DL, l(InsufficientOperands.class)));
         toReturn.add(arg(os, OR,    l(OP), l(ObjectPropertyRange(OP, ObjectUnionOf(OWLThing(), OWLNothing()))), OWL2_EL, l(UseOfIllegalClassExpression.class)));
         toReturn.add(arg(os, SUB,   l(OP), l(SubClassOf(ObjectComplementOf(OWLNothing()), ObjectUnionOf(OWLThing(), OWLNothing()))), OWL2_QL, l(UseOfNonSubClassExpression.class, UseOfNonSuperClassExpression.class)));
         toReturn.add(arg(os, TRAN,  l(OP), l(TransitiveObjectProperty(OP)), OWL2_QL, l(UseOfIllegalAxiom.class)));

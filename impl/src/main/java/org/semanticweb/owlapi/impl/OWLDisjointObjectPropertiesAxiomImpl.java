@@ -15,6 +15,7 @@ package org.semanticweb.owlapi.impl;
 import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.sorted;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.stream.Stream;
 
 import org.semanticweb.owlapi.model.OWLAnnotation;
@@ -32,11 +33,10 @@ public class OWLDisjointObjectPropertiesAxiomImpl
     implements OWLDisjointObjectPropertiesAxiom {
 
     /**
-     * @param properties  disjoint properties
+     * @param properties  disjoint properties (list must be sorted in the factory)
      * @param annotations annotations
      */
-    public OWLDisjointObjectPropertiesAxiomImpl(
-        Collection<? extends OWLObjectPropertyExpression> properties,
+    public OWLDisjointObjectPropertiesAxiomImpl(List<OWLObjectPropertyExpression> properties,
         Collection<OWLAnnotation> annotations) {
         super(properties, annotations);
     }
@@ -56,7 +56,7 @@ public class OWLDisjointObjectPropertiesAxiomImpl
 
     @Override
     public Collection<OWLDisjointObjectPropertiesAxiom> asPairwiseAxioms() {
-        if (getOperandsAsList().size() == 2) {
+        if (getOperandsAsList().size() < 3) {
             return CollectionFactory.createSet(this);
         }
         return walkPairwise((a, b) -> new OWLDisjointObjectPropertiesAxiomImpl(
@@ -65,7 +65,7 @@ public class OWLDisjointObjectPropertiesAxiomImpl
 
     @Override
     public Collection<OWLDisjointObjectPropertiesAxiom> splitToAnnotatedPairs() {
-        if (getOperandsAsList().size() == 2) {
+        if (getOperandsAsList().size() < 3) {
             return CollectionFactory.createSet(this);
         }
         return walkPairwise((a, b) -> new OWLDisjointObjectPropertiesAxiomImpl(

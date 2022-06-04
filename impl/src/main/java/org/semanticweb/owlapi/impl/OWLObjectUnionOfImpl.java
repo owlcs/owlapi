@@ -14,7 +14,7 @@ package org.semanticweb.owlapi.impl;
 
 import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asSet;
 
-import java.util.Collection;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Stream;
 
@@ -26,19 +26,12 @@ import org.semanticweb.owlapi.model.OWLObjectUnionOf;
  * @since 2.0.0
  */
 public class OWLObjectUnionOfImpl extends OWLNaryBooleanClassExpressionImpl
-                implements OWLObjectUnionOf {
+    implements OWLObjectUnionOf {
 
     /**
-     * @param operands operands
+     * @param operands operands (list must be sorted in the factory)
      */
-    public OWLObjectUnionOfImpl(Stream<OWLClassExpression> operands) {
-        super(operands);
-    }
-
-    /**
-     * @param operands operands
-     */
-    public OWLObjectUnionOfImpl(Collection<? extends OWLClassExpression> operands) {
+    public OWLObjectUnionOfImpl(List<OWLClassExpression> operands) {
         super(operands);
     }
 

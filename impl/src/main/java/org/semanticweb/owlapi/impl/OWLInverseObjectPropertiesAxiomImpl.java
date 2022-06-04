@@ -54,8 +54,8 @@ public class OWLInverseObjectPropertiesAxiomImpl
      */
     public OWLInverseObjectPropertiesAxiomImpl(OWLObjectPropertyExpression first,
         OWLObjectPropertyExpression second, Collection<OWLAnnotation> annotations) {
-        super(annotations, sort(checkNotNull(first, "forwardProperty cannot be null"),
-            checkNotNull(second, "inverseProperty cannot be null")));
+        super(sort(checkNotNull(first, "forwardProperty cannot be null"),
+            checkNotNull(second, "inverseProperty cannot be null")), annotations);
         this.first = getOperandsAsList().get(0);
         this.second = getOperandsAsList().get(1);
     }
