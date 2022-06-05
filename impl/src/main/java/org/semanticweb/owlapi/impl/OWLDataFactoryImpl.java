@@ -190,7 +190,7 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable, ClassPr
     private static final String PREFIX_MANAGER_CANNOT_BE_NULL = "prefixManager cannot be null";
     private static final Logger LOGGER = LoggerFactory.getLogger(OWLDataFactoryImpl.class);
 //@formatter:off
-    private static final LoadingCache<String, String>                        iriNamespaces        = builder(x -> x);
+    private static final LoadingCache<String, String>                        iriNamespaces        = builder(XMLUtils::getNCNamePrefix);
     private static final Cache<String, IRI>                                  iris                 = Caffeine.newBuilder().maximumSize(ConfigurationOptions.CACHE_SIZE.getValue(Integer.class, Collections.emptyMap()).longValue()).build();
     private static final LoadingCache<OWLAnnotation, OWLAnnotation>          annotations          = builder(x -> x);
     private static final LoadingCache<IRI,           OWLClass>               classes              = builder(OWLClassImpl::new);
