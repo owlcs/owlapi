@@ -9,6 +9,7 @@ import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asList;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.IOException;
 import java.io.StringReader;
 import java.io.StringWriter;
 import java.util.Collection;
@@ -20,6 +21,8 @@ import java.util.concurrent.atomic.AtomicInteger;
 import org.junit.Test;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.documents.StringDocumentTarget;
+import org.semanticweb.owlapi.formats.FunctionalSyntaxDocumentFormat;
+import org.semanticweb.owlapi.formats.OBODocumentFormat;
 import org.semanticweb.owlapi.formats.OWLXMLDocumentFormat;
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.IRI;
@@ -332,5 +335,39 @@ public class RoundTripTestCase extends RoundTripTestBasics {
         assertEquals(1, clause.getValues().size());
         assertEquals("part_of", clause.getValue());
         assertTrue(clause.getQualifierValues().isEmpty());
+    }
+
+    @Test
+    public void shouldRoundTripVersionInfo() throws OWLOntologyStorageException, IOException {
+        String in = "Prefix(:=<http://purl.obolibrary.org/obo/myont.owl#>)\n"
+            + "Prefix(owl:=<http://www.w3.org/2002/07/owl#>)\n"
+            + "Prefix(rdf:=<http://www.w3.org/1999/02/22-rdf-syntax-ns#>)\n"
+            + "Prefix(xml:=<http://www.w3.org/XML/1998/namespace>)\n"
+            + "Prefix(xsd:=<http://www.w3.org/2001/XMLSchema#>)\n"
+            + "Prefix(rdfs:=<http://www.w3.org/2000/01/rdf-schema#>)\n\n"
+            + "Ontology(<http://purl.obolibrary.org/obo/myont.owl>\n"
+            + "Annotation(<http://www.geneontology.org/formats/oboInOwl#hasOBOFormatVersion> \"1.2\")\n"
+            + "Annotation(owl:versionInfo \"2020-06-30\")\n"
+            + "Declaration(AnnotationProperty(<http://www.geneontology.org/formats/oboInOwl#hasOBOFormatVersion>))\n"
+            + "AnnotationAssertion(<http://www.w3.org/2000/01/rdf-schema#label> <http://www.geneontology.org/formats/oboInOwl#hasOBOFormatVersion> \"has_obo_format_version\")\n)";
+
+        OWLOntology o = loadOntologyFromString(in, new FunctionalSyntaxDocumentFormat());
+        StringDocumentTarget saved = saveOntology(o, new OBODocumentFormat());
+        OWLOntology o1 = loadOntologyFromString(saved, new OBODocumentFormat());
+        equal(o, o1);
+
+        OBODoc oboDoc1 = convert(o);
+        // write OBO
+        String expected = "format-version: 1.2\n" + "ontology: myont\n"
+            + "property_value: owl:versionInfo \"2020-06-30\" xsd:string";
+        String actual = renderOboToString(oboDoc1).trim();
+        assertEquals(expected, actual);
+        // parse OBO
+        OBOFormatParser p = new OBOFormatParser();
+        OBODoc oboDoc2 = p.parse(new BufferedReader(new StringReader(actual)));
+        assertEquals(expected, renderOboToString(oboDoc2).trim());
+
+        List<Diff> diffs = OBODocDiffer.getDiffs(oboDoc1, oboDoc2);
+        assertEquals(diffs.toString(), 0, diffs.size());
     }
 }

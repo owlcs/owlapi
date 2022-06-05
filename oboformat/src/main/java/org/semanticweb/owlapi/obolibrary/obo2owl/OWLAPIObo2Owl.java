@@ -1,8 +1,8 @@
-package org.semanticweb.owlapi.obolibrary.obo2owl;
+package org.semanticweb.owlapi6.obolibrary.obo2owl;
 
-import static org.semanticweb.owlapi.utilities.OWLAPIPreconditions.checkNotNull;
-import static org.semanticweb.owlapi.utilities.OWLAPIPreconditions.verifyNotNull;
-import static org.semanticweb.owlapi.vocab.Obo2OWLConstants.DEFAULT_IRI_PREFIX;
+import static org.semanticweb.owlapi6.utilities.OWLAPIPreconditions.checkNotNull;
+import static org.semanticweb.owlapi6.utilities.OWLAPIPreconditions.verifyNotNull;
+import static org.semanticweb.owlapi6.vocab.Obo2OWLConstants.DEFAULT_IRI_PREFIX;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -70,6 +70,7 @@ import org.semanticweb.owlapi.vocab.OBOFormatConstants;
 import org.semanticweb.owlapi.vocab.OBOFormatConstants.OboFormatTag;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
+import org.semanticweb.owlapi.vocab.OWLXMLVocabulary;
 import org.semanticweb.owlapi.vocab.Obo2OWLConstants;
 import org.semanticweb.owlapi.vocab.Obo2OWLConstants.Obo2OWLVocabulary;
 import org.slf4j.Logger;
@@ -1522,6 +1523,23 @@ public class OWLAPIObo2Owl {
             || id.startsWith("urn:")) {
             // TODO - roundtrip from other schemes
             return df.getIRI(id);
+        } else if (id.startsWith("owl:") || id.startsWith("xsd:") || id.startsWith("rdf:")
+            || id.startsWith("rdfs:")) {
+            for (OWL2Datatype d : OWL2Datatype.values()) {
+                if (d.getPrefixedName().equals(id)) {
+                    return d.getIRI();
+                }
+            }
+            for (OWLRDFVocabulary d : OWLRDFVocabulary.values()) {
+                if (d.getPrefixedName().equals(id)) {
+                    return d.getIRI();
+                }
+            }
+            for (OWLXMLVocabulary d : OWLXMLVocabulary.values()) {
+                if (d.getPrefixedName().equals(id)) {
+                    return d.getIRI();
+                }
+            }
         }
         // TODO - treat_xrefs_as_equivalent
         // special case rule for relation xrefs:
