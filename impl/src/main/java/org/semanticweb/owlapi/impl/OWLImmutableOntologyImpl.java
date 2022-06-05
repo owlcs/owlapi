@@ -22,10 +22,13 @@ import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.streamFromSorte
 import java.io.OutputStream;
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
+import java.util.function.BiPredicate;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
@@ -170,9 +173,9 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl
     protected OntologyConfigurator config;
 
     /**
-     * @param manager    ontology manager
+     * @param manager ontology manager
      * @param ontologyID ontology id
-     * @param config     ontology configurator
+     * @param config ontology configurator
      */
     public OWLImmutableOntologyImpl(OWLOntologyManager manager, OWLOntologyID ontologyID,
         OntologyConfigurator config) {
@@ -423,7 +426,37 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl
 
     @Override
     public boolean containsEntityInSignature(OWLEntity owlEntity) {
-        return verifyNotNull(ontsignatures.get(this)).contains(owlEntity);
+        // Do not use the cached signature if it has not been created already.
+        // Creating the cache while this method is called during updates leads to very expensive
+        // lookups.
+        Set<OWLEntity> set = ontsignatures.getIfPresent(this);
+        if (set == null) {
+            BiPredicate<Internals, OWLEntity> c =
+                CONTAINMENT_PREDICATES.get(owlEntity.getEntityType());
+            if (c != null && c.test(ints, owlEntity)) {
+                return true;
+            }
+            return annotations().flatMap(OWLAnnotation::signature).anyMatch(owlEntity::equals);
+        }
+        return set.contains(owlEntity);
+    }
+
+    private static final Map<EntityType<?>, BiPredicate<Internals, OWLEntity>> CONTAINMENT_PREDICATES =
+        containmentPredicates();
+
+    private static Map<EntityType<?>, BiPredicate<Internals, OWLEntity>> containmentPredicates() {
+        Map<EntityType<?>, BiPredicate<Internals, OWLEntity>> map = new HashMap<>();
+        map.put(EntityType.CLASS, (i, e) -> i.containsClassInSignature(e.asOWLClass()));
+        map.put(EntityType.OBJECT_PROPERTY,
+            (i, e) -> i.containsObjectPropertyInSignature(e.asOWLObjectProperty()));
+        map.put(EntityType.DATA_PROPERTY,
+            (i, e) -> i.containsDataPropertyInSignature(e.asOWLDataProperty()));
+        map.put(EntityType.NAMED_INDIVIDUAL,
+            (i, e) -> i.containsIndividualInSignature(e.asOWLNamedIndividual()));
+        map.put(EntityType.DATATYPE, (i, e) -> i.containsDatatypeInSignature(e.asOWLDatatype()));
+        map.put(EntityType.ANNOTATION_PROPERTY,
+            (i, e) -> i.containsAnnotationPropertyInSignature(e.asOWLAnnotationProperty()));
+        return map;
     }
 
     @Override
