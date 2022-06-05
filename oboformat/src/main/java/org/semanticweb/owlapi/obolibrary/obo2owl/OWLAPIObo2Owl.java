@@ -23,8 +23,8 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 import javax.annotation.Nullable;
 
-import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
 import org.semanticweb.owlapi.documents.IRIDocumentSource;
+import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
 import org.semanticweb.owlapi.io.OWLParserException;
 import org.semanticweb.owlapi.model.AddImport;
 import org.semanticweb.owlapi.model.AddOntologyAnnotation;
@@ -146,6 +146,7 @@ public class OWLAPIObo2Owl {
             return size() > 1024;
         }
     };
+    private OntologyConfigurator config;
 
     /**
      * Instantiates a new oWLAPI obo2 owl.
@@ -444,9 +445,7 @@ public class OWLAPIObo2Owl {
      * @throws OWLOntologyCreationException the oWL ontology creation exception
      */
     public OWLOntology convert(OBODoc doc) throws OWLOntologyCreationException {
-        obodoc = doc;
-        init(manager);
-        return tr(manager.createOntology());
+        return convert(doc, null);
     }
 
     /**
@@ -455,11 +454,15 @@ public class OWLAPIObo2Owl {
      * @param doc the obodoc
      * @param in  the in
      * @return the oWL ontology
+     * @throws OWLOntologyCreationException if an ontologymust be created because null was passed in
+     *                                      input but creation failed
      */
-    public OWLOntology convert(OBODoc doc, OWLOntology in) {
+    public OWLOntology convert(OBODoc doc, @Nullable OWLOntology in)
+        throws OWLOntologyCreationException {
         obodoc = doc;
-        init(in.getOWLOntologyManager());
-        return tr(in);
+        init(in == null ? manager : in.getOWLOntologyManager());
+        config = in == null ? manager.getOntologyConfigurator() : in.getOntologyConfigurator();
+        return tr(in == null ? manager.createOntology() : in);
     }
 
     /**
@@ -1318,7 +1321,7 @@ public class OWLAPIObo2Owl {
         // obo-format allows dangling references to classes in class
         // expressions.
         // Create an explicit class declaration to be sure
-        if (ce instanceof OWLClass) {
+        if (ce instanceof OWLClass && config.shouldAddMissingTypes()) {
             add(df.getOWLDeclarationAxiom((OWLClass) ce));
         }
         if (exact != null && exact.intValue() > 0) {
