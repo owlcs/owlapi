@@ -30,8 +30,8 @@ public class UseOfReservedVocabularyForClassIRI extends OWLProfileViolation {
 
     /**
      * @param ontology ontology
-     * @param axiom axiom
-     * @param cls cls
+     * @param axiom    axiom
+     * @param cls      class
      */
     public UseOfReservedVocabularyForClassIRI(OWLOntology ontology, @Nullable OWLAxiom axiom,
         OWLClass cls) {

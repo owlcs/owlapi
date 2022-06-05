@@ -18,7 +18,7 @@ public enum Extensions {
     /** Turtle, common extensions: ttl, owl */                  TURTLE              (TurtleDocumentFormat.class,            ".ttl", ".owl"), 
     /** OBO, common extensions: obo */                          OBO                 (OBODocumentFormat.class,               ".obo"), 
     /** Manchester OWL syntax, common extensions: omn, owl */   MANCHESTERSYNTAX    (ManchesterSyntaxDocumentFormat.class,  ".omn", ".owl"), 
-    /** Functional sytax, common extensions: fss, owl */        FUNCTIONALSYNTAX    (FunctionalSyntaxDocumentFormat.class,  ".fss", ".owl");
+    /** Functional syntax, common extensions: fss, owl */        FUNCTIONALSYNTAX    (FunctionalSyntaxDocumentFormat.class,  ".fss", ".owl");
     //@formatter:on
 
     private List<String> extensionList;

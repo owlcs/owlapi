@@ -127,7 +127,7 @@ public abstract class AbstractMacroExpansionVisitor implements OWLAxiomVisitorEx
     }
 
     /**
-     * @return value for OIO isexpansion
+     * @return value for OIO is_expansion
      */
     public OWLAnnotationProperty getOIOISEXPANSION() {
         return oioIsexpansion;

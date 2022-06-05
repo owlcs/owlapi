@@ -19,14 +19,14 @@ import org.semanticweb.owlapi.model.IRI;
 /**
  * Developed as part of the CO-ODE project http://www.co-ode.org .
  *
- * @author Matthew Horridge, The Univeristy Of Manchester, Medical Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Medical Informatics Group
  * @since 2.0.0
  */
 public interface XMLWriter {
 
     /**
-     * Sets the encoding for the document that the rdfwriter produces. The default encoding is
-     * "UTF-8".
+     * Sets the encoding for the document that the RDF writer produces. The default encoding is
+     * {@code UTF-8}.
      *
      * @param encoding The encoding.
      */
@@ -40,7 +40,7 @@ public interface XMLWriter {
     XMLWriterNamespaceManager getNamespacePrefixes();
 
     /**
-     * @return the xml base
+     * @return the XML base
      */
     String getXMLBase();
 
@@ -103,7 +103,7 @@ public interface XMLWriter {
     void writeTextContent(String text);
 
     /**
-     * @param commentText commentText
+     * @param commentText comment text
      */
     void writeComment(String commentText);
 }

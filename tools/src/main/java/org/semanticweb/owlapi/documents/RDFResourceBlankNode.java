@@ -39,10 +39,10 @@ public class RDFResourceBlankNode extends RDFResource implements BlankNode {
     /**
      * Create an RDFResource that is anonymous.
      *
-     * @param resource The IRI of the resource
+     * @param resource     The IRI of the resource
      * @param isIndividual true if the node represents an individual
-     * @param forceId true if id should be outputted
-     * @param isAxiom true if the resource is an axiom
+     * @param forceId      true if id should be output
+     * @param isAxiom      true if the resource is an axiom
      */
     public RDFResourceBlankNode(IRI resource, boolean isIndividual, boolean forceId,
         boolean isAxiom) {

@@ -80,7 +80,7 @@ import org.semanticweb.owlapi.utilities.Version;
  * ontology. <br>
  * By abuse of notation, we say that a {@code NodeSet} "contains" an entity if that entity is
  * contained in one of the {@code Nodes} in the {@code NodeSet}. <br>
- * <h2>Hierarchies</h2> A hierachy (class hierachy, object property hierarchy, data property
+ * <h2>Hierarchies</h2> A hierarchy (class hierarchy, object property hierarchy, data property
  * hierarchy) is viewed as a directed acyclic graph (DAG) containing nodes connected via edges. Each
  * node in the hierarchy represents a set of entities that are equivalent to each other. Each
  * hierarchy has a top node (see org.semanticweb.owlapi.reasoner.Node#isTopNode()) and a bottom
@@ -109,7 +109,7 @@ import org.semanticweb.owlapi.utilities.Version;
  * {@code &#123;C, D, F&#125;} as the direct subclasses of {@code A} simply by using the
  * {@link #getSubClasses(org.semanticweb.owlapi.model.OWLClassExpression, boolean)} (with
  * boolean=true) method on {@code OWLReasoner} and then we could use the {@link NodeSet#entities()}
- * method on the retuned {@code NodeSet} . <br>
+ * method on the returned {@code NodeSet} . <br>
  * Asking for equivalent classes of a class (expression) returns a {@code Node} that contains
  * classes that are equivalent to the class (expression) . For example, asking for the equivalent
  * classes of {@code owl:Nothing} (i.e. asking for the unsatisfiable classes) returns the
@@ -140,7 +140,7 @@ import org.semanticweb.owlapi.utilities.Version;
  * name {@code P} in the signature of {@code O} such that {@code O} entails
  * {@code StrictSubObjectPropertyOf(OPE1 P)} and {@code O} entails
  * {@code StrictSubObjectPropertyOf(P OPE2)}. <br>
- * <h3>StrictSubDataPropertyOf</h3> Given two dbject property expressions {@code DPE1} and
+ * <h3>StrictSubDataPropertyOf</h3> Given two object property expressions {@code DPE1} and
  * {@code DPE2} and an ontology {@code O}, {@code DPE1} is a strict subproperty of {@code DPE2},
  * written {@code StrictSubDataPropertyOf(DPE1 DPE2)} if {@code O} entails
  * {@code SubDataPropertyOf(DPE1 DPE2)} and {@code O} does not entail
@@ -169,7 +169,7 @@ import org.semanticweb.owlapi.utilities.Version;
  * {@code owl:topDataProperty} minus the interpretation of {@code pe}. In other words,
  * {@code DataPropertyComplementOf(pe)} is the set of pairs of individual and literals that are not
  * in {@code pe}.
- * <h3 id="spe">Simplified Object Property Expression</h3> A simplified object property expression
+ * <h3 id="SPE">Simplified Object Property Expression</h3> A simplified object property expression
  * is either a named property {@code P}, or an object inverse property of the form
  * {@code ObjectInverseOf(P)} where {@code P} is a named property. In other words, there is no
  * nesting of {@code ObjectInverseOf} operators.
@@ -312,9 +312,9 @@ public interface OWLReasoner {
      * will be thrown in the thread that invoked the last reasoner operation. The OWL API is not
      * thread safe in general, but it is likely that this method will be called from another thread
      * than the event dispatch thread or the thread in which reasoning takes place. <br>
-     * Note that the reasoner will periodically check for interupt requests. Asking the reasoner to
+     * Note that the reasoner will periodically check for interrupt requests. Asking the reasoner to
      * interrupt the current process does not mean that it will be interrupted immediately. However,
-     * clients can expect to be able to interupt individual consistency checks, satisfiability
+     * clients can expect to be able to interrupt individual consistency checks, satisfiability
      * checks etc.
      */
     void interrupt();
@@ -575,8 +575,8 @@ public interface OWLReasoner {
      * returned as a {@link org.semanticweb.owlapi.reasoner.NodeSet}.
      *
      * @param ce The class expression whose strict (direct) subclasses are to be retrieved.
-     * @param direct Specifies if the direct subclasses should be retrived ( {@code true}) or if the
-     *        all subclasses (descendant) classes should be retrieved ({@code false}).
+     * @param direct Specifies if the direct subclasses should be retrieved ( {@code true}) or if
+     *        the all subclasses (descendant) classes should be retrieved ({@code false}).
      * @return If direct is {@code true}, a {@code NodeSet} such that for each class {@code C} in
      *         the {@code NodeSet} the set of reasoner axioms entails
      *         {@code DirectSubClassOf(C, ce)}. <br>
@@ -605,8 +605,8 @@ public interface OWLReasoner {
      * returned as a {@link org.semanticweb.owlapi.reasoner.NodeSet}.
      *
      * @param ce The class expression whose strict (direct) subclasses are to be retrieved.
-     * @param direct Specifies if the direct subclasses should be retrived ( {@code true}) or if the
-     *        all subclasses (descendant) classes should be retrieved ({@code false}).
+     * @param direct Specifies if the direct subclasses should be retrieved ( {@code true}) or if
+     *        the all subclasses (descendant) classes should be retrieved ({@code false}).
      * @return If direct is {@code true}, a {@code NodeSet} such that for each class {@code C} in
      *         the {@code NodeSet} the set of reasoner axioms entails
      *         {@code DirectSubClassOf(C, ce)}. <br>
@@ -699,7 +699,7 @@ public interface OWLReasoner {
      * that the classes are returned as a {@link org.semanticweb.owlapi.reasoner.NodeSet}.
      *
      * @param ce The class expression whose strict (direct) super classes are to be retrieved.
-     * @param direct Specifies if the direct super classes should be retrived ( {@code true}) or if
+     * @param direct Specifies if the direct super classes should be retrieved ( {@code true}) or if
      *        the all super classes (ancestors) classes should be retrieved ({@code false}).
      * @return If direct is {@code true}, a {@code NodeSet} such that for each class {@code C} in
      *         the {@code NodeSet} the set of reasoner axioms entails
@@ -729,7 +729,7 @@ public interface OWLReasoner {
      * that the classes are returned as a {@link org.semanticweb.owlapi.reasoner.NodeSet}.
      *
      * @param ce The class expression whose strict (direct) super classes are to be retrieved.
-     * @param direct Specifies if the direct super classes should be retrived ( {@code true}) or if
+     * @param direct Specifies if the direct super classes should be retrieved ( {@code true}) or if
      *        the all super classes (ancestors) classes should be retrieved ({@code false}).
      * @return If direct is {@code true}, a {@code NodeSet} such that for each class {@code C} in
      *         the {@code NodeSet} the set of reasoner axioms entails
@@ -757,8 +757,8 @@ public interface OWLReasoner {
 
     /**
      * @param ce The class expression whose strict (direct) super classes are to be retrieved.
-     * @param depth Specifies if the direct super classes should be retrived ( {@code DIRECT}) or if
-     *        the all super classes (ancestors) classes should be retrieved ({@code ALL}).
+     * @param depth Specifies if the direct super classes should be retrieved ( {@code DIRECT}) or
+     *        if the all super classes (ancestors) classes should be retrieved ({@code ALL}).
      * @return If direct is {@code DIRECT}, a {@code NodeSet} such that for each class {@code C} in
      *         the {@code NodeSet} the set of reasoner axioms entails
      *         {@code DirectSubClassOf(ce, C)}. <br>
@@ -775,8 +775,8 @@ public interface OWLReasoner {
 
     /**
      * @param ce The class expression whose strict (direct) super classes are to be retrieved.
-     * @param depth Specifies if the direct super classes should be retrived ( {@code DIRECT}) or if
-     *        the all super classes (ancestors) classes should be retrieved ({@code ALL}).
+     * @param depth Specifies if the direct super classes should be retrieved ( {@code DIRECT}) or
+     *        if the all super classes (ancestors) classes should be retrieved ({@code ALL}).
      * @return If direct is {@code DIRECT}, a {@code NodeSet} such that for each class {@code C} in
      *         the {@code NodeSet} the set of reasoner axioms entails
      *         {@code DirectSubClassOf(ce, C)}. <br>
@@ -980,22 +980,22 @@ public interface OWLReasoner {
     }
 
     /**
-     * Gets the set of <a href="#spe">simplified object property expressions</a> that are the strict
+     * Gets the set of <a href="#SPE">simplified object property expressions</a> that are the strict
      * (potentially direct) subproperties of the specified object property expression with respect
      * to the imports closure of the root ontology. Note that the properties are returned as a
      * {@link org.semanticweb.owlapi.reasoner.NodeSet}.
      *
      * @param pe The object property expression whose strict (direct) subproperties are to be
      *        retrieved.
-     * @param direct Specifies if the direct subproperties should be retrived ( {@code true}) or if
+     * @param direct Specifies if the direct subproperties should be retrieved ( {@code true}) or if
      *        the all subproperties (descendants) should be retrieved ({@code false}).
-     * @return If direct is {@code true}, a {@code NodeSet} of <a href="#spe">simplified object
-     *         property expressions</a>, such that for each <a href="#spe">simplified object
+     * @return If direct is {@code true}, a {@code NodeSet} of <a href="#SPE">simplified object
+     *         property expressions</a>, such that for each <a href="#SPE">simplified object
      *         property expression</a>, {@code P}, in the {@code NodeSet} the set of reasoner axioms
      *         entails {@code
      * DirectSubObjectPropertyOf(P, pe)}. <br>
-     *         If direct is {@code false}, a {@code NodeSet} of <a href="#spe">simplified object
-     *         property expressions</a>, such that for each <a href="#spe">simplified object
+     *         If direct is {@code false}, a {@code NodeSet} of <a href="#SPE">simplified object
+     *         property expressions</a>, such that for each <a href="#SPE">simplified object
      *         property expression</a>, {@code P}, in the {@code NodeSet} the set of reasoner axioms
      *         entails {@code StrictSubObjectPropertyOf(P, pe)}. <br>
      *         If {@code pe} is equivalent to {@code owl:bottomObjectProperty} then the empty
@@ -1015,22 +1015,22 @@ public interface OWLReasoner {
         boolean direct);
 
     /**
-     * Gets the stream of <a href="#spe">simplified object property expressions</a> that are the
+     * Gets the stream of <a href="#SPE">simplified object property expressions</a> that are the
      * strict (potentially direct) subproperties of the specified object property expression with
      * respect to the imports closure of the root ontology. Note that the properties are returned as
      * a {@link org.semanticweb.owlapi.reasoner.NodeSet}.
      *
      * @param pe The object property expression whose strict (direct) subproperties are to be
      *        retrieved.
-     * @param direct Specifies if the direct subproperties should be retrived ( {@code true}) or if
+     * @param direct Specifies if the direct subproperties should be retrieved ( {@code true}) or if
      *        the all subproperties (descendants) should be retrieved ({@code false}).
-     * @return If direct is {@code true}, a {@code NodeSet} of <a href="#spe">simplified object
-     *         property expressions</a>, such that for each <a href="#spe">simplified object
+     * @return If direct is {@code true}, a {@code NodeSet} of <a href="#SPE">simplified object
+     *         property expressions</a>, such that for each <a href="#SPE">simplified object
      *         property expression</a>, {@code P}, in the {@code NodeSet} the set of reasoner axioms
      *         entails {@code
      * DirectSubObjectPropertyOf(P, pe)}. <br>
-     *         If direct is {@code false}, a {@code NodeSet} of <a href="#spe">simplified object
-     *         property expressions</a>, such that for each <a href="#spe">simplified object
+     *         If direct is {@code false}, a {@code NodeSet} of <a href="#SPE">simplified object
+     *         property expressions</a>, such that for each <a href="#SPE">simplified object
      *         property expression</a>, {@code P}, in the {@code NodeSet} the set of reasoner axioms
      *         entails {@code StrictSubObjectPropertyOf(P, pe)}. <br>
      *         If {@code pe} is equivalent to {@code owl:bottomObjectProperty} then the empty
@@ -1054,21 +1054,21 @@ public interface OWLReasoner {
     /**
      * @param pe The object property expression whose strict (direct) super properties are to be
      *        retrieved.
-     * @param depth Specifies if the direct subproperties should be retrived ( {@code DIRECT}) or if
-     *        the all subproperties (descendants) should be retrieved ({@code ALL}).
-     * @return If depth is {@code DIRECT}, a {@code NodeSet} of <a href="#spe">simplified object
-     *         property expressions</a>, such that for each <a href="#spe">simplified object
+     * @param depth Specifies if the direct subproperties should be retrieved ( {@code DIRECT}) or
+     *        if the all subproperties (descendants) should be retrieved ({@code ALL}).
+     * @return If depth is {@code DIRECT}, a {@code NodeSet} of <a href="#SPE">simplified object
+     *         property expressions</a>, such that for each <a href="#SPE">simplified object
      *         property expression</a>, {@code P}, in the {@code NodeSet} the set of reasoner axioms
      *         entails {@code
      * DirectSubObjectPropertyOf(P, pe)}. <br>
-     *         If direct is {@code ALL}, a {@code NodeSet} of <a href="#spe">simplified object
-     *         property expressions</a>, such that for each <a href="#spe">simplified object
+     *         If direct is {@code ALL}, a {@code NodeSet} of <a href="#SPE">simplified object
+     *         property expressions</a>, such that for each <a href="#SPE">simplified object
      *         property expression</a>, {@code P}, in the {@code NodeSet} the set of reasoner axioms
      *         entails {@code StrictSubObjectPropertyOf(P, pe)}. <br>
      *         If {@code pe} is equivalent to {@code owl:bottomObjectProperty} then the empty
      *         {@code NodeSet} will be returned.
      * @see OWLReasoner#getSubObjectProperties(OWLObjectPropertyExpression, boolean) Gets the set of
-     *      <a href="#spe">simplified object property expressions</a> that are the strict
+     *      <a href="#SPE">simplified object property expressions</a> that are the strict
      *      (potentially direct) subproperties of the specified object property expression with
      *      respect to the imports closure of the root ontology. Note that the properties are
      *      returned as a {@link org.semanticweb.owlapi.reasoner.NodeSet}.
@@ -1082,21 +1082,21 @@ public interface OWLReasoner {
     /**
      * @param pe The object property expression whose strict (direct) super properties are to be
      *        retrieved.
-     * @param depth Specifies if the direct subproperties should be retrived ( {@code DIRECT}) or if
-     *        the all subproperties (descendants) should be retrieved ({@code ALL}).
-     * @return If depth is {@code DIRECT}, a {@code NodeSet} of <a href="#spe">simplified object
-     *         property expressions</a>, such that for each <a href="#spe">simplified object
+     * @param depth Specifies if the direct subproperties should be retrieved ( {@code DIRECT}) or
+     *        if the all subproperties (descendants) should be retrieved ({@code ALL}).
+     * @return If depth is {@code DIRECT}, a {@code NodeSet} of <a href="#SPE">simplified object
+     *         property expressions</a>, such that for each <a href="#SPE">simplified object
      *         property expression</a>, {@code P}, in the {@code NodeSet} the set of reasoner axioms
      *         entails {@code
      * DirectSubObjectPropertyOf(P, pe)}. <br>
-     *         If direct is {@code ALL}, a {@code NodeSet} of <a href="#spe">simplified object
-     *         property expressions</a>, such that for each <a href="#spe">simplified object
+     *         If direct is {@code ALL}, a {@code NodeSet} of <a href="#SPE">simplified object
+     *         property expressions</a>, such that for each <a href="#SPE">simplified object
      *         property expression</a>, {@code P}, in the {@code NodeSet} the set of reasoner axioms
      *         entails {@code StrictSubObjectPropertyOf(P, pe)}. <br>
      *         If {@code pe} is equivalent to {@code owl:bottomObjectProperty} then the empty
      *         {@code NodeSet} will be returned.
      * @see OWLReasoner#getSubObjectProperties(OWLObjectPropertyExpression, boolean) Gets the set of
-     *      <a href="#spe">simplified object property expressions</a> that are the strict
+     *      <a href="#SPE">simplified object property expressions</a> that are the strict
      *      (potentially direct) subproperties of the specified object property expression with
      *      respect to the imports closure of the root ontology. Note that the properties are
      *      returned as a {@link org.semanticweb.owlapi.reasoner.NodeSet}.
@@ -1109,14 +1109,14 @@ public interface OWLReasoner {
     /**
      * @param pe The object property expression whose strict (direct) super properties are to be
      *        retrieved.
-     * @return A {@code NodeSet} of <a href="#spe">simplified object property expressions</a>, such
-     *         that for each <a href="#spe">simplified object property expression</a>, {@code P}, in
+     * @return A {@code NodeSet} of <a href="#SPE">simplified object property expressions</a>, such
+     *         that for each <a href="#SPE">simplified object property expression</a>, {@code P}, in
      *         the {@code NodeSet} the set of reasoner axioms entails
      *         {@code StrictSubObjectPropertyOf(P, pe)}. <br>
      *         If {@code pe} is equivalent to {@code owl:bottomObjectProperty} then the empty {@code
      * NodeSet} will be returned.
      * @see OWLReasoner#getSubObjectProperties(OWLObjectPropertyExpression, boolean) Gets the set of
-     *      all <a href="#spe">simplified object property expressions</a> that are the strict
+     *      all <a href="#SPE">simplified object property expressions</a> that are the strict
      *      (potentially direct) subproperties of the specified object property expression with
      *      respect to the imports closure of the root ontology. Note that the properties are
      *      returned as a {@link org.semanticweb.owlapi.reasoner.NodeSet}.
@@ -1129,14 +1129,14 @@ public interface OWLReasoner {
     /**
      * @param pe The object property expression whose strict (direct) super properties are to be
      *        retrieved.
-     * @return A {@code NodeSet} of <a href="#spe">simplified object property expressions</a>, such
-     *         that for each <a href="#spe">simplified object property expression</a>, {@code P}, in
+     * @return A {@code NodeSet} of <a href="#SPE">simplified object property expressions</a>, such
+     *         that for each <a href="#SPE">simplified object property expression</a>, {@code P}, in
      *         the {@code NodeSet} the set of reasoner axioms entails
      *         {@code StrictSubObjectPropertyOf(P, pe)}. <br>
      *         If {@code pe} is equivalent to {@code owl:bottomObjectProperty} then the empty {@code
      * NodeSet} will be returned.
      * @see OWLReasoner#getSubObjectProperties(OWLObjectPropertyExpression, boolean) Gets the set of
-     *      all <a href="#spe">simplified object property expressions</a> that are the strict
+     *      all <a href="#SPE">simplified object property expressions</a> that are the strict
      *      (potentially direct) subproperties of the specified object property expression with
      *      respect to the imports closure of the root ontology. Note that the properties are
      *      returned as a {@link org.semanticweb.owlapi.reasoner.NodeSet}.
@@ -1147,22 +1147,22 @@ public interface OWLReasoner {
     }
 
     /**
-     * Gets the set of <a href="#spe">simplified object property expressions</a> that are the strict
+     * Gets the set of <a href="#SPE">simplified object property expressions</a> that are the strict
      * (potentially direct) super properties of the specified object property expression with
      * respect to the imports closure of the root ontology. Note that the properties are returned as
      * a {@link org.semanticweb.owlapi.reasoner.NodeSet}.
      *
      * @param pe The object property expression whose strict (direct) super properties are to be
      *        retrieved.
-     * @param direct Specifies if the direct super properties should be retrived ( {@code true}) or
+     * @param direct Specifies if the direct super properties should be retrieved ( {@code true}) or
      *        if the all super properties (ancestors) should be retrieved ({@code false}).
-     * @return If direct is {@code true}, a {@code NodeSet} of <a href="#spe">simplified object
-     *         property expressions</a>, such that for each <a href="#spe">simplified object
+     * @return If direct is {@code true}, a {@code NodeSet} of <a href="#SPE">simplified object
+     *         property expressions</a>, such that for each <a href="#SPE">simplified object
      *         property expression</a>, {@code P}, in the {@code NodeSet}, the set of reasoner
      *         axioms entails {@code
      * DirectSubObjectPropertyOf(pe, P)}. <br>
-     *         If direct is {@code false}, a {@code NodeSet} of <a href="#spe">simplified object
-     *         property expressions</a>, such that for each <a href="#spe">simplified object
+     *         If direct is {@code false}, a {@code NodeSet} of <a href="#SPE">simplified object
+     *         property expressions</a>, such that for each <a href="#SPE">simplified object
      *         property expression</a>, {@code P}, in the {@code NodeSet}, the set of reasoner
      *         axioms entails {@code StrictSubObjectPropertyOf(pe, P)}. <br>
      *         If {@code pe} is equivalent to {@code owl:topObjectProperty} then the empty
@@ -1182,22 +1182,22 @@ public interface OWLReasoner {
         boolean direct);
 
     /**
-     * Gets the stream of <a href="#spe">simplified object property expressions</a> that are the
+     * Gets the stream of <a href="#SPE">simplified object property expressions</a> that are the
      * strict (potentially direct) super properties of the specified object property expression with
      * respect to the imports closure of the root ontology. Note that the properties are returned as
      * a {@link org.semanticweb.owlapi.reasoner.NodeSet}.
      *
      * @param pe The object property expression whose strict (direct) super properties are to be
      *        retrieved.
-     * @param direct Specifies if the direct super properties should be retrived ( {@code true}) or
+     * @param direct Specifies if the direct super properties should be retrieved ( {@code true}) or
      *        if the all super properties (ancestors) should be retrieved ({@code false}).
-     * @return If direct is {@code true}, a {@code NodeSet} of <a href="#spe">simplified object
-     *         property expressions</a>, such that for each <a href="#spe">simplified object
+     * @return If direct is {@code true}, a {@code NodeSet} of <a href="#SPE">simplified object
+     *         property expressions</a>, such that for each <a href="#SPE">simplified object
      *         property expression</a>, {@code P}, in the {@code NodeSet}, the set of reasoner
      *         axioms entails {@code
      * DirectSubObjectPropertyOf(pe, P)}. <br>
-     *         If direct is {@code false}, a {@code NodeSet} of <a href="#spe">simplified object
-     *         property expressions</a>, such that for each <a href="#spe">simplified object
+     *         If direct is {@code false}, a {@code NodeSet} of <a href="#SPE">simplified object
+     *         property expressions</a>, such that for each <a href="#SPE">simplified object
      *         property expression</a>, {@code P}, in the {@code NodeSet}, the set of reasoner
      *         axioms entails {@code StrictSubObjectPropertyOf(pe, P)}. <br>
      *         If {@code pe} is equivalent to {@code owl:topObjectProperty} then the empty
@@ -1221,21 +1221,21 @@ public interface OWLReasoner {
     /**
      * @param pe The object property expression whose strict (direct) super properties are to be
      *        retrieved.
-     * @param depth Specifies if the direct super properties should be retrived ( {@code DIRECT}) or
-     *        if the all super properties (ancestors) should be retrieved ({@code ALL}).
-     * @return If depth is {@code DIRECT}, a {@code NodeSet} of <a href="#spe">simplified object
-     *         property expressions</a>, such that for each <a href="#spe">simplified object
+     * @param depth Specifies if the direct super properties should be retrieved ( {@code DIRECT})
+     *        or if the all super properties (ancestors) should be retrieved ({@code ALL}).
+     * @return If depth is {@code DIRECT}, a {@code NodeSet} of <a href="#SPE">simplified object
+     *         property expressions</a>, such that for each <a href="#SPE">simplified object
      *         property expression</a>, {@code P}, in the {@code NodeSet}, the set of reasoner
      *         axioms entails {@code
      * DirectSubObjectPropertyOf(pe, P)}. <br>
-     *         If depth is {@code ALL}, a {@code NodeSet} of <a href="#spe">simplified object
-     *         property expressions</a>, such that for each <a href="#spe">simplified object
+     *         If depth is {@code ALL}, a {@code NodeSet} of <a href="#SPE">simplified object
+     *         property expressions</a>, such that for each <a href="#SPE">simplified object
      *         property expression</a>, {@code P}, in the {@code NodeSet}, the set of reasoner
      *         axioms entails {@code StrictSubObjectPropertyOf(pe, P)}. <br>
      *         If {@code pe} is equivalent to {@code owl:topObjectProperty} then the empty
      *         {@code NodeSet} will be returned.
      * @see OWLReasoner#getSuperObjectProperties(OWLObjectPropertyExpression, boolean) Gets the set
-     *      of <a href="#spe">simplified object property expressions</a> that are the strict
+     *      of <a href="#SPE">simplified object property expressions</a> that are the strict
      *      (potentially direct) super properties of the specified object property expression with
      *      respect to the imports closure of the root ontology. Note that the properties are
      *      returned as a {@link org.semanticweb.owlapi.reasoner.NodeSet}.
@@ -1248,21 +1248,21 @@ public interface OWLReasoner {
     /**
      * @param pe The object property expression whose strict (direct) super properties are to be
      *        retrieved.
-     * @param depth Specifies if the direct super properties should be retrived ( {@code DIRECT}) or
-     *        if the all super properties (ancestors) should be retrieved ({@code ALL}).
-     * @return If depth is {@code DIRECT}, a {@code NodeSet} of <a href="#spe">simplified object
-     *         property expressions</a>, such that for each <a href="#spe">simplified object
+     * @param depth Specifies if the direct super properties should be retrieved ( {@code DIRECT})
+     *        or if the all super properties (ancestors) should be retrieved ({@code ALL}).
+     * @return If depth is {@code DIRECT}, a {@code NodeSet} of <a href="#SPE">simplified object
+     *         property expressions</a>, such that for each <a href="#SPE">simplified object
      *         property expression</a>, {@code P}, in the {@code NodeSet}, the set of reasoner
      *         axioms entails {@code
      * DirectSubObjectPropertyOf(pe, P)}. <br>
-     *         If depth is {@code ALL}, a {@code NodeSet} of <a href="#spe">simplified object
-     *         property expressions</a>, such that for each <a href="#spe">simplified object
+     *         If depth is {@code ALL}, a {@code NodeSet} of <a href="#SPE">simplified object
+     *         property expressions</a>, such that for each <a href="#SPE">simplified object
      *         property expression</a>, {@code P}, in the {@code NodeSet}, the set of reasoner
      *         axioms entails {@code StrictSubObjectPropertyOf(pe, P)}. <br>
      *         If {@code pe} is equivalent to {@code owl:topObjectProperty} then the empty
      *         {@code NodeSet} will be returned.
      * @see OWLReasoner#getSuperObjectProperties(OWLObjectPropertyExpression, boolean) Gets the set
-     *      of <a href="#spe">simplified object property expressions</a> that are the strict
+     *      of <a href="#SPE">simplified object property expressions</a> that are the strict
      *      (potentially direct) super properties of the specified object property expression with
      *      respect to the imports closure of the root ontology. Note that the properties are
      *      returned as a {@link org.semanticweb.owlapi.reasoner.NodeSet}.
@@ -1275,15 +1275,15 @@ public interface OWLReasoner {
     /**
      * @param pe The object property expression whose strict (direct) super properties are to be
      *        retrieved.
-     * @return A {@code NodeSet} of <a href="#spe">simplified object property expressions</a>, such
-     *         that for each <a href="#spe">simplified object property expression</a>, {@code P}, in
+     * @return A {@code NodeSet} of <a href="#SPE">simplified object property expressions</a>, such
+     *         that for each <a href="#SPE">simplified object property expression</a>, {@code P}, in
      *         the {@code NodeSet} , the set of reasoner axioms entails
      *         {@code StrictSubObjectPropertyOf(pe,
      * P)}  . <br>
      *         If {@code pe} is equivalent to {@code owl:topObjectProperty} then the empty {@code
      * NodeSet} will be returned.
      * @see OWLReasoner#getSuperObjectProperties(OWLObjectPropertyExpression, boolean) Gets the set
-     *      of all <a href="#spe">simplified object property expressions</a> that are the strict
+     *      of all <a href="#SPE">simplified object property expressions</a> that are the strict
      *      (potentially direct) super properties of the specified object property expression with
      *      respect to the imports closure of the root ontology. Note that the properties are
      *      returned as a {@link org.semanticweb.owlapi.reasoner.NodeSet}.
@@ -1296,15 +1296,15 @@ public interface OWLReasoner {
     /**
      * @param pe The object property expression whose strict (direct) super properties are to be
      *        retrieved.
-     * @return A {@code NodeSet} of <a href="#spe">simplified object property expressions</a>, such
-     *         that for each <a href="#spe">simplified object property expression</a>, {@code P}, in
+     * @return A {@code NodeSet} of <a href="#SPE">simplified object property expressions</a>, such
+     *         that for each <a href="#SPE">simplified object property expression</a>, {@code P}, in
      *         the {@code NodeSet} , the set of reasoner axioms entails
      *         {@code StrictSubObjectPropertyOf(pe,
      * P)}  . <br>
      *         If {@code pe} is equivalent to {@code owl:topObjectProperty} then the empty {@code
      * NodeSet} will be returned.
      * @see OWLReasoner#getSuperObjectProperties(OWLObjectPropertyExpression, boolean) Gets the set
-     *      of all <a href="#spe">simplified object property expressions</a> that are the strict
+     *      of all <a href="#SPE">simplified object property expressions</a> that are the strict
      *      (potentially direct) super properties of the specified object property expression with
      *      respect to the imports closure of the root ontology. Note that the properties are
      *      returned as a {@link org.semanticweb.owlapi.reasoner.NodeSet}.
@@ -1315,16 +1315,16 @@ public interface OWLReasoner {
     }
 
     /**
-     * Gets the set of <a href="#spe">simplified object property expressions</a> that are equivalent
+     * Gets the set of <a href="#SPE">simplified object property expressions</a> that are equivalent
      * to the specified object property expression with respect to the set of reasoner axioms. The
      * properties are returned as a {@link org.semanticweb.owlapi.reasoner.Node}.
      *
      * @param pe The object property expression whose equivalent properties are to be retrieved.
-     * @return A node containing the <a href="#spe">simplified object property expressions</a> such
-     *         that for each <a href="#spe">simplified object property expression</a>, {@code P}, in
+     * @return A node containing the <a href="#SPE">simplified object property expressions</a> such
+     *         that for each <a href="#SPE">simplified object property expression</a>, {@code P}, in
      *         the node, the set of reasoner axioms entails
      *         {@code EquivalentObjectProperties(pe P)}. <br>
-     *         If {@code pe} is a <a href="#spe">simplified object property expression</a> If
+     *         If {@code pe} is a <a href="#SPE">simplified object property expression</a> If
      *         {@code pe} is unsatisfiable with respect to the set of reasoner axioms then the node
      *         representing and containing {@code owl:bottomObjectProperty}, i.e. the bottom node,
      *         will be returned. <br>
@@ -1345,16 +1345,16 @@ public interface OWLReasoner {
     Node<OWLObjectPropertyExpression> getEquivalentObjectProperties(OWLObjectPropertyExpression pe);
 
     /**
-     * Gets the stream of <a href="#spe">simplified object property expressions</a> that are
+     * Gets the stream of <a href="#SPE">simplified object property expressions</a> that are
      * equivalent to the specified object property expression with respect to the set of reasoner
      * axioms. The properties are returned as a {@link org.semanticweb.owlapi.reasoner.Node}.
      *
      * @param pe The object property expression whose equivalent properties are to be retrieved.
-     * @return A node containing the <a href="#spe">simplified object property expressions</a> such
-     *         that for each <a href="#spe">simplified object property expression</a>, {@code P}, in
+     * @return A node containing the <a href="#SPE">simplified object property expressions</a> such
+     *         that for each <a href="#SPE">simplified object property expression</a>, {@code P}, in
      *         the node, the set of reasoner axioms entails
      *         {@code EquivalentObjectProperties(pe P)}. <br>
-     *         If {@code pe} is a <a href="#spe">simplified object property expression</a> If
+     *         If {@code pe} is a <a href="#SPE">simplified object property expression</a> If
      *         {@code pe} is unsatisfiable with respect to the set of reasoner axioms then the node
      *         representing and containing {@code owl:bottomObjectProperty}, i.e. the bottom node,
      *         will be returned. <br>
@@ -1378,14 +1378,14 @@ public interface OWLReasoner {
     }
 
     /**
-     * Gets the <a href="#spe">simplified object property expressions</a> that are disjoint with the
+     * Gets the <a href="#SPE">simplified object property expressions</a> that are disjoint with the
      * specified object property expression {@code pe}. The object properties are returned as a
      * {@link org.semanticweb.owlapi.reasoner.NodeSet}.
      *
      * @param pe The object property expression whose disjoint object properties are to be
      *        retrieved.
-     * @return The return value is a {@code NodeSet} of <a href="#spe">simplified object property
-     *         expressions</a>, such that for each <a href="#spe">simplified object property
+     * @return The return value is a {@code NodeSet} of <a href="#SPE">simplified object property
+     *         expressions</a>, such that for each <a href="#SPE">simplified object property
      *         expression</a>, {@code P}, in the {@code NodeSet} the set of reasoner axioms entails
      *         {@code
      * EquivalentObjectProperties(P, ObjectPropertyComplementOf(pe))} or {@code
@@ -1408,14 +1408,14 @@ public interface OWLReasoner {
         OWLObjectPropertyExpression pe);
 
     /**
-     * Gets the <a href="#spe">simplified object property expressions</a> that are disjoint with the
+     * Gets the <a href="#SPE">simplified object property expressions</a> that are disjoint with the
      * specified object property expression {@code pe}. The object properties are returned as a
      * {@link org.semanticweb.owlapi.reasoner.NodeSet}.
      *
      * @param pe The object property expression whose disjoint object properties are to be
      *        retrieved.
-     * @return The return value is a {@code NodeSet} of <a href="#spe">simplified object property
-     *         expressions</a>, such that for each <a href="#spe">simplified object property
+     * @return The return value is a {@code NodeSet} of <a href="#SPE">simplified object property
+     *         expressions</a>, such that for each <a href="#SPE">simplified object property
      *         expression</a>, {@code P}, in the {@code NodeSet} the set of reasoner axioms entails
      *         {@code
      * EquivalentObjectProperties(P, ObjectPropertyComplementOf(pe))} or {@code
@@ -1440,13 +1440,13 @@ public interface OWLReasoner {
     }
 
     /**
-     * Gets the set of <a href="#spe">simplified object property expressions</a> that are the
+     * Gets the set of <a href="#SPE">simplified object property expressions</a> that are the
      * inverses of the specified object property expression with respect to the imports closure of
      * the root ontology. The properties are returned as a
      * {@link org.semanticweb.owlapi.reasoner.NodeSet}
      *
      * @param pe The property expression whose inverse properties are to be retrieved.
-     * @return A {@code NodeSet} of <a href="#spe">simplified object property expressions</a>, such
+     * @return A {@code NodeSet} of <a href="#SPE">simplified object property expressions</a>, such
      *         that for each simplified object property expression {@code P} in the nodes set, the
      *         set of reasoner axioms entails {@code InverseObjectProperties(pe, P)}.
      * @throws InconsistentOntologyException if the imports closure of the root ontology is
@@ -1463,13 +1463,13 @@ public interface OWLReasoner {
     Node<OWLObjectPropertyExpression> getInverseObjectProperties(OWLObjectPropertyExpression pe);
 
     /**
-     * Gets the set of <a href="#spe">simplified object property expressions</a> that are the
+     * Gets the set of <a href="#SPE">simplified object property expressions</a> that are the
      * inverses of the specified object property expression with respect to the imports closure of
      * the root ontology. The properties are returned as a
      * {@link org.semanticweb.owlapi.reasoner.NodeSet}
      *
      * @param pe The property expression whose inverse properties are to be retrieved.
-     * @return A {@code NodeSet} of <a href="#spe">simplified object property expressions</a>, such
+     * @return A {@code NodeSet} of <a href="#SPE">simplified object property expressions</a>, such
      *         that for each simplified object property expression {@code P} in the nodes set, the
      *         set of reasoner axioms entails {@code InverseObjectProperties(pe, P)}.
      * @throws InconsistentOntologyException if the imports closure of the root ontology is
@@ -1841,7 +1841,7 @@ public interface OWLReasoner {
      * {@link org.semanticweb.owlapi.reasoner.NodeSet}.
      *
      * @param pe The data property whose strict (direct) subproperties are to be retrieved.
-     * @param direct Specifies if the direct subproperties should be retrived ( {@code true}) or if
+     * @param direct Specifies if the direct subproperties should be retrieved ( {@code true}) or if
      *        the all subproperties (descendants) should be retrieved ({@code false}).
      * @return If direct is {@code true}, a {@code NodeSet} such that for each property {@code P} in
      *         the {@code NodeSet} the set of reasoner axioms entails
@@ -1871,7 +1871,7 @@ public interface OWLReasoner {
      * {@link org.semanticweb.owlapi.reasoner.NodeSet}.
      *
      * @param pe The data property whose strict (direct) subproperties are to be retrieved.
-     * @param direct Specifies if the direct subproperties should be retrived ( {@code true}) or if
+     * @param direct Specifies if the direct subproperties should be retrieved ( {@code true}) or if
      *        the all subproperties (descendants) should be retrieved ({@code false}).
      * @return If direct is {@code true}, a {@code NodeSet} such that for each property {@code P} in
      *         the {@code NodeSet} the set of reasoner axioms entails
@@ -1898,8 +1898,8 @@ public interface OWLReasoner {
 
     /**
      * @param pe The data property whose strict (direct) subproperties are to be retrieved.
-     * @param depth Specifies if the direct subproperties should be retrived ( {@code DIRECT}) or if
-     *        the all subproperties (descendants) should be retrieved ({@code ALL}).
+     * @param depth Specifies if the direct subproperties should be retrieved ( {@code DIRECT}) or
+     *        if the all subproperties (descendants) should be retrieved ({@code ALL}).
      * @return If depth is {@code DIRECT}, a {@code NodeSet} such that for each property {@code P}
      *         in the {@code NodeSet} the set of reasoner axioms entails
      *         {@code DirectSubDataPropertyOf(P,
@@ -1922,8 +1922,8 @@ public interface OWLReasoner {
 
     /**
      * @param pe The data property whose strict (direct) subproperties are to be retrieved.
-     * @param depth Specifies if the direct subproperties should be retrived ( {@code DIRECT}) or if
-     *        the all subproperties (descendants) should be retrieved ({@code ALL}).
+     * @param depth Specifies if the direct subproperties should be retrieved ( {@code DIRECT}) or
+     *        if the all subproperties (descendants) should be retrieved ({@code ALL}).
      * @return If depth is {@code DIRECT}, a {@code NodeSet} such that for each property {@code P}
      *         in the {@code NodeSet} the set of reasoner axioms entails
      *         {@code DirectSubDataPropertyOf(P,
@@ -1980,7 +1980,7 @@ public interface OWLReasoner {
      * {@link org.semanticweb.owlapi.reasoner.NodeSet}.
      *
      * @param pe The data property whose strict (direct) super properties are to be retrieved.
-     * @param direct Specifies if the direct super properties should be retrived ( {@code true}) or
+     * @param direct Specifies if the direct super properties should be retrieved ( {@code true}) or
      *        if the all super properties (ancestors) should be retrieved ({@code false}).
      * @return If direct is {@code true}, a {@code NodeSet} such that for each property {@code P} in
      *         the {@code NodeSet} the set of reasoner axioms entails
@@ -2011,7 +2011,7 @@ public interface OWLReasoner {
      * {@link org.semanticweb.owlapi.reasoner.NodeSet}.
      *
      * @param pe The data property whose strict (direct) super properties are to be retrieved.
-     * @param direct Specifies if the direct super properties should be retrived ( {@code true}) or
+     * @param direct Specifies if the direct super properties should be retrieved ( {@code true}) or
      *        if the all super properties (ancestors) should be retrieved ({@code false}).
      * @return If direct is {@code true}, a {@code NodeSet} such that for each property {@code P} in
      *         the {@code NodeSet} the set of reasoner axioms entails
@@ -2039,8 +2039,8 @@ public interface OWLReasoner {
 
     /**
      * @param pe The data property whose strict (direct) super properties are to be retrieved.
-     * @param depth Specifies if the direct super properties should be retrived ( {@code DIRECT}) or
-     *        if the all super properties (ancestors) should be retrieved ({@code ALL}).
+     * @param depth Specifies if the direct super properties should be retrieved ( {@code DIRECT})
+     *        or if the all super properties (ancestors) should be retrieved ({@code ALL}).
      * @return If depth is {@code DIRECT}, a {@code NodeSet} such that for each property {@code P}
      *         in the {@code NodeSet} the set of reasoner axioms entails
      *         {@code DirectSubDataPropertyOf(pe,
@@ -2063,8 +2063,8 @@ public interface OWLReasoner {
 
     /**
      * @param pe The data property whose strict (direct) super properties are to be retrieved.
-     * @param depth Specifies if the direct super properties should be retrived ( {@code DIRECT}) or
-     *        if the all super properties (ancestors) should be retrieved ({@code ALL}).
+     * @param depth Specifies if the direct super properties should be retrieved ( {@code DIRECT})
+     *        or if the all super properties (ancestors) should be retrieved ({@code ALL}).
      * @return If depth is {@code DIRECT}, a {@code NodeSet} such that for each property {@code P}
      *         in the {@code NodeSet} the set of reasoner axioms entails
      *         {@code DirectSubDataPropertyOf(pe,

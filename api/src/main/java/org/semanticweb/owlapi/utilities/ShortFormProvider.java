@@ -19,7 +19,7 @@ import org.semanticweb.owlapi.model.OWLEntity;
 /**
  * A short form provider produces renderings of entities. These renderings are strings which in
  * general can be used for display and serialisation purposes. A given entity only has one short
- * form for a given short form provider. However, a short form may map to multiple enntities for a
+ * form for a given short form provider. However, a short form may map to multiple entities for a
  * given short form provider. In other words, for a given short form provider the mapping from
  * entity to short form is functional, but is not inverse functional i.e. an injective mapping.
  *
@@ -38,7 +38,7 @@ public interface ShortFormProvider extends Serializable {
     String getShortForm(OWLEntity entity);
 
     /**
-     * Disposes of the short form proivider. This frees any resources and clears any caches.
+     * Disposes of the short form provider. This frees any resources and clears any caches.
      */
     default void dispose() {
         // nothing to dispose

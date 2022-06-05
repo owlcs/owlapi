@@ -25,22 +25,19 @@ import org.semanticweb.owlapi.utilities.StringComparator;
 /**
  * A prefix manager than can provide prefixes for prefix names.
  *
- * @author Matthew Horridge, The University Of Manchester, Information
- *         Management Group
+ * @author Matthew Horridge, The University Of Manchester, Information Management Group
  * @since 2.2.0
  */
 public interface PrefixManager extends Serializable, ShortFormProvider, IRIShortFormProvider {
 
     /**
-     * @param sfp
-     *        short form provider to use
+     * @param sfp short form provider to use
      * @return updated object
      */
     PrefixManager setShortFormProvider(ShortFormProvider sfp);
 
     /**
-     * @param isfp
-     *        iri short form provider to use
+     * @param isfp iri short form provider to use
      * @return updated object
      */
     PrefixManager setIRIShortFormProvider(IRIShortFormProvider isfp);
@@ -51,56 +48,48 @@ public interface PrefixManager extends Serializable, ShortFormProvider, IRIShort
     StringComparator getPrefixComparator();
 
     /**
-     * @param comparator
-     *        the comparator to use
+     * @param comparator the comparator to use
      * @return updated object
      */
     PrefixManager withPrefixComparator(StringComparator comparator);
 
     /**
-     * Gets the default prefix. The default prefix is denoted by the prefix name
-     * ":"
+     * Gets the default prefix. The default prefix is denoted by the prefix name ":"
      *
-     * @return The default prefix, or {@code null} if there is no default
-     *         prefix.
+     * @return The default prefix, or {@code null} if there is no default prefix.
      */
     @Nullable
     String getDefaultPrefix();
 
     /**
-     * Sets the default namespace. This will also bind the prefix name ":" to
-     * this prefix
+     * Sets the default namespace. This will also bind the prefix name ":" to this prefix
      *
-     * @param defaultPrefix
-     *        The namespace to be used as the default namespace. Note that the
-     *        value may be {@code null} in order to clear the default namespace.
+     * @param defaultPrefix The namespace to be used as the default namespace. Note that the value
+     *        may be {@code null} in order to clear the default namespace.
      * @return updated object
      */
     PrefixManager withDefaultPrefix(@Nullable String defaultPrefix);
 
     /**
-     * Determines if this manager knows about a given prefix name and it
-     * contains a (non-null) mapping for the prefix.
+     * Determines if this manager knows about a given prefix name and it contains a (non-null)
+     * mapping for the prefix.
      *
-     * @param prefixName
-     *        The prefix name to be tested for.
-     * @return {@code true} if the manager knows about this prefix and there is
-     *         a non-null mapping for this prefix.
+     * @param prefixName The prefix name to be tested for.
+     * @return {@code true} if the manager knows about this prefix and there is a non-null mapping
+     *         for this prefix.
      */
     boolean containsPrefixMapping(String prefixName);
 
     /**
-     * Gets the prefix that is bound to a particular prefix name. Note that
-     * specifying ":" corresponds to requesting the default prefix and will
-     * return the same result as a call to the {@code getDefaultPrefix()}
-     * method.
+     * Gets the prefix that is bound to a particular prefix name. Note that specifying ":"
+     * corresponds to requesting the default prefix and will return the same result as a call to the
+     * {@code getDefaultPrefix()} method.
      *
-     * @param prefixName
-     *        The prefix name. A string that represents a prefix name of the
-     *        prefix to be retrieved. Note that specifying ":" is the same as
-     *        asking for the default prefix (see the getDefaultPrefix() method).
-     * @return The prefix, or {@code null} if there is no prefix name bound to
-     *         this prefix, or the prefix name doesn't exist.
+     * @param prefixName The prefix name. A string that represents a prefix name of the prefix to be
+     *        retrieved. Note that specifying ":" is the same as asking for the default prefix (see
+     *        the getDefaultPrefix() method).
+     * @return The prefix, or {@code null} if there is no prefix name bound to this prefix, or the
+     *         prefix name doesn't exist.
      */
     @Nullable
     String getPrefix(String prefixName);
@@ -108,24 +97,19 @@ public interface PrefixManager extends Serializable, ShortFormProvider, IRIShort
     /**
      * Gets a map that maps prefix names to prefixes.
      *
-     * @return The map of prefix names to prefixes. Note that modifying the
-     *         contents of this map will not change the prefix name - prefix
-     *         mappings
+     * @return The map of prefix names to prefixes. Note that modifying the contents of this map
+     *         will not change the prefix name - prefix mappings
      */
     Map<String, String> getPrefixName2PrefixMap();
 
     /**
-     * Gets the URI for a given prefix IRI. The prefix IRI must have a prefix
-     * name that is registered with this manager, or a runtime exception will be
-     * thrown.
+     * Gets the URI for a given prefix IRI. The prefix IRI must have a prefix name that is
+     * registered with this manager, or a runtime exception will be thrown.
      *
-     * @param prefixIRI
-     *        The Prefix IRI
-     * @param df
-     *        data factory to build IRIs
+     * @param prefixIRI The Prefix IRI
+     * @param df data factory to build IRIs
      * @return The full IRI.
-     * @throws OWLRuntimeException
-     *         if the prefix name of the prefix IRI doesn't have a corresponding
+     * @throws OWLRuntimeException if the prefix name of the prefix IRI doesn't have a corresponding
      *         prefix managed by this manager.
      */
     IRI getIRI(String prefixIRI, OWLDataFactory df);
@@ -133,22 +117,17 @@ public interface PrefixManager extends Serializable, ShortFormProvider, IRIShort
     /**
      * Gets the prefix IRI given a IRI (URI).
      *
-     * @param iri
-     *        The IRI whose prefix it to be retrieved
-     * @return The prefix IRI for this IRI, or {@code null} if a prefix IRI
-     *         cannot be generated.
+     * @param iri The IRI whose prefix it to be retrieved
+     * @return The prefix IRI for this IRI, or {@code null} if a prefix IRI cannot be generated.
      */
     @Nullable
     String getPrefixIRI(IRI iri);
 
     /**
-     * Gets the prefix IRI given a IRI (URI). Does not restrict the response to
-     * be a QName
+     * Gets the prefix IRI given a IRI (URI). Does not restrict the response to be a QName
      * 
-     * @param iri
-     *        The IRI whose prefix it to be retrieved
-     * @return The prefix IRI for this IRI, or {@code null} if a prefix IRI
-     *         cannot be generated.
+     * @param iri The IRI whose prefix it to be retrieved
+     * @return The prefix IRI for this IRI, or {@code null} if a prefix IRI cannot be generated.
      */
     @Nullable
     String getPrefixIRIIgnoreQName(IRI iri);
@@ -163,10 +142,8 @@ public interface PrefixManager extends Serializable, ShortFormProvider, IRIShort
     /**
      * Adds a prefix name to prefix mapping.
      *
-     * @param prefixName
-     *        name The prefix name (must end with a colon)
-     * @param prefix
-     *        The prefix.
+     * @param prefixName name The prefix name (must end with a colon)
+     * @param prefix The prefix.
      * @return updated object
      */
     PrefixManager withPrefix(String prefixName, String prefix);
@@ -174,8 +151,7 @@ public interface PrefixManager extends Serializable, ShortFormProvider, IRIShort
     /**
      * Copies the prefix from another prefix manager into this one.
      *
-     * @param from
-     *        The manager that the prefixes should be copied from
+     * @param from The manager that the prefixes should be copied from
      * @return updated object
      */
     PrefixManager copyPrefixesFrom(PrefixManager from);
@@ -183,17 +159,15 @@ public interface PrefixManager extends Serializable, ShortFormProvider, IRIShort
     /**
      * Copies the prefix from another prefix manager into this one.
      *
-     * @param from
-     *        The map containing the prefixes
+     * @param from The map containing the prefixes
      * @return updated object
      */
     PrefixManager copyPrefixesFrom(Map<String, String> from);
 
     /**
-     * Removes a previously registerd prefix namespace mapping.
+     * Removes a previously registered prefix namespace mapping.
      *
-     * @param namespace
-     *        The namespace to be removed.
+     * @param namespace The namespace to be removed.
      * @return updated object
      */
     PrefixManager unregisterNamespace(String namespace);

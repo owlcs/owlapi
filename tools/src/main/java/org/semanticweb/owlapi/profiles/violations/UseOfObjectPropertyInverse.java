@@ -29,9 +29,9 @@ import org.semanticweb.owlapi.profiles.OWLProfileViolationVisitorEx;
 public class UseOfObjectPropertyInverse extends OWLProfileViolation {
 
     /**
-     * @param ontology ontology
-     * @param axiom axiom
-     * @param propertyExpression propertyExpression
+     * @param ontology           ontology
+     * @param axiom              axiom
+     * @param propertyExpression property expression
      */
     public UseOfObjectPropertyInverse(OWLOntology ontology, @Nullable OWLAxiom axiom,
         OWLObjectPropertyExpression propertyExpression) {

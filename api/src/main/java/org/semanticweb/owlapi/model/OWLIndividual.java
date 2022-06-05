@@ -15,8 +15,7 @@ package org.semanticweb.owlapi.model;
 /**
  * Represents a named or anonymous individual.
  *
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public interface OWLIndividual extends OWLObject, OWLPropertyAssertionObject, AsOWLNamedIndividual {
@@ -27,21 +26,16 @@ public interface OWLIndividual extends OWLObject, OWLPropertyAssertionObject, As
     }
 
     /**
-     * Obtains this individual an anonymous individual if it is indeed
-     * anonymous.
+     * Obtains this individual an anonymous individual if it is indeed anonymous.
      *
      * @return The individual as an anonymous individual
-     * @throws OWLRuntimeException
-     *         if this individual is named
+     * @throws OWLRuntimeException if this individual is named
      */
     OWLAnonymousIndividual asOWLAnonymousIndividual();
 
     /**
-     * Returns a string representation that can be used as the ID of this
-     * individual. This is the toString representation of the node ID of this
-     * individual
-     *
-     * @return A string representing the toString of the node ID of this entity.
+     * @return a string representation that can be used as the ID of this individual. This is the
+     *         {@code toString()} representation of the node ID of this individual
      */
     String toStringID();
 }

@@ -38,7 +38,7 @@ public enum KRSS2Vocabulary implements KRSS {
     /** EXACTLY. */                  EXACTLY("exactly"),
     /** IMPLIES. */                  IMPLIES("implies"),
     /** IMPLIES_ROLE. */             IMPLIES_ROLE("implies-role"),
-    /** INSTANCE. */                 INSTANCE("instace"),
+    /** INSTANCE. */                 INSTANCE("instance"),
     /** INV. */                      INV("inv"),
     /** INVERSE. */                  INVERSE("inverse"),
     /** INVERSE_ATTR. */             INVERSE_ATTR(":inverse"),

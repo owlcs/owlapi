@@ -25,7 +25,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Macro expansion gci visitor.
+ * Macro expansion GCI visitor.
  */
 public class MacroExpansionGCIVisitor {
 
@@ -49,9 +49,9 @@ public class MacroExpansionGCIVisitor {
     }
 
     /**
-     * @param outputManager outputManager
-     * @param inputOntology inputOntology
-     * @param shouldAddExpansionMarker should expansionMarker be added
+     * @param outputManager output manager
+     * @param inputOntology input ontology
+     * @param shouldAddExpansionMarker should expansion marker be added
      */
     public MacroExpansionGCIVisitor(OWLOntologyManager outputManager, OWLOntology inputOntology,
         boolean shouldAddExpansionMarker) {
@@ -67,7 +67,7 @@ public class MacroExpansionGCIVisitor {
     }
 
     /**
-     * @return ontology for gci
+     * @return ontology for general concept inclusion
      */
     public OWLOntology createGCIOntology() {
         MacroExpansions expansions = new MacroExpansions();

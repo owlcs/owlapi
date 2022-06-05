@@ -36,8 +36,8 @@ public interface OWLMetric<M> {
      * possibly the imports closure (if specified).
      *
      * @return An object which represents the value of this metric - calling the {@code toString}
-     * method of the object returned by this method will result in a human readable string that
-     * displays the value of the metric.
+     *         method of the object returned by this method will result in a human readable string
+     *         that displays the value of the metric.
      */
     M getValue();
 
@@ -61,8 +61,8 @@ public interface OWLMetric<M> {
      * the current ontology.
      *
      * @return {@code true} if the imports closure of the current ontology is taken into account
-     * when computing the value of this metric, or {@code false} if the imports closure isn't taken
-     * into account when computing this metric.
+     *         when computing the value of this metric, or {@code false} if the imports closure
+     *         isn't taken into account when computing this metric.
      */
     boolean isImportsClosureUsed();
 
@@ -70,7 +70,7 @@ public interface OWLMetric<M> {
      * Sets whether this metric uses the imports closure of the current ontology.
      *
      * @param b the new imports closure used {@code true} if this metric uses the imports closure of
-     * the current ontology, otherwise false.
+     *        the current ontology, otherwise false.
      */
     void setImportsClosureUsed(boolean b);
 
@@ -83,7 +83,7 @@ public interface OWLMetric<M> {
     OWLOntologyManager getManager();
 
     /**
-     * Diposes of the metric. If the metric attaches itself as a listener to an ontology manager
+     * Disposes of the metric. If the metric attaches itself as a listener to an ontology manager
      * then this will cause the metric to detach itself and stop listening for ontology changes.
      */
     void dispose();

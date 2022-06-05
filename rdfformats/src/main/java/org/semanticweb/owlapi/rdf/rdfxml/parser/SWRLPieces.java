@@ -9,39 +9,39 @@ import org.semanticweb.owlapi.model.IRI;
 class SWRLPieces {
 
     /**
-     * The swrl rules.
+     * The SWRL rules.
      */
     final Set<IRI> swrlRules = createSet();
     /**
-     * The swrl individual property atoms.
+     * The SWRL individual property atoms.
      */
     private final Set<IRI> swrlIndividualPropertyAtoms = createSet();
     /**
-     * The swrl data valued property atoms.
+     * The SWRL data valued property atoms.
      */
     private final Set<IRI> swrlDataValuedPropertyAtoms = createSet();
     /**
-     * The swrl class atoms.
+     * The SWRL class atoms.
      */
     private final Set<IRI> swrlClassAtoms = createSet();
     /**
-     * The swrl data range atoms.
+     * The SWRL data range atoms.
      */
     private final Set<IRI> swrlDataRangeAtoms = createSet();
     /**
-     * The swrl built in atoms.
+     * The SWRL built in atoms.
      */
     private final Set<IRI> swrlBuiltInAtoms = createSet();
     /**
-     * The swrl variables.
+     * The SWRL variables.
      */
     private final Set<IRI> swrlVariables = createSet();
     /**
-     * The swrl same as atoms.
+     * The SWRL same as atoms.
      */
     private final Set<IRI> swrlSameAsAtoms = createSet();
     /**
-     * The swrl different from atoms.
+     * The SWRL different from atoms.
      */
     private final Set<IRI> swrlDifferentFromAtoms = createSet();
 

@@ -24,7 +24,7 @@ public interface NormalFormRewriter {
      * Checks if is in normal form.
      *
      * @param classExpression expression to check
-     * @return true if classExpression is in normal form
+     * @return true if class expression is in normal form
      */
     boolean isInNormalForm(OWLClassExpression classExpression);
 

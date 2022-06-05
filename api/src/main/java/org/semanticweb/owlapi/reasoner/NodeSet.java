@@ -67,7 +67,7 @@ public interface NodeSet<E extends OWLObject> extends Iterable<Node<E>> {
     boolean isTopSingleton();
 
     /**
-     * Determies if this {@code NodeSet} is a singleton that only contains the bottom node (in a
+     * Determines if this {@code NodeSet} is a singleton that only contains the bottom node (in a
      * hierarchy).
      *
      * @return {@code true} if this {@code NodeSet} is a singleton that only contains a node that is

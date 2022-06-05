@@ -15,7 +15,6 @@ package org.semanticweb.owlapi.rdf.rdfxml.parser;
 import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.model.OntologyConfigurator;
 
 /**
@@ -27,14 +26,11 @@ public interface RDFConsumer {
      * Called when model parsing is started.
      *
      * @param physicalURI physical URI of the model
-     * @throws OWLRuntimeException OWLRuntimeException
      */
     void startModel(String physicalURI);
 
     /**
      * Called when model parsing is finished.
-     *
-     * @throws OWLRuntimeException OWLRuntimeException
      */
     void endModel();
 
@@ -44,7 +40,6 @@ public interface RDFConsumer {
      * @param subject URI of the subject resource
      * @param predicate URI of the predicate resource
      * @param object URI of the object resource
-     * @throws OWLRuntimeException OWLRuntimeException
      */
     void statementWithResourceValue(String subject, String predicate, String object);
 
@@ -54,7 +49,6 @@ public interface RDFConsumer {
      * @param subject URI of the subject resource
      * @param predicate URI of the predicate resource
      * @param object URI of the object resource
-     * @throws OWLRuntimeException OWLRuntimeException
      */
     void statementWithResourceValue(IRI subject, IRI predicate, IRI object);
 
@@ -66,7 +60,6 @@ public interface RDFConsumer {
      * @param object literal object value
      * @param language the language
      * @param datatype the URI of the literal's datatype (may be {@code null})
-     * @throws OWLRuntimeException OWLRuntimeException
      */
     void statementWithLiteralValue(String subject, String predicate, String object,
         @Nullable String language, @Nullable String datatype);
@@ -79,7 +72,6 @@ public interface RDFConsumer {
      * @param object literal object value
      * @param language the language
      * @param datatype the URI of the literal's datatype (may be {@code null})
-     * @throws OWLRuntimeException OWLRuntimeException
      */
     void statementWithLiteralValue(IRI subject, IRI predicate, String object,
         @Nullable String language, @Nullable IRI datatype);
@@ -88,7 +80,6 @@ public interface RDFConsumer {
      * Receives the logical URI of the model.
      *
      * @param logicalURI logical URI of the model
-     * @throws OWLRuntimeException OWLRuntimeException
      */
     void logicalURI(IRI logicalURI);
 
@@ -98,7 +89,6 @@ public interface RDFConsumer {
      *
      * @param logicalURI logical URI of the model
      * @param physicalURI physical URI of the model
-     * @throws OWLRuntimeException OWLRuntimeException
      */
     void includeModel(@Nullable String logicalURI, @Nullable String physicalURI);
 

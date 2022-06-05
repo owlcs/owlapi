@@ -59,10 +59,10 @@ public class XMLWriterImpl implements XMLWriter {
     private boolean preambleWritten;
 
     /**
-     * @param writer                    writer
-     * @param xmlWriterNamespaceManager xmlWriterNamespaceManager
-     * @param xmlBase                   xmlBase
-     * @param preferences               xml writer preferences instance
+     * @param writer writer
+     * @param xmlWriterNamespaceManager namespace manager
+     * @param xmlBase XML base
+     * @param preferences XML writer preferences instance
      */
     public XMLWriterImpl(PrintWriter writer, XMLWriterNamespaceManager xmlWriterNamespaceManager,
         String xmlBase, OntologyConfigurator preferences) {
@@ -269,7 +269,7 @@ public class XMLWriterImpl implements XMLWriter {
         private boolean wrapAttributes = false;
 
         /**
-         * @param name        name
+         * @param name name
          * @param indentation indentation
          */
         public XMLElement(@Nullable String name, int indentation) {
@@ -286,7 +286,7 @@ public class XMLWriterImpl implements XMLWriter {
 
         /**
          * @param attribute attribute
-         * @param value     value
+         * @param value value
          */
         public void setAttribute(String attribute, String value) {
             attributes.put(attribute, value);

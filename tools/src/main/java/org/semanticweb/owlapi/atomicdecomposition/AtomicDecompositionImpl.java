@@ -20,7 +20,7 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.modularity.ModuleType;
 
 /**
- * atomc decomposition implementation
+ * Atomic decomposition implementation.
  */
 public class AtomicDecompositionImpl implements AtomicDecomposition {
 

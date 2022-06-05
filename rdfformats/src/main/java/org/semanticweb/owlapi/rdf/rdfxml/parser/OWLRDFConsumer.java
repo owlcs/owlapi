@@ -27,8 +27,6 @@ import static org.semanticweb.owlapi.utility.CollectionFactory.createSet;
 import static org.semanticweb.owlapi.utility.CollectionFactory.createSyncMap;
 import static org.semanticweb.owlapi.vocab.Namespaces.SWRL;
 import static org.semanticweb.owlapi.vocab.Namespaces.SWRLB;
-import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.builtInAPIris;
-import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.builtInVocabularyIris;
 import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_ANNOTATED_PROPERTY;
 import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_ANNOTATED_SOURCE;
 import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_ANNOTATED_TARGET;
@@ -66,6 +64,7 @@ import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.RDF_REST;
 import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.RDF_SUBJECT;
 import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.RDF_TYPE;
 import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.builtInAPIris;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.builtInVocabularyIris;
 import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.isEntityTypeIRI;
 
 import java.util.ArrayList;
@@ -264,7 +263,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousIndividualByIdProvi
     }
 
     /**
-     * @param p       parser parameters
+     * @param p parser parameters
      * @param checker anonymous node checker
      */
     public OWLRDFConsumer(OWLParserParameters p, AnonymousNodeChecker checker) {
@@ -366,7 +365,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousIndividualByIdProvi
     /**
      * Adds the shared anonymous node.
      *
-     * @param iri         the iri
+     * @param iri the iri
      * @param translation the translation
      */
     protected void addSharedAnonymousNode(IRI iri, Object translation) {
@@ -742,10 +741,10 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousIndividualByIdProvi
     /**
      * A convenience method to obtain an {@code OWLLiteral}.
      *
-     * @param literal  The literal
+     * @param literal The literal
      * @param datatype The data type
-     * @param lang     The lang
-     * @return The {@code OWLLiteral} (either typed or untyped depending on the params)
+     * @param lang The language tag
+     * @return The {@code OWLLiteral} (either typed or untyped depending on the parameters)
      */
     OWLLiteral getOWLLiteral(String literal, @Nullable IRI datatype, @Nullable String lang) {
         if (lang != null && !isBlank(lang)) {
@@ -838,7 +837,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousIndividualByIdProvi
      * Translate object property expression.
      *
      * @param mainNode the main node
-     * @return the oWL object property expression
+     * @return the object property expression
      */
     public OWLObjectPropertyExpression translateOPE(IRI mainNode) {
         OWLObjectPropertyExpression node = translatedProperties.get(mainNode);
@@ -998,8 +997,8 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousIndividualByIdProvi
 
     /**
      * @param entityType entity type
-     * @param mainNode   main node
-     * @param <E>        entity type
+     * @param mainNode main node
+     * @param <E> entity type
      * @return error entity
      */
     public <E extends OWLEntity> E generateAndLogParseError(EntityType<E> entityType,
@@ -1788,7 +1787,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousIndividualByIdProvi
     }
 
     protected boolean handleClassTriple(IRI s, IRI p, IRI o) {
-        // TODO: Change to rdfs:Class? (See table 5 in the spec)
+        // TODO: Change to rdfs:Class? (See table 5 in the specifications)
         iris.addClassExpression(s, true);
         if (!isStrict()) {
             handleNonStream(s, p, OWL_CLASS.getIRI());
@@ -2050,10 +2049,10 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousIndividualByIdProvi
      * Gets the object of the target triple that has the specified main node
      *
      * @param mainNode The main node
-     * @return The object of the triple that has the specified mainNode as its s and the IRI
+     * @return The object of the triple that has the specified main node as its s and the IRI
      *         returned by the {@code TypeAxiomHandler#getSourceTriplePredicate()} method. For
      *         backwards compatibility, a search will also be performed for triples whose s is the
-     *         specified mainNode and p rdf:object
+     *         specified main node and p rdf:object
      */
     @Nullable
     private IRI getObjectOfTargetTriple(IRI mainNode) {

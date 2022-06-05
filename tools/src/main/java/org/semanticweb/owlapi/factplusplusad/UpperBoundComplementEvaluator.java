@@ -34,8 +34,6 @@ import org.semanticweb.owlapi.model.OWLSubPropertyChainOfAxiom;
 class UpperBoundComplementEvaluator extends CardinalityEvaluatorBase {
 
     /**
-     * init c'tor
-     *
      * @param s signature
      */
     UpperBoundComplementEvaluator(Signature s) {
@@ -74,7 +72,7 @@ class UpperBoundComplementEvaluator extends CardinalityEvaluatorBase {
         if (!isTopEquivalent(r)) {
             return noUpperValue();
         }
-        // C \in C^{>= m}
+        /** {@code C \in C^{>= m}} */
         return getAllNoneUpper(isLowerGE(getLowerBoundDirect(c), m));
     }
 
@@ -84,7 +82,7 @@ class UpperBoundComplementEvaluator extends CardinalityEvaluatorBase {
         if (isBotEquivalent(r)) {
             return anyUpperValue();
         }
-        // C\in C^{<= m}
+        /** {@code C\in C^{<= m}} */
         return getAllNoneUpper(isUpperLE(getUpperBoundDirect(c), m));
     }
 

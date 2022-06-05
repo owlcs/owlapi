@@ -19,8 +19,8 @@ package org.semanticweb.owlapi.owlxml.parser;
 class OWLXMLParserAttributeNotFoundException extends OWLXMLParserException {
 
     /**
-     * @param h handler
-     * @param attributeName attributeName
+     * @param h             handler
+     * @param attributeName attribute name
      */
     public OWLXMLParserAttributeNotFoundException(OWLXMLPH h, String attributeName) {
         super(h, "Attribute not found: " + attributeName);

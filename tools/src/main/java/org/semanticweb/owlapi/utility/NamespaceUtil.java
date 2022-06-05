@@ -27,7 +27,7 @@ import org.semanticweb.owlapi.vocab.Namespaces;
 
 /**
  * A utility class which can generate namespaces, local names and namespace prefixes in accordance
- * with the XML spec.
+ * with the XML specifications.
  *
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
@@ -81,10 +81,10 @@ public class NamespaceUtil implements Serializable {
      * Generates a candidate prefix for the specified namespace.
      *
      * @param namespace The namespace that a prefix should be generated for. The implementation
-     * attempts to generate a prefix based on the namespace. If it cannot do this, a prefix of the
-     * form pn is generated, where n is an integer.
+     *        attempts to generate a prefix based on the namespace. If it cannot do this, a prefix
+     *        of the form pn is generated, where n is an integer.
      * @return The generated prefix. Note that this method will not store the namespace to prefix
-     * mapping.
+     *         mapping.
      */
     private String generatePrefix(String namespace) {
         checkNotNull(namespace, NAMESPACE_CANNOT_BE_NULL);

@@ -172,7 +172,7 @@ public enum ManchesterOWLSyntax {
     }
 
     /**
-     * @return class conective
+     * @return true if it is a class connective
      */
     public boolean isClassExpressionConnectiveKeyword() {
         return classExpressionConnectiveKeyword;

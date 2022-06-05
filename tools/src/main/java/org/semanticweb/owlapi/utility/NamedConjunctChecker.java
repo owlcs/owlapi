@@ -34,6 +34,7 @@ import org.semanticweb.owlapi.model.OWLObjectIntersectionOf;
  */
 public class NamedConjunctChecker {
 
+    private static final String CLASS_EXPRESSION_CANNOT_BE_NULL = "classExpression cannot be null";
     final Set<OWLClass> conjuncts = new HashSet<>();
     private final NamedConjunctCheckerVisitor visitor = new NamedConjunctCheckerVisitor();
     @Nullable
@@ -44,13 +45,13 @@ public class NamedConjunctChecker {
     /**
      * @param conj The conjunct to check for
      * @param classExpression The expression to be checked
-     * @return true ifa named class is a conjunct in a given class expression. For class expressions
-     *         which aren't named classes or object intersections this method will always return
-     *         false.
+     * @return true if a named class is a conjunct in a given class expression. For class
+     *         expressions which aren't named classes or object intersections this method will
+     *         always return false.
      */
     public boolean isNamedConjunct(OWLClass conj, OWLClassExpression classExpression) {
         checkNotNull(conj, "conj cannot be null");
-        checkNotNull(classExpression, "classExpression cannot be null");
+        checkNotNull(classExpression, CLASS_EXPRESSION_CANNOT_BE_NULL);
         reset();
         conjunct = conj;
         classExpression.accept(visitor);
@@ -67,7 +68,7 @@ public class NamedConjunctChecker {
      *         intersections), otherwise {@code false}
      */
     public boolean hasNamedConjunct(OWLClassExpression classExpression) {
-        checkNotNull(classExpression, "classExpression cannot be null");
+        checkNotNull(classExpression, CLASS_EXPRESSION_CANNOT_BE_NULL);
         reset();
         conjunct = null;
         classExpression.accept(visitor);
@@ -87,7 +88,7 @@ public class NamedConjunctChecker {
      *         is not a named class or an intersection then the set will definitely be empty.
      */
     public Set<OWLClass> getNamedConjuncts(OWLClassExpression classExpression) {
-        checkNotNull(classExpression, "classExpression cannot be null");
+        checkNotNull(classExpression, CLASS_EXPRESSION_CANNOT_BE_NULL);
         conjuncts.clear();
         reset();
         collect = true;

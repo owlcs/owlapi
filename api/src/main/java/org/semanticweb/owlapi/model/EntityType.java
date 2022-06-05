@@ -79,7 +79,7 @@ public class EntityType<E extends OWLEntity>
     }
 
     /**
-     * @return this entity tipe name
+     * @return this entity type name
      */
     public String getName() {
         return name;

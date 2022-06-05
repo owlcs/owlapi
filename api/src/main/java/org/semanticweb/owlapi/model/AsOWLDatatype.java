@@ -20,7 +20,7 @@ public interface AsOWLDatatype {
      *
      * @return The entity as an OWLDatatype.
      * @throws OWLRuntimeException if this entity is not an OWLDatatype (check with the
-     * isOWLDatatype method first).
+     *         {@link #isOWLDatatype()} method first).
      */
     default OWLDatatype asOWLDatatype() {
         if (isOWLDatatype()) {

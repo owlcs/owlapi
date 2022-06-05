@@ -12,7 +12,7 @@ import org.semanticweb.owlapi.model.HasShortForm;
 import org.semanticweb.owlapi.model.IRI;
 
 /**
- * @author Alex To, The University Of Sydney, Falcuty of Engineering and Information Technologies
+ * @author Alex To, The University Of Sydney, Faculty of Engineering and Information Technologies
  * @since 5.1.0
  */
 public enum PROVVocabulary implements HasShortForm, HasIRI, HasPrefixedName {

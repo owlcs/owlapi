@@ -142,8 +142,7 @@ import org.semanticweb.owlapi.utility.SimpleShortFormProvider;
 /**
  * Renders objects in unicode DL syntax.
  *
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.2.0
  */
 @Renders(DLSyntaxDocumentFormat.class)
@@ -153,7 +152,8 @@ public class DLSyntaxObjectRenderer implements OWLObjectRenderer, OWLObjectVisit
     private final IRIShortFormProvider iriShortFormProvider = new SimpleIRIShortFormProvider();
     protected ShortFormProvider shortFormProvider = new SimpleShortFormProvider();
     private StringBuilder buffer = new StringBuilder();
-    @Nullable private OWLObject focusedObject;
+    @Nullable
+    private OWLObject focusedObject;
 
     protected static boolean isBracketedIfNested(OWLObject object) {
         checkNotNull(object, OBJECT_CANNOT_BE_NULL);
@@ -166,17 +166,15 @@ public class DLSyntaxObjectRenderer implements OWLObjectRenderer, OWLObjectVisit
     }
 
     /**
-     * @param focusedObject
-     *        focusedObject
+     * @param focusedObject focused object
      */
     public void setFocusedObject(@Nullable OWLObject focusedObject) {
         this.focusedObject = focusedObject;
     }
 
     /**
-     * @param obj
-     *        obj
-     * @return true if obj is equal to focusedObject
+     * @param obj object
+     * @return true if object is equal to focused object
      */
     public boolean isFocusedObject(OWLObject obj) {
         if (focusedObject == null) {
@@ -187,12 +185,14 @@ public class DLSyntaxObjectRenderer implements OWLObjectRenderer, OWLObjectVisit
 
     @Override
     public void setPrefixManager(PrefixManager shortFormProvider) {
-        this.shortFormProvider = checkNotNull(shortFormProvider, "shortFormProvider cannot be null");
+        this.shortFormProvider =
+            checkNotNull(shortFormProvider, "shortFormProvider cannot be null");
     }
 
     @Override
     public void setShortFormProvider(ShortFormProvider shortFormProvider) {
-        this.shortFormProvider = checkNotNull(shortFormProvider, "shortFormProvider cannot be null");
+        this.shortFormProvider =
+            checkNotNull(shortFormProvider, "shortFormProvider cannot be null");
     }
 
     @Override
@@ -235,7 +235,8 @@ public class DLSyntaxObjectRenderer implements OWLObjectRenderer, OWLObjectVisit
         return write(".");
     }
 
-    protected DLSyntaxObjectRenderer write(Collection<? extends OWLObject> objects, DLSyntax delim, boolean nest) {
+    protected DLSyntaxObjectRenderer write(Collection<? extends OWLObject> objects, DLSyntax delim,
+        boolean nest) {
         checkNotNull(objects, "objects cannot be null");
         checkNotNull(delim, "delim cannot be null");
         if (objects.size() == 2) {
@@ -301,14 +302,14 @@ public class DLSyntaxObjectRenderer implements OWLObjectRenderer, OWLObjectVisit
     }
 
     private void writeDomainAxiom(OWLPropertyDomainAxiom<?> axiom) {
-        write(EXISTS).writeSpace().accept(axiom.getProperty()).writeRestrictionSeparator().write(TOP).subClass()
-            .roundedAnon(axiom.getDomain());
+        write(EXISTS).writeSpace().accept(axiom.getProperty()).writeRestrictionSeparator()
+            .write(TOP).subClass().roundedAnon(axiom.getDomain());
     }
 
     private void writeRangeAxiom(OWLPropertyRangeAxiom<?, ?> axiom) {
         checkNotNull(axiom, "axiom cannot be null");
-        write(TOP).subClass().write(FORALL).writeSpace().accept(axiom.getProperty()).writeRestrictionSeparator()
-            .roundedAnon(axiom.getRange());
+        write(TOP).subClass().write(FORALL).writeSpace().accept(axiom.getProperty())
+            .writeRestrictionSeparator().roundedAnon(axiom.getRange());
     }
 
     private void writeFunctionalProperty(OWLPropertyExpression property) {
@@ -335,21 +336,23 @@ public class DLSyntaxObjectRenderer implements OWLObjectRenderer, OWLObjectVisit
         accept(first).writeSpace().write(EQUIVALENT_TO).writeSpace().accept(second).write(INVERSE);
     }
 
-    private <T extends OWLPropertyRange> void writeCardinalityRestriction(OWLCardinalityRestriction<T> restriction,
-        DLSyntax keyword) {
-        write(keyword).writeSpace().write(restriction.getCardinality()).writeSpace().accept(restriction.getProperty())
-            .writeRestrictionSeparator().roundedAnon(restriction.getFiller());
+    private <T extends OWLPropertyRange> void writeCardinalityRestriction(
+        OWLCardinalityRestriction<T> restriction, DLSyntax keyword) {
+        write(keyword).writeSpace().write(restriction.getCardinality()).writeSpace()
+            .accept(restriction.getProperty()).writeRestrictionSeparator()
+            .roundedAnon(restriction.getFiller());
     }
 
-    private <T extends OWLPropertyRange> void writeQuantifiedRestriction(OWLQuantifiedRestriction<T> restriction,
-        DLSyntax keyword) {
+    private <T extends OWLPropertyRange> void writeQuantifiedRestriction(
+        OWLQuantifiedRestriction<T> restriction, DLSyntax keyword) {
         write(keyword).writeSpace().accept(restriction.getProperty()).writeRestrictionSeparator()
             .roundedAnon(restriction.getFiller());
     }
 
     private <V extends OWLObject> void writeValueRestriction(OWLHasValueRestriction<V> restriction,
         OWLPropertyExpression p) {
-        write(EXISTS).writeSpace().accept(p).writeRestrictionSeparator().braced(restriction.getFiller());
+        write(EXISTS).writeSpace().accept(p).writeRestrictionSeparator()
+            .braced(restriction.getFiller());
     }
 
     protected void existPropertySelf(OWLObject o) {
@@ -400,7 +403,8 @@ public class DLSyntaxObjectRenderer implements OWLObjectRenderer, OWLObjectVisit
         List<OWLClassExpression> descs = axiom.getOperandsAsList();
         for (int i = 0; i < descs.size() - 1; i++) {
             for (int j = i + 1; j < descs.size(); j++) {
-                accept(descs.get(i)).writeSpace().write(DISJOINT_WITH).writeSpace().accept(descs.get(j));
+                accept(descs.get(i)).writeSpace().write(DISJOINT_WITH).writeSpace()
+                    .accept(descs.get(j));
                 if (j < descs.size() - 1) {
                     write(", ");
                 }
@@ -518,8 +522,8 @@ public class DLSyntaxObjectRenderer implements OWLObjectRenderer, OWLObjectVisit
 
     @Override
     public void visit(OWLAsymmetricObjectPropertyAxiom axiom) {
-        accept(axiom.getProperty()).writeSpace().write(DISJOINT_WITH).writeSpace().accept(axiom.getProperty())
-            .write(INVERSE);
+        accept(axiom.getProperty()).writeSpace().write(DISJOINT_WITH).writeSpace()
+            .accept(axiom.getProperty()).write(INVERSE);
     }
 
     @Override
@@ -529,7 +533,8 @@ public class DLSyntaxObjectRenderer implements OWLObjectRenderer, OWLObjectVisit
 
     @Override
     public void visit(OWLInverseFunctionalObjectPropertyAxiom axiom) {
-        write(TOP).subClass().write(MAX).writeSpace().write(1).writeSpace().accept(axiom.getProperty()).write(INVERSE);
+        write(TOP).subClass().write(MAX).writeSpace().write(1).writeSpace()
+            .accept(axiom.getProperty()).write(INVERSE);
     }
 
     @Override
@@ -544,7 +549,8 @@ public class DLSyntaxObjectRenderer implements OWLObjectRenderer, OWLObjectVisit
 
     @Override
     public void visit(OWLInverseObjectPropertiesAxiom axiom) {
-        if (isFocusedObject(axiom.getFirstProperty()) || !isFocusedObject(axiom.getSecondProperty())) {
+        if (isFocusedObject(axiom.getFirstProperty())
+            || !isFocusedObject(axiom.getSecondProperty())) {
             equivalent(axiom.getFirstProperty(), axiom.getSecondProperty());
         } else {
             equivalent(axiom.getSecondProperty(), axiom.getFirstProperty());
@@ -553,8 +559,8 @@ public class DLSyntaxObjectRenderer implements OWLObjectRenderer, OWLObjectVisit
 
     @Override
     public void visit(SWRLRule rule) {
-        write(rule.headList(), WEDGE, false).writeSpace().write(IMPLIES).writeSpace().write(rule.bodyList(), WEDGE,
-            false);
+        write(rule.headList(), WEDGE, false).writeSpace().write(IMPLIES).writeSpace()
+            .write(rule.bodyList(), WEDGE, false);
     }
 
     @Override
@@ -730,7 +736,8 @@ public class DLSyntaxObjectRenderer implements OWLObjectRenderer, OWLObjectVisit
 
     @Override
     public void visit(SWRLBuiltInAtom node) {
-        accept(node.getPredicate()).write("(").write(node.argumentsAsList(), COMMA, true).write(")");
+        accept(node.getPredicate()).write("(").write(node.argumentsAsList(), COMMA, true)
+            .write(")");
     }
 
     @Override

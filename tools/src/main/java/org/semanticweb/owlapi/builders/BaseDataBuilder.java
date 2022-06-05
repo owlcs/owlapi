@@ -58,7 +58,7 @@ public abstract class BaseDataBuilder<T extends OWLObject, B> extends BaseDataPr
     }
 
     /**
-     * @return the dataRange
+     * @return the data range
      */
     public OWLDataRange getDataRange() {
         return verifyNotNull(dataRange);

@@ -8,7 +8,7 @@ import javax.annotation.Nullable;
 import org.semanticweb.owlapi.model.IRI;
 
 /**
- * This class will eventually replace the id to uri translation in Owl2Obo and OboO2Owl <br>
+ * This class will eventually replace the id to IRI translation in Owl2Obo and OboO2Owl <br>
  * It is currently in-progress.
  *
  * @author cjm

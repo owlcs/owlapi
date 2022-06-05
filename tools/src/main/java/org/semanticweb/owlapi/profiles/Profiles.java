@@ -25,18 +25,17 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.reasoner.OWLReasonerFactory;
 
 /**
- * This enumeration includes all currently implemented profile checkers and
- * known information about available reasoners for those profiles. Note that
- * reasoner capabilities might be out of date, since they are independent
- * projects. Therefore, ther emight be reasoners not listed here and the
+ * This enumeration includes all currently implemented profile checkers and known information about
+ * available reasoners for those profiles. Note that reasoner capabilities might be out of date,
+ * since they are independent projects. Therefore, there might be reasoners not listed here and the
  * reasoners listed might have changed.<br>
- * The use case for this class was suggested by Peter Ansell, see <a href=
- * "https://github.com/ansell/owlapi/commit/fa88c8139fe3d59ea46d363a9c9a36f6ddf05119"
- * >patch set 1</a> and <a href=
- * "https://github.com/ansell/owlapi/commit/354885abd0f581942a1ac1d64ae8de4b85cbec7f"
+ * The use case for this class was suggested by Peter Ansell, see
+ * <a href= "https://github.com/ansell/owlapi/commit/fa88c8139fe3d59ea46d363a9c9a36f6ddf05119"
+ * >patch set 1</a> and
+ * <a href= "https://github.com/ansell/owlapi/commit/354885abd0f581942a1ac1d64ae8de4b85cbec7f"
  * >patch set 2</a>.<br>
- * Notice that the OWLProfiles referred here are stateless, therefore only one
- * instance needs to be created and can be reused across threads.
+ * Notice that the OWLProfiles referred here are stateless, therefore only one instance needs to be
+ * created and can be reused across threads.
  *
  * @author ignazio
  */
@@ -62,11 +61,9 @@ public enum Profiles implements KnownFactories, OWLProfile, Supplier<OWLProfile>
     }
 
     /**
-     * @param factoryClassName
-     *        class name to instantiate
-     * @return an OWLReasonerFactory if the class name represents an
-     *         OWLReasonerFactory implementation available on the classpath. Any
-     *         exception raised by {@code
+     * @param factoryClassName class name to instantiate
+     * @return an OWLReasonerFactory if the class name represents an OWLReasonerFactory
+     *         implementation available on the classpath. Any exception raised by {@code
      * Class.forName(factoryClassName)} is wrapped by an OWLRuntimeException.
      */
     public static OWLReasonerFactory instantiateFactory(String factoryClassName) {
@@ -75,20 +72,23 @@ public enum Profiles implements KnownFactories, OWLProfile, Supplier<OWLProfile>
             if (OWLReasonerFactory.class.isAssignableFrom(c)) {
                 return (OWLReasonerFactory) c.getConstructor().newInstance();
             }
-            throw new OWLRuntimeException("Reasoner factory cannot be instantiated: " + factoryClassName);
-        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | IllegalArgumentException
-            | InvocationTargetException | NoSuchMethodException | SecurityException e) {
-            throw new OWLRuntimeException("Reasoner factory cannot be instantiated: " + factoryClassName, e);
+            throw new OWLRuntimeException(
+                "Reasoner factory cannot be instantiated: " + factoryClassName);
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException
+            | IllegalArgumentException | InvocationTargetException | NoSuchMethodException
+            | SecurityException e) {
+            throw new OWLRuntimeException(
+                "Reasoner factory cannot be instantiated: " + factoryClassName, e);
         }
     }
 
     /**
-     * @param i
-     *        IRI to match
+     * @param i IRI to match
      * @return Profiles with matching IRI, or null if none is found
      */
     public static Profiles valueForIRI(IRI i) {
-        return Stream.of(values()).filter(p -> p.getIRI().equals(i.toString())).findAny().orElse(null);
+        return Stream.of(values()).filter(p -> p.getIRI().equals(i.toString())).findAny()
+            .orElse(null);
     }
 
     @Override
@@ -102,20 +102,19 @@ public enum Profiles implements KnownFactories, OWLProfile, Supplier<OWLProfile>
     }
 
     /**
-     * @return collection of OWLReasonerFactory class names known to support the
-     *         expressivity of this profile. The factories can be instantiated
-     *         through {@code instantiateFactory()} if the reasoner classes are
-     *         on the classpath. Note that this list is provided for information
-     *         only, and might be incorrect or incomplete due to changes in the
-     *         reasoner implementations.<br>
-     *         Should you know of a reasoner not mentioned here, or find an
-     *         error in the reported supported profiles, please raise a bug
-     *         about it.
+     * @return collection of OWLReasonerFactory class names known to support the expressivity of
+     *         this profile. The factories can be instantiated through {@code instantiateFactory()}
+     *         if the reasoner classes are on the classpath. Note that this list is provided for
+     *         information only, and might be incorrect or incomplete due to changes in the reasoner
+     *         implementations.<br>
+     *         Should you know of a reasoner not mentioned here, or find an error in the reported
+     *         supported profiles, please raise a bug about it.
      */
     public Collection<String> supportingReasoners() {
         return supportingFactories;
     }
 }
+
 
 /*
  * Not a pretty pattern but I didn't want to have long strings repeated across constructors, and no

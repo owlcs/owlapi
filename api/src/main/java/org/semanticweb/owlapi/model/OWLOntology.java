@@ -33,7 +33,7 @@ import org.semanticweb.owlapi.model.parameters.Imports;
  * Represents an OWL 2 <a href="http://www.w3.org/TR/owl2-syntax/#Ontologies">Ontology</a> in the
  * OWL 2 specification. <br>
  * An {@code OWLOntology} consists of a possibly empty set of
- * {@link org.semanticweb.owlapi6.model.OWLAxiom}s and a possibly empty set of
+ * {@link org.semanticweb.owlapi.model.OWLAxiom}s and a possibly empty set of
  * {@link OWLAnnotation}s. An ontology can have an ontology IRI which can be used to identify the
  * ontology. If it has an ontology IRI then it may also have an ontology version IRI. Since OWL 2,
  * an ontology need not have an ontology IRI. (See the
@@ -352,7 +352,7 @@ public interface OWLOntology
 
     /**
      * @param illegals set of illegal punnings
-     * @param i        iri to checl
+     * @param i        iri to check
      * @param puns     list of pun types
      */
     static void computeIllegal(Collection<IRI> illegals, IRI i, List<EntityType<?>> puns) {

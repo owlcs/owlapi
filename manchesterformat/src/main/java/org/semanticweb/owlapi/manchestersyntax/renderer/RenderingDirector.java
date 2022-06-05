@@ -23,8 +23,8 @@ import org.semanticweb.owlapi.model.OWLOntology;
 public interface RenderingDirector {
 
     /**
-     * @param frameSectionKeyword frameSectionKeyword
-     * @param ontologies ontologies
+     * @param frameSectionKeyword frame section keyword
+     * @param ontologies          ontologies
      * @return false
      */
     boolean renderEmptyFrameSection(ManchesterOWLSyntax frameSectionKeyword,

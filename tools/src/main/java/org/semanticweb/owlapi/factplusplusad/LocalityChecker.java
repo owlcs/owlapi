@@ -20,8 +20,6 @@ abstract class LocalityChecker extends SigAccessor
     boolean isLocal = true;
 
     /**
-     * init c'tor
-     *
      * @param s signature
      */
     LocalityChecker(Signature s) {
@@ -40,7 +38,7 @@ abstract class LocalityChecker extends SigAccessor
             case SYNTACTIC_COUNTING:
                 return new ExtendedSyntacticLocalityChecker(pSig);
             case QUERY_ANSWERING:
-                // return new SemanticLocalityChecker(pSig);
+                // return new SemanticLocalityChecker(pSig)
             default:
                 throw new OWLRuntimeException("Unsupported module method: " + moduleMethod);
         }

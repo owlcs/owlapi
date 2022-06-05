@@ -182,7 +182,7 @@ class OWLXMLPH extends DefaultHandler implements AnonymousIndividualByIdProvider
 
     /**
      * Creates an OWLXML handler with the specified top level handler. This allows OWL/XML
-     * representations of axioms to be embedded in abitrary XML documents e.g. DIG 2.0 documents.
+     * representations of axioms to be embedded in arbitrary XML documents e.g. DIG 2.0 documents.
      * (The default handler behaviour expects the top level element to be an Ontology element).
      *
      * @param ontology The ontology object that the XML representation should be parsed into.

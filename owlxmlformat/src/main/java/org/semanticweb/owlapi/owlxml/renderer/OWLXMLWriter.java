@@ -241,7 +241,7 @@ public class OWLXMLWriter {
     }
 
     /**
-     * @param lang lang
+     * @param lang language tag
      */
     public void writeLangAttribute(String lang) {
         writer.writeAttribute(LANG_IRI, lang);
@@ -269,7 +269,7 @@ public class OWLXMLWriter {
     }
 
     /**
-     * @param uri uri
+     * @param uri URI
      */
     public void writeAnnotationURIAttribute(URI uri) {
         writer.writeAttribute(ANNOTATION_URI.getIRI(), uri.toString());

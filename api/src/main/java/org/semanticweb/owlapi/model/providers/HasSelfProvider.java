@@ -16,7 +16,7 @@ import org.semanticweb.owlapi.model.OWLObjectHasSelf;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 
 /**
- * Object hasself provider.
+ * Object has self restriction provider.
  */
 @FunctionalInterface
 public interface HasSelfProvider {

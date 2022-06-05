@@ -121,7 +121,7 @@ class BotEquivalenceEvaluator extends SigAccessor implements OWLObjectVisitor {
     }
 
     /**
-     * QCRs
+     * Qualified cardinality restriction
      *
      * @param n cardinality
      * @param r property

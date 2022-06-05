@@ -214,8 +214,7 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
         this.moduleType = checkNotNull(moduleType, "moduleType cannot be null");
         manager = checkNotNull(man, "man cannot be null");
         Predicate<OWLAxiom> filter =
-            ax -> excludeAssertions ? !AxiomType.aboxAxiomTypes().contains(ax.getAxiomType())
-                : true;
+            ax -> !excludeAssertions || !AxiomType.aboxAxiomTypes().contains(ax.getAxiomType());
         List<OWLAxiom> collect = asList(axs.filter(filter));
         ontologyAxiomSet = new OntologyAxiomSet(collect);
         try {
@@ -286,27 +285,34 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
             loopNumber++;
             LOGGER.info("  Loop {}", Integer.valueOf(loopNumber));
             for (int i = 0; i < q2.length; i++) {
-                OWLAxiom axiom = ontologyAxiomSet.getAxiom(i);
-                if (q2[i]) {
-                    if (!sle.isLocal(axiom, signature)) {
-                        LOGGER.info("      Non-local axiom:   {}", axiom);
-                        mod[i] = true;
-                        q2[i] = false;
-                        int oldSize = signature.size();
-                        add(signature, axiom.signature());
-                        // only triggering a change when the signature has
-                        // changed doesn't improve performance
-                        if (signature.size() > oldSize) {
-                            change = true;
-                            LOGGER.info("    New signature:   {}", signature);
-                        }
-                    } else {
-                        LOGGER.info("      Local axiom:       {}", axiom);
-                    }
-                }
+                change = extractionStep(signature, mod, q2, sle, change, i);
             }
         }
         return mod;
+    }
+
+    protected boolean extractionStep(Set<OWLEntity> signature, boolean[] mod, boolean[] q2,
+        SyntacticLocalityEvaluator sle, boolean v, int i) {
+        boolean change = v;
+        OWLAxiom axiom = ontologyAxiomSet.getAxiom(i);
+        if (q2[i]) {
+            if (!sle.isLocal(axiom, signature)) {
+                LOGGER.info("      Non-local axiom:   {}", axiom);
+                mod[i] = true;
+                q2[i] = false;
+                int oldSize = signature.size();
+                add(signature, axiom.signature());
+                // only triggering a change when the signature has
+                // changed doesn't improve performance
+                if (signature.size() > oldSize) {
+                    change = true;
+                    LOGGER.info("    New signature:   {}", signature);
+                }
+            } else {
+                LOGGER.info("      Local axiom:       {}", axiom);
+            }
+        }
+        return change;
     }
 
     /**
@@ -394,24 +400,28 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
         // Adding all same-individuals axioms
         // Adding all different-individuals axioms
         for (OWLEntity entity : sig) {
-            if (entity.isOWLNamedIndividual()) {
-                List<OWLSameIndividualAxiom> sameIndividualAxioms =
-                    asList(ontology.sameIndividualAxioms(entity.asOWLNamedIndividual()));
-                enrichedModule.addAll(sameIndividualAxioms);
-                if (LOGGER.isInfoEnabled()) {
-                    sameIndividualAxioms
-                        .forEach(i -> LOGGER.info("  Added same individual axiom:   {}", i));
-                }
-                List<OWLDifferentIndividualsAxiom> differentIndividualAxioms =
-                    asList(ontology.differentIndividualAxioms(entity.asOWLNamedIndividual()));
-                enrichedModule.addAll(differentIndividualAxioms);
-                if (LOGGER.isInfoEnabled()) {
-                    differentIndividualAxioms
-                        .forEach(a -> LOGGER.info("  Added different individual axiom:   {}", a));
-                }
-            }
+            iterateOnSignature(enrichedModule, entity);
         }
         return enrichedModule;
+    }
+
+    protected void iterateOnSignature(Set<OWLAxiom> enrichedModule, OWLEntity entity) {
+        if (entity.isOWLNamedIndividual()) {
+            List<OWLSameIndividualAxiom> sameIndividualAxioms =
+                asList(ontology.sameIndividualAxioms(entity.asOWLNamedIndividual()));
+            enrichedModule.addAll(sameIndividualAxioms);
+            if (LOGGER.isInfoEnabled()) {
+                sameIndividualAxioms
+                    .forEach(i -> LOGGER.info("  Added same individual axiom:   {}", i));
+            }
+            List<OWLDifferentIndividualsAxiom> differentIndividualAxioms =
+                asList(ontology.differentIndividualAxioms(entity.asOWLNamedIndividual()));
+            enrichedModule.addAll(differentIndividualAxioms);
+            if (LOGGER.isInfoEnabled()) {
+                differentIndividualAxioms
+                    .forEach(a -> LOGGER.info("  Added different individual axiom:   {}", a));
+            }
+        }
     }
 
     /**
@@ -430,8 +440,8 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
     /**
      * Extract unnested module.
      * 
-     * @param sig the sig
-     * @param cls the cls
+     * @param sig the signature
+     * @param cls the locality class
      * @return the sets the
      */
     Set<OWLAxiom> extractUnnestedModule(Set<OWLEntity> sig, LocalityClass cls) {

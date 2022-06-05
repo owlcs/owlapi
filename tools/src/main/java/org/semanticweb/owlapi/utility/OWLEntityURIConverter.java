@@ -58,7 +58,7 @@ public class OWLEntityURIConverter {
      * the specified conversion strategy.
      *
      * @param manager    The manager which managers the specified ontologies.
-     * @param ontologies The ontologies whose entity URIs will be converted
+     * @param ontologies The ontologies whose entity IRIs will be converted
      * @param strategy   The conversion strategy to be used.
      */
     public OWLEntityURIConverter(OWLOntologyManager manager, Collection<OWLOntology> ontologies,

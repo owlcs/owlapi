@@ -54,8 +54,6 @@ class SyntacticLocalityChecker extends LocalityChecker {
     BotEquivalenceEvaluator botEval;
 
     /**
-     * init c'tor
-     *
      * @param s signature
      */
     SyntacticLocalityChecker(Signature s) {
@@ -152,38 +150,42 @@ class SyntacticLocalityChecker extends LocalityChecker {
     @Override
     public void visit(OWLDisjointUnionAxiom axiom) {
         // DisjointUnion(A, C1,..., Cn) is local if
-        // (1) A and all of Ci are bot-equivalent,
-        // or (2) A and one Ci are top-equivalent and the remaining Cj are
+        // 1) A and all of Ci are bot-equivalent,
+        // or 2) A and one Ci are top-equivalent and the remaining Cj are
         // bot-equivalent
         isLocal = false;
         boolean lhsIsTopEq;
         if (isTopEquivalent(axiom.getOWLClass())) {
-            // need to check (2)
+            // need to check 2)
             lhsIsTopEq = true;
         } else if (isBotEquivalent(axiom.getOWLClass())) {
-            // need to check (1)
+            // need to check 1)
             lhsIsTopEq = false;
         } else {
-            // neither (1) nor (2)
+            // neither 1) nor 2)
             return;
         }
+        processOperators(axiom, lhsIsTopEq);
+    }
+
+    protected void processOperators(OWLDisjointUnionAxiom axiom, boolean lhsIsTopEq) {
         boolean topEqDesc = false;
         for (OWLClassExpression p : axiom.getOperandsAsList()) {
             if (!isBotEquivalent(p)) {
                 if (lhsIsTopEq && isTopEquivalent(p)) {
                     if (topEqDesc) {
-                        // 2nd top in there -- violate (2) -- non-local
+                        // 2nd top in there -- violate 2) -- non-local
                         return;
                     } else {
                         topEqDesc = true;
                     }
                 } else {
-                    // either (1) or fail to have a top-eq for (2)
+                    // either 1) or fail to have a top-eq for 2)
                     return;
                 }
             }
         }
-        // check whether for (2) we found a top-eq concept
+        // check whether for 2) we found a top-eq concept
         if (lhsIsTopEq && !topEqDesc) {
             return;
         }
@@ -225,17 +227,20 @@ class SyntacticLocalityChecker extends LocalityChecker {
     public void visit(OWLInverseObjectPropertiesAxiom axiom) {
         OWLObjectPropertyExpression p1 = axiom.getFirstProperty();
         OWLObjectPropertyExpression p2 = axiom.getSecondProperty();
-        isLocal = isBotEquivalent(p1) && isBotEquivalent(p2) || isTopEquivalent(p1) && isTopEquivalent(p2);
+        isLocal = isBotEquivalent(p1) && isBotEquivalent(p2)
+            || isTopEquivalent(p1) && isTopEquivalent(p2);
     }
 
     @Override
     public void visit(OWLSubObjectPropertyOfAxiom axiom) {
-        isLocal = isTopEquivalent(axiom.getSuperProperty()) || isBotEquivalent(axiom.getSubProperty());
+        isLocal =
+            isTopEquivalent(axiom.getSuperProperty()) || isBotEquivalent(axiom.getSubProperty());
     }
 
     @Override
     public void visit(OWLSubDataPropertyOfAxiom axiom) {
-        isLocal = isTopEquivalent(axiom.getSuperProperty()) || isBotEquivalent(axiom.getSubProperty());
+        isLocal =
+            isTopEquivalent(axiom.getSuperProperty()) || isBotEquivalent(axiom.getSubProperty());
     }
 
     @Override

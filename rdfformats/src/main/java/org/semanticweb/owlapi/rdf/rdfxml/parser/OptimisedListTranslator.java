@@ -26,7 +26,7 @@ class OptimisedListTranslator<O extends OWLObject> {
     private final ListItemTranslator<O> translator;
 
     /**
-     * @param consumer consumer
+     * @param consumer   consumer
      * @param translator translator
      */
     protected OptimisedListTranslator(OWLRDFConsumer consumer, ListItemTranslator<O> translator) {
@@ -71,7 +71,7 @@ class OptimisedListTranslator<O extends OWLObject> {
     }
 
     /**
-     * @param mainNode mainNode
+     * @param mainNode main node
      * @return translated list
      */
     @SuppressWarnings("unchecked")

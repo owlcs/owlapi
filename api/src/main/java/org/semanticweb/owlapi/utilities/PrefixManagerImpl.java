@@ -77,7 +77,7 @@ public class PrefixManagerImpl implements PrefixManager {
     }
 
     /**
-     * Default constructor setting the comparator to string lenght comparator.
+     * Default constructor setting the comparator to string length comparator.
      */
     public PrefixManagerImpl() {
         comparator = new StringLengthComparator();

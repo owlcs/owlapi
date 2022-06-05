@@ -36,13 +36,13 @@ public interface LocalityChecker extends OWLAxiomVisitor {
 
     /**
      * @param expr expression to evaluate
-     * @return true if expr is top equivalent
+     * @return true if expression is top equivalent
      */
     boolean isTopEquivalent(OWLObject expr);
 
     /**
      * @param expr expression to evaluate
-     * @return true if expr is bottom equivalent
+     * @return true if expression is bottom equivalent
      */
     boolean isBotEquivalent(OWLObject expr);
 }

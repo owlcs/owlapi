@@ -26,8 +26,7 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.model.PrefixManager;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public class AbstractRenderer {
@@ -41,10 +40,8 @@ public class AbstractRenderer {
     private boolean useWrapping = true;
 
     /**
-     * @param writer
-     *        writer
-     * @param shortFormProvider
-     *        shortFormProvider
+     * @param writer writer
+     * @param shortFormProvider shortFormProvider
      */
     protected AbstractRenderer(Writer writer, PrefixManager shortFormProvider) {
         this.writer = writer;
@@ -53,30 +50,28 @@ public class AbstractRenderer {
     }
 
     /**
-     * @return true if use wrapping
+     * @return true if output should be wrapped
      */
     protected boolean isUseWrapping() {
         return useWrapping;
     }
 
     /**
-     * @param useWrapping
-     *        useWrapping
+     * @param useWrapping true if output should be wrapped
      */
     protected void setUseWrapping(boolean useWrapping) {
         this.useWrapping = useWrapping;
     }
 
     /**
-     * @return true if use tabbing
+     * @return true if tabs should be used
      */
     protected boolean isUseTabbing() {
         return useTabbing;
     }
 
     /**
-     * @param useTabbing
-     *        useTabbing
+     * @param useTabbing true if tabs should be used
      */
     protected void setUseTabbing(boolean useTabbing) {
         this.useTabbing = useTabbing;
@@ -85,8 +80,7 @@ public class AbstractRenderer {
     /**
      * Flush.
      *
-     * @throws OWLOntologyStorageException
-     *         renderer error
+     * @throws OWLOntologyStorageException renderer error
      */
     protected void flush() throws OWLOntologyStorageException {
         try {

@@ -256,19 +256,17 @@ public class ExplanationOrdererImplNoManager implements ExplanationOrderer {
     }
 
     /**
-     * Gets the rHS entities.
-     *
      * @param axiom the axiom
-     * @return the rHS entities
+     * @return the RHS entities
      */
     private Collection<OWLEntity> getRHSEntities(OWLAxiom axiom) {
         return getIndexedSet(axiom, entitiesByAxiomRHS, true);
     }
 
     /**
-     * Index axioms by rhs entities.
+     * Index axioms by RHS entities.
      *
-     * @param rhs the rhs
+     * @param rhs the RHS
      * @param axiom the axiom
      */
     protected void indexAxiomsByRHSEntities(OWLObject rhs, OWLAxiom axiom) {
@@ -327,8 +325,6 @@ public class ExplanationOrdererImplNoManager implements ExplanationOrderer {
                 source = ce.asOWLClass();
             } else if (target == null) {
                 target = ce.asOWLClass();
-            } else {
-                return;
             }
         }
 

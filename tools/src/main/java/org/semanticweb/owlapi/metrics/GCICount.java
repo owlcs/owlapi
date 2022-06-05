@@ -24,8 +24,6 @@ import org.semanticweb.owlapi.model.OWLOntology;
 public class GCICount extends AxiomCountMetric {
 
     /**
-     * Instantiates a new gCI count.
-     *
      * @param o ontology to use
      */
     public GCICount(OWLOntology o) {

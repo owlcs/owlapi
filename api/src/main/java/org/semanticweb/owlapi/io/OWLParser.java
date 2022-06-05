@@ -33,9 +33,9 @@ import org.semanticweb.owlapi.model.UnloadableImportException;
  * default, implementation factories are injected in OWLOntologyManager instances by a Guice
  * injector at creation in OWLManager. This is not mandatory, and a specific manager can have
  * different implementations injected at any time after creation.<br>
- * OWLParsers are typically used by {@link OWLOntologyManager OWLOntologyManagers} to populate empty
- * {@link OWLOntology OWLOntologies}, but can be used to add axioms to an {@code OWLOntology} that
- * already contains axioms.<br>
+ * OWLParsers are typically used by {@link OWLOntologyManager} to populate empty
+ * {@link OWLOntology}, but can be used to add axioms to an {@code OWLOntology} that already
+ * contains axioms.<br>
  * One such case is parsing {@code owl:imports} which point to documents that are not ontologies. In
  * this case, any axioms parsed from the imported document are added to the existing ontology, which
  * already contains axioms parsed from a different document.

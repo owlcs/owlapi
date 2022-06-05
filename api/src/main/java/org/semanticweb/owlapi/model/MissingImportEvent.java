@@ -30,7 +30,7 @@ public class MissingImportEvent {
     private final OWLOntologyCreationException creationException;
 
     /**
-     * @param ontologyIRI the ontology uri
+     * @param ontologyIRI       the ontology IRI
      * @param creationException the creation exception
      */
     public MissingImportEvent(IRI ontologyIRI, OWLOntologyCreationException creationException) {

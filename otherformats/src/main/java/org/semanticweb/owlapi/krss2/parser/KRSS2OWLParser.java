@@ -24,11 +24,12 @@ import org.semanticweb.owlapi.model.OWLOntology;
 /**
  * The KRSS2OWLParser differs from the {@link org.semanticweb.owlapi.krss1.parser.KRSSOWLParser
  * KRSSOWLParser} that it supports an extended KRSS vocabulary available in many reasoning systems.
- * For instance, CGIs can be added with help of (implies subclass superclass), range, domain,
- * inverse, functinal attribute can be provided for roles. Note that DatatypeProperties are not
+ * For instance, a GCI can be added with help of (implies subclass superclass), range, domain,
+ * inverse, functional attribute can be provided for roles. Note that DatatypeProperties are not
  * supported within KRSS2. <br>
  * <b>Abbreviations</b>
- * <table><caption>Abbreviations</caption>
+ * <table>
+ * <caption>Abbreviations</caption>
  * <tr>
  * <td>CN</td>
  * <td>concept name</td>
@@ -48,10 +49,11 @@ import org.semanticweb.owlapi.model.OWLOntology;
  * </table>
  * <br>
  * <b>KRSS concept language</b>
- * <table><caption>KRSS concept language</caption>
+ * <table>
+ * <caption>KRSS concept language</caption>
  * <tr>
  * <td>KRSS</td>
- * <td>OWLDescription</td>
+ * <td>OWLClassExpression</td>
  * </tr>
  * <tr>
  * <td>(at-least n R C)</td>
@@ -88,7 +90,8 @@ import org.semanticweb.owlapi.model.OWLOntology;
  * </table>
  * <br>
  * <b>KRSS role language</b>
- * <table><caption>KRSS role language</caption>
+ * <table>
+ * <caption>KRSS role language</caption>
  * <tr>
  * <td>KRSS</td>
  * <td>OWLObjectPropertyExpression</td>
@@ -99,7 +102,8 @@ import org.semanticweb.owlapi.model.OWLOntology;
  * </tr>
  * </table>
  * <br>
- * <table><caption>remarks</caption>
+ * <table>
+ * <caption>remarks</caption>
  * <tr>
  * <td>KRSS2</td>
  * <td>OWLAxiom</td>

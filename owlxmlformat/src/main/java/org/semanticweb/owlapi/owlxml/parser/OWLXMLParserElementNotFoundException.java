@@ -19,8 +19,8 @@ package org.semanticweb.owlapi.owlxml.parser;
 class OWLXMLParserElementNotFoundException extends OWLXMLParserException {
 
     /**
-     * @param h handler
-     * @param elementType elementType
+     * @param h           handler
+     * @param elementType element type
      */
     public OWLXMLParserElementNotFoundException(OWLXMLPH h, String elementType) {
         super(h, "Element not found: " + elementType);

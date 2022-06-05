@@ -187,7 +187,7 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
         /**
          * Checks if is bottom equivalent.
          *
-         * @param desc the desc
+         * @param desc the class expression
          * @return true, if is bottom equivalent
          */
         private boolean isBottomEquivalent(OWLClassExpression desc) {

@@ -28,9 +28,9 @@ import org.semanticweb.owlapi.profiles.OWLProfileViolationVisitorEx;
 public class UseOfDataOneOfWithMultipleLiterals extends UseOfIllegalDataRange {
 
     /**
-     * @param ontology ontology
-     * @param axiom axiom
-     * @param dataOneOf dataOneOf
+     * @param ontology  ontology
+     * @param axiom     axiom
+     * @param dataOneOf one of restriction
      */
     public UseOfDataOneOfWithMultipleLiterals(OWLOntology ontology, @Nullable OWLAxiom axiom,
         OWLDataOneOf dataOneOf) {

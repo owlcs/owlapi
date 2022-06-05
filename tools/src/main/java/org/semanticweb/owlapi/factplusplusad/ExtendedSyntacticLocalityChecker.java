@@ -14,8 +14,6 @@ class ExtendedSyntacticLocalityChecker extends SyntacticLocalityChecker {
     LowerBoundComplementEvaluator lbc;
 
     /**
-     * init c'tor
-     *
      * @param s signature
      */
     ExtendedSyntacticLocalityChecker(Signature s) {

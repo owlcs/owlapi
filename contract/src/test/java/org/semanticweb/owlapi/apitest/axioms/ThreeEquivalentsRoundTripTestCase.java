@@ -26,13 +26,14 @@ import org.semanticweb.owlapi.apitest.baseclasses.TestBase;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
 
-/** test for 3178902 adapted from the report Thimoty provided. */
+/** test for 3178902 adapted from the report Timothy provided. */
 public class ThreeEquivalentsRoundTripTestCase extends TestBase {
 
     @Test
     public void shouldRoundTrip() throws Exception {
         // given
-        OWLAxiom axiomToAdd = EquivalentClasses(A, ObjectSomeValuesFrom(P, B), ObjectSomeValuesFrom(Q, C));
+        OWLAxiom axiomToAdd =
+            EquivalentClasses(A, ObjectSomeValuesFrom(P, B), ObjectSomeValuesFrom(Q, C));
         OWLOntology ontology = getOWLOntology();
         ontology.addAxiom(axiomToAdd);
         // when

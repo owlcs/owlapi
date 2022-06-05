@@ -36,7 +36,8 @@ public interface IRI extends OWLAnnotationSubject, OWLAnnotationValue, SWRLPredi
     }
 
     /**
-     * @return the IRI scheme, e.g., http, urn, or the empty string if no scheme exists
+     * @return the IRI scheme, e.g., {@code http}, {@code urn}, or the empty string if no scheme
+     *         exists
      */
     default String getScheme() {
         return XMLUtils.schema(getNamespace());
@@ -261,7 +262,7 @@ public interface IRI extends OWLAnnotationSubject, OWLAnnotationValue, SWRLPredi
     }
 
     /**
-     * @param iri    iri to prefix
+     * @param iri iri to prefix
      * @param prefix prefix to use
      * @return prefixed iri
      */

@@ -327,9 +327,9 @@ public final class XMLUtils {
     }
 
     /**
-     * utility to get the part of a charsequence that is not the NCName fragment.
+     * utility to get the part of a char sequence that is not the NCName fragment.
      *
-     * @param s the charsequence to split
+     * @param s the char sequence to split
      * @return the prefix split at the last non-ncname character, or the whole input if no ncname is
      *         found
      */

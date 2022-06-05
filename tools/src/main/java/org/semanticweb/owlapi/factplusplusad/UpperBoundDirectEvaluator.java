@@ -32,8 +32,6 @@ import org.semanticweb.owlapi.model.OWLSubPropertyChainOfAxiom;
 class UpperBoundDirectEvaluator extends CardinalityEvaluatorBase {
 
     /**
-     * init c'tor
-     *
      * @param s signature
      */
     UpperBoundDirectEvaluator(Signature s) {
@@ -66,7 +64,7 @@ class UpperBoundDirectEvaluator extends CardinalityEvaluatorBase {
         if (isBotEquivalent(r)) {
             return anyUpperValue();
         }
-        // C \in C^{<= m-1}
+        /** {@code C \in C^{<= m-1}} */
         return getAllNoneUpper(isUpperLT(getUpperBoundDirect(c), m));
     }
 
@@ -76,7 +74,7 @@ class UpperBoundDirectEvaluator extends CardinalityEvaluatorBase {
         if (!isTopEquivalent(r)) {
             return noUpperValue();
         }
-        // C\in C^{>= m+1}
+        /** {@code C\in C^{>= m+1}} */
         return getAllNoneUpper(isLowerGT(getLowerBoundDirect(c), m));
     }
 

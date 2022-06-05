@@ -20,7 +20,7 @@ public interface AsOWLObjectProperty {
      *
      * @return The entity as an OWLObjectProperty.
      * @throws OWLRuntimeException if this entity is not an OWLObjectProperty (check with the
-     * isOWLObjectProperty method first).
+     *         {@link #isOWLObjectProperty()} method first).
      */
     default OWLObjectProperty asOWLObjectProperty() {
         if (isOWLObjectProperty()) {

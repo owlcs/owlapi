@@ -91,7 +91,7 @@ public class OntologyConfigurator implements Serializable {
 
     /**
      * @param ban list of parser factory class names that should be skipped when attempting ontology
-     *            parsing. The list is space separated.
+     *        parsing. The list is space separated.
      * @return An {@code OntologyConfigurator} with the new option set.
      */
     public OntologyConfigurator withBannedParsers(String ban) {
@@ -114,13 +114,13 @@ public class OntologyConfigurator implements Serializable {
         return AUTHORIZATION_VALUE.getValue(String.class, overrides);
     }
 
-    /** @return the priorty collection sorting option */
+    /** @return the priority collection sorting option */
     public PriorityCollectionSorting getPriorityCollectionSorting() {
         return PRIORITY_COLLECTION_SORTING.getValue(PriorityCollectionSorting.class, overrides);
     }
 
     /**
-     * Set the priorty collection sorting option.
+     * Set the priority collection sorting option.
      *
      * @param sorting the sorting option to be used.
      * @return An {@code OntologyConfigurator} with the new sorting option set.
@@ -143,7 +143,7 @@ public class OntologyConfigurator implements Serializable {
      * ontology loading.
      *
      * @param ontologyDocumentIRI The ontology document IRI that will be ignored if it is
-     *                            encountered as an imported ontology during loading.
+     *        encountered as an imported ontology during loading.
      * @return An {@code OWLOntologyLoaderConfiguration} with the ignored ontology document IRI set.
      */
     public OntologyConfigurator addIgnoredImport(IRI ontologyDocumentIRI) {
@@ -167,7 +167,7 @@ public class OntologyConfigurator implements Serializable {
      * during ontology loading.
      *
      * @param ontologyDocumentIRI The ontology document IRI that would be ignored if it is
-     *                            encountered as an imported ontology during loading.
+     *        encountered as an imported ontology during loading.
      * @return An {@code OWLOntologyLoaderConfiguration} with the ignored ontology document IRI
      *         removed.
      */
@@ -201,7 +201,7 @@ public class OntologyConfigurator implements Serializable {
 
     /**
      * @param l new size of cached data in StreamDocumentSource. This might need to be increased if
-     *          more bytes are required to disambiguate between languages.
+     *        more bytes are required to disambiguate between languages.
      * @return A {@code OWLOntologyLoaderConfiguration} with the size of cached data set to the new
      *         value.
      */
@@ -216,7 +216,7 @@ public class OntologyConfigurator implements Serializable {
      * annotation axioms is enabled.
      *
      * @param b {@code true} if annotation axioms should be loaded, or {@code false} if annotation
-     *          axioms should not be loaded and should be discarded on loading.
+     *        axioms should not be loaded and should be discarded on loading.
      * @return An {@code OWLOntologyLoaderConfiguration} object with the option set.
      */
     public OntologyConfigurator setLoadAnnotationAxioms(boolean b) {
@@ -312,7 +312,7 @@ public class OntologyConfigurator implements Serializable {
 
     /**
      * @param value true if Dublin Core vocabulary should be treated as built in.
-     * @return a copy of the current object with treatDublinCoreAsBuiltIn set to the new value.
+     * @return a copy of the current object with treat Dublin core as builtIn set to the new value.
      */
     public OntologyConfigurator setTreatDublinCoreAsBuiltIn(boolean value) {
         overrides.put(TREAT_DUBLINCORE_AS_BUILTIN, Boolean.valueOf(value));
@@ -326,7 +326,7 @@ public class OntologyConfigurator implements Serializable {
 
     /**
      * @param b True if ids for blank nodes should always be written (axioms and anonymous
-     *          individuals only).
+     *        individuals only).
      * @return new config object
      */
     public OntologyConfigurator withSaveIdsForAllAnonymousIndividuals(boolean b) {
@@ -450,8 +450,8 @@ public class OntologyConfigurator implements Serializable {
 
     /**
      * @param addMissing true if untyped entities should automatically be typed (declared) during
-     *                   rendering. (This is a hint to an RDF renderer - the reference
-     *                   implementation will respect this).
+     *        rendering. (This is a hint to an RDF renderer - the reference implementation will
+     *        respect this).
      * @return new config object
      */
     public OntologyConfigurator withAddMissingTypes(boolean addMissing) {
@@ -555,7 +555,7 @@ public class OntologyConfigurator implements Serializable {
 
     /**
      * @param value false if collections used in constructs such as equivalent classes and
-     *              properties should be duplicate free.
+     *        properties should be duplicate free.
      * @return A {@code OWLOntologyLoaderConfiguration} with the allow duplicates flag set to the
      *         new value.
      */

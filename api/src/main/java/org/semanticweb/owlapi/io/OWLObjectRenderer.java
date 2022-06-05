@@ -18,7 +18,7 @@ import org.semanticweb.owlapi.utilities.ShortFormProvider;
 
 /**
  * A general purpose interface, implementations of which can be used to renderer OWL objects (e.g.
- * class expressions, axioms etc.) for presentation in user interfaces, colsole writing etc. etc.
+ * class expressions, axioms etc.) for presentation in user interfaces, console writing etc. etc.
  * Many ontology renderers may also choose to implement this interface.
  *
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group

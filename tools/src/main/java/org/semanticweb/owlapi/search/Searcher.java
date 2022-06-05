@@ -326,8 +326,7 @@ public final class Searcher {
      * @param <C> type contained in the returned collection
      * @return equivalent entities
      */
-    public static <C extends OWLObject> Stream<C> equivalent(OWLAxiom axiom,
-        @SuppressWarnings("unused") Class<C> type) {
+    public static <C extends OWLObject> Stream<C> equivalent(OWLAxiom axiom, Class<C> type) {
         return axiom.accept(new EquivalentVisitor<C>(true));
     }
 
@@ -442,7 +441,7 @@ public final class Searcher {
     }
 
     /**
-     * Retrieve the super part of axioms, i.e., superclass or superproperty. A mixture of axiom
+     * Retrieve the super part of axioms, i.e., superclass or super property. A mixture of axiom
      * types can be passed in, as long as the entity type they contain is compatible with the return
      * type for the collection.
      *
@@ -457,7 +456,7 @@ public final class Searcher {
     }
 
     /**
-     * Retrieve the super part of axioms, i.e., superclass or superproperty. A mixture of axiom
+     * Retrieve the super part of axioms, i.e., superclass or super property. A mixture of axiom
      * types can be passed in, as long as the entity type they contain is compatible with the return
      * type for the collection.
      *
@@ -471,7 +470,7 @@ public final class Searcher {
     }
 
     /**
-     * Retrieve the super part of an axiom, i.e., superclass or superproperty. A mixture of axiom
+     * Retrieve the super part of an axiom, i.e., superclass or super property. A mixture of axiom
      * types can be passed in, as long as the entity type they contain is compatible with the return
      * type for the collection.
      *
@@ -1135,7 +1134,7 @@ public final class Searcher {
 
     /**
      * Gets the individuals that have been asserted to be an instance of this class by axioms in the
-     * speficied ontologies.
+     * specified ontologies.
      *
      * @param e entity
      * @param onts The ontologies to be examined for class assertion axioms that assert an

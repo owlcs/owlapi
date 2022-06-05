@@ -121,20 +121,20 @@ public class Translators {
     public interface ClassExpressionTranslator {
 
         /**
-         * @param mainNode mainNode
+         * @param mainNode main node
          * @param mode mode
          * @return true if parameter matches
          */
         boolean matches(IRI mainNode, Mode mode);
 
         /**
-         * @param mainNode mainNode
+         * @param mainNode main node
          * @return true if parameter matches strictly
          */
         boolean matchesStrict(IRI mainNode);
 
         /**
-         * @param mainNode mainNode
+         * @param mainNode main node
          * @return true if parameter matches in lax mode
          */
         boolean matchesLax(IRI mainNode);
@@ -169,7 +169,7 @@ public class Translators {
         O translate(IRI firstObject);
 
         /**
-         * @param firstObject firstObject
+         * @param firstObject first object
          * @return translated item
          */
         @Nullable
@@ -209,7 +209,7 @@ public class Translators {
          */
         private final OptimisedListTranslator<OWLDataRange> dataRangeListTranslator;
         /**
-         * The face restriction list translator.
+         * The facet restriction list translator.
          */
         private final OptimisedListTranslator<OWLFacetRestriction> faceRestrictionListTranslator;
         private final OWLRDFConsumer consumer;
@@ -1193,7 +1193,7 @@ public class Translators {
     }
 
     /**
-     * Translates a set of triples that represent an {@code OWLComplementOf} class expression.
+     * Translates a set of triples that represent an {@code OWLObjectComplementOf} class expression.
      *
      * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
      * @since 2.0.0
@@ -1621,7 +1621,7 @@ public class Translators {
     }
 
     /**
-     * Translates a set of triples to an {@code OWLUnionOf}.
+     * Translates a set of triples to an {@code OWLObjectUnionOf}.
      *
      * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
      * @since 2.0.0

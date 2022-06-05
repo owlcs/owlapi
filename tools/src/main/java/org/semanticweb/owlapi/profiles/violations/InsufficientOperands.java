@@ -29,9 +29,9 @@ import org.semanticweb.owlapi.profiles.OWLProfileViolationVisitorEx;
 public class InsufficientOperands extends OWLProfileViolation {
 
     /**
-     * @param currentOntology currentOntology
-     * @param node node
-     * @param c c
+     * @param currentOntology current ontology
+     * @param node            node
+     * @param c               c
      */
     public InsufficientOperands(OWLOntology currentOntology, @Nullable OWLAxiom node, OWLObject c) {
         super(currentOntology, node, c);
