@@ -548,7 +548,12 @@ public class OWLAPIObo2Owl {
                         trAnnotations(clause));
                 }
             } else if (tag == OboFormatTag.TAG_IDSPACE) {
-                // do not translate, as they are just directives? TODO ask Chris
+                for (Clause clause : headerFrame.getClauses(t)) {
+                    Object[] values = clause.getValues().toArray();
+                    String prefix = values[0].toString() + '_';
+                    String baseurl = values[1].toString();
+                    idSpaceMap.put(prefix, baseurl);
+                }
             } else if (tag == OboFormatTag.TAG_OWL_AXIOMS) {
                 // in theory, there should only be one tag
                 // but we can silently collapse multiple tags
