@@ -1190,6 +1190,11 @@ public class OWLAPIObo2Owl {
             }
             ax = fac.getOWLAnnotationAssertionAxiom(trTagToAnnotationProp(tag), sub,
                 trLiteral(clause.getValue()), annotations);
+        } else if (tagConstant == OboFormatTag.TAG_REPLACED_BY) {
+            String curie = (String) clause.getValue();
+            IRI iri = oboIdToIRI(curie);
+            ax = fac.getOWLAnnotationAssertionAxiom(trTagToAnnotationProp(tag), sub,
+                 iri, annotations);
         } else {
             // generic
             ax = fac.getOWLAnnotationAssertionAxiom(trTagToAnnotationProp(tag), sub,
