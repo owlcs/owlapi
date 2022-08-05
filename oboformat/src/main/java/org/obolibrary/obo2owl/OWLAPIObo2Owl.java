@@ -606,7 +606,12 @@ public class OWLAPIObo2Owl {
                 headerFrame.getClauses(t).forEach(c -> addOntologyAnnotation(fac.getRDFSComment(),
                     trLiteral(c.getValue()), trAnnotations(c)));
             } else if (tag == OboFormatTag.TAG_IDSPACE) {
-                // do not translate, as they are just directives
+                for (Clause clause : headerFrame.getClauses(t)) {
+                    Object[] values = clause.getValues().toArray();
+                    String prefix = values[0].toString() + '_';
+                    String baseurl = values[1].toString();
+                    idSpaceMap.put(prefix, baseurl);
+                }
             } else if (tag == OboFormatTag.TAG_OWL_AXIOMS) {
                 // in theory, there should only be one tag
                 // but we can silently collapse multiple tags
