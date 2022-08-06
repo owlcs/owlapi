@@ -1195,7 +1195,8 @@ public class OWLAPIObo2Owl {
             }
             ax = fac.getOWLAnnotationAssertionAxiom(trTagToAnnotationProp(tag), sub,
                 trLiteral(clause.getValue()), annotations);
-        } else if (tagConstant == OboFormatTag.TAG_REPLACED_BY) {
+        } else if (tagConstant == OboFormatTag.TAG_REPLACED_BY
+                || tagConstant == OboFormatTag.TAG_CONSIDER) {
             String curie = (String) clause.getValue();
             IRI iri = oboIdToIRI(curie);
             ax = fac.getOWLAnnotationAssertionAxiom(trTagToAnnotationProp(tag), sub,
