@@ -417,6 +417,9 @@
 					                    <exclude>org.opentest4j:opentest4j</exclude>
 					                    <exclude>org.apiguardian:apiguardian-api</exclude>
 					                    <exclude>org.junit.platform:junit-platform-commons</exclude>
+							    <exclude>com.fasterxml.jackson.core:jackson-databind</exclude>
+							    <exclude>com.fasterxml.jackson.core:jackson-core</exclude>
+							    <exclude>com.fasterxml.jackson.core:jackson-annotations</exclude>
                   					</excludes>
 								</enforceBytecodeVersion>
 							</rules>
