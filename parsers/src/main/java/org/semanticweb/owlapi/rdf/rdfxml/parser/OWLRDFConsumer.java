@@ -87,6 +87,9 @@ import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_TOP_OBJECT_PROPE
 import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_UNION_OF;
 import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_VERSION_INFO;
 import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_WITH_RESTRICTIONS;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.RDF_FIRST;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.RDF_NIL;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.RDF_REST;
 import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.RDFS_COMMENT;
 import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.RDFS_DATATYPE;
 import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.RDFS_DOMAIN;
@@ -139,6 +142,7 @@ import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLDataProperty;
+import org.semanticweb.owlapi.model.OWLDataPropertyAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
 import org.semanticweb.owlapi.model.OWLDataRange;
 import org.semanticweb.owlapi.model.OWLDatatype;
@@ -149,6 +153,7 @@ import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
+import org.semanticweb.owlapi.model.OWLObjectPropertyAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyID;
@@ -261,6 +266,10 @@ public class OWLRDFConsumer
      * The list first literal triple map.
      */
     private final Map<IRI, OWLLiteral> listFirstLiteralTripleMap = createMap();
+    /**
+     * IRIs that had a rdf:rest triple to rdf:nil.
+     */
+    private final Set<IRI> terminalListResources = createSet();
     /**
      * The axioms.
      */
@@ -1388,6 +1397,9 @@ public class OWLRDFConsumer
         tripleLogger.logNumberOfTriples();
         translatorAccessor.consumeSWRLRules(swrlRules);
         Set<RDFTriple> remainingTriples = handlerAccessor.mopUp();
+        if (!getConfiguration().isStrict()) {
+            convertUnusedListsToPropertyAssertions();
+        }
         if (ontologyFormat != null) {
             RDFParserMetaData metaData =
                 new RDFParserMetaData(RDFOntologyHeaderStatus.PARSED_ONE_HEADER,
@@ -1735,7 +1747,7 @@ public class OWLRDFConsumer
 
     /**
      * Translates the annotation on a main node. Triples whose subject is the specified main node
-     * and whose subject is typed an an annotation property (or is a built in annotation property)
+     * and whose predicate is typed as an annotation property (or is a built in annotation property)
      * will be translated to annotation on this main node.
      *
      * @param n The main node
@@ -2148,6 +2160,15 @@ public class OWLRDFConsumer
     }
 
     /**
+     * Adds the terminal list resource.
+     *
+     * @param subject the subject
+     */
+    protected void addTerminalList(IRI subject) {
+        terminalListResources.add(subject);
+    }
+
+    /**
      * Adds the first.
      *
      * @param subject the subject
@@ -2345,4 +2366,43 @@ public class OWLRDFConsumer
                 .computeIfAbsent(predicate, x -> createLinkedSet()).add(con);
         }
     }
+
+    /**
+     * If the ontology author has defined RDF list predicates as OWL properties,
+     * treat leftover RDF lists as property assertions. Since this is not in line
+     * with the OWL spec, this should not be called in strict mode.
+     */
+    protected void convertUnusedListsToPropertyAssertions() {
+        if (this.objectPropertyIRIs.contains(RDF_REST.getIRI())) {
+            OWLObjectProperty rest = df.getOWLObjectProperty(RDF_REST.getIRI());
+            this.listRestTripleMap.forEach((subj, obj) -> {
+                OWLIndividual subjectIndividual = translateIndividual(subj);
+                OWLIndividual objectIndividual = translateIndividual(obj);
+                OWLObjectPropertyAssertionAxiom axiom = df.getOWLObjectPropertyAssertionAxiom(rest, subjectIndividual, objectIndividual);
+                this.addAxiom(axiom);
+                if (this.terminalListResources.contains(obj)) {
+                    OWLObjectPropertyAssertionAxiom nilAxiom = df.getOWLObjectPropertyAssertionAxiom(rest, objectIndividual, df.getOWLNamedIndividual(RDF_NIL.getIRI()));
+                    this.addAxiom(nilAxiom);
+                }
+            });
+        }
+        if (this.objectPropertyIRIs.contains(RDF_FIRST.getIRI())) {
+            OWLObjectProperty first = df.getOWLObjectProperty(RDF_FIRST.getIRI());
+            this.listFirstResourceTripleMap.forEach((subj, obj) -> {
+                OWLIndividual subjectIndividual = translateIndividual(subj);
+                OWLIndividual objectIndividual = translateIndividual(obj);
+                OWLObjectPropertyAssertionAxiom axiom = df.getOWLObjectPropertyAssertionAxiom(first, subjectIndividual, objectIndividual);
+                this.addAxiom(axiom);
+            });
+        }
+        if (this.dataPropertyIRIs.contains(RDF_FIRST.getIRI())) {
+            OWLDataProperty first = df.getOWLDataProperty(RDF_FIRST.getIRI());
+            this.listFirstLiteralTripleMap.forEach((subj, value) -> {
+                OWLIndividual subjectIndividual = translateIndividual(subj);
+                OWLDataPropertyAssertionAxiom axiom = df.getOWLDataPropertyAssertionAxiom(first, subjectIndividual, value);
+                this.addAxiom(axiom);
+            });
+        }
+    }
+
 }

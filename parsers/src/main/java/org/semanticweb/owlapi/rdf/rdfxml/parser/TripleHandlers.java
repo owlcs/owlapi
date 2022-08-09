@@ -1919,6 +1919,8 @@ public class TripleHandlers {
         public void handleTriple(IRI s, IRI p, IRI o) {
             if (!o.equals(RDF_NIL.getIRI())) {
                 consumer.addRest(s, o);
+            } else {
+                consumer.addTerminalList(s);
             }
             consume(s, p, o);
         }
