@@ -215,6 +215,7 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
 
     /** The render extensions. */
     private boolean renderExtensions = false;
+    private boolean explicitXsdStrings;
     /** The listeners. */
     @Nonnull
     private final List<RendererListener> listeners = new ArrayList<>();
@@ -234,7 +235,22 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
      */
     public ManchesterOWLSyntaxFrameRenderer(@Nonnull OWLOntology ontology, @Nonnull Writer writer,
         @Nonnull ShortFormProvider entityShortFormProvider) {
-        this(CollectionFactory.createSet(ontology), writer, entityShortFormProvider);
+        this(ontology, false, writer, entityShortFormProvider);
+    }
+
+    /**
+     * Instantiates a new manchester owl syntax frame renderer.
+     * 
+     * @param ontology the ontology
+     * @param explicitXsdString true if {@code xsd:string} datatype should be explicit in the output
+     * @param writer the writer
+     * @param entityShortFormProvider the entity short form provider
+     */
+    public ManchesterOWLSyntaxFrameRenderer(@Nonnull OWLOntology ontology,
+        boolean explicitXsdString, @Nonnull Writer writer,
+        @Nonnull ShortFormProvider entityShortFormProvider) {
+        this(CollectionFactory.createSet(ontology), explicitXsdString, writer,
+            entityShortFormProvider);
     }
 
     /**
@@ -246,7 +262,21 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
      */
     public ManchesterOWLSyntaxFrameRenderer(@Nonnull Set<OWLOntology> ontologies, Writer writer,
         @Nonnull ShortFormProvider entityShortFormProvider) {
-        super(writer, entityShortFormProvider);
+        this(ontologies, false, writer, entityShortFormProvider);
+    }
+
+    /**
+     * Instantiates a new manchester owl syntax frame renderer.
+     * 
+     * @param ontologies the ontologies
+     * @param writer the writer
+     * @param explicitXsdString true if {@code xsd:string} datatype should be explicit in the output
+     * @param entityShortFormProvider the entity short form provider
+     */
+    public ManchesterOWLSyntaxFrameRenderer(@Nonnull Set<OWLOntology> ontologies,
+        boolean explicitXsdString, Writer writer,
+        @Nonnull ShortFormProvider entityShortFormProvider) {
+        super(writer, explicitXsdString, entityShortFormProvider);
         this.ontologies = new LinkedHashSet<>(ontologies);
         owlObjectComparator = new OWLObjectComparator(entityShortFormProvider);
     }

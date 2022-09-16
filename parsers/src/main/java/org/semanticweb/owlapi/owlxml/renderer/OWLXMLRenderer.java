@@ -29,25 +29,19 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.vocab.Namespaces;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public class OWLXMLRenderer extends AbstractOWLRenderer {
 
     /**
-     * @param ontology
-     *        ontology
-     * @param writer
-     *        writer
-     * @param format
-     *        format
-     * @throws OWLRendererException
-     *         renderer error
+     * @param ontology ontology
+     * @param writer writer
+     * @param format format
+     * @throws OWLRendererException renderer error
      */
-    public static void render(@Nonnull OWLOntology ontology,
-            @Nonnull Writer writer, @Nonnull OWLDocumentFormat format)
-            throws OWLRendererException {
+    public static void render(@Nonnull OWLOntology ontology, @Nonnull Writer writer,
+        @Nonnull OWLDocumentFormat format) throws OWLRendererException {
         checkNotNull(ontology, "ontology cannot be null");
         checkNotNull(writer, "writer cannot be null");
         checkNotNull(format, "format cannot be null");
@@ -56,8 +50,7 @@ public class OWLXMLRenderer extends AbstractOWLRenderer {
             w.startDocument(ontology);
             if (format instanceof PrefixDocumentFormat) {
                 PrefixDocumentFormat fromPrefixFormat = (PrefixDocumentFormat) format;
-                Map<String, String> map = fromPrefixFormat
-                        .getPrefixName2PrefixMap();
+                Map<String, String> map = fromPrefixFormat.getPrefixName2PrefixMap();
                 for (String prefixName : map.keySet()) {
                     String prefix = map.get(prefixName);
                     if (prefix != null && !prefix.isEmpty()) {
@@ -82,7 +75,7 @@ public class OWLXMLRenderer extends AbstractOWLRenderer {
                 w.writePrefix("xsd:", Namespaces.XSD.toString());
                 w.writePrefix("owl:", Namespaces.OWL.toString());
             }
-            OWLXMLObjectRenderer ren = new OWLXMLObjectRenderer(w);
+            OWLXMLObjectRenderer ren = new OWLXMLObjectRenderer(w, format);
             ontology.accept(ren);
             w.endDocument();
             writer.flush();
@@ -93,10 +86,9 @@ public class OWLXMLRenderer extends AbstractOWLRenderer {
 
     @SuppressWarnings("null")
     @Override
-    public void render(OWLOntology ontology, Writer writer)
-            throws OWLRendererException {
+    public void render(OWLOntology ontology, Writer writer) throws OWLRendererException {
         render(checkNotNull(ontology, "ontology cannot be null"),
-                checkNotNull(writer, "writer cannot be null"), ontology
-                        .getOWLOntologyManager().getOntologyFormat(ontology));
+            checkNotNull(writer, "writer cannot be null"),
+            ontology.getOWLOntologyManager().getOntologyFormat(ontology));
     }
 }

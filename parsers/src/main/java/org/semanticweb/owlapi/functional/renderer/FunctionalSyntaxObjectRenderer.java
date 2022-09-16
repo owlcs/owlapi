@@ -243,6 +243,7 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
     private boolean writeEntitiesAsURIs = true;
     private OWLObject focusedObject;
     private boolean addMissingDeclarations = true;
+    private boolean explicitXsdString = false;
     protected AnnotationValueShortFormProvider labelMaker = null;
 
     /**
@@ -250,14 +251,24 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
      * @param writer the writer
      */
     public FunctionalSyntaxObjectRenderer(@Nonnull OWLOntology ontology, Writer writer) {
+        this(ontology, ontology.getOWLOntologyManager().getOntologyFormat(ontology), writer);
+    }
+
+    /**
+     * @param ontology the ontology
+     * @param ontologyFormat format
+     * @param writer the writer
+     */
+    public FunctionalSyntaxObjectRenderer(@Nonnull OWLOntology ontology,
+        OWLDocumentFormat ontologyFormat, Writer writer) {
         ont = ontology;
         this.writer = writer;
         prefixManager = defaultPrefixManager;
-        OWLDocumentFormat ontologyFormat =
-            ontology.getOWLOntologyManager().getOntologyFormat(ontology);
         // reuse the setting on the existing format, if there is one
         if (ontologyFormat != null) {
             addMissingDeclarations = ontologyFormat.isAddMissingTypes();
+            explicitXsdString = ((Boolean) ontologyFormat
+                .getParameter("force xsd:string on literals", Boolean.FALSE)).booleanValue();
         }
         if (ontologyFormat instanceof PrefixDocumentFormat) {
             prefixManager.copyPrefixesFrom((PrefixDocumentFormat) ontologyFormat);
@@ -1259,8 +1270,8 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
         if (node.hasLang()) {
             write("@");
             write(node.getLang());
-        } else if (!node.isRDFPlainLiteral()
-            && !OWL2Datatype.XSD_STRING.getIRI().equals(node.getDatatype())) {
+        } else if (!node.isRDFPlainLiteral() && (explicitXsdString
+            || !OWL2Datatype.XSD_STRING.getIRI().equals(node.getDatatype().getIRI()))) {
             write("^^");
             write(node.getDatatype().getIRI());
         }

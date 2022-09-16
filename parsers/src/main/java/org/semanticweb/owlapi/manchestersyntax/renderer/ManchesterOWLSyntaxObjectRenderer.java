@@ -180,13 +180,26 @@ import org.semanticweb.owlapi.vocab.XSDVocabulary;
 public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer
     implements OWLObjectVisitor {
 
+    private boolean explicitXsdString;
+
     /**
      * @param writer writer
      * @param entityShortFormProvider entityShortFormProvider
      */
     public ManchesterOWLSyntaxObjectRenderer(Writer writer,
         ShortFormProvider entityShortFormProvider) {
+        this(writer, false, entityShortFormProvider);
+    }
+
+    /**
+     * @param writer writer
+     * @param explicitXsdString true if {@code xsd:string} datatype should be explicit in the output
+     * @param entityShortFormProvider entityShortFormProvider
+     */
+    public ManchesterOWLSyntaxObjectRenderer(Writer writer, boolean explicitXsdString,
+        ShortFormProvider entityShortFormProvider) {
         super(writer, entityShortFormProvider);
+        this.explicitXsdString = explicitXsdString;
     }
 
     @Nonnull
@@ -514,8 +527,8 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer
             if (node.hasLang()) {
                 write("@");
                 write(node.getLang());
-            } else if (!node.isRDFPlainLiteral()
-                && !OWL2Datatype.XSD_STRING.getIRI().equals(node.getDatatype())) {
+            } else if (!node.isRDFPlainLiteral() && (explicitXsdString
+                || !OWL2Datatype.XSD_STRING.getIRI().equals(node.getDatatype().getIRI()))) {
                 write("^^");
                 node.getDatatype().accept(this);
             }

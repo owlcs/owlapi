@@ -240,6 +240,12 @@ public abstract class TestBase {
             new NQuadsDocumentFormat());
     }
 
+    public static List<OWLDocumentFormat> formatsNoRio() {
+        return Arrays.asList(new RDFXMLDocumentFormat(), new OWLXMLDocumentFormat(),
+            new FunctionalSyntaxDocumentFormat(), new TurtleDocumentFormat(),
+            new ManchesterSyntaxDocumentFormat());
+    }
+
     public static Stream<OWLDocumentFormat> formatsSkip(Class<?> witness) {
         return formats().stream().filter(x -> !witness.isInstance(x));
     }

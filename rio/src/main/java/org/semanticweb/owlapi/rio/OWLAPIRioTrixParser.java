@@ -95,16 +95,16 @@ class OWLAPIRioTrixParser extends RDFParserBase {
     @Override
     public void parse(InputStream in, String baseURI)
         throws IOException, RDFParseException, RDFHandlerException {
-        parse(new BOMInputStream(in, false));
+        parsePrivate(new BOMInputStream(in, false));
     }
 
     @Override
     public void parse(Reader reader, String baseURI)
         throws IOException, RDFParseException, RDFHandlerException {
-        parse(reader);
+        parsePrivate(reader);
     }
 
-    private void parse(Object inputStreamOrReader)
+    private void parsePrivate(Object inputStreamOrReader)
         throws IOException, RDFParseException, RDFHandlerException {
         if (rdfHandler != null) {
             rdfHandler.startRDF();

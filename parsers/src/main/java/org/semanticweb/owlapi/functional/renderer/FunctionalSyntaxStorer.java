@@ -24,8 +24,7 @@ import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi.util.AbstractOWLStorer;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public class FunctionalSyntaxStorer extends AbstractOWLStorer {
@@ -38,11 +37,10 @@ public class FunctionalSyntaxStorer extends AbstractOWLStorer {
     }
 
     @Override
-    protected void storeOntology(@Nonnull OWLOntology ontology,
-            @Nonnull Writer writer, OWLDocumentFormat format)
-            throws OWLOntologyStorageException {
+    protected void storeOntology(@Nonnull OWLOntology ontology, @Nonnull Writer writer,
+        OWLDocumentFormat format) throws OWLOntologyStorageException {
         try {
-            ontology.accept(new FunctionalSyntaxObjectRenderer(ontology, writer));
+            ontology.accept(new FunctionalSyntaxObjectRenderer(ontology, format, writer));
             writer.flush();
         } catch (IOException e) {
             throw new OWLOntologyStorageException(e);

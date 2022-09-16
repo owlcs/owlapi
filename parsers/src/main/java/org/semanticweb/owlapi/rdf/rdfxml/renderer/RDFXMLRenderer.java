@@ -68,6 +68,7 @@ public class RDFXMLRenderer extends RDFRendererBase {
     @Nonnull
     private final OWLDocumentFormat format;
     ShortFormProvider labelMaker;
+    private boolean explicitXsdString;
 
     /**
      * @param ontology ontology
@@ -88,6 +89,8 @@ public class RDFXMLRenderer extends RDFRendererBase {
         super(checkNotNull(ontology, "ontology cannot be null"),
             checkNotNull(format, "format cannot be null"));
         this.format = checkNotNull(format, "format cannot be null");
+        explicitXsdString = Boolean
+            .parseBoolean(format.getParameter("force xsd:string on literals", "false").toString());
         qnameManager = new RDFXMLNamespaceManager(ontology, format);
         String defaultNamespace = qnameManager.getDefaultNamespace();
         String base = base(defaultNamespace);
@@ -280,8 +283,8 @@ public class RDFXMLRenderer extends RDFRendererBase {
     protected void writew(RDFLiteral rdfLiteralNode) throws IOException {
         if (rdfLiteralNode.hasLang()) {
             writer.writeLangAttribute(rdfLiteralNode.getLang());
-        } else if (!rdfLiteralNode.isPlainLiteral()
-            && !OWL2Datatype.XSD_STRING.getIRI().equals(rdfLiteralNode.getDatatype())) {
+        } else if (!rdfLiteralNode.isPlainLiteral() && (explicitXsdString
+            || !OWL2Datatype.XSD_STRING.getIRI().equals(rdfLiteralNode.getDatatype()))) {
             writer.writeDatatypeAttribute(rdfLiteralNode.getDatatype());
         }
         writer.writeTextContent(rdfLiteralNode.getLexicalValue());
