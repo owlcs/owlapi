@@ -65,8 +65,7 @@ import org.semanticweb.owlapi.model.SWRLRule;
 /**
  * Provides the object that is the subject of an axiom.
  * 
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.2.0
  */
 public class AxiomSubjectProvider implements OWLAxiomVisitor {
@@ -74,8 +73,7 @@ public class AxiomSubjectProvider implements OWLAxiomVisitor {
     private OWLObject subject;
 
     /**
-     * @param axiom
-     *        the axiom to visit
+     * @param axiom the axiom to visit
      * @return the subject
      */
     public OWLObject getSubject(@Nonnull OWLAxiom axiom) {
@@ -104,14 +102,13 @@ public class AxiomSubjectProvider implements OWLAxiomVisitor {
         subject = axiom.getProperty();
     }
 
-    private static OWLClassExpression selectClassExpression(
-            Set<OWLClassExpression> descs) {
+    private static OWLClassExpression selectClassExpression(Set<OWLClassExpression> descs) {
         for (OWLClassExpression desc : descs) {
             if (!desc.isAnonymous()) {
                 return desc;
             }
         }
-        return descs.iterator().next();
+        return descs.stream().findAny().orElse(null);
     }
 
     @Override
@@ -131,7 +128,7 @@ public class AxiomSubjectProvider implements OWLAxiomVisitor {
 
     @Override
     public void visit(OWLEquivalentObjectPropertiesAxiom axiom) {
-        subject = axiom.getProperties().iterator().next();
+        subject = axiom.getProperties().stream().findAny().orElse(null);
     }
 
     @Override
@@ -141,17 +138,17 @@ public class AxiomSubjectProvider implements OWLAxiomVisitor {
 
     @Override
     public void visit(OWLDifferentIndividualsAxiom axiom) {
-        subject = axiom.getIndividuals().iterator().next();
+        subject = axiom.getIndividuals().stream().findAny().orElse(null);
     }
 
     @Override
     public void visit(OWLDisjointDataPropertiesAxiom axiom) {
-        subject = axiom.getProperties().iterator().next();
+        subject = axiom.getProperties().stream().findAny().orElse(null);
     }
 
     @Override
     public void visit(OWLDisjointObjectPropertiesAxiom axiom) {
-        subject = axiom.getProperties().iterator().next();
+        subject = axiom.getProperties().stream().findAny().orElse(null);
     }
 
     @Override
@@ -206,7 +203,7 @@ public class AxiomSubjectProvider implements OWLAxiomVisitor {
 
     @Override
     public void visit(OWLEquivalentDataPropertiesAxiom axiom) {
-        subject = axiom.getProperties().iterator().next();
+        subject = axiom.getProperties().stream().findAny().orElse(null);
     }
 
     @Override
@@ -246,7 +243,7 @@ public class AxiomSubjectProvider implements OWLAxiomVisitor {
 
     @Override
     public void visit(OWLSameIndividualAxiom axiom) {
-        subject = axiom.getIndividuals().iterator().next();
+        subject = axiom.getIndividuals().stream().findAny().orElse(null);
     }
 
     @Override
@@ -261,8 +258,8 @@ public class AxiomSubjectProvider implements OWLAxiomVisitor {
 
     @Override
     public void visit(SWRLRule rule) {
-        subject = checkNotNull(rule, "rule cannot be null").getHead()
-                .iterator().next();
+        subject =
+            checkNotNull(rule, "rule cannot be null").getHead().stream().findAny().orElse(null);
     }
 
     @Override
