@@ -301,7 +301,7 @@ public class DLSyntaxObjectRenderer implements OWLObjectRenderer, OWLObjectVisit
         return writeSpace().write(SUBCLASS).writeSpace();
     }
 
-    private void writeDomainAxiom(OWLPropertyDomainAxiom<?> axiom) {
+    private void writeDomainAxiom(OWLPropertyDomainAxiom<?, ?> axiom) {
         write(EXISTS).writeSpace().accept(axiom.getProperty()).writeRestrictionSeparator()
             .write(TOP).subClass().roundedAnon(axiom.getDomain());
     }

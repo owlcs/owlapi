@@ -13,16 +13,15 @@
 package org.semanticweb.owlapi.model;
 
 /**
- * Represents
- * <a href="http://www.w3.org/TR/owl2-syntax/#Object_Property_Domain">
- * ObjectPropertyDomain</a> axioms in the OWL 2 specification.
+ * Represents <a href="http://www.w3.org/TR/owl2-syntax/#Object_Property_Domain">
+ * ObjectPropertyDomain</a> and <a href="https://www.w3.org/TR/owl2-syntax/#Data_Property_Domain">
+ * Data Property Domain</a> axioms in the OWL 2 specification.
  *
- * @param <P>
- *        property expression
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @param <P> {@link OWLPropertyExpression property expression}
+ * @param <R> {@link OWLPropertyDomain domain}
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
-public interface OWLPropertyDomainAxiom<P extends OWLPropertyExpression>
-    extends OWLUnaryPropertyAxiom<P>, OWLSubClassOfAxiomShortCut, HasDomain<OWLClassExpression> {
+public interface OWLPropertyDomainAxiom<P extends OWLPropertyExpression, R extends OWLPropertyDomain>
+    extends OWLUnaryPropertyAxiom<P>, HasDomain<R> {
 }

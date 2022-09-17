@@ -20,7 +20,7 @@ package org.semanticweb.owlapi.model;
  * @since 3.0.0
  */
 public interface OWLAnnotationPropertyRangeAxiom
-    extends OWLAnnotationAxiom, HasProperty<OWLAnnotationProperty>, HasRange<IRI> {
+    extends OWLAnnotationAxiom, OWLPropertyRangeAxiom<OWLAnnotationProperty, IRI> {
 
     @Override
     @SuppressWarnings("unchecked")

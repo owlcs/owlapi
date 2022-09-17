@@ -27,8 +27,9 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
  * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
  */
-public interface IRI extends OWLAnnotationSubject, OWLAnnotationValue, SWRLPredicate, CharSequence,
-    OWLPrimitive, HasShortForm, org.apache.commons.rdf.api.IRI {
+public interface IRI
+    extends OWLAnnotationSubject, OWLAnnotationValue, SWRLPredicate, CharSequence, OWLPrimitive,
+    HasShortForm, org.apache.commons.rdf.api.IRI, OWLPropertyDomain, OWLPropertyRange {
 
     @Override
     default boolean isIRI() {
