@@ -26,26 +26,37 @@ import org.semanticweb.owlapi.apitest.TestFiles;
 import org.semanticweb.owlapi.apitest.baseclasses.TestBase;
 import org.semanticweb.owlapi.documents.StringDocumentSource;
 import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
+import org.semanticweb.owlapi.model.AddImport;
+import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.parameters.OntologyCopy;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public class MoveOntologyTestCase extends TestBase {
 
+    private OWLOntology root;
+    private OWLOntology imported;
+
     @Before
     public void setUp() throws OWLOntologyCreationException {
         m.createOntology(df.getIRI("urn:test#", "test"));
+        IRI importedIRI = df.getIRI("urn:test#", "imported");
+        imported = m.createOntology(importedIRI);
+        root = m.createOntology(df.getIRI("urn:test#", "root"));
+        root.applyChange(new AddImport(root, df.getOWLImportsDeclaration(importedIRI)));
+        m.setOntologyFormat(root, new RDFXMLDocumentFormat());
+        m.setOntologyFormat(imported, new RDFXMLDocumentFormat());
+        m1 = setupConcurrentManager();
     }
 
     @Test
     public void testMove() throws OWLOntologyCreationException {
-        OWLOntology o = m
-            .loadOntologyFromOntologyDocument(new StringDocumentSource(TestFiles.moveTest, new RDFXMLDocumentFormat()));
+        OWLOntology o = m.loadOntologyFromOntologyDocument(
+            new StringDocumentSource(TestFiles.moveTest, new RDFXMLDocumentFormat()));
         OWLOntology copy = m1.copyOntology(o, OntologyCopy.MOVE);
         assertSame(o, copy);
         assertEquals(m1, copy.getOWLOntologyManager());
@@ -57,9 +68,9 @@ public class MoveOntologyTestCase extends TestBase {
 
     @Test
     public void testShallow() throws OWLOntologyCreationException {
-        OWLOntology o = m
-            .loadOntologyFromOntologyDocument(new StringDocumentSource(TestFiles.moveTest, new RDFXMLDocumentFormat()));
-        OWLOntology copy = m1.copyOntology(o, OntologyCopy.SHALLOW);
+        OWLOntology o = m.loadOntologyFromOntologyDocument(
+            new StringDocumentSource(TestFiles.moveTest, new RDFXMLDocumentFormat()));
+        OWLOntology copy = m1.copyOntology(o, OntologyCopy.SHALLOW_COPY);
         assertEquals(m1, copy.getOWLOntologyManager());
         assertTrue(m.contains(o));
         assertTrue(m1.contains(copy));
@@ -70,9 +81,9 @@ public class MoveOntologyTestCase extends TestBase {
 
     @Test
     public void testDeep() throws OWLOntologyCreationException {
-        OWLOntology o = m
-            .loadOntologyFromOntologyDocument(new StringDocumentSource(TestFiles.moveTest, new RDFXMLDocumentFormat()));
-        OWLOntology copy = m1.copyOntology(o, OntologyCopy.DEEP);
+        OWLOntology o = m.loadOntologyFromOntologyDocument(
+            new StringDocumentSource(TestFiles.moveTest, new RDFXMLDocumentFormat()));
+        OWLOntology copy = m1.copyOntology(o, OntologyCopy.DEEP_COPY);
         assertEquals(m1, copy.getOWLOntologyManager());
         assertTrue(m.contains(o));
         assertTrue(m1.contains(copy));
@@ -80,5 +91,60 @@ public class MoveOntologyTestCase extends TestBase {
         assertNotNull(m1.getOntologyFormat(o));
         assertEquals(asSet(o.annotations()), asSet(copy.annotations()));
         assertEquals(asSet(o.importsDeclarations()), asSet(copy.importsDeclarations()));
+    }
+
+    @Test
+    public void testMoveImportsClosure() throws OWLOntologyCreationException {
+        assertTrue(m.contains(root));
+        assertTrue(m.contains(imported));
+        OWLOntology copy = m1.copyOntology(root, OntologyCopy.MOVE_ONTOLOGY_CLOSURE);
+        assertSame(root, copy);
+        assertEquals(m1, copy.getOWLOntologyManager());
+        assertEquals(m1, imported.getOWLOntologyManager());
+        assertFalse(m.contains(root));
+        assertFalse(m.contains(imported));
+        assertTrue(m1.contains(copy));
+        assertTrue(m1.contains(imported));
+        assertEquals(asSet(root.annotations()), asSet(copy.annotations()));
+        assertNull(m.getOntologyFormat(root));
+        assertNull(m.getOntologyFormat(imported));
+    }
+
+    @Test
+    public void testShallowImportsClosure() throws OWLOntologyCreationException {
+        assertTrue(m.contains(root));
+        assertTrue(m.contains(imported));
+        OWLOntology copy = m1.copyOntology(root, OntologyCopy.SHALLOW_COPY_ONTOLOGY_CLOSURE);
+        assertEquals(2, copy.importsClosure().count());
+        copy.importsClosure().forEach(x -> assertEquals(m1, x.getOWLOntologyManager()));
+        assertTrue(m.contains(root));
+        assertTrue(m.contains(imported));
+        assertTrue(m1.contains(copy));
+        assertTrue(m1.contains(imported.getOntologyID().getOntologyIRI().orElse(null)));
+        assertNotNull(m.getOntologyFormat(root));
+        assertNotNull(m.getOntologyFormat(imported));
+        assertEquals(asSet(root.annotations()), asSet(copy.annotations()));
+        assertEquals(asSet(root.importsDeclarations()), asSet(copy.importsDeclarations()));
+    }
+
+    @Test
+    public void testDeepImportsClosure() throws OWLOntologyCreationException {
+        assertTrue(m.contains(root));
+        assertTrue(m.contains(imported));
+        OWLOntology copy = m1.copyOntology(root, OntologyCopy.DEEP_COPY_ONTOLOGY_CLOSURE);
+        assertEquals(2, copy.importsClosure().count());
+        copy.importsClosure().forEach(x -> assertEquals(m1, x.getOWLOntologyManager()));
+        assertTrue(m.contains(root));
+        assertTrue(m.contains(imported));
+        assertTrue(m1.contains(copy));
+        assertTrue(m1.contains(imported.getOntologyID().getOntologyIRI().orElse(null)));
+        assertNotNull(m.getOntologyFormat(root));
+        assertNotNull(m.getOntologyFormat(imported));
+        assertNotNull(m1.getOntologyFormat(root));
+        OWLOntology ont = m1.getOntology(imported.getOntologyID().getOntologyIRI().orElse(null));
+        assert ont != null;
+        assertNotNull(m1.getOntologyFormat(ont));
+        assertEquals(asSet(root.annotations()), asSet(copy.annotations()));
+        assertEquals(asSet(root.importsDeclarations()), asSet(copy.importsDeclarations()));
     }
 }

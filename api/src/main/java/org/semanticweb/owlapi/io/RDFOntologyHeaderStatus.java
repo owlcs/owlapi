@@ -12,23 +12,76 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.io;
 
+import java.io.Serializable;
+
 /**
  * @author Matthew Horridge, The University of Manchester, Bio-Health Informatics Group
  * @since 3.2
  */
-public enum RDFOntologyHeaderStatus {
+public interface RDFOntologyHeaderStatus extends Serializable {
+    /**
+     * Enumeration holding known instances.
+     */
+    enum KnownValues implements RDFOntologyHeaderStatus {
+        /**
+         * Specifies that during parsing, the ontology document did not contain any ontology
+         * headers.
+         */
+        ZERO_HEADERS(0),
+        /**
+         * Specifies that during parsing, the ontology document that the ontology was created from
+         * contained one header.
+         */
+        ONE_HEADER(1),
+        /**
+         * Specifies that during parsing, the ontology document that the ontology was created from
+         * contained multiple headers.
+         */
+        MULTIPLE_HEADERS(2);
+
+        private final int parsedHeaders;
+
+        private KnownValues(int parsedHeaders) {
+            this.parsedHeaders = parsedHeaders;
+        }
+
+        @Override
+        public boolean noHeaders() {
+            return parsedHeaders == 0;
+        }
+
+        @Override
+        public boolean oneHeader() {
+            return parsedHeaders == 1;
+        }
+
+        @Override
+        public boolean multipleHeaders() {
+            return parsedHeaders > 1;
+        }
+    }
+
     /**
      * Specifies that during parsing, the ontology document did not contain any ontology headers.
      */
-    PARSED_ZERO_HEADERS,
+    RDFOntologyHeaderStatus PARSED_ZERO_HEADERS = KnownValues.ZERO_HEADERS;
     /**
      * Specifies that during parsing, the ontology document that the ontology was created from
      * contained one header.
      */
-    PARSED_ONE_HEADER,
+    RDFOntologyHeaderStatus PARSED_ONE_HEADER = KnownValues.ONE_HEADER;
     /**
      * Specifies that during parsing, the ontology document that the ontology was created from
      * contained multiple headers.
      */
-    PARSED_MULTIPLE_HEADERS
+    RDFOntologyHeaderStatus PARSED_MULTIPLE_HEADERS = KnownValues.MULTIPLE_HEADERS;
+
+    /** @return true if no headers were parsed */
+    boolean noHeaders();
+
+    /** @return true if one header was parsed */
+    boolean oneHeader();
+
+    /** @return true if more than one header was parsed */
+    boolean multipleHeaders();
 }

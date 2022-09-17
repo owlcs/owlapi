@@ -36,9 +36,9 @@ import org.semanticweb.owlapi.apitest.TestFiles;
 import org.semanticweb.owlapi.documents.StreamDocumentTarget;
 import org.semanticweb.owlapi.documents.StringDocumentSource;
 import org.semanticweb.owlapi.documents.StringDocumentTarget;
+import org.semanticweb.owlapi.formats.FunctionalSyntaxDocumentFormat;
 import org.semanticweb.owlapi.formats.OWLXMLDocumentFormat;
 import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
-import org.semanticweb.owlapi.functional.renderer.FunctionalSyntaxStorerFactory;
 import org.semanticweb.owlapi.model.AddAxiom;
 import org.semanticweb.owlapi.model.AddOntologyAnnotation;
 import org.semanticweb.owlapi.model.IRI;
@@ -706,6 +706,7 @@ public class TutorialSnippetsTestCase {
     }
 
     @Test
+    @SuppressWarnings("unused")
     public void testDataRanges() throws OWLException {
         // Data ranges are used as the types of literals, as the ranges for data
         // properties
@@ -860,11 +861,9 @@ public class TutorialSnippetsTestCase {
         // Simple Rendering Example. Reads an ontology and then renders it.
         OWLOntologyManager m = create();
         OWLOntology o = loadPizzaOntology(m);
-        // Register the ontology storer with the manager
-        m.getOntologyStorers().add(new FunctionalSyntaxStorerFactory());
         // Save using a different format
         StreamDocumentTarget target = new StreamDocumentTarget(new ByteArrayOutputStream());
-        o.saveOntology(new OWLTutorialSyntaxOntologyFormat(), target);
+        o.saveOntology(new FunctionalSyntaxDocumentFormat(), target);
     }
 
     @Test

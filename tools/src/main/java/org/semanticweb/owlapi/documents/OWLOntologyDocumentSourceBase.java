@@ -110,10 +110,10 @@ public abstract class OWLOntologyDocumentSourceBase implements OWLOntologyDocume
     /**
      * Constructs an ontology input source using the specified file.
      *
-     * @param iri    document IRI
-     * @param in     input stream
+     * @param iri document IRI
+     * @param in input stream
      * @param format ontology format. If null, it is considered unspecified
-     * @param mime   mime type. If null or empty, it is considered unspecified.
+     * @param mime mime type. If null or empty, it is considered unspecified.
      */
     protected OWLOntologyDocumentSourceBase(String iri, Streamer<InputStream> in,
         @Nullable OWLDocumentFormat format, @Nullable String mime) {
@@ -157,22 +157,28 @@ public abstract class OWLOntologyDocumentSourceBase implements OWLOntologyDocume
                 if (fileName == null) {
                     fileName = iri;
                 }
-                if (encoding != null) {
-                    switch (encoding) {
-                        case "xz":
-                            return c.apply(checkRemoteFileName(new XZInputStream(in), fileName));
-                        case "gzip":
-                            return c.apply(checkRemoteFileName(new GZIPInputStream(in), fileName));
-                        case "deflate":
-                            return c.apply(checkRemoteFileName(
-                                new InflaterInputStream(in, new Inflater(true)), fileName));
-                        default:
-                            break;
-                    }
-                }
-                return c.apply(checkRemoteFileName(in, fileName));
+                return getFormat(c, encoding, in, fileName);
             }
         }
+    }
+
+    @SuppressWarnings("resource")
+    protected static OWLDocumentFormat getFormat(Function<InputStream, OWLDocumentFormat> c,
+        @Nullable String encoding, InputStream in, String fileName) throws IOException {
+        if (encoding != null) {
+            switch (encoding) {
+                case "xz":
+                    return c.apply(checkRemoteFileName(new XZInputStream(in), fileName));
+                case "gzip":
+                    return c.apply(checkRemoteFileName(new GZIPInputStream(in), fileName));
+                case "deflate":
+                    return c.apply(checkRemoteFileName(
+                        new InflaterInputStream(in, new Inflater(true)), fileName));
+                default:
+                    break;
+            }
+        }
+        return c.apply(checkRemoteFileName(in, fileName));
     }
 
     private static InputStream checkRemoteFileName(InputStream in, String fileName)
@@ -212,9 +218,9 @@ public abstract class OWLOntologyDocumentSourceBase implements OWLOntologyDocume
     }
 
     /**
-     * @param documentIRI         iri to connect to
-     * @param timeout             connection timeout
-     * @param acceptHeaders       accept headers for the connection
+     * @param documentIRI iri to connect to
+     * @param timeout connection timeout
+     * @param acceptHeaders accept headers for the connection
      * @param authorizationHeader authorization header, if needed
      * @return Response for connection
      * @throws IOException if the connection fails

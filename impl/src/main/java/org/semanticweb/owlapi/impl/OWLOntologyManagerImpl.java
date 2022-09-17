@@ -65,7 +65,6 @@ import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.ImpendingOWLOntologyChangeBroadcastStrategy;
 import org.semanticweb.owlapi.model.ImpendingOWLOntologyChangeListener;
 import org.semanticweb.owlapi.model.MissingImportEvent;
-import org.semanticweb.owlapi.model.MissingImportHandlingStrategy;
 import org.semanticweb.owlapi.model.MissingImportListener;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLAxiom;
@@ -156,7 +155,7 @@ public class OWLOntologyManagerImpl
     private final ReadWriteLock lock;
 
     /**
-     * @param dataFactory   data factory
+     * @param dataFactory data factory
      * @param readWriteLock lock
      */
     @Inject
@@ -165,9 +164,9 @@ public class OWLOntologyManagerImpl
     }
 
     /**
-     * @param dataFactory   data factory
+     * @param dataFactory data factory
      * @param readWriteLock lock
-     * @param sorting       sorting option
+     * @param sorting sorting option
      */
     public OWLOntologyManagerImpl(OWLDataFactory dataFactory, ReadWriteLock readWriteLock,
         PriorityCollectionSorting sorting) {
@@ -440,9 +439,9 @@ public class OWLOntologyManagerImpl
     /**
      * A method that gets the imports of a given ontology.
      * 
-     * @param ont    The ontology whose (transitive) imports are to be retrieved.
+     * @param ont The ontology whose (transitive) imports are to be retrieved.
      * @param result A place to store the result - the transitive closure of the imports will be
-     *               stored in this result set.
+     *        stored in this result set.
      * @return modified result
      */
     private Set<OWLOntology> getImports(OWLOntology ont, Set<OWLOntology> result) {
@@ -472,7 +471,7 @@ public class OWLOntologyManagerImpl
      * A recursive method that gets the reflexive transitive closure of the ontologies that are
      * imported by this ontology.
      * 
-     * @param ontology   The ontology whose reflexive transitive closure is to be retrieved
+     * @param ontology The ontology whose reflexive transitive closure is to be retrieved
      * @param ontologies a place to store the result
      * @return modified ontologies
      */
@@ -604,41 +603,67 @@ public class OWLOntologyManagerImpl
         }
     }
 
+    private static class OntologyCopyWrapper implements OntologyCopy {
+        private OntologyCopy delegate;
+
+        public OntologyCopyWrapper(OntologyCopy delegate) {
+            this.delegate = delegate;
+        }
+
+        @Override
+        public boolean applyToAxiomsAndAnnotationsOnly() {
+            return delegate.applyToAxiomsAndAnnotationsOnly();
+        }
+
+        @Override
+        public boolean applyToImportsClosure() {
+            return false;
+        }
+
+        @Override
+        public boolean move() {
+            return delegate.move();
+        }
+    }
+
     @Override
     public OWLOntology copyOntology(OWLOntology toCopy, OntologyCopy settings)
         throws OWLOntologyCreationException {
+        checkNotNull(toCopy);
+        checkNotNull(settings);
+        // if the imports closure must be treated the same way, do so for all of the ontologies
+        // contained - except this one
+        if (settings.applyToImportsClosure()) {
+            OntologyCopy newSettings = new OntologyCopyWrapper(settings);
+            List<OWLOntology> importsToCopy =
+                asList(toCopy.importsClosure().filter(x -> !toCopy.equals(x)));
+            for (OWLOntology o : importsToCopy) {
+                copyOntology(o, newSettings);
+            }
+        }
         writeLock.lock();
         try {
-            checkNotNull(toCopy);
-            checkNotNull(settings);
             OWLOntology toReturn = null;
-            switch (settings) {
-                case MOVE:
-                    toReturn = toCopy;
-                    ontologiesByID.put(toReturn.getOntologyID(), toReturn);
-                    break;
-                case SHALLOW:
-                case DEEP:
-                    OWLOntology o = createOntology(toCopy.getOntologyID());
-                    AxiomType.axiomTypes().forEach(t -> o.addAxioms(toCopy.axioms(t)));
-                    toCopy.annotations()
-                        .forEach(a -> o.applyChange(new AddOntologyAnnotation(o, a)));
-                    toCopy.importsDeclarations().forEach(a -> o.applyChange(new AddImport(o, a)));
-                    toReturn = o;
-                    break;
-                default:
-                    throw new OWLRuntimeException("settings value not understood: " + settings);
+            if (settings.move()) {
+                toReturn = toCopy;
+                ontologiesByID.put(toReturn.getOntologyID(), toReturn);
+            } else {
+                OWLOntology o = createOntology(toCopy.getOntologyID());
+                AxiomType.axiomTypes().forEach(t -> o.addAxioms(toCopy.axioms(t)));
+                toCopy.annotations().forEach(a -> o.applyChange(new AddOntologyAnnotation(o, a)));
+                toCopy.importsDeclarations().forEach(a -> o.applyChange(new AddImport(o, a)));
+                toReturn = o;
             }
             // toReturn now initialized
             OWLOntologyManager m = toCopy.getOWLOntologyManager();
-            if (settings == OntologyCopy.MOVE || settings == OntologyCopy.DEEP) {
+            if (settings.move() || !settings.applyToAxiomsAndAnnotationsOnly()) {
                 setOntologyDocumentIRI(toReturn, m.getOntologyDocumentIRI(toCopy));
                 OWLDocumentFormat ontologyFormat = m.getOntologyFormat(toCopy);
                 if (ontologyFormat != null) {
                     setOntologyFormat(toReturn, ontologyFormat);
                 }
             }
-            if (settings == OntologyCopy.MOVE) {
+            if (settings.move()) {
                 m.removeOntology(toCopy);
                 // at this point toReturn and toCopy are the same object
                 // change the manager on the ontology
@@ -786,11 +811,11 @@ public class OWLOntologyManagerImpl
     /**
      * This is the method that all the other load method delegate to.
      * 
-     * @param ontologyIRI    The URI of the ontology to be loaded. This is only used to report to
-     *                       listeners and may be {@code null}
+     * @param ontologyIRI The URI of the ontology to be loaded. This is only used to report to
+     *        listeners and may be {@code null}
      * @param documentSource The input source that specifies where the ontology should be loaded
-     *                       from.
-     * @param configuration  load configuration
+     *        from.
+     * @param configuration load configuration
      * @return The ontology that was loaded.
      * @throws OWLOntologyCreationException If the ontology could not be loaded.
      */
@@ -1281,8 +1306,7 @@ public class OWLOntologyManagerImpl
             try {
                 ont = loadOntology(declaration.getIRI(), true, configuration);
             } catch (OWLOntologyCreationException e) {
-                if (configuration
-                    .getMissingImportHandlingStrategy() == MissingImportHandlingStrategy.THROW_EXCEPTION) {
+                if (configuration.getMissingImportHandlingStrategy().throwException()) {
                     throw e;
                 } else {
                     // Silent

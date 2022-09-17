@@ -12,6 +12,8 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model.parameters;
 
+import java.io.Serializable;
+import java.util.function.Function;
 import java.util.stream.Stream;
 
 import org.semanticweb.owlapi.model.HasImportsClosure;
@@ -23,25 +25,43 @@ import org.semanticweb.owlapi.model.OWLOntology;
  * @author ignazio
  * @since 4.0.0
  */
-public enum Imports {
+@FunctionalInterface
+public interface Imports extends Serializable {
+    /**
+     * Enumeration holding known instances.
+     */
+    enum KnownValues implements Imports {
+        /**
+         * Imports are included.
+         */
+        INCLUDED_IMPORTS(HasImportsClosure::importsClosure),
+
+        /**
+         * Imports are excluded.
+         */
+        EXCLUDED_IMPORTS(o -> Stream.of((OWLOntology) o));
+
+        private Function<HasImportsClosure, Stream<OWLOntology>> f;
+
+        private KnownValues(Function<HasImportsClosure, Stream<OWLOntology>> f) {
+            this.f = f;
+        }
+
+        @Override
+        public Stream<OWLOntology> stream(HasImportsClosure o) {
+            return f.apply(o);
+        }
+    }
+
     /**
      * Imports are included.
      */
-    INCLUDED {
-        @Override
-        public Stream<OWLOntology> stream(HasImportsClosure o) {
-            return o.importsClosure();
-        }
-    },
+    Imports INCLUDED = KnownValues.INCLUDED_IMPORTS;
+
     /**
      * Imports are excluded.
      */
-    EXCLUDED {
-        @Override
-        public Stream<OWLOntology> stream(HasImportsClosure o) {
-            return Stream.of((OWLOntology) o);
-        }
-    };
+    Imports EXCLUDED = KnownValues.EXCLUDED_IMPORTS;
 
     /**
      * Transform a boolean arg in an Imports arg. True means INCLUDED
@@ -58,8 +78,9 @@ public enum Imports {
 
     /**
      * @param o input ontology
-     * @return if the import closure should be included, return a sorted stream with all the ontologies in
-     * the imports closure. Otherwise, return a stream with a single ontology - the input ontology.
+     * @return if the import closure should be included, return a sorted stream with all the
+     *         ontologies in the imports closure. Otherwise, return a stream with a single ontology
+     *         - the input ontology.
      */
-    public abstract Stream<OWLOntology> stream(HasImportsClosure o);
+    Stream<OWLOntology> stream(HasImportsClosure o);
 }

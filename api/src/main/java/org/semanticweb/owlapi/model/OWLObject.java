@@ -154,6 +154,28 @@ public interface OWLObject
     }
 
     /**
+     * OWLObject based equals. Used in the default implementation for equals calls.
+     * 
+     * @param obj object to compare to
+     * @return true if obj equals this object
+     */
+    default boolean equalsOWLObject(OWLObject obj) {
+        return OWLObjectType.equals(this, obj);
+    }
+
+    /**
+     * Comparator implementation for OWLObjects. Used in the default implementation for compareTo
+     * calls.
+     * 
+     * @param obj object to compare to
+     * @return negative value for {@code this < obj}, positive value for {@code obj < this}, zero if
+     *         this object and obj are equal.
+     */
+    default int compareToOWLObject(OWLObject obj) {
+        return OWLObjectType.compareTo(this, obj);
+    }
+
+    /**
      * @return the OWLObjectType for this OWL object
      */
     OWLObjectType type();

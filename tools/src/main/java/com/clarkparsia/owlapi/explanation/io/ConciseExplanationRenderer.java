@@ -95,20 +95,24 @@ public class ConciseExplanationRenderer implements ExplanationRenderer {
             } else {
                 header = INDENT;
             }
-            try {
-                printWriter.write(header + renderer.render(axiom) + "\n");
-            } catch (IOException e) {
-                throw new OWLRuntimeException(e);
+            if (printWriter != null) {
+                try {
+                    printWriter.write(header + renderer.render(axiom) + "\n");
+                } catch (IOException e) {
+                    throw new OWLRuntimeException(e);
+                }
             }
         }
     }
 
     @Override
     public void endRendering() {
-        try {
-            printWriter.flush();
-        } catch (IOException e) {
-            throw new OWLRuntimeException(e);
+        if (printWriter != null) {
+            try {
+                printWriter.flush();
+            } catch (IOException e) {
+                throw new OWLRuntimeException(e);
+            }
         }
     }
 }

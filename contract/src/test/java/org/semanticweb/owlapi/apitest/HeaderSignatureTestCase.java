@@ -42,7 +42,7 @@ public class HeaderSignatureTestCase extends TestBase {
     }
 
     @Test
-    public void testContainsDatatypesInHeaderIssue965() throws OWLOntologyCreationException {
+    public void testContainsDatatypesInHeaderIssue965() {
         String s = "@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .\n"
             + "@prefix owl:   <http://www.w3.org/2002/07/owl#> .\n"
             + "@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .\n"

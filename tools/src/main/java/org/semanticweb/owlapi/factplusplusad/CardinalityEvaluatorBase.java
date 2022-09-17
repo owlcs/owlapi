@@ -27,14 +27,22 @@ abstract class CardinalityEvaluatorBase extends SigAccessor implements OWLObject
     LowerBoundDirectEvaluator lbd;
     UpperBoundComplementEvaluator ubc;
     LowerBoundComplementEvaluator lbc;
-    /**
-     * keep the value here
-     */
-    int value = 0;
+    /** special value for concepts that are not in {@code C[C]^{<= n}} */
+    protected int noUpperValue = -1;
+    /** special value for concepts that are in {@code C[C]^{<= n}} for all n */
+    protected int anyUpperValue = 0;
+    /** special value for concepts that are not in {@code C[C]^{>= n}} */
+    protected int noLowerValue = 0;
+    /** special value for concepts that are in {@code C[C]^{>= n}} for all n */
+    protected int anyLowerValue = -1;
+    /** special value for concepts that are in {@code C^{<= n}} for all n */
+    protected int getAllValue = 0;
+    /** special value for concepts that are not in {@code C^{<= n}} */
+    protected int getNoneValue = -1;
+    /** keep the value here */
+    protected int value = 0;
 
     /**
-     * init c'tor
-     *
      * @param s signature
      */
     CardinalityEvaluatorBase(Signature s) {
@@ -50,10 +58,10 @@ abstract class CardinalityEvaluatorBase extends SigAccessor implements OWLObject
      */
     int minUpperValue(int uv1, int uv2) {
         // noUpperValue is a maximal element
-        if (uv1 == noUpperValue()) {
+        if (uv1 == noUpperValue) {
             return uv2;
         }
-        if (uv2 == noUpperValue()) {
+        if (uv2 == noUpperValue) {
             return uv1;
         }
         // now return the smallest value, with anyUpperValue being
@@ -62,39 +70,11 @@ abstract class CardinalityEvaluatorBase extends SigAccessor implements OWLObject
     }
 
     /**
-     * @return special value for concepts that are not in {@code C[C]^{<= n}}
-     */
-    int noUpperValue() {
-        return -1;
-    }
-
-    /**
-     * @return special value for concepts that are in {@code C[C]^{<= n}} for all n
-     */
-    int anyUpperValue() {
-        return 0;
-    }
-
-    /**
      * @param condition condition to test
      * @return all or none values depending on the condition
      */
     int getAllNoneUpper(boolean condition) {
-        return condition ? anyUpperValue() : noUpperValue();
-    }
-
-    /**
-     * @return special value for concepts that are not in {@code C[C]^{>= n}}
-     */
-    int noLowerValue() {
-        return 0;
-    }
-
-    /**
-     * @return special value for concepts that are in {@code C[C]^{>= n}} for all n
-     */
-    int anyLowerValue() {
-        return -1;
+        return condition ? anyUpperValue : noUpperValue;
     }
 
     /**
@@ -102,21 +82,7 @@ abstract class CardinalityEvaluatorBase extends SigAccessor implements OWLObject
      * @return 1 or none values depending on the condition
      */
     int getOneNoneLower(boolean condition) {
-        return condition ? 1 : noLowerValue();
-    }
-
-    /**
-     * @return special value for concepts that are in {@code C^{<= n}} for all n
-     */
-    int getAllValue() {
-        return 0;
-    }
-
-    /**
-     * @return special value for concepts that are not in {@code C^{<= n}}
-     */
-    int getNoneValue() {
-        return -1;
+        return condition ? 1 : noLowerValue;
     }
 
     int getUpperBoundDirect(OWLObject expr) {
@@ -152,10 +118,10 @@ abstract class CardinalityEvaluatorBase extends SigAccessor implements OWLObject
      * @return true if given upper VALUE is less than M
      */
     boolean isUpperLT(int v, int m) {
-        if (v == noUpperValue()) {
+        if (v == noUpperValue) {
             return false;
         }
-        return v == anyUpperValue() || v < m;
+        return v == anyUpperValue || v < m;
     }
 
     /**
@@ -173,10 +139,10 @@ abstract class CardinalityEvaluatorBase extends SigAccessor implements OWLObject
      * @return true if given lower VALUE is greater than or equal to M
      */
     boolean isLowerGE(int v, int m) {
-        if (v == noLowerValue()) {
+        if (v == noLowerValue) {
             return false;
         }
-        return v == anyLowerValue() || v >= m;
+        return v == anyLowerValue || v >= m;
     }
 
     /**

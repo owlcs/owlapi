@@ -12,23 +12,81 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model.parameters;
 
+import java.io.Serializable;
+
+import javax.annotation.Nullable;
+
 /**
  * An enum for change application success.
  *
  * @author ignazio
  * @since 4.0.0
  */
-public enum ChangeApplied {
+public interface ChangeApplied extends Serializable {
+    /**
+     * Enumeration holding known instances.
+     */
+    enum KnownValues implements ChangeApplied {
+        /**
+         * Change applied successfully.
+         */
+        SUCCESSFUL(Boolean.TRUE),
+        /**
+         * Change not applied.
+         */
+        UNSUCCESSFUL(Boolean.FALSE),
+        /**
+         * No operation carried out (change had no effect)
+         */
+        NO_CHANGE(null);
+
+        @Nullable
+        private Boolean toReturn;
+
+        private KnownValues(@Nullable Boolean toReturn) {
+            this.toReturn = toReturn;
+        }
+
+        @Override
+        public Boolean change() {
+            return toReturn;
+        }
+    }
+
     /**
      * Change applied successfully.
      */
-    SUCCESSFULLY,
+    ChangeApplied SUCCESSFULLY = KnownValues.SUCCESSFUL;
     /**
      * Change not applied.
      */
-    UNSUCCESSFULLY,
+    ChangeApplied UNSUCCESSFULLY = KnownValues.UNSUCCESSFUL;
     /**
      * No operation carried out (change had no effect)
      */
-    NO_OPERATION
+    ChangeApplied NO_OPERATION = KnownValues.NO_CHANGE;
+
+    /**
+     * @return Boolean.TRUE if the change was successful, Boolean.FALSE if the change was
+     *         unsuccessful, null if no change happened.
+     */
+    @Nullable
+    Boolean change();
+
+    /** @return true if the change was successful */
+    default boolean successful() {
+        Boolean change = change();
+        return change != null && change.booleanValue();
+    }
+
+    /** @return true if the change was unsuccessful */
+    default boolean unsuccessful() {
+        Boolean change = change();
+        return change != null && !change.booleanValue();
+    }
+
+    /** @return true if no change happened */
+    default boolean noChange() {
+        return change() == null;
+    }
 }

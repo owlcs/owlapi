@@ -46,6 +46,7 @@ import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLDataProperty;
+import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -94,8 +95,11 @@ public class SearcherTestCase extends TestBase {
         assertTrue(contains(equivalent(o.equivalentObjectPropertiesAxioms(c)), e));
         assertTrue(contains(equivalent(o.equivalentObjectPropertiesAxioms(e)),
             df.getOWLObjectInverseOf(f)));
-        Searcher.getSuperProperties(c, o)
-            .forEach(q -> assertTrue(q instanceof OWLObjectPropertyExpression));
+        Searcher.getSuperProperties(c, o).forEach(q -> assertTrue(checkMethod(q)));
+    }
+
+    protected boolean checkMethod(OWLObject q) {
+        return q instanceof OWLObjectPropertyExpression;
     }
 
     @Test

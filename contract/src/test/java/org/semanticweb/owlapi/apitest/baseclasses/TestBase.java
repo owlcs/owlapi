@@ -83,6 +83,7 @@ import org.slf4j.LoggerFactory;
 public abstract class TestBase {
 
     @Rule
+    @SuppressWarnings("deprecation")
     public ExpectedException expectedException = ExpectedException.none();
 
     protected interface AxiomBuilder {

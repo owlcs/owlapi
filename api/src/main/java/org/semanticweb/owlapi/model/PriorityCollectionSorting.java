@@ -14,8 +14,11 @@ package org.semanticweb.owlapi.model;
 
 import static org.semanticweb.owlapi.utilities.OWLAPIPreconditions.checkNotNull;
 
+import java.io.Serializable;
 import java.util.Collections;
 import java.util.List;
+import java.util.function.Consumer;
+import java.util.function.Function;
 
 import javax.annotation.Nullable;
 
@@ -27,87 +30,127 @@ import org.semanticweb.owlapi.annotations.HasPriority;
  * @author Ignazio
  * @since 4.0.2
  */
-public enum PriorityCollectionSorting implements ByName<PriorityCollectionSorting> {
+public interface PriorityCollectionSorting extends ByName<PriorityCollectionSorting>, Serializable {
+    /**
+     * Enumeration holding known instances.
+     */
+    enum KnownValues implements PriorityCollectionSorting {
+        /**
+         * Always keep the collection sorted by HasPriority annotation values.
+         */
+        ALWAYS_SORT(KnownValues::sorting, KnownValues::sorting),
+        /**
+         * Only sort according to HasPriority annotation when a Set is passed in (this happens on
+         * constructor injection of entries), do not sort otherwise. This allows for fine tuning of
+         * the order in which entries appear, but does not lose the default prioritisation. This is
+         * important for parsers. When this sorting is used, addition of new elements causes the
+         * elements to be added at the front of the collection (First In, First Out)
+         */
+        SORT_ON_SET_INJECTION_ONLY(Function.identity()::apply, KnownValues::sorting),
+        /**
+         * Sorting of entries is disabled. When this sorting is used, addition of new elements
+         * causes the elements to be added at the front of the collection (First In, First Out)
+         */
+        NEVER_SORT(Function.identity()::apply, Function.identity()::apply);
+
+        private final Consumer<List<? extends Object>> regular;
+        private final Consumer<List<? extends Object>> forInput;
+
+        KnownValues(Consumer<List<? extends Object>> regular,
+            Consumer<List<? extends Object>> forInput) {
+            this.regular = regular;
+            this.forInput = forInput;
+        }
+
+        @Override
+        public <O> List<O> sort(List<O> list) {
+            regular.accept(list);
+            return list;
+        }
+
+        @Override
+        public <O> List<O> sortInputSet(List<O> list) {
+            forInput.accept(list);
+            return list;
+        }
+
+        /**
+         * @param p object to inspect
+         * @return value of {@code HasPriority} annotation, or Double.MAX_VALUE if no such
+         *         annotation is present
+         */
+        public static double getPriority(@Nullable Object p) {
+            HasPriority priority = checkNotNull(p).getClass().getAnnotation(HasPriority.class);
+            if (priority != null) {
+                return priority.value();
+            }
+            // if the object does not have a priority annotation, only use
+            // it last
+            return Double.MAX_VALUE;
+        }
+
+        /**
+         * @param a first object to compare
+         * @param b second object to compare
+         * @return compareTo result using {@code getPriority()} for key extraction and
+         *         {@code Double.compare()} for comparison.
+         */
+        static int compare(Object a, Object b) {
+            return Double.compare(getPriority(a), getPriority(b));
+        }
+
+        /**
+         * @param <Q> type of the elements
+         * @param l list to sort
+         */
+        static <Q> void sorting(List<Q> l) {
+            Collections.sort(l, KnownValues::compare);
+        }
+    }
+
     /**
      * Always keep the collection sorted by HasPriority annotation values.
      */
-    ALWAYS {
-        @Override
-        public <O> List<O> sort(List<O> list) {
-            Collections.sort(list, PriorityCollectionSorting::compare);
-            return list;
-        }
-
-        @Override
-        public <O> List<O> sortInputSet(List<O> list) {
-            return sort(list);
-        }
-    },
+    PriorityCollectionSorting ALWAYS = KnownValues.ALWAYS_SORT;
     /**
-     * Only sort according to HasPriority annotation when a Set is passed in (this happens on Guice
-     * injection of entries), do not sort otherwise. This allows for fine tuning of the order in
-     * which entries appear, but does not lose the default prioritisation. This is important for
-     * parsers. When this sorting is used, addition of new elements causes the elements to be added
-     * at the front of the collection (First In, First Out)
+     * Only sort according to HasPriority annotation when a Set is passed in (this happens on
+     * constructor injection of entries), do not sort otherwise. This allows for fine tuning of the
+     * order in which entries appear, but does not lose the default prioritisation. This is
+     * important for parsers. When this sorting is used, addition of new elements causes the
+     * elements to be added at the front of the collection (First In, First Out)
      */
-    ON_SET_INJECTION_ONLY {
-        @Override
-        public <O> List<O> sort(List<O> list) {
-            return list;
-        }
-
-        @Override
-        public <O> List<O> sortInputSet(List<O> list) {
-            Collections.sort(list, PriorityCollectionSorting::compare);
-            return list;
-        }
-    },
+    PriorityCollectionSorting ON_SET_INJECTION_ONLY = KnownValues.SORT_ON_SET_INJECTION_ONLY;
     /**
      * Sorting of entries is disabled. When this sorting is used, addition of new elements causes
      * the elements to be added at the front of the collection (First In, First Out)
      */
-    NEVER {
-        @Override
-        public <O> List<O> sort(List<O> list) {
-            return list;
-        }
-
-        @Override
-        public <O> List<O> sortInputSet(List<O> list) {
-            return list;
-        }
-    };
+    PriorityCollectionSorting NEVER = KnownValues.NEVER_SORT;
 
     /**
      * @param list list to sort
      * @param <O> type of elements
      * @return sorted list
      */
-    public abstract <O> List<O> sort(List<O> list);
+    <O> List<O> sort(List<O> list);
 
     /**
      * @param list list to sort
      * @param <O> type of elements
      * @return sorted list
      */
-    public abstract <O> List<O> sortInputSet(List<O> list);
+    <O> List<O> sortInputSet(List<O> list);
 
     @Override
-    public PriorityCollectionSorting byName(CharSequence name) {
-        return valueOf(name.toString());
-    }
-
-    private static double getPriority(@Nullable Object p) {
-        HasPriority priority = checkNotNull(p).getClass().getAnnotation(HasPriority.class);
-        if (priority != null) {
-            return priority.value();
+    public default PriorityCollectionSorting byName(CharSequence name) {
+        if ("ALWAYS".equals(name)) {
+            return ALWAYS;
         }
-        // if the object does not have a priority annotation, only use
-        // it last
-        return Double.MAX_VALUE;
-    }
-
-    protected static <P> int compare(P a, P b) {
-        return Double.compare(getPriority(a), getPriority(b));
+        if ("NEVER".equals(name)) {
+            return NEVER;
+        }
+        if ("ON_SET_INJECTION_ONLY".equals(name)) {
+            return ON_SET_INJECTION_ONLY;
+        }
+        throw new IllegalArgumentException(name + " is not a known instance name");
     }
 }

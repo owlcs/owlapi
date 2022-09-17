@@ -45,7 +45,6 @@ import static org.semanticweb.owlapi.model.AxiomType.HAS_KEY;
 import static org.semanticweb.owlapi.model.AxiomType.INVERSE_FUNCTIONAL_OBJECT_PROPERTY;
 import static org.semanticweb.owlapi.model.AxiomType.INVERSE_OBJECT_PROPERTIES;
 import static org.semanticweb.owlapi.model.AxiomType.IRREFLEXIVE_OBJECT_PROPERTY;
-import static org.semanticweb.owlapi.model.AxiomType.logicalAxiomTypes;
 import static org.semanticweb.owlapi.model.AxiomType.NEGATIVE_DATA_PROPERTY_ASSERTION;
 import static org.semanticweb.owlapi.model.AxiomType.NEGATIVE_OBJECT_PROPERTY_ASSERTION;
 import static org.semanticweb.owlapi.model.AxiomType.OBJECT_PROPERTY_ASSERTION;
@@ -58,6 +57,7 @@ import static org.semanticweb.owlapi.model.AxiomType.SUB_DATA_PROPERTY;
 import static org.semanticweb.owlapi.model.AxiomType.SUB_OBJECT_PROPERTY;
 import static org.semanticweb.owlapi.model.AxiomType.SYMMETRIC_OBJECT_PROPERTY;
 import static org.semanticweb.owlapi.model.AxiomType.TRANSITIVE_OBJECT_PROPERTY;
+import static org.semanticweb.owlapi.model.AxiomType.logicalAxiomTypes;
 import static org.semanticweb.owlapi.utilities.OWLAPIPreconditions.checkNotNull;
 import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asList;
 import static org.semanticweb.owlapi.utility.CollectionFactory.createSyncSet;
@@ -549,11 +549,11 @@ protected transient EnumMap<InternalsPointers, MapPointer<?, ? extends OWLAxiom>
     }
 
     /**
-     * @param type     type of map key
-     * @param axiom    class of axiom indexed
+     * @param type type of map key
+     * @param axiom class of axiom indexed
      * @param position for axioms with a left/right distinction, IN_SUPER_POSITION means right index
-     * @param <T>      key type
-     * @param <A>      value type
+     * @param <T> key type
+     * @param <A> value type
      * @return map pointer matching the search, or null if there is not one
      */
     // not always not null, but supposed to be
@@ -589,7 +589,7 @@ protected transient EnumMap<InternalsPointers, MapPointer<?, ? extends OWLAxiom>
         }
         if (type.equals(OWLObjectPropertyExpression.class)) {
             if (axiom.equals(OWLSubObjectPropertyOfAxiom.class)) {
-                if (position == Navigation.IN_SUPER_POSITION) {
+                if (position.superPosition()) {
                     return Optional
                         .ofNullable((MapPointer<T, A>) objectSubPropertyAxiomsBySuperPosition);
                 } else {
@@ -859,8 +859,8 @@ protected transient EnumMap<InternalsPointers, MapPointer<?, ? extends OWLAxiom>
 
     /**
      * @param filter filter to satisfy
-     * @param <K>    key type
-     * @param key    key
+     * @param <K> key type
+     * @param key key
      * @return set of values
      */
     public <K> Collection<? extends OWLAxiom> filterAxioms(OWLAxiomSearchFilter filter, K key) {
@@ -868,9 +868,9 @@ protected transient EnumMap<InternalsPointers, MapPointer<?, ? extends OWLAxiom>
     }
 
     /**
-     * @param <K>    key type
+     * @param <K> key type
      * @param filter filter to satisfy
-     * @param key    key to match
+     * @param key key to match
      * @return true if the filter is matched at least once
      */
     public <K> boolean contains(OWLAxiomSearchFilter filter, K key) {
@@ -930,11 +930,11 @@ protected transient EnumMap<InternalsPointers, MapPointer<?, ? extends OWLAxiom>
     }
 
     /**
-     * @param p   pointer
+     * @param p pointer
      * @param <K> key type
      * @param <V> value type
-     * @param k   key
-     * @param v   value
+     * @param k key
+     * @param v value
      * @return true if the pair (key, value) is contained
      */
     public static <K, V extends OWLAxiom> boolean contains(MapPointer<K, V> p, K k, V v) {
@@ -958,7 +958,7 @@ protected transient EnumMap<InternalsPointers, MapPointer<?, ? extends OWLAxiom>
     }
 
     /**
-     * @param <T>       axiom type
+     * @param <T> axiom type
      * @param axiomType axiom type to count
      * @return axiom count
      */

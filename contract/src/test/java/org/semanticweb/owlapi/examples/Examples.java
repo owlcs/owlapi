@@ -127,6 +127,7 @@ import org.semanticweb.owlapi.vocab.OWLFacet;
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
+@SuppressWarnings("unused")
 public class Examples extends TestBase {
 
     private static final String QUOKKA_IRI =

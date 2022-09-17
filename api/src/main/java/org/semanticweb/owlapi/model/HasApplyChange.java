@@ -12,6 +12,8 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model;
 
+import org.semanticweb.owlapi.model.parameters.ChangeApplied;
+
 /**
  * @author Matthew Horridge, Stanford University, Bio-Medical Informatics Research Group
  * @since 3.5
@@ -23,8 +25,9 @@ public interface HasApplyChange {
      * A convenience method that applies just one change to this ontology.
      *
      * @param change The change to be applied
-     * @return ChangeApplied.SUCCESSFULLY if the change is applied with success,
-     *         ChangeApplied.UNSUCCESSFULLY otherwise.
+     * @return if the change is applied with success, {@code applyChange(change).successful()} will
+     *         be true, otherwise {@code applyChange(change).unsuccessful()} will be true. See
+     *         {@link ChangeApplied} for details.
      * @throws OWLOntologyChangeException If the change could not be applied. See subclasses of
      *         ontology change exception for more specific details.
      * @throws OWLOntologyRenameException If one or more of the changes is an instance of

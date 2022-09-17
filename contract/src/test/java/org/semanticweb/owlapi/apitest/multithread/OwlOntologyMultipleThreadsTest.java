@@ -81,7 +81,7 @@ public class OwlOntologyMultipleThreadsTest extends TestBase {
             this.o2 = o2;
         }
 
-        void consume(Object o) {}
+        void consume(@SuppressWarnings("unused") Object o) {}
 
         @Override
         public void run() {
