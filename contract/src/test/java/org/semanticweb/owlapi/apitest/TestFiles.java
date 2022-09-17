@@ -2,6 +2,7 @@ package org.semanticweb.owlapi.apitest;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.UncheckedIOException;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -15,7 +16,7 @@ public class TestFiles {
         try (InputStream in = TestFiles.class.getResourceAsStream(name)) {
             return IOUtils.toString(in, StandardCharsets.UTF_8);
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new UncheckedIOException(e);
         }
     }
 
@@ -25,22 +26,23 @@ public class TestFiles {
             List<String> toReturn = new ArrayList<>();
             StringBuilder b = new StringBuilder();
             while (readLines.hasNext()) {
-                String l = readLines.next();
-                if (l.isEmpty()) {
-                    String st = b.toString();
-                    if (!st.isEmpty()) {
-                        toReturn.add(st);
-                        b = new StringBuilder();
+                String line = readLines.next();
+                if (line.isEmpty()) {
+                    if (b.length() != 0) {
+                        toReturn.add(b.toString());
                     }
+                    b = new StringBuilder();
+                } else {
+                    b.append(line).append("\n");
                 }
             }
-            String last = b.toString();
-            if (!last.isEmpty()) {
-                toReturn.add(last);
+            if (b.length() != 0) {
+                toReturn.add(b.toString());
             }
+            assert !toReturn.isEmpty();
             return toReturn.toArray(new String[0]);
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new UncheckedIOException(e);
         }
     }
 
