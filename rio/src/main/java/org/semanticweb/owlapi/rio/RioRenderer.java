@@ -35,6 +35,8 @@
  */
 package org.semanticweb.owlapi.rio;
 
+import static org.semanticweb.owlapi.utilities.OWLAPIPreconditions.verifyNotNull;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
@@ -45,7 +47,6 @@ import java.util.Set;
 
 import javax.annotation.Nullable;
 
-import org.eclipse.rdf4j.OpenRDFUtil;
 import org.eclipse.rdf4j.model.Resource;
 import org.eclipse.rdf4j.rio.RDFHandler;
 import org.eclipse.rdf4j.rio.RDFHandlerException;
@@ -88,7 +89,10 @@ public class RioRenderer extends RDFRendererBase {
     public RioRenderer(OWLOntology ontology, @Nullable OWLDocumentFormat format, RDFHandler writer,
         Resource... contexts) {
         super(ontology, format, ontology.getOWLOntologyManager().getOntologyConfigurator());
-        OpenRDFUtil.verifyContextNotNull(contexts);
+        verifyNotNull(contexts);
+        for (Resource r : contexts) {
+            verifyNotNull(r);
+        }
         this.contexts = contexts;
         this.writer = writer;
         pm = ontology.getPrefixManager();

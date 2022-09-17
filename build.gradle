@@ -21,7 +21,7 @@ buildscript {
 }
 
 plugins {
-  id 'com.github.ben-manes.versions' version '0.39.0'
+  id 'com.github.ben-manes.versions' version '0.42.0'
 }
 
 allprojects {
@@ -67,7 +67,7 @@ subprojects {
     dependencies {
         implementation 'com.google.code.findbugs:jsr305:[2.0.0,4)'
         implementation 'org.slf4j:slf4j-api:[1.8.0-beta2,)'
-        testImplementation 'org.hamcrest:hamcrest-core:[1.3,2)'
+        testImplementation 'org.hamcrest:hamcrest-core:2.2'
         testImplementation 'junit:junit:[4.12,5)'
         testImplementation 'org.mockito:mockito-core:[2.18.3,3)'
         testImplementation 'org.slf4j:slf4j-simple:[1.8.0-beta2,)'

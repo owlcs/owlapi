@@ -47,7 +47,6 @@ import java.net.URISyntaxException;
 
 import javax.annotation.Nullable;
 
-import org.eclipse.rdf4j.OpenRDFUtil;
 import org.eclipse.rdf4j.model.Resource;
 import org.eclipse.rdf4j.rio.RDFFormat;
 import org.eclipse.rdf4j.rio.RDFHandler;
@@ -97,7 +96,10 @@ public class RioStorer implements OWLStorer {
      * @param contexts contexts
      */
     public RioStorer(OWLDocumentFormatFactory ontologyFormat, Resource... contexts) {
-        OpenRDFUtil.verifyContextNotNull(contexts);
+        verifyNotNull(contexts);
+        for (Resource r : contexts) {
+            verifyNotNull(r);
+        }
         ontFormat = ontologyFormat;
         this.contexts = contexts;
     }

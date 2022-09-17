@@ -35,6 +35,7 @@
  */
 package org.semanticweb.owlapi.rio;
 
+import static org.semanticweb.owlapi.utilities.OWLAPIPreconditions.verifyNotNull;
 import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asList;
 
 import java.util.Collection;
@@ -43,14 +44,13 @@ import java.util.stream.Stream;
 
 import javax.annotation.Nullable;
 
-import org.eclipse.rdf4j.OpenRDFUtil;
 import org.eclipse.rdf4j.model.BNode;
 import org.eclipse.rdf4j.model.Resource;
 import org.eclipse.rdf4j.model.Statement;
 import org.eclipse.rdf4j.model.Value;
 import org.eclipse.rdf4j.model.ValueFactory;
 import org.eclipse.rdf4j.model.impl.SimpleValueFactory;
-import org.eclipse.rdf4j.model.vocabulary.XMLSchema;
+import org.eclipse.rdf4j.model.vocabulary.XSD;
 import org.semanticweb.owlapi.documents.RDFLiteral;
 import org.semanticweb.owlapi.documents.RDFNode;
 import org.semanticweb.owlapi.documents.RDFResourceIRI;
@@ -90,7 +90,10 @@ public final class RioUtils {
      *         of the given contexts.
      */
     public static Collection<Statement> tripleAsStatements(RDFTriple triple, Resource... contexts) {
-        OpenRDFUtil.verifyContextNotNull(contexts);
+        verifyNotNull(contexts);
+        for (Resource r : contexts) {
+            verifyNotNull(r);
+        }
         final ValueFactory vf = SimpleValueFactory.getInstance();
         Resource subject;
         if (triple.getSubject() instanceof RDFResourceIRI) {
@@ -146,7 +149,7 @@ public final class RioUtils {
         if (literalObject.hasLang()) {
             object = vf.createLiteral(literalObject.getLexicalValue(), literalObject.getLang());
         } else if (literalObject.isPlainLiteral()) {
-            object = vf.createLiteral(literalObject.getLexicalValue(), XMLSchema.STRING);
+            object = vf.createLiteral(literalObject.getLexicalValue(), XSD.STRING);
         } else {
             object = vf.createLiteral(literalObject.getLexicalValue(),
                 vf.createIRI(literalObject.getDatatype().toString()));

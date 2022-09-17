@@ -5,7 +5,7 @@ dependencies {
   implementation project(':owlapi-tools')
   //testImplementation 'org.apache.commons:commons-rdf-api:0.5.0:tests'
   testImplementation 'org.hamcrest:hamcrest-core:2.2'
-  testImplementation 'org.mockito:mockito-core:3.1.0'
-  testImplementation 'org.slf4j:slf4j-simple:2.0.0-alpha1'
-  testImplementation 'junit:junit:4.13-rc-1'
+  testImplementation 'org.mockito:mockito-core:4.8.0'
+  testImplementation 'org.slf4j:slf4j-simple:2.0.1'
+  testImplementation 'junit:junit:4.13.2'
 }
