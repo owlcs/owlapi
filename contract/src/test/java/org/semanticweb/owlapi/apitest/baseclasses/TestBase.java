@@ -102,12 +102,26 @@ public abstract class TestBase {
         return ontologyFromClasspathFile(fileName, config);
     }
 
+    protected OWLOntology ontologyFromClasspathFile(String fileName, OWLDocumentFormat format) {
+        return ontologyFromClasspathFile(fileName, config, format);
+    }
+
     protected OWLOntology ontologyFromClasspathFile(String fileName,
         OntologyConfigurator configuration) {
         try {
             return m1.loadOntologyFromOntologyDocument(
                 new FileDocumentSource(new File(getClass().getResource('/' + fileName).toURI())),
                 configuration);
+        } catch (OWLOntologyCreationException | URISyntaxException e) {
+            throw new OWLRuntimeException(e);
+        }
+    }
+
+    protected OWLOntology ontologyFromClasspathFile(String fileName,
+        OntologyConfigurator configuration, OWLDocumentFormat format) {
+        try {
+            return m1.loadOntologyFromOntologyDocument(new FileDocumentSource(
+                new File(getClass().getResource('/' + fileName).toURI()), format), configuration);
         } catch (OWLOntologyCreationException | URISyntaxException e) {
             throw new OWLRuntimeException(e);
         }

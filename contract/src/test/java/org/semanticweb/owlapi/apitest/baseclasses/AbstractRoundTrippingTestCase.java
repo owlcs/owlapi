@@ -31,8 +31,7 @@ import org.semanticweb.owlapi.rioformats.RioTurtleDocumentFormat;
 import org.semanticweb.owlapi.rioformats.TrigDocumentFormat;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.2.0
  */
 public abstract class AbstractRoundTrippingTestCase extends TestBase {
@@ -41,7 +40,7 @@ public abstract class AbstractRoundTrippingTestCase extends TestBase {
 
     @Test
     public void testRDFXML() throws Exception {
-        roundTripOntology(createOntology());
+        roundTripOntology(createOntology(), new RDFXMLDocumentFormat());
     }
 
     @Test
