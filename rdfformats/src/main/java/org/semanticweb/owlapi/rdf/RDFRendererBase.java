@@ -49,6 +49,7 @@ import java.util.Collections;
 import java.util.Deque;
 import java.util.HashSet;
 import java.util.IdentityHashMap;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -152,7 +153,7 @@ public abstract class RDFRendererBase {
 
     /**
      * @param ontology ontology
-     * @param format   format
+     * @param format format
      */
     public RDFRendererBase(OWLOntology ontology, @Nullable OWLDocumentFormat format) {
         this(ontology, format, ontology.getOWLOntologyManager().getOntologyConfigurator());
@@ -183,7 +184,7 @@ public abstract class RDFRendererBase {
      * Determines if a declaration axiom (type triple) needs to be added to the specified ontology
      * for the given entity.
      *
-     * @param entity   The entity
+     * @param entity The entity
      * @param ontology The ontology.
      * @return {@code false} if the entity is built in. {@code false} if the ontology doesn't
      *         contain the entity in its signature. {@code false} if the entity is already declared
@@ -321,10 +322,9 @@ public abstract class RDFRendererBase {
     /**
      * Renders a set of entities.
      *
-     * @param entities    The entities. Not null.
-     * @param bannerText  The banner text that will prefix the rendering of the entities if anything
-     *                    is rendered. Not null. May be empty, in which case no banner will be
-     *                    written.
+     * @param entities The entities. Not null.
+     * @param bannerText The banner text that will prefix the rendering of the entities if anything
+     *        is rendered. Not null. May be empty, in which case no banner will be written.
      * @param illegalPuns illegal puns
      */
     private void renderEntities(Stream<? extends OWLEntity> entities, String bannerText,
@@ -339,6 +339,10 @@ public abstract class RDFRendererBase {
             writeBanner(bannerText);
         }
         renderEntity(entity);
+        Iterator<OWLEntity> it = graph.getRootIRIs(entity).iterator();
+        while (it.hasNext()) {
+            renderEntity(it.next());
+        }
     }
 
     private void renderEntity(OWLEntity entity) {
