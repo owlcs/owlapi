@@ -57,7 +57,6 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.model.OntologyConfigurator;
 import org.semanticweb.owlapi.model.SetOntologyID;
 import org.semanticweb.owlapi.oboformat.OBOFormatOWLAPIParser;
-import org.semanticweb.owlapi.obolibrary.obo2owl.OwlStringTools;
 import org.semanticweb.owlapi.obolibrary.oboformat.model.Clause;
 import org.semanticweb.owlapi.obolibrary.oboformat.model.Frame;
 import org.semanticweb.owlapi.obolibrary.oboformat.model.OBODoc;
@@ -338,6 +337,8 @@ public class OWLAPIObo2Owl {
         apToDeclare.clear();
         clsToDeclare.clear();
         typedefToAnnotationProperty.clear();
+        config = m.getOntologyConfigurator();
+        initIDCache();
     }
 
     /**
@@ -434,9 +435,12 @@ public class OWLAPIObo2Owl {
         obodoc = doc;
         init(in == null ? manager : in.getOWLOntologyManager());
         config = in == null ? manager.getOntologyConfigurator() : in.getOntologyConfigurator();
-        int cacheSize = config.getCacheSize();
-        idToIRICache = new IDCache(cacheSize);
+        initIDCache();
         return tr(in == null ? manager.createOntology() : in);
+    }
+
+    protected void initIDCache() {
+        idToIRICache = new IDCache(config.getCacheSize());
     }
 
     /**
