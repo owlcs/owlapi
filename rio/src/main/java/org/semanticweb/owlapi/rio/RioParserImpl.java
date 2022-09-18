@@ -40,6 +40,7 @@ import static org.semanticweb.owlapi.utilities.OWLAPIPreconditions.checkNotNull;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Reader;
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
@@ -56,6 +57,7 @@ import org.eclipse.rdf4j.rio.RDFHandlerException;
 import org.eclipse.rdf4j.rio.RDFParseException;
 import org.eclipse.rdf4j.rio.RDFParser;
 import org.eclipse.rdf4j.rio.Rio;
+import org.eclipse.rdf4j.rio.RioSetting;
 import org.eclipse.rdf4j.rio.UnsupportedRDFormatException;
 import org.eclipse.rdf4j.rio.helpers.BasicParserSettings;
 import org.semanticweb.owlapi.annotations.HasPriority;
@@ -139,6 +141,11 @@ public class RioParserImpl implements OWLParser, RioParser {
             createParser.getParserConfig()
                 .addNonFatalError(BasicParserSettings.VERIFY_LANGUAGE_TAGS);
             createParser.getParserConfig().addNonFatalError(BasicParserSettings.VERIFY_URI_SYNTAX);
+            p.stream((s, v) -> {
+                if (s instanceof RioSetting) {
+                    createParser.getParserConfig().set((RioSetting<Serializable>) s, v);
+                }
+            });
             createParser.setRDFHandler(handler);
             if (r instanceof Reader) {
                 createParser.parse((Reader) r, baseIRI(p.getOntology(), p.getDocumentIRI()));
