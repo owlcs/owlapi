@@ -191,7 +191,7 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable, ClassPr
     private static final Logger LOGGER = LoggerFactory.getLogger(OWLDataFactoryImpl.class);
 //@formatter:off
     private static final LoadingCache<String, String>                        iriNamespaces        = builder(XMLUtils::getNCNamePrefix);
-    private static final Cache<String, IRI>                                  iris                 = Caffeine.newBuilder().maximumSize(ConfigurationOptions.CACHE_SIZE.getValue(Integer.class, Collections.emptyMap()).longValue()).build();
+    private static final Cache<String, IRI>                                  iris                 = Caffeine.newBuilder().maximumSize(size()).build();
     private static final LoadingCache<OWLAnnotation, OWLAnnotation>          annotations          = builder(x -> x);
     private static final LoadingCache<IRI,           OWLClass>               classes              = builder(OWLClassImpl::new);
     private static final LoadingCache<IRI,           OWLObjectProperty>      objectProperties     = builder(OWLObjectPropertyImpl::new);
@@ -211,8 +211,13 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable, ClassPr
         this.config = config;
     }
 
+    protected static long size() {
+        return ConfigurationOptions.CACHE_SIZE.getValue(Integer.class, Collections.emptyMap())
+            .longValue();
+    }
+
     /**
-     * Defaults toa new Ontologyconfigurator instance
+     * Defaults to a new Ontologyconfigurator instance
      */
     @Inject
     public OWLDataFactoryImpl() {
@@ -1280,8 +1285,7 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable, ClassPr
     }
 
     private static <F, T> LoadingCache<F, T> builder(CacheLoader<F, T> f) {
-        return Caffeine.newBuilder().maximumSize(ConfigurationOptions.CACHE_SIZE
-            .getValue(Integer.class, Collections.emptyMap()).longValue()).build(f);
+        return Caffeine.newBuilder().weakKeys().maximumSize(size()).build(f);
     }
 
     protected OWLLiteral parseSpecialCases(String lexicalValue, OWLDatatype datatype) {

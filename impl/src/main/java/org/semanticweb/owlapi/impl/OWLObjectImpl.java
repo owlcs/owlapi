@@ -74,8 +74,12 @@ public abstract class OWLObjectImpl
     protected static LoadingCache<OWLObjectImpl, List<OWLAnnotationProperty>> annotationPropertiesSignatures =  build(key -> cacheSig(key, OWLEntity::isOWLAnnotationProperty,  OWLEntity::asOWLAnnotationProperty));
     // @formatter:on
     static <Q, T> LoadingCache<Q, T> build(CacheLoader<Q, T> c) {
-        return Caffeine.newBuilder().maximumSize(ConfigurationOptions.CACHE_SIZE
-            .getValue(Integer.class, Collections.emptyMap()).longValue()).build(c);
+        return Caffeine.newBuilder().weakKeys().maximumSize(size()).build(c);
+    }
+
+    protected static long size() {
+        return ConfigurationOptions.CACHE_SIZE.getValue(Integer.class, Collections.emptyMap())
+            .longValue();
     }
 
     static <T> List<T> cacheSig(OWLObject o, Predicate<OWLEntity> p, Function<OWLEntity, T> f) {
