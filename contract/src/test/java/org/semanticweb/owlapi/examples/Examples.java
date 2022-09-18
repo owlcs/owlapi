@@ -500,6 +500,8 @@ public class Examples extends TestBase {
         OWLLiteral literal5 = factory.getOWLLiteral(33.3);
         // Create a literal to represent the boolean value true
         OWLLiteral literal6 = factory.getOWLLiteral(true);
+        // Create a literal to represent the long 333
+        OWLLiteral literal7 = factory.getOWLLiteral(333L);
     }
 
     /**

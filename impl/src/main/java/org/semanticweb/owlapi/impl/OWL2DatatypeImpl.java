@@ -20,6 +20,7 @@ import static org.semanticweb.owlapi.vocab.OWL2Datatype.XSD_BOOLEAN;
 import static org.semanticweb.owlapi.vocab.OWL2Datatype.XSD_DOUBLE;
 import static org.semanticweb.owlapi.vocab.OWL2Datatype.XSD_FLOAT;
 import static org.semanticweb.owlapi.vocab.OWL2Datatype.XSD_INTEGER;
+import static org.semanticweb.owlapi.vocab.OWL2Datatype.XSD_LONG;
 import static org.semanticweb.owlapi.vocab.OWL2Datatype.XSD_STRING;
 
 import java.util.stream.Stream;
@@ -73,6 +74,11 @@ public class OWL2DatatypeImpl implements OWLDatatype {
     @Override
     public boolean isInteger() {
         return owl2Datatype == XSD_INTEGER;
+    }
+
+    @Override
+    public boolean isLong() {
+        return owl2Datatype == XSD_LONG;
     }
 
     @Override

@@ -7,6 +7,7 @@ import static org.semanticweb.owlapi.vocab.OWL2Datatype.XSD_BOOLEAN;
 import static org.semanticweb.owlapi.vocab.OWL2Datatype.XSD_DOUBLE;
 import static org.semanticweb.owlapi.vocab.OWL2Datatype.XSD_FLOAT;
 import static org.semanticweb.owlapi.vocab.OWL2Datatype.XSD_INTEGER;
+import static org.semanticweb.owlapi.vocab.OWL2Datatype.XSD_LONG;
 import static org.semanticweb.owlapi.vocab.OWL2Datatype.XSD_STRING;
 
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
@@ -46,6 +47,7 @@ public class InternalizedEntities {
     protected static final OWLDatatype             XSDDOUBLE                   = new OWL2DatatypeImpl              (XSD_DOUBLE);
     protected static final OWLDatatype             XSDFLOAT                    = new OWL2DatatypeImpl              (XSD_FLOAT);
     protected static final OWLDatatype             XSDINTEGER                  = new OWL2DatatypeImpl              (XSD_INTEGER);
+    protected static final OWLDatatype             XSDLONG                     = new OWL2DatatypeImpl              (XSD_LONG);
     protected static final OWLDatatype             XSDSTRING                   = new OWL2DatatypeImpl              (XSD_STRING);
     protected static final OWLLiteral              TRUELITERAL                 = new OWLLiteralImplBoolean         (true);
     protected static final OWLLiteral              FALSELITERAL                = new OWLLiteralImplBoolean         (false);

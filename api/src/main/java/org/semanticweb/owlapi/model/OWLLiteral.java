@@ -132,6 +132,32 @@ public interface OWLLiteral extends OWLObject, OWLAnnotationObject, OWLAnnotatio
 
     /**
      * Determines if this literal is typed with a datatype that has an IRI that is
+     * {@code "http://www.w3.org/2001/XMLSchema#"long}.
+     *
+     * @return {@code true} if this literal is typed with
+     *         {@code "http://www.w3.org/2001/XMLSchema#"long}, i.e. this literal represents an
+     *         integer, otherwise {@code false}.
+     */
+    default boolean isLong() {
+        return false;
+    }
+
+    /**
+     * Parses the lexical value of this literal into a long. The lexical value of this literal
+     * should be in the lexical space of the long datatype
+     * ({@code "http://www.w3.org/2001/XMLSchema#"long})
+     *
+     * @return A long value that is represented by this literal.
+     * @throws NumberFormatException if the lexical form could not be parsed into a long because it
+     *         is not in the lexical space of the long datatype.
+     */
+    default long parseLong() {
+        throw new NumberFormatException(
+            getClass().getName() + " does not have a long value but has " + getLiteral());
+    }
+
+    /**
+     * Determines if this literal is typed with a datatype that has an IRI that is
      * {@code "http://www.w3.org/2001/XMLSchema#"boolean}.
      *
      * @return {@code true} if this literal is typed with

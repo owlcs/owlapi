@@ -34,8 +34,8 @@ public class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
     private final String language;
 
     /**
-     * @param literal  actual literal form
-     * @param lang     language tag for literal, can be null
+     * @param literal actual literal form
+     * @param lang language tag for literal, can be null
      * @param datatype datatype for literal
      */
     public OWLLiteralImpl(String literal, @Nullable String lang, @Nullable OWLDatatype datatype) {
@@ -81,6 +81,11 @@ public class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
     }
 
     @Override
+    public boolean isLong() {
+        return getDatatype().isLong();
+    }
+
+    @Override
     public boolean isBoolean() {
         return getDatatype().isBoolean();
     }
@@ -98,6 +103,11 @@ public class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
     @Override
     public int parseInteger() {
         return Integer.parseInt(literal);
+    }
+
+    @Override
+    public long parseLong() {
+        return Long.parseLong(literal);
     }
 
     static boolean asBoolean(String s) {

@@ -42,6 +42,7 @@ import org.semanticweb.owlapi.io.OWLStorer;
 import org.semanticweb.owlapi.io.OWLStorerFactory;
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.EntityType;
+import org.semanticweb.owlapi.model.HasDatatypesInSignature;
 import org.semanticweb.owlapi.model.HasSignature;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.ImmutableOWLOntologyChangeException;
@@ -141,7 +142,7 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl
     protected static LoadingCache<OWLImmutableOntologyImpl, List<OWLClass>>              ontclassesSignatures =              build(key -> asList(key.ints.owlClassReferences                .keySet().distinct().sorted()));
     protected static LoadingCache<OWLImmutableOntologyImpl, List<OWLDataProperty>>       ontdataPropertySignatures =         build(key -> asList(key.ints.owlDataPropertyReferences         .keySet().distinct().sorted()));
     protected static LoadingCache<OWLImmutableOntologyImpl, List<OWLObjectProperty>>     ontobjectPropertySignatures =       build(key -> asList(key.ints.owlObjectPropertyReferences       .keySet().distinct().sorted()));
-    protected static LoadingCache<OWLImmutableOntologyImpl, List<OWLDatatype>>           ontdatatypeSignatures =             build(key -> asList(key.ints.owlDatatypeReferences             .keySet().distinct().sorted()));
+    protected static LoadingCache<OWLImmutableOntologyImpl, List<OWLDatatype>>           ontdatatypeSignatures =             build(key -> asList(Stream.concat(key.ints.owlDatatypeReferences.keySet(), key.ints.getOntologyAnnotations().flatMap(HasDatatypesInSignature::datatypesInSignature)).distinct().sorted()));
     protected static LoadingCache<OWLImmutableOntologyImpl, List<OWLNamedIndividual>>    ontindividualSignatures =           build(key -> asList(key.ints.owlIndividualReferences           .keySet().distinct().sorted()));
     protected static LoadingCache<OWLImmutableOntologyImpl, List<OWLAnnotationProperty>> ontannotationPropertiesSignatures = build(key -> asList(Stream.concat(key.ints.annotationProperties(), key.ints.getOntologyAnnotations().flatMap(OWLAnnotation::annotationPropertiesInSignature)).distinct().sorted()));
     // @formatter:on

@@ -68,6 +68,18 @@ public interface DataAssertionProvider extends LiteralProvider {
      * @return a data property assertion
      */
     default OWLDataPropertyAssertionAxiom getOWLDataPropertyAssertionAxiom(
+        OWLDataPropertyExpression property, OWLIndividual subject, long value) {
+        return getOWLDataPropertyAssertionAxiom(property, subject, getOWLLiteral(value),
+            Collections.emptySet());
+    }
+
+    /**
+     * @param property property
+     * @param subject subject
+     * @param value value
+     * @return a data property assertion
+     */
+    default OWLDataPropertyAssertionAxiom getOWLDataPropertyAssertionAxiom(
         OWLDataPropertyExpression property, OWLIndividual subject, double value) {
         return getOWLDataPropertyAssertionAxiom(property, subject, getOWLLiteral(value),
             Collections.emptySet());

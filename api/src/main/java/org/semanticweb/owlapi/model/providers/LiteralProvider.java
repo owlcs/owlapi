@@ -68,6 +68,15 @@ public interface LiteralProvider extends DatatypeProvider {
     OWLLiteral getOWLLiteral(int value);
 
     /**
+     * Convenience method that obtains a literal typed as a long.
+     *
+     * @param value The value of the literal
+     * @return An {@code OWLLiteral} whose literal is the lexical value of the long, and whose data
+     *         type is xsd:long.
+     */
+    OWLLiteral getOWLLiteral(long value);
+
+    /**
      * Convenience method that obtains a literal typed as a double.
      *
      * @param value The value of the literal

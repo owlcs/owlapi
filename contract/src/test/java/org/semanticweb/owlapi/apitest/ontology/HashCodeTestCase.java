@@ -40,6 +40,21 @@ public class HashCodeTestCase extends TestBase {
     private static final String THREE = "3.0";
 
     @Test
+    public void testSetContainsLong() {
+        OWLDatatype datatype = df.getOWLDatatype(OWL2Datatype.XSD_LONG.getIRI());
+        OWLLiteral litNoComp = df.getOWLLiteral("3", datatype);
+        OWLLiteral litNoComp2 = df.getOWLLiteral("3", datatype);
+        OWLLiteral litIntImpl = df.getOWLLiteral(3L);
+        assertEquals(litNoComp, litIntImpl);
+        assertEquals(litNoComp.hashCode(), litIntImpl.hashCode());
+        assertEquals(litNoComp.getLiteral(), litIntImpl.getLiteral());
+        Set<OWLLiteral> lncset = new HashSet<>();
+        lncset.add(litNoComp);
+        assertTrue(lncset.contains(litNoComp2));
+        assertTrue(lncset.contains(litIntImpl));
+    }
+
+    @Test
     public void testSetContainsInt() {
         OWLDatatype datatype = df.getOWLDatatype(OWL2Datatype.XSD_INTEGER.getIRI());
         OWLLiteral litNoComp = df.getOWLLiteral("3", datatype);

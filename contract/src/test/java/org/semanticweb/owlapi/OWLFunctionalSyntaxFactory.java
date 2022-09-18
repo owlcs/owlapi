@@ -17,8 +17,6 @@ import java.util.Collection;
 import java.util.List;
 import java.util.stream.Stream;
 
-import javax.annotation.Nullable;
-
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotation;
@@ -122,7 +120,6 @@ import org.semanticweb.owlapi.vocab.OWLFacet;
  * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
  */
-@SuppressWarnings("javadoc")
 public final class OWLFunctionalSyntaxFactory {
 
     private static final String URNTESTS_URI = "urn:tests#uri";
@@ -779,7 +776,7 @@ public final class OWLFunctionalSyntaxFactory {
         return DF.getRDFPlainLiteral();
     }
 
-    public static OWLLiteral Literal(String literal, @Nullable String lang) {
+    public static OWLLiteral Literal(String literal, String lang) {
         return DF.getOWLLiteral(literal, lang);
     }
 
@@ -800,6 +797,10 @@ public final class OWLFunctionalSyntaxFactory {
     }
 
     public static OWLLiteral Literal(int literal) {
+        return DF.getOWLLiteral(literal);
+    }
+
+    public static OWLLiteral Literal(long literal) {
         return DF.getOWLLiteral(literal);
     }
 
