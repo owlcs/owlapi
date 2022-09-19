@@ -1,11 +1,11 @@
 package org.semanticweb.owlapi.apitest.anonymous;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Arrays;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.semanticweb.owlapi.apitest.baseclasses.TestBase;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotation;
@@ -22,23 +22,22 @@ import org.semanticweb.owlapi.model.SWRLIndividualArgument;
 import org.semanticweb.owlapi.model.SWRLLiteralArgument;
 import org.semanticweb.owlapi.vocab.OWLFacet;
 
-public class IsAnonymousTestCase extends TestBase {
+class IsAnonymousTestCase extends TestBase {
 
     @Test
-    public void shouldCheckAnonymous() throws OWLOntologyCreationException {
-        IRI i = df.getIRI("urn:test:i");
-        IRI j = df.getIRI("urn:test:j");
-        IRI k = df.getIRI("urn:test:k");
+    void shouldCheckAnonymous() throws OWLOntologyCreationException {
+        IRI i = iri("urn:test:", "i");
+        IRI j = iri("urn:test:", "j");
         OWLClass c = df.getOWLClass(i);
-        OWLClass c1 = df.getOWLClass(df.getIRI("urn:test:c1"));
-        OWLClass c2 = df.getOWLClass(df.getIRI("urn:test:c2"));
+        OWLClass c1 = df.getOWLClass("urn:test:c1");
+        OWLClass c2 = df.getOWLClass("urn:test:c2");
         OWLDataProperty dp = df.getOWLDataProperty(i);
-        OWLDataProperty dp1 = df.getOWLDataProperty(df.getIRI("urn:test:dp1"));
+        OWLDataProperty dp1 = df.getOWLDataProperty("urn:test:dp1");
         OWLObjectProperty op = df.getOWLObjectProperty(i);
-        OWLObjectProperty op1 = df.getOWLObjectProperty(df.getIRI("urn:test:op1"));
-        OWLObjectProperty op2 = df.getOWLObjectProperty(df.getIRI("urn:test:op2"));
+        OWLObjectProperty op1 = df.getOWLObjectProperty("urn:test:op1");
+        OWLObjectProperty op2 = df.getOWLObjectProperty("urn:test:op2");
         OWLNamedIndividual ind = df.getOWLNamedIndividual(i);
-        OWLNamedIndividual ind1 = df.getOWLNamedIndividual(df.getIRI("urn:test:ind1"));
+        OWLNamedIndividual ind1 = df.getOWLNamedIndividual("urn:test:ind1");
         OWLAnnotation label = df.getRDFSLabel("label");
         OWLLiteral l = df.getOWLLiteral("literal");
         SWRLClassAtom sc =

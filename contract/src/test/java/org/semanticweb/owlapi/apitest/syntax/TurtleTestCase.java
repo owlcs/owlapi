@@ -1,7 +1,7 @@
 /* This file is part of the OWL API.
  * The contents of this file are subject to the LGPL License, Version 3.0.
  * Copyright 2014, The University of Manchester
- * 
+ *
  * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
  * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
  * You should have received a copy of the GNU General Public License along with this program.  If not, see http://www.gnu.org/licenses/.
@@ -12,8 +12,8 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.apitest.syntax;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.semanticweb.owlapi.OWLFunctionalSyntaxFactory.AnnotationAssertion;
 import static org.semanticweb.owlapi.OWLFunctionalSyntaxFactory.AnnotationProperty;
 import static org.semanticweb.owlapi.OWLFunctionalSyntaxFactory.Class;
@@ -22,21 +22,21 @@ import static org.semanticweb.owlapi.OWLFunctionalSyntaxFactory.IRI;
 import static org.semanticweb.owlapi.OWLFunctionalSyntaxFactory.Literal;
 import static org.semanticweb.owlapi.OWLFunctionalSyntaxFactory.NamedIndividual;
 import static org.semanticweb.owlapi.OWLFunctionalSyntaxFactory.ObjectProperty;
-import static org.semanticweb.owlapi.apitest.TestEntities.areaTotal;
-import static org.semanticweb.owlapi.apitest.TestEntities.southAfrica;
 import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asUnorderedSet;
 import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.contains;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.util.Set;
+import java.util.stream.Stream;
 
-import org.junit.Test;
-import org.semanticweb.owlapi.apitest.TestEntities;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.semanticweb.owlapi.apitest.TestFiles;
 import org.semanticweb.owlapi.apitest.baseclasses.TestBase;
 import org.semanticweb.owlapi.documents.FileDocumentSource;
-import org.semanticweb.owlapi.documents.StringDocumentSource;
 import org.semanticweb.owlapi.documents.StringDocumentTarget;
 import org.semanticweb.owlapi.formats.TurtleDocumentFormat;
 import org.semanticweb.owlapi.model.AxiomType;
@@ -61,30 +61,29 @@ import org.semanticweb.owlapi.rioformats.RioTurtleDocumentFormat;
 import org.semanticweb.owlapi.utilities.PrefixManagerImpl;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
-public class TurtleTestCase extends TestBase {
+class TurtleTestCase extends TestBase {
 
-    private static final OWLObjectProperty anonR = ObjectProperty(
-        df.getIRI("http://www.derivo.de/ontologies/examples/anonymous-individuals#", "r"));
+    private static final OWLObjectProperty anonR =
+        ObjectProperty(iri("http://www.derivo.de/ontologies/examples/anonymous-individuals#", "r"));
     private static final OWLClass taxTerm =
         Class(IRI("http://schema.wolterskluwer.de/", "TaxonomyTerm"));
     private static final OWLAnnotationProperty broader =
         AnnotationProperty(IRI("http://www.w3.org/2004/02/skos/core#", "broader"));
-    private static final OWLClass concept =
-        Class(IRI("http://www.w3.org/2004/02/skos/core#", "Concept"));
-    private static final IRI indXY = df.getIRI(TestFiles.XY);
+    static final OWLClass concept = Class(IRI("http://www.w3.org/2004/02/skos/core#", "Concept"));
+    private final IRI iri = iri("urn:test#", "literals");
     private final TurtleDocumentFormat tf = new TurtleDocumentFormat();
-    private final IRI s = df.getIRI("urn:test#", "s");
-    private final String iri = "urn:test:literals";
+    private final IRI s = iri("urn:test#", "s");
+    OWLNamedIndividual individual = df.getOWLNamedIndividual(indXY);
+    private static final IRI indXY = iri(TestFiles.XY);
 
     private static String normalize(String s) {
         return s.replaceAll("\r", "").replaceAll("\\n#.*", "").replaceAll("\\n+", "\n").trim();
     }
 
     @Test
-    public void shouldSaveIRIsWithCommasInTurtle()
+    void shouldSaveIRIsWithCommasInTurtle()
         throws OWLOntologyCreationException, OWLOntologyStorageException {
-        OWLOntology o = m.createOntology(df.getIRI(TestFiles.NS));
-        OWLNamedIndividual individual = df.getOWLNamedIndividual(indXY);
+        OWLOntology o = m.createOntology(iri(TestFiles.NS));
         OWLAxiom axiom = df.getOWLDeclarationAxiom(individual);
         o.add(axiom);
         StringDocumentTarget t = new StringDocumentTarget();
@@ -96,10 +95,9 @@ public class TurtleTestCase extends TestBase {
     }
 
     @Test
-    public void shouldSaveIRIsWithCommasInRioTurtle()
+    void shouldSaveIRIsWithCommasInRioTurtle()
         throws OWLOntologyCreationException, OWLOntologyStorageException {
-        OWLOntology o = m.createOntology(df.getIRI(TestFiles.NS));
-        OWLNamedIndividual individual = df.getOWLNamedIndividual(indXY);
+        OWLOntology o = m.createOntology(iri(TestFiles.NS));
         OWLAxiom axiom = df.getOWLDeclarationAxiom(individual);
         o.add(axiom);
         StringDocumentTarget t = new StringDocumentTarget();
@@ -111,13 +109,13 @@ public class TurtleTestCase extends TestBase {
     }
 
     @Test
-    public void shouldSaveBaseIRINotOntologyInTurtle()
+    void shouldSaveBaseIRINotOntologyInTurtle()
         throws OWLOntologyCreationException, OWLOntologyStorageException {
         String base = "urn:test:base#";
-        OWLOntology o = m.createOntology(df.getIRI(TestFiles.NS));
+        OWLOntology o = m.createOntology(iri(TestFiles.NS, ""));
         OWLNamedIndividual individual = df.getOWLNamedIndividual(base, "i");
         OWLAxiom axiom = df.getOWLDeclarationAxiom(individual);
-        o.add(axiom);
+        o.addAxiom(axiom);
         StringDocumentTarget t = new StringDocumentTarget();
         o.getPrefixManager().withDefaultPrefix(base);
         o.saveOntology(new TurtleDocumentFormat(), t);
@@ -137,12 +135,12 @@ public class TurtleTestCase extends TestBase {
     }
 
     @Test
-    public void shouldSaveBaseIRINotOntologyInRioTurtle()
+    void shouldSaveBaseIRINotOntologyInRioTurtle()
         throws OWLOntologyCreationException, OWLOntologyStorageException {
         String base = "urn:test:base#";
-        OWLOntology o = m.createOntology(df.getIRI(TestFiles.NS));
-        OWLNamedIndividual individual = df.getOWLNamedIndividual(base, "i");
-        OWLAxiom axiom = df.getOWLDeclarationAxiom(individual);
+        OWLOntology o = m.createOntology(iri(TestFiles.NS, ""));
+        OWLNamedIndividual ind = df.getOWLNamedIndividual(base, "i");
+        OWLAxiom axiom = df.getOWLDeclarationAxiom(ind);
         o.add(axiom);
         StringDocumentTarget t = new StringDocumentTarget();
         o.getPrefixManager().withDefaultPrefix(base);
@@ -152,9 +150,9 @@ public class TurtleTestCase extends TestBase {
             "@base <urn:test:base#> .\n" + "@prefix : <urn:test:base#> .\n"
                 + "@prefix owl: <http://www.w3.org/2002/07/owl#> .\n"
                 + "@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .\n"
-                + "@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .\n"
                 + "@prefix xml: <http://www.w3.org/XML/1998/namespace> .\n"
                 + "@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n"
+                + "@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .\n"
                 + "<http://example.com/ontology> a owl:Ontology .\n" + ":i a owl:NamedIndividual .",
             string);
         OWLOntology o1 = loadOntologyFromString(string, new RioTurtleDocumentFormat());
@@ -162,61 +160,46 @@ public class TurtleTestCase extends TestBase {
     }
 
     @Test
-    public void testLoadingUTF8BOM() throws Exception {
+    void irisWithQuotesInTurtle() throws OWLOntologyCreationException {
+        OWLOntology o = m.createOntology(iri);
+        o.addAxiom(df.getOWLAnnotationAssertionAxiom(df.getIRI("urn:test#s't"),
+            df.getOWLAnnotation(df.getRDFSLabel(), df.getOWLLiteral(true))));
+        OWLOntology o1 = roundTrip(o, new TurtleDocumentFormat());
+        equal(o, o1);
+    }
+
+    @Test
+    void irisWithQuotesInRioTurtle() throws OWLOntologyCreationException {
+        OWLOntology o = m.createOntology(iri);
+        o.addAxiom(df.getOWLAnnotationAssertionAxiom(df.getIRI("urn:test#s't"),
+            df.getOWLAnnotation(df.getRDFSLabel(), df.getOWLLiteral(true))));
+        OWLOntology o1 = roundTrip(o, new RioTurtleDocumentFormat());
+        equal(o, o1);
+    }
+
+    @Test
+    void testLoadingUTF8BOM() throws Exception {
         IRI uri = df.getIRI(getClass().getResource("/ttl-with-bom.ttl").toURI());
         m.loadOntologyFromOntologyDocument(uri);
     }
 
-    @Test
-    public void shouldParseFixedQuotesLiterals1() throws OWLOntologyCreationException {
-        OWLOntology o =
-            loadOntologyFromString(new StringDocumentSource(TestFiles.quotes1, iri, tf, null));
+    static Stream<Arguments> tests() {
+        return Stream.of(Arguments.of(TestFiles.quotes1, " ''' "),
+            Arguments.of(TestFiles.quotes6, "3'''-acetate; [cut]"),
+            Arguments.of(TestFiles.quotes2, " \"\"\" "), Arguments.of(TestFiles.quotes3, " \"\"a "),
+            Arguments.of(TestFiles.quotes4, "\"\"\""), Arguments.of(TestFiles.quotes5, "\"\"a"));
+    }
+
+    @ParameterizedTest
+    @MethodSource("tests")
+    void shouldParseFixedQuotesLiterals(String in, String literal) {
+        OWLOntology o = loadOntologyFromString(in, tf);
         o.annotationAssertionAxioms(s)
-            .forEach(ax -> assertEquals(" ''' ", ((OWLLiteral) ax.getValue()).getLiteral()));
+            .forEach(ax -> assertEquals(literal, ((OWLLiteral) ax.getValue()).getLiteral()));
     }
 
     @Test
-    public void shouldParseFixedQuotesLiterals6() throws OWLOntologyCreationException {
-        OWLOntology o =
-            loadOntologyFromString(new StringDocumentSource(TestFiles.quotes6, iri, tf, null));
-        o.annotationAssertionAxioms(s).forEach(
-            ax -> assertEquals("3'''-acetate; [cut]", ((OWLLiteral) ax.getValue()).getLiteral()));
-    }
-
-    @Test
-    public void shouldParseFixedQuotesLiterals2() throws OWLOntologyCreationException {
-        OWLOntology o =
-            loadOntologyFromString(new StringDocumentSource(TestFiles.quotes2, iri, tf, null));
-        o.annotationAssertionAxioms(s)
-            .forEach(ax -> assertEquals(" \"\"\" ", ((OWLLiteral) ax.getValue()).getLiteral()));
-    }
-
-    @Test
-    public void shouldParseFixedQuotesLiterals3() throws OWLOntologyCreationException {
-        OWLOntology o =
-            loadOntologyFromString(new StringDocumentSource(TestFiles.quotes3, iri, tf, null));
-        o.annotationAssertionAxioms(s)
-            .forEach(ax -> assertEquals(" \"\"a ", ((OWLLiteral) ax.getValue()).getLiteral()));
-    }
-
-    @Test
-    public void shouldParseFixedQuotesLiterals4() throws OWLOntologyCreationException {
-        OWLOntology o =
-            loadOntologyFromString(new StringDocumentSource(TestFiles.quotes4, iri, tf, null));
-        o.annotationAssertionAxioms(s)
-            .forEach(ax -> assertEquals("\"\"\"", ((OWLLiteral) ax.getValue()).getLiteral()));
-    }
-
-    @Test
-    public void shouldParseFixedQuotesLiterals5() throws OWLOntologyCreationException {
-        OWLOntology o =
-            loadOntologyFromString(new StringDocumentSource(TestFiles.quotes5, iri, tf, null));
-        o.annotationAssertionAxioms(s)
-            .forEach(ax -> assertEquals("\"\"a", ((OWLLiteral) ax.getValue()).getLiteral()));
-    }
-
-    @Test
-    public void shouldParseOntologyThatworked() {
+    void shouldParseOntologyThatworked() {
         // given
         OWLAxiom expected = AnnotationAssertion(df.getRDFSIsDefinedBy(),
             IRI("http://xmlns.com/foaf/0.1/", "fundedBy"), IRI("http://xmlns.com/foaf/0.1/", ""));
@@ -227,7 +210,7 @@ public class TurtleTestCase extends TestBase {
     }
 
     @Test
-    public void shouldParseOntologyThatBroke() {
+    void shouldParseOntologyThatBroke() {
         // given
         OWLAxiom expected =
             df.getOWLAnnotationAssertionAxiom(df.getOWLAnnotationProperty("urn:test/", "p"),
@@ -239,7 +222,7 @@ public class TurtleTestCase extends TestBase {
     }
 
     @Test
-    public void shouldResolveAgainstBase() {
+    void shouldResolveAgainstBase() {
         // given
         // when
         OWLOntology o =
@@ -253,7 +236,7 @@ public class TurtleTestCase extends TestBase {
 
     // test for 3543488
     @Test
-    public void shouldRoundTripTurtleWithsharedBnodes() throws Exception {
+    void shouldRoundTripTurtleWithsharedBnodes() {
         masterConfigurator.withRemapAllAnonymousIndividualsIds(false);
         try {
             OWLOntology ontology =
@@ -267,7 +250,7 @@ public class TurtleTestCase extends TestBase {
 
     // test for 335
     @Test
-    public void shouldParseScientificNotation() {
+    void shouldParseScientificNotation() {
         OWLOntology ontology =
             loadOntologyFromString(TestFiles.scientificNotationPlus, new TurtleDocumentFormat());
         assertTrue(ontology.annotationPropertiesInSignature().anyMatch(ap -> ap.equals(areaTotal)));
@@ -276,21 +259,21 @@ public class TurtleTestCase extends TestBase {
     }
 
     @Test
-    public void shouldParseScientificNotationWithMinus() {
+    void shouldParseScientificNotationWithMinus() {
         OWLOntology ontology = loadOntologyFromString(TestFiles.scientificNotationWithMinus,
             new TurtleDocumentFormat());
         assertTrue(ontology.annotationPropertiesInSignature().anyMatch(ap -> ap.equals(areaTotal)));
-        assertTrue(ontology
-            .containsAxiom(AnnotationAssertion(areaTotal, southAfrica, TestEntities.oneMillionth)));
+        assertTrue(
+            ontology.containsAxiom(AnnotationAssertion(areaTotal, southAfrica, oneMillionth)));
     }
 
     @Test
-    public void shouldParseScientificNotationWithMinusFromBug() {
+    void shouldParseScientificNotationWithMinusFromBug() {
         loadOntologyFromString(TestFiles.scientificNotation, new TurtleDocumentFormat());
     }
 
     @Test
-    public void shouldParseTwo() {
+    void shouldParseTwo() {
         OWLOntology ontology =
             loadOntologyFromString(TestFiles.parseTwo, new TurtleDocumentFormat());
         assertTrue(ontology.annotationPropertiesInSignature().anyMatch(ap -> ap.equals(areaTotal)));
@@ -298,7 +281,7 @@ public class TurtleTestCase extends TestBase {
     }
 
     @Test
-    public void shouldParseOne() {
+    void shouldParseOne() {
         OWLOntology ontology =
             loadOntologyFromString(TestFiles.parseOne, new TurtleDocumentFormat());
         assertTrue(ontology.annotationPropertiesInSignature().anyMatch(ap -> ap.equals(areaTotal)));
@@ -307,18 +290,18 @@ public class TurtleTestCase extends TestBase {
     }
 
     @Test
-    public void shouldParseEmptySpaceInBnode() {
+    void shouldParseEmptySpaceInBnode() {
         OWLOntology ontology =
             loadOntologyFromString(TestFiles.emptySpaceInBnode, new TurtleDocumentFormat());
-        OWLIndividual i =
-            NamedIndividual(IRI("http://taxonomy.wolterskluwer.de/practicearea/10112", ""));
-        assertTrue(ontology.containsAxiom(ClassAssertion(concept, i)));
-        assertTrue(ontology.containsAxiom(ClassAssertion(taxTerm, i)));
+        OWLIndividual ind =
+            NamedIndividual(iri("http://taxonomy.wolterskluwer.de/practicearea/", "10112"));
+        assertTrue(ontology.containsAxiom(ClassAssertion(concept, ind)));
+        assertTrue(ontology.containsAxiom(ClassAssertion(taxTerm, ind)));
         assertTrue(ontology.containsEntityInSignature(broader));
     }
 
     @Test
-    public void shouldRoundTripAxiomAnnotation() throws Exception {
+    void shouldRoundTripAxiomAnnotation() {
         masterConfigurator.withRemapAllAnonymousIndividualsIds(false);
         try {
             OWLOntology ontology =
@@ -339,11 +322,11 @@ public class TurtleTestCase extends TestBase {
     }
 
     @Test
-    public void shouldRoundTripAxiomAnnotationWithSlashOntologyIRI() throws Exception {
+    void shouldRoundTripAxiomAnnotationWithSlashOntologyIRI() {
         OWLOntology in =
             loadOntologyFromString(TestFiles.slashOntologyIRI, new TurtleDocumentFormat());
         String string = "urn:test#test.owl/";
-        OWLOntology ontology = getOWLOntology(df.getIRI(string, ""));
+        OWLOntology ontology = getOWLOntology(iri(string, ""));
         ontology.add(
             df.getOWLSubClassOfAxiom(df.getOWLClass(string, "t"), df.getOWLClass(string, "q")));
         OWLOntology o = roundTrip(ontology, new TurtleDocumentFormat());
@@ -351,7 +334,7 @@ public class TurtleTestCase extends TestBase {
     }
 
     @Test
-    public void presentDeclaration() {
+    void presentDeclaration() {
         // when
         OWLOntology o =
             loadOntologyFromString(TestFiles.presentDeclaration, new TurtleDocumentFormat());
@@ -360,17 +343,17 @@ public class TurtleTestCase extends TestBase {
     }
 
     @Test
-    public void missingDeclaration() {
+    void missingDeclaration() {
         // when
         OWLOntology o =
             loadOntologyFromString(TestFiles.missingDeclaration, new TurtleDocumentFormat());
         // then
         o.logicalAxioms()
-            .forEach(ax -> assertTrue(ax.toString(), ax instanceof OWLObjectPropertyDomainAxiom));
+            .forEach(ax -> assertTrue(ax instanceof OWLObjectPropertyDomainAxiom, ax.toString()));
     }
 
     @Test
-    public void shouldReloadSamePrefixAbbreviations() throws OWLOntologyStorageException {
+    void shouldReloadSamePrefixAbbreviations() {
         OWLOntology o =
             loadOntologyFromString(TestFiles.prefixAbbreviations, new RioTurtleDocumentFormat());
         StringDocumentTarget t = saveOntology(o);
@@ -378,19 +361,18 @@ public class TurtleTestCase extends TestBase {
     }
 
     @Test
-    public void shouldFindExpectedAxiomsForBlankNodes() {
+    void shouldFindExpectedAxiomsForBlankNodes() {
         OWLOntology o =
             loadOntologyFromString(TestFiles.axiomsForBlankNodes, new TurtleDocumentFormat());
         o.axioms(AxiomType.CLASS_ASSERTION).forEach(ax -> {
             OWLAxiom expected = df.getOWLObjectPropertyAssertionAxiom(anonR, ax.getIndividual(),
                 ax.getIndividual());
-            assertTrue(expected + " not found", o.containsAxiom(expected));
+            assertTrue(o.containsAxiom(expected), expected + " not found");
         });
     }
 
     @Test
-    public void shouldAllowMultipleDotsInIRIs()
-        throws OWLOntologyCreationException, OWLOntologyStorageException {
+    void shouldAllowMultipleDotsInIRIs() throws OWLOntologyCreationException {
         IRI test1 = df.getIRI("http://www.semanticweb.org/ontology#A...");
         IRI test2 = df.getIRI("http://www.semanticweb.org/ontology#A...B");
         OWLOntology o = m.createOntology(df.getIRI("http://www.semanticweb.org/ontology"));
@@ -402,7 +384,7 @@ public class TurtleTestCase extends TestBase {
     }
 
     @Test
-    public void shouldSaveWithCorrectPrefixes() throws OWLOntologyStorageException {
+    void shouldSaveWithCorrectPrefixes() {
         OWLOntology ont =
             loadOntologyFromString(TestFiles.correctPrefix, new TurtleDocumentFormat());
         OWLDocumentFormat ofmt = new TurtleDocumentFormat();
@@ -413,7 +395,7 @@ public class TurtleTestCase extends TestBase {
     }
 
     @Test
-    public void shouldSaveWithCorrectSlashPrefixes() throws OWLOntologyStorageException {
+    void shouldSaveWithCorrectSlashPrefixes() {
         OWLOntology ont = loadOntologyFromString(TestFiles.slashPrefix, new TurtleDocumentFormat());
         OWLDocumentFormat ofmt = new TurtleDocumentFormat();
         ont.getPrefixManager().withPrefix("OBO", "http://purl.obolibrary.org/obo/");
@@ -423,11 +405,11 @@ public class TurtleTestCase extends TestBase {
     }
 
     @Test
-    public void shouldUseRightPrefixesWithPercentURLs()
+    void shouldUseRightPrefixesWithPercentURLs()
         throws OWLOntologyCreationException, OWLOntologyStorageException {
         PrefixManager basePrefix =
             new PrefixManagerImpl().withDefaultPrefix("http://www.example.com#");
-        OWLOntology ontology = m.createOntology(df.getIRI("http://www.example.com"));
+        OWLOntology ontology = m.createOntology(iri("http://www.example.com"));
         OWLObjectProperty owlObjectP = df.getOWLObjectProperty("has%20space", basePrefix);
         OWLClass domain = df.getOWLClass("domain1", basePrefix);
         ontology.add(df.getOWLObjectPropertyDomainAxiom(owlObjectP, domain));
@@ -435,12 +417,13 @@ public class TurtleTestCase extends TestBase {
         ByteArrayOutputStream out = new ByteArrayOutputStream();
         ontology.saveOntology(turtle, out);
         String string = out.toString();
-        assertTrue(string,
-            string.contains("<http://www.example.com#has%20space> rdf:type owl:ObjectProperty"));
+        assertTrue(
+            string.contains("<http://www.example.com#has%20space> rdf:type owl:ObjectProperty"),
+            string);
     }
 
     @Test
-    public void sameFileShouldParseToSameOntology() throws OWLOntologyCreationException {
+    void sameFileShouldParseToSameOntology() throws OWLOntologyCreationException {
         File file = new File(RESOURCES, "noBaseEscapedSlashes.ttl");
         OWLOntology o1 = m1.loadOntologyFromOntologyDocument(
             new FileDocumentSource(file, new TurtleDocumentFormat()));
@@ -450,8 +433,7 @@ public class TurtleTestCase extends TestBase {
     }
 
     @Test
-    public void shouldParseEscapedCharacters()
-        throws OWLOntologyCreationException, OWLOntologyStorageException {
+    void shouldParseEscapedCharacters() throws OWLOntologyCreationException {
         OWLOntology ont = m1.loadOntologyFromOntologyDocument(new FileDocumentSource(
             new File(RESOURCES, "noBaseEscapedSlashes.ttl"), new TurtleDocumentFormat()));
         OWLOntology o1 = roundTrip(ont, new TurtleDocumentFormat());
@@ -459,8 +441,7 @@ public class TurtleTestCase extends TestBase {
     }
 
     @Test
-    public void shouldParseWithBase()
-        throws OWLOntologyCreationException, OWLOntologyStorageException {
+    void shouldParseWithBase() throws OWLOntologyCreationException {
         OWLOntology ont = m1.loadOntologyFromOntologyDocument(new FileDocumentSource(
             new File(RESOURCES, "noBaseEscapedSlashes.ttl"), new RioTurtleDocumentFormat()));
         OWLOntology o1 = roundTrip(ont, new RioTurtleDocumentFormat());

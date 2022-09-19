@@ -1,7 +1,7 @@
 /* This file is part of the OWL API.
  * The contents of this file are subject to the LGPL License, Version 3.0.
  * Copyright 2014, The University of Manchester
- * 
+ *
  * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
  * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
  * You should have received a copy of the GNU General Public License along with this program.  If not, see http://www.gnu.org/licenses/.
@@ -12,8 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.apitest.syntax.rdf;
 
-import static java.util.Collections.singletonList;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.semanticweb.owlapi.OWLFunctionalSyntaxFactory.createClass;
 import static org.semanticweb.owlapi.OWLFunctionalSyntaxFactory.createDataProperty;
 import static org.semanticweb.owlapi.OWLFunctionalSyntaxFactory.createIndividual;
@@ -24,11 +23,9 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
-import org.junit.runners.Parameterized.Parameters;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.semanticweb.owlapi.apitest.baseclasses.TestBase;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLLogicalAxiom;
@@ -37,54 +34,47 @@ import org.semanticweb.owlapi.rdf.rdfxml.parser.RDFXMLParserFactory;
 import org.semanticweb.owlapi.rdf.rdfxml.renderer.RDFXMLStorerFactory;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
-@RunWith(Parameterized.class)
-public class RendererAndParserTestCase extends TestBase {
+class RendererAndParserTestCase extends TestBase {
 
-    private final AxiomBuilder axioms;
-
-    public RendererAndParserTestCase(AxiomBuilder b) {
-        axioms = b;
-    }
-
-    @Parameters
-    public static List<AxiomBuilder> getData() {
+    static List<OWLAxiom> getData() {
         return Arrays.asList(
             // AnonymousIndividual
-            () -> singletonList(
-                df.getOWLClassAssertionAxiom(df.getOWLObjectComplementOf(createClass()), createIndividual())),
+            df.getOWLClassAssertionAxiom(df.getOWLObjectComplementOf(createClass()),
+                createIndividual()),
             // ClassAssertionAxioms
-            () -> singletonList(df.getOWLClassAssertionAxiom(createClass(), createIndividual())),
+            df.getOWLClassAssertionAxiom(createClass(), createIndividual()),
             // DifferentIndividualsAxiom
-            () -> singletonList(df.getOWLDifferentIndividualsAxiom(createIndividual(), createIndividual(),
-                createIndividual(), createIndividual(), createIndividual())),
+            df.getOWLDifferentIndividualsAxiom(createIndividual(), createIndividual(),
+                createIndividual(), createIndividual(), createIndividual()),
             // EquivalentClasses
-            () -> singletonList(df.getOWLEquivalentClassesAxiom(createClass(),
-                df.getOWLObjectSomeValuesFrom(createObjectProperty(), df.getOWLThing()))),
+            df.getOWLEquivalentClassesAxiom(createClass(),
+                df.getOWLObjectSomeValuesFrom(createObjectProperty(), df.getOWLThing())),
             // NegativeDataPropertyAssertionAxiom
-            () -> singletonList(df.getOWLNegativeDataPropertyAssertionAxiom(createDataProperty(), createIndividual(),
-                df.getOWLLiteral("TestConstant"))),
+            df.getOWLNegativeDataPropertyAssertionAxiom(createDataProperty(), createIndividual(),
+                df.getOWLLiteral("TestConstant")),
             // NegativeObjectPropertyAssertionAxiom
-            () -> singletonList(df.getOWLNegativeObjectPropertyAssertionAxiom(createObjectProperty(),
-                createIndividual(), createIndividual())),
+            df.getOWLNegativeObjectPropertyAssertionAxiom(createObjectProperty(),
+                createIndividual(), createIndividual()),
             // QCR
-            () -> singletonList(df.getOWLSubClassOfAxiom(createClass(), df.getOWLObjectMinCardinality(3,
-                createObjectProperty(), df.getOWLObjectIntersectionOf(createClass(), createClass())))));
+            df.getOWLSubClassOfAxiom(createClass(),
+                df.getOWLObjectMinCardinality(3, createObjectProperty(),
+                    df.getOWLObjectIntersectionOf(createClass(), createClass()))));
     }
 
-    @Before
-    public void setUpManager() {
+    @BeforeEach
+    void setUpManager() {
         m.getOntologyStorers().set(new RDFXMLStorerFactory());
         m.getOntologyParsers().set(new RDFXMLParserFactory());
     }
 
-    @Test
-    public void testSaveAndReload() throws Exception {
+    @ParameterizedTest
+    @MethodSource("getData")
+    void testSaveAndReload(OWLAxiom axioms) {
         OWLOntology ontA = getOWLOntology();
-        ontA.add(axioms.build());
+        ontA.add(axioms);
         OWLOntology ontB = roundTrip(ontA);
         Set<OWLLogicalAxiom> aMinusB = asUnorderedSet(ontA.logicalAxioms());
         ontB.axioms().forEach(aMinusB::remove);
@@ -104,6 +94,6 @@ public class RendererAndParserTestCase extends TestBase {
                 msg.append(axiom).append("\n");
             }
         }
-        assertTrue(msg.toString(), aMinusB.isEmpty() && bMinusA.isEmpty());
+        assertTrue(aMinusB.isEmpty() && bMinusA.isEmpty(), msg.toString());
     }
 }

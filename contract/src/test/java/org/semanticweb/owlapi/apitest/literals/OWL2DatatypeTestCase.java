@@ -1,7 +1,7 @@
 /* This file is part of the OWL API.
  * The contents of this file are subject to the LGPL License, Version 3.0.
  * Copyright 2014, The University of Manchester
- * 
+ *
  * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
  * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
  * You should have received a copy of the GNU General Public License along with this program.  If not, see http://www.gnu.org/licenses/.
@@ -12,11 +12,12 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.apitest.literals;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNotSame;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNotSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asUnorderedSet;
 import static org.semanticweb.owlapi.vocab.OWL2Datatype.RDFS_LITERAL;
 import static org.semanticweb.owlapi.vocab.OWL2Datatype.RDF_PLAIN_LITERAL;
@@ -30,8 +31,8 @@ import static org.semanticweb.owlapi.vocab.OWL2Datatype.XSD_STRING;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.semanticweb.owlapi.apitest.baseclasses.TestBase;
 import org.semanticweb.owlapi.model.DataRangeType;
 import org.semanticweb.owlapi.model.EntityType;
@@ -42,84 +43,84 @@ import org.semanticweb.owlapi.model.OWLDatatype;
  * @author Matthew Horridge, Stanford University, Bio-Medical Informatics Research Group
  * @since 3.2.0
  */
-public class OWL2DatatypeTestCase extends TestBase {
+class OWL2DatatypeTestCase extends TestBase {
 
     private OWLDatatype plainLiteral;
 
-    @Before
-    public void setUpLiteral() {
+    @BeforeEach
+    void setUpLiteral() {
         plainLiteral = RDF_PLAIN_LITERAL.getDatatype(df);
     }
 
     @Test
-    public void getBuiltInDatatype() {
+    void getBuiltInDatatype() {
         assertEquals(RDF_PLAIN_LITERAL, plainLiteral.getBuiltInDatatype());
     }
 
     @Test
-    public void isString() {
+    void isString() {
         assertFalse(plainLiteral.isString());
         assertTrue(XSD_STRING.getDatatype(df).isString());
     }
 
     @Test
-    public void isInteger() {
+    void isInteger() {
         assertFalse(plainLiteral.isInteger());
         assertTrue(XSD_INTEGER.getDatatype(df).isInteger());
     }
 
     @Test
-    public void isFloat() {
+    void isFloat() {
         assertFalse(plainLiteral.isFloat());
         assertTrue(XSD_FLOAT.getDatatype(df).isFloat());
     }
 
     @Test
-    public void isDouble() {
+    void isDouble() {
         assertFalse(plainLiteral.isDouble());
         assertTrue(XSD_DOUBLE.getDatatype(df).isDouble());
     }
 
     @Test
-    public void isBoolean() {
+    void isBoolean() {
         assertFalse(plainLiteral.isBoolean());
         assertTrue(XSD_BOOLEAN.getDatatype(df).isBoolean());
     }
 
     @Test
-    public void isRDFPlainLiteral() {
+    void isRDFPlainLiteral() {
         assertTrue(plainLiteral.isRDFPlainLiteral());
         assertFalse(XSD_STRING.getDatatype(df).isRDFPlainLiteral());
     }
 
     @Test
-    public void isDatatype() {
+    void isDatatype() {
         assertTrue(plainLiteral.isOWLDatatype());
     }
 
     @Test
-    public void asOWLDatatype() {
+    void asOWLDatatype() {
         assertEquals(plainLiteral, plainLiteral.asOWLDatatype());
     }
 
     @Test
-    public void isTopDatatype() {
+    void isTopDatatype() {
         assertTrue(RDFS_LITERAL.getDatatype(df).isTopDatatype());
         assertFalse(plainLiteral.isTopDatatype());
     }
 
     @Test
-    public void getDataRangeType() {
+    void getDataRangeType() {
         assertEquals(DataRangeType.DATATYPE, plainLiteral.getDataRangeType());
     }
 
     @Test
-    public void getEntityType() {
+    void getEntityType() {
         assertEquals(EntityType.DATATYPE, plainLiteral.getEntityType());
     }
 
     @Test
-    public void isType() {
+    void isType() {
         assertTrue(plainLiteral.isType(EntityType.DATATYPE));
         assertFalse(plainLiteral.isType(EntityType.CLASS));
         assertFalse(plainLiteral.isType(EntityType.OBJECT_PROPERTY));
@@ -129,127 +130,127 @@ public class OWL2DatatypeTestCase extends TestBase {
     }
 
     @Test
-    public void isBuiltIn() {
+    void isBuiltIn() {
         assertTrue(plainLiteral.isBuiltIn());
     }
 
     @Test
-    public void isOWLClass() {
+    void isOWLClass() {
         assertFalse(plainLiteral.isOWLClass());
     }
 
-    @Test(expected = RuntimeException.class)
-    public void asOWLClass() {
-        plainLiteral.asOWLClass();
+    @Test
+    void asOWLClass() {
+        assertThrows(RuntimeException.class, plainLiteral::asOWLClass);
     }
 
     @Test
-    public void isOWLObjectProperty() {
+    void isOWLObjectProperty() {
         assertFalse(plainLiteral.isOWLObjectProperty());
     }
 
-    @Test(expected = RuntimeException.class)
-    public void asOWLObjectProperty() {
-        plainLiteral.asOWLObjectProperty();
+    @Test
+    void asOWLObjectProperty() {
+        assertThrows(RuntimeException.class, plainLiteral::asOWLObjectProperty);
     }
 
     @Test
-    public void isOWLDataProperty() {
+    void isOWLDataProperty() {
         assertFalse(plainLiteral.isOWLDataProperty());
     }
 
-    @Test(expected = RuntimeException.class)
-    public void asOWLDataProperty() {
-        plainLiteral.asOWLDataProperty();
+    @Test
+    void asOWLDataProperty() {
+        assertThrows(RuntimeException.class, plainLiteral::asOWLDataProperty);
     }
 
     @Test
-    public void isOWLAnnotationProperty() {
+    void isOWLAnnotationProperty() {
         assertFalse(plainLiteral.isOWLAnnotationProperty());
     }
 
-    @Test(expected = RuntimeException.class)
-    public void asOWLAnnotationProperty() {
-        plainLiteral.asOWLAnnotationProperty();
+    @Test
+    void asOWLAnnotationProperty() {
+        assertThrows(RuntimeException.class, plainLiteral::asOWLAnnotationProperty);
     }
 
     @Test
-    public void isOWLNamedIndividual() {
+    void isOWLNamedIndividual() {
         assertFalse(plainLiteral.isOWLNamedIndividual());
     }
 
-    @Test(expected = RuntimeException.class)
-    public void asOWLNamedIndividual() {
-        plainLiteral.asOWLNamedIndividual();
+    @Test
+    void asOWLNamedIndividual() {
+        assertThrows(RuntimeException.class, plainLiteral::asOWLNamedIndividual);
     }
 
     @Test
-    public void toStringID() {
+    void toStringID() {
         assertNotNull(plainLiteral.toStringID());
         assertEquals(RDF_PLAIN_LITERAL.getIRI().toString(), plainLiteral.toStringID());
     }
 
     @Test
-    public void getIRI() {
+    void getIRI() {
         assertNotNull(plainLiteral.getIRI());
         assertEquals(RDF_PLAIN_LITERAL.getIRI(), plainLiteral.getIRI());
     }
 
     @Test
-    public void shouldEquals() {
+    void shouldEquals() {
         assertEquals(plainLiteral, plainLiteral);
         assertEquals(plainLiteral, RDF_PLAIN_LITERAL.getDatatype(df));
         assertNotSame(plainLiteral, XSD_STRING.getDatatype(df));
     }
 
     @Test
-    public void getSignature() {
+    void getSignature() {
         assertEquals(asUnorderedSet(plainLiteral.signature()), singleton(plainLiteral));
     }
 
     @Test
-    public void getAnonymousIndividuals() {
+    void getAnonymousIndividuals() {
         assertEquals(0L, plainLiteral.anonymousIndividuals().count());
     }
 
     @Test
-    public void getClassesInSignature() {
+    void getClassesInSignature() {
         assertEquals(0L, plainLiteral.classesInSignature().count());
     }
 
     @Test
-    public void getObjectPropertiesInSignature() {
+    void getObjectPropertiesInSignature() {
         assertEquals(0L, plainLiteral.objectPropertiesInSignature().count());
     }
 
     @Test
-    public void getDataPropertiesInSignature() {
+    void getDataPropertiesInSignature() {
         assertEquals(0L, plainLiteral.dataPropertiesInSignature().count());
     }
 
     @Test
-    public void getIndividualsInSignature() {
+    void getIndividualsInSignature() {
         assertEquals(0L, plainLiteral.individualsInSignature().count());
     }
 
     @Test
-    public void getNestedClassExpressions() {
+    void getNestedClassExpressions() {
         assertEquals(0L, plainLiteral.nestedClassExpressions().count());
     }
 
     @Test
-    public void isTopEntity() {
+    void isTopEntity() {
         assertTrue(RDFS_LITERAL.getDatatype(df).isTopDatatype());
         assertFalse(RDF_PLAIN_LITERAL.getDatatype(df).isTopDatatype());
     }
 
     @Test
-    public void isBottomEntity() {
+    void isBottomEntity() {
         assertFalse(plainLiteral.isBottomEntity());
     }
 
     @Test
-    public void contains() {
+    void contains() {
         IRI iri = XSD_BYTE.getIRI();
         Set<OWLDatatype> datatypes = new HashSet<>();
         OWLDatatype dtImpl = df.getOWLDatatype(iri);

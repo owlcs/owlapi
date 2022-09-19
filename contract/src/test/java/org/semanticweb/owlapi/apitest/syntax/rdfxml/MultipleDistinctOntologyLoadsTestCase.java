@@ -1,7 +1,7 @@
 /* This file is part of the OWL API.
  * The contents of this file are subject to the LGPL License, Version 3.0.
  * Copyright 2014, The University of Manchester
- * 
+ *
  * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
  * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
  * You should have received a copy of the GNU General Public License along with this program.  If not, see http://www.gnu.org/licenses/.
@@ -12,13 +12,14 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.apitest.syntax.rdfxml;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.semanticweb.owlapi.OWLFunctionalSyntaxFactory.IRI;
 
 import java.io.File;
 import java.net.URISyntaxException;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.semanticweb.owlapi.apitest.baseclasses.TestBase;
 import org.semanticweb.owlapi.documents.FileDocumentSource;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
@@ -33,29 +34,25 @@ import org.semanticweb.owlapi.rdf.rdfxml.parser.RDFXMLParser;
 /**
  * Tests the loading of a single ontology multiple times, using a different ontologyIRI in the
  * OWLOntologyID as that used in the actual ontology that is being imported.
- * 
+ *
  * @author Peter Ansell p_ansell@yahoo.com
  */
-public class MultipleDistinctOntologyLoadsTestCase extends TestBase {
+class MultipleDistinctOntologyLoadsTestCase extends TestBase {
 
     IRI jb = IRI("http://example.purl.org.au/domainontology/", "JB_000007");
     IRI v1 = IRI("http://test.example.org/ontology/0139/", "version:1");
     IRI v2 = IRI("http://test.example.org/ontology/0139/", "version:2");
 
-    @Test(expected = OWLOntologyAlreadyExistsException.class)
-    public void testMultipleVersionLoadChangeIRI() throws Exception {
+    @Test
+    void testMultipleVersionLoadChangeIRI() throws Exception {
         OWLOntologyDocumentSource initialDocumentSource = getDocument();
         OWLOntologyID initialUniqueOWLOntologyID = df.getOWLOntologyID(jb, v2);
         OWLOntology initialOntology = m.createOntology(initialUniqueOWLOntologyID);
         OWLParser initialParser = new RDFXMLParser();
         initialDocumentSource.acceptParser(initialParser, initialOntology, config);
         OWLOntologyID secondUniqueOWLOntologyID = df.getOWLOntologyID(jb, v2);
-        try {
-            m.createOntology(secondUniqueOWLOntologyID);
-        } catch (OWLOntologyAlreadyExistsException e) {
-            assertEquals(df.getOWLOntologyID(jb, v2), e.getOntologyID());
-            throw e;
-        }
+        assertThrows(OWLOntologyAlreadyExistsException.class,
+            () -> m.createOntology(secondUniqueOWLOntologyID));
     }
 
     private OWLOntologyDocumentSource getDocument() {
@@ -67,8 +64,8 @@ public class MultipleDistinctOntologyLoadsTestCase extends TestBase {
         }
     }
 
-    @Test(expected = OWLOntologyAlreadyExistsException.class)
-    public void testMultipleVersionLoadNoChange() throws Exception {
+    @Test
+    void testMultipleVersionLoadNoChange() throws Exception {
         OWLOntologyDocumentSource documentSource = getDocument();
         OWLOntologyID expected = df.getOWLOntologyID(jb, v1);
         OWLOntologyID initialUniqueOWLOntologyID = df.getOWLOntologyID(jb, v1);
@@ -76,16 +73,12 @@ public class MultipleDistinctOntologyLoadsTestCase extends TestBase {
         OWLParser parser = new RDFXMLParser();
         documentSource.acceptParser(parser, initialOntology, config);
         OWLOntologyID secondUniqueOWLOntologyID = df.getOWLOntologyID(jb, v1);
-        try {
-            m.createOntology(secondUniqueOWLOntologyID);
-        } catch (OWLOntologyAlreadyExistsException e) {
-            assertEquals(expected, e.getOntologyID());
-            throw e;
-        }
+        assertThrows(OWLOntologyAlreadyExistsException.class,
+            () -> m.createOntology(secondUniqueOWLOntologyID));
     }
 
     @Test
-    public void testMultipleVersionLoadsExplicitOntologyIDs() throws Exception {
+    void testMultipleVersionLoadsExplicitOntologyIDs() throws Exception {
         OWLOntologyDocumentSource documentSource = getDocument();
         OWLOntologyID initialUniqueOWLOntologyID = df.getOWLOntologyID(jb, v1);
         OWLOntology initialOntology = m.createOntology(initialUniqueOWLOntologyID);
@@ -103,7 +96,7 @@ public class MultipleDistinctOntologyLoadsTestCase extends TestBase {
     }
 
     @Test
-    public void testMultipleVersionLoadsNoOntologyIDFirstTime() throws Exception {
+    void testMultipleVersionLoadsNoOntologyIDFirstTime() throws Exception {
         OWLOntologyDocumentSource documentSource = getDocument();
         OWLOntology initialOntology = m.createOntology();
         OWLParser parser = new RDFXMLParser();
@@ -121,7 +114,7 @@ public class MultipleDistinctOntologyLoadsTestCase extends TestBase {
     }
 
     @Test
-    public void testMultipleVersionLoadsNoOntologyVersionIRIFirstTime() throws Exception {
+    void testMultipleVersionLoadsNoOntologyVersionIRIFirstTime() throws Exception {
         OWLOntologyDocumentSource documentSource = getDocument();
         IRI iri = df.getIRI("http://test.example.org/ontology/0139");
         OWLOntologyID initialUniqueOWLOntologyID = df.getOWLOntologyID(iri);
@@ -140,7 +133,7 @@ public class MultipleDistinctOntologyLoadsTestCase extends TestBase {
     }
 
     @Test
-    public void testSingleVersionLoadChangeIRI() throws Exception {
+    void testSingleVersionLoadChangeIRI() throws Exception {
         OWLOntologyDocumentSource secondDocumentSource = getDocument();
         OWLOntologyID secondUniqueOWLOntologyID = df.getOWLOntologyID(jb, v2);
         OWLOntology secondOntology = m.createOntology(secondUniqueOWLOntologyID);
@@ -152,7 +145,7 @@ public class MultipleDistinctOntologyLoadsTestCase extends TestBase {
     }
 
     @Test
-    public void testSingleVersionLoadNoChange() throws Exception {
+    void testSingleVersionLoadNoChange() throws Exception {
         OWLOntologyDocumentSource documentSource = getDocument();
         OWLOntologyID initialUniqueOWLOntologyID = df.getOWLOntologyID(jb, v1);
         OWLOntology initialOntology = m.createOntology(initialUniqueOWLOntologyID);

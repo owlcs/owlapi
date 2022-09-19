@@ -1,13 +1,13 @@
 package org.semanticweb.owlapi.iotest;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringWriter;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.semanticweb.owlapi.documents.XZStreamDocumentSource;
 import org.semanticweb.owlapi.io.OWLParser;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -16,10 +16,10 @@ import org.semanticweb.owlapi.model.OntologyConfigurator;
 /**
  * Created by ses on 3/12/15.
  */
-public class XZStreamDocumentSourceTestCase {
+class XZStreamDocumentSourceTestCase {
 
     @Test
-    public void testReadKoalaDoc() throws IOException {
+    void testReadKoalaDoc() throws IOException {
         try (InputStream in = getClass().getResourceAsStream("/koala.owl.xz")) {
             XZStreamDocumentSource source = new XZStreamDocumentSource(in);
             String input = "<?xml version=\"1.0\"?>\n"

@@ -1,7 +1,7 @@
 /* This file is part of the OWL API.
  * The contents of this file are subject to the LGPL License, Version 3.0.
  * Copyright 2014, The University of Manchester
- * 
+ *
  * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
  * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
  * You should have received a copy of the GNU General Public License along with this program.  If not, see http://www.gnu.org/licenses/.
@@ -12,9 +12,9 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.apitest;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.semanticweb.owlapi.vocab.OWLFacet.MAX_EXCLUSIVE;
 import static org.semanticweb.owlapi.vocab.OWLFacet.MIN_INCLUSIVE;
 
@@ -24,7 +24,7 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Supplier;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotation;
@@ -43,11 +43,11 @@ import org.semanticweb.owlapi.model.SWRLVariable;
 /**
  * A test case to ensure that the reference implementation data factories do not create duplicate
  * objects for distinguished values (e.g. owl:Thing, rdfs:Literal etc.)
- * 
+ *
  * @author Matthew Horridge, Stanford University, Bio-Medical Informatics Research Group
  * @since 3.2.0
  */
-public class OWLDataFactoryImplTestCase {
+class OWLDataFactoryImplTestCase {
     private static final String LANG = "LANG";
     private static final String TEST = "TEST";
 
@@ -153,7 +153,7 @@ public class OWLDataFactoryImplTestCase {
     }
 
     @Test
-    public void shouldFindInternalisedSame() {
+    void shouldFindInternalisedSame() {
         assertSameFromSupplier(testSubject::getRDFPlainLiteral);
         assertSameFromSupplier(testSubject::getTopDatatype);
         assertSameFromSupplier(testSubject::getBooleanOWLDatatype);
@@ -175,7 +175,7 @@ public class OWLDataFactoryImplTestCase {
     }
 
     @Test
-    public void shouldHaveSWRLRulesEqual() {
+    void shouldHaveSWRLRulesEqual() {
         SWRLVariable var = testSubject.getSWRLVariable("urn:test#", "x");
         List<SWRLClassAtom> body1 = Arrays.asList(testSubject.getSWRLClassAtom(clsA, var),
             testSubject.getSWRLClassAtom(clsC, var));
@@ -190,7 +190,7 @@ public class OWLDataFactoryImplTestCase {
     }
 
     @Test
-    public void shouldHaveSWRLRulesWithAnnotationsEqual() {
+    void shouldHaveSWRLRulesWithAnnotationsEqual() {
         Collection<OWLAnnotation> ann1 =
             Arrays.asList(testSubject.getRDFSComment("test1"), testSubject.getRDFSLabel("test2"));
         Collection<OWLAnnotation> ann2 =
@@ -209,7 +209,7 @@ public class OWLDataFactoryImplTestCase {
     }
 
     @Test
-    public void testAsSubAxiomsEquivalentClasses() {
+    void testAsSubAxiomsEquivalentClasses() {
         assertEqualsFromSupplier(() -> C(iri));
         assertEqualsFromSupplier(() -> D(iri));
         assertEqualsFromSupplier(() -> DP(iri));

@@ -38,7 +38,7 @@
  */
 package org.semanticweb.owlapi.apitest.multithread;
 
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.fail;
 import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asList;
 import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.contains;
 
@@ -51,7 +51,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
@@ -61,10 +61,10 @@ import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 
-public class RaceTestCase {
+class RaceTestCase {
 
     @Test
-    public void testSubClassLHS() throws Exception {
+    void testSubClassLHS() throws Exception {
         final int totalRepetitions = 200;
         int repetitions = 0;
         RaceTestCaseRunner r;
@@ -92,7 +92,7 @@ public class RaceTestCase {
 
     static class RaceTestCaseRunner {
 
-        public static final String NS = "http://www.race.org#";
+        static final String NS = "http://www.race.org#";
         protected RaceCallback callback;
         final AtomicBoolean done = new AtomicBoolean(false);
         ExecutorService exec = Executors.newFixedThreadPool(5);
@@ -107,7 +107,7 @@ public class RaceTestCase {
             callback = new SubClassLHSCallback();
         }
 
-        public void racing() throws InterruptedException {
+        void racing() throws InterruptedException {
             exec.submit(writer);
             callback.race();
             done.set(true);
@@ -115,7 +115,7 @@ public class RaceTestCase {
             exec.awaitTermination(5, TimeUnit.SECONDS);
         }
 
-        public static class SubClassLHSCallback implements RaceCallback {
+        static class SubClassLHSCallback implements RaceCallback {
 
             private final AtomicInteger counter = new AtomicInteger();
             OWLDataFactory factory;
@@ -124,12 +124,12 @@ public class RaceTestCase {
             OWLClass x;
             OWLClass y;
 
-            public SubClassLHSCallback() throws OWLOntologyCreationException {
+            SubClassLHSCallback() throws OWLOntologyCreationException {
                 manager = OWLManager.createConcurrentOWLOntologyManager();
                 factory = manager.getOWLDataFactory();
                 ontology = manager.createOntology();
-                x = factory.getOWLClass(factory.getIRI(NS, "X"));
-                y = factory.getOWLClass(factory.getIRI(NS, "Y"));
+                x = factory.getOWLClass(NS, "X");
+                y = factory.getOWLClass(NS, "Y");
             }
 
             @Override
@@ -177,10 +177,7 @@ public class RaceTestCase {
 
             @Override
             public void race() {
-                ontology
-                    .subClassAxiomsForSubClass(
-                        factory.getOWLClass(factory.getIRI("http://www.race.org#", "testclass")))
-                    .forEach(this::lose);
+                ontology.subClassAxiomsForSubClass(factory.getOWLClass("http://www.race.org#", "testclass")).forEach(this::lose);
             }
 
             private void lose(@SuppressWarnings("unused") Object o) {
@@ -188,7 +185,7 @@ public class RaceTestCase {
             }
 
             public OWLClass createMiddleClass(int i) {
-                return factory.getOWLClass(factory.getIRI(NS, "P" + i));
+                return factory.getOWLClass(NS, "P" + i);
             }
         }
     }

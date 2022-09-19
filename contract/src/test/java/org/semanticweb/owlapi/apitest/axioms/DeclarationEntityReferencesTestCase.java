@@ -1,7 +1,7 @@
 /* This file is part of the OWL API.
  * The contents of this file are subject to the LGPL License, Version 3.0.
  * Copyright 2014, The University of Manchester
- * 
+ *
  * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
  * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
  * You should have received a copy of the GNU General Public License along with this program.  If not, see http://www.gnu.org/licenses/.
@@ -12,7 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.apitest.axioms;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.semanticweb.owlapi.OWLFunctionalSyntaxFactory.Declaration;
 import static org.semanticweb.owlapi.OWLFunctionalSyntaxFactory.createClass;
 import static org.semanticweb.owlapi.OWLFunctionalSyntaxFactory.createDataProperty;
@@ -20,7 +20,7 @@ import static org.semanticweb.owlapi.OWLFunctionalSyntaxFactory.createIndividual
 import static org.semanticweb.owlapi.OWLFunctionalSyntaxFactory.createObjectProperty;
 import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.contains;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.semanticweb.owlapi.apitest.baseclasses.TestBase;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
@@ -33,14 +33,14 @@ import org.semanticweb.owlapi.model.OWLOntology;
  * A test case which ensures that an ontology contains entity references when that ontology only
  * contains entity declaration axioms. In other words, entity declaration axioms produce the correct
  * entity references.
- * 
+ *
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
-public class DeclarationEntityReferencesTestCase extends TestBase {
+class DeclarationEntityReferencesTestCase extends TestBase {
 
     @Test
-    public void testOWLClassDeclarationAxiom() {
+    void testOWLClassDeclarationAxiom() {
         OWLClass cls = createClass();
         OWLAxiom ax = Declaration(cls);
         OWLOntology ont = getOWLOntology();
@@ -49,7 +49,7 @@ public class DeclarationEntityReferencesTestCase extends TestBase {
     }
 
     @Test
-    public void testOWLObjectPropertyDeclarationAxiom() {
+    void testOWLObjectPropertyDeclarationAxiom() {
         OWLObjectProperty prop = createObjectProperty();
         OWLAxiom ax = Declaration(prop);
         OWLOntology ont = getOWLOntology();
@@ -58,7 +58,7 @@ public class DeclarationEntityReferencesTestCase extends TestBase {
     }
 
     @Test
-    public void testOWLDataPropertyDeclarationAxiom() {
+    void testOWLDataPropertyDeclarationAxiom() {
         OWLDataProperty prop = createDataProperty();
         OWLAxiom ax = Declaration(prop);
         OWLOntology ont = getOWLOntology();
@@ -67,7 +67,7 @@ public class DeclarationEntityReferencesTestCase extends TestBase {
     }
 
     @Test
-    public void testOWLIndividualDeclarationAxiom() {
+    void testOWLIndividualDeclarationAxiom() {
         OWLNamedIndividual ind = createIndividual();
         OWLAxiom ax = Declaration(ind);
         OWLOntology ont = getOWLOntology();

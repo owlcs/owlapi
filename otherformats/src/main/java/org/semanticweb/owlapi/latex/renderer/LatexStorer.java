@@ -36,8 +36,7 @@ import org.semanticweb.owlapi.utility.OWLEntityComparator;
 import org.semanticweb.owlapi.utility.SimpleShortFormProvider;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.2.0
  */
 public class LatexStorer implements OWLStorer {
@@ -79,6 +78,7 @@ public class LatexStorer implements OWLStorer {
         try {
             LatexWriter wr = new LatexWriter(w);
             wr.write("\\documentclass{article}\n");
+            w.write("\\usepackage{breqn}\n");
             wr.write("\\parskip 0pt\n");
             wr.write("\\parindent 0pt\n");
             wr.write("\\oddsidemargin 0cm\n");
@@ -103,8 +103,8 @@ public class LatexStorer implements OWLStorer {
             o.individualsInSignature().sorted(entityComparator)
                 .forEach(i -> writeEntity(wr, renderer, i, sortAxioms(o.axioms(i))));
             wr.write("\\section*{Datatypes}");
-            o.datatypesInSignature().sorted(entityComparator)
-                .forEach(type -> writeEntity(wr, renderer, type, sortAxioms(o.axioms(type, EXCLUDED))));
+            o.datatypesInSignature().sorted(entityComparator).forEach(
+                type -> writeEntity(wr, renderer, type, sortAxioms(o.axioms(type, EXCLUDED))));
             wr.write("\\end{document}\n");
             wr.flush();
         } catch (OWLRuntimeException e) {

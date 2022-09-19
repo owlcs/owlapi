@@ -1,6 +1,6 @@
 package org.semanticweb.owlapi.atomicdecompositiontest;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asList;
 import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asSet;
 
@@ -9,59 +9,53 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Stream;
 
-import org.junit.Ignore;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
-import org.junit.runners.Parameterized.Parameters;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.apitest.TestFiles;
 import org.semanticweb.owlapi.apitest.baseclasses.TestBase;
 import org.semanticweb.owlapi.atomicdecomposition.AtomicDecomposition;
 import org.semanticweb.owlapi.atomicdecomposition.AtomicDecompositionImpl;
-import org.semanticweb.owlapi.documents.StringDocumentSource;
 import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLEntity;
-import org.semanticweb.owlapi.model.OWLException;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.modularity.ModuleType;
 import org.semanticweb.owlapi.modularity.SyntacticLocalityModuleExtractor;
 
-@RunWith(Parameterized.class)
-public class OldModularisationEquivalenceTestCase extends TestBase {
+class OldModularisationEquivalenceTestCase extends TestBase {
 
-    private static final String deg = "Degree";
-    private static final String an = "Animal";
-    private static final String uni = "University";
-    private static final String hab = "Habitat";
-    private static final String gender = "Gender";
-    private static final String parent = "Parent";
-    private static final String rf = "Rainforest";
-    private static final String pers = "Person";
-    private static final String male = "Male";
-    private static final String mars = "Marsupials";
-    private static final String female = "Female";
-    private static final String taz = "TasmanianDevil";
-    private static final String student = "Student";
-    private static final String gstudent = "GraduateStudent";
-    private static final String m3d = "MaleStudentWith3Daughters";
-    private static final String kwp = "KoalaWithPhD";
-    private static final String forest = "Forest";
-    private static final String def = "DryEucalyptForest";
-    private static final String quokka = "Quokka";
-    private static final String koala = "Koala";
-    private static String ns = "http://protege.stanford.edu/plugins/owl/owl-library/koala.owl#";
-    private static OWLDataFactory f = OWLManager.getOWLDataFactory();
+    static final String deg = "Degree";
+    static final String an = "Animal";
+    static final String uni = "University";
+    static final String hab = "Habitat";
+    static final String gender = "Gender";
+    static final String parent = "Parent";
+    static final String rf = "Rainforest";
+    static final String pers = "Person";
+    static final String male = "Male";
+    static final String mars = "Marsupials";
+    static final String female = "Female";
+    static final String taz = "TasmanianDevil";
+    static final String student = "Student";
+    static final String gstudent = "GraduateStudent";
+    static final String m3d = "MaleStudentWith3Daughters";
+    static final String kwp = "KoalaWithPhD";
+    static final String forest = "Forest";
+    static final String def = "DryEucalyptForest";
+    static final String quokka = "Quokka";
+    static final String koala = "Koala";
+    static String ns = "http://protege.stanford.edu/plugins/owl/owl-library/koala.owl#";
+    static OWLDataFactory f = OWLManager.getOWLDataFactory();
 
-    private static Set<OWLEntity> l(String... s) {
+    static Set<OWLEntity> l(String... s) {
         return asSet(Stream.of(s).map(st -> f.getOWLClass(ns, st)), OWLEntity.class);
     }
 
-    @Parameters(name = "{0}")
-    public static List<Set<OWLEntity>> params() {
+    static List<Set<OWLEntity>> params() {
         List<Set<OWLEntity>> l = new ArrayList<>();
         l.add(l(pers));
         l.add(l(hab));
@@ -107,17 +101,11 @@ public class OldModularisationEquivalenceTestCase extends TestBase {
         return l;
     }
 
-    private final Set<OWLEntity> signature;
-
-    public OldModularisationEquivalenceTestCase(Set<OWLEntity> l) {
-        signature = l;
-    }
-
-    @Test
-    @Ignore
-    public void testModularizationWithAtomicDecompositionStar() throws OWLException {
-        OWLOntology o = m.loadOntologyFromOntologyDocument(
-            new StringDocumentSource(TestFiles.KOALA, new RDFXMLDocumentFormat()));
+    @ParameterizedTest
+    @MethodSource("params")
+    @Disabled
+    void testModularizationWithAtomicDecompositionStar(Set<OWLEntity> signature) {
+        OWLOntology o = loadOntologyFromString(TestFiles.KOALA, new RDFXMLDocumentFormat());
         List<OWLAxiom> module1 =
             asList(getADModule1(o, signature, ModuleType.STAR).stream().sorted());
         List<OWLAxiom> module2 = asList(getTraditionalModule(m, o, signature, ModuleType.STAR)
@@ -125,10 +113,10 @@ public class OldModularisationEquivalenceTestCase extends TestBase {
         makeAssertion(module1, module2);
     }
 
-    @Test
-    public void testModularizationWithAtomicDecompositionTop() throws OWLException {
-        OWLOntology o = m.loadOntologyFromOntologyDocument(
-            new StringDocumentSource(TestFiles.KOALA, new RDFXMLDocumentFormat()));
+    @ParameterizedTest
+    @MethodSource("params")
+    void testModularizationWithAtomicDecompositionTop(Set<OWLEntity> signature) {
+        OWLOntology o = loadOntologyFromString(TestFiles.KOALA, new RDFXMLDocumentFormat());
         List<OWLAxiom> module1 =
             asList(getADModule1(o, signature, ModuleType.TOP).stream().sorted());
         List<OWLAxiom> module2 = asList(getTraditionalModule(m, o, signature, ModuleType.TOP)
@@ -136,10 +124,10 @@ public class OldModularisationEquivalenceTestCase extends TestBase {
         makeAssertion(module1, module2);
     }
 
-    @Test
-    public void testModularizationWithAtomicDecompositionBottom() throws OWLException {
-        OWLOntology o = m.loadOntologyFromOntologyDocument(
-            new StringDocumentSource(TestFiles.KOALA, new RDFXMLDocumentFormat()));
+    @ParameterizedTest
+    @MethodSource("params")
+    void testModularizationWithAtomicDecompositionBottom(Set<OWLEntity> signature) {
+        OWLOntology o = loadOntologyFromString(TestFiles.KOALA, new RDFXMLDocumentFormat());
         List<OWLAxiom> module1 =
             asList(getADModule1(o, signature, ModuleType.BOT).stream().sorted());
         List<OWLAxiom> module2 = asList(getTraditionalModule(m, o, signature, ModuleType.BOT)

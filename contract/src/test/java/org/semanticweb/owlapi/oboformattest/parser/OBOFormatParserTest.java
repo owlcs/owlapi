@@ -1,12 +1,12 @@
-package org.semanticweb.owlapi.obolibrarytest.oboformat.parser;
+package org.semanticweb.owlapi.oboformattest.parser;
 
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.semanticweb.owlapi.obolibrary.oboformat.model.OBODoc;
 import org.semanticweb.owlapi.obolibrary.oboformat.parser.OBOFormatParser;
 

@@ -1,7 +1,7 @@
 /* This file is part of the OWL API.
  * The contents of this file are subject to the LGPL License, Version 3.0.
  * Copyright 2014, The University of Manchester
- * 
+ *
  * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
  * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
  * You should have received a copy of the GNU General Public License along with this program.  If not, see http://www.gnu.org/licenses/.
@@ -15,7 +15,7 @@ package org.semanticweb.owlapi.apitest.syntax;
 import static org.semanticweb.owlapi.OWLFunctionalSyntaxFactory.Class;
 import static org.semanticweb.owlapi.OWLFunctionalSyntaxFactory.IRI;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.semanticweb.owlapi.apitest.baseclasses.TestBase;
 import org.semanticweb.owlapi.formats.OWLXMLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
@@ -31,13 +31,13 @@ import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
  * @author Matthew Horridge, The University of Manchester, Bio-Health Informatics Group
  * @since 3.1.0
  */
-public class OWLXMLNullPointerTestCase extends TestBase {
+class OWLXMLNullPointerTestCase extends TestBase {
 
-    private static final String NS = "urn:test";
-    public static final String ANONYMOUS_INDIVIDUAL_ANNOTATION = "Anonymous individual for testing";
+    static final String ANONYMOUS_INDIVIDUAL_ANNOTATION = "Anonymous individual for testing";
+    static final String NS = "urn:test";
 
     @Test
-    public void testRoundTrip() throws Exception {
+    void testRoundTrip() {
         OWLOntology ontology = getOWLOntology(IRI(NS, ""));
         OWLClass cheesy = Class(IRI(NS + "#", "CheeseyPizza"));
         OWLClass cheese = Class(IRI(NS + "#", "CheeseTopping"));
@@ -54,7 +54,7 @@ public class OWLXMLNullPointerTestCase extends TestBase {
     }
 
     @Test
-    public void shouldParse() throws Exception {
+    void shouldParse() {
         OWLOntology o = getOWLOntology();
         OWLClass c = df.getOWLClass("urn:test#", "c");
         OWLObjectProperty p = df.getOWLObjectProperty("urn:test#", "p");

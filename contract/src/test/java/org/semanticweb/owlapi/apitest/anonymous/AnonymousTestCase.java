@@ -1,7 +1,7 @@
 /* This file is part of the OWL API.
  * The contents of this file are subject to the LGPL License, Version 3.0.
  * Copyright 2014, The University of Manchester
- * 
+ *
  * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
  * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
  * You should have received a copy of the GNU General Public License along with this program.  If not, see http://www.gnu.org/licenses/.
@@ -23,7 +23,7 @@ import static org.semanticweb.owlapi.OWLFunctionalSyntaxFactory.ObjectHasValue;
 import static org.semanticweb.owlapi.OWLFunctionalSyntaxFactory.ObjectProperty;
 import static org.semanticweb.owlapi.OWLFunctionalSyntaxFactory.SubClassOf;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.semanticweb.owlapi.apitest.baseclasses.TestBase;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLDataProperty;
@@ -34,12 +34,12 @@ import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLObjectPropertyAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
 
-public class AnonymousTestCase extends TestBase {
+class AnonymousTestCase extends TestBase {
 
     private static final String URN_TEST = "urn:test#";
 
     @Test
-    public void shouldRoundTrip() throws Exception {
+    void shouldRoundTrip() {
         OWLClass c = Class(IRI(URN_TEST, "C"));
         OWLClass d = Class(IRI(URN_TEST, "D"));
         OWLObjectProperty p = ObjectProperty(IRI(URN_TEST, "p"));
@@ -54,7 +54,7 @@ public class AnonymousTestCase extends TestBase {
     }
 
     @Test
-    public void testRoundTripWithAnonymousIndividuals() throws Exception {
+    void testRoundTripWithAnonymousIndividuals() {
         String ns = "http://test.com/genid#";
         OWLNamedIndividual i = df.getOWLNamedIndividual(ns, "i");
         OWLObjectProperty p = df.getOWLObjectProperty(ns, "p");

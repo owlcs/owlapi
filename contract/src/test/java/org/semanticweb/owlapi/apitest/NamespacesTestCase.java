@@ -1,7 +1,7 @@
 /* This file is part of the OWL API.
  * The contents of this file are subject to the LGPL License, Version 3.0.
  * Copyright 2014, The University of Manchester
- * 
+ *
  * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
  * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
  * You should have received a copy of the GNU General Public License along with this program.  If not, see http://www.gnu.org/licenses/.
@@ -12,12 +12,13 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.apitest;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.EnumSet;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.semanticweb.owlapi.apitest.baseclasses.TestBase;
 import org.semanticweb.owlapi.documents.StringDocumentTarget;
 import org.semanticweb.owlapi.formats.FunctionalSyntaxDocumentFormat;
@@ -31,24 +32,24 @@ import org.semanticweb.owlapi.vocab.Namespaces;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 import org.semanticweb.owlapi.vocab.XSDVocabulary;
 
-public class NamespacesTestCase extends TestBase {
+class NamespacesTestCase extends TestBase {
 
-    private static final String NS = "http://test.owl/test#";
+    static final String NS = "http://test.owl/test#";
 
     @Test
-    public void shouldFindInNamespace() {
+    void shouldFindInNamespace() {
         EnumSet<Namespaces> reserved =
             EnumSet.of(Namespaces.OWL, Namespaces.RDF, Namespaces.RDFS, Namespaces.XSD);
         for (Namespaces n : Namespaces.values()) {
-            IRI iri = df.getIRI(n.getPrefixIRI(), "test");
+            IRI iri = iri(n.getPrefixIRI(), "test");
             boolean reservedVocabulary = iri.isReservedVocabulary();
-            assertEquals(Boolean.valueOf(reserved.contains(n)),
-                Boolean.valueOf(reservedVocabulary));
+            assertTrue(reservedVocabulary == reserved.contains(n), iri + " reserved? Should be "
+                + reserved.contains(n) + " but is " + reservedVocabulary);
         }
     }
 
     @Test
-    public void shouldParseXSDSTRING() {
+    void shouldParseXSDSTRING() {
         // given
         String s = "xsd:string";
         // when
@@ -58,18 +59,18 @@ public class NamespacesTestCase extends TestBase {
         assertEquals(OWL2Datatype.XSD_STRING.getDatatype(df), df.getOWLDatatype(v));
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void shouldFailToParseInvalidString() {
+    @Test
+    void shouldFailToParseInvalidString() {
         // given
         String s = "xsd:st";
         // when
-        XSDVocabulary.parseShortName(s);
+        assertThrows(IllegalArgumentException.class, () -> XSDVocabulary.parseShortName(s));
         // then
         // an exception should have been thrown
     }
 
     @Test
-    public void shouldSetPrefix() throws OWLOntologyCreationException, OWLOntologyStorageException {
+    void shouldSetPrefix() throws OWLOntologyCreationException, OWLOntologyStorageException {
         OWLClass item = df.getOWLClass(NS, "item");
         OWLDeclarationAxiom declaration = df.getOWLDeclarationAxiom(item);
         OWLOntology o1 = m.createOntology();

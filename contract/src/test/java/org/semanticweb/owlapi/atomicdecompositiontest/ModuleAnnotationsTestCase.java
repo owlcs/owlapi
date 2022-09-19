@@ -1,12 +1,12 @@
 package org.semanticweb.owlapi.atomicdecompositiontest;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.semanticweb.owlapi.apitest.baseclasses.TestBase;
 import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
@@ -18,7 +18,7 @@ import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.modularity.ModuleType;
 import org.semanticweb.owlapi.modularity.SyntacticLocalityModuleExtractor;
 
-public class ModuleAnnotationsTestCase extends TestBase {
+class ModuleAnnotationsTestCase extends TestBase {
 
     private final OWLAnnotationProperty a = df.getOWLAnnotationProperty("urn:test:a");
     private final OWLAnnotationProperty b = df.getOWLAnnotationProperty("urn:test:b");
@@ -32,7 +32,7 @@ public class ModuleAnnotationsTestCase extends TestBase {
     Set<OWLEntity> e = new HashSet<>(Arrays.asList(a));
 
     @Test
-    public void shouldNotAddAnnotations() throws OWLOntologyCreationException {
+    void shouldNotAddAnnotations() throws OWLOntologyCreationException {
         Set<OWLAxiom> expected = new HashSet<>();
         OWLOntology o = m.createOntology(df.getIRI("urn:test:noanns"));
         o.getOntologyConfigurator().withSkipModuleAnnotations(true);
@@ -43,7 +43,7 @@ public class ModuleAnnotationsTestCase extends TestBase {
     }
 
     @Test
-    public void shouldAddAnnotations() throws OWLOntologyCreationException {
+    void shouldAddAnnotations() throws OWLOntologyCreationException {
         Set<OWLAxiom> expected = new HashSet<>();
         expected.add(ax);
         expected.add(dA);

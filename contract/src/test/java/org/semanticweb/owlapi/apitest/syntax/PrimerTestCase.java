@@ -1,12 +1,12 @@
 package org.semanticweb.owlapi.apitest.syntax;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asUnorderedSet;
 
 import java.util.Set;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.semanticweb.owlapi.apitest.TestFiles;
 import org.semanticweb.owlapi.apitest.baseclasses.TestBase;
 import org.semanticweb.owlapi.formats.FunctionalSyntaxDocumentFormat;
@@ -22,23 +22,21 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.profiles.OWL2DLProfile;
 
-public class PrimerTestCase extends TestBase {
+class PrimerTestCase extends TestBase {
 
-    private static final String URN_PRIMER = "urn:primer#";
-    private static final String NS = "http://example.com/owl/families/";
-    protected OWLOntology func = loadOntologyFromString(TestFiles.FUNCTIONAL,
-        df.getIRI(URN_PRIMER, "functional"), new FunctionalSyntaxDocumentFormat());
+    static final String URN_PRIMER = "urn:primer#";
+    static final String NS = "http://example.com/owl/families/";
+    OWLOntology func = loadOntologyFromString(TestFiles.FUNCTIONAL, iri(URN_PRIMER, "functional"), new FunctionalSyntaxDocumentFormat());
     OWL2DLProfile profile = new OWL2DLProfile();
 
-    @Before
-    public void setUpProfile() {
+    @BeforeEach
+    void setUpProfile() {
         assertTrue(profile.checkOntology(func).isInProfile());
     }
 
     @Test
-    public void shouldManchBeEquivalent() throws OWLOntologyCreationException {
-        OWLOntology manch = loadOntologyFromString(TestFiles.MANCHESTER,
-            df.getIRI(URN_PRIMER, "manchester"), new ManchesterSyntaxDocumentFormat());
+    void shouldManchBeEquivalent() throws OWLOntologyCreationException {
+        OWLOntology manch = loadOntologyFromString(TestFiles.MANCHESTER, iri(URN_PRIMER, "manchester"), new ManchesterSyntaxDocumentFormat());
         assertTrue(profile.checkOntology(manch).getViolations().isEmpty());
         // XXX Manchester OWL Syntax does not support GCIs
         // the input adopts a trick to semantically get around this, by
@@ -66,25 +64,22 @@ public class PrimerTestCase extends TestBase {
     }
 
     @Test
-    public void shouldRDFXMLBeEquivalent() {
-        OWLOntology rdf = loadOntologyFromString(TestFiles.RDFXML,
-            df.getIRI(URN_PRIMER, "rdfxml"), new RDFXMLDocumentFormat());
+    void shouldRDFXMLBeEquivalent() {
+        OWLOntology rdf = loadOntologyFromString(TestFiles.RDFXML, iri(URN_PRIMER, "rdfxml"), new RDFXMLDocumentFormat());
         assertTrue(profile.checkOntology(rdf).getViolations().isEmpty());
         equal(func, rdf);
     }
 
     @Test
-    public void shouldOWLXMLBeEquivalent() {
-        OWLOntology owl = loadOntologyFromString(TestFiles.OWLXML,
-            df.getIRI(URN_PRIMER, "owlxml"), new OWLXMLDocumentFormat());
+    void shouldOWLXMLBeEquivalent() {
+        OWLOntology owl = loadOntologyFromString(TestFiles.OWLXML, df.getIRI(URN_PRIMER, "owlxml"), new OWLXMLDocumentFormat());
         assertTrue(profile.checkOntology(owl).getViolations().isEmpty());
         equal(func, owl);
     }
 
     @Test
-    public void shouldTURTLEBeEquivalent() {
-        OWLOntology turt = loadOntologyFromString(TestFiles.TURTLE,
-            df.getIRI(URN_PRIMER, "turtle"), new TurtleDocumentFormat());
+    void shouldTURTLEBeEquivalent() {
+        OWLOntology turt = loadOntologyFromString(TestFiles.TURTLE, iri(URN_PRIMER, "turtle"), new TurtleDocumentFormat());
         assertTrue(profile.checkOntology(turt).getViolations().isEmpty());
         // XXX somehow the Turtle parser introduces a tautology: the inverse of
         // inverse(hasParent) is hasParent

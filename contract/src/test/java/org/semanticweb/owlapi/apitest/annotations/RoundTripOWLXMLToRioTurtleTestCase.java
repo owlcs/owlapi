@@ -1,10 +1,10 @@
 package org.semanticweb.owlapi.apitest.annotations;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.semanticweb.owlapi.apitest.TestFiles;
-import org.semanticweb.owlapi.apitest.baseclasses.AbstractRoundTrippingTestCase;
+import org.semanticweb.owlapi.apitest.baseclasses.TestBase;
 import org.semanticweb.owlapi.documents.StringDocumentSource;
 import org.semanticweb.owlapi.documents.StringDocumentTarget;
 import org.semanticweb.owlapi.formats.OWLXMLDocumentFormat;
@@ -15,10 +15,9 @@ import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.rioformats.RioTurtleDocumentFormat;
 
-public class RoundTripOWLXMLToRioTurtleTestCase extends AbstractRoundTrippingTestCase {
+class RoundTripOWLXMLToRioTurtleTestCase extends TestBase {
 
-    @Override
-    protected OWLOntology createOntology() {
+    OWLOntology original() {
         try {
             return m.loadOntologyFromOntologyDocument(
                 new StringDocumentSource(TestFiles.original, new OWLXMLDocumentFormat()));
@@ -28,8 +27,8 @@ public class RoundTripOWLXMLToRioTurtleTestCase extends AbstractRoundTrippingTes
     }
 
     @Test
-    public void shouldRoundTripThroughOWLXML() throws OWLOntologyStorageException {
-        OWLOntology ontology = loadOntologyFromString(TestFiles.original, new OWLXMLDocumentFormat());
+    void shouldRoundTripThroughOWLXML() throws OWLOntologyStorageException {
+        OWLOntology ontology = original();
         StringDocumentTarget targetOWLXML = new StringDocumentTarget();
         ontology.saveOntology(new OWLXMLDocumentFormat(), targetOWLXML);
         OWLOntology o1 = loadOntologyFromString(targetOWLXML, new OWLXMLDocumentFormat());
@@ -37,8 +36,8 @@ public class RoundTripOWLXMLToRioTurtleTestCase extends AbstractRoundTrippingTes
     }
 
     @Test
-    public void shouldRoundTripThroughOWLXMLOrTurtle() throws OWLOntologyStorageException {
-        OWLOntology ontology = loadOntologyFromString(TestFiles.original, new OWLXMLDocumentFormat());
+    void shouldRoundTripThroughOWLXMLOrTurtle() {
+        OWLOntology ontology = original();
         OWLOntology o1 = roundTrip(ontology, new RioTurtleDocumentFormat());
         equal(ontology, o1);
         OWLOntology o2 = roundTrip(o1, new OWLXMLDocumentFormat());
@@ -46,8 +45,8 @@ public class RoundTripOWLXMLToRioTurtleTestCase extends AbstractRoundTrippingTes
     }
 
     @Test
-    public void shouldRoundTripThroughOWLXMLToTurtle() throws OWLOntologyStorageException {
-        OWLOntology ontology = loadOntologyFromString(TestFiles.original, new OWLXMLDocumentFormat());
+    void shouldRoundTripThroughOWLXMLToTurtle() throws OWLOntologyStorageException {
+        OWLOntology ontology = original();
         StringDocumentTarget targetTTL = new StringDocumentTarget();
         ontology.saveOntology(new TurtleDocumentFormat(), targetTTL);
         StringDocumentTarget targetTTLFromTTL = new StringDocumentTarget();
@@ -56,8 +55,8 @@ public class RoundTripOWLXMLToRioTurtleTestCase extends AbstractRoundTrippingTes
     }
 
     @Test
-    public void shouldRoundTripThroughOWLXMLToRioTurtle() throws OWLOntologyStorageException {
-        OWLOntology ontology = loadOntologyFromString(TestFiles.original, new OWLXMLDocumentFormat());
+    void shouldRoundTripThroughOWLXMLToRioTurtle() throws OWLOntologyStorageException {
+        OWLOntology ontology = original();
         StringDocumentTarget target1 = new StringDocumentTarget();
         ontology.saveOntology(new RioTurtleDocumentFormat(), target1);
         StringDocumentTarget target2 = new StringDocumentTarget();

@@ -1,7 +1,7 @@
 /* This file is part of the OWL API.
  * The contents of this file are subject to the LGPL License, Version 3.0.
  * Copyright 2014, The University of Manchester
- * 
+ *
  * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
  * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
  * You should have received a copy of the GNU General Public License along with this program.  If not, see http://www.gnu.org/licenses/.
@@ -12,57 +12,57 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.apitest.axioms;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.semanticweb.owlapi.OWLFunctionalSyntaxFactory.Class;
 import static org.semanticweb.owlapi.OWLFunctionalSyntaxFactory.OWLNothing;
 import static org.semanticweb.owlapi.OWLFunctionalSyntaxFactory.OWLThing;
 import static org.semanticweb.owlapi.OWLFunctionalSyntaxFactory.ObjectHasSelf;
 import static org.semanticweb.owlapi.OWLFunctionalSyntaxFactory.createObjectProperty;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 /**
  * Tests that the isOWLThing and isOWLNothing methods return correct values.
- * 
+ *
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
-public class BuiltInClassTestCase {
+class BuiltInClassTestCase {
 
     @Test
-    public void testOWLThing() {
+    void testOWLThing() {
         OWLClass thing = OWLThing();
         assertTrue(thing.isOWLThing());
         assertFalse(thing.isOWLNothing());
     }
 
     @Test
-    public void testOWLThingFromURI() {
+    void testOWLThingFromURI() {
         OWLClassExpression desc = Class(OWLRDFVocabulary.OWL_THING.getIRI());
         assertTrue(desc.isOWLThing());
         assertFalse(desc.isOWLNothing());
     }
 
     @Test
-    public void testOWLNothing() {
+    void testOWLNothing() {
         OWLClass nothing = OWLNothing();
         assertTrue(nothing.isOWLNothing());
         assertFalse(nothing.isOWLThing());
     }
 
     @Test
-    public void testOWLNothingFromURI() {
+    void testOWLNothingFromURI() {
         OWLClassExpression desc = Class(OWLRDFVocabulary.OWL_NOTHING.getIRI());
         assertTrue(desc.isOWLNothing());
         assertFalse(desc.isOWLThing());
     }
 
     @Test
-    public void testAnonymousClass() {
+    void testAnonymousClass() {
         OWLClassExpression desc = ObjectHasSelf(createObjectProperty());
         assertFalse(desc.isOWLThing());
         assertFalse(desc.isOWLNothing());

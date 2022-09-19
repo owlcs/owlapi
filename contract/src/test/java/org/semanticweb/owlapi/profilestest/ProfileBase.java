@@ -1,6 +1,6 @@
 package org.semanticweb.owlapi.profilestest;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.semanticweb.owlapi.profiles.Profiles.OWL2_DL;
 import static org.semanticweb.owlapi.profiles.Profiles.OWL2_EL;
 import static org.semanticweb.owlapi.profiles.Profiles.OWL2_QL;
@@ -10,11 +10,12 @@ import org.semanticweb.owlapi.apitest.baseclasses.TestBase;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLOntology;
 
-public class ProfileBase extends TestBase {
+class ProfileBase extends TestBase {
 
-    protected void test(OWLDocumentFormat f, String in, boolean el, boolean ql, boolean rl, boolean dl) {
+    protected void test(OWLDocumentFormat f, String in, boolean el, boolean ql, boolean rl,
+        boolean dl) {
         OWLOntology o = loadOntologyFromString(in, f);
-        assertTrue("empty ontology", o.getAxiomCount() > 0);
+        assertTrue(o.getAxiomCount() > 0);
         assertTrue(el == OWL2_EL.checkOntology(o).isInProfile());
         assertTrue(ql == OWL2_QL.checkOntology(o).isInProfile());
         assertTrue(rl == OWL2_RL.checkOntology(o).isInProfile());

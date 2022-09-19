@@ -1,7 +1,7 @@
 package org.semanticweb.owlapi.obolibrarytest.oboformat;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -72,7 +72,7 @@ public class OboFormatTestBasics extends TestBase {
             }
             return obodoc;
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new OWLRuntimeException(e);
         }
     }
 
@@ -166,9 +166,9 @@ public class OboFormatTestBasics extends TestBase {
     protected @Nullable IRI getIriByLabel(OWLOntology ontology, String label) {
         Optional<OWLAnnotationAssertionAxiom> anyMatch =
             ontology.axioms(AxiomType.ANNOTATION_ASSERTION)
-                .filter(aa -> aa.getProperty().isLabel() && aa.getValue() instanceof OWLLiteral
-                    && label.equals(((OWLLiteral) aa.getValue()).getLiteral()))
-                .filter(aa -> aa.getSubject().isIRI()).findAny();
+            .filter(aa -> aa.getProperty().isLabel() && aa.getValue() instanceof OWLLiteral
+                && label.equals(((OWLLiteral) aa.getValue()).getLiteral()))
+            .filter(aa -> aa.getSubject().isIRI()).findAny();
         if (anyMatch.isPresent()) {
             return (IRI) anyMatch.get().getSubject();
         }

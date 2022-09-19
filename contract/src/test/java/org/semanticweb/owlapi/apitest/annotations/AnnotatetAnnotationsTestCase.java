@@ -1,6 +1,6 @@
 package org.semanticweb.owlapi.apitest.annotations;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.semanticweb.owlapi.OWLFunctionalSyntaxFactory.Annotation;
 import static org.semanticweb.owlapi.OWLFunctionalSyntaxFactory.AnnotationAssertion;
 import static org.semanticweb.owlapi.OWLFunctionalSyntaxFactory.AnnotationProperty;
@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.semanticweb.owlapi.apitest.TestFiles;
 import org.semanticweb.owlapi.apitest.baseclasses.TestBase;
 import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
@@ -27,18 +27,16 @@ import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
-import org.semanticweb.owlapi.model.OWLObjectPropertyAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
-import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 
-public class AnnotatetAnnotationsTestCase extends TestBase {
+class AnnotatetAnnotationsTestCase extends TestBase {
 
-    private final String ns = "urn:n:a#";
-    private final OWLObjectProperty r = df.getOWLObjectProperty(ns, "r");
+    static final String ns = "urn:n:a#";
 
     @Test
-    public void shouldRoundtripMultipleNestedAnnotationsdebug() {
+    void shouldRoundtripMultipleNestedAnnotationsdebug() {
+        OWLObjectProperty r = df.getOWLObjectProperty(ns, "r");
         OWLNamedIndividual a = df.getOWLNamedIndividual(ns, "a");
         OWLNamedIndividual b = df.getOWLNamedIndividual(ns, "b");
         OWLLiteral _1 = df.getOWLLiteral(1);
@@ -49,8 +47,7 @@ public class AnnotatetAnnotationsTestCase extends TestBase {
         OWLAnnotation c4 = df.getRDFSComment(_4);
         OWLAnnotation c1 = df.getOWLAnnotation(df.getRDFSLabel(), _1, c3);
         OWLAnnotation c2 = df.getOWLAnnotation(df.getRDFSLabel(), _2, c4);
-        OWLObjectPropertyAssertionAxiom ax =
-            df.getOWLObjectPropertyAssertionAxiom(r, a, b, Arrays.asList(c1, c2));
+        OWLAxiom ax = df.getOWLObjectPropertyAssertionAxiom(r, a, b, Arrays.asList(c1, c2));
         List<OWLAxiom> axioms = Arrays.asList(ax);
         OWLOntology ont =
             loadOntologyFromString(TestFiles.nestedAnnotations, new RDFXMLDocumentFormat());
@@ -58,8 +55,8 @@ public class AnnotatetAnnotationsTestCase extends TestBase {
     }
 
     @Test
-    public void shouldLoadAnnotatedannotationsCorrectly() throws OWLOntologyStorageException {
-        IRI subject = df.getIRI("http://purl.obolibrary.org/obo/", "UBERON_0000033");
+    void shouldLoadAnnotatedannotationsCorrectly() {
+        IRI subject = iri("http://purl.obolibrary.org/obo/", "UBERON_0000033");
         OWLOntology testcase =
             loadOntologyFromString(TestFiles.annotatedAnnotation, new RDFXMLDocumentFormat());
         long before = testcase.annotationAssertionAxioms(subject).count();
@@ -69,7 +66,7 @@ public class AnnotatetAnnotationsTestCase extends TestBase {
     }
 
     @Test
-    public void shouldRecognizeAnnotationsOnAxiomsWithDifferentannotationsAsDistinct() {
+    void shouldRecognizeAnnotationsOnAxiomsWithDifferentannotationsAsDistinct() {
         OWLAnnotationProperty p = AnnotationProperty(iri("p"));
         OWLAnnotationSubject i = iri("i");
         OWLLiteral v = Literal("value");
@@ -86,9 +83,9 @@ public class AnnotatetAnnotationsTestCase extends TestBase {
     }
 
     @Test
-    public void shouldAnnotateOntologyAnnotations()
-        throws OWLOntologyCreationException, OWLOntologyStorageException {
-        IRI create = df.getIRI("urn:test:onto");
+    void shouldAnnotateOntologyAnnotations()
+        throws OWLOntologyCreationException {
+        IRI create = iri("urn:test:", "onto");
         OWLOntology o = m.createOntology(create);
         OWLAnnotation a2 = df.getOWLAnnotation(AnnotationProperty(iri("p2")), Literal("value2"),
             df.getRDFSLabel("nested ontology annotation"));

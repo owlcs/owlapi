@@ -52,7 +52,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.atomic.AtomicLong;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.semanticweb.owlapi.apitest.TestFiles;
 import org.semanticweb.owlapi.apitest.baseclasses.TestBase;
 import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
@@ -69,7 +69,7 @@ import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 
-public class OwlOntologyMultipleThreadsTest extends TestBase {
+class OwlOntologyMultipleThreadsTest extends TestBase {
 
     private static class TestCallback implements Runnable {
 
@@ -233,7 +233,7 @@ public class OwlOntologyMultipleThreadsTest extends TestBase {
                     o1.axiomsIgnoreAnnotations(ax, EXCLUDED).forEach(this::consume);
                 }
                 o1.generalClassAxioms().forEach(this::consume);
-                anonIndividuals.forEach(i -> o1.referencingAxioms(i, EXCLUDED));
+                anonIndividuals.forEach(i -> o1.referencingAxioms(i, EXCLUDED).forEach(this::consume));
                 o1.signature().forEach(e -> {
                     assert e != null;
                     o1.referencingAxioms(e, EXCLUDED).forEach(this::consume);
@@ -253,7 +253,7 @@ public class OwlOntologyMultipleThreadsTest extends TestBase {
                     o1.isDeclared(e, EXCLUDED);
                     if (e instanceof OWLAnnotationSubject) {
                         o1.annotationAssertionAxioms((OWLAnnotationSubject) e)
-                            .forEach(this::consume);
+                        .forEach(this::consume);
                     }
                 });
                 List<OWLAxiom> axioms = asList(o1.axioms());
@@ -323,7 +323,7 @@ public class OwlOntologyMultipleThreadsTest extends TestBase {
         protected void printout(long end, AtomicLong counter) {
             long expected = rep * rep;
             p.println("elapsed time (ms): " + end + "\nSuccessful threads: " + counter.get()
-                + "\t expected: " + expected);
+            + "\t expected: " + expected);
             successful = counter.get() == expected;
         }
 

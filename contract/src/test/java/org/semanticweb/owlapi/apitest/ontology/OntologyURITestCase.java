@@ -1,7 +1,7 @@
 /* This file is part of the OWL API.
  * The contents of this file are subject to the LGPL License, Version 3.0.
  * Copyright 2014, The University of Manchester
- * 
+ *
  * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
  * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
  * You should have received a copy of the GNU General Public License along with this program.  If not, see http://www.gnu.org/licenses/.
@@ -12,31 +12,37 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.apitest.ontology;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.semanticweb.owlapi.OWLFunctionalSyntaxFactory.IRI;
 import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.contains;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.semanticweb.owlapi.apitest.baseclasses.TestBase;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyAlreadyExistsException;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyID;
+import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.model.SetOntologyID;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Information Management Group
  * @since 2.2.0
  */
-public class OntologyURITestCase extends TestBase {
+class OntologyURITestCase extends TestBase {
 
-    private static final IRI version = IRI("http://www.another.com/ont/", "version");
-    private static final IRI onto = IRI("http://www.another.com/", "ont");
+    protected IRI nextOnt() {
+        return df.getNextDocumentIRI("http://www.another.com/ont");
+    }
+
+    static final IRI version = IRI("http://www.another.com/ont/", "version");
+    static final IRI onto = IRI("http://www.another.com/", "ont");
 
     @Test
-    public void testNamedOntologyToString() throws OWLOntologyCreationException {
+    void testNamedOntologyToString() throws OWLOntologyCreationException {
         IRI ontIRI = IRI("http://owlapi.sourceforge.net/", "ont");
         OWLOntology ont = m.createOntology(ontIRI);
         String s = ont.toString();
@@ -46,7 +52,7 @@ public class OntologyURITestCase extends TestBase {
     }
 
     @Test
-    public void testOntologyID() {
+    void testOntologyID() {
         OWLOntologyID ontIDBoth = df.getOWLOntologyID(onto, version);
         OWLOntologyID ontIDBoth2 = df.getOWLOntologyID(onto, version);
         assertEquals(ontIDBoth, ontIDBoth2);
@@ -58,7 +64,7 @@ public class OntologyURITestCase extends TestBase {
     }
 
     @Test
-    public void testOntologyURI() {
+    void testOntologyURI() {
         OWLOntology ont = getOWLOntology(onto);
         assertEquals(onto, ont.getOntologyID().getOntologyIRI().get());
         assertTrue(m.contains(onto));
@@ -68,7 +74,15 @@ public class OntologyURITestCase extends TestBase {
     }
 
     @Test
-    public void testSetOntologyURI() {
+    void testDuplicateOntologyURI() {
+        IRI uri = nextOnt();
+        getOWLOntology(uri);
+        assertThrowsWithCause(OWLRuntimeException.class, OWLOntologyAlreadyExistsException.class,
+            () -> getOWLOntology(uri));
+    }
+
+    @Test
+    void testSetOntologyURI() {
         IRI iri = nextOnt();
         OWLOntology ont = getOWLOntology(iri);
         IRI newIRI = df.getNextDocumentIRI("http://www.another.com/newont");
@@ -80,7 +94,7 @@ public class OntologyURITestCase extends TestBase {
     }
 
     @Test
-    public void testVersionURI() {
+    void testVersionURI() {
         IRI ontIRI = nextOnt();
         IRI verIRI = df.getNextDocumentIRI("http://www.another.com/ont/versions/1.0.0");
         OWLOntology ont = getOWLOntology(df.getOWLOntologyID(ontIRI, verIRI));
@@ -88,12 +102,8 @@ public class OntologyURITestCase extends TestBase {
         assertEquals(ont.getOntologyID().getVersionIRI().get(), verIRI);
     }
 
-    protected IRI nextOnt() {
-        return df.getNextDocumentIRI("http://www.another.com/ont");
-    }
-
     @Test
-    public void testNullVersionURI() {
+    void testNullVersionURI() {
         IRI ontIRI = nextOnt();
         IRI verIRI = null;
         OWLOntology ont = getOWLOntology(df.getOWLOntologyID(ontIRI, verIRI));

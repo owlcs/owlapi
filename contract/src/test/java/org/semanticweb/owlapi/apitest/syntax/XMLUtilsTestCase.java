@@ -1,7 +1,7 @@
 /* This file is part of the OWL API.
  * The contents of this file are subject to the LGPL License, Version 3.0.
  * Copyright 2014, The University of Manchester
- * 
+ *
  * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
  * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
  * You should have received a copy of the GNU General Public License along with this program.  If not, see http://www.gnu.org/licenses/.
@@ -12,12 +12,12 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.apitest.syntax;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.semanticweb.owlapi.apitest.TestFiles;
 import org.semanticweb.owlapi.apitest.baseclasses.TestBase;
 import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
@@ -25,11 +25,10 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.utilities.XMLUtils;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University of Manchester, Bio-Health Informatics Group
  * @since 3.3.0
  */
-public class XMLUtilsTestCase extends TestBase {
+class XMLUtilsTestCase extends TestBase {
 
     private static final int CODE_POINT = 0xEFFFF;
     private static final String CODE_POINT_STRING = init();
@@ -41,7 +40,7 @@ public class XMLUtilsTestCase extends TestBase {
     }
 
     @Test
-    public void testIsNCName() {
+    void testIsNCName() {
         assertTrue(XMLUtils.isNCName(CODE_POINT_STRING + "abc" + CODE_POINT_STRING));
         assertTrue(XMLUtils.isNCName(CODE_POINT_STRING + "abc123" + CODE_POINT_STRING));
         assertFalse(XMLUtils.isNCName("123" + CODE_POINT_STRING));
@@ -51,7 +50,7 @@ public class XMLUtilsTestCase extends TestBase {
     }
 
     @Test
-    public void testIsQName() {
+    void testIsQName() {
         assertTrue(XMLUtils.isQName(CODE_POINT_STRING + "p1:abc" + CODE_POINT_STRING));
         assertFalse(XMLUtils.isQName(CODE_POINT_STRING + "p1:2abc" + CODE_POINT_STRING));
         assertFalse(XMLUtils.isQName("11" + CODE_POINT_STRING + ":abc" + CODE_POINT_STRING));
@@ -59,8 +58,9 @@ public class XMLUtilsTestCase extends TestBase {
     }
 
     @Test
-    public void testEndsWithNCName() {
-        assertEquals("abc" + CODE_POINT_STRING, XMLUtils.getNCNameSuffix("1abc" + CODE_POINT_STRING));
+    void testEndsWithNCName() {
+        assertEquals("abc" + CODE_POINT_STRING,
+            XMLUtils.getNCNameSuffix("1abc" + CODE_POINT_STRING));
         assertTrue(XMLUtils.hasNCNameSuffix("1abc" + CODE_POINT_STRING));
         assertNull(XMLUtils.getNCNameSuffix(CODE_POINT_STRING + "p1:123"));
         assertFalse(XMLUtils.hasNCNameSuffix(CODE_POINT_STRING + "p1:123"));
@@ -70,15 +70,15 @@ public class XMLUtilsTestCase extends TestBase {
     }
 
     @Test
-    public void testParsesBNode() {
+    void testParsesBNode() {
         assertEquals("_:test", XMLUtils.getNCNamePrefix("_:test"));
         assertNull(XMLUtils.getNCNameSuffix("_:test"));
     }
 
     @Test
-    public void testmissingTypes() {
-        OWLOntology o = loadOntologyFromString(TestFiles.missingTypes, df.getNextDocumentIRI("testuriwithblankspace"),
-            new RDFXMLDocumentFormat());
+    void testmissingTypes() {
+        OWLOntology o = loadOntologyFromString(TestFiles.missingTypes,
+            df.getNextDocumentIRI("testuriwithblankspace"), new RDFXMLDocumentFormat());
         assertEquals(15, o.getAxiomCount());
     }
 }

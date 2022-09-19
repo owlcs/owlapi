@@ -2,11 +2,13 @@ package org.semanticweb.owlapi.apitest;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 import org.semanticweb.owlapi.apibinding.OWLManager;
+import org.semanticweb.owlapi.apitest.baseclasses.TestBase;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
@@ -75,9 +77,9 @@ public class Builder {
     private final OWLDataProperty dp = df.getOWLDataProperty(NS, "dp");
     private final OWLLiteral lit = df.getOWLLiteral(false);
     private final OWLLiteral plainlit = df.getOWLLiteral("string", "en");
-    private final IRI iri = df.getIRI(NS, "iri");
+    private final IRI iri = TestBase.iri(NS, "iri");
     private final List<OWLAnnotation> as =
-        Arrays.asList(df.getOWLAnnotation(ap, df.getOWLLiteral("test")));
+        Collections.singletonList(df.getOWLAnnotation(ap, df.getOWLLiteral("test")));
     private final OWLClass ce = df.getOWLClass(NS, "c");
     private final OWLNamedIndividual i = df.getOWLNamedIndividual(NS, "i");
     private final OWLNamedIndividual j = df.getOWLNamedIndividual(NS, "j");
@@ -86,12 +88,10 @@ public class Builder {
     private final List<OWLObjectProperty> ops = Arrays.asList(df.getOWLObjectProperty(iri), op);
     private final List<OWLClass> classes = Arrays.asList(df.getOWLClass(iri), ce);
     private final List<OWLNamedIndividual> inds = Arrays.asList(i, df.getOWLNamedIndividual(iri));
-    private final SWRLAtom v1 = df.getSWRLBuiltInAtom(df.getIRI(SWRL, "v1"),
-        Arrays.asList((SWRLDArgument) df.getSWRLVariable(SWRL, "var3"),
-            df.getSWRLVariable(SWRL, "var4")));
-    private final SWRLAtom v2 = df.getSWRLBuiltInAtom(df.getIRI(SWRL, "v2"),
-        Arrays.asList((SWRLDArgument) df.getSWRLVariable(SWRL, "var5"),
-            df.getSWRLVariable(SWRL, "var6")));
+    private final SWRLAtom v1 = df.getSWRLBuiltInAtom(TestBase.iri(SWRL, "v1"), Arrays.asList(
+        (SWRLDArgument) df.getSWRLVariable(SWRL, "var3"), df.getSWRLVariable(SWRL, "var4")));
+    private final SWRLAtom v2 = df.getSWRLBuiltInAtom(TestBase.iri(SWRL, "v2"), Arrays.asList(
+        (SWRLDArgument) df.getSWRLVariable(SWRL, "var5"), df.getSWRLVariable(SWRL, "var6")));
     private final List<SWRLAtom> body = Arrays.asList(v1);
     private final List<SWRLAtom> head = Arrays.asList(v2);
     private final SWRLDArgument var1 = df.getSWRLVariable(SWRL, "var1");
@@ -416,7 +416,7 @@ public class Builder {
 
     public OWLOntology onto() {
         try {
-            return m.createOntology(df.getIRI(NS, "test"));
+            return m.createOntology(TestBase.iri(NS, "test"));
         } catch (OWLOntologyCreationException e) {
             throw new RuntimeException(e);
         }

@@ -1,7 +1,7 @@
 /* This file is part of the OWL API.
  * The contents of this file are subject to the LGPL License, Version 3.0.
  * Copyright 2014, The University of Manchester
- * 
+ *
  * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
  * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
  * You should have received a copy of the GNU General Public License along with this program.  If not, see http://www.gnu.org/licenses/.
@@ -12,7 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.apitest.searcher;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.semanticweb.owlapi.OWLFunctionalSyntaxFactory.Boolean;
 import static org.semanticweb.owlapi.OWLFunctionalSyntaxFactory.Class;
 import static org.semanticweb.owlapi.OWLFunctionalSyntaxFactory.DataProperty;
@@ -27,8 +27,6 @@ import static org.semanticweb.owlapi.OWLFunctionalSyntaxFactory.ObjectPropertyRa
 import static org.semanticweb.owlapi.OWLFunctionalSyntaxFactory.SubClassOf;
 import static org.semanticweb.owlapi.OWLFunctionalSyntaxFactory.SubDataPropertyOf;
 import static org.semanticweb.owlapi.OWLFunctionalSyntaxFactory.SubObjectPropertyOf;
-import static org.semanticweb.owlapi.apitest.TestEntities.C;
-import static org.semanticweb.owlapi.apitest.TestEntities.D;
 import static org.semanticweb.owlapi.model.parameters.Imports.INCLUDED;
 import static org.semanticweb.owlapi.search.Searcher.domain;
 import static org.semanticweb.owlapi.search.Searcher.equivalent;
@@ -40,7 +38,7 @@ import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.contains;
 
 import java.util.Collection;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.semanticweb.owlapi.apitest.baseclasses.TestBase;
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.OWLAxiom;
@@ -53,12 +51,12 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.search.Filters;
 import org.semanticweb.owlapi.search.Searcher;
 
-public class SearcherTestCase extends TestBase {
+class SearcherTestCase extends TestBase {
 
     private static final String URN_TEST = "urn:test#";
 
     @Test
-    public void shouldSearch() {
+    void shouldSearch() {
         // given
         OWLOntology o = getOWLOntology();
         OWLAxiom ax = SubClassOf(C, D);
@@ -68,7 +66,7 @@ public class SearcherTestCase extends TestBase {
     }
 
     @Test
-    public void shouldSearchObjectProperties() {
+    void shouldSearchObjectProperties() {
         // given
         OWLOntology o = getOWLOntology();
         OWLObjectProperty c = ObjectProperty(IRI(URN_TEST, "c"));
@@ -103,7 +101,7 @@ public class SearcherTestCase extends TestBase {
     }
 
     @Test
-    public void shouldSearchDataProperties() {
+    void shouldSearchDataProperties() {
         // given
         OWLOntology o = getOWLOntology();
         OWLDataProperty c = DataProperty(IRI(URN_TEST, "c"));
@@ -114,10 +112,7 @@ public class SearcherTestCase extends TestBase {
         OWLAxiom ax2 = DataPropertyDomain(c, x);
         OWLAxiom ax3 = DataPropertyRange(c, Boolean());
         OWLAxiom ax4 = EquivalentDataProperties(c, e);
-        o.addAxiom(ax);
-        o.addAxiom(ax2);
-        o.addAxiom(ax3);
-        o.addAxiom(ax4);
+        o.addAxioms(ax, ax2, ax3, ax4);
         assertTrue(contains(o.axioms(AxiomType.SUB_DATA_PROPERTY), ax));
         assertTrue(contains(sub(o.axioms(Filters.subDataPropertyWithSuper, d, INCLUDED)), c));
         Collection<OWLAxiom> axioms =

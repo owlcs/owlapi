@@ -1,7 +1,7 @@
 /* This file is part of the OWL API.
  * The contents of this file are subject to the LGPL License, Version 3.0.
  * Copyright 2014, The University of Manchester
- * 
+ *
  * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
  * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
  * You should have received a copy of the GNU General Public License along with this program.  If not, see http://www.gnu.org/licenses/.
@@ -13,17 +13,16 @@
 package org.semanticweb.owlapi.tutorial.examples;
 
 import org.semanticweb.owlapi.apibinding.OWLManager;
-import org.semanticweb.owlapi.functional.renderer.FunctionalSyntaxStorerFactory;
+import org.semanticweb.owlapi.formats.FunctionalSyntaxDocumentFormat;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
-import org.semanticweb.owlapi.tutorialowled2011.OWLTutorialSyntaxOntologyFormat;
 
 /**
  * Simple Rendering Example. Reads an ontology and then renders it.
- * 
+ *
  * @author Sean Bechhofer, The University Of Manchester, Information Management Group
  * @since 2.0.0
  */
@@ -49,11 +48,9 @@ public class RenderingExample {
         System.out.println("Document IRI: " + inputDocumentIRI);
         System.out.println("Logical IRI : " + ontology.getOntologyID());
         System.out.println("Format      : " + ontology.getFormat());
-        /* Register the ontology storer with the manager */
-        manager.getOntologyStorers().add(new FunctionalSyntaxStorerFactory());
         /* Save using a different format */
         System.out.println("Storing     : " + outputDocumentIRI);
-        ontology.saveOntology(new OWLTutorialSyntaxOntologyFormat(), outputDocumentIRI);
+        ontology.saveOntology(new FunctionalSyntaxDocumentFormat(), outputDocumentIRI);
         /* Remove the ontology from the manager */
         manager.removeOntology(ontology);
         System.out.println("Done");

@@ -3,8 +3,8 @@ package org.semanticweb.owlapi.apitest.swrl;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.semanticweb.owlapi.OWLFunctionalSyntaxFactory.Class;
 import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asUnorderedSet;
 
@@ -13,8 +13,8 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.semanticweb.owlapi.apitest.TestFiles;
 import org.semanticweb.owlapi.apitest.baseclasses.TestBase;
 import org.semanticweb.owlapi.documents.StringDocumentTarget;
@@ -38,24 +38,23 @@ import org.semanticweb.owlapi.utilities.PrefixManagerImpl;
  * @author Matthew Horridge, Stanford University, Bio-Medical Informatics Research Group, Date:
  *         04/04/2014
  */
-public class SWRLAtomOrderingRoundTripTestCase extends TestBase {
+class SWRLAtomOrderingRoundTripTestCase extends TestBase {
 
-    private final Set<SWRLAtom> body = new LinkedHashSet<>();
-    private final Set<SWRLAtom> head = new LinkedHashSet<>();
-    private SWRLRule rule;
+    final Set<SWRLAtom> body = new LinkedHashSet<>();
+    final Set<SWRLAtom> head = new LinkedHashSet<>();
+    SWRLRule rule;
 
-    @Before
-    public void setUpPrefixes() {
+    @BeforeEach
+    void setUpPrefixes() {
         PrefixManager pm = new PrefixManagerImpl().withDefaultPrefix("http://stuff.com/A/");
         OWLClass clsA = Class("A", pm);
         OWLClass clsB = Class("B", pm);
         OWLClass clsC = Class("C", pm);
         OWLClass clsD = Class("D", pm);
         OWLClass clsE = Class("E", pm);
-        // XXX
         SWRLVariable varA = df.getSWRLVariable("http://other.com/A/", "VarA");
-        SWRLVariable varB = df.getSWRLVariable("http://other.com/A/", "VarA");
-        SWRLVariable varC = df.getSWRLVariable("http://other.com/A/", "VarA");
+        SWRLVariable varB = df.getSWRLVariable("http://other.com/A/", "VarB");
+        SWRLVariable varC = df.getSWRLVariable("http://other.com/A/", "VarC");
         SWRLClassAtom t = df.getSWRLClassAtom(clsC, varA);
         body.add(t);
         body.add(df.getSWRLClassAtom(clsB, varB));
@@ -67,16 +66,17 @@ public class SWRLAtomOrderingRoundTripTestCase extends TestBase {
     }
 
     @Test
-    public void individualsShouldNotGetSWRLVariableTypes() throws OWLOntologyStorageException {
+    void individualsShouldNotGetSWRLVariableTypes() {
         OWLOntology o = loadOntologyFromString(TestFiles.individualSWRLTest,
-            df.getIRI("urn:test#", "test"), new RDFXMLDocumentFormat());
+            iri("urn:test#", "test"), new RDFXMLDocumentFormat());
         String string = saveOntology(o).toString();
-        assertFalse(string, string
-            .contains("<rdf:type rdf:resource=\"http://www.w3.org/2003/11/swrl#Variable\"/>"));
+        assertFalse(
+            string.contains("<rdf:type rdf:resource=\"http://www.w3.org/2003/11/swrl#Variable\"/>"),
+            string);
     }
 
     @Test
-    public void shouldPreserveOrderingInRDFXMLRoundTrip() throws Exception {
+    void shouldPreserveOrderingInRDFXMLRoundTrip() throws Exception {
         roundTrip(new RDFXMLDocumentFormat());
     }
 
@@ -99,18 +99,17 @@ public class SWRLAtomOrderingRoundTripTestCase extends TestBase {
     }
 
     @Test
-    public void shouldPreserveOrderingInTurtleRoundTrip() throws OWLOntologyStorageException {
+    void shouldPreserveOrderingInTurtleRoundTrip() throws OWLOntologyStorageException {
         roundTrip(new TurtleDocumentFormat());
     }
 
     @Test
-    public void shouldPreserveOrderingInManchesterSyntaxRoundTrip()
-        throws OWLOntologyStorageException {
+    void shouldPreserveOrderingInManchesterSyntaxRoundTrip() throws OWLOntologyStorageException {
         roundTrip(new ManchesterSyntaxDocumentFormat());
     }
 
     @Test
-    public void shouldPreserveOrderingInOWLXMLRoundTrip() throws OWLOntologyStorageException {
+    void shouldPreserveOrderingInOWLXMLRoundTrip() throws OWLOntologyStorageException {
         roundTrip(new OWLXMLDocumentFormat());
     }
 }

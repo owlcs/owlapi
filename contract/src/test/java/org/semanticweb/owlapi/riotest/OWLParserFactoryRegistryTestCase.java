@@ -1,11 +1,11 @@
 package org.semanticweb.owlapi.riotest;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.HashSet;
 import java.util.Set;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxOWLParserFactory;
 import org.semanticweb.owlapi.io.OWLParserFactory;
@@ -31,10 +31,10 @@ import org.semanticweb.owlapi.utilities.PriorityCollection;
 /**
  * @author Peter Ansell p_ansell@yahoo.com
  */
-public class OWLParserFactoryRegistryTestCase {
+class OWLParserFactoryRegistryTestCase {
 
     @Test
-    public void setUp() {
+    void setUp() {
         // this test used to count the parsers. However, the extra parser in the
         // compatibility package will show up here in Eclipse tests, creating
         // confusion
@@ -66,7 +66,7 @@ public class OWLParserFactoryRegistryTestCase {
             found.add(p.getClass());
         }
         for (Class<? extends OWLParserFactory> p : factories) {
-            assertTrue("Expected among parsers: " + p.getSimpleName(), found.contains(p));
+            assertTrue(found.contains(p), "Expected among parsers: " + p.getSimpleName());
         }
     }
 }

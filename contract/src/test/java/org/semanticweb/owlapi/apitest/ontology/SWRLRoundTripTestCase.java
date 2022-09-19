@@ -1,7 +1,7 @@
 /* This file is part of the OWL API.
  * The contents of this file are subject to the LGPL License, Version 3.0.
  * Copyright 2014, The University of Manchester
- * 
+ *
  * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
  * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
  * You should have received a copy of the GNU General Public License along with this program.  If not, see http://www.gnu.org/licenses/.
@@ -12,17 +12,15 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.apitest.ontology;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-import static org.semanticweb.owlapi.apitest.TestEntities.A;
-import static org.semanticweb.owlapi.apitest.TestEntities.DP;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.contains;
 
 import java.util.Set;
 import java.util.TreeSet;
 
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 import org.semanticweb.owlapi.apitest.TestFiles;
 import org.semanticweb.owlapi.apitest.baseclasses.TestBase;
 import org.semanticweb.owlapi.formats.FunctionalSyntaxDocumentFormat;
@@ -36,21 +34,21 @@ import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLDatatypeDefinitionAxiom;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 import org.semanticweb.owlapi.model.SWRLAtom;
 import org.semanticweb.owlapi.model.SWRLRule;
 import org.semanticweb.owlapi.model.SWRLVariable;
 import org.semanticweb.owlapi.vocab.XSDVocabulary;
 
-public class SWRLRoundTripTestCase extends TestBase {
+class SWRLRoundTripTestCase extends TestBase {
 
-    private static final Set<OWLAnnotation> LABEL_DATATYPE_DEFINITION = singleton(df.getRDFSLabel("datatype definition"));
-    public static final SWRLVariable vy = df.getSWRLVariable("urn:test" + "#", "Y");
-    public static final SWRLVariable vx = df.getSWRLVariable("urn:test" + "#", "X");
+    static final Set<OWLAnnotation> LABEL_DATATYPE_DEFINITION =
+        singleton(df.getRDFSLabel("datatype definition"));
+    static final SWRLVariable vy = df.getSWRLVariable("urn:test" + "#", "Y");
+    static final SWRLVariable vx = df.getSWRLVariable("urn:test" + "#", "X");
 
     @Test
-    public void shouldDoCompleteRoundtrip() throws Exception {
+    void shouldDoCompleteRoundtrip() {
         OWLOntology ontology = getOWLOntology();
         Set<SWRLAtom> body = new TreeSet<>();
         body.add(df.getSWRLDataPropertyAtom(DP, vx, vy));
@@ -65,7 +63,7 @@ public class SWRLRoundTripTestCase extends TestBase {
     }
 
     @Test
-    public void shouldDoCompleteRoundtripManchesterOWLSyntax() throws Exception {
+    void shouldDoCompleteRoundtripManchesterOWLSyntax() {
         OWLOntology ontology = getOWLOntology();
         Set<SWRLAtom> body = new TreeSet<>();
         body.add(df.getSWRLDataPropertyAtom(DP, vx, vy));
@@ -80,7 +78,7 @@ public class SWRLRoundTripTestCase extends TestBase {
     }
 
     @Test
-    public void shouldDoCompleteRoundtripWithAnnotationsOWLXML() throws Exception {
+    void shouldDoCompleteRoundtripWithAnnotationsOWLXML() {
         OWLOntology ontology = prepareOntology();
         OWLXMLDocumentFormat f = new OWLXMLDocumentFormat();
         OWLOntology ontology2 = loadOntologyFromString(saveOntology(ontology, f), f);
@@ -94,7 +92,7 @@ public class SWRLRoundTripTestCase extends TestBase {
     }
 
     @Test
-    public void shouldDoCompleteRoundtripWithAnnotationsTurtle() throws Exception {
+    void shouldDoCompleteRoundtripWithAnnotationsTurtle() {
         OWLOntology ontology = prepareOntology();
         OWLDocumentFormat f = new TurtleDocumentFormat();
         OWLOntology ontology2 = equalRoundtrip(ontology, f);
@@ -102,7 +100,7 @@ public class SWRLRoundTripTestCase extends TestBase {
     }
 
     @Test
-    public void shouldDoCompleteRoundtripWithAnnotationsFunctional() throws Exception {
+    void shouldDoCompleteRoundtripWithAnnotationsFunctional() {
         OWLOntology ontology = prepareOntology();
         OWLDocumentFormat f = new FunctionalSyntaxDocumentFormat();
         OWLOntology ontology2 = equalRoundtrip(ontology, f);
@@ -110,7 +108,7 @@ public class SWRLRoundTripTestCase extends TestBase {
     }
 
     @Test
-    public void shouldDoCompleteRoundtripWithAnnotationsRDFXML() throws Exception {
+    void shouldDoCompleteRoundtripWithAnnotationsRDFXML() {
         OWLOntology ontology = prepareOntology();
         OWLDocumentFormat f = new RDFXMLDocumentFormat();
         OWLOntology ontology2 = equalRoundtrip(ontology, f);
@@ -118,7 +116,7 @@ public class SWRLRoundTripTestCase extends TestBase {
     }
 
     @Test
-    public void shouldDoCompleteRoundtripWithAnnotationsDatatypeRDFXML() throws Exception {
+    void shouldDoCompleteRoundtripWithAnnotationsDatatypeRDFXML() {
         OWLOntology ontology = prepareOntology1();
         OWLDocumentFormat f = new RDFXMLDocumentFormat();
         OWLOntology ontology2 = equalRoundtrip(ontology, f);
@@ -129,17 +127,16 @@ public class SWRLRoundTripTestCase extends TestBase {
         return r.annotations(df.getRDFSLabel()).count() == 0;
     }
 
-    @Ignore("man syntax does not like annotations")
+    @Disabled("man syntax does not like annotations")
     @Test
-    public void shouldDoCompleteRoundtripWithAnnotationsMan() throws Exception {
+    void shouldDoCompleteRoundtripWithAnnotationsMan() {
         OWLOntology ontology = prepareOntology();
         OWLDocumentFormat f = new ManchesterSyntaxDocumentFormat();
         OWLOntology ontology2 = equalRoundtrip(ontology, f);
         assertions(ontology2);
     }
 
-    protected OWLOntology equalRoundtrip(OWLOntology ontology, OWLDocumentFormat f)
-        throws OWLOntologyStorageException {
+    protected OWLOntology equalRoundtrip(OWLOntology ontology, OWLDocumentFormat f) {
         OWLOntology ontology2 = loadOntologyFromString(saveOntology(ontology, f), f);
         equal(ontology, ontology2);
         return ontology2;
@@ -160,8 +157,7 @@ public class SWRLRoundTripTestCase extends TestBase {
         ontology.addAxiom(rule);
         OWLDatatypeDefinitionAxiom def =
             df.getOWLDatatypeDefinitionAxiom(df.getOWLDatatype("urn:my#", "datatype"),
-                df.getOWLDatatypeMaxExclusiveRestriction(200D),
-                LABEL_DATATYPE_DEFINITION);
+                df.getOWLDatatypeMaxExclusiveRestriction(200D), LABEL_DATATYPE_DEFINITION);
         ontology.addAxiom(def);
         return ontology;
     }
@@ -170,14 +166,13 @@ public class SWRLRoundTripTestCase extends TestBase {
         OWLOntology ontology = getOWLOntology();
         OWLDatatypeDefinitionAxiom def =
             df.getOWLDatatypeDefinitionAxiom(df.getOWLDatatype("urn:my#", "datatype"),
-                df.getOWLDatatypeMaxExclusiveRestriction(200D),
-                LABEL_DATATYPE_DEFINITION);
+                df.getOWLDatatypeMaxExclusiveRestriction(200D), LABEL_DATATYPE_DEFINITION);
         ontology.addAxiom(def);
         return ontology;
     }
 
     @Test
-    public void shouldParse() {
+    void shouldParse() {
         OWLOntology o = loadOntologyFromString(TestFiles.parseSWRL, new RDFXMLDocumentFormat());
         OWLDatatypeDefinitionAxiom def =
             df.getOWLDatatypeDefinitionAxiom(df.getOWLDatatype("urn:my#", "datatype"),
@@ -186,7 +181,7 @@ public class SWRLRoundTripTestCase extends TestBase {
     }
 
     @Test
-    public void shouldParse2() {
+    void shouldParse2() {
         OWLOntology o = loadOntologyFromString(TestFiles.parseSWRL2, new RDFXMLDocumentFormat());
         OWLSubClassOfAxiom def = df.getOWLSubClassOfAxiom(df.getOWLClass("urn:test#", "myClass"),
             df.getOWLClass("urn:test#", "test"), LABEL_DATATYPE_DEFINITION);

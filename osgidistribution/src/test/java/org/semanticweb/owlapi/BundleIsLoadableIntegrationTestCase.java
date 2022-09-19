@@ -4,9 +4,9 @@ package org.semanticweb.owlapi;
  * Created by ses on 3/5/15.
  */
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.io.File;
 import java.net.URI;
@@ -19,7 +19,7 @@ import java.util.Map;
 
 import org.apache.felix.framework.FrameworkFactory;
 import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.junit.experimental.categories.Category;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;

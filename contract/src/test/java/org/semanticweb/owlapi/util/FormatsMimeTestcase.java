@@ -1,7 +1,7 @@
 /* This file is part of the OWL API.
  * The contents of this file are subject to the LGPL License, Version 3.0.
  * Copyright 2014, The University of Manchester
- * 
+ *
  * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
  * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
  * You should have received a copy of the GNU General Public License along with this program.  If not, see http://www.gnu.org/licenses/.
@@ -12,17 +12,16 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.util;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Stream;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
-import org.junit.runners.Parameterized.Parameter;
-import org.junit.runners.Parameterized.Parameters;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.semanticweb.owlapi.io.OWLParserFactory;
 
 /**
@@ -30,8 +29,7 @@ import org.semanticweb.owlapi.io.OWLParserFactory;
  *
  * @author ignazio
  */
-@RunWith(Parameterized.class)
-public class FormatsMimeTestcase {
+class FormatsMimeTestcase {
 
     private static final String X_TRIG = "application/x-trig";
     private static final String HTML = "text/html";
@@ -58,69 +56,38 @@ public class FormatsMimeTestcase {
     private static final String APP_N_QUADS = "application/n-quads";
     private static final String APP_RDF_XML = "application/rdf+xml";
 
-    @Parameters(name = "{1}")
-    public static List<Object[]> params() {
-        return Arrays.asList(
-        //@formatter:off
-            new Object[] { new org.semanticweb.owlapi.oboformat.OBOFormatOWLAPIParserFactory(),                           "OBO Format",            null,             Collections.emptyList()},
-            new Object[] { new org.semanticweb.owlapi.krss2.parser.KRSS2OWLParserFactory(),                               "KRSS2 Syntax",          null,             Collections.emptyList()},
-            new Object[] { new org.semanticweb.owlapi.dlsyntax.parser.DLSyntaxOWLParserFactory(),                         "DL Syntax Format",      null,             Collections.emptyList()},
-            new Object[] { new org.semanticweb.owlapi.rdf.rdfxml.parser.RDFXMLParserFactory(),                            "RDF/XML Syntax",        APP_RDF_XML,      Arrays.asList(APP_RDF_XML, APP_XML,  XML)},
-            new Object[] { new org.semanticweb.owlapi.rio.RioRDFXMLParserFactory(),                                       "RDF/XML",               APP_RDF_XML,      Arrays.asList(APP_RDF_XML, APP_XML,  XML)},
-            new Object[] { new org.semanticweb.owlapi.rio.RioNQuadsParserFactory(),                                       "N-Quads",               APP_N_QUADS,      Arrays.asList(APP_N_QUADS, X_NQUADS, NQUADS)},
-            new Object[] { new org.semanticweb.owlapi.rio.RioRDFaParserFactory(),                                         "RDFa",                  APP_XHTML,        Arrays.asList(APP_XHTML,   APP_HTML, HTML)},
-            new Object[] { new org.semanticweb.owlapi.rdf.turtle.parser.TurtleOntologyParserFactory(),                    "Turtle Syntax",         TURTLE,           Arrays.asList(TURTLE,      APP_X_TURTLE)},
-            new Object[] { new org.semanticweb.owlapi.rio.RioTurtleParserFactory(),                                       "Turtle",                TURTLE,           Arrays.asList(TURTLE,      APP_X_TURTLE)},
-            new Object[] { new org.semanticweb.owlapi.rio.RioN3ParserFactory(),                                           "N3",                    N3,               Arrays.asList(N3,          RDF_N3)},
-            new Object[] { new org.semanticweb.owlapi.owlxml.parser.OWLXMLParserFactory(),                                "OWL/XML Syntax",        APP_OWL_XML,      Arrays.asList(APP_OWL_XML, XML)},
-            new Object[] { new org.semanticweb.owlapi.rio.RioNTriplesParserFactory(),                                     "N-Triples",             APP_NT,           Arrays.asList(APP_NT,      PLAIN)},
-            new Object[] { new org.semanticweb.owlapi.rio.RioTrigParserFactory(),                                         "TriG",                  APP_TRIG,         Arrays.asList(APP_TRIG,    X_TRIG)},
-            new Object[] { new org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntaxOntologyParserFactory(), "Manchester OWL Syntax", MANCH,            Arrays.asList(MANCH)},
-            new Object[] { new org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxOWLParserFactory(),            "OWL Functional Syntax", FS,               Arrays.asList(FS)},
-            new Object[] { new org.semanticweb.owlapi.rio.RioBinaryRdfParserFactory(),                                    "BinaryRDF",             APP_X_BINARY_RDF, Arrays.asList(APP_X_BINARY_RDF)},
-            new Object[] { new org.semanticweb.owlapi.rio.RioJsonLDParserFactory(),                                       "JSON-LD",               APP_JSON,         Arrays.asList(APP_JSON)},
-            new Object[] { new org.semanticweb.owlapi.rio.RioJsonParserFactory(),                                         "RDF/JSON",              APP_RDF_JSON,     Arrays.asList(APP_RDF_JSON)},
-            new Object[] { new org.semanticweb.owlapi.rio.RioTrixParserFactory(),                                         "TriX",                  APP_TRIX,         Arrays.asList(APP_TRIX)}
+    public static Stream<Arguments> params() {
+        return Stream.of(
+            //@formatter:off
+            Arguments.of(new org.semanticweb.owlapi.oboformat.OBOFormatOWLAPIParserFactory(),                           "OBO Format",            null,             Collections.emptyList()),
+            Arguments.of(new org.semanticweb.owlapi.krss2.parser.KRSS2OWLParserFactory(),                               "KRSS2 Syntax",          null,             Collections.emptyList()),
+            Arguments.of(new org.semanticweb.owlapi.dlsyntax.parser.DLSyntaxOWLParserFactory(),                         "DL Syntax Format",      null,             Collections.emptyList()),
+            Arguments.of(new org.semanticweb.owlapi.rdf.rdfxml.parser.RDFXMLParserFactory(),                            "RDF/XML Syntax",        APP_RDF_XML,      Arrays.asList(APP_RDF_XML, APP_XML,  XML)),
+            Arguments.of(new org.semanticweb.owlapi.rio.RioRDFXMLParserFactory(),                                       "RDF/XML",               APP_RDF_XML,      Arrays.asList(APP_RDF_XML, APP_XML,  XML)),
+            Arguments.of(new org.semanticweb.owlapi.rio.RioNQuadsParserFactory(),                                       "N-Quads",               APP_N_QUADS,      Arrays.asList(APP_N_QUADS, X_NQUADS, NQUADS)),
+            Arguments.of(new org.semanticweb.owlapi.rio.RioRDFaParserFactory(),                                         "RDFa",                  APP_XHTML,        Arrays.asList(APP_XHTML,   APP_HTML, HTML)),
+            Arguments.of(new org.semanticweb.owlapi.rdf.turtle.parser.TurtleOntologyParserFactory(),                    "Turtle Syntax",         TURTLE,           Arrays.asList(TURTLE,      APP_X_TURTLE)),
+            Arguments.of(new org.semanticweb.owlapi.rio.RioTurtleParserFactory(),                                       "Turtle",                TURTLE,           Arrays.asList(TURTLE,      APP_X_TURTLE)),
+            Arguments.of(new org.semanticweb.owlapi.rio.RioN3ParserFactory(),                                           "N3",                    N3,               Arrays.asList(N3,          RDF_N3)),
+            Arguments.of(new org.semanticweb.owlapi.owlxml.parser.OWLXMLParserFactory(),                                "OWL/XML Syntax",        APP_OWL_XML,      Arrays.asList(APP_OWL_XML, XML)),
+            Arguments.of(new org.semanticweb.owlapi.rio.RioNTriplesParserFactory(),                                     "N-Triples",             APP_NT,           Arrays.asList(APP_NT,      PLAIN)),
+            Arguments.of(new org.semanticweb.owlapi.rio.RioTrigParserFactory(),                                         "TriG",                  APP_TRIG,         Arrays.asList(APP_TRIG,    X_TRIG)),
+            Arguments.of(new org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntaxOntologyParserFactory(), "Manchester OWL Syntax", MANCH,            Arrays.asList(MANCH)),
+            Arguments.of(new org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxOWLParserFactory(),            "OWL Functional Syntax", FS,               Arrays.asList(FS)),
+            Arguments.of(new org.semanticweb.owlapi.rio.RioBinaryRdfParserFactory(),                                    "BinaryRDF",             APP_X_BINARY_RDF, Arrays.asList(APP_X_BINARY_RDF)),
+            Arguments.of(new org.semanticweb.owlapi.rio.RioJsonLDParserFactory(),                                       "JSON-LD",               APP_JSON,         Arrays.asList(APP_JSON)),
+            Arguments.of(new org.semanticweb.owlapi.rio.RioJsonParserFactory(),                                         "RDF/JSON",              APP_RDF_JSON,     Arrays.asList(APP_RDF_JSON)),
+            Arguments.of(new org.semanticweb.owlapi.rio.RioTrixParserFactory(),                                         "TriX",                  APP_TRIX,         Arrays.asList(APP_TRIX))
             //@formatter:on
-        );
+            );
     }
 
-    @Parameter(0) public OWLParserFactory f;
-    @Parameter(1) public String key;
-    @Parameter(2) public String defaultmime;
-    @Parameter(3) public List<String> mimes;
-
-    @Test
-    public void shouldMatchExpectedValues() {
+    @ParameterizedTest
+    @MethodSource("params")
+    public void shouldMatchExpectedValues(OWLParserFactory f, String key, String defaultmime,
+        List<String> mimes) {
         assertEquals(key, f.getSupportedFormat().getKey());
         assertEquals(mimes, f.getMIMETypes());
         assertEquals(defaultmime, f.getDefaultMIMEType());
     }
-    // OWLDocumentFormatFactory f = new KRSS2DocumentFormatFactory(); //
-    // assertEquals("KRSS2
-    // Syntax", f.getKey());
-    // OWLDocumentFormatFactory f = new KRSSDocumentFormatFactory(); //
-    // assertEquals("KRSS Syntax",
-    // f.getKey());
-    // OWLDocumentFormatFactory f = new LabelFunctionalDocumentFormatFactory();
-    // //
-    // assertEquals("Label functional Syntax", f.getKey());
-    // OWLDocumentFormatFactory f = new LatexAxiomsListDocumentFormatFactory();
-    // //
-    // assertEquals("Latex Axiom List", f.getKey());
-    // OWLDocumentFormatFactory f = new LatexDocumentFormatFactory(); //
-    // assertEquals("LaTeX
-    // Syntax", f.getKey());
-    // OWLDocumentFormatFactory f = new FunctionalSyntaxDocumentFormatFactory();
-    // //
-    // assertEquals("OWL Functional Syntax", f.getKey());
-    // OWLDocumentFormatFactory f = new OWLXMLDocumentFormatFactory(); //
-    // assertEquals("OWL/XML
-    // Syntax", f.getKey());
-    // OWLDocumentFormatFactory f = new RDFXMLDocumentFormatFactory(); //
-    // assertEquals("RDF/XML
-    // Syntax", f.getKey());
-    // OWLDocumentFormatFactory f = new TurtleDocumentFormatFactory(); //
-    // assertEquals("Turtle
-    // Syntax", f.getKey());
 }

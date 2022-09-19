@@ -1,7 +1,7 @@
 /* This file is part of the OWL API.
  * The contents of this file are subject to the LGPL License, Version 3.0.
  * Copyright 2014, The University of Manchester
- * 
+ *
  * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
  * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
  * You should have received a copy of the GNU General Public License along with this program.  If not, see http://www.gnu.org/licenses/.
@@ -12,9 +12,9 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.apitest.literals;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.semanticweb.owlapi.OWLFunctionalSyntaxFactory.AnnotationAssertion;
 import static org.semanticweb.owlapi.OWLFunctionalSyntaxFactory.IRI;
 import static org.semanticweb.owlapi.OWLFunctionalSyntaxFactory.Literal;
@@ -22,7 +22,7 @@ import static org.semanticweb.owlapi.OWLFunctionalSyntaxFactory.RDFSComment;
 
 import java.io.ByteArrayOutputStream;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.semanticweb.owlapi.apitest.TestFiles;
 import org.semanticweb.owlapi.apitest.baseclasses.TestBase;
 import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
@@ -36,13 +36,13 @@ import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
-public class TestPlainLiteralTestCase extends TestBase {
+class TestPlainLiteralTestCase extends TestBase {
 
-    private static final String URN_TEST = "urn:test#";
-    private static final String TEST = "test";
+    static final String URN_TEST = "urn:test#";
+    static final String TEST = "test";
 
     @Test
-    public void testPlainLiteral() {
+    void testPlainLiteral() {
         IRI iri = IRI("http://www.w3.org/1999/02/22-rdf-syntax-ns#", "PlainLiteral");
         assertTrue(iri.isPlainLiteral());
         assertNotNull(df.getRDFPlainLiteral());
@@ -50,7 +50,7 @@ public class TestPlainLiteralTestCase extends TestBase {
     }
 
     @Test
-    public void shouldParsePlainLiteral() {
+    void shouldParsePlainLiteral() {
         OWLOntology o =
             loadOntologyFromString(TestFiles.parsePlainLiteral, new RDFXMLDocumentFormat());
         IRI i = IRI(URN_TEST, "ind");
@@ -59,14 +59,14 @@ public class TestPlainLiteralTestCase extends TestBase {
     }
 
     @Test
-    public void testPlainLiteralFromEvren() {
+    void testPlainLiteralFromEvren() {
         OWLDatatype node = df.getRDFPlainLiteral();
         assertTrue(node.isBuiltIn());
         assertNotNull(node.getBuiltInDatatype());
     }
 
     @Test
-    public void testPlainLiteralSerialization() throws Exception {
+    void testPlainLiteralSerialization() throws Exception {
         OWLOntology o = getOWLOntology();
         OWLDataProperty p = df.getOWLDataProperty(URN_TEST, "p");
         OWLIndividual i = df.getOWLNamedIndividual(URN_TEST, "ind");
@@ -76,12 +76,12 @@ public class TestPlainLiteralTestCase extends TestBase {
         o.saveOntology(out);
         String expectedStart = "<test:p";
         String expectedEnd = ">test</test:p>";
-        assertTrue(out.toString(), out.toString().contains(expectedStart));
-        assertTrue(out.toString(), out.toString().contains(expectedEnd));
+        assertTrue(out.toString().contains(expectedStart), out.toString());
+        assertTrue(out.toString().contains(expectedEnd), out.toString());
     }
 
     @Test
-    public void testPlainLiteralSerializationComments() throws Exception {
+    void testPlainLiteralSerializationComments() throws Exception {
         OWLOntology o = getOWLOntology();
         OWLIndividual i = df.getOWLNamedIndividual(URN_TEST, "ind");
         OWLLiteral l = df.getOWLLiteral(TEST, OWL2Datatype.RDF_PLAIN_LITERAL);
@@ -91,12 +91,12 @@ public class TestPlainLiteralTestCase extends TestBase {
         o.saveOntology(out);
         String expectedStart = "<rdfs:comment";
         String expectedEnd = ">test</rdfs:comment>";
-        assertTrue(out.toString(), out.toString().contains(expectedStart));
-        assertTrue(out.toString(), out.toString().contains(expectedEnd));
+        assertTrue(out.toString().contains(expectedStart), out.toString());
+        assertTrue(out.toString().contains(expectedEnd), out.toString());
     }
 
     @Test
-    public void testPlainLiteralSerializationComments2() throws Exception {
+    void testPlainLiteralSerializationComments2() throws Exception {
         OWLOntology o = getOWLOntology();
         OWLLiteral l = df.getOWLLiteral(TEST, OWL2Datatype.RDF_PLAIN_LITERAL);
         OWLAnnotation a = df.getRDFSComment(l);
@@ -105,7 +105,7 @@ public class TestPlainLiteralTestCase extends TestBase {
         o.saveOntology(out);
         String expectedStart = "<rdfs:comment";
         String expectedEnd = ">test</rdfs:comment>";
-        assertTrue(out.toString(), out.toString().contains(expectedStart));
-        assertTrue(out.toString(), out.toString().contains(expectedEnd));
+        assertTrue(out.toString().contains(expectedStart), out.toString());
+        assertTrue(out.toString().contains(expectedEnd), out.toString());
     }
 }

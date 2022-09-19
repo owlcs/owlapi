@@ -1,26 +1,20 @@
 package org.semanticweb.owlapi.functional.parser;
 
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.fail;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.Reader;
 import java.io.StringReader;
 
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-@SuppressWarnings("javadoc")
-public class CustomTokenizerTest {
+class CustomTokenizerTest {
 
     static final Logger logger = LoggerFactory.getLogger(CustomTokenizer.class);
 
     @Test
-    public void testParseStringLiteral() {
+    void testParseStringLiteral() {
         validateTokenizationOfString("\"hello world\"", false);
         validateTokenizationOfString("\"hello \\\" world \"", false);
         validateTokenizationOfString("\"hello \\\\ world\"", false);
@@ -28,30 +22,16 @@ public class CustomTokenizerTest {
     }
 
     @Test
-    public void testParseFullURI() {
+    void testParseFullURI() {
         // Good
         validateTokenizationOfString("<http://www.unc.edu/onto#foo>", false);
         // Bad
         validateTokenizationOfString("<http://www.unc.edu/onto#foo", true);
     }
 
-    @Ignore
-    @Test
-    public void testTokenizeGeneOntology() throws Exception {
-        String fileName = "/Users/ses/ontologies/GO/go.ofn";
-        try (Reader in = new BufferedReader(new FileReader(fileName))) {
-            validateTokenization(in, false);
-        }
-    }
-
     private static void validateTokenizationOfString(String text, boolean errorExpected) {
-        try (StringReader reader1 = new StringReader(text); StringReader reader2 = new StringReader(text);) {
-            validateTokenization(reader1, errorExpected);
-        }
-    }
-
-    void validateTokenizationOfResource(String resourceName, boolean errorExpected) throws IOException {
-        try (Reader reader1 = new InputStreamReader(getClass().getResourceAsStream(resourceName))) {
+        try (StringReader reader1 = new StringReader(text);
+            StringReader reader2 = new StringReader(text);) {
             validateTokenization(reader1, errorExpected);
         }
     }
@@ -77,14 +57,10 @@ public class CustomTokenizerTest {
                 if (eof && !errorExpected || errorExpected && error) {
                     return;
                 }
-                fail("Error expected: " + errorExpected + " but " + (eof ? "end of input" : "error") + " found");
+                fail("Error expected: " + errorExpected + " but " + (eof ? "end of input" : "error")
+                    + " found");
             }
         }
-    }
-
-    static CustomTokenizer createCustomTokenizer(String s) {
-        StringReader reader = new StringReader(s);
-        return createCustomTokenizer(reader);
     }
 
     private static CustomTokenizer createCustomTokenizer(Reader reader) {

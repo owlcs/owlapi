@@ -1,7 +1,7 @@
 /* This file is part of the OWL API.
  * The contents of this file are subject to the LGPL License, Version 3.0.
  * Copyright 2014, The University of Manchester
- * 
+ *
  * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
  * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
  * You should have received a copy of the GNU General Public License along with this program.  If not, see http://www.gnu.org/licenses/.
@@ -12,6 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.apitest.syntax;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.semanticweb.owlapi.OWLFunctionalSyntaxFactory.AnnotationAssertion;
 import static org.semanticweb.owlapi.OWLFunctionalSyntaxFactory.Class;
 import static org.semanticweb.owlapi.OWLFunctionalSyntaxFactory.IRI;
@@ -22,7 +23,7 @@ import static org.semanticweb.owlapi.search.Searcher.getAnnotationObjects;
 import java.io.ByteArrayInputStream;
 import java.nio.charset.StandardCharsets;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.semanticweb.owlapi.apitest.TestFiles;
 import org.semanticweb.owlapi.apitest.baseclasses.TestBase;
 import org.semanticweb.owlapi.documents.StreamDocumentSource;
@@ -36,16 +37,16 @@ import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.owlxml.parser.OWLXMLParser;
 
-public class Utf8TestCase extends TestBase {
+class Utf8TestCase extends TestBase {
 
     @Test
-    public void testUTF8roundTrip() throws Exception {
+    void testUTF8roundTrip() {
         saveOntology(loadOntologyFromString(TestFiles.roundtripUTF8String,
             new FunctionalSyntaxDocumentFormat()));
     }
 
-    @Test(expected = Exception.class)
-    public void testInvalidUTF8roundTripOWLXML() throws Exception {
+    @Test
+    void testInvalidUTF8roundTripOWLXML() {
         // this test checks for the condition described in issue #47
         // Input with character = 0240 (octal) should fail parsing but is read
         // in as an owl/xml file
@@ -53,12 +54,14 @@ public class Utf8TestCase extends TestBase {
             new ByteArrayInputStream(TestFiles.INVALID_UTF8.getBytes(StandardCharsets.ISO_8859_1));
         OWLXMLParser parser = new OWLXMLParser();
         try (StreamDocumentSource n = new StreamDocumentSource(in)) {
-            n.acceptParser(parser, getOWLOntology(), config);
+            assertThrows(Exception.class, () -> n.acceptParser(parser, getOWLOntology(), config));
+        } catch (Exception e) {
+            throw new OWLRuntimeException(e);
         }
     }
 
     @Test
-    public void testInvalidUTF8roundTripWithInputStream() throws OWLOntologyCreationException {
+    void testInvalidUTF8roundTripWithInputStream() throws OWLOntologyCreationException {
         // this test checks for the condition described in issue #47
         // Input with character = 0240 (octal) should work with an input stream,
         // not with a reader
@@ -67,16 +70,17 @@ public class Utf8TestCase extends TestBase {
         m.loadOntologyFromOntologyDocument(in);
     }
 
-    @Test(expected = OWLRuntimeException.class)
-    public void testInvalidUTF8roundTripFromReader() {
+    @Test
+    void testInvalidUTF8roundTripFromReader() {
         // this test checks for the condition described in issue #47
         // Input with character = 0240 (octal) should work with an input stream,
         // not with a reader
-        loadOntologyFromString(TestFiles.INVALID_UTF8, new RDFXMLDocumentFormat());
+        assertThrows(OWLRuntimeException.class,
+            () -> loadOntologyFromString(TestFiles.INVALID_UTF8, new RDFXMLDocumentFormat()));
     }
 
     @Test
-    public void testPositiveUTF8roundTrip() throws Exception {
+    void testPositiveUTF8roundTrip() {
         String ns = "http://protege.org/UTF8.owl";
         OWLOntology ontology = getOWLOntology();
         OWLClass a = Class(IRI(ns + "#", "A"));
@@ -88,7 +92,7 @@ public class Utf8TestCase extends TestBase {
     }
 
     @Test
-    public void testRoundTrip() throws Exception {
+    void testRoundTrip() {
         String ns = "http://protege.org/ontologies/UTF8RoundTrip.owl";
         OWLClass c = Class(IRI(ns + "#", "C"));
         /*

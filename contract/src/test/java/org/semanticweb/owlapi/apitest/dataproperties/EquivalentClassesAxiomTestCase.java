@@ -1,7 +1,7 @@
 /* This file is part of the OWL API.
  * The contents of this file are subject to the LGPL License, Version 3.0.
  * Copyright 2014, The University of Manchester
- * 
+ *
  * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
  * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
  * You should have received a copy of the GNU General Public License along with this program.  If not, see http://www.gnu.org/licenses/.
@@ -12,24 +12,20 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.apitest.dataproperties;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.semanticweb.owlapi.OWLFunctionalSyntaxFactory.EquivalentClasses;
 import static org.semanticweb.owlapi.OWLFunctionalSyntaxFactory.OWLNothing;
 import static org.semanticweb.owlapi.OWLFunctionalSyntaxFactory.OWLThing;
 import static org.semanticweb.owlapi.OWLFunctionalSyntaxFactory.ObjectSomeValuesFrom;
 import static org.semanticweb.owlapi.OWLFunctionalSyntaxFactory.SubClassOf;
-import static org.semanticweb.owlapi.apitest.TestEntities.A;
-import static org.semanticweb.owlapi.apitest.TestEntities.B;
-import static org.semanticweb.owlapi.apitest.TestEntities.C;
-import static org.semanticweb.owlapi.apitest.TestEntities.P;
 import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asUnorderedSet;
 
 import java.util.Collection;
 import java.util.Set;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.semanticweb.owlapi.apitest.baseclasses.TestBase;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassExpression;
@@ -37,14 +33,13 @@ import org.semanticweb.owlapi.model.OWLEquivalentClassesAxiom;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Information
- *         Management Group
+ * @author Matthew Horridge, The University Of Manchester, Information Management Group
  * @since 2.2.0
  */
-public class EquivalentClassesAxiomTestCase extends TestBase {
+class EquivalentClassesAxiomTestCase extends TestBase {
 
     @Test
-    public void testContainsNamedClass() {
+    void testContainsNamedClass() {
         OWLClassExpression desc = ObjectSomeValuesFrom(P, B);
         OWLClassExpression desc2 = ObjectSomeValuesFrom(P, A);
         OWLEquivalentClassesAxiom ax = EquivalentClasses(A, desc);
@@ -54,7 +49,7 @@ public class EquivalentClassesAxiomTestCase extends TestBase {
     }
 
     @Test
-    public void testGetNamedClasses() {
+    void testGetNamedClasses() {
         OWLClassExpression desc = ObjectSomeValuesFrom(P, B);
         OWLEquivalentClassesAxiom ax = EquivalentClasses(A, desc);
         Set<OWLClass> clses = asUnorderedSet(ax.namedClasses());
@@ -63,7 +58,7 @@ public class EquivalentClassesAxiomTestCase extends TestBase {
     }
 
     @Test
-    public void testGetNamedClassesWithNothing() {
+    void testGetNamedClassesWithNothing() {
         OWLClassExpression desc = ObjectSomeValuesFrom(P, B);
         OWLEquivalentClassesAxiom ax = EquivalentClasses(OWLNothing(), desc);
         Set<OWLClass> clses = asUnorderedSet(ax.namedClasses());
@@ -73,7 +68,7 @@ public class EquivalentClassesAxiomTestCase extends TestBase {
     }
 
     @Test
-    public void testGetNamedClassesWithThing() {
+    void testGetNamedClassesWithThing() {
         OWLClassExpression desc = ObjectSomeValuesFrom(P, B);
         OWLEquivalentClassesAxiom ax = EquivalentClasses(OWLThing(), desc);
         Set<OWLClass> clses = asUnorderedSet(ax.namedClasses());
@@ -83,7 +78,7 @@ public class EquivalentClassesAxiomTestCase extends TestBase {
     }
 
     @Test
-    public void testSplit() {
+    void testSplit() {
         OWLEquivalentClassesAxiom ax = EquivalentClasses(A, B, C);
         Collection<OWLSubClassOfAxiom> scas = ax.asOWLSubClassOfAxioms();
         assertEquals(6, scas.size());

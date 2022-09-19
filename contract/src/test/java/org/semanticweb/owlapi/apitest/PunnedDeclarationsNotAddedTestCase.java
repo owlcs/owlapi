@@ -1,15 +1,13 @@
 package org.semanticweb.owlapi.apitest;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Arrays;
 import java.util.Collection;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
-import org.junit.runners.Parameterized.Parameters;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.semanticweb.owlapi.apitest.baseclasses.TestBase;
 import org.semanticweb.owlapi.formats.FunctionalSyntaxDocumentFormat;
 import org.semanticweb.owlapi.formats.OWLXMLDocumentFormat;
@@ -21,21 +19,12 @@ import org.semanticweb.owlapi.model.OWLDeclarationAxiom;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 
-@RunWith(Parameterized.class)
-public class PunnedDeclarationsNotAddedTestCase extends TestBase {
+class PunnedDeclarationsNotAddedTestCase extends TestBase {
 
-    @Parameters(name = "{0}")
-    public static Collection<OWLDocumentFormat> data() {
+    static Collection<OWLDocumentFormat> data() {
         return Arrays.asList(new FunctionalSyntaxDocumentFormat(), new OWLXMLDocumentFormat(),
             new RDFXMLDocumentFormat(), new TurtleDocumentFormat());
-    }
-
-    private final OWLDocumentFormat format;
-
-    public PunnedDeclarationsNotAddedTestCase(OWLDocumentFormat format) {
-        this.format = format;
     }
 
     protected OWLOntology getOntologyWithPunnedInvalidDeclarations() {
@@ -61,17 +50,19 @@ public class PunnedDeclarationsNotAddedTestCase extends TestBase {
         return o;
     }
 
-    @Test
-    public void shouldNotAddDeclarationsForIllegalPunnings() throws OWLOntologyStorageException {
+    @ParameterizedTest
+    @MethodSource("data")
+    void shouldNotAddDeclarationsForIllegalPunnings(OWLDocumentFormat format) {
         OWLOntology o = getOntologyWithPunnedInvalidDeclarations();
         OWLOntology reloaded = roundTrip(o, format);
         OWLAnnotationProperty ap = df.getOWLAnnotationProperty(iri("testProperty"));
         OWLDeclarationAxiom ax = df.getOWLDeclarationAxiom(ap);
-        assertFalse("ap testProperty should not have been declared", reloaded.containsAxiom(ax));
+        assertFalse(reloaded.containsAxiom(ax), "Property should not have been declared");
     }
 
-    @Test
-    public void shouldDeclareMissingEntities() throws OWLOntologyStorageException {
+    @ParameterizedTest
+    @MethodSource("data")
+    void shouldDeclareMissingEntities(OWLDocumentFormat format) {
         OWLOntology o = getOntologyWithMissingDeclarations();
         OWLOntology reloaded = roundTrip(o, format);
         OWLObjectProperty op = df.getOWLObjectProperty(iri("testObjectProperty"));

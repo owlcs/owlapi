@@ -1,7 +1,7 @@
 /* This file is part of the OWL API.
  * The contents of this file are subject to the LGPL License, Version 3.0.
  * Copyright 2014, The University of Manchester
- * 
+ *
  * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
  * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
  * You should have received a copy of the GNU General Public License along with this program.  If not, see http://www.gnu.org/licenses/.
@@ -12,40 +12,38 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.apitest.syntax.rdfxml;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 import java.io.File;
 import java.net.URISyntaxException;
 import java.net.URL;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.semanticweb.owlapi.apitest.TestFiles;
 import org.semanticweb.owlapi.apitest.baseclasses.TestBase;
 import org.semanticweb.owlapi.formats.FunctionalSyntaxDocumentFormat;
 import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
 import org.semanticweb.owlapi.model.AxiomType;
-import org.semanticweb.owlapi.model.OWLException;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.rdf.rdfxml.renderer.RDFXMLStorerFactory;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
-public class RDFParserTestCase extends TestBase {
+class RDFParserTestCase extends TestBase {
 
-    @Before
-    public void setUpStorers() {
+    @BeforeEach
+    void setUpStorers() {
         // Use the reference implementation
         m.getOntologyStorers().set(new RDFXMLStorerFactory());
     }
 
     @Test
-    public void testOWLAPI() throws Exception {
+    void testOWLAPI() throws OWLOntologyCreationException, URISyntaxException {
         parseFiles("/owlapi/");
     }
 
@@ -55,7 +53,8 @@ public class RDFParserTestCase extends TestBase {
         for (File testSuiteFolder : file.listFiles()) {
             if (testSuiteFolder.isDirectory()) {
                 for (File ontologyFile : testSuiteFolder.listFiles()) {
-                    if (ontologyFile.getName().endsWith(".rdf") || ontologyFile.getName().endsWith(".owlapi")) {
+                    if (ontologyFile.getName().endsWith(".rdf")
+                        || ontologyFile.getName().endsWith(".owlapi")) {
                         OWLOntology ont = m.loadOntologyFromOntologyDocument(ontologyFile);
                         m.removeOntology(ont);
                     }
@@ -65,22 +64,25 @@ public class RDFParserTestCase extends TestBase {
     }
 
     @Test
-    public void shouldParseDataProperty() {
-        OWLOntology o = loadOntologyFromString(TestFiles.parseDataProperty, new RDFXMLDocumentFormat());
+    void shouldParseDataProperty() {
+        OWLOntology o =
+            loadOntologyFromString(TestFiles.parseDataProperty, new RDFXMLDocumentFormat());
         assertFalse(o.containsObjectPropertyInSignature(
             df.getIRI("http://www.loa-cnr.it/ontologies/Plans.owl#", "iteration-cardinality")));
     }
 
     @Test
-    public void shouldLoadSubPropertiesAsObjectProperties() {
-        OWLOntology o = loadOntologyFromString(TestFiles.subPropertiesAsObjectProperties, new RDFXMLDocumentFormat());
+    void shouldLoadSubPropertiesAsObjectProperties() {
+        OWLOntology o = loadOntologyFromString(TestFiles.subPropertiesAsObjectProperties,
+            new RDFXMLDocumentFormat());
         assertEquals(0, o.axioms(AxiomType.SUB_ANNOTATION_PROPERTY_OF).count());
         assertEquals(1, o.axioms(AxiomType.SUB_OBJECT_PROPERTY).count());
     }
 
     @Test
-    public void shouldRoundTripLhsSubsetOfRHS() throws OWLException {
-        OWLOntology o = loadOntologyFromString(TestFiles.lhsSubsetofRhs, new FunctionalSyntaxDocumentFormat());
+    void shouldRoundTripLhsSubsetOfRHS() {
+        OWLOntology o =
+            loadOntologyFromString(TestFiles.lhsSubsetofRhs, new FunctionalSyntaxDocumentFormat());
         OWLOntology o1 = roundTrip(o, new RDFXMLDocumentFormat());
         equal(o, o1);
     }

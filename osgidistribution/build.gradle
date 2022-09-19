@@ -32,7 +32,7 @@ dependencies {
     testImplementation 'org.ops4j.pax.exam:pax-exam-container-native:4.11.0'
     testImplementation 'org.ops4j.pax.exam:pax-exam-junit4:4.11.0'
     testImplementation 'org.ops4j.pax.exam:pax-exam-link-mvn:4.11.0'
-    testImplementation 'org.slf4j:slf4j-simple:[1.7.0,1.7.26)'
+    testImplementation 'org.slf4j:slf4j-simple:[1.8.0,3)'
 }
 
 apply plugin: 'java'

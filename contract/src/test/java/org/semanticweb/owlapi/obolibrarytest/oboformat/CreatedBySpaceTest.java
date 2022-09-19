@@ -1,6 +1,6 @@
 package org.semanticweb.owlapi.obolibrarytest.oboformat;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.semanticweb.owlapi.formats.OBODocumentFormat;
 
 public class CreatedBySpaceTest extends OboFormatTestBasics {

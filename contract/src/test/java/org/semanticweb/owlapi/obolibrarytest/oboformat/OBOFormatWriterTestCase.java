@@ -1,7 +1,7 @@
 package org.semanticweb.owlapi.obolibrarytest.oboformat;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.semanticweb.owlapi.obolibrary.oboformat.model.Clause;
 import org.semanticweb.owlapi.obolibrary.oboformat.model.Frame;
 import org.semanticweb.owlapi.obolibrary.oboformat.model.OBODoc;
@@ -23,7 +23,7 @@ import org.semanticweb.owlapi.vocab.OBOFormatConstants.OboFormatTag;
 /**
  * Tests for {@link OBOFormatWriter}.
  */
-public class OBOFormatWriterTestCase extends OboFormatTestBasics {
+class OBOFormatWriterTestCase extends OboFormatTestBasics {
 
     private static List<Clause> createSynonymClauses(String... labels) {
         List<Clause> clauses = new ArrayList<>(labels.length);
@@ -49,7 +49,7 @@ public class OBOFormatWriterTestCase extends OboFormatTestBasics {
      * differentia, instead of the default case-insensitive alphabetical ordering.
      */
     @Test
-    public void testSortTermClausesIntersectionOf() {
+    void testSortTermClausesIntersectionOf() {
         OBODoc oboDoc = parseOBOFile("equivtest.obo");
         Frame frame = oboDoc.getTermFrame("X:1");
         assert frame != null;
@@ -65,7 +65,7 @@ public class OBOFormatWriterTestCase extends OboFormatTestBasics {
      * over lower case for equal strings. Prefer shorter strings over longer strings.
      */
     @Test
-    public void testSortTermClausesSynonyms() {
+    void testSortTermClausesSynonyms() {
         List<Clause> clauses = createSynonymClauses("cc", "ccc", "AAA", "aaa", "bbbb");
         OBOFormatWriter.sortTermClauses(clauses);
         assertEquals("AAA", clauses.get(0).getValue());
@@ -76,7 +76,7 @@ public class OBOFormatWriterTestCase extends OboFormatTestBasics {
     }
 
     @Test
-    public void testWriteObsolete() throws Exception {
+    void testWriteObsolete() throws Exception {
         assertEquals("", writeObsolete(Boolean.FALSE));
         assertEquals("", writeObsolete(Boolean.FALSE.toString()));
         assertEquals("is_obsolete: true", writeObsolete(Boolean.TRUE));
@@ -87,7 +87,7 @@ public class OBOFormatWriterTestCase extends OboFormatTestBasics {
      * Test that the OBO format writer only writes one new-line at the end of the file.
      */
     @Test
-    public void testWriteEndOfFile() throws Exception {
+    void testWriteEndOfFile() throws Exception {
         OBODoc oboDoc = parseOBOFile("caro.obo");
         String oboString = renderOboToString(oboDoc);
         int length = oboString.length();
@@ -103,11 +103,11 @@ public class OBOFormatWriterTestCase extends OboFormatTestBasics {
                 break;
             }
         }
-        assertEquals("GO always had an empty newline at the end.", 2, newLineCount);
+        assertEquals(2, newLineCount, "GO always had an empty newline at the end.");
     }
 
     @Test
-    public void testWriteOpaqueIdsAsComments() throws Exception {
+    void testWriteOpaqueIdsAsComments() throws Exception {
         OBODoc oboDoc = parseOBOFile("opaque_ids_test.obo");
         String oboString = renderOboToString(oboDoc);
         assertTrue(Arrays.stream(oboString.split("\n")).anyMatch(
@@ -115,7 +115,7 @@ public class OBOFormatWriterTestCase extends OboFormatTestBasics {
     }
 
     @Test
-    public void testPropertyValueOrder() throws Exception {
+    void testPropertyValueOrder() throws Exception {
         StringBuilder sb = new StringBuilder();
         try (InputStream inputStream = new FileInputStream(getFile("tag_order_test.obo"));
             InputStreamReader in = new InputStreamReader(inputStream);

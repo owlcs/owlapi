@@ -1,7 +1,7 @@
 /* This file is part of the OWL API.
  * The contents of this file are subject to the LGPL License, Version 3.0.
  * Copyright 2014, The University of Manchester
- * 
+ *
  * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
  * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
  * You should have received a copy of the GNU General Public License along with this program.  If not, see http://www.gnu.org/licenses/.
@@ -12,7 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.profilestest;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.semanticweb.owlapi.OWLFunctionalSyntaxFactory.AnnotationProperty;
 import static org.semanticweb.owlapi.OWLFunctionalSyntaxFactory.AnonymousIndividual;
 import static org.semanticweb.owlapi.OWLFunctionalSyntaxFactory.AsymmetricObjectProperty;
@@ -97,10 +97,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.function.Supplier;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
-import org.junit.runners.Parameterized.Parameters;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.apitest.baseclasses.TestBase;
 import org.semanticweb.owlapi.model.IRI;
@@ -178,8 +176,7 @@ import org.semanticweb.owlapi.profiles.violations.UseOfUnknownDatatype;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 import org.semanticweb.owlapi.vocab.OWLFacet;
 
-@RunWith(Parameterized.class)
-public class OWLProfileTestCase extends TestBase {
+class OWLProfileTestCase extends TestBase {
 
     private static final String NEGO = "OWLNegativeObjectPropertyAssertionAxiom";
     private static final String NEGD = "OWLNegativeDataPropertyAssertionAxiom";
@@ -249,7 +246,6 @@ public class OWLProfileTestCase extends TestBase {
     private static final OWLLiteral LW1 = Literal("wrong", OWL2Datatype.XSD_INTEGER);
     private static final SWRLRule SWRL_RULE =
         DF.getSWRLRule(Collections.emptyList(), Collections.emptyList());
-    private static final String t = "urn:test#";
     private static final OWLAnnotationProperty APT = AnnotationProperty(IRI(t, "t"));
     private static final OWLDatatype FAKEDT2 = Datatype(IRI(t, "fakeundeclareddatatype"));
     private static final OWLLiteral _1 = Literal(1);
@@ -257,12 +253,9 @@ public class OWLProfileTestCase extends TestBase {
     private static final OWLDatatypeDefinitionAxiom DT_BOOL_DEF =
         DatatypeDefinition(FAKEDT, Boolean());
     private static final OWLDataOneOf DATA_ONE_OF = DataOneOf(_1, Literal(2));
-    private static final OWLNamedIndividual I = NamedIndividual(IRI(t, "ind"));
-    private static final OWLNamedIndividual I1 = NamedIndividual(IRI(t, "i1"));
-    private static final OWLNamedIndividual I2 = NamedIndividual(IRI(t, "i2"));
     protected static final Comparator<Class<?>> comp = Comparator.comparing(Class::getSimpleName);
     private static final OWLDataProperty DATA_PROPERTY = DataProperty(IRI(t, "dproperty"));
-    private static final OWLDatatype DT = Datatype(IRI(t, "datatype"));
+    private static final OWLDatatype DType = Datatype(IRI(t, "datatype"));
     private static final OWLObjectProperty OPX = ObjectProperty(IRI(t, "op1"));
     private static final OWLDataProperty OTHER_DP = DataProperty(IRI(t, "other"));
     private static final OWLClass OTHERFAKECLASS = Class(IRI(t, "otherfakeclass"));
@@ -271,10 +264,8 @@ public class OWLProfileTestCase extends TestBase {
     private static final OWLNamedIndividual I4 = NamedIndividual(IRI_TEST);
     private static final OWLDataProperty TEST_DP = DataProperty(IRI_TEST);
     private static final IRI RELATIVE_TEST = IRI("test", "");
-    private static final String START = OWLThing().getIRI().getNamespace();
     private static final OWLDatatype DT3 = Datatype(IRI(START, "unknownfakedatatype"));
     private static final OWLDataProperty DT_FAIL = DataProperty(IRI(START, "fail"));
-    private static final OWLNamedIndividual I3 = NamedIndividual(IRI(START, "i"));
     private static final IRI OWL_TEST = IRI(START, "test");
     private static final OWLDataProperty OWLTEST_DP = DataProperty(OWL_TEST);
     private static final OWLAnnotationProperty OWLTEST_AP = AnnotationProperty(OWL_TEST);
@@ -308,30 +299,13 @@ public class OWLProfileTestCase extends TestBase {
         assertEquals(inputList, asList(violations.stream().map(Object::getClass).sorted(comp)));
     }
 
-    public void runAssert(OWLOntology ontology, OWLProfile profile,
-        List<Class<?>> expectedViolations) {
+    void runAssert(OWLOntology ontology, OWLProfile profile, List<Class<?>> expectedViolations,
+        String name) {
         List<OWLProfileViolation> violations = profile.checkOntology(ontology).getViolations();
-        assertEquals(violations.toString(), expectedViolations.size(), violations.size());
+        assertEquals(expectedViolations.size(), violations.size(), violations.toString());
         checkInCollection(violations, expectedViolations);
         ontology.applyChanges(violations.stream().flatMap(v -> v.repair().stream()));
-        assertEquals(name, 0, profile.checkOntology(ontology).getViolations().size());
-    }
-
-    Profiles p;
-    List<OWLEntity> entities;
-    List<OWLAxiom> axioms;
-    Supplier<OWLOntology> onts;
-    List<Class<?>> exceptions;
-    private String name;
-
-    public OWLProfileTestCase(Supplier<OWLOntology> os, String name, List<OWLEntity> entities,
-        List<OWLAxiom> axioms, Profiles p, List<Class<?>> exceptions) {
-        this.p = p;
-        this.entities = entities;
-        this.axioms = axioms;
-        onts = os;
-        this.exceptions = exceptions;
-        this.name = name;
+        assertEquals(0, profile.checkOntology(ontology).getViolations().size(), name);
     }
 
     static OWLOntology os0() {
@@ -360,12 +334,14 @@ public class OWLProfileTestCase extends TestBase {
         }
     }
 
-    @Test
-    public void should() {
+    @ParameterizedTest
+    @MethodSource("getData")
+    void should(Supplier<OWLOntology> onts, String name, List<OWLEntity> entities,
+        List<OWLAxiom> axioms, Profiles p, List<Class<?>> exceptions) {
         OWLOntology o = onts.get();
         entities.stream().forEach(e -> o.add(Declaration(e)));
         o.add(axioms);
-        runAssert(o, p, exceptions);
+        runAssert(o, p, exceptions, name);
     }
 
     static Object[] arg(Supplier<OWLOntology> supplier, String name, List<OWLEntity> e,
@@ -381,17 +357,16 @@ public class OWLProfileTestCase extends TestBase {
     private static OWLDataFactory DFLIST = OWLManager
         .getOWLDataFactory(new OntologyConfigurator().withAllowDuplicatesInConstructSets(true));
 
-    @Parameters
-    public static Collection<Object[]> getData() {
+    static Collection<Object[]> getData() {
         List<Object[]> toReturn = new ArrayList<>();
-//@formatter:off
+        //@formatter:off
         toReturn.add(arg(o1, ONT,      l(), l(), OWL2_DL,      l(UseOfReservedVocabularyForOntologyIRI.class, UseOfReservedVocabularyForVersionIRI.class)));
         toReturn.add(arg(o2, ONT,      l(), l(), OWL2_FULL,    l(OntologyIRINotAbsolute.class, OntologyVersionIRINotAbsolute.class)));
         toReturn.add(arg(os, ANON,     l(), l(ANON_INDIVIDUAL), OWL2_EL, l(UseOfAnonymousIndividual.class)));
         toReturn.add(arg(os, ANON,     l(), l(ANON_INDIVIDUAL), OWL2_QL, l(UseOfAnonymousIndividual.class)));
         toReturn.add(arg(os, DATAPR,   l(), l(DATAP_FUNCTIONAL), OWL2_DL, l(UseOfUndeclaredDataProperty.class)));
         toReturn.add(arg(os, DATADEF,  l(), l(DT_BOOL_DEF), OWL2_FULL, l(UseOfUndeclaredDatatype.class)));
-        toReturn.add(arg(os, DIFF,     l(), l(DifferentIndividuals(I)), OWL2_DL, l(InsufficientIndividuals.class)));
+        toReturn.add(arg(os, DIFF,     l(), l(DifferentIndividuals(I0)), OWL2_DL, l(InsufficientIndividuals.class)));
         toReturn.add(arg(os, DISJ,     l(), l(DISJOINT_TOP), OWL2_QL, l(UseOfNonSubClassExpression.class)));
         toReturn.add(arg(os, DISJ,     l(), l(DISJOINT_TOP), OWL2_RL, l(UseOfNonSubClassExpression.class, UseOfNonSubClassExpression.class)));
         toReturn.add(arg(os, DDISJ,    l(), l(DisjointDataProperties(DATAP)), OWL2_DL, l(InsufficientPropertyExpressions.class, UseOfUndeclaredDataProperty.class)));
@@ -400,7 +375,7 @@ public class OWLProfileTestCase extends TestBase {
         toReturn.add(arg(os, EQDATA,   l(), l(EquivalentDataProperties(DATAP)), OWL2_DL, l(InsufficientPropertyExpressions.class, UseOfUndeclaredDataProperty.class)));
         toReturn.add(arg(os, EQOBJ,    l(), l(EquivalentObjectProperties(OP)), OWL2_DL, l(InsufficientPropertyExpressions.class, UseOfUndeclaredObjectProperty.class)));
         toReturn.add(arg(os, IND,      l(), l(ClassAssertion(OWLThing(), I3)), OWL2_DL, l(UseOfReservedVocabularyForIndividualIRI.class)));
-        toReturn.add(arg(os, SAME,     l(), l(SameIndividual(I)), OWL2_DL, l(InsufficientIndividuals.class)));
+        toReturn.add(arg(os, SAME,     l(), l(SameIndividual(I0)), OWL2_DL, l(InsufficientIndividuals.class)));
         toReturn.add(arg(os, SAME,     l(), l(SameIndividual(I1, I2)), OWL2_QL, l(UseOfIllegalAxiom.class)));
         toReturn.add(arg(os, SUB,      l(), l(SubClassOf(ObjectComplementOf(OWLThing()), ObjectOneOf(I4))), OWL2_RL, l(UseOfNonSubClassExpression.class, UseOfNonSuperClassExpression.class)));
         toReturn.add(arg(os, SUBD,     l(), l(SubDataPropertyOf(DF.getOWLTopDataProperty(), DF.getOWLTopDataProperty())), OWL2_DL, l(UseOfTopDataPropertyAsSubPropertyInSubPropertyAxiom.class)));
@@ -441,7 +416,7 @@ public class OWLProfileTestCase extends TestBase {
         toReturn.add(arg(os, DAT,    l(DT3, FAKEDT, Class(FAKEDT.getIRI()), DATAP), l(DataPropertyRange(DATAP, FAKEDT2)), OWL2_DL, l(UseOfUndeclaredDatatype.class)));
         toReturn.add(arg(os, DAT,    l(DTT),     l(), OWL2_RL, l()));
         toReturn.add(arg(os, DAT,    l(FAKEDT),  l(), OWL2_QL, l()));
-        toReturn.add(arg(os, DATADEF,l(DT), l(DatatypeDefinition(DT, Boolean())), OWL2_RL, l(UseOfIllegalAxiom.class, UseOfIllegalDataRange.class)));
+        toReturn.add(arg(os, DATADEF,l(DType), l(DatatypeDefinition(DType, Boolean())), OWL2_RL, l(UseOfIllegalAxiom.class, UseOfIllegalDataRange.class)));
         toReturn.add(arg(os, DATADEF,l(Integer(), Boolean(), FAKEDT), l(DatatypeDefinition(Boolean(), Integer()), DatatypeDefinition(FAKEDT, Integer()), DatatypeDefinition(Integer(), FAKEDT)), OWL2_DL, l(CycleInDatatypeDefinition.class, CycleInDatatypeDefinition.class, UseOfBuiltInDatatypeInDatatypeDefinition.class, UseOfBuiltInDatatypeInDatatypeDefinition.class)));
         toReturn.add(arg(os, IRI,    l(Class(RELATIVE_TEST)),                l(),   OWL2_FULL, l(UseOfNonAbsoluteIRI.class)));
         toReturn.add(arg(os, ANNP,   l(OWLTEST_OP, OWLTEST_DP, OWLTEST_AP),  l(SubAnnotationPropertyOf(APT, OWLTEST_AP)), OWL2_DL, l(UseOfReservedVocabularyForAnnotationPropertyIRI.class, UseOfUndeclaredAnnotationProperty.class, IllegalPunning.class, IllegalPunning.class)));
@@ -496,15 +471,15 @@ public class OWLProfileTestCase extends TestBase {
         toReturn.add(arg(os, IFP,   l(P), l(InverseFunctionalObjectProperty(P)), OWL2_EL, l(UseOfIllegalAxiom.class)));
         toReturn.add(arg(os, INVP,  l(P, op1), l(InverseObjectProperties(P, op1)), OWL2_EL, l(UseOfIllegalAxiom.class)));
         toReturn.add(arg(os, IRR,   l(P), l(IrreflexiveObjectProperty(P)), OWL2_EL, l(UseOfIllegalAxiom.class)));
-        toReturn.add(arg(os, NEGD,  l(DATAP, I), l(NegativeDataPropertyAssertion(DATAP, I, _1)), OWL2_QL, l(UseOfIllegalAxiom.class)));
-        toReturn.add(arg(os, CLASS, l(OP, I), l(ClassAssertion(ObjectSomeValuesFrom(OP, OWLThing()), I)), OWL2_QL, l(UseOfNonAtomicClassExpression.class)));
-        toReturn.add(arg(os, NEGO,  l(OP, I), l(NegativeObjectPropertyAssertion(OP, I, I)), OWL2_QL, l(UseOfIllegalAxiom.class)));
+        toReturn.add(arg(os, NEGD,  l(DATAP, I0), l(NegativeDataPropertyAssertion(DATAP, I0, _1)), OWL2_QL, l(UseOfIllegalAxiom.class)));
+        toReturn.add(arg(os, CLASS, l(OP, I0), l(ClassAssertion(ObjectSomeValuesFrom(OP, OWLThing()), I0)), OWL2_QL, l(UseOfNonAtomicClassExpression.class)));
+        toReturn.add(arg(os, NEGO,  l(OP, I0), l(NegativeObjectPropertyAssertion(OP, I0, I0)), OWL2_QL, l(UseOfIllegalAxiom.class)));
         toReturn.add(arg(os, OBJP,  l(OWLTEST_OP, OWLTEST_DP, OWLTEST_AP), l(SubObjectPropertyOf(OP, OWLTEST_OP)), OWL2_DL, l(UseOfReservedVocabularyForObjectPropertyIRI.class, UseOfUndeclaredObjectProperty.class, IllegalPunning.class, IllegalPunning.class)));
         toReturn.add(arg(os, CHAIN, l(OP, op1), l(SubPropertyChainOf(l(OP, op1), OP)), OWL2_QL, l(UseOfIllegalAxiom.class)));
         toReturn.add(arg(os, CHAIN, l(OP, op1), l(SubPropertyChainOf(l(op1), OP), SubPropertyChainOf(l(OP, op1, OP), OP), SubPropertyChainOf(l(OP, op1), OP), SubPropertyChainOf(l(op1, OP, op1, OP), OP)), OWL2_DL, l(InsufficientPropertyExpressions.class, UseOfPropertyInChainCausesCycle.class, UseOfPropertyInChainCausesCycle.class, UseOfPropertyInChainCausesCycle.class)));
         toReturn.add(arg(os, CHAIN, l(OP, op1, OPX, CL), l(ObjectPropertyRange(OP, CL), SubPropertyChainOf(l(op1, OPX), OP)), OWL2_EL, l(LastPropertyInChainNotInImposedRange.class)));
         toReturn.add(arg(os, SYMM,  l(P), l(SymmetricObjectProperty(P)), OWL2_EL, l(UseOfIllegalAxiom.class)));
-//@formatter:on
+        //@formatter:on
         return toReturn;
     }
 }

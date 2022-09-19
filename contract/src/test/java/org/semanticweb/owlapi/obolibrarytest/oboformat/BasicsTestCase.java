@@ -1,10 +1,11 @@
 package org.semanticweb.owlapi.obolibrarytest.oboformat;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 import static org.semanticweb.owlapi.model.AxiomType.DISJOINT_CLASSES;
 import static org.semanticweb.owlapi.model.AxiomType.EQUIVALENT_CLASSES;
 import static org.semanticweb.owlapi.model.AxiomType.SUBCLASS_OF;
@@ -35,7 +36,7 @@ import java.util.stream.Stream;
 
 import javax.annotation.Nullable;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.documents.StringDocumentTarget;
 import org.semanticweb.owlapi.formats.FunctionalSyntaxDocumentFormat;
@@ -72,6 +73,7 @@ import org.semanticweb.owlapi.obolibrary.oboformat.diff.OBODocDiffer;
 import org.semanticweb.owlapi.obolibrary.oboformat.model.Clause;
 import org.semanticweb.owlapi.obolibrary.oboformat.model.Frame;
 import org.semanticweb.owlapi.obolibrary.oboformat.model.Frame.FrameType;
+import org.semanticweb.owlapi.obolibrary.oboformat.model.FrameMergeException;
 import org.semanticweb.owlapi.obolibrary.oboformat.model.FrameStructureException;
 import org.semanticweb.owlapi.obolibrary.oboformat.model.OBODoc;
 import org.semanticweb.owlapi.obolibrary.oboformat.model.QualifierValue;
@@ -90,30 +92,30 @@ import org.semanticweb.owlapi.vocab.Obo2OWLConstants.Obo2OWLVocabulary;
  * OBO-Edit won't load any OBO ontology containing a comment-tag in the ontology header. WARNING:
  * This conversion will not conserve the order of remark tags in a round-trip via OWL.
  */
-public class BasicsTestCase extends OboFormatTestBasics {
+class BasicsTestCase extends OboFormatTestBasics {
 
-    private static final String GENE_ONTOLOGY = "gene_ontology";
-    private static final String CARO_OBO = "caro.obo";
-    private static final String HAS_PART = "has_part";
+    private static final String OBO_IN_OWL = "http://www.geneontology.org/formats/oboInOwl#";
     private static final String PART_OF = "part_of";
+    private static final String HAS_PART = "has_part";
+    private static final String CARO_OBO = "caro.obo";
+    private static final String GENE_ONTOLOGY = "gene_ontology";
     private static final String BFO_0000050 = "BFO:0000050";
     private static final String X_1 = "X:1";
-    private static final String OBO = "http://purl.obolibrary.org/obo/";
-    private static final IRI SHORTHAND =
-        df.getIRI("http://www.geneontology.org/formats/oboInOwl#", "shorthand");
-    private static final IRI ID = df.getIRI("http://www.geneontology.org/formats/oboInOwl#", "id");
-    private static final IRI BFO50 = df.getIRI(OBO, "BFO_0000050");
-    private static final IRI RO2111 = df.getIRI(OBO, "RO_0002111");
-    private static final IRI BAR1 = df.getIRI(OBO, "BAR_0000001");
-    private static final IRI BFO51 = df.getIRI(OBO, "BFO_0000051");
+    private static final IRI SHORTHAND = iri(OBO_IN_OWL, "shorthand");
+    private static final IRI ID = iri(OBO_IN_OWL, "id");
+    private static final IRI BFO50 = iri(OBO, "BFO_0000050");
+    private static final IRI RO2111 = iri(OBO, "RO_0002111");
+    private static final IRI BAR1 = iri(OBO, "BAR_0000001");
+    private static final IRI BFO51 = iri(OBO, "BFO_0000051");
 
     private static void assertAnnotationPropertyCountEquals(OWLOntology owlOnt, IRI subjectIRI,
         OWLAnnotationProperty property, int expected) {
         List<OWLAnnotationAssertionAxiom> matches = asList(owlOnt
             .annotationAssertionAxioms(subjectIRI).filter(ax -> ax.getProperty().equals(property)));
         assertEquals(
-            subjectIRI + " has too many annotations of type " + property + ":\n\t" + matches,
-            expected, matches.size());
+
+            expected, matches.size(),
+            subjectIRI + " has too many annotations of type " + property + ":\n\t" + matches);
     }
 
     private static void checkIdSpace(OBODoc doc) {
@@ -186,7 +188,7 @@ public class BasicsTestCase extends OboFormatTestBasics {
     }
 
     @Test
-    public void testCommentRemarkConversion() throws Exception {
+    void testCommentRemarkConversion() throws OWLOntologyCreationException {
         OBODoc obo = parseOBOFile("comment_remark_conversion.obo", true, Collections.emptyMap());
         Frame headerFrame = obo.getHeaderFrame();
         assertNotNull(headerFrame);
@@ -213,7 +215,7 @@ public class BasicsTestCase extends OboFormatTestBasics {
     }
 
     @Test
-    public void testBFOROXrefCorrectIdAnnotationCount() {
+    void testBFOROXrefCorrectIdAnnotationCount() {
         OWLOntology owlOnt = convertOBOFile("rel_xref_test.obo");
         assertEquals(4, owlOnt.objectPropertiesInSignature().count());
         OWLAnnotationProperty OBO_ID = df.getOWLAnnotationProperty(ID);
@@ -225,7 +227,7 @@ public class BasicsTestCase extends OboFormatTestBasics {
     }
 
     @Test
-    public void testBFOROXrefRelationXrefConversion() {
+    void testBFOROXrefRelationXrefConversion() {
         OWLOntology owlOnt = convertOBOFile("rel_xref_test.obo");
         // test initial conversion
         OWLAnnotationProperty ap = df.getOWLAnnotationProperty(SHORTHAND);
@@ -267,7 +269,7 @@ public class BasicsTestCase extends OboFormatTestBasics {
     }
 
     @Test
-    public void testParseCARO() {
+    void testParseCARO() {
         OBODoc obodoc = parseOBOFile(CARO_OBO);
         assertTrue(obodoc.getTermFrames().size() > 2);
         Frame cc = obodoc.getTermFrame("CARO:0000014");
@@ -288,7 +290,7 @@ public class BasicsTestCase extends OboFormatTestBasics {
     }
 
     @Test
-    public void testDanglingOwl2OboConversion() throws Exception {
+    void testDanglingOwl2OboConversion() throws OWLOntologyCreationException, IOException {
         OBODoc doc = convert(parseOWLFile("dangling_owl2_obo_test.owl"));
         Frame f = doc.getTermFrame("UBERON:0000020");
         assert f != null;
@@ -301,22 +303,22 @@ public class BasicsTestCase extends OboFormatTestBasics {
     }
 
     @Test
-    public void testExpandChebiXRef() {
+    void testExpandChebiXRef() {
         OBODoc obodoc = parseOBOFile("chebi_problematic_xref.obo");
         assertNotNull(obodoc);
     }
 
-    @Test(expected = OBOFormatParserException.class)
-    public void testCurlyBracesInComments() {
+    @Test
+    void testCurlyBracesInComments() {
         /*
          * Expect an parser exception, as the comment line contains '{' and '}'. This will lead the
          * parser to try and parse it as a trailing qualifier, which fails in this case.
          */
-        parseOBOFile("fbbt_comment_test.obo");
+        assertThrows(OBOFormatParserException.class, () -> parseOBOFile("fbbt_comment_test.obo"));
     }
 
     @Test
-    public void testWriteCurlyBracesInComments() throws Exception {
+    void testWriteCurlyBracesInComments() throws IOException, FrameMergeException {
         OBODoc doc = new OBODoc();
         Frame h = new Frame(FrameType.HEADER);
         h.addClause(new Clause(OboFormatTag.TAG_ONTOLOGY, "test"));
@@ -338,7 +340,8 @@ public class BasicsTestCase extends OboFormatTestBasics {
     }
 
     @Test
-    public void testDanglingRestrictionOwl2OboConversion() throws Exception {
+    void testDanglingRestrictionOwl2OboConversion()
+        throws OWLOntologyCreationException, IOException {
         // this is a test ontology that has had its imports axioms removed
         OBODoc doc = convert(parseOWLFile("dangling_restriction_test.owl"));
         Frame f = doc.getTermFrame("FUNCARO:0000014");
@@ -354,7 +357,7 @@ public class BasicsTestCase extends OboFormatTestBasics {
     }
 
     @Test
-    public void testDanglingRoundTripConvertXPs() throws Exception {
+    void testDanglingRoundTripConvertXPs() throws IOException {
         OWLOntology owlOnt = convertOBOFile("dangling_roundtrip_test.obo");
         OWLAPIOwl2Obo revbridge = new OWLAPIOwl2Obo(m1);
         OBODoc d2 = revbridge.convert(owlOnt);
@@ -368,7 +371,7 @@ public class BasicsTestCase extends OboFormatTestBasics {
     }
 
     @Test
-    public void testDbXrefCommentsRoundtrip() throws Exception {
+    void testDbXrefCommentsRoundtrip() throws IOException {
         OBODoc obodoc = parseOBOFile("db_xref_comments.obo");
         Frame frame = obodoc.getTermFrame("MOD:00516");
         assertNotNull(frame);
@@ -389,7 +392,7 @@ public class BasicsTestCase extends OboFormatTestBasics {
     }
 
     @Test
-    public void testDuplicateTags() throws Exception {
+    void testDuplicateTags() throws IOException, OWLOntologyCreationException {
         OWLOntology owl = parseOWLFile("duplicate-def.ofn");
         final List<Clause> duplicates = new ArrayList<>();
         OWLAPIOwl2Obo owl2Obo = new OWLAPIOwl2Obo(m1) {
@@ -407,7 +410,7 @@ public class BasicsTestCase extends OboFormatTestBasics {
     }
 
     @Test
-    public void testEmptyFirstLine() {
+    void testEmptyFirstLine() {
         OBODoc obodoc = parseOBOFile("empty_lines.obo");
         Collection<Frame> frames = obodoc.getTermFrames();
         assertEquals(1, frames.size());
@@ -415,7 +418,7 @@ public class BasicsTestCase extends OboFormatTestBasics {
     }
 
     @Test
-    public void testConvertEquivalentTo() throws Exception {
+    void testConvertEquivalentTo() throws IOException {
         // PARSE TEST FILE
         OWLOntology ontology = convert(parseOBOFile("equivtest.obo"));
         // TEST CONTENTS OF OWL ONTOLOGY
@@ -438,7 +441,7 @@ public class BasicsTestCase extends OboFormatTestBasics {
         checkOBODoc(obodoc);
     }
 
-    public void checkOBODoc(OBODoc obodoc) {
+    void checkOBODoc(OBODoc obodoc) {
         // OBODoc tests
         // test ECA between named classes is persisted using correct tag
         Frame tf = obodoc.getTermFrame(X_1);
@@ -478,34 +481,30 @@ public class BasicsTestCase extends OboFormatTestBasics {
         Frame tf1 = obodoc.getTermFrame(X_1);
         assert tf1 != null;
         Collection<Clause> cs1 = tf1.getClauses(OboFormatTag.TAG_EQUIVALENT_TO);
-
         assertTrue(cs1.size() == 1 || cs2.size() == 1);
         assertTrue("X:2".equals(cs1.iterator().next().getValue(String.class))
             || X_1.equals(cs2.iterator().next().getValue(String.class)));
     }
 
     @Test
-    public void testExpandExpressionGCI() {
+    void testExpandExpressionGCI() {
         OWLOntology ontology = convert(parseOBOFile("no_overlap.obo"));
         MacroExpansionGCIVisitor mev = new MacroExpansionGCIVisitor(m1, ontology, false);
         OWLOntology gciOntology = mev.createGCIOntology();
         int axiomCount = gciOntology.getAxiomCount();
         assertTrue(axiomCount > 0);
-        OWLClass cls = df.getOWLClass(OBO, "TEST_2");
-        assertEquals(1, gciOntology.disjointClassesAxioms(cls).count());
+        assertEquals(1, gciOntology.disjointClassesAxioms(C2).count());
         gciOntology.axioms(EQUIVALENT_CLASSES).forEach(eca -> {
             Set<OWLClassExpression> ces = asUnorderedSet(eca.classExpressions());
-            OWLClass clst4 = df.getOWLClass(OBO, "TEST_4");
             OWLObjectPropertyExpression p = df.getOWLObjectProperty(OBO, "RO_0002104");
-            OWLClassExpression cet4 = df.getOWLObjectSomeValuesFrom(p, clst4);
-            OWLClass clst5 = df.getOWLClass(OBO, "TEST_5");
-            OWLClassExpression cet5 = df.getOWLObjectSomeValuesFrom(p, clst5);
+            OWLClassExpression cet4 = df.getOWLObjectSomeValuesFrom(p, C4);
+            OWLClassExpression cet5 = df.getOWLObjectSomeValuesFrom(p, C5);
             if (ces.contains(cet4)) {
                 ces.remove(cet4);
                 OWLClassExpression clst4ex = ces.iterator().next();
                 assertEquals("ObjectSomeValuesFrom(" + BFO51.toQuotedString()
                     + " ObjectIntersectionOf(<http://purl.obolibrary.org/obo/GO_0005886> ObjectSomeValuesFrom("
-                    + BFO51.toQuotedString() + " " + clst4.getIRI().toQuotedString() + ")))",
+                    + BFO51.toQuotedString() + " " + C4.getIRI().toQuotedString() + ")))",
                     clst4ex.toString());
             } else if (ces.contains(cet5)) {
                 ces.remove(cet5);
@@ -521,22 +520,19 @@ public class BasicsTestCase extends OboFormatTestBasics {
     }
 
     @Test
-    public void testExpandExpression() {
+    void testExpandExpression() {
         OWLOntology ontology = convert(parseOBOFile("no_overlap.obo"));
         MacroExpansionVisitor mev = new MacroExpansionVisitor(ontology);
         OWLOntology outputOntology = mev.expandAll();
-        OWLClass cls = df.getOWLClass(OBO, "TEST_2");
-        assertEquals(1, outputOntology.disjointClassesAxioms(cls).count());
-        cls = df.getOWLClass(OBO, "TEST_3");
-        assertEquals(1, outputOntology.subClassAxiomsForSubClass(cls).count());
+        assertEquals(1, outputOntology.disjointClassesAxioms(C2).count());
+        assertEquals(1, outputOntology.subClassAxiomsForSubClass(C3).count());
         assertEquals("SubClassOf(<http://purl.obolibrary.org/obo/TEST_3> ObjectSomeValuesFrom("
             + BFO51.toQuotedString()
             + " ObjectIntersectionOf(<http://purl.obolibrary.org/obo/GO_0005886> ObjectSomeValuesFrom("
             + BFO51.toQuotedString() + " <http://purl.obolibrary.org/obo/TEST_4>))))",
-            outputOntology.subClassAxiomsForSubClass(cls).iterator().next().toString());
-        cls = df.getOWLClass(OBO, "TEST_4");
+            outputOntology.subClassAxiomsForSubClass(C3).iterator().next().toString());
         AtomicBoolean ok = new AtomicBoolean(false);
-        outputOntology.equivalentClassesAxioms(cls)
+        outputOntology.equivalentClassesAxioms(C4)
             .flatMap(OWLEquivalentClassesAxiom::classExpressions)
             .filter(ce -> ce instanceof OWLObjectIntersectionOf)
             .flatMap(x -> ((OWLObjectIntersectionOf) x).operands())
@@ -550,7 +546,7 @@ public class BasicsTestCase extends OboFormatTestBasics {
     }
 
     @Test
-    public void testExpandSynapsedTo() {
+    void testExpandSynapsedTo() {
         OWLOntology ontology = convert(parseOBOFile("synapsed_to.obo"));
         MacroExpansionGCIVisitor mev = new MacroExpansionGCIVisitor(m1, ontology, false);
         OWLOntology gciOntology = mev.createGCIOntology();
@@ -560,16 +556,16 @@ public class BasicsTestCase extends OboFormatTestBasics {
     }
 
     @Test
-    public void testExpandWithAnnotations() {
+    void testExpandWithAnnotations() {
         OWLOntology ontology = convert(parseOBOFile("annotated_no_overlap.obo"));
         MacroExpansionVisitor mev = new MacroExpansionVisitor(ontology, true, true);
         OWLOntology gciOntology = mev.expandAll();
         gciOntology.axioms(DISJOINT_CLASSES)
-            .forEach(ax -> assertEquals("annotation count", 2, ax.annotations().count()));
+            .forEach(ax -> assertEquals(2, ax.annotations().count()));
     }
 
     @Test
-    public void testExpandNothing() {
+    void testExpandNothing() {
         OWLOntology ontology = convert(parseOBOFile("nothing_expansion_test.obo"));
         MacroExpansionGCIVisitor mev = new MacroExpansionGCIVisitor(m1, ontology, false);
         OWLOntology gciOntology = mev.createGCIOntology();
@@ -579,7 +575,7 @@ public class BasicsTestCase extends OboFormatTestBasics {
     }
 
     @Test
-    public void testConvertGCIQualifier() {
+    void testConvertGCIQualifier() {
         // PARSE TEST FILE, CONVERT TO OWL, AND WRITE TO OWL FILE
         OWLOntology ontology = convert(parseOBOFile("gci_qualifier_test.obo"));
         long scas = ontology.axioms(SUBCLASS_OF).count();
@@ -600,10 +596,10 @@ public class BasicsTestCase extends OboFormatTestBasics {
      * annotations.
      */
     @Test
-    public void testHeaderLostBug() throws OWLOntologyStorageException {
+    void testHeaderLostBug() {
         OWLOntology ontology =
             roundTrip(convert(parseOBOFile("header_lost_bug.obo")), new RDFXMLDocumentFormat());
-        IRI ontologyIRI = df.getIRI(OBO, "test.owl");
+        IRI ontologyIRI = iri(OBO, "test.owl");
         // two tags in the header of the obo file are translated as annotation
         // assertions, so the axioms
         // should have two axioms in count.
@@ -612,13 +608,13 @@ public class BasicsTestCase extends OboFormatTestBasics {
     }
 
     @Test
-    public void testExpandHomeomorphicRelation() {
+    void testExpandHomeomorphicRelation() {
         OWLOntology owlOnt = convertOBOFile("homrel.obo");
         assertNotNull(owlOnt);
     }
 
     @Test
-    public void testIdSpace() throws Exception {
+    void testIdSpace() throws IOException {
         OBODoc doc1 = parseOBOFile("idspace_test.obo");
         checkIdSpace(doc1);
         String oboString = renderOboToString(doc1);
@@ -629,7 +625,7 @@ public class BasicsTestCase extends OboFormatTestBasics {
     }
 
     @Test
-    public void testIgnoreImportAnnotations() {
+    void testIgnoreImportAnnotations() {
         OBODoc oboDoc = parseOBOFile("annotated_import.obo");
         Frame headerFrame = oboDoc.getHeaderFrame();
         assertNotNull(headerFrame);
@@ -641,9 +637,9 @@ public class BasicsTestCase extends OboFormatTestBasics {
     }
 
     @Test
-    public void testImportsConverted() throws OWLOntologyCreationException {
+    void testImportsConverted() throws OWLOntologyCreationException {
         Map<String, OBODoc> cache = new HashMap<>();
-        IRI iri = df.getIRI("http://purl.obolibrary.org/obo/tests/test.obo");
+        IRI iri = iri("http://purl.obolibrary.org/obo/tests/", "test.obo");
         cache.put(iri.toString(), new OBODoc());
         m.createOntology(iri);
         OBODoc oboDoc = parseOBOFile("annotated_import.obo", false, cache);
@@ -653,7 +649,7 @@ public class BasicsTestCase extends OboFormatTestBasics {
     }
 
     @Test
-    public void testConvertLogicalDefinitionPropertyView() {
+    void testConvertLogicalDefinitionPropertyView() {
         // PARSE TEST FILE
         OWLOntology owlOntology =
             convert(parseOBOFile("logical-definition-view-relation-test.obo"));
@@ -680,11 +676,9 @@ public class BasicsTestCase extends OboFormatTestBasics {
      * never_in_taxon NCBITaxon:28009 {id="GOTAX:0000503", source="PMID:21311032"} !
      * Choanoflagellida relationship: never_in_taxon NCBITaxon:554915 {id="GOTAX:0000504",
      * source="PMID:21311032"} ! Amoebozoa
-     *
-     *
      */
     @Test
-    public void testExpandTaxonConstraints() {
+    void testExpandTaxonConstraints() {
         OWLOntology ontology = convert(parseOBOFile("taxon_constraints.obo"));
         MacroExpansionVisitor mev = new MacroExpansionVisitor(ontology);
         OWLOntology outputOntology = mev.expandAll();
@@ -692,7 +686,7 @@ public class BasicsTestCase extends OboFormatTestBasics {
     }
 
     @Test
-    public void testParseManchesterSyntaxToolIds() {
+    void testParseManchesterSyntaxToolIds() {
         OWLOntology owlOntology = convert(parseOBOFile("simplego.obo"));
         ManchesterSyntaxTool parser = new ManchesterSyntaxTool(owlOntology);
         OWLClassExpression expression =
@@ -701,7 +695,7 @@ public class BasicsTestCase extends OboFormatTestBasics {
     }
 
     @Test
-    public void testParseManchesterSyntaxToolNames() {
+    void testParseManchesterSyntaxToolNames() {
         OWLOntology owlOntology = convert(parseOBOFile("simplego.obo"));
         ManchesterSyntaxTool parser = new ManchesterSyntaxTool(owlOntology);
         OWLClassExpression expression = parser.parseManchesterExpression(
@@ -709,29 +703,29 @@ public class BasicsTestCase extends OboFormatTestBasics {
         checkIntersection(expression, "GO:0018901", BFO_0000050, "GO:0055124");
     }
 
-    @Test(expected = FrameStructureException.class)
-    public void testCheckForMultipleCommentsinFrame() throws Exception {
+    @Test
+    void testCheckForMultipleCommentsinFrame() {
         OBODoc obodoc = parseOBOFile("multiple_comments_test.obo");
         assertEquals(1, obodoc.getTermFrames().size());
         Frame frame = obodoc.getTermFrames().iterator().next();
         assertNotNull(frame);
-        renderOboToString(obodoc); // throws FrameStructureException
+        assertThrows(FrameStructureException.class, () -> renderOboToString(obodoc));
     }
 
     @Test
-    public void testConvertCAROObo2Owl() {
+    void testConvertCAROObo2Owl() {
         OWLOntology owlOnt = convertOBOFile(CARO_OBO);
         assertNotNull(owlOnt);
     }
 
     @Test
-    public void testConvertXPWithQVObo2Owl() {
+    void testConvertXPWithQVObo2Owl() {
         OWLOntology owlOnt = convertOBOFile("testqvs.obo");
         assertNotNull(owlOnt);
     }
 
     @Test
-    public void testIdenticalOBODocDiffer() {
+    void testIdenticalOBODocDiffer() {
         OBODoc obodoc1 = parseOBOFile(CARO_OBO);
         OBODoc obodoc2 = parseOBOFile(CARO_OBO);
         List<Diff> diffs = OBODocDiffer.getDiffs(obodoc1, obodoc2);
@@ -739,7 +733,7 @@ public class BasicsTestCase extends OboFormatTestBasics {
     }
 
     @Test
-    public void testDiffOBODocDiffer() {
+    void testDiffOBODocDiffer() {
         OBODoc obodoc1 = parseOBOFile(CARO_OBO);
         OBODoc obodoc2 = parseOBOFile("caro_modified.obo");
         List<Diff> diffs = OBODocDiffer.getDiffs(obodoc1, obodoc2);
@@ -747,7 +741,7 @@ public class BasicsTestCase extends OboFormatTestBasics {
     }
 
     @Test
-    public void writeTypeDefComments() throws Exception {
+    void writeTypeDefComments() throws IOException {
         OBODoc doc = parseOBOFile("typedef_comments.obo", true, Collections.emptyMap());
         String original = readResource("typedef_comments.obo");
         String written = renderOboToString(doc);
@@ -755,7 +749,7 @@ public class BasicsTestCase extends OboFormatTestBasics {
     }
 
     @Test
-    public void testOBOEscapeChars() {
+    void testOBOEscapeChars() {
         OBODoc obodoc = parseOBOFile("escape_chars_test.obo");
         assertEquals(3, obodoc.getTermFrames().size());
         Frame f1 = obodoc.getTermFrame("GO:0033942");
@@ -777,19 +771,19 @@ public class BasicsTestCase extends OboFormatTestBasics {
     }
 
     @Test
-    public void testOBORoundTripEscapeChars() throws Exception {
+    void testOBORoundTripEscapeChars() throws IOException {
         OBODoc oboDoc = parseOBOFile("escape_chars_test.obo");
         String oboToString = renderOboToString(oboDoc);
         OBODoc oboDoc2 = parseOboToString(oboToString);
-        assertNotNull("There was an error during parsing of the obodoc", oboDoc2);
+        assertNotNull(oboDoc2);
         List<Diff> diffs = OBODocDiffer.getDiffs(oboDoc, oboDoc2);
-        assertEquals("Expected no diffs.", 0, diffs.size());
+        assertEquals(0, diffs.size());
         String original = readResource("escape_chars_test.obo");
         assertEquals(original, oboToString);
     }
 
     @Test
-    public void testExpandPropertyValue() {
+    void testExpandPropertyValue() {
         OBODoc obodoc = parseOBOFile("property_value_test.obo");
         Frame termFrame = obodoc.getTermFrame("UBERON:0004657");
         assertNotNull(termFrame);
@@ -800,16 +794,16 @@ public class BasicsTestCase extends OboFormatTestBasics {
     }
 
     @Test
-    public void testWriteReadValuesPropertyValue() throws Exception {
+    void testWriteReadValuesPropertyValue() throws IOException {
         OBODoc doc = createPVDoc();
         String oboString = renderOboToString(doc);
         OBODoc doc2 = parseOboToString(oboString);
         List<Diff> diffs = OBODocDiffer.getDiffs(doc, doc2);
-        assertEquals("Expected no diffs", 0, diffs.size());
+        assertEquals(0, diffs.size());
     }
 
     @Test
-    public void testParseOBOFileSimpleGO() {
+    void testParseOBOFileSimpleGO() {
         OBODoc obodoc = parseOBOFile("simplego.obo");
         assertEquals(3, obodoc.getTermFrames().size());
         assertEquals(5, obodoc.getTypedefFrames().size());
@@ -824,17 +818,17 @@ public class BasicsTestCase extends OboFormatTestBasics {
         checkFrame(obodoc, "regulates", "regulates", GENE_ONTOLOGY);
     }
 
-    @Test(expected = FrameStructureException.class)
-    public void testParseOBOFileSingleIntersectionOfTag() throws Exception {
+    @Test
+    void testParseOBOFileSingleIntersectionOfTag() {
         OBODoc obodoc = parseOBOFile("single_intersection_of_tag_test.obo");
         assertEquals(2, obodoc.getTermFrames().size());
         Frame frame = obodoc.getTermFrames().iterator().next();
         assertNotNull(frame);
-        renderOboToString(obodoc); // throws FrameStructureException
+        assertThrows(FrameStructureException.class, () -> renderOboToString(obodoc));
     }
 
     @Test
-    public void testIDs() throws OWLOntologyCreationException {
+    void testIDs() throws OWLOntologyCreationException {
         OBODoc doc = new OBODoc();
         Frame header = new Frame(FrameType.HEADER);
         Clause c = new Clause(OboFormatTag.TAG_ONTOLOGY.getTag());
@@ -867,8 +861,8 @@ public class BasicsTestCase extends OboFormatTestBasics {
         oboId = OWLAPIOwl2Obo.getIdentifier(iri);
         assertEquals("003", oboId);
         // arbitrary URL to obo ID
-        oboId = OWLAPIOwl2Obo
-            .getIdentifier(df.getIRI("http://purl.obolibrary.org/obo/alternate#", "abcdef"));
+        oboId =
+            OWLAPIOwl2Obo.getIdentifier(iri("http://purl.obolibrary.org/obo/alternate#", "abcdef"));
         // todo - test this
         // System.out.println("== "+oboId);
         iri = obo2owl.oboIdToIRI(PART_OF);
@@ -900,11 +894,11 @@ public class BasicsTestCase extends OboFormatTestBasics {
     }
 
     @Test
-    public void testConvertObsoleteTerm() {
+    void testConvertObsoleteTerm() {
         // PARSE TEST FILE
         OWLOntology ontology = convert(parseOBOFile("obsolete_term_test.obo"));
         // TEST CONTENTS OF OWL ONTOLOGY
-        OWLAnnotationSubject subj = df.getIRI(OBO, "XX_0000034");
+        OWLAnnotationSubject subj = iri(OBO, "XX_0000034");
         boolean okDeprecated = Searcher
             .annotationObjects(ontology.annotationAssertionAxioms(subj),
                 df.getOWLAnnotationProperty(OWLRDFVocabulary.OWL_DEPRECATED))
@@ -924,12 +918,12 @@ public class BasicsTestCase extends OboFormatTestBasics {
     }
 
     @Test
-    public void testConvertXPsPropertyChain() {
+    void testConvertXPsPropertyChain() {
         assertNotNull(parseOBOFile("chaintest.obo", true, Collections.emptyMap()));
     }
 
     @Test
-    public void testConvertRelationShorthand() {
+    void testConvertRelationShorthand() {
         // PARSE TEST FILE, CONVERT TO OWL, AND WRITE TO OWL FILE
         OWLOntology ontology = convert(parseOBOFile("relation_shorthand_test.obo"));
         // TEST CONTENTS OF OWL ONTOLOGY
@@ -990,7 +984,8 @@ public class BasicsTestCase extends OboFormatTestBasics {
     }
 
     @Test
-    public void testRoundTripMultiLineDefinitions() throws Exception {
+    void testRoundTripMultiLineDefinitions()
+        throws OWLOntologyCreationException, FrameMergeException {
         // create minimal ontology
         OBODoc oboDocSource = new OBODoc();
         oboDocSource.setHeaderFrame(new Frame(FrameType.HEADER));
@@ -1010,8 +1005,7 @@ public class BasicsTestCase extends OboFormatTestBasics {
         OWLClass c = factory.getOWLClass(iri);
         // Def
         OWLAnnotationProperty defProperty =
-            factory.getOWLAnnotationProperty(Obo2OWLVocabulary.IRI_IAO_0000115.getNamespace(),
-                Obo2OWLVocabulary.IRI_IAO_0000115.getShortName());
+            factory.getOWLAnnotationProperty(Obo2OWLVocabulary.IRI_IAO_0000115);
         int counter = 0;
         for (OWLAnnotationAssertionAxiom ax : asList(
             owlOntology.annotationAssertionAxioms(c.getIRI()))) {
@@ -1036,25 +1030,24 @@ public class BasicsTestCase extends OboFormatTestBasics {
     }
 
     @Test
-    public void testConvertSubset() {
+    void testConvertSubset() {
         // PARSE TEST FILE
         OWLOntology ontology = convert(parseOBOFile("subset_test.obo"));
-        OWLAnnotationSubject subj = df.getIRI(OBO, "GO_0000003");
-        OWLAnnotationProperty p = df
-            .getOWLAnnotationProperty("http://www.geneontology.org/formats/oboInOwl#", "inSubset");
+        OWLAnnotationSubject subj = iri(OBO, "GO_0000003");
+        OWLAnnotationProperty p = df.getOWLAnnotationProperty(OBO_IN_OWL, "inSubset");
         boolean ok =
             ontology.annotationAssertionAxioms(subj).anyMatch(a -> a.getProperty().equals(p));
         assertTrue(ok);
     }
 
     @Test
-    public void testConvertSynonym() {
+    void testConvertSynonym() {
         // PARSE TEST FILE
         assertNotNull(convert(parseOBOFile("synonym_test.obo")));
     }
 
     @Test
-    public void testUnionOf() {
+    void testUnionOf() {
         OWLOntology owlOnt = convertOBOFile("taxon_union_terms.obo");
         assertNotNull(owlOnt);
         OWLClass cls = df.getOWLClass(OBO, "NCBITaxon_Union_0000000");
@@ -1064,11 +1057,11 @@ public class BasicsTestCase extends OboFormatTestBasics {
     }
 
     @Test
-    public void testConvertUnmappableExpressions() throws Exception {
+    void testConvertUnmappableExpressions() throws OWLOntologyCreationException, IOException {
         OWLAPIOwl2Obo bridge = new OWLAPIOwl2Obo(m1);
         bridge.setMuteUntranslatableAxioms(true);
         OBODoc doc = bridge.convert(parseOWLFile("nesting.owl"));
-        assertEquals("untranslatable axiom count", 1, bridge.getUntranslatableAxioms().size());
+        assertEquals(1, bridge.getUntranslatableAxioms().size());
         OBODoc obodoc = doc;
         // checkOBODoc(obodoc);
         // ROUNDTRIP AND TEST AGAIN
@@ -1078,13 +1071,13 @@ public class BasicsTestCase extends OboFormatTestBasics {
     }
 
     @Test
-    public void testConvertXPBridgeFile() {
+    void testConvertXPBridgeFile() {
         OWLOntology owlOnt = convertOBOFile("xptest.obo");
         assertNotNull(owlOnt);
     }
 
     @Test
-    public void testXRefExpander() {
+    void testXRefExpander() {
         OBODoc obodoc = parseOBOFile("treat_xrefs_test.obo");
         XrefExpander x = new XrefExpander(obodoc);
         x.expandXrefs();
@@ -1106,7 +1099,7 @@ public class BasicsTestCase extends OboFormatTestBasics {
     }
 
     @Test
-    public void testXRefExpanderIntoSeparateBridges() {
+    void testXRefExpanderIntoSeparateBridges() {
         OBODoc obodoc = parseOBOFile("treat_xrefs_test.obo");
         XrefExpander x = new XrefExpander(obodoc, "bridge");
         x.expandXrefs();
@@ -1151,13 +1144,12 @@ public class BasicsTestCase extends OboFormatTestBasics {
         // assertTrue(frame.getClause("name").getValue().equals("x1"));
     }
     /*
-     * @Test public void testUberonHeader() throws Exception { OBODoc obodoc =
-     * parseOBOFile("uberon_header_test.obo"); XrefExpander x = new XrefExpander(obodoc, "bridge");
-     * x.expandXrefs(); }
+     * @Test void testUberonHeader() { OBODoc obodoc = parseOBOFile("uberon_header_test.obo");
+     * XrefExpander x = new XrefExpander(obodoc, "bridge"); x.expandXrefs(); }
      */
 
     @Test
-    public void testConversionXRefExpanderIRI() throws Exception {
+    void testConversionXRefExpanderIRI() throws OWLOntologyCreationException, IOException {
         OWLOntology ontology = parseOWLFile("xrefIRItest.owl");
         OBODoc doc = convert(ontology);
         doc.getTermFrame("FOO:1");
@@ -1165,25 +1157,25 @@ public class BasicsTestCase extends OboFormatTestBasics {
     }
 
     @Test
-    public void testUntranslatableAxiomsInHeader() throws Exception {
+    void testUntranslatableAxiomsInHeader() throws OWLOntologyCreationException, IOException {
         untranslatableAxiomsInHeader(parseOWLFile("untranslatable_axioms.owl"));
     }
 
     @Test
-    public void testUntranslatableAxiomsInHeader2() throws Exception {
+    void testUntranslatableAxiomsInHeader2() throws OWLOntologyCreationException, IOException {
         untranslatableAxiomsInHeader(parseOWLFile("untranslatable_axioms2.owl"));
     }
 
     @Test
-    public void testNoDeadlock() throws OWLOntologyStorageException, OWLOntologyCreationException {
+    void testNoDeadlock() throws OWLOntologyStorageException, OWLOntologyCreationException {
         OWLOntology o = OWLManager.createConcurrentOWLOntologyManager()
-            .createOntology(df.getIRI("urn:test:ontology"));
+            .createOntology(iri("urn:test:ontology"));
         o.add(df.getOWLSubClassOfAxiom(df.getOWLNothing(), df.getOWLThing()));
         OWLOntologyDocumentTarget target = new StringDocumentTarget();
         o.saveOntology(new OBODocumentFormat(), target);
     }
 
-    public void untranslatableAxiomsInHeader(OWLOntology original)
+    void untranslatableAxiomsInHeader(OWLOntology original)
         throws IOException, OWLOntologyCreationException {
         OWLAPIOwl2Obo owl2Obo = new OWLAPIOwl2Obo(m1);
         OBODoc obo = owl2Obo.convert(original);
@@ -1202,7 +1194,7 @@ public class BasicsTestCase extends OboFormatTestBasics {
     }
 
     @Test
-    public void testPropertyValueQuotes() throws OWLOntologyStorageException {
+    void testPropertyValueQuotes() throws OWLOntologyStorageException {
         String in = "Prefix(:=<http://purl.obolibrary.org/obo/test.owl#>)\n"
             + "Prefix(owl:=<http://www.w3.org/2002/07/owl#>)\n"
             + "Prefix(rdf:=<http://www.w3.org/1999/02/22-rdf-syntax-ns#>)\n"

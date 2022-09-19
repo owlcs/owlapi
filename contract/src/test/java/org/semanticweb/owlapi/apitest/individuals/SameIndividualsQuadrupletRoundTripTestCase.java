@@ -1,7 +1,7 @@
 /* This file is part of the OWL API.
  * The contents of this file are subject to the LGPL License, Version 3.0.
  * Copyright 2014, The University of Manchester
- * 
+ *
  * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
  * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
  * You should have received a copy of the GNU General Public License along with this program.  If not, see http://www.gnu.org/licenses/.
@@ -10,44 +10,46 @@
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
  * http://www.apache.org/licenses/LICENSE-2.0
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
-package org.semanticweb.owlapi.apitest.baseclasses;
+package org.semanticweb.owlapi.apitest.individuals;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.semanticweb.owlapi.OWLFunctionalSyntaxFactory.Class;
 import static org.semanticweb.owlapi.OWLFunctionalSyntaxFactory.DataProperty;
+import static org.semanticweb.owlapi.OWLFunctionalSyntaxFactory.Declaration;
 import static org.semanticweb.owlapi.OWLFunctionalSyntaxFactory.EquivalentClasses;
 import static org.semanticweb.owlapi.OWLFunctionalSyntaxFactory.EquivalentDataProperties;
 import static org.semanticweb.owlapi.OWLFunctionalSyntaxFactory.EquivalentObjectProperties;
 import static org.semanticweb.owlapi.OWLFunctionalSyntaxFactory.NamedIndividual;
 import static org.semanticweb.owlapi.OWLFunctionalSyntaxFactory.ObjectProperty;
 import static org.semanticweb.owlapi.OWLFunctionalSyntaxFactory.SameIndividual;
+import static org.semanticweb.owlapi.model.parameters.Imports.INCLUDED;
 
 import java.util.Arrays;
-import java.util.List;
+import java.util.Collection;
 
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
-import org.junit.runners.Parameterized.Parameters;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
+import org.semanticweb.owlapi.apitest.baseclasses.TestBase;
 import org.semanticweb.owlapi.formats.FunctionalSyntaxDocumentFormat;
 import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLDataProperty;
+import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLEquivalentClassesAxiom;
 import org.semanticweb.owlapi.model.OWLEquivalentDataPropertiesAxiom;
 import org.semanticweb.owlapi.model.OWLEquivalentObjectPropertiesAxiom;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi.model.OWLSameIndividualAxiom;
 
 /**
  * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
  */
-@RunWith(Parameterized.class)
-public class AxiomsRoundTrippingQuadrupletsTestCase extends AxiomsRoundTrippingBase {
+class SameIndividualsQuadrupletRoundTripTestCase extends TestBase {
 
     private static final OWLClass a = Class(iri("a"));
     private static final OWLClass b = Class(iri("b"));
@@ -75,14 +77,16 @@ public class AxiomsRoundTrippingQuadrupletsTestCase extends AxiomsRoundTrippingB
     private static final OWLEquivalentDataPropertiesAxiom axiom4 =
         EquivalentDataProperties(p, q, r, s);
 
-    public AxiomsRoundTrippingQuadrupletsTestCase(AxiomBuilder f) {
-        super(f);
+    protected OWLOntology o(Collection<OWLAxiom> axioms) {
+        OWLOntology ont = getOWLOntology();
+        ont.add(axioms);
+        ont.unsortedSignature().filter(e -> !e.isBuiltIn() && !ont.isDeclared(e, INCLUDED))
+        .forEach(e -> ont.add(Declaration(e)));
+        return ont;
     }
 
-    @Parameters
-    public static List<AxiomBuilder> getData() {
-        return Arrays
-            .asList((AxiomBuilder) () -> Arrays.asList((OWLAxiom) axiom1, axiom2, axiom3, axiom4));
+    OWLOntology sameIndividualsQuadrupletRoundTripTestCase() {
+        return o(Arrays.asList(axiom1, axiom2, axiom3, axiom4));
     }
 
     @Override
@@ -109,15 +113,21 @@ public class AxiomsRoundTrippingQuadrupletsTestCase extends AxiomsRoundTrippingB
     }
 
     protected void assertAxiomContained(OWLAxiom ax, OWLOntology ont2) {
-        assertTrue(ax + "\t" + ont2.toString(), ont2.containsAxiom(ax));
+        assertTrue(ont2.containsAxiom(ax), ax + "\t" + ont2.toString());
     }
 
-    @Override
-    public void roundTripRDFXMLAndFunctionalShouldBeSame() throws OWLOntologyStorageException {
-        OWLOntology ont = createOntology();
-        OWLOntology o1 = roundTrip(ont, new RDFXMLDocumentFormat());
-        OWLOntology o2 = roundTrip(ont, new FunctionalSyntaxDocumentFormat());
-        equal(ont, o1);
+    @ParameterizedTest
+    @MethodSource("formats")
+    void testFormat(OWLDocumentFormat df) {
+        roundTripOntology(sameIndividualsQuadrupletRoundTripTestCase(), df);
+    }
+
+    @Test
+    void roundTripRDFXMLAndFunctionalShouldBeSame() {
+        OWLOntology o = sameIndividualsQuadrupletRoundTripTestCase();
+        OWLOntology o1 = roundTrip(o, new RDFXMLDocumentFormat());
+        OWLOntology o2 = roundTrip(o, new FunctionalSyntaxDocumentFormat());
+        equal(o, o1);
         equal(o2, o1);
     }
 }

@@ -1,7 +1,7 @@
 /* This file is part of the OWL API.
  * The contents of this file are subject to the LGPL License, Version 3.0.
  * Copyright 2014, The University of Manchester
- * 
+ *
  * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
  * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
  * You should have received a copy of the GNU General Public License along with this program.  If not, see http://www.gnu.org/licenses/.
@@ -12,8 +12,8 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.apitest.syntax.rdf;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.semanticweb.owlapi.OWLFunctionalSyntaxFactory.createClass;
 import static org.semanticweb.owlapi.OWLFunctionalSyntaxFactory.createObjectProperty;
 import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.contains;
@@ -22,7 +22,7 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.semanticweb.owlapi.apitest.baseclasses.TestBase;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAxiom;
@@ -40,14 +40,14 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
  * RDF as a set of pairwise disjoint statements. In other words, DisjointClasses(A, B, C) must be
  * represented as DisjointWith(A, B), DisjointWith(A, C) DisjointWith(B, C). ~This test case ensure
  * that these axioms are serialsed correctly.
- * 
+ *
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
-public class DisjointsTestCase extends TestBase {
+class DisjointsTestCase extends TestBase {
 
     @Test
-    public void testAnonDisjoints() throws Exception {
+    void testAnonDisjoints() {
         OWLOntology ontA = getOWLOntology();
         OWLClass clsA = createClass();
         OWLClass clsB = createClass();
@@ -64,7 +64,7 @@ public class DisjointsTestCase extends TestBase {
     }
 
     @Test
-    public void shouldAcceptSingleDisjointAxiom() {
+    void shouldAcceptSingleDisjointAxiom() {
         // The famous idiomatic use of DisjointClasses with one operand
         OWLClass t = df.getOWLClass("urn:test:class");
         OWLDisjointClassesAxiom ax = df.getOWLDisjointClassesAxiom(Arrays.asList(t));
@@ -78,7 +78,7 @@ public class DisjointsTestCase extends TestBase {
     }
 
     @Test
-    public void shouldRejectDisjointClassesWithSingletonThing() {
+    void shouldRejectDisjointClassesWithSingletonThing() {
         assertThrowsWithMessage(
             "DisjointClasses(owl:Thing) cannot be created. It is not a syntactically valid OWL 2 axiom. If the intent is to declare owl:Thing as disjoint with itself and therefore empty, it cannot be created as a DisjointClasses axiom. Please rewrite it as SubClassOf(owl:Thing, owl:Nothing).",
             OWLRuntimeException.class,
@@ -86,7 +86,7 @@ public class DisjointsTestCase extends TestBase {
     }
 
     @Test
-    public void shouldRejectDisjointClassesWithSingletonNothing() {
+    void shouldRejectDisjointClassesWithSingletonNothing() {
         assertThrowsWithMessage(
             "DisjointClasses(owl:Nothing) cannot be created. It is not a syntactically valid OWL 2 axiom. If the intent is to declare owl:Nothing as disjoint with itself and therefore empty, it cannot be created as a DisjointClasses axiom, and it is also redundant as owl:Nothing is always empty. Please rewrite it as SubClassOf(owl:Nothing, owl:Nothing) or remove the axiom.",
             OWLRuntimeException.class,
