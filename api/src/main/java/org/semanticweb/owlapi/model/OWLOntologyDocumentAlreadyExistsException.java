@@ -27,6 +27,7 @@ public class OWLOntologyDocumentAlreadyExistsException extends OWLOntologyCreati
      * @param ontologyDocumentIRI iri already present
      */
     public OWLOntologyDocumentAlreadyExistsException(IRI ontologyDocumentIRI) {
+        super("Ontology document already exists: " + ontologyDocumentIRI);
         this.ontologyDocumentIRI = ontologyDocumentIRI;
     }
 

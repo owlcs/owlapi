@@ -12,6 +12,8 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.reasoner;
 
+import javax.annotation.Nullable;
+
 /**
  * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
@@ -25,7 +27,7 @@ public class IllegalConfigurationException extends OWLReasonerRuntimeException {
      * @param configuration loading configuration
      */
     public IllegalConfigurationException(Throwable cause, OWLReasonerConfiguration configuration) {
-        super(cause);
+        super(configurationToString(configuration), cause);
         this.configuration = configuration;
     }
 
@@ -34,7 +36,7 @@ public class IllegalConfigurationException extends OWLReasonerRuntimeException {
      * @param configuration reasoner configuration
      */
     public IllegalConfigurationException(String message, OWLReasonerConfiguration configuration) {
-        super(message);
+        super(message + configurationToString(configuration));
         this.configuration = configuration;
     }
 
@@ -45,7 +47,7 @@ public class IllegalConfigurationException extends OWLReasonerRuntimeException {
      */
     public IllegalConfigurationException(String message, Throwable cause,
         OWLReasonerConfiguration configuration) {
-        super(message, cause);
+        super(message + configurationToString(configuration), cause);
         this.configuration = configuration;
     }
 
@@ -54,5 +56,14 @@ public class IllegalConfigurationException extends OWLReasonerRuntimeException {
      */
     public OWLReasonerConfiguration getConfiguration() {
         return configuration;
+    }
+
+    private static String configurationToString(@Nullable OWLReasonerConfiguration configuration) {
+        if (configuration == null) {
+            return "";
+        }
+        return "Fresh entity policy: " + configuration.getFreshEntityPolicy()
+            + " Individual node set policy: " + configuration.getIndividualNodeSetPolicy()
+            + " timeout: " + configuration.getTimeOut();
     }
 }

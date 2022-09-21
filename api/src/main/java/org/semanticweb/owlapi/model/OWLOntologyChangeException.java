@@ -60,4 +60,9 @@ public abstract class OWLOntologyChangeException extends OWLRuntimeException {
     public OWLOntologyChangeData getChange() {
         return change;
     }
+
+    @Override
+    public String getMessage() {
+        return super.getMessage() + " change: " + change;
+    }
 }
