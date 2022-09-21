@@ -48,6 +48,7 @@ import java.net.URISyntaxException;
 import javax.annotation.Nullable;
 
 import org.eclipse.rdf4j.model.Resource;
+import org.eclipse.rdf4j.model.impl.SimpleValueFactory;
 import org.eclipse.rdf4j.rio.RDFFormat;
 import org.eclipse.rdf4j.rio.RDFHandler;
 import org.eclipse.rdf4j.rio.RDFWriter;
@@ -232,8 +233,8 @@ public class RioStorer implements OWLStorer {
             }
         }
         try {
-            final RioRenderer ren =
-                new RioRenderer(ontology, format, verifyNotNull(rioHandler), contexts);
+            final RioRenderer ren = new RioRenderer(ontology, format, verifyNotNull(rioHandler),
+                contexts(ontology, storerParameters));
             ren.render();
         } catch (OWLRuntimeException e) {
             throw new OWLOntologyStorageException(e);
@@ -266,11 +267,36 @@ public class RioStorer implements OWLStorer {
             }
         }
         try {
-            final RioRenderer ren =
-                new RioRenderer(ontology, format, verifyNotNull(rioHandler), contexts);
+            final RioRenderer ren = new RioRenderer(ontology, format, verifyNotNull(rioHandler),
+                contexts(ontology, storerParameters));
             ren.render();
         } catch (OWLRuntimeException e) {
             throw new OWLOntologyStorageException(e);
         }
+    }
+
+    private Resource[] contexts(OWLOntology o, OWLStorerParameters d) {
+        boolean shouldUseOntologyIRI =
+            o.getOWLOntologyManager().getOntologyConfigurator().shouldOutputNamedGraphIRI();
+        String namedGraph = null;
+        if (shouldUseOntologyIRI) {
+            // Only use the ontology IRI if the configuration option OUTPUT_NAMED_GRAPH_IRI is set
+            // to true.
+            // If the configuration option is false, only use the value of namedGraphOverride.
+            namedGraph = o.getOntologyID().getOntologyIRI().map(Object::toString).orElse(null);
+        }
+        Object namedGraphOverride = d.getParameter("namedGraphOverride", namedGraph);
+        if (namedGraphOverride != null) {
+            Resource context =
+                SimpleValueFactory.getInstance().createIRI(namedGraphOverride.toString());
+            if (contexts.length == 0) {
+                return new Resource[] {context};
+            }
+            Resource[] toReturn = new Resource[contexts.length + 1];
+            System.arraycopy(contexts, 0, toReturn, 0, contexts.length);
+            toReturn[contexts.length] = context;
+            return toReturn;
+        }
+        return contexts;
     }
 }

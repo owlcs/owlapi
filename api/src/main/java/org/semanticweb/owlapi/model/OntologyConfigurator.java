@@ -27,6 +27,7 @@ import static org.semanticweb.owlapi.model.parameters.ConfigurationOptions.LABEL
 import static org.semanticweb.owlapi.model.parameters.ConfigurationOptions.LOAD_ANNOTATIONS;
 import static org.semanticweb.owlapi.model.parameters.ConfigurationOptions.MISSING_IMPORT_HANDLING_STRATEGY;
 import static org.semanticweb.owlapi.model.parameters.ConfigurationOptions.MISSING_ONTOLOGY_HEADER_STRATEGY;
+import static org.semanticweb.owlapi.model.parameters.ConfigurationOptions.OUTPUT_NAMED_GRAPH_IRI;
 import static org.semanticweb.owlapi.model.parameters.ConfigurationOptions.PARSE_WITH_STRICT_CONFIGURATION;
 import static org.semanticweb.owlapi.model.parameters.ConfigurationOptions.PRETTY_PRINT_FUNCTIONAL_SYNTAX;
 import static org.semanticweb.owlapi.model.parameters.ConfigurationOptions.PRIORITY_COLLECTION_SORTING;
@@ -579,5 +580,21 @@ public class OntologyConfigurator implements Serializable {
     public OntologyConfigurator withAllowDuplicatesInConstructSets(boolean value) {
         overrides.put(ALLOW_DUPLICATES_IN_CONSTRUCT_SETS, Boolean.valueOf(value));
         return this;
+    }
+
+    /**
+     * @param label True if named graph IRIs comments should be enabled.
+     * @return new config object
+     */
+    public OntologyConfigurator withNamedGraphIRIEnabled(boolean label) {
+        overrides.put(OUTPUT_NAMED_GRAPH_IRI, Boolean.valueOf(label));
+        return this;
+    }
+
+    /**
+     * @return should output named graph IRIs
+     */
+    public boolean shouldOutputNamedGraphIRI() {
+        return OUTPUT_NAMED_GRAPH_IRI.getValue(Boolean.class, overrides).booleanValue();
     }
 }

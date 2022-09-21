@@ -1,16 +1,20 @@
 package org.semanticweb.owlapi.apitest.syntax;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 import org.semanticweb.owlapi.apitest.baseclasses.TestBase;
+import org.semanticweb.owlapi.documents.StringDocumentTarget;
 import org.semanticweb.owlapi.formats.FunctionalSyntaxDocumentFormat;
 import org.semanticweb.owlapi.formats.ManchesterSyntaxDocumentFormat;
 import org.semanticweb.owlapi.formats.OWLXMLDocumentFormat;
 import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
 import org.semanticweb.owlapi.formats.TurtleDocumentFormat;
+import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.rioformats.NQuadsDocumentFormat;
 import org.semanticweb.owlapi.rioformats.NTriplesDocumentFormat;
@@ -50,6 +54,28 @@ class IRITestCase extends TestBase {
         assertThrows(OWLRuntimeException.class, () -> loadOntologyFromString(bad, f));
     }
 
+
+    @Test
+    void shouldOutputNamedGraph() {
+        OWLDocumentFormat f = new TrigDocumentFormat();
+        IRI iri = iri("urn:test:", "ontology");
+        OWLOntology o = getOWLOntology(iri);
+        o.getOWLOntologyManager().getOntologyConfigurator().withNamedGraphIRIEnabled(true);
+        StringDocumentTarget saved = saveOntology(o, f);
+        assertTrue(saved.toString().contains(iri.toQuotedString() + " {"));
+    }
+
+    @Test
+    void shouldOutputOverriddenNamedGraph() throws OWLOntologyStorageException {
+        OWLDocumentFormat f = new TrigDocumentFormat();
+        String value = "urn:test:onto";
+        StringDocumentTarget target = new StringDocumentTarget();
+        target.getStorerParameters().setParameter("namedGraphOverride", value);
+        OWLOntology o = getOWLOntology(iri("urn:test:", "ontology"));
+        o.saveOntology(f, target);
+        assertTrue(target.toString().contains("<" + value + ">"));
+    }
+
     @Test
     void shouldParseIRIAndSkipPrefixedSpaceRDFJSON() {
         OWLDocumentFormat f = new RDFJsonDocumentFormat();
@@ -74,7 +100,7 @@ class IRITestCase extends TestBase {
             "<http://x.org> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Ontology> .\n"
                 + "<http://x.org/myprop> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#AnnotationProperty> .\n"
                 + "<http://x.org/myobj> <http://x.org/myprop> < https://example.org/bad-url> .";
-        assertThrows(NullPointerException.class, () -> roundTrip(f, bad));
+        assertThrows(Exception.class, () -> roundTrip(f, bad));
     }
 
     @Test
@@ -140,7 +166,7 @@ class IRITestCase extends TestBase {
             "<http://x.org> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#Ontology> .\n"
                 + "<http://x.org/myprop> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#AnnotationProperty> .\n"
                 + "<http://x.org/myobj> <http://x.org/myprop> < https://example.org/bad-url> .";
-        assertThrows(NullPointerException.class, () -> roundTrip(f, bad));
+        assertThrows(Exception.class, () -> roundTrip(f, bad));
     }
 
     @Test

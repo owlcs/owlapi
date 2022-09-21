@@ -141,7 +141,18 @@ public enum ConfigurationOptions {
      * {@code Equivalent(A, A)}.*/
     ALLOW_DUPLICATES_IN_CONSTRUCT_SETS  (Boolean.FALSE),
     /**Max number of elements for caches.*/
-    CACHE_SIZE                        (Integer.valueOf(2048));
+    CACHE_SIZE                        (Integer.valueOf(2048)),
+    /** False if named graph IRIs should
+     * not be created for formats like
+     * TriG and RDF/JSON. This is the 
+     * historic behaviour of the API.
+     * Switch to true to always use the
+     * ontology IRI as graph IRI for
+     * named ontologies. The named 
+     * graph IRI can be set independently
+     * or overridden with 
+     * {@code OWLDocumentFormat::setParameter("namedGraphOverride", "desired value")}.*/
+    OUTPUT_NAMED_GRAPH_IRI              (Boolean.FALSE);
     //@formatter:on
     private static final String PREFIX =
         "org.semanticweb.owlapi.model.parameters.ConfigurationOptions.";
@@ -175,7 +186,7 @@ public enum ConfigurationOptions {
 
     /**
      * @param parameterName parameter name - by default the full name of this enumeration plus the
-     *                      enum member name
+     *        enum member name
      * @return matching ConfigurationOptions member, or null if none found
      */
     @Nullable
@@ -188,8 +199,8 @@ public enum ConfigurationOptions {
 
     /**
      * @param value value to parse according to the enum default value
-     * @param <T>   type for the returned value
-     * @param type  type of the returned value
+     * @param <T> type for the returned value
+     * @param type type of the returned value
      * @return parsed value
      */
     protected <T> T parse(Object value, Class<T> type) {
@@ -209,8 +220,8 @@ public enum ConfigurationOptions {
     }
 
     /**
-     * @param <T>       type for this value
-     * @param type      type for this value
+     * @param <T> type for this value
+     * @param type type for this value
      * @param overrides local overrides
      * @return value for this configuration option. Values are evaluated as follows: first, check
      *         overrides; if no overrides are present, check if a system property with the expected
@@ -235,7 +246,7 @@ public enum ConfigurationOptions {
     }
 
     /**
-     * @param <T>  type to cast to
+     * @param <T> type to cast to
      * @param type type to cast to
      * @return default value
      */
