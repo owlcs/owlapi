@@ -1,1 +1,0 @@
-ObjectSomeValuesFrom(<urn:test:test#op> <urn:test:test#c>)

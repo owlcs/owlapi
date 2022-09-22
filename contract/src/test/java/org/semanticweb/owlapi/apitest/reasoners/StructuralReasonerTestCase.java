@@ -14,10 +14,6 @@ package org.semanticweb.owlapi.apitest.reasoners;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.semanticweb.owlapi.OWLFunctionalSyntaxFactory.EquivalentClasses;
-import static org.semanticweb.owlapi.OWLFunctionalSyntaxFactory.OWLNothing;
-import static org.semanticweb.owlapi.OWLFunctionalSyntaxFactory.OWLThing;
-import static org.semanticweb.owlapi.OWLFunctionalSyntaxFactory.SubClassOf;
 
 import org.junit.jupiter.api.Test;
 import org.semanticweb.owlapi.apitest.baseclasses.TestBase;
@@ -36,46 +32,46 @@ import org.semanticweb.owlapi.reasoner.structural.StructuralReasoner;
 class StructuralReasonerTestCase extends TestBase {
 
     private static void testClassHierarchy(StructuralReasoner reasoner) {
-        NodeSet<OWLClass> subsOfA = reasoner.getSubClasses(A, true);
+        NodeSet<OWLClass> subsOfA = reasoner.getSubClasses(CLASSES.A, true);
         assertEquals(1, subsOfA.nodes().count());
-        assertTrue(subsOfA.containsEntity(B));
-        NodeSet<OWLClass> subsOfAp = reasoner.getSubClasses(D, true);
+        assertTrue(subsOfA.containsEntity(CLASSES.B));
+        NodeSet<OWLClass> subsOfAp = reasoner.getSubClasses(CLASSES.D, true);
         assertEquals(1, subsOfAp.nodes().count());
-        assertTrue(subsOfAp.containsEntity(B));
+        assertTrue(subsOfAp.containsEntity(CLASSES.B));
         Node<OWLClass> topNode = reasoner.getTopClassNode();
         NodeSet<OWLClass> subsOfTop =
             reasoner.getSubClasses(topNode.getRepresentativeElement(), true);
         assertEquals(1, subsOfTop.nodes().count());
-        assertTrue(subsOfTop.containsEntity(A));
+        assertTrue(subsOfTop.containsEntity(CLASSES.A));
         NodeSet<OWLClass> descOfTop =
             reasoner.getSubClasses(topNode.getRepresentativeElement(), false);
         assertEquals(3, descOfTop.nodes().count());
-        assertTrue(descOfTop.containsEntity(A));
-        assertTrue(descOfTop.containsEntity(B));
+        assertTrue(descOfTop.containsEntity(CLASSES.A));
+        assertTrue(descOfTop.containsEntity(CLASSES.B));
         assertTrue(descOfTop.containsEntity(OWLNothing()));
         NodeSet<OWLClass> supersOfTop = reasoner.getSuperClasses(OWLThing(), false);
         assertTrue(supersOfTop.isEmpty());
-        NodeSet<OWLClass> supersOfA = reasoner.getSuperClasses(A, false);
+        NodeSet<OWLClass> supersOfA = reasoner.getSuperClasses(CLASSES.A, false);
         assertTrue(supersOfA.isTopSingleton());
         assertEquals(1, supersOfA.nodes().count());
         assertTrue(supersOfA.containsEntity(OWLThing()));
         Node<OWLClass> equivsOfTop = reasoner.getEquivalentClasses(OWLThing());
         assertEquals(2, equivsOfTop.entities().count());
-        assertTrue(equivsOfTop.entities().anyMatch(x -> x.equals(C)));
+        assertTrue(equivsOfTop.entities().anyMatch(CLASSES.C::equals));
     }
 
     @Test
     void testClassHierarchy() {
-        OWLOntology ont = getOWLOntology();
-        ont.addAxiom(EquivalentClasses(OWLThing(), C));
-        ont.addAxiom(SubClassOf(B, A));
-        ont.addAxiom(EquivalentClasses(A, D));
+        OWLOntology ont = create("ont");
+        ont.addAxiom(EquivalentClasses(OWLThing(), CLASSES.C));
+        ont.addAxiom(SubClassOf(CLASSES.B, CLASSES.A));
+        ont.addAxiom(EquivalentClasses(CLASSES.A, CLASSES.D));
         StructuralReasoner reasoner =
             new StructuralReasoner(ont, new SimpleConfiguration(), BufferingMode.NON_BUFFERING);
         testClassHierarchy(reasoner);
-        ont.add(SubClassOf(A, OWLThing()));
+        ont.add(SubClassOf(CLASSES.A, OWLThing()));
         testClassHierarchy(reasoner);
-        ont.remove(SubClassOf(A, OWLThing()));
+        ont.remove(SubClassOf(CLASSES.A, OWLThing()));
         testClassHierarchy(reasoner);
     }
 }

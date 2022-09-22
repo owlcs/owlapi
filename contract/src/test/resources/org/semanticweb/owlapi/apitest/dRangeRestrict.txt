@@ -1,1 +1,0 @@
-DataPropertyRange(Annotation(<urn:test:test#ann> "test"^^xsd:string) <urn:test:test#dp> DatatypeRestriction(xsd:double facetRestriction(minExclusive "5.0"^^xsd:double) facetRestriction(maxExclusive "6.0"^^xsd:double)))

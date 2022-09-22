@@ -12,103 +12,41 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.apitest;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.semanticweb.owlapi.apitest.baseclasses.TestBase;
-import org.semanticweb.owlapi.documents.StringDocumentTarget;
 import org.semanticweb.owlapi.formats.ManchesterSyntaxDocumentFormat;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 
 class ManSyntaxTestCase extends TestBase {
 
-    static Collection<Object[]> getData() {
-        Collection<Object[]> toReturn = new ArrayList<>();
-        Builder b = new Builder();
-        toReturn.add(new Object[] {b.ann()});
-        toReturn.add(new Object[] {b.asymm()});
-        toReturn.add(new Object[] {b.annDom()});
-        toReturn.add(new Object[] {b.annRange()});
-        toReturn.add(new Object[] {b.ass()});
-        toReturn.add(new Object[] {b.assAnd()});
-        toReturn.add(new Object[] {b.assOr()});
-        toReturn.add(new Object[] {b.dRangeAnd()});
-        toReturn.add(new Object[] {b.dRangeOr()});
-        toReturn.add(new Object[] {b.assNot()});
-        toReturn.add(new Object[] {b.assNotAnon()});
-        toReturn.add(new Object[] {b.assSome()});
-        toReturn.add(new Object[] {b.assAll()});
-        toReturn.add(new Object[] {b.assHas()});
-        toReturn.add(new Object[] {b.assMin()});
-        toReturn.add(new Object[] {b.assMax()});
-        toReturn.add(new Object[] {b.assEq()});
-        toReturn.add(new Object[] {b.assHasSelf()});
-        toReturn.add(new Object[] {b.assOneOf()});
-        toReturn.add(new Object[] {b.assDSome()});
-        toReturn.add(new Object[] {b.assDAll()});
-        toReturn.add(new Object[] {b.assDHas()});
-        toReturn.add(new Object[] {b.assDMin()});
-        toReturn.add(new Object[] {b.assDMax()});
-        toReturn.add(new Object[] {b.assDEq()});
-        toReturn.add(new Object[] {b.dOneOf()});
-        toReturn.add(new Object[] {b.dNot()});
-        toReturn.add(new Object[] {b.dRangeRestrict()});
-        toReturn.add(new Object[] {b.assD()});
-        toReturn.add(new Object[] {b.assDPlain()});
-        toReturn.add(new Object[] {b.dDom()});
-        toReturn.add(new Object[] {b.dRange()});
-        toReturn.add(new Object[] {b.dDef()});
-        toReturn.add(new Object[] {b.decC()});
-        toReturn.add(new Object[] {b.decOp()});
-        toReturn.add(new Object[] {b.decDp()});
-        toReturn.add(new Object[] {b.decDt()});
-        toReturn.add(new Object[] {b.decAp()});
-        toReturn.add(new Object[] {b.decI()});
-        toReturn.add(new Object[] {b.assDi()});
-        toReturn.add(new Object[] {b.dc()});
-        toReturn.add(new Object[] {b.dDp()});
-        toReturn.add(new Object[] {b.dOp()});
-        toReturn.add(new Object[] {b.du()});
-        toReturn.add(new Object[] {b.ec()});
-        toReturn.add(new Object[] {b.eDp()});
-        toReturn.add(new Object[] {b.eOp()});
-        toReturn.add(new Object[] {b.fdp()});
-        toReturn.add(new Object[] {b.fop()});
-        toReturn.add(new Object[] {b.ifp()});
-        toReturn.add(new Object[] {b.iop()});
-        toReturn.add(new Object[] {b.irr()});
-        toReturn.add(new Object[] {b.ndp()});
-        toReturn.add(new Object[] {b.nop()});
-        toReturn.add(new Object[] {b.opa()});
-        toReturn.add(new Object[] {b.opaInv()});
-        toReturn.add(new Object[] {b.opaInvj()});
-        toReturn.add(new Object[] {b.oDom()});
-        toReturn.add(new Object[] {b.oRange()});
-        toReturn.add(new Object[] {b.chain()});
-        toReturn.add(new Object[] {b.ref()});
-        toReturn.add(new Object[] {b.same()});
-        toReturn.add(new Object[] {b.subAnn()});
-        toReturn.add(new Object[] {b.subClass()});
-        toReturn.add(new Object[] {b.subData()});
-        toReturn.add(new Object[] {b.subObject()});
-        toReturn.add(new Object[] {b.rule()});
-        toReturn.add(new Object[] {b.symm()});
-        toReturn.add(new Object[] {b.trans()});
-        toReturn.add(new Object[] {b.hasKey()});
-        toReturn.add(new Object[] {b.bigRule()});
-        return toReturn;
+    static Collection<Object> getData() {
+        return Arrays.asList(Builder.ann, Builder.asymm, Builder.annDom, Builder.annRange,
+            Builder.ass, Builder.assAnd, Builder.assOr, Builder.dRangeAnd, Builder.dRangeOr,
+            Builder.assNot, Builder.assNotAnon, Builder.assSome, Builder.assAll, Builder.assHas,
+            Builder.assMin, Builder.assMax, Builder.assEq, Builder.assHasSelf, Builder.assOneOf,
+            Builder.assDSome, Builder.assDAll, Builder.assDHas, Builder.assDMin, Builder.assDMax,
+            Builder.assDEq, Builder.dOneOf, Builder.dNot, Builder.dRangeRestrict, Builder.assD,
+            Builder.assDPlain, Builder.dDom, Builder.dRange, Builder.dDef, Builder.decC,
+            Builder.decOp, Builder.decDp, Builder.decDt, Builder.decAp, Builder.decI, Builder.assDi,
+            Builder.dc, Builder.dDp, Builder.dOp, Builder.du, Builder.ec, Builder.eDp, Builder.eOp,
+            Builder.fdp, Builder.fop, Builder.ifp, Builder.iop, Builder.irr, Builder.ndp,
+            Builder.nop, Builder.opa, Builder.opaInv, Builder.opaInvj, Builder.oDom, Builder.oRange,
+            Builder.chain, Builder.ref, Builder.same, Builder.subAnn, Builder.subClass,
+            Builder.subData, Builder.subObject, Builder.rule, Builder.symm, Builder.trans,
+            Builder.hasKey, Builder.bigRule);
     }
 
     @ParameterizedTest
     @MethodSource("getData")
-    void testAssertion(OWLAxiom object) throws OWLOntologyCreationException {
-        OWLOntology o = setupManager().createOntology(iri("urn:test:", "manchester"));
-        o.addAxiom(object);
-        StringDocumentTarget s = saveOntology(o, new ManchesterSyntaxDocumentFormat());
-        loadOntologyFromString(s, new ManchesterSyntaxDocumentFormat());
+    void testAssertion(OWLAxiom ax) {
+        OWLOntology o = create(iri("urn:test:", "manchester"));
+        o.addAxiom(ax);
+        ManchesterSyntaxDocumentFormat format = new ManchesterSyntaxDocumentFormat();
+        loadFrom(saveOntology(o, format), format);
     }
 }

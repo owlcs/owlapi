@@ -1,7 +1,6 @@
 package org.semanticweb.owlapi.profilestest;
 
-import java.util.Arrays;
-import java.util.List;
+import java.util.stream.Stream;
 
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -11,8 +10,8 @@ import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
 
 class ProfileFullTestCase extends ProfileBase {
 
-    static List<String> data() {
-        return Arrays.asList(TestFiles.profileFullTestCases);
+    static Stream<String> data() {
+        return Stream.of(TestFiles.profileFullTestCases);
     }
 
     @ParameterizedTest

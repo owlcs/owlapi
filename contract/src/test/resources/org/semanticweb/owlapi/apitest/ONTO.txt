@@ -1,1 +1,0 @@
-Ontology(OntologyID(OntologyIRI(<urn:test:test#test>) VersionIRI(<null>)) [Axioms: 0] [Logical axioms: 0])

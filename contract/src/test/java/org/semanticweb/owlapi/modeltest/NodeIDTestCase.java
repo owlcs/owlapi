@@ -41,9 +41,9 @@ class NodeIDTestCase extends TestBase {
 
     @Test
     void shouldFindAnonymousNodeIRI() {
-        assertTrue(NodeID.isAnonymousNodeIRI(df.getIRI("_:sometest_genid_something")));
-        assertTrue(NodeID.isAnonymousNodeIRI(df.getIRI("_:genid_something")));
-        assertFalse(NodeID.isAnonymousNodeIRI(df.getIRI("http://sometest_genid#", "something")));
+        assertTrue(NodeID.isAnonymousNodeIRI(iri("_:sometest_genid_", "something")));
+        assertTrue(NodeID.isAnonymousNodeIRI(iri("_:genid_", "something")));
+        assertFalse(NodeID.isAnonymousNodeIRI(iri("http://sometest_genid#", "something")));
         assertFalse(NodeID.isAnonymousNodeIRI((IRI) null));
     }
 
@@ -62,11 +62,11 @@ class NodeIDTestCase extends TestBase {
         assertTrue(
             NodeID.isAnonymousNodeIRI(NodeID.getNodeID("http://sometest_genid_something").getID()));
         assertTrue(NodeID.isAnonymousNodeIRI(NodeID.getNodeID(null).getID()));
-        NodeID id = NodeID.getNodeID(null);
-        assertEquals(id.getID(), id.toString());
+        NodeID idValue = NodeID.getNodeID(null);
+        assertEquals(idValue.getID(), idValue.toString());
         assertEquals(NodeID.getNodeID(SOMESTRING), NodeID.getNodeID(SOMESTRING));
         assertEquals(NodeID.getNodeID(SOMESTRING).compareTo(NodeID.getNodeID("someotherstring")),
             SOMESTRING.compareTo("someotherstring"));
-        assertEquals(id.hashCode(), id.toString().hashCode());
+        assertEquals(idValue.hashCode(), idValue.toString().hashCode());
     }
 }

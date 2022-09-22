@@ -1,1 +1,0 @@
-DataPropertyAtom(<urn:test:test#dp> Variable(<urn:swrl:var#var2>) "false"^^xsd:boolean)

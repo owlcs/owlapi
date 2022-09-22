@@ -6,7 +6,7 @@
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 {
     <http://www.semanticweb.org/owlapi/test224612089629142> a owl:Ontology .
-    <http://owlapi.sourceforge.net/ontology#prop> a owl:DatatypeProperty .
-    <http://owlapi.sourceforge.net/ontology#A> a owl:NamedIndividual , owl:Thing ;
-        <http://owlapi.sourceforge.net/ontology#prop> "test url" .
+    <http://www.semanticweb.org/owlapi/test#p> a owl:DatatypeProperty .
+    <http://www.semanticweb.org/owlapi/test#a> a owl:NamedIndividual , owl:Thing ;
+        <http://www.semanticweb.org/owlapi/test#p> "test url" .
 }

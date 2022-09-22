@@ -14,12 +14,6 @@ package org.semanticweb.owlapi.apitest.annotations;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.semanticweb.owlapi.OWLFunctionalSyntaxFactory.AnnotationAssertion;
-import static org.semanticweb.owlapi.OWLFunctionalSyntaxFactory.AnnotationProperty;
-import static org.semanticweb.owlapi.OWLFunctionalSyntaxFactory.IRI;
-import static org.semanticweb.owlapi.OWLFunctionalSyntaxFactory.Literal;
-import static org.semanticweb.owlapi.OWLFunctionalSyntaxFactory.RDFSComment;
-import static org.semanticweb.owlapi.OWLFunctionalSyntaxFactory.SubClassOf;
 import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asUnorderedSet;
 
 import java.util.HashSet;
@@ -32,16 +26,9 @@ import org.semanticweb.owlapi.formats.OWLXMLDocumentFormat;
 import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
 import org.semanticweb.owlapi.formats.TurtleDocumentFormat;
 import org.semanticweb.owlapi.model.AxiomType;
-import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
-import org.semanticweb.owlapi.model.OWLAnnotationProperty;
-import org.semanticweb.owlapi.model.OWLAnnotationPropertyDomainAxiom;
-import org.semanticweb.owlapi.model.OWLAnnotationPropertyRangeAxiom;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
-import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLSubAnnotationPropertyOfAxiom;
-import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 import org.semanticweb.owlapi.model.OntologyConfigurator;
 
 /**
@@ -52,23 +39,12 @@ class LoadAnnotationAxiomsTestCase extends TestBase {
 
     @Test
     void testIgnoreAnnotations() {
-        OWLOntology ont = getOWLOntology();
-        OWLSubClassOfAxiom sca = SubClassOf(A, B);
-        ont.add(sca);
-        OWLAnnotationProperty rdfsComment = RDFSComment();
-        OWLLiteral lit = Literal("Hello world");
-        OWLAnnotationAssertionAxiom annoAx1 = AnnotationAssertion(rdfsComment, A.getIRI(), lit);
-        ont.add(annoAx1);
-        OWLAnnotationPropertyDomainAxiom annoAx2 =
-            df.getOWLAnnotationPropertyDomainAxiom(rdfsComment, A.getIRI());
-        ont.add(annoAx2);
-        OWLAnnotationPropertyRangeAxiom annoAx3 =
-            df.getOWLAnnotationPropertyRangeAxiom(rdfsComment, B.getIRI());
-        ont.add(annoAx3);
-        OWLAnnotationProperty myComment = AnnotationProperty(IRI("http://ont.com#", "myComment"));
-        OWLSubAnnotationPropertyOfAxiom annoAx4 =
-            df.getOWLSubAnnotationPropertyOfAxiom(myComment, rdfsComment);
-        ont.add(annoAx4);
+        OWLOntology ont = createAnon();
+        ont.add(SubClassOf(CLASSES.A, CLASSES.B),
+            AnnotationAssertion(RDFSComment(), CLASSES.A.getIRI(), Literal("Hello world")),
+            AnnotationPropertyDomain(RDFSComment(), CLASSES.A.getIRI()),
+            AnnotationPropertyRange(RDFSComment(), CLASSES.B.getIRI()),
+            SubAnnotationPropertyOf(ANNPROPS.MY_COMMENT, RDFSComment()));
         reload(ont, new RDFXMLDocumentFormat());
         reload(ont, new OWLXMLDocumentFormat());
         reload(ont, new TurtleDocumentFormat());
@@ -95,7 +71,7 @@ class LoadAnnotationAxiomsTestCase extends TestBase {
     private OWLOntology reload(OWLOntology ontology, OWLDocumentFormat format,
         OntologyConfigurator configuration) {
         OWLOntology reloaded =
-            loadOntologyWithConfig(saveOntology(ontology, format), format, configuration);
+            loadWithConfig(saveOntology(ontology, format), format, configuration);
         reloaded.remove(reloaded.axioms(AxiomType.DECLARATION));
         return reloaded;
     }

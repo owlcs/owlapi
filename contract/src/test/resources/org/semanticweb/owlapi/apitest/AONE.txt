@@ -1,1 +1,0 @@
-ClassAssertion(Annotation(<urn:test:test#ann> "test"^^xsd:string) ObjectOneOf(<urn:test:test#i>) <urn:test:test#i>)

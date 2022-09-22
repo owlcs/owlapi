@@ -1,1 +1,0 @@
-[SubClassOf(owl:Thing ObjectMaxCardinality(1 <urn:test:test#op> owl:Thing))]

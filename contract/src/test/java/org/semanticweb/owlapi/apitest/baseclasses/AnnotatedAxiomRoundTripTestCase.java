@@ -12,45 +12,10 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.apitest.baseclasses;
 
-import static org.semanticweb.owlapi.OWLFunctionalSyntaxFactory.Annotation;
-import static org.semanticweb.owlapi.OWLFunctionalSyntaxFactory.AnnotationProperty;
-import static org.semanticweb.owlapi.OWLFunctionalSyntaxFactory.AsymmetricObjectProperty;
-import static org.semanticweb.owlapi.OWLFunctionalSyntaxFactory.ClassAssertion;
-import static org.semanticweb.owlapi.OWLFunctionalSyntaxFactory.DataProperty;
-import static org.semanticweb.owlapi.OWLFunctionalSyntaxFactory.DataPropertyAssertion;
-import static org.semanticweb.owlapi.OWLFunctionalSyntaxFactory.DataPropertyDomain;
-import static org.semanticweb.owlapi.OWLFunctionalSyntaxFactory.DataPropertyRange;
-import static org.semanticweb.owlapi.OWLFunctionalSyntaxFactory.Datatype;
-import static org.semanticweb.owlapi.OWLFunctionalSyntaxFactory.Declaration;
-import static org.semanticweb.owlapi.OWLFunctionalSyntaxFactory.DifferentIndividuals;
-import static org.semanticweb.owlapi.OWLFunctionalSyntaxFactory.DisjointClasses;
-import static org.semanticweb.owlapi.OWLFunctionalSyntaxFactory.DisjointDataProperties;
-import static org.semanticweb.owlapi.OWLFunctionalSyntaxFactory.DisjointObjectProperties;
-import static org.semanticweb.owlapi.OWLFunctionalSyntaxFactory.EquivalentClasses;
-import static org.semanticweb.owlapi.OWLFunctionalSyntaxFactory.EquivalentDataProperties;
-import static org.semanticweb.owlapi.OWLFunctionalSyntaxFactory.EquivalentObjectProperties;
-import static org.semanticweb.owlapi.OWLFunctionalSyntaxFactory.FunctionalDataProperty;
-import static org.semanticweb.owlapi.OWLFunctionalSyntaxFactory.FunctionalObjectProperty;
-import static org.semanticweb.owlapi.OWLFunctionalSyntaxFactory.InverseFunctionalObjectProperty;
-import static org.semanticweb.owlapi.OWLFunctionalSyntaxFactory.IrreflexiveObjectProperty;
-import static org.semanticweb.owlapi.OWLFunctionalSyntaxFactory.Literal;
-import static org.semanticweb.owlapi.OWLFunctionalSyntaxFactory.NamedIndividual;
-import static org.semanticweb.owlapi.OWLFunctionalSyntaxFactory.NegativeDataPropertyAssertion;
-import static org.semanticweb.owlapi.OWLFunctionalSyntaxFactory.NegativeObjectPropertyAssertion;
-import static org.semanticweb.owlapi.OWLFunctionalSyntaxFactory.ObjectProperty;
-import static org.semanticweb.owlapi.OWLFunctionalSyntaxFactory.ObjectPropertyAssertion;
-import static org.semanticweb.owlapi.OWLFunctionalSyntaxFactory.ObjectPropertyDomain;
-import static org.semanticweb.owlapi.OWLFunctionalSyntaxFactory.ObjectPropertyRange;
-import static org.semanticweb.owlapi.OWLFunctionalSyntaxFactory.ReflexiveObjectProperty;
-import static org.semanticweb.owlapi.OWLFunctionalSyntaxFactory.SubDataPropertyOf;
-import static org.semanticweb.owlapi.OWLFunctionalSyntaxFactory.SubObjectPropertyOf;
-import static org.semanticweb.owlapi.OWLFunctionalSyntaxFactory.SubPropertyChainOf;
-import static org.semanticweb.owlapi.OWLFunctionalSyntaxFactory.SymmetricObjectProperty;
-import static org.semanticweb.owlapi.OWLFunctionalSyntaxFactory.TopDatatype;
-import static org.semanticweb.owlapi.OWLFunctionalSyntaxFactory.TransitiveObjectProperty;
+import static org.semanticweb.owlapi.model.parameters.Imports.INCLUDED;
 
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -66,12 +31,9 @@ import org.semanticweb.owlapi.formats.OWLXMLDocumentFormat;
 import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
 import org.semanticweb.owlapi.formats.TurtleDocumentFormat;
 import org.semanticweb.owlapi.model.OWLAnnotation;
-import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
-import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.parameters.Imports;
 import org.semanticweb.owlapi.rioformats.NQuadsDocumentFormat;
 import org.semanticweb.owlapi.rioformats.NTriplesDocumentFormat;
 import org.semanticweb.owlapi.rioformats.RDFJsonDocumentFormat;
@@ -86,109 +48,116 @@ import org.semanticweb.owlapi.rioformats.TrigDocumentFormat;
  */
 class AnnotatedAxiomRoundTripTestCase extends TestBase {
 
-    OWLOntology annotatedAxiom(Function<Set<OWLAnnotation>, OWLAxiom> f) {
+    OWLOntology annotatedAxiom(Function<Collection<OWLAnnotation>, OWLAxiom> function) {
 
-        OWLAnnotationProperty prop = AnnotationProperty(iri("prop"));
-        OWLLiteral lit = Literal("Test", "");
-        OWLAnnotation anno1 = Annotation(prop, lit);
-        OWLAnnotationProperty prop2 = AnnotationProperty(iri("prop2"));
-        OWLAnnotation anno2 = Annotation(prop2, lit);
-        Set<OWLAnnotation> annos = new HashSet<>(Arrays.asList(anno1, anno2));
+        OWLAnnotation anno1 = Annotation(ANNPROPS.propQ, LITERALS.val);
+        OWLAnnotation anno2 = Annotation(ANNPROPS.propP, LITERALS.val);
+        List<OWLAnnotation> annos = l(anno1, anno2);
         Set<OWLAxiom> axioms = new HashSet<>();
-        OWLAxiom ax = f.apply(annos);
+        OWLAxiom ax = function.apply(annos);
         axioms.add(ax.getAnnotatedAxiom(annos));
-        axioms.add(Declaration(prop));
-        axioms.add(Declaration(prop2));
-        axioms.add(ax.getAnnotatedAxiom(singleton(anno1)));
-        axioms.add(ax.getAnnotatedAxiom(singleton(anno2)));
-        OWLOntology ont = getOWLOntology();
+        axioms.add(Declaration(ANNPROPS.propQ));
+        axioms.add(Declaration(ANNPROPS.propP));
+        axioms.add(ax.getAnnotatedAxiom(l(anno1)));
+        axioms.add(ax.getAnnotatedAxiom(l(anno2)));
+        OWLOntology ont = createAnon();
         ont.add(axioms);
-        ont.unsortedSignature().filter(e -> !e.isBuiltIn() && !ont.isDeclared(e, Imports.INCLUDED))
-        .forEach(e -> ont.add(Declaration(e)));
+        ont.unsortedSignature()
+            .filter(entity -> !entity.isBuiltIn() && !ont.isDeclared(entity, INCLUDED))
+            .forEach(entity -> ont.add(Declaration(entity)));
         return ont;
     }
 
-    static List<Function<Set<OWLAnnotation>, OWLAxiom>> annotatedAxiomRoundtripExceptManchesterSyntaxTestCase() {
-        return Arrays.asList(a -> Declaration(ObjectProperty(iri("propP")), a),
-            a -> Declaration(Datatype(iri("DT")), a),
-            a -> Declaration(NamedIndividual(iri("I")), a),
-            a -> Declaration(DataProperty(iri("propD")), a),
-            a -> Declaration(AnnotationProperty(iri("propA")), a), a -> Declaration(A, a));
+    static List<Function<Collection<OWLAnnotation>, OWLAxiom>> annotatedAxiomRoundtripExceptManchesterSyntaxTestCase() {
+        return l(a -> Declaration(a, OBJPROPS.P), a -> Declaration(a, DATATYPES.DT),
+            a -> Declaration(a, INDIVIDUALS.I), a -> Declaration(a, DATAPROPS.PD),
+            a -> Declaration(a, ANNPROPS.AP), a -> Declaration(a, CLASSES.A));
     }
 
-    static List<Function<Set<OWLAnnotation>, OWLAxiom>> annotatedAxiomRoundtripExceptRDFXMLAndFunctionalTestCase() {
-        return Arrays.asList(a -> EquivalentClasses(a, A, B, C, D),
-            a -> EquivalentDataProperties(a, DP, DQ, DR),
-            a -> EquivalentObjectProperties(a, P, Q, R));
+    static List<Function<Collection<OWLAnnotation>, OWLAxiom>> annotatedAxiomRoundtripExceptRDFXMLAndFunctionalTestCase() {
+        return l(a -> EquivalentClasses(a, CLASSES.A, CLASSES.B, CLASSES.C, CLASSES.D),
+            a -> EquivalentDataProperties(a, DATAPROPS.DP, DATAPROPS.DQ, DATAPROPS.DR),
+            a -> EquivalentObjectProperties(a, OBJPROPS.P, OBJPROPS.Q, OBJPROPS.R));
     }
 
-    static List<Function<Set<OWLAnnotation>, OWLAxiom>> annotatedAxiomRountripTestCase() {
-        return Arrays.asList(a -> AsymmetricObjectProperty(P, a), a -> ClassAssertion(A, I, a),
-            a -> DataPropertyAssertion(DP, I, Literal("xyz"), a), a -> DataPropertyDomain(DP, A, a),
-            a -> DataPropertyRange(DP, TopDatatype(), a), a -> DisjointClasses(a, A, B),
-            a -> DisjointClasses(a, A, B, C, D), a -> DisjointDataProperties(a, DP, DQ),
-            a -> DisjointDataProperties(a, DP, DQ, DR), a -> DisjointObjectProperties(a, P, Q),
-            a -> DisjointObjectProperties(a, P, Q, R), a -> EquivalentClasses(a, A, B),
-            a -> EquivalentDataProperties(a, DP, DQ), a -> EquivalentObjectProperties(a, P, Q),
-            a -> FunctionalDataProperty(DP, a), a -> FunctionalObjectProperty(P, a),
-            a -> InverseFunctionalObjectProperty(P, a), a -> IrreflexiveObjectProperty(P, a),
-            a -> NegativeDataPropertyAssertion(DP, I, Literal("xyz"), a),
-            a -> NegativeObjectPropertyAssertion(P, I, J, a),
-            a -> ObjectPropertyAssertion(P, I, J, a), a -> ObjectPropertyDomain(P, A, a),
-            a -> ObjectPropertyRange(P, A, a), a -> ReflexiveObjectProperty(P, a),
-            a -> df.getOWLSubClassOfAxiom(A, B, a), a -> SubDataPropertyOf(DP, DQ, a),
-            a -> SubObjectPropertyOf(P, Q, a), a -> SymmetricObjectProperty(P, a),
-            a -> TransitiveObjectProperty(P, a), a -> SubPropertyChainOf(Arrays.asList(P, Q), R, a),
-            a -> DifferentIndividuals(Arrays.asList(II, I, J), a),
-            a -> DifferentIndividuals(Arrays.asList(I, J), a),
-            a -> DifferentIndividuals(Arrays.asList(II, I, J), a),
-            a -> DifferentIndividuals(Arrays.asList(I, J), a));
+    static List<Function<Collection<OWLAnnotation>, OWLAxiom>> annotatedAxiomRountripTestCase() {
+        return l(a -> AsymmetricObjectProperty(a, OBJPROPS.P),
+            a -> ClassAssertion(a, CLASSES.A, INDIVIDUALS.I),
+            a -> DataPropertyAssertion(a, DATAPROPS.DP, INDIVIDUALS.I, Literal("xyz")),
+            a -> DataPropertyDomain(a, DATAPROPS.DP, CLASSES.A),
+            a -> DataPropertyRange(a, DATAPROPS.DP, TopDatatype()),
+            a -> DisjointClasses(a, CLASSES.A, CLASSES.B),
+            a -> DisjointClasses(a, CLASSES.A, CLASSES.B, CLASSES.C, CLASSES.D),
+            a -> DisjointDataProperties(a, DATAPROPS.DP, DATAPROPS.DQ),
+            a -> DisjointDataProperties(a, DATAPROPS.DP, DATAPROPS.DQ, DATAPROPS.DR),
+            a -> DisjointObjectProperties(a, OBJPROPS.P, OBJPROPS.Q),
+            a -> DisjointObjectProperties(a, OBJPROPS.P, OBJPROPS.Q, OBJPROPS.R),
+            a -> EquivalentClasses(a, CLASSES.A, CLASSES.B),
+            a -> EquivalentDataProperties(a, DATAPROPS.DP, DATAPROPS.DQ),
+            a -> EquivalentObjectProperties(a, OBJPROPS.P, OBJPROPS.Q),
+            a -> FunctionalDataProperty(a, DATAPROPS.DP),
+            a -> FunctionalObjectProperty(a, OBJPROPS.P),
+            a -> InverseFunctionalObjectProperty(a, OBJPROPS.P),
+            a -> IrreflexiveObjectProperty(a, OBJPROPS.P),
+            a -> NegativeDataPropertyAssertion(a, DATAPROPS.DP, INDIVIDUALS.I, Literal("xyz")),
+            a -> NegativeObjectPropertyAssertion(a, OBJPROPS.P, INDIVIDUALS.I, INDIVIDUALS.J),
+            a -> ObjectPropertyAssertion(a, OBJPROPS.P, INDIVIDUALS.I, INDIVIDUALS.J),
+            a -> ObjectPropertyDomain(a, OBJPROPS.P, CLASSES.A),
+            a -> ObjectPropertyRange(a, OBJPROPS.P, CLASSES.A),
+            a -> ReflexiveObjectProperty(a, OBJPROPS.P), a -> SubClassOf(a, CLASSES.A, CLASSES.B),
+            a -> SubDataPropertyOf(a, DATAPROPS.DP, DATAPROPS.DQ),
+            a -> SubObjectPropertyOf(a, OBJPROPS.P, OBJPROPS.Q),
+            a -> SymmetricObjectProperty(a, OBJPROPS.P),
+            a -> TransitiveObjectProperty(a, OBJPROPS.P),
+            a -> SubPropertyChainOf(a, l(OBJPROPS.P, OBJPROPS.Q), OBJPROPS.R),
+            a -> DifferentIndividuals(a, INDIVIDUALS.i, INDIVIDUALS.I, INDIVIDUALS.J),
+            a -> DifferentIndividuals(a, INDIVIDUALS.I, INDIVIDUALS.J),
+            a -> DifferentIndividuals(a, INDIVIDUALS.i, INDIVIDUALS.I, INDIVIDUALS.J),
+            a -> DifferentIndividuals(a, INDIVIDUALS.I, INDIVIDUALS.J));
     }
 
-    static List<Function<Set<OWLAnnotation>, OWLAxiom>> individualsAxiomAnnotatedTestCase() {
-        return Arrays.asList(
-            a -> df.getOWLSameIndividualAxiom(
-                Arrays.asList(NamedIndividual(iri("A")), NamedIndividual(iri("B"))), a),
-            a -> df.getOWLDifferentIndividualsAxiom(Arrays.asList(NamedIndividual(iri("A")),
-                NamedIndividual(iri("B")), NamedIndividual(iri("C"))), a),
-            a -> df.getOWLSameIndividualAxiom(
-                Arrays.asList(NamedIndividual(iri("A")), NamedIndividual(iri("B"))), a));
+    static List<Function<Collection<OWLAnnotation>, OWLAxiom>> individualsAxiomAnnotatedTestCase() {
+        return l(a -> SameIndividual(a, INDIVIDUALS.I, INDIVIDUALS.J),
+            a -> DifferentIndividuals(a, INDIVIDUALS.I, INDIVIDUALS.J, INDIVIDUALS.indA),
+            a -> SameIndividual(a, INDIVIDUALS.I, INDIVIDUALS.J));
     }
 
     static List<Arguments> annotatedOntologies() {
         List<Arguments> list = new ArrayList<>();
-        List<OWLDocumentFormat> formats = Arrays.asList(new RDFXMLDocumentFormat(),
+        List<OWLDocumentFormat> formats = l(new RDFXMLDocumentFormat(),
             new RioRDFXMLDocumentFormat(), new RDFJsonDocumentFormat(), new OWLXMLDocumentFormat(),
             new FunctionalSyntaxDocumentFormat(), new TurtleDocumentFormat(),
             new RioTurtleDocumentFormat(), new TrigDocumentFormat(), new RDFJsonLDDocumentFormat(),
             new NTriplesDocumentFormat(), new NQuadsDocumentFormat());
-        Consumer<? super Function<Set<OWLAnnotation>, OWLAxiom>> action =
-            x -> formats.forEach(f -> list.add(Arguments.of(x, f)));
-            annotatedAxiomRountripTestCase().forEach(action);
-            annotatedAxiomRoundtripExceptManchesterSyntaxTestCase().forEach(action);
-            annotatedAxiomRoundtripExceptRDFXMLAndFunctionalTestCase().forEach(action);
-            individualsAxiomAnnotatedTestCase().forEach(action);
-            return list;
+        Consumer<? super Function<Collection<OWLAnnotation>, OWLAxiom>> action =
+            in -> formats.forEach(format -> list.add(Arguments.of(in, format)));
+        annotatedAxiomRountripTestCase().forEach(action);
+        annotatedAxiomRoundtripExceptManchesterSyntaxTestCase().forEach(action);
+        annotatedAxiomRoundtripExceptRDFXMLAndFunctionalTestCase().forEach(action);
+        individualsAxiomAnnotatedTestCase().forEach(action);
+        return list;
     }
 
     @ParameterizedTest
     @MethodSource({"annotatedOntologies"})
-    void testRDFXML(Function<Set<OWLAnnotation>, OWLAxiom> f, OWLDocumentFormat d) {
-        roundTripOntology(annotatedAxiom(f), d);
+    void testRDFXML(Function<Collection<OWLAnnotation>, OWLAxiom> function,
+        OWLDocumentFormat format) {
+        roundTripOntology(annotatedAxiom(function), format);
     }
 
     @ParameterizedTest
     @MethodSource({"annotatedAxiomRountripTestCase", "individualsAxiomAnnotatedTestCase",
-    "annotatedAxiomRoundtripExceptRDFXMLAndFunctionalTestCase"})
-    void testManchesterOWLSyntax(Function<Set<OWLAnnotation>, OWLAxiom> f) {
-        roundTripOntology(annotatedAxiom(f), new ManchesterSyntaxDocumentFormat());
+        "annotatedAxiomRoundtripExceptRDFXMLAndFunctionalTestCase"})
+    void testManchesterOWLSyntax(Function<Collection<OWLAnnotation>, OWLAxiom> function) {
+        roundTripOntology(annotatedAxiom(function), new ManchesterSyntaxDocumentFormat());
     }
 
     @ParameterizedTest
     @MethodSource({"annotatedAxiomRountripTestCase", "individualsAxiomAnnotatedTestCase",
-    "annotatedAxiomRoundtripExceptManchesterSyntaxTestCase"})
-    void roundTripRDFXMLAndFunctionalShouldBeSame(Function<Set<OWLAnnotation>, OWLAxiom> f) {
-        OWLOntology o = annotatedAxiom(f);
+        "annotatedAxiomRoundtripExceptManchesterSyntaxTestCase"})
+    void roundTripRDFXMLAndFunctionalShouldBeSame(
+        Function<Collection<OWLAnnotation>, OWLAxiom> format) {
+        OWLOntology o = annotatedAxiom(format);
         OWLOntology o1 = roundTrip(o, new RDFXMLDocumentFormat());
         OWLOntology o2 = roundTrip(o, new FunctionalSyntaxDocumentFormat());
         equal(o, o1);

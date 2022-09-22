@@ -7,6 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.File;
+import java.io.IOException;
 import java.io.StringReader;
 import java.io.StringWriter;
 import java.util.HashSet;
@@ -16,6 +17,8 @@ import org.eclipse.rdf4j.model.impl.SimpleValueFactory;
 import org.eclipse.rdf4j.model.vocabulary.OWL;
 import org.eclipse.rdf4j.model.vocabulary.RDF;
 import org.eclipse.rdf4j.rio.RDFFormat;
+import org.eclipse.rdf4j.rio.RDFHandlerException;
+import org.eclipse.rdf4j.rio.RDFParseException;
 import org.eclipse.rdf4j.rio.RDFParser;
 import org.eclipse.rdf4j.rio.RDFWriter;
 import org.eclipse.rdf4j.rio.Rio;
@@ -132,7 +135,7 @@ class RioRendererTestCase extends TestBase {
     }
 
     @Test
-    void testRenderKoalaRdfXmlWriter() throws Exception {
+    void testRenderKoalaRdfXmlWriter() throws RDFParseException, RDFHandlerException, IOException {
         RioRenderer testRenderer = new RioRenderer(testOntologyKoala, format, testRdfXmlRioWriter);
         testRenderer.render();
         // testRdfXmlRioWriter outputs its results to testRdfXmlStringWriter
@@ -160,7 +163,7 @@ class RioRendererTestCase extends TestBase {
     }
 
     @Test
-    void testRenderKoalaTurtleWriter() throws Exception {
+    void testRenderKoalaTurtleWriter() throws RDFParseException, RDFHandlerException, IOException {
         RioRenderer testRenderer = new RioRenderer(testOntologyKoala, format, testTurtleRioWriter);
         testRenderer.render();
         // testTurtleRioWriter outputs its results to testTurtleStringWriter
@@ -184,7 +187,8 @@ class RioRendererTestCase extends TestBase {
     }
 
     @Test
-    void testRenderKoalaNTriplesWriter() throws Exception {
+    void testRenderKoalaNTriplesWriter()
+        throws RDFParseException, RDFHandlerException, IOException {
         RioRenderer testRenderer =
             new RioRenderer(testOntologyKoala, format, testNTriplesRioWriter);
         testRenderer.render();
@@ -211,7 +215,7 @@ class RioRendererTestCase extends TestBase {
     }
 
     @Test
-    void testRioOWLRDFParser() throws Exception {
+    void testRioOWLRDFParser() throws RDFParseException, RDFHandlerException, IOException {
         RDFParser parser = new RioManchesterSyntaxParserFactory().getParser();
         parser.setRDFHandler(testHandlerStatementCollector);
         parser.parse(new StringReader(TestFiles.inputManSyntax),

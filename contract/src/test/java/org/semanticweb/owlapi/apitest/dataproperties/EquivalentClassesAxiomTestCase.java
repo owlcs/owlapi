@@ -15,11 +15,6 @@ package org.semanticweb.owlapi.apitest.dataproperties;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.semanticweb.owlapi.OWLFunctionalSyntaxFactory.EquivalentClasses;
-import static org.semanticweb.owlapi.OWLFunctionalSyntaxFactory.OWLNothing;
-import static org.semanticweb.owlapi.OWLFunctionalSyntaxFactory.OWLThing;
-import static org.semanticweb.owlapi.OWLFunctionalSyntaxFactory.ObjectSomeValuesFrom;
-import static org.semanticweb.owlapi.OWLFunctionalSyntaxFactory.SubClassOf;
 import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asUnorderedSet;
 
 import java.util.Collection;
@@ -40,27 +35,27 @@ class EquivalentClassesAxiomTestCase extends TestBase {
 
     @Test
     void testContainsNamedClass() {
-        OWLClassExpression desc = ObjectSomeValuesFrom(P, B);
-        OWLClassExpression desc2 = ObjectSomeValuesFrom(P, A);
-        OWLEquivalentClassesAxiom ax = EquivalentClasses(A, desc);
+        OWLClassExpression desc = ObjectSomeValuesFrom(OBJPROPS.P, CLASSES.B);
+        OWLEquivalentClassesAxiom ax = EquivalentClasses(CLASSES.A, desc);
         assertTrue(ax.containsNamedEquivalentClass());
-        OWLEquivalentClassesAxiom ax2 = EquivalentClasses(desc, desc2);
+        OWLEquivalentClassesAxiom ax2 =
+            EquivalentClasses(desc, ObjectSomeValuesFrom(OBJPROPS.P, CLASSES.A));
         assertFalse(ax2.containsNamedEquivalentClass());
     }
 
     @Test
     void testGetNamedClasses() {
-        OWLClassExpression desc = ObjectSomeValuesFrom(P, B);
-        OWLEquivalentClassesAxiom ax = EquivalentClasses(A, desc);
+        OWLEquivalentClassesAxiom ax =
+            EquivalentClasses(CLASSES.A, ObjectSomeValuesFrom(OBJPROPS.P, CLASSES.B));
         Set<OWLClass> clses = asUnorderedSet(ax.namedClasses());
         assertEquals(1, clses.size());
-        assertTrue(clses.contains(A));
+        assertTrue(clses.contains(CLASSES.A));
     }
 
     @Test
     void testGetNamedClassesWithNothing() {
-        OWLClassExpression desc = ObjectSomeValuesFrom(P, B);
-        OWLEquivalentClassesAxiom ax = EquivalentClasses(OWLNothing(), desc);
+        OWLEquivalentClassesAxiom ax =
+            EquivalentClasses(OWLNothing(), ObjectSomeValuesFrom(OBJPROPS.P, CLASSES.B));
         Set<OWLClass> clses = asUnorderedSet(ax.namedClasses());
         assertTrue(clses.isEmpty());
         assertFalse(ax.containsOWLThing());
@@ -69,8 +64,8 @@ class EquivalentClassesAxiomTestCase extends TestBase {
 
     @Test
     void testGetNamedClassesWithThing() {
-        OWLClassExpression desc = ObjectSomeValuesFrom(P, B);
-        OWLEquivalentClassesAxiom ax = EquivalentClasses(OWLThing(), desc);
+        OWLEquivalentClassesAxiom ax =
+            EquivalentClasses(OWLThing(), ObjectSomeValuesFrom(OBJPROPS.P, CLASSES.B));
         Set<OWLClass> clses = asUnorderedSet(ax.namedClasses());
         assertTrue(clses.isEmpty());
         assertFalse(ax.containsOWLNothing());
@@ -79,14 +74,14 @@ class EquivalentClassesAxiomTestCase extends TestBase {
 
     @Test
     void testSplit() {
-        OWLEquivalentClassesAxiom ax = EquivalentClasses(A, B, C);
-        Collection<OWLSubClassOfAxiom> scas = ax.asOWLSubClassOfAxioms();
+        Collection<OWLSubClassOfAxiom> scas =
+            EquivalentClasses(CLASSES.A, CLASSES.B, CLASSES.C).asOWLSubClassOfAxioms();
         assertEquals(6, scas.size());
-        assertTrue(scas.contains(SubClassOf(A, B)));
-        assertTrue(scas.contains(SubClassOf(B, A)));
-        assertTrue(scas.contains(SubClassOf(A, C)));
-        assertTrue(scas.contains(SubClassOf(C, A)));
-        assertTrue(scas.contains(SubClassOf(B, C)));
-        assertTrue(scas.contains(SubClassOf(C, B)));
+        assertTrue(scas.contains(SubClassOf(CLASSES.A, CLASSES.B)));
+        assertTrue(scas.contains(SubClassOf(CLASSES.B, CLASSES.A)));
+        assertTrue(scas.contains(SubClassOf(CLASSES.A, CLASSES.C)));
+        assertTrue(scas.contains(SubClassOf(CLASSES.C, CLASSES.A)));
+        assertTrue(scas.contains(SubClassOf(CLASSES.B, CLASSES.C)));
+        assertTrue(scas.contains(SubClassOf(CLASSES.C, CLASSES.B)));
     }
 }

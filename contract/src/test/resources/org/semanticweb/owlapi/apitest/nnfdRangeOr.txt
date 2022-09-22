@@ -1,1 +1,0 @@
-DataPropertyRange(<urn:test:test#dp> DataUnionOf(<urn:test:test#datatype> DataOneOf("false"^^xsd:boolean)))

@@ -1,0 +1,12 @@
+[ {
+  "@id" : "http://x.org",
+  "@type" : [ "http://www.w3.org/2002/07/owl#Ontology" ]
+}, {
+  "@id" : "http://x.org/myobj",
+  "http://x.org/myprop" : [ {
+    "@id" : " https://example.org/bad-url"
+  } ]
+}, {
+  "@id" : "http://x.org/myprop",
+  "@type" : [ "http://www.w3.org/2002/07/owl#AnnotationProperty" ]
+} ]

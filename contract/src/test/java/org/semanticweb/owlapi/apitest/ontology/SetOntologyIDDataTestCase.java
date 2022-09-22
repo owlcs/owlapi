@@ -32,12 +32,12 @@ import org.semanticweb.owlapi.model.SetOntologyID;
 class SetOntologyIDDataTestCase extends TestBase {
 
     private final OWLOntology mockOntology = mock(OWLOntology.class);
-    private final OWLOntologyID mockOntologyID = df.getOWLOntologyID();
+    private final OWLOntologyID mockOntologyID = OntologyID();
 
     @BeforeEach
     void setUp() {
-        when(mockOntology.getOntologyID()).thenReturn(df
-            .getOWLOntologyID(iri("urn:test:", "onto1"), iri("urn:test:", "onto1_1")));
+        when(mockOntology.getOntologyID())
+            .thenReturn(OntologyID(iri("urn:test:", "onto1"), iri("urn:test:", "onto1_1")));
     }
 
     private SetOntologyIDData createData() {

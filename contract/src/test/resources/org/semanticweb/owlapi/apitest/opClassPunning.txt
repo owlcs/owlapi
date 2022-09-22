@@ -1,0 +1,7 @@
+Prefix: : <http://x.org/>
+Ontology: <http://x.org>
+Individual: x
+Class: creator_of
+ObjectProperty: creator_of
+Class: Test
+  EquivalentClasses: creator_of value x, creator_of

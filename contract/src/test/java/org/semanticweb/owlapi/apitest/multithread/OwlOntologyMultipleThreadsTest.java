@@ -67,7 +67,6 @@ import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 
 class OwlOntologyMultipleThreadsTest extends TestBase {
 
@@ -139,48 +138,48 @@ class OwlOntologyMultipleThreadsTest extends TestBase {
                     o1.irreflexiveObjectPropertyAxioms(o).forEach(this::consume);
                     o1.transitiveObjectPropertyAxioms(o).forEach(this::consume);
                 }
-                for (OWLClass c : classes) {
-                    o1.axioms(c, EXCLUDED).forEach(this::consume);
-                    o1.containsClassInSignature(c.getIRI(), EXCLUDED);
-                    o1.containsClassInSignature(c.getIRI(), INCLUDED);
-                    o1.containsClassInSignature(c.getIRI(), EXCLUDED);
-                    o1.subClassAxiomsForSubClass(c).forEach(this::consume);
-                    o1.subClassAxiomsForSuperClass(c).forEach(this::consume);
-                    o1.equivalentClassesAxioms(c).forEach(this::consume);
-                    o1.disjointClassesAxioms(c).forEach(this::consume);
-                    o1.disjointUnionAxioms(c).forEach(this::consume);
-                    o1.hasKeyAxioms(c).forEach(this::consume);
-                    o1.classAssertionAxioms(c).forEach(this::consume);
+                for (OWLClass cl : classes) {
+                    o1.axioms(cl, EXCLUDED).forEach(this::consume);
+                    o1.containsClassInSignature(cl.getIRI(), EXCLUDED);
+                    o1.containsClassInSignature(cl.getIRI(), INCLUDED);
+                    o1.containsClassInSignature(cl.getIRI(), EXCLUDED);
+                    o1.subClassAxiomsForSubClass(cl).forEach(this::consume);
+                    o1.subClassAxiomsForSuperClass(cl).forEach(this::consume);
+                    o1.equivalentClassesAxioms(cl).forEach(this::consume);
+                    o1.disjointClassesAxioms(cl).forEach(this::consume);
+                    o1.disjointUnionAxioms(cl).forEach(this::consume);
+                    o1.hasKeyAxioms(cl).forEach(this::consume);
+                    o1.classAssertionAxioms(cl).forEach(this::consume);
                 }
-                for (OWLDataProperty p : dataProperties) {
-                    o1.axioms(p, EXCLUDED).forEach(this::consume);
-                    o1.containsDataPropertyInSignature(p.getIRI(), EXCLUDED);
-                    o1.containsDataPropertyInSignature(p.getIRI(), INCLUDED);
-                    o1.containsDataPropertyInSignature(p.getIRI(), EXCLUDED);
-                    o1.dataSubPropertyAxiomsForSubProperty(p).forEach(this::consume);
-                    o1.dataSubPropertyAxiomsForSuperProperty(p).forEach(this::consume);
-                    o1.dataPropertyDomainAxioms(p).forEach(this::consume);
-                    o1.dataPropertyRangeAxioms(p).forEach(this::consume);
-                    o1.equivalentDataPropertiesAxioms(p).forEach(this::consume);
-                    o1.disjointDataPropertiesAxioms(p).forEach(this::consume);
-                    o1.functionalDataPropertyAxioms(p).forEach(this::consume);
+                for (OWLDataProperty property : dataProperties) {
+                    o1.axioms(property, EXCLUDED).forEach(this::consume);
+                    o1.containsDataPropertyInSignature(property.getIRI(), EXCLUDED);
+                    o1.containsDataPropertyInSignature(property.getIRI(), INCLUDED);
+                    o1.containsDataPropertyInSignature(property.getIRI(), EXCLUDED);
+                    o1.dataSubPropertyAxiomsForSubProperty(property).forEach(this::consume);
+                    o1.dataSubPropertyAxiomsForSuperProperty(property).forEach(this::consume);
+                    o1.dataPropertyDomainAxioms(property).forEach(this::consume);
+                    o1.dataPropertyRangeAxioms(property).forEach(this::consume);
+                    o1.equivalentDataPropertiesAxioms(property).forEach(this::consume);
+                    o1.disjointDataPropertiesAxioms(property).forEach(this::consume);
+                    o1.functionalDataPropertyAxioms(property).forEach(this::consume);
                 }
-                for (OWLNamedIndividual i : individuals) {
-                    o1.axioms(i, EXCLUDED).forEach(this::consume);
-                    o1.containsIndividualInSignature(i.getIRI(), EXCLUDED);
-                    o1.containsIndividualInSignature(i.getIRI(), INCLUDED);
-                    o1.containsIndividualInSignature(i.getIRI(), EXCLUDED);
-                    o1.classAssertionAxioms(i).forEach(this::consume);
-                    o1.dataPropertyAssertionAxioms(i).forEach(this::consume);
-                    o1.objectPropertyAssertionAxioms(i).forEach(this::consume);
-                    o1.negativeObjectPropertyAssertionAxioms(i).forEach(this::consume);
-                    o1.negativeDataPropertyAssertionAxioms(i).forEach(this::consume);
-                    o1.sameIndividualAxioms(i).forEach(this::consume);
-                    o1.differentIndividualAxioms(i).forEach(this::consume);
+                for (OWLNamedIndividual individual : individuals) {
+                    o1.axioms(individual, EXCLUDED).forEach(this::consume);
+                    o1.containsIndividualInSignature(individual.getIRI(), EXCLUDED);
+                    o1.containsIndividualInSignature(individual.getIRI(), INCLUDED);
+                    o1.containsIndividualInSignature(individual.getIRI(), EXCLUDED);
+                    o1.classAssertionAxioms(individual).forEach(this::consume);
+                    o1.dataPropertyAssertionAxioms(individual).forEach(this::consume);
+                    o1.objectPropertyAssertionAxioms(individual).forEach(this::consume);
+                    o1.negativeObjectPropertyAssertionAxioms(individual).forEach(this::consume);
+                    o1.negativeDataPropertyAssertionAxioms(individual).forEach(this::consume);
+                    o1.sameIndividualAxioms(individual).forEach(this::consume);
+                    o1.differentIndividualAxioms(individual).forEach(this::consume);
                 }
-                for (OWLAnonymousIndividual i : anonIndividuals) {
-                    assert i != null;
-                    o1.axioms(i, EXCLUDED).forEach(this::consume);
+                for (OWLAnonymousIndividual individual : anonIndividuals) {
+                    assert individual != null;
+                    o1.axioms(individual, EXCLUDED).forEach(this::consume);
                 }
                 for (AxiomType<?> ax : AxiomType.axiomTypes()) {
                     assert ax != null;
@@ -188,23 +187,23 @@ class OwlOntologyMultipleThreadsTest extends TestBase {
                     o1.axioms(ax, INCLUDED).forEach(this::consume);
                     o1.axioms(ax, EXCLUDED).forEach(this::consume);
                 }
-                for (OWLDatatype t : asList(o1.datatypesInSignature())) {
-                    o1.axioms(t, EXCLUDED).forEach(this::consume);
-                    o1.containsDatatypeInSignature(t.getIRI(), EXCLUDED);
-                    o1.containsDatatypeInSignature(t.getIRI(), INCLUDED);
-                    o1.containsDatatypeInSignature(t.getIRI(), EXCLUDED);
-                    o1.datatypeDefinitions(t).forEach(this::consume);
+                for (OWLDatatype type : asList(o1.datatypesInSignature())) {
+                    o1.axioms(type, EXCLUDED).forEach(this::consume);
+                    o1.containsDatatypeInSignature(type.getIRI(), EXCLUDED);
+                    o1.containsDatatypeInSignature(type.getIRI(), INCLUDED);
+                    o1.containsDatatypeInSignature(type.getIRI(), EXCLUDED);
+                    o1.datatypeDefinitions(type).forEach(this::consume);
                 }
-                for (OWLAnnotationProperty p : asList(
+                for (OWLAnnotationProperty property : asList(
                     o1.annotationPropertiesInSignature(EXCLUDED))) {
-                    assert p != null;
-                    o1.axioms(p, EXCLUDED).forEach(this::consume);
-                    o1.containsAnnotationPropertyInSignature(p.getIRI(), EXCLUDED);
-                    o1.containsAnnotationPropertyInSignature(p.getIRI(), INCLUDED);
-                    o1.containsAnnotationPropertyInSignature(p.getIRI(), EXCLUDED);
-                    o1.subAnnotationPropertyOfAxioms(p).forEach(this::consume);
-                    o1.annotationPropertyDomainAxioms(p).forEach(this::consume);
-                    o1.annotationPropertyRangeAxioms(p).forEach(this::consume);
+                    assert property != null;
+                    o1.axioms(property, EXCLUDED).forEach(this::consume);
+                    o1.containsAnnotationPropertyInSignature(property.getIRI(), EXCLUDED);
+                    o1.containsAnnotationPropertyInSignature(property.getIRI(), INCLUDED);
+                    o1.containsAnnotationPropertyInSignature(property.getIRI(), EXCLUDED);
+                    o1.subAnnotationPropertyOfAxioms(property).forEach(this::consume);
+                    o1.annotationPropertyDomainAxioms(property).forEach(this::consume);
+                    o1.annotationPropertyRangeAxioms(property).forEach(this::consume);
                 }
                 for (AxiomType<?> ax : AxiomType.axiomTypes()) {
                     assert ax != null;
@@ -233,27 +232,28 @@ class OwlOntologyMultipleThreadsTest extends TestBase {
                     o1.axiomsIgnoreAnnotations(ax, EXCLUDED).forEach(this::consume);
                 }
                 o1.generalClassAxioms().forEach(this::consume);
-                anonIndividuals.forEach(i -> o1.referencingAxioms(i, EXCLUDED).forEach(this::consume));
-                o1.signature().forEach(e -> {
-                    assert e != null;
-                    o1.referencingAxioms(e, EXCLUDED).forEach(this::consume);
-                    o1.referencingAxioms(e, INCLUDED).forEach(this::consume);
-                    o1.referencingAxioms(e, EXCLUDED).forEach(this::consume);
-                    o1.declarationAxioms(e).forEach(this::consume);
-                    o1.containsEntityInSignature(e, INCLUDED);
-                    o1.containsEntityInSignature(e, EXCLUDED);
-                    o1.containsEntityInSignature(e);
-                    o1.containsEntityInSignature(e.getIRI(), EXCLUDED);
-                    o1.containsEntityInSignature(e.getIRI(), INCLUDED);
-                    o1.entitiesInSignature(e.getIRI()).forEach(this::consume);
-                    o1.entitiesInSignature(e.getIRI(), EXCLUDED).forEach(this::consume);
-                    o1.entitiesInSignature(e.getIRI(), INCLUDED).forEach(this::consume);
-                    o1.isDeclared(e);
-                    o1.isDeclared(e, INCLUDED);
-                    o1.isDeclared(e, EXCLUDED);
-                    if (e instanceof OWLAnnotationSubject) {
-                        o1.annotationAssertionAxioms((OWLAnnotationSubject) e)
-                        .forEach(this::consume);
+                anonIndividuals.forEach(individual -> o1.referencingAxioms(individual, EXCLUDED)
+                    .forEach(this::consume));
+                o1.signature().forEach(entity -> {
+                    assert entity != null;
+                    o1.referencingAxioms(entity, EXCLUDED).forEach(this::consume);
+                    o1.referencingAxioms(entity, INCLUDED).forEach(this::consume);
+                    o1.referencingAxioms(entity, EXCLUDED).forEach(this::consume);
+                    o1.declarationAxioms(entity).forEach(this::consume);
+                    o1.containsEntityInSignature(entity, INCLUDED);
+                    o1.containsEntityInSignature(entity, EXCLUDED);
+                    o1.containsEntityInSignature(entity);
+                    o1.containsEntityInSignature(entity.getIRI(), EXCLUDED);
+                    o1.containsEntityInSignature(entity.getIRI(), INCLUDED);
+                    o1.entitiesInSignature(entity.getIRI()).forEach(this::consume);
+                    o1.entitiesInSignature(entity.getIRI(), EXCLUDED).forEach(this::consume);
+                    o1.entitiesInSignature(entity.getIRI(), INCLUDED).forEach(this::consume);
+                    o1.isDeclared(entity);
+                    o1.isDeclared(entity, INCLUDED);
+                    o1.isDeclared(entity, EXCLUDED);
+                    if (entity instanceof OWLAnnotationSubject) {
+                        o1.annotationAssertionAxioms((OWLAnnotationSubject) entity)
+                            .forEach(this::consume);
                     }
                 });
                 List<OWLAxiom> axioms = asList(o1.axioms());
@@ -266,10 +266,10 @@ class OwlOntologyMultipleThreadsTest extends TestBase {
     }
 
     @Test
-    public void testLockingOwlOntologyImpl() throws OWLOntologyCreationException {
-        OWLOntology o = loadOntologyFromString(TestFiles.KOALA, new RDFXMLDocumentFormat());
+    void testLockingOwlOntologyImpl() {
+        OWLOntology o = loadFrom(TestFiles.KOALA, new RDFXMLDocumentFormat());
         MultiThreadChecker checker = new MultiThreadChecker(5);
-        checker.check(new TestCallback(o, m.createOntology()));
+        checker.check(new TestCallback(o, createAnon()));
         String trace = checker.getTrace();
         System.out.println(trace);
     }
@@ -298,13 +298,13 @@ class OwlOntologyMultipleThreadsTest extends TestBase {
             final long start = System.currentTimeMillis();
             ExecutorService service = Executors.newFixedThreadPool(rep);
             List<Callable<Object>> list = new ArrayList<>();
-            for (int i = 0; i < rep * rep; i++) {
+            for (int index = 0; index < rep * rep; index++) {
                 list.add(() -> {
                     try {
                         cb.run();
                         counter.incrementAndGet();
-                    } catch (Throwable e) {
-                        e.printStackTrace(p);
+                    } catch (Throwable ex) {
+                        ex.printStackTrace(p);
                         printout(start, counter);
                     }
                     return null;
@@ -314,8 +314,8 @@ class OwlOntologyMultipleThreadsTest extends TestBase {
             try {
                 service.invokeAll(list);
                 end = System.currentTimeMillis() - end;
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+            } catch (InterruptedException ex) {
+                ex.printStackTrace();
             }
             printout(end, counter);
         }
@@ -323,7 +323,7 @@ class OwlOntologyMultipleThreadsTest extends TestBase {
         protected void printout(long end, AtomicLong counter) {
             long expected = rep * rep;
             p.println("elapsed time (ms): " + end + "\nSuccessful threads: " + counter.get()
-            + "\t expected: " + expected);
+                + "\t expected: " + expected);
             successful = counter.get() == expected;
         }
 

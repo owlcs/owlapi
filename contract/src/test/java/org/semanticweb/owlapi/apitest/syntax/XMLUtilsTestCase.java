@@ -77,8 +77,8 @@ class XMLUtilsTestCase extends TestBase {
 
     @Test
     void testmissingTypes() {
-        OWLOntology o = loadOntologyFromString(TestFiles.missingTypes,
-            df.getNextDocumentIRI("testuriwithblankspace"), new RDFXMLDocumentFormat());
+        OWLOntology o = loadFrom(TestFiles.missingTypes, NextIRI("testuriwithblankspace"),
+            new RDFXMLDocumentFormat());
         assertEquals(15, o.getAxiomCount());
     }
 }

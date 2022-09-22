@@ -1,1 +1,0 @@
-[ObjectPropertyAssertion(Annotation(<urn:test:test#ann> "test"^^xsd:string) ObjectInverseOf(<urn:test:test#op>) <urn:test:test#i> <urn:test:test#i>)]

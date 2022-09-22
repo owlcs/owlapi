@@ -3,7 +3,7 @@
          xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:owl="http://www.w3.org/2002/07/owl#"
          xmlns:xsd="http://www.w3.org/2001/XMLSchema#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
 
-        <rdf:Description rdf:about="urn:test#ind">
+        <rdf:Description rdf:about="http://www.semanticweb.org/owlapi/test#i">
             <rdfs:comment rdf:datatype="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">test</rdfs:comment>
         </rdf:Description>
     </rdf:RDF>

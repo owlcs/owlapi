@@ -23,8 +23,7 @@ class OWLOntologyManagerRemoveAxiomsTestCase extends TestBase {
 
     @Test
     void testRemove() {
-        OWLOntology o =
-            loadOntologyFromString(TestFiles.premiseOntology, new FunctionalSyntaxDocumentFormat());
+        OWLOntology o = loadFrom(TestFiles.premiseOntology, new FunctionalSyntaxDocumentFormat());
         o.remove(o.axioms(AxiomType.DECLARATION));
     }
 }

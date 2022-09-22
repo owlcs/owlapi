@@ -251,18 +251,18 @@ import static org.semanticweb.owlapi.utility.Languages.SRrOQD;
 import static org.semanticweb.owlapi.utility.Languages.SRrQ;
 import static org.semanticweb.owlapi.utility.Languages.SRrQD;
 
-import java.util.Arrays;
 import java.util.EnumSet;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Test;
+import org.semanticweb.owlapi.apitest.baseclasses.DF;
 import org.semanticweb.owlapi.utility.Construct;
 import org.semanticweb.owlapi.utility.Languages;
 
 class LanguagesTestCase {
     private static EnumSet<Construct> set(Construct... constructs) {
-        return EnumSet.copyOf(Arrays.asList(constructs));
+        return EnumSet.copyOf(DF.l(constructs));
     }
 
     private static void same(Languages l, Construct... constructs) {
@@ -961,12 +961,12 @@ class LanguagesTestCase {
                     for (String s4 : new String[] {"", "I"}) {
                         for (String s5 : new String[] {"", "F", "N", "Q"}) {
                             for (String s6 : new String[] {"", "D"}) {
-                                List<String> list = Arrays.asList(s1, s2, s3, s4, s5, s6);
+                                List<String> list = DF.l(s1, s2, s3, s4, s5, s6);
                                 String name = list.stream().collect(Collectors.joining());
                                 String starter = "    /** " + name + " language. */    ";
                                 System.out.println(starter
                                     + name + "(\"" + name + "\"," + list.stream()
-                                    .filter(s -> !s.isEmpty()).collect(Collectors.joining(", "))
+                                        .filter(s -> !s.isEmpty()).collect(Collectors.joining(", "))
                                     + "),");
                             }
                         }

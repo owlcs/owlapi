@@ -1,1 +1,0 @@
-ObjectComplementOf(<urn:test:test#c>)

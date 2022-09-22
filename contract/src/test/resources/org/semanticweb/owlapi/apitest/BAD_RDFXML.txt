@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF xmlns="http://x.org#"
+     xml:base="http://x.org"
+     xmlns:x="http://x.org/"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:xml="http://www.w3.org/XML/1998/namespace"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">
+    <owl:Ontology rdf:about="http://x.org"/>
+    <owl:AnnotationProperty rdf:about="http://x.org/myprop"/>
+    <rdf:Description rdf:about="http://x.org/myobj">
+        <x:myprop rdf:resource=" https://example.org/bad-url"/>
+    </rdf:Description>
+</rdf:RDF>

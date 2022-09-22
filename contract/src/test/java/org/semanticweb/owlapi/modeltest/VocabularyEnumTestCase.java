@@ -50,7 +50,7 @@ class VocabularyEnumTestCase {
         return asList(
             concat(stream(DublinCoreVocabulary.values()).map(input -> new Object[] {input, DC}),
                 stream(OWLRDFVocabulary.values())
-                .map(input -> new Object[] {input, input.getNamespace()}),
+                    .map(input -> new Object[] {input, input.getNamespace()}),
                 stream(OWLXMLVocabulary.values()).map(input -> new Object[] {input, OWL}),
                 stream(SKOSVocabulary.values()).map(input -> new Object[] {input, SKOS}),
                 stream(SWRLBuiltInsVocabulary.values()).map(input -> new Object[] {input, SWRLB}),

@@ -30,6 +30,7 @@ import org.semanticweb.owlapi.model.AddImport;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
+import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.model.parameters.OntologyCopy;
 
 /**
@@ -42,22 +43,22 @@ class MoveOntologyTestCase extends TestBase {
     private OWLOntology imported;
 
     @BeforeEach
-    void setUp() throws OWLOntologyCreationException {
-        m.createOntology(iri("urn:test#", "test"));
-        IRI importedIRI = df.getIRI("urn:test#", "imported");
-        imported = m.createOntology(importedIRI);
-        root = m.createOntology(df.getIRI("urn:test#", "root"));
-        root.applyChange(new AddImport(root, df.getOWLImportsDeclaration(importedIRI)));
+    void setUp() {
+        create(IRIS.iriTest);
+        IRI importedIRI = iri("urn:test#", "imported");
+        imported = create(importedIRI);
+        root = create(iri("urn:test#", "root"));
+        root.applyChange(new AddImport(root, ImportsDeclaration(importedIRI)));
         m.setOntologyFormat(root, new RDFXMLDocumentFormat());
         m.setOntologyFormat(imported, new RDFXMLDocumentFormat());
         m1 = setupConcurrentManager();
     }
 
     @Test
-    void testMove() throws OWLOntologyCreationException {
-        OWLOntology o = m.loadOntologyFromOntologyDocument(
-            new StringDocumentSource(TestFiles.moveTest, new RDFXMLDocumentFormat()));
-        OWLOntology copy = m1.copyOntology(o, OntologyCopy.MOVE);
+    void testMove() {
+        OWLOntology o =
+            loadFrom(new StringDocumentSource(TestFiles.moveTest, new RDFXMLDocumentFormat()), m);
+        OWLOntology copy = copy(o, OntologyCopy.MOVE);
         assertSame(o, copy);
         assertEquals(m1, copy.getOWLOntologyManager());
         assertFalse(m.contains(o));
@@ -67,10 +68,10 @@ class MoveOntologyTestCase extends TestBase {
     }
 
     @Test
-    void testShallow() throws OWLOntologyCreationException {
-        OWLOntology o = m.loadOntologyFromOntologyDocument(
-            new StringDocumentSource(TestFiles.moveTest, new RDFXMLDocumentFormat()));
-        OWLOntology copy = m1.copyOntology(o, OntologyCopy.SHALLOW_COPY);
+    void testShallow() {
+        OWLOntology o =
+            loadFrom(new StringDocumentSource(TestFiles.moveTest, new RDFXMLDocumentFormat()), m);
+        OWLOntology copy = copy(o, OntologyCopy.SHALLOW_COPY);
         assertEquals(m1, copy.getOWLOntologyManager());
         assertTrue(m.contains(o));
         assertTrue(m1.contains(copy));
@@ -80,9 +81,10 @@ class MoveOntologyTestCase extends TestBase {
     }
 
     @Test
-    void testDeep() throws OWLOntologyCreationException {
-        OWLOntology o = m.loadOntologyFromOntologyDocument(new StringDocumentSource(TestFiles.moveTest, new RDFXMLDocumentFormat()));
-        OWLOntology copy = m1.copyOntology(o, OntologyCopy.DEEP_COPY);
+    void testDeep() {
+        OWLOntology o =
+            loadFrom(new StringDocumentSource(TestFiles.moveTest, new RDFXMLDocumentFormat()), m);
+        OWLOntology copy = copy(o, OntologyCopy.DEEP_COPY);
         assertEquals(m1, copy.getOWLOntologyManager());
         assertTrue(m.contains(o));
         assertTrue(m1.contains(copy));
@@ -93,10 +95,10 @@ class MoveOntologyTestCase extends TestBase {
     }
 
     @Test
-    void testMoveImportsClosure() throws OWLOntologyCreationException {
+    void testMoveImportsClosure() {
         assertTrue(m.contains(root));
         assertTrue(m.contains(imported));
-        OWLOntology copy = m1.copyOntology(root, OntologyCopy.MOVE_ONTOLOGY_CLOSURE);
+        OWLOntology copy = copy(root, OntologyCopy.MOVE_ONTOLOGY_CLOSURE);
         assertSame(root, copy);
         assertEquals(m1, copy.getOWLOntologyManager());
         assertEquals(m1, imported.getOWLOntologyManager());
@@ -110,12 +112,13 @@ class MoveOntologyTestCase extends TestBase {
     }
 
     @Test
-    void testShallowImportsClosure() throws OWLOntologyCreationException {
+    void testShallowImportsClosure() {
         assertTrue(m.contains(root));
         assertTrue(m.contains(imported));
-        OWLOntology copy = m1.copyOntology(root, OntologyCopy.SHALLOW_COPY_ONTOLOGY_CLOSURE);
+        OWLOntology copy = copy(root, OntologyCopy.SHALLOW_COPY_ONTOLOGY_CLOSURE);
         assertEquals(2, copy.importsClosure().count());
-        copy.importsClosure().forEach(x -> assertEquals(m1, x.getOWLOntologyManager()));
+        copy.importsClosure()
+            .forEach(imported -> assertEquals(m1, imported.getOWLOntologyManager()));
         assertTrue(m.contains(root));
         assertTrue(m.contains(imported));
         assertTrue(m1.contains(copy));
@@ -127,12 +130,13 @@ class MoveOntologyTestCase extends TestBase {
     }
 
     @Test
-    void testDeepImportsClosure() throws OWLOntologyCreationException {
+    void testDeepImportsClosure() {
         assertTrue(m.contains(root));
         assertTrue(m.contains(imported));
-        OWLOntology copy = m1.copyOntology(root, OntologyCopy.DEEP_COPY_ONTOLOGY_CLOSURE);
+        OWLOntology copy = copy(root, OntologyCopy.DEEP_COPY_ONTOLOGY_CLOSURE);
         assertEquals(2, copy.importsClosure().count());
-        copy.importsClosure().forEach(x -> assertEquals(m1, x.getOWLOntologyManager()));
+        copy.importsClosure()
+            .forEach(importOntology -> assertEquals(m1, importOntology.getOWLOntologyManager()));
         assertTrue(m.contains(root));
         assertTrue(m.contains(imported));
         assertTrue(m1.contains(copy));
@@ -145,5 +149,13 @@ class MoveOntologyTestCase extends TestBase {
         assertNotNull(m1.getOntologyFormat(ont));
         assertEquals(asSet(root.annotations()), asSet(copy.annotations()));
         assertEquals(asSet(root.importsDeclarations()), asSet(copy.importsDeclarations()));
+    }
+
+    protected OWLOntology copy(OWLOntology o, OntologyCopy copyParam) {
+        try {
+            return m1.copyOntology(o, copyParam);
+        } catch (OWLOntologyCreationException ex) {
+            throw new OWLRuntimeException(ex);
+        }
     }
 }

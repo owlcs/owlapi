@@ -1,0 +1,26 @@
+{
+  "http://x.org" : {
+    "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [
+      {
+        "value" : "http://www.w3.org/2002/07/owl#Ontology",
+        "type" : "uri"
+      }
+    ]
+  },
+  "http://x.org/myobj" : {
+    "http://x.org/myprop" : [
+      {
+        "value" : " https://example.org/bad-url",
+        "type" : "uri"
+      }
+    ]
+  },
+  "http://x.org/myprop" : {
+    "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" : [
+      {
+        "value" : "http://www.w3.org/2002/07/owl#AnnotationProperty",
+        "type" : "uri"
+      }
+    ]
+  }
+}

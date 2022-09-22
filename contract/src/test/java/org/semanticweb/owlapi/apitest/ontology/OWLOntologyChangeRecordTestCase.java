@@ -25,7 +25,6 @@ import org.semanticweb.owlapi.change.OWLOntologyChangeRecord;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyChange;
-import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyID;
 import org.semanticweb.owlapi.model.UnknownOWLOntologyException;
 
@@ -35,7 +34,7 @@ import org.semanticweb.owlapi.model.UnknownOWLOntologyException;
  */
 class OWLOntologyChangeRecordTestCase extends TestBase {
 
-    private final OWLOntologyID mockOntologyID = df.getOWLOntologyID();
+    private final OWLOntologyID mockOntologyID = OntologyID();
     private final OWLOntologyChangeData mockChangeData = mock(OWLOntologyChangeData.class);
     private final OWLAxiom mockAxiom = mock(OWLAxiom.class);
 
@@ -71,8 +70,8 @@ class OWLOntologyChangeRecordTestCase extends TestBase {
     }
 
     @Test
-    void testCreateOntologyChangeEquals() throws OWLOntologyCreationException {
-        OWLOntology ontology = m.createOntology();
+    void testCreateOntologyChangeEquals() {
+        OWLOntology ontology = createAnon();
         OWLOntologyID ontologyID = ontology.getOntologyID();
         AddAxiomData addAxiomData = new AddAxiomData(mockAxiom);
         OWLOntologyChangeRecord changeRecord =

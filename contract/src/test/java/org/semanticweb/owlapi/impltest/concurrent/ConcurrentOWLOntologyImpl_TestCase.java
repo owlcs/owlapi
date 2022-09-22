@@ -51,7 +51,8 @@ import org.semanticweb.owlapi.utilities.OWLAxiomSearchFilter;
 class ConcurrentOWLOntologyImpl_TestCase {
 
     private final ReentrantReadWriteLock readWriteLock = mock(ReentrantReadWriteLock.class);
-    private final ReentrantReadWriteLock.ReadLock readLock = mock(ReentrantReadWriteLock.ReadLock.class);
+    private final ReentrantReadWriteLock.ReadLock readLock =
+        mock(ReentrantReadWriteLock.ReadLock.class);
     private final ReentrantReadWriteLock.WriteLock writeLock =
         mock(ReentrantReadWriteLock.WriteLock.class);
     private final OWLMutableOntology delegate = mock(OWLMutableOntology.class);
@@ -68,7 +69,7 @@ class ConcurrentOWLOntologyImpl_TestCase {
         when(readWriteLock.readLock()).thenReturn(readLock);
         when(readWriteLock.writeLock()).thenReturn(writeLock);
         when(delegate.applyChanges(anyList()))
-        .thenReturn(new ChangeReport(Collections.emptyList(), Collections.emptyList()));
+            .thenReturn(new ChangeReport(Collections.emptyList(), Collections.emptyList()));
         ontology = spy(new ConcurrentOWLOntologyImpl(delegate, readWriteLock));
     }
 

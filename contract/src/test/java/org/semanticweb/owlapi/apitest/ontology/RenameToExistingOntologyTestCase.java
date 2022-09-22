@@ -13,8 +13,6 @@
 package org.semanticweb.owlapi.apitest.ontology;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.semanticweb.owlapi.OWLFunctionalSyntaxFactory.Class;
-import static org.semanticweb.owlapi.OWLFunctionalSyntaxFactory.IRI;
 
 import org.junit.jupiter.api.Test;
 import org.semanticweb.owlapi.apitest.baseclasses.TestBase;
@@ -31,12 +29,12 @@ class RenameToExistingOntologyTestCase extends TestBase {
 
     @Test
     void testRenameToExistingOntology() {
-        IRI ontologyAIRI = IRI("http://www.semanticweb.org/ontologies/", "ontologyA");
-        OWLOntology onto = getOWLOntology(ontologyAIRI);
-        onto.add(df.getOWLDeclarationAxiom(Class(IRI("urn:test:", "testclass"))));
-        IRI ontologyBIRI = IRI("http://www.semanticweb.org/ontologies/", "ontologyB");
-        OWLOntology ontologyB = getOWLOntology(ontologyBIRI);
-        assertThrows(OWLOntologyRenameException.class, () -> ontologyB
-            .applyChange(new SetOntologyID(ontologyB, df.getOWLOntologyID(ontologyAIRI))));
+        IRI ontologyAIRI = iri("http://www.semanticweb.org/ontologies/", "ontologyA");
+        OWLOntology onto = create(ontologyAIRI);
+        onto.add(Declaration(Class(iri("urn:test:", "testclass"))));
+        IRI ontologyBIRI = iri("http://www.semanticweb.org/ontologies/", "ontologyB");
+        OWLOntology ontologyB = create(ontologyBIRI);
+        assertThrows(OWLOntologyRenameException.class,
+            () -> ontologyB.applyChange(new SetOntologyID(ontologyB, OntologyID(ontologyAIRI))));
     }
 }

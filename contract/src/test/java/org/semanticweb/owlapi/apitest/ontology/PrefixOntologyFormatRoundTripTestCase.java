@@ -32,10 +32,10 @@ import org.semanticweb.owlapi.model.PrefixManager;
 class PrefixOntologyFormatRoundTripTestCase extends TestBase {
 
     protected OWLOntology prefixOntologyFormatRoundTripTestCase() {
-        OWLOntology ont = getAnonymousOWLOntology();
+        OWLOntology ont = createAnon();
         PrefixManager format = ont.getPrefixManager();
         format.withDefaultPrefix("http://default.com").withPrefix("a", "http://ontology.com/a#")
-        .withPrefix("b", "http://ontology.com/b#");
+            .withPrefix("b", "http://ontology.com/b#");
         return ont;
     }
 
@@ -56,8 +56,8 @@ class PrefixOntologyFormatRoundTripTestCase extends TestBase {
 
     @ParameterizedTest
     @MethodSource("formats")
-    void testFormat(OWLDocumentFormat d) {
-        roundTripOntology(prefixOntologyFormatRoundTripTestCase(), d);
+    void testFormat(OWLDocumentFormat format) {
+        roundTripOntology(prefixOntologyFormatRoundTripTestCase(), format);
     }
 
     @Test

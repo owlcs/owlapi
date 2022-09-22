@@ -14,10 +14,8 @@ package org.semanticweb.owlapi.apitest;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
-import java.util.LinkedHashMap;
-import java.util.Map;
 
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -25,94 +23,40 @@ import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.utility.MaximumModalDepthFinder;
 
 class MaximumModalDepthFinderTestCase {
+    static Collection<Object> getDataOne() {
+        return Arrays.asList(Builder.assSome, Builder.assAll, Builder.assMin, Builder.assMax,
+            Builder.assEq, Builder.assHasSelf, Builder.assDSome, Builder.assDAll, Builder.assDHas,
+            Builder.assDMin, Builder.assDMax, Builder.assDEq);
 
-    static Collection<Object[]> getData() {
-        Builder b = new Builder();
-        Map<OWLObject, Integer> map = new LinkedHashMap<>();
-        Integer zero = Integer.valueOf(0);
-        Integer one = Integer.valueOf(1);
-        map.put(b.ann(), zero);
-        map.put(b.asymm(), zero);
-        map.put(b.annDom(), zero);
-        map.put(b.annRange(), zero);
-        map.put(b.ass(), zero);
-        map.put(b.assAnd(), zero);
-        map.put(b.assOr(), zero);
-        map.put(b.dRangeAnd(), zero);
-        map.put(b.dRangeOr(), zero);
-        map.put(b.assNot(), zero);
-        map.put(b.assNotAnon(), zero);
-        map.put(b.assSome(), one);
-        map.put(b.assAll(), one);
-        map.put(b.assHas(), zero);
-        map.put(b.assMin(), one);
-        map.put(b.assMax(), one);
-        map.put(b.assEq(), one);
-        map.put(b.assHasSelf(), one);
-        map.put(b.assOneOf(), zero);
-        map.put(b.assDSome(), one);
-        map.put(b.assDAll(), one);
-        map.put(b.assDHas(), one);
-        map.put(b.assDMin(), one);
-        map.put(b.assDMax(), one);
-        map.put(b.assDEq(), one);
-        map.put(b.dOneOf(), zero);
-        map.put(b.dNot(), zero);
-        map.put(b.dRangeRestrict(), zero);
-        map.put(b.assD(), zero);
-        map.put(b.assDPlain(), zero);
-        map.put(b.dDom(), zero);
-        map.put(b.dRange(), zero);
-        map.put(b.dDef(), zero);
-        map.put(b.decC(), zero);
-        map.put(b.decOp(), zero);
-        map.put(b.decDp(), zero);
-        map.put(b.decDt(), zero);
-        map.put(b.decAp(), zero);
-        map.put(b.decI(), zero);
-        map.put(b.assDi(), zero);
-        map.put(b.dc(), zero);
-        map.put(b.dDp(), zero);
-        map.put(b.dOp(), zero);
-        map.put(b.du(), zero);
-        map.put(b.ec(), zero);
-        map.put(b.eDp(), zero);
-        map.put(b.eOp(), zero);
-        map.put(b.fdp(), zero);
-        map.put(b.fop(), zero);
-        map.put(b.ifp(), zero);
-        map.put(b.iop(), zero);
-        map.put(b.irr(), zero);
-        map.put(b.ndp(), zero);
-        map.put(b.nop(), zero);
-        map.put(b.opa(), zero);
-        map.put(b.opaInv(), zero);
-        map.put(b.opaInvj(), zero);
-        map.put(b.oDom(), zero);
-        map.put(b.oRange(), zero);
-        map.put(b.chain(), zero);
-        map.put(b.ref(), zero);
-        map.put(b.same(), zero);
-        map.put(b.subAnn(), zero);
-        map.put(b.subClass(), zero);
-        map.put(b.subData(), zero);
-        map.put(b.subObject(), zero);
-        map.put(b.rule(), zero);
-        map.put(b.symm(), zero);
-        map.put(b.trans(), zero);
-        map.put(b.hasKey(), zero);
-        map.put(b.bigRule(), zero);
-        map.put(b.onto(), zero);
-        Collection<Object[]> toReturn = new ArrayList<>();
-        map.forEach((k, v) -> toReturn.add(new Object[] {k, v}));
-        return toReturn;
+    }
+
+    static Collection<Object> getDataZero() {
+        return Arrays.asList(Builder.ann, Builder.asymm, Builder.annDom, Builder.annRange,
+            Builder.ass, Builder.assAnd, Builder.assOr, Builder.dRangeAnd, Builder.dRangeOr,
+            Builder.assNot, Builder.assNotAnon, Builder.assHas, Builder.assOneOf, Builder.dOneOf,
+            Builder.dNot, Builder.dRangeRestrict, Builder.assD, Builder.assDPlain, Builder.dDom,
+            Builder.dRange, Builder.dDef, Builder.decC, Builder.decOp, Builder.decDp, Builder.decDt,
+            Builder.decAp, Builder.decI, Builder.assDi, Builder.dc, Builder.dDp, Builder.dOp,
+            Builder.du, Builder.ec, Builder.eDp, Builder.eOp, Builder.fdp, Builder.fop, Builder.ifp,
+            Builder.iop, Builder.irr, Builder.ndp, Builder.nop, Builder.opa, Builder.opaInv,
+            Builder.opaInvj, Builder.oDom, Builder.oRange, Builder.chain, Builder.ref, Builder.same,
+            Builder.subAnn, Builder.subClass, Builder.subData, Builder.subObject, Builder.rule,
+            Builder.symm, Builder.trans, Builder.hasKey, Builder.bigRule, Builder.onto);
     }
 
     @ParameterizedTest
-    @MethodSource("getData")
-    void testAssertion(OWLObject object, Integer expected) {
+    @MethodSource("getDataZero")
+    void testAssertionZero(OWLObject object) {
         MaximumModalDepthFinder testsubject = new MaximumModalDepthFinder();
         Integer i = object.accept(testsubject);
-        assertEquals(expected, i);
+        assertEquals(Integer.valueOf(0), i);
+    }
+
+    @ParameterizedTest
+    @MethodSource("getDataOne")
+    void testAssertionOne(OWLObject object) {
+        MaximumModalDepthFinder testsubject = new MaximumModalDepthFinder();
+        Integer i = object.accept(testsubject);
+        assertEquals(Integer.valueOf(1), i);
     }
 }

@@ -1,1 +1,0 @@
-[SubClassOf(owl:Thing DataAllValuesFrom(<urn:test:test#dp> DataIntersectionOf(<urn:test:test#datatype> DataOneOf("false"^^xsd:boolean))))]

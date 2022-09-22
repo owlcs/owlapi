@@ -12,7 +12,6 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.tutorial.examples;
 
-import static org.semanticweb.owlapi.OWLFunctionalSyntaxFactory.Class;
 
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.IRI;
@@ -59,7 +58,7 @@ public class ClosureAxiomsExample {
         System.out.println("Document IRI: " + ontology.getOntologyID());
         System.out.println("Format      : " + ontology.getFormat());
         ClosureAxioms closureAxioms = new ClosureAxioms(ontology);
-        OWLClass clazz = Class(classIRI);
+        OWLClass clazz = manager.getOWLDataFactory().getOWLClass(classIRI);
         System.out.println("Class URI   : " + classIRI);
         System.out.println(clazz);
         /* Add the closure axioms */

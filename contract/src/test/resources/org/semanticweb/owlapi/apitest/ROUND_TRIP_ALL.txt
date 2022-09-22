@@ -1,0 +1,6 @@
+Prefix(:=<http://purl.obolibrary.org/obo/uni.obo#>)
+Ontology(<http://purl.obolibrary.org/obo/uni.obo.owl>
+Declaration(Class(:A))
+Declaration(Class(:B))
+Declaration(ObjectProperty(:part_of))
+SubClassOf(:A ObjectAllValuesFrom(:part_of :B)))

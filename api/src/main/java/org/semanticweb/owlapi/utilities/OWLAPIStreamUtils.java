@@ -513,6 +513,37 @@ public class OWLAPIStreamUtils {
 
     /**
      * @param <T>   type of the input and output
+     * @param input stream to partition
+     * @return a stream of elements for all pairs (input[i], input[i+1]), e.g., the minimal set of
+     *         pairwise equivalent class axioms that can replace an n-ary equivalent class axiom.
+     */
+    public static <T> Stream<Pair<T>> minimalPairs(Stream<T> input) {
+        return minimalPairs(asList(input));
+    }
+
+    /**
+     * @param <T>   type of the input and output
+     * @param input collection to partition
+     * @return a stream of elements for all pairs (input[i], input[i+1]), e.g., the minimal set of
+     *         pairwise equivalent class axioms that can replace an n-ary equivalent class axiom.
+     */
+    public static <T> Stream<Pair<T>> minimalPairs(Collection<T> input) {
+        List<T> l;
+        if (input instanceof List) {
+            l = (List<T>) input;
+        } else {
+            l = new ArrayList<>(input);
+        }
+        int size = l.size();
+        List<Pair<T>> values = new ArrayList<>((size * size - size) / 2);
+        for (int i = 0; i < size - 1; i++) {
+            values.add(pair(l.get(i), l.get(i + 1)));
+        }
+        return values.stream();
+    }
+
+    /**
+     * @param <T>   type of the input and output
      * @param input collection to partition
      * @return a stream of coordinates for a symmetric matrix of size {@code l.size()}, where l is
      *         the list corresponding to the input collection, excluding main diagonal. For input 3,

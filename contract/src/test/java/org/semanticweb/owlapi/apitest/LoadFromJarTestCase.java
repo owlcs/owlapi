@@ -2,22 +2,17 @@ package org.semanticweb.owlapi.apitest;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 import org.semanticweb.owlapi.apitest.baseclasses.TestBase;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 
 class LoadFromJarTestCase extends TestBase {
 
-    @Test
-    void shouldLoadWithFileName() throws OWLOntologyCreationException {
-        OWLOntology loadOntology = m.loadOntology(df.getIRI("jar:!/koala.owl"));
-        assertEquals(70, loadOntology.getAxiomCount());
-    }
-
-    @Test
-    void shouldLoadWithRelativeFileName() throws OWLOntologyCreationException {
-        OWLOntology loadOntology = m.loadOntology(df.getIRI("jar:!koala.owl"));
+    @ParameterizedTest
+    @ValueSource(strings = {"jar:!/koala.owl", "jar:!koala.owl"})
+    void shouldLoadWithRelativeFileName(String koala) {
+        OWLOntology loadOntology = loadFrom(iri(koala, ""));
         assertEquals(70, loadOntology.getAxiomCount());
     }
 }

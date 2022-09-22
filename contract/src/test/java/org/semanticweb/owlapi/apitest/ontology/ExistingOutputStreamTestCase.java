@@ -38,7 +38,7 @@ class ExistingOutputStreamTestCase extends TestBase {
 
     @Test
     void testOutputStreamRemainsOpen() {
-        OWLOntology ontology = getOWLOntology();
+        OWLOntology ontology = create("streamStaysOpen");
         saveOntology(ontology, new RDFXMLDocumentFormat());
         saveOntology(ontology, new OWLXMLDocumentFormat());
         saveOntology(ontology, new TurtleDocumentFormat());
@@ -50,12 +50,12 @@ class ExistingOutputStreamTestCase extends TestBase {
     @Override
     protected StringDocumentTarget saveOntology(OWLOntology o, OWLDocumentFormat format) {
         try (BufferedOutputStream os = new BufferedOutputStream(new ByteArrayOutputStream());
-            OutputStreamWriter w = new OutputStreamWriter(os)) {
+            OutputStreamWriter writer = new OutputStreamWriter(os)) {
             o.saveOntology(format, os);
             os.flush();
-            w.write("<!-- Comment -->");
-        } catch (Exception e) {
-            throw new OWLRuntimeException(e);
+            writer.write("<!-- Comment -->");
+        } catch (Exception ex) {
+            throw new OWLRuntimeException(ex);
         }
         return new StringDocumentTarget();
     }

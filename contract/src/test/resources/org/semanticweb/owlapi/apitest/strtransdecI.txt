@@ -1,1 +1,0 @@
-[Declaration(Annotation(<urn:test:test#ann> "test"^^xsd:string) NamedIndividual(<urn:test:test#i>))]

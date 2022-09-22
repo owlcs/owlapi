@@ -1,1 +1,0 @@
-ClassAssertion(Annotation(<urn:test:test#ann> "test"^^xsd:string) ObjectComplementOf(<urn:test:test#c>) _:id)

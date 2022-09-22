@@ -5,14 +5,14 @@
      xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
      xmlns:owl="http://www.w3.org/2002/07/owl#"
      xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
-    <Class rdf:about="urn:urn:test#myClass">
-        <rdfs:subClassOf rdf:resource="urn:test#test"/>
+    <Class rdf:about="http://www.semanticweb.org/owlapi/test#myClass">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/owlapi/test#test"/>
     </Class>
     <Axiom>
         <rdfs:label>datatype definition</rdfs:label>
         <annotatedProperty rdf:resource="http://www.w3.org/2000/01/rdf-schema#subClassOf"/>
-        <annotatedSource rdf:resource="urn:test#myClass"/>
-        <annotatedTarget rdf:resource="urn:test#test"/>
+        <annotatedSource rdf:resource="http://www.semanticweb.org/owlapi/test#myClass"/>
+        <annotatedTarget rdf:resource="http://www.semanticweb.org/owlapi/test#test"/>
     </Axiom>
-    <Class rdf:about="urn:test"/>
+    <Class rdf:about="http://www.semanticweb.org/owlapi/test#test"/>
 </rdf:RDF>

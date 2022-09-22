@@ -1,1 +1,6 @@
-[SubClassOf(<http://www.semanticweb.org/ontology#X0> <urn:test:test#c>), SubClassOf(<http://www.semanticweb.org/ontology#X1> <urn:test:test#iri>), SubClassOf(owl:Thing <urn:test:test#c>), SubClassOf(owl:Thing ObjectUnionOf(<http://www.semanticweb.org/ontology#X0> <http://www.semanticweb.org/ontology#X1>)), SubClassOf(owl:Thing ObjectComplementOf(<urn:test:test#c>)), SubClassOf(owl:Thing ObjectComplementOf(<urn:test:test#iri>))]
+SubClassOf(<http://www.semanticweb.org/ontology#X0> <http://www.semanticweb.org/owlapi/test#C>)
+SubClassOf(<http://www.semanticweb.org/ontology#X1> <http://www.semanticweb.org/owlapi/test#iri>)
+SubClassOf(owl:Thing <http://www.semanticweb.org/owlapi/test#C>)
+SubClassOf(owl:Thing ObjectComplementOf(<http://www.semanticweb.org/owlapi/test#C>))
+SubClassOf(owl:Thing ObjectComplementOf(<http://www.semanticweb.org/owlapi/test#iri>))
+SubClassOf(owl:Thing ObjectUnionOf(<http://www.semanticweb.org/ontology#X0> <http://www.semanticweb.org/ontology#X1>))

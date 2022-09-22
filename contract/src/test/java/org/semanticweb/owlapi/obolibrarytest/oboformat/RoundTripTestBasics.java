@@ -2,7 +2,6 @@ package org.semanticweb.owlapi.obolibrarytest.oboformat;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import java.io.IOException;
 import java.util.Collection;
 import java.util.List;
 
@@ -11,10 +10,10 @@ import javax.annotation.Nullable;
 import org.semanticweb.owlapi.documents.StringDocumentTarget;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.obolibrary.obo2owl.OWLAPIOwl2Obo;
 import org.semanticweb.owlapi.obolibrary.oboformat.diff.Diff;
 import org.semanticweb.owlapi.obolibrary.oboformat.diff.OBODocDiffer;
+import org.semanticweb.owlapi.obolibrary.oboformat.model.FrameStructureException;
 import org.semanticweb.owlapi.obolibrary.oboformat.model.OBODoc;
 
 class RoundTripTestBasics extends OboFormatTestBasics {
@@ -34,18 +33,17 @@ class RoundTripTestBasics extends OboFormatTestBasics {
         return true;
     }
 
-    public List<Diff> roundTripOBOFile(String fn, boolean isExpectRoundtrip) throws Exception {
+    public List<Diff> roundTripOBOFile(String fn, boolean isExpectRoundtrip) {
         OBODoc obodoc = parseOBOFile(fn);
         return roundTripOBODoc(obodoc, isExpectRoundtrip);
     }
 
-    public List<Diff> roundTripOBODoc(OBODoc obodoc, boolean isExpectRoundtrip) throws Exception {
+    public List<Diff> roundTripOBODoc(OBODoc obodoc, boolean isExpectRoundtrip)
+        throws FrameStructureException {
         OWLOntology oo = convert(obodoc);
-        StringDocumentTarget oo2 = new StringDocumentTarget();
-        StringDocumentTarget oo1 = new StringDocumentTarget();
-        oo.saveOntology(oo1);
+        StringDocumentTarget oo1 = saveOntology(oo);
         OBODoc obodoc2 = convert(oo);
-        convert(obodoc2).saveOntology(oo2);
+        StringDocumentTarget oo2 = saveOntology(convert(obodoc2));
         String s1 = oo1.toString();
         String s2 = oo2.toString();
         assertEquals(s1, s2);
@@ -57,14 +55,12 @@ class RoundTripTestBasics extends OboFormatTestBasics {
         return diffs;
     }
 
-    public boolean roundTripOWLFile(String fn, boolean isExpectRoundtrip)
-        throws IOException, OWLOntologyCreationException {
+    public boolean roundTripOWLFile(String fn, boolean isExpectRoundtrip) {
         OWLOntology oo = parseOWLFile(fn);
         return roundTripOWLOOntology(oo, isExpectRoundtrip);
     }
 
-    public boolean roundTripOWLOOntology(OWLOntology oo, boolean isExpectRoundtrip)
-        throws IOException {
+    public boolean roundTripOWLOOntology(OWLOntology oo, boolean isExpectRoundtrip) {
         OWLAPIOwl2Obo bridge = new OWLAPIOwl2Obo(m1);
         OBODoc obodoc = bridge.convert(oo);
         writeOBO(obodoc);

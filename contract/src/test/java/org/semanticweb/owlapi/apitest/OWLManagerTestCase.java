@@ -9,22 +9,24 @@ import java.lang.reflect.Field;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.semanticweb.owlapi.apibinding.OWLManager;
+import org.semanticweb.owlapi.apitest.baseclasses.TestBase;
 import org.semanticweb.owlapi.impl.OWLOntologyManagerImpl;
 import org.semanticweb.owlapi.impl.concurrent.ConcurrentOWLOntologyImpl;
 import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 
 /**
  * Matthew Horridge Stanford Center for Biomedical Informatics Research 10/04/15
  */
-class OWLManagerTestCase {
+class OWLManagerTestCase extends TestBase {
 
     private OWLOntologyManager manager;
     private OWLOntology ontology;
 
     @BeforeEach
-    void setUp() throws Exception {
-        manager = OWLManager.createOWLOntologyManager();
+    void setUp() throws OWLOntologyCreationException {
+        manager = setupManager();
         ontology = manager.createOntology();
     }
 

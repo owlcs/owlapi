@@ -34,12 +34,12 @@ class OWLOntologyManagerTestCase extends TestBase {
     private static final String NS = "http://www.semanticweb.org/ontologies/ontology";
 
     static final IRI next(String n) {
-        return df.getNextDocumentIRI(n);
+        return NextIRI(n);
     }
 
     @Test
     void testCreateAnonymousOntology() {
-        OWLOntology ontology = getAnonymousOWLOntology();
+        OWLOntology ontology = createAnon();
         assertNotNull(ontology);
         assertNotNull(ontology.getOntologyID());
         assertFalse(ontology.getOntologyID().getDefaultDocumentIRI().isPresent());
@@ -51,7 +51,7 @@ class OWLOntologyManagerTestCase extends TestBase {
     @Test
     void testCreateOntologyWithIRI() {
         IRI ontologyIRI = next(NS);
-        OWLOntology ontology = getOWLOntology(ontologyIRI);
+        OWLOntology ontology = create(ontologyIRI);
         assertNotNull(ontology);
         assertNotNull(ontology.getOntologyID());
         assertEquals(ontologyIRI, ontology.getOntologyID().getDefaultDocumentIRI().get());
@@ -64,7 +64,7 @@ class OWLOntologyManagerTestCase extends TestBase {
     void testCreateOntologyWithIRIAndVersionIRI() {
         IRI ontologyIRI = next(NS);
         IRI versionIRI = next(NS + "/version");
-        OWLOntology ontology = getOWLOntology(df.getOWLOntologyID(ontologyIRI, versionIRI));
+        OWLOntology ontology = create(OntologyID(ontologyIRI, versionIRI));
         assertNotNull(ontology);
         assertNotNull(ontology.getOntologyID());
         assertEquals(versionIRI, ontology.getOntologyID().getDefaultDocumentIRI().get());
@@ -79,7 +79,7 @@ class OWLOntologyManagerTestCase extends TestBase {
         IRI documentIRI = next("file:documentIRI");
         SimpleIRIMapper mapper = new SimpleIRIMapper(ontologyIRI, documentIRI);
         m.getIRIMappers().add(mapper);
-        OWLOntology ontology = getOWLOntology(ontologyIRI);
+        OWLOntology ontology = create(ontologyIRI);
         assertNotNull(ontology);
         assertNotNull(ontology.getOntologyID());
         assertEquals(ontologyIRI, ontology.getOntologyID().getDefaultDocumentIRI().get());
@@ -95,7 +95,7 @@ class OWLOntologyManagerTestCase extends TestBase {
         IRI documentIRI = next("file:documentIRI");
         SimpleIRIMapper mapper = new SimpleIRIMapper(versionIRI, documentIRI);
         m.getIRIMappers().add(mapper);
-        OWLOntology ontology = getOWLOntology(df.getOWLOntologyID(ontologyIRI, versionIRI));
+        OWLOntology ontology = create(OntologyID(ontologyIRI, versionIRI));
         assertNotNull(ontology);
         assertNotNull(ontology.getOntologyID());
         assertEquals(versionIRI, ontology.getOntologyID().getDefaultDocumentIRI().get());
@@ -107,34 +107,30 @@ class OWLOntologyManagerTestCase extends TestBase {
     @Test
     void testCreateDuplicateOntologyWithIRI() {
         IRI ontologyIRI = next(NS);
-        getOWLOntology(ontologyIRI);
+        create(ontologyIRI);
         assertThrowsWithCause(OWLRuntimeException.class, OWLOntologyAlreadyExistsException.class,
-            () -> getOWLOntology(ontologyIRI));
+            () -> create(ontologyIRI));
     }
 
     @Test
     void testCreateDuplicateOntologyWithIRIAndVersionIRI() {
-        IRI ontologyIRI = df.getNextDocumentIRI(NS);
+        IRI ontologyIRI = NextIRI(NS);
         IRI versionIRI = next(NS);
-        getOWLOntology(df.getOWLOntologyID(ontologyIRI, versionIRI));
+        create(OntologyID(ontologyIRI, versionIRI));
         assertThrowsWithCause(OWLRuntimeException.class, OWLOntologyAlreadyExistsException.class,
-            () ->
-
-            getOWLOntology(df.getOWLOntologyID(ontologyIRI, versionIRI)));
+            () -> create(OntologyID(ontologyIRI, versionIRI)));
     }
 
     @Test
     void testCreateDuplicatedDocumentIRI() {
         IRI ontologyIRI = next(NS);
         IRI documentIRI = next("file:documentIRI");
-        IRI ontologyIRI2 = df.getNextDocumentIRI("http://www.semanticweb.org/ontologies/ontology2");
+        IRI ontologyIRI2 = NextIRI("http://www.semanticweb.org/ontologies/ontology2");
         m.getIRIMappers().add(new SimpleIRIMapper(ontologyIRI, documentIRI));
         m.getIRIMappers().add(new SimpleIRIMapper(ontologyIRI2, documentIRI));
-        getOWLOntology(df.getOWLOntologyID(ontologyIRI));
+        create(OntologyID(ontologyIRI));
         assertThrowsWithCause(OWLRuntimeException.class,
-            OWLOntologyDocumentAlreadyExistsException.class, () ->
-
-            getOWLOntology(df.getOWLOntologyID(ontologyIRI2)));
-
+            OWLOntologyDocumentAlreadyExistsException.class,
+            () -> create(OntologyID(ontologyIRI2)));
     }
 }

@@ -13,8 +13,6 @@
 package org.semanticweb.owlapi.apitest.dataproperties;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.semanticweb.owlapi.OWLFunctionalSyntaxFactory.DisjointClasses;
-import static org.semanticweb.owlapi.OWLFunctionalSyntaxFactory.ObjectUnionOf;
 import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.equalStreams;
 
 import org.junit.jupiter.api.Test;
@@ -29,8 +27,8 @@ class DisjointClassesRoundTripTestCase extends TestBase {
     @Test
     void shouldParse() {
         OWLOntology ontology = buildOntology();
-        OWLOntology roundtripped = loadOntologyFromString(TestFiles.parseDisjointClasses,
-            new ManchesterSyntaxDocumentFormat());
+        OWLOntology roundtripped =
+            loadFrom(TestFiles.parseDisjointClasses, new ManchesterSyntaxDocumentFormat());
         equal(ontology, roundtripped);
     }
 
@@ -38,15 +36,15 @@ class DisjointClassesRoundTripTestCase extends TestBase {
     void shouldRoundTrip() {
         OWLOntology ontology = buildOntology();
         OWLDocumentFormat format = new ManchesterSyntaxDocumentFormat();
-        ontology.getPrefixManager().withPrefix("piz", "http://www.semanticweb.org/owlapi/test#");
+        ontology.getPrefixManager().withPrefix("piz", OWLAPI_TEST);
         OWLOntology roundtripped = roundTrip(ontology, format);
         assertTrue(equalStreams(ontology.logicalAxioms(), roundtripped.logicalAxioms()));
     }
 
     private OWLOntology buildOntology() {
-        OWLOntology ontology = getOWLOntology(df.getIRI("http://ns.owl", ""));
-        ontology
-            .add(DisjointClasses(ObjectUnionOf(C, D), ObjectUnionOf(C, E), ObjectUnionOf(C, F)));
+        OWLOntology ontology = create(iri("http://ns.owl", ""));
+        ontology.add(DisjointClasses(ObjectUnionOf(CLASSES.C, CLASSES.D),
+            ObjectUnionOf(CLASSES.C, CLASSES.E), ObjectUnionOf(CLASSES.C, CLASSES.F)));
         return ontology;
     }
 }

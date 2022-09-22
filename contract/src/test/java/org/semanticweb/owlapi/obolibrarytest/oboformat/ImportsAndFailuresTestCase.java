@@ -1,78 +1,53 @@
 package org.semanticweb.owlapi.obolibrarytest.oboformat;
 
+import static org.semanticweb.owlapi.apitest.TestFiles.EMPTY_IMPORT;
+import static org.semanticweb.owlapi.apitest.TestFiles.NO_INPUT;
+import static org.semanticweb.owlapi.apitest.TestFiles.UBERON_CORE;
+import static org.semanticweb.owlapi.apitest.TestFiles.UBERON_PATO;
+
 import org.junit.jupiter.api.Test;
+import org.semanticweb.owlapi.apitest.TestFilenames;
 import org.semanticweb.owlapi.apitest.baseclasses.TestBase;
 import org.semanticweb.owlapi.documents.StringDocumentSource;
-import org.semanticweb.owlapi.documents.StringDocumentTarget;
 import org.semanticweb.owlapi.formats.OBODocumentFormat;
-import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
-import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 
 class ImportsAndFailuresTestCase extends TestBase {
-
-    private static final IRI TEST_IMPORT =
-        iri("http://purl.obolibrary.org/obo/uberon/", "test_import.owl");
 
     protected StringDocumentSource inputSource(String input) {
         return new StringDocumentSource(input, new OBODocumentFormat());
     }
 
-    static final String NO_INPUT =
-        "ontology: uberon\n" + "[Term]\nid: X:1\nname: x1\nrelationship: part_of X:2\n\n"
-            + "[Typedef]\nid: part_of\nxref: BFO:0000050";
-
-    static final String UBERON_CORE = "format-version: 1.2\n" + "ontology: uberon/core\n" + "\n"
-        + "[Term]\n" + "id: UBERON:0004138\n" + "name: somitomeric trunk muscle\n"
-        + "property_value: seeAlso \"string\"\n" + "\n" + "[Typedef]\n" + "id: seeAlso\n"
-        + "name: seeAlso\n" + "is_metadata_tag: true\n" + "is_class_level: true";
-
-    static final String UBERON_PATO =
-        "format-version: 1.2\n" + "import: http://purl.obolibrary.org/obo/uberon/pato_import.owl\n"
-            + "ontology: uberon/core\n" + "\n" + "[Term]\n" + "id: UBERON:0004138\n"
-            + "name: somitomeric trunk muscle\n" + "property_value: seeAlso \"string\"\n" + "\n"
-            + "[Typedef]\n" + "id: seeAlso\n" + "name: seeAlso\n" + "is_metadata_tag: true\n"
-            + "is_class_level: true";
-
-    static final String EMPTY_IMPORT =
-        "ontology: uberon\n" + "import: http://purl.obolibrary.org/obo/uberon/test_import.owl\n\n"
-            + "[Term]\nid: X:1\nname: x1\nrelationship: part_of X:2\n\n"
-            + "[Typedef]\nid: part_of\nxref: BFO:0000050";
-
     @Test
-    void shouldNotFailOnEmptyImport()
-        throws OWLOntologyCreationException, OWLOntologyStorageException {
-        m1.createOntology(TEST_IMPORT);
-        OWLOntology o = m1.loadOntologyFromOntologyDocument(inputSource(EMPTY_IMPORT));
-        StringDocumentTarget target = new StringDocumentTarget();
-        o.saveOntology(new OBODocumentFormat(), target);
-        m.createOntology(TEST_IMPORT);
-        OWLOntology o1 = m.loadOntologyFromOntologyDocument(inputSource(EMPTY_IMPORT));
+    void shouldNotFailOnEmptyImport() throws OWLOntologyCreationException {
+        m1.createOntology(IRIS.TEST_IMPORT);
+        OWLOntology o = loadFrom(inputSource(EMPTY_IMPORT), m1);
+        saveOntology(o, new OBODocumentFormat());
+        create(IRIS.TEST_IMPORT);
+        OWLOntology o1 = loadFrom(inputSource(EMPTY_IMPORT), m);
         equal(o, o1);
     }
 
     @Test
-    void shouldNotFailOnNoImport() throws OWLOntologyCreationException {
-        OWLOntology o = m1.loadOntologyFromOntologyDocument(inputSource(NO_INPUT));
+    void shouldNotFailOnNoImport() {
+        OWLOntology o = loadFrom(inputSource(NO_INPUT));
         roundTrip(o, new OBODocumentFormat());
     }
 
     @Test
-    void shouldNotFailOnPatoImport()
-        throws OWLOntologyCreationException, OWLOntologyStorageException {
-        loadOntology("pato_import.owl", m1);
-        OWLOntology o = m1.loadOntologyFromOntologyDocument(inputSource(UBERON_PATO));
-        loadOntology("pato_import.owl", m);
-        StringDocumentTarget target = new StringDocumentTarget();
-        o.saveOntology(new OBODocumentFormat(), target);
-        OWLOntology o1 = m.loadOntologyFromOntologyDocument(inputSource(UBERON_PATO));
+    void shouldNotFailOnPatoImport() {
+        load(TestFilenames.PATO_IMPORT_OWL, m1);
+        OWLOntology o = loadFrom(inputSource(UBERON_PATO), m1);
+        load(TestFilenames.PATO_IMPORT_OWL, m);
+        saveOntology(o, new OBODocumentFormat());
+        OWLOntology o1 = loadFrom(inputSource(UBERON_PATO), m);
         equal(o, o1);
     }
 
     @Test
-    void shouldNotFailOnNoPatoImport() throws OWLOntologyCreationException {
-        OWLOntology o = m1.loadOntologyFromOntologyDocument(inputSource(UBERON_CORE));
+    void shouldNotFailOnNoPatoImport() {
+        OWLOntology o = loadFrom(inputSource(UBERON_CORE));
         roundTrip(o, new OBODocumentFormat());
     }
 }

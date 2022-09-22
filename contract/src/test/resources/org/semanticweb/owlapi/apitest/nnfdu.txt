@@ -1,1 +1,0 @@
-DisjointUnion(<urn:test:test#c> <urn:test:test#c> <urn:test:test#iri>)

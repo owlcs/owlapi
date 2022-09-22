@@ -1,1 +1,0 @@
-ClassAssertion(ObjectUnionOf(<urn:test:test#c> <urn:test:test#iri>) <urn:test:test#i>)

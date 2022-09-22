@@ -19,10 +19,8 @@ public class OWLOntologyChangeRecordTest extends TestBase {
 
     @Test
     public void testSerializeChangeRecord() throws Exception {
-        OWLOntologyID id1 =
-            df.getOWLOntologyID(df.getIRI(URN_TEST, "a"), df.getIRI(URN_TEST, "v1"));
-        OWLOntologyID id2 =
-            df.getOWLOntologyID(df.getIRI(URN_TEST, "a"), df.getIRI(URN_TEST, "v2"));
+        OWLOntologyID id1 = OntologyID(iri(URN_TEST, "a"), iri(URN_TEST, "v1"));
+        OWLOntologyID id2 = OntologyID(iri(URN_TEST, "a"), iri(URN_TEST, "v2"));
         OWLOntologyChangeRecord idChangeRecord =
             new OWLOntologyChangeRecord(id1, new SetOntologyIDData(id2));
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();

@@ -24,7 +24,6 @@ import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassExpression;
-import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLObjectCardinalityRestriction;
 import org.semanticweb.owlapi.model.OWLObjectIntersectionOf;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
@@ -42,8 +41,8 @@ class EquivalentAndSubclassTestCase extends TestBase {
     @Test
     void testRoundtrip() {
         // given
-        OWLOntology o = loadOntologyFromString(TestFiles.equivalentAndSubclasses,
-            new ManchesterSyntaxDocumentFormat());
+        OWLOntology o =
+            loadFrom(TestFiles.equivalentAndSubclasses, new ManchesterSyntaxDocumentFormat());
         relax(o);
         OWLOntology o2 = roundTrip(o, new RDFXMLDocumentFormat());
         equal(o, o2);
@@ -52,23 +51,23 @@ class EquivalentAndSubclassTestCase extends TestBase {
     static void relax(OWLOntology ontology) {
         Set<OWLAxiom> newAxioms = new HashSet<>();
         ontology.axioms(AxiomType.EQUIVALENT_CLASSES).forEach(ax -> {
-            ax.operands().forEach(x -> {
+            ax.operands().forEach(operand -> {
                 // we only relax in cases where the equivalence is between one
                 // named and one anon expression
-                if (!x.isAnonymous()) {
-                    OWLClass c = (OWLClass) x;
+                if (!operand.isAnonymous()) {
+                    OWLClass cClass = (OWLClass) operand;
                     // ax = EquivalentClasses(x y1 y2 ...)
-                    for (OWLClassExpression y : ax.getClassExpressionsMinus(c)) {
+                    for (OWLClassExpression expression : ax.getClassExpressionsMinus(cClass)) {
                         // limited structural reasoning:
                         // return (P some Z), if:
                         // - y is of the form (P some Z)
                         // - y is of the form ((P some Z) and ...),
                         // or any level of nesting
-                        for (OWLObjectSomeValuesFrom svf : getSomeValuesFromAncestor(y, df)) {
-                            newAxioms.add(df.getOWLSubClassOfAxiom(c, svf));
+                        for (OWLObjectSomeValuesFrom svf : getSomeValuesFromAncestor(expression)) {
+                            newAxioms.add(SubClassOf(cClass, svf));
                         }
-                        for (OWLClass z : getNamedAncestors(y)) {
-                            newAxioms.add(df.getOWLSubClassOfAxiom(c, z));
+                        for (OWLClass zClass : getNamedAncestors(expression)) {
+                            newAxioms.add(SubClassOf(cClass, zClass));
                         }
                     }
                 }
@@ -78,34 +77,32 @@ class EquivalentAndSubclassTestCase extends TestBase {
         ontology.addAxioms(newAxioms);
     }
 
-    private static Set<OWLObjectSomeValuesFrom> getSomeValuesFromAncestor(OWLClassExpression x,
-        OWLDataFactory dataFactory) {
+    private static Set<OWLObjectSomeValuesFrom> getSomeValuesFromAncestor(OWLClassExpression ex) {
         Set<OWLObjectSomeValuesFrom> svfs = new HashSet<>();
-        if (x instanceof OWLObjectSomeValuesFrom) {
-            OWLObjectSomeValuesFrom svf = (OWLObjectSomeValuesFrom) x;
+        if (ex instanceof OWLObjectSomeValuesFrom) {
+            OWLObjectSomeValuesFrom svf = (OWLObjectSomeValuesFrom) ex;
             svfs.add(svf);
-        } else if (x instanceof OWLObjectCardinalityRestriction) {
-            OWLObjectCardinalityRestriction ocr = (OWLObjectCardinalityRestriction) x;
+        } else if (ex instanceof OWLObjectCardinalityRestriction) {
+            OWLObjectCardinalityRestriction ocr = (OWLObjectCardinalityRestriction) ex;
             OWLClassExpression filler = ocr.getFiller();
             OWLObjectPropertyExpression p = ocr.getProperty();
             if (ocr.getCardinality() > 0) {
-                OWLObjectSomeValuesFrom svf = dataFactory.getOWLObjectSomeValuesFrom(p, filler);
-                svfs.add(svf);
+                svfs.add(ObjectSomeValuesFrom(p, filler));
             }
-        } else if (x instanceof OWLObjectIntersectionOf) {
-            ((OWLObjectIntersectionOf) x).operands()
-            .forEach(op -> svfs.addAll(getSomeValuesFromAncestor(op, dataFactory)));
+        } else if (ex instanceof OWLObjectIntersectionOf) {
+            ((OWLObjectIntersectionOf) ex).operands()
+                .forEach(op -> svfs.addAll(getSomeValuesFromAncestor(op)));
         }
         return svfs;
     }
 
-    private static Set<OWLClass> getNamedAncestors(OWLClassExpression x) {
+    private static Set<OWLClass> getNamedAncestors(OWLClassExpression expression) {
         Set<OWLClass> cs = new HashSet<>();
-        if (!x.isAnonymous()) {
-            cs.add(x.asOWLClass());
-        } else if (x instanceof OWLObjectIntersectionOf) {
-            ((OWLObjectIntersectionOf) x).operands()
-            .forEach(op -> cs.addAll(getNamedAncestors(op)));
+        if (!expression.isAnonymous()) {
+            cs.add(expression.asOWLClass());
+        } else if (expression instanceof OWLObjectIntersectionOf) {
+            ((OWLObjectIntersectionOf) expression).operands()
+                .forEach(op -> cs.addAll(getNamedAncestors(op)));
         }
         return cs;
     }

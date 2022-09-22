@@ -1,1 +1,0 @@
-ClassAssertion(Annotation(<urn:test:test#ann> "test"^^xsd:string) DataHasValue(<urn:test:test#dp> "false"^^xsd:boolean) <urn:test:test#i>)

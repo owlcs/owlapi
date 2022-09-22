@@ -15,34 +15,30 @@ package org.semanticweb.owlapi.apitest.ontology;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.semanticweb.owlapi.OWLFunctionalSyntaxFactory.AnnotationAssertion;
-import static org.semanticweb.owlapi.OWLFunctionalSyntaxFactory.Literal;
 
 import org.junit.jupiter.api.Test;
 import org.semanticweb.owlapi.apitest.baseclasses.TestBase;
 import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
-import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
 
 class MissingDeclarationRoundTripTestCase extends TestBase {
 
     @Test
     void shouldFindOneAxiom() {
-        OWLOntology ontology = createOntology(AP);
-        assertTrue(ontology.containsAnnotationPropertyInSignature(AP.getIRI()));
+        OWLOntology ontology = createOntology(ANNPROPS.AP);
+        assertTrue(ontology.containsAnnotationPropertyInSignature(ANNPROPS.AP.getIRI()));
         assertEquals(1, ontology.getAxiomCount());
         RDFXMLDocumentFormat format = new RDFXMLDocumentFormat();
         ontology.getOWLOntologyManager().getOntologyConfigurator().withAddMissingTypes(false);
-        ontology = loadOntologyStrict(saveOntology(ontology, format), format);
-        assertFalse(ontology.containsAnnotationPropertyInSignature(AP.getIRI()));
+        ontology = loadStrict(saveOntology(ontology, format), format);
+        assertFalse(ontology.containsAnnotationPropertyInSignature(ANNPROPS.AP.getIRI()));
         assertEquals(0, ontology.getAxiomCount());
     }
 
     private OWLOntology createOntology(OWLAnnotationProperty p) {
-        OWLOntology ontology = getOWLOntology();
-        OWLAxiom axiom = AnnotationAssertion(p, A.getIRI(), Literal("Hello"));
-        ontology.add(axiom);
-        return ontology;
+        OWLOntology o = createAnon();
+        o.addAxiom(AnnotationAssertion(p, CLASSES.A.getIRI(), Literal("Hello")));
+        return o;
     }
 }

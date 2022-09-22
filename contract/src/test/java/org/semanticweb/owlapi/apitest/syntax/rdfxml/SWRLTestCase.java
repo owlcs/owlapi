@@ -28,7 +28,7 @@ class SWRLTestCase extends TestBase {
 
     @Test
     void testSWRLParser() {
-        OWLOntology ont = loadOntologyFromString(TestFiles.swrlParser, new RDFXMLDocumentFormat());
+        OWLOntology ont = loadFrom(TestFiles.swrlParser, new RDFXMLDocumentFormat());
         assertEquals(0L, ont.individualsInSignature().count());
     }
 }

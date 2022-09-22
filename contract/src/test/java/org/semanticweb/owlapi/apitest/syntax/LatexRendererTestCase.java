@@ -25,15 +25,13 @@ class LatexRendererTestCase extends TestBase {
 
     @Test
     void shouldRenderEscapingUnderscores() {
-        OWLOntology o =
-            loadOntologyFromString(TestFiles.latexWithUnderscores, new LatexDocumentFormat());
+        OWLOntology o = loadFrom(TestFiles.latexWithUnderscores, new LatexDocumentFormat());
         assertTrue(saveOntology(o, new LatexDocumentFormat()).toString().contains("C\\_Test"));
     }
 
     @Test
     void shouldSaveInverses() {
-        OWLOntology o =
-            loadOntologyFromString(TestFiles.latexWithInverse, new LatexDocumentFormat());
+        OWLOntology o = loadFrom(TestFiles.latexWithInverse, new LatexDocumentFormat());
         assertEquals(TestFiles.latexExpectedOutput,
             saveOntology(o, new LatexDocumentFormat()).toString());
     }

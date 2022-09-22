@@ -15,9 +15,7 @@ import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
 import org.semanticweb.owlapi.formats.TurtleDocumentFormat;
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
-import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
-import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OntologyConfigurator;
 
@@ -30,43 +28,36 @@ class UndeclaredAnnotationTestCase extends TestBase {
     void testRDFXMLUsingUndeclaredAnnotationProperty() {
         StringDocumentSource documentSource = new StringDocumentSource(
             TestFiles.undeclaredAnnotationProperty, new RDFXMLDocumentFormat());
-        OWLOntology oo = loadOntologyFromString(documentSource);
+        OWLOntology oo = loadFrom(documentSource);
         assertTrue(documentSource.getOntologyLoaderMetaData().isPresent());
         assertEquals(0,
             documentSource.getOntologyLoaderMetaData().get().getUnparsedTriples().count());
         Set<OWLAnnotationAssertionAxiom> annotationAxioms =
             asUnorderedSet(oo.axioms(AxiomType.ANNOTATION_ASSERTION));
         assertEquals(2, annotationAxioms.size());
-        OWLAnnotationProperty relProperty =
-            df.getOWLAnnotationProperty("http://example.com/ns#", "rel");
-        OWLAnnotationProperty predProperty =
-            df.getOWLAnnotationProperty("http://example.com/ns#", "pred");
         Set<OWLAnonymousIndividual> anonymousIndividualSet =
             asUnorderedSet(oo.anonymousIndividuals());
         assertEquals(1, anonymousIndividualSet.size());
-        OWLAnonymousIndividual anonymousIndividual = anonymousIndividualSet.iterator().next();
-        OWLAnnotationAssertionAxiom relAx = df.getOWLAnnotationAssertionAxiom(relProperty,
-            iri("http://example.com/ns#", "test"), anonymousIndividual);
-        OWLLiteral notVisible = df.getOWLLiteral("Not visible", "");
+        OWLAnonymousIndividual anon = anonymousIndividualSet.iterator().next();
+        OWLAnnotationAssertionAxiom relAx = AnnotationAssertion(ANNPROPS.AP, IRIS.iriTest, anon);
         OWLAnnotationAssertionAxiom predAx =
-            df.getOWLAnnotationAssertionAxiom(predProperty, anonymousIndividual, notVisible);
+            AnnotationAssertion(ANNPROPS.propP, anon, Literal("Not visible", ""));
         assertTrue(annotationAxioms.contains(relAx));
         assertTrue(annotationAxioms.contains(predAx));
     }
 
     @Test
     void testTurtleUsingUndeclaredAnnotationProperty() {
-        OWLOntology o = loadOntologyFromString(TestFiles.undeclaredAnnotationPropertyTurtle,
-            new TurtleDocumentFormat());
-        OWLAnnotationProperty pred = df.getOWLAnnotationProperty("http://www.example.org/", "pred");
+        OWLOntology o =
+            loadFrom(TestFiles.undeclaredAnnotationPropertyTurtle, new TurtleDocumentFormat());
         AtomicInteger countLabels = new AtomicInteger();
         AtomicInteger countPreds = new AtomicInteger();
         AtomicInteger countBNodeAnnotations = new AtomicInteger();
         o.axioms(AxiomType.ANNOTATION_ASSERTION).forEach(oa -> {
-            if (oa.getProperty().equals(df.getRDFSLabel())) {
+            if (oa.getProperty().equals(RDFSLabel())) {
                 countLabels.incrementAndGet();
             }
-            if (oa.getProperty().equals(pred)) {
+            if (oa.getProperty().equals(ANNPROPS.pred)) {
                 countPreds.incrementAndGet();
             }
             if (oa.getSubject() instanceof OWLAnonymousIndividual) {
@@ -80,7 +71,7 @@ class UndeclaredAnnotationTestCase extends TestBase {
 
     @Test
     void shouldThrowAnExceptionOnError1AndStrictParsing() {
-        OWLOntology o = loadOntologyWithConfig(
+        OWLOntology o = loadWithConfig(
             new StringDocumentSource(TestFiles.error1OnStrictParsing, new TurtleDocumentFormat()),
             new OntologyConfigurator().setStrict(true));
         assertEquals(0, o.getLogicalAxiomCount());

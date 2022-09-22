@@ -8,89 +8,65 @@ import org.semanticweb.owlapi.apitest.baseclasses.TestBase;
 import org.semanticweb.owlapi.dlsyntax.renderer.DLSyntaxObjectRenderer;
 import org.semanticweb.owlapi.formats.DLSyntaxDocumentFormat;
 import org.semanticweb.owlapi.formats.DLSyntaxHTMLDocumentFormat;
-import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLDisjointClassesAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
 
 class DLSyntaxTestCase extends TestBase {
 
     @Test
-    void testCommasOnDisjointThree() {
-        OWLAxiom ax = df.getOWLDisjointClassesAxiom(A, B, C);
+    void testAxiomRender() {
         DLSyntaxObjectRenderer visitor = new DLSyntaxObjectRenderer();
-        String render = visitor.render(ax);
-        assertEquals("A ⊑ ¬ B, A ⊑ ¬ C, B ⊑ ¬ C", render);
+        assertEquals("A ⊑ ¬ B, A ⊑ ¬ C, B ⊑ ¬ C",
+            visitor.render(DisjointClasses(CLASSES.A, CLASSES.B, CLASSES.C)));
+        assertEquals("A ⊑ ¬ B", visitor.render(DisjointClasses(CLASSES.A, CLASSES.B)));
+        assertEquals("A ⊑ ¬ B, A ⊑ ¬ C, A ⊑ ¬ D, B ⊑ ¬ C, B ⊑ ¬ D, C ⊑ ¬ D",
+            visitor.render(DisjointClasses(CLASSES.A, CLASSES.B, CLASSES.C, CLASSES.D)));
     }
 
-    @Test
-    void testCommasOnDisjointTwo() {
-        OWLAxiom ax = df.getOWLDisjointClassesAxiom(A, B);
-        DLSyntaxObjectRenderer visitor = new DLSyntaxObjectRenderer();
-        String render = visitor.render(ax);
-        assertEquals("A ⊑ ¬ B", render);
-    }
 
-    @Test
-    void testCommasOnDisjointFour() {
-        OWLAxiom ax = df.getOWLDisjointClassesAxiom(A, B, C, D);
-        DLSyntaxObjectRenderer visitor = new DLSyntaxObjectRenderer();
-        String render = visitor.render(ax);
-        assertEquals("A ⊑ ¬ B, A ⊑ ¬ C, A ⊑ ¬ D, B ⊑ ¬ C, B ⊑ ¬ D, C ⊑ ¬ D", render);
-    }
-
-    @Test
-    void testCommasOnDisjointThreeOntologyHTML() throws Exception {
-        OWLOntology o = m.createOntology(df.getIRI("urn:test:onto"));
-        OWLAxiom ax = df.getOWLDisjointClassesAxiom(A, B, C);
-        o.addAxiom(ax);
+    protected void assertionsForHTML(OWLDisjointClassesAxiom ax, String expected) {
+        OWLOntology o = o(iri("urn:test:", "onto"), ax);
         String render = saveOntology(o, new DLSyntaxHTMLDocumentFormat()).toString();
-        assertEquals(TestFiles.disjointInHTML,
-            render.replace(System.getProperty("line.separator"), "\n"));
+        assertEquals(expected, render.replace(System.getProperty("line.separator"), "\n"));
+    }
+
+
+    protected void assertionsForDL(OWLDisjointClassesAxiom ax, String expected) {
+        String render = saveOntology(o(ax), new DLSyntaxDocumentFormat()).toString();
+        assertEquals(expected, render);
     }
 
     @Test
-    void testCommasOnDisjointTwoOntologyHTML() throws Exception {
-        OWLOntology o = m.createOntology(df.getIRI("urn:test:onto"));
-        OWLAxiom ax = df.getOWLDisjointClassesAxiom(A, B);
-        o.addAxiom(ax);
-        String render = saveOntology(o, new DLSyntaxHTMLDocumentFormat()).toString();
-        assertEquals(TestFiles.disjointTwoInHTML,
-            render.replace(System.getProperty("line.separator"), "\n"));
+    void testCommasOnDisjointThreeOntologyHTML() {
+        assertionsForHTML(DisjointClasses(CLASSES.A, CLASSES.B, CLASSES.C),
+            TestFiles.disjointInHTML);
     }
 
     @Test
-    void testCommasOnDisjointFourOntologyHTML() throws Exception {
-        OWLOntology o = m.createOntology(df.getIRI("urn:test:onto"));
-        OWLAxiom ax = df.getOWLDisjointClassesAxiom(A, B, C, D);
-        o.addAxiom(ax);
-        String render = saveOntology(o, new DLSyntaxHTMLDocumentFormat()).toString();
-        assertEquals(TestFiles.disjoint4InHTML,
-            render.replace(System.getProperty("line.separator"), "\n"));
+    void testCommasOnDisjointTwoOntologyHTML() {
+        assertionsForHTML(DisjointClasses(CLASSES.A, CLASSES.B), TestFiles.disjointTwoInHTML);
     }
 
     @Test
-    void testCommasOnDisjointThreeOntology() throws Exception {
-        OWLOntology o = m.createOntology();
-        OWLAxiom ax = df.getOWLDisjointClassesAxiom(A, B, C);
-        o.addAxiom(ax);
-        String render = saveOntology(o, new DLSyntaxDocumentFormat()).toString();
-        assertEquals("A ⊑ ¬ B, A ⊑ ¬ C, B ⊑ ¬ C", render);
+    void testCommasOnDisjointFourOntologyHTML() {
+        assertionsForHTML(DisjointClasses(CLASSES.A, CLASSES.B, CLASSES.C, CLASSES.D),
+            TestFiles.disjoint4InHTML);
     }
 
     @Test
-    void testCommasOnDisjointTwoOntology() throws Exception {
-        OWLOntology o = m.createOntology();
-        OWLAxiom ax = df.getOWLDisjointClassesAxiom(A, B);
-        o.addAxiom(ax);
-        String render = saveOntology(o, new DLSyntaxDocumentFormat()).toString();
-        assertEquals("A ⊑ ¬ B", render);
+    void testCommasOnDisjointThreeOntology() {
+        assertionsForDL(DisjointClasses(CLASSES.A, CLASSES.B, CLASSES.C),
+            "A ⊑ ¬ B, A ⊑ ¬ C, B ⊑ ¬ C");
     }
 
     @Test
-    void testCommasOnDisjointFourOntology() throws Exception {
-        OWLOntology o = m.createOntology();
-        OWLAxiom ax = df.getOWLDisjointClassesAxiom(A, B, C, D);
-        o.addAxiom(ax);
-        String render = saveOntology(o, new DLSyntaxDocumentFormat()).toString();
-        assertEquals("A ⊑ ¬ B, A ⊑ ¬ C, A ⊑ ¬ D, B ⊑ ¬ C, B ⊑ ¬ D, C ⊑ ¬ D", render);
+    void testCommasOnDisjointTwoOntology() {
+        assertionsForDL(DisjointClasses(CLASSES.A, CLASSES.B), "A ⊑ ¬ B");
+    }
+
+    @Test
+    void testCommasOnDisjointFourOntology() {
+        assertionsForDL(DisjointClasses(CLASSES.A, CLASSES.B, CLASSES.C, CLASSES.D),
+            "A ⊑ ¬ B, A ⊑ ¬ C, A ⊑ ¬ D, B ⊑ ¬ C, B ⊑ ¬ D, C ⊑ ¬ D");
     }
 }

@@ -31,7 +31,7 @@ class RoundTripOWLXMLToRioTurtleTestCase extends TestBase {
         OWLOntology ontology = original();
         StringDocumentTarget targetOWLXML = new StringDocumentTarget();
         ontology.saveOntology(new OWLXMLDocumentFormat(), targetOWLXML);
-        OWLOntology o1 = loadOntologyFromString(targetOWLXML, new OWLXMLDocumentFormat());
+        OWLOntology o1 = loadFrom(targetOWLXML, new OWLXMLDocumentFormat());
         equal(ontology, o1);
     }
 

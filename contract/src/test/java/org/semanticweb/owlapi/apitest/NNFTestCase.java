@@ -13,84 +13,66 @@
 package org.semanticweb.owlapi.apitest;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.params.provider.Arguments.of;
 
 import java.util.stream.Stream;
 
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
-import org.semanticweb.owlapi.apibinding.OWLManager;
+import org.semanticweb.owlapi.apitest.baseclasses.TestBase;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.utility.NNF;
 
-class NNFTestCase {
+class NNFTestCase extends TestBase {
 
     static Stream<Arguments> getData() {
-        Builder b = new Builder();
-        return Stream.of(Arguments.of(b.dRange(), TestFiles.nnfdRange),
-            Arguments.of(b.dDef(), TestFiles.nnfdDef), Arguments.of(b.decC(), TestFiles.nnfdecC),
-            Arguments.of(b.decOp(), TestFiles.nnfdecOp),
-            Arguments.of(b.decDp(), TestFiles.nnfdecDp),
-            Arguments.of(b.decDt(), TestFiles.nnfdecDt),
-            Arguments.of(b.decAp(), TestFiles.nnfdecAp), Arguments.of(b.decI(), TestFiles.nnfdecI),
-            Arguments.of(b.assDi(), TestFiles.nnfassDi), Arguments.of(b.dc(), TestFiles.nnfdc),
-            Arguments.of(b.dDp(), TestFiles.nnfdDp), Arguments.of(b.dOp(), TestFiles.nnfdOp),
-            Arguments.of(b.du(), TestFiles.nnfdu), Arguments.of(b.ec(), TestFiles.nnfec),
-            Arguments.of(b.eDp(), TestFiles.nnfeDp), Arguments.of(b.eOp(), TestFiles.nnfeOp),
-            Arguments.of(b.fdp(), TestFiles.nnffdp), Arguments.of(b.fop(), TestFiles.nnffop),
-            Arguments.of(b.ifp(), TestFiles.nnfifp), Arguments.of(b.iop(), TestFiles.nnfiop),
-            Arguments.of(b.irr(), TestFiles.nnfirr), Arguments.of(b.ndp(), TestFiles.nnfndp),
-            Arguments.of(b.nop(), TestFiles.nnfnop), Arguments.of(b.opa(), TestFiles.nnfopa),
-            Arguments.of(b.opaInv(), TestFiles.nnfopaInv),
-            Arguments.of(b.opaInvj(), TestFiles.nnfopaInvj),
-            Arguments.of(b.oDom(), TestFiles.nnfoDom),
-            Arguments.of(b.oRange(), TestFiles.nnfoRange),
-            Arguments.of(b.chain(), TestFiles.nnfchain), Arguments.of(b.ref(), TestFiles.nnfref),
-            Arguments.of(b.same(), TestFiles.nnfsame),
-            Arguments.of(b.subAnn(), TestFiles.nnfsubAnn),
-            Arguments.of(b.subClass(), TestFiles.nnfsubClass),
-            Arguments.of(b.subData(), TestFiles.nnfsubData),
-            Arguments.of(b.subObject(), TestFiles.nnfsubObject),
-            Arguments.of(b.rule(), TestFiles.nnfrule), Arguments.of(b.symm(), TestFiles.nnfsymm),
-            Arguments.of(b.trans(), TestFiles.nnftrans),
-            Arguments.of(b.hasKey(), TestFiles.nnfhasKey),
-            Arguments.of(b.bigRule(), TestFiles.nnfbigRule),
-            Arguments.of(b.ann(), TestFiles.nnfann), Arguments.of(b.asymm(), TestFiles.nnfasymm),
-            Arguments.of(b.annDom(), TestFiles.nnfannDom),
-            Arguments.of(b.annRange(), TestFiles.nnfannRange),
-            Arguments.of(b.ass(), TestFiles.nnfass), Arguments.of(b.assAnd(), TestFiles.nnfassAnd),
-            Arguments.of(b.assOr(), TestFiles.nnfassOr),
-            Arguments.of(b.dRangeAnd(), TestFiles.nnfdRangeAnd),
-            Arguments.of(b.dRangeOr(), TestFiles.nnfdRangeOr),
-            Arguments.of(b.assNot(), TestFiles.nnfassNot),
-            Arguments.of(b.assNotAnon(), TestFiles.nnfassNotAnon),
-            Arguments.of(b.assSome(), TestFiles.nnfassSome),
-            Arguments.of(b.assAll(), TestFiles.nnfassAll),
-            Arguments.of(b.assHas(), TestFiles.nnfassHas),
-            Arguments.of(b.assMin(), TestFiles.nnfassMin),
-            Arguments.of(b.assMax(), TestFiles.nnfassMax),
-            Arguments.of(b.assEq(), TestFiles.nnfassEq),
-            Arguments.of(b.assHasSelf(), TestFiles.nnfassHasSelf),
-            Arguments.of(b.assOneOf(), TestFiles.nnfassOneOf),
-            Arguments.of(b.assDSome(), TestFiles.nnfassDSome),
-            Arguments.of(b.assDAll(), TestFiles.nnfassDAll),
-            Arguments.of(b.assDHas(), TestFiles.nnfassDHas),
-            Arguments.of(b.assDMin(), TestFiles.nnfassDMin),
-            Arguments.of(b.assDMax(), TestFiles.nnfassDMax),
-            Arguments.of(b.assDEq(), TestFiles.nnfassDEq),
-            Arguments.of(b.dOneOf(), TestFiles.nnfdOneOf),
-            Arguments.of(b.dNot(), TestFiles.nnfdNot),
-            Arguments.of(b.dRangeRestrict(), TestFiles.nnfdRangeRestrict),
-            Arguments.of(b.assD(), TestFiles.nnfassD),
-            Arguments.of(b.assDPlain(), TestFiles.nnfassDPlain),
-            Arguments.of(b.dDom(), TestFiles.nnfdDom));
+        return Stream.of(of(Builder.dRange, TestFiles.nnfdRange),
+            of(Builder.dDef, TestFiles.nnfdDef), of(Builder.decC, TestFiles.nnfdecC),
+            of(Builder.decOp, TestFiles.nnfdecOp), of(Builder.decDp, TestFiles.nnfdecDp),
+            of(Builder.decDt, TestFiles.nnfdecDt), of(Builder.decAp, TestFiles.nnfdecAp),
+            of(Builder.decI, TestFiles.nnfdecI), of(Builder.assDi, TestFiles.nnfassDi),
+            of(Builder.dc, TestFiles.nnfdc), of(Builder.dDp, TestFiles.nnfdDp),
+            of(Builder.dOp, TestFiles.nnfdOp), of(Builder.du, TestFiles.nnfdu),
+            of(Builder.ec, TestFiles.nnfec), of(Builder.eDp, TestFiles.nnfeDp),
+            of(Builder.eOp, TestFiles.nnfeOp), of(Builder.fdp, TestFiles.nnffdp),
+            of(Builder.fop, TestFiles.nnffop), of(Builder.ifp, TestFiles.nnfifp),
+            of(Builder.iop, TestFiles.nnfiop), of(Builder.irr, TestFiles.nnfirr),
+            of(Builder.ndp, TestFiles.nnfndp), of(Builder.nop, TestFiles.nnfnop),
+            of(Builder.opa, TestFiles.nnfopa), of(Builder.opaInv, TestFiles.nnfopaInv),
+            of(Builder.opaInvj, TestFiles.nnfopaInvj), of(Builder.oDom, TestFiles.nnfoDom),
+            of(Builder.oRange, TestFiles.nnfoRange), of(Builder.chain, TestFiles.nnfchain),
+            of(Builder.ref, TestFiles.nnfref), of(Builder.same, TestFiles.nnfsame),
+            of(Builder.subAnn, TestFiles.nnfsubAnn), of(Builder.subClass, TestFiles.nnfsubClass),
+            of(Builder.subData, TestFiles.nnfsubData),
+            of(Builder.subObject, TestFiles.nnfsubObject), of(Builder.rule, TestFiles.nnfrule),
+            of(Builder.symm, TestFiles.nnfsymm), of(Builder.trans, TestFiles.nnftrans),
+            of(Builder.hasKey, TestFiles.nnfhasKey), of(Builder.bigRule, TestFiles.nnfbigRule),
+            of(Builder.ann, TestFiles.nnfann), of(Builder.asymm, TestFiles.nnfasymm),
+            of(Builder.annDom, TestFiles.nnfannDom), of(Builder.annRange, TestFiles.nnfannRange),
+            of(Builder.ass, TestFiles.nnfass), of(Builder.assAnd, TestFiles.nnfassAnd),
+            of(Builder.assOr, TestFiles.nnfassOr), of(Builder.dRangeAnd, TestFiles.nnfdRangeAnd),
+            of(Builder.dRangeOr, TestFiles.nnfdRangeOr), of(Builder.assNot, TestFiles.nnfassNot),
+            of(Builder.assNotAnon, TestFiles.nnfassNotAnon),
+            of(Builder.assSome, TestFiles.nnfassSome), of(Builder.assAll, TestFiles.nnfassAll),
+            of(Builder.assHas, TestFiles.nnfassHas), of(Builder.assMin, TestFiles.nnfassMin),
+            of(Builder.assMax, TestFiles.nnfassMax), of(Builder.assEq, TestFiles.nnfassEq),
+            of(Builder.assHasSelf, TestFiles.nnfassHasSelf),
+            of(Builder.assOneOf, TestFiles.nnfassOneOf),
+            of(Builder.assDSome, TestFiles.nnfassDSome), of(Builder.assDAll, TestFiles.nnfassDAll),
+            of(Builder.assDHas, TestFiles.nnfassDHas), of(Builder.assDMin, TestFiles.nnfassDMin),
+            of(Builder.assDMax, TestFiles.nnfassDMax), of(Builder.assDEq, TestFiles.nnfassDEq),
+            of(Builder.dOneOf, TestFiles.nnfdOneOf), of(Builder.dNot, TestFiles.nnfdNot),
+            of(Builder.dRangeRestrict, TestFiles.nnfdRangeRestrict),
+            of(Builder.assD, TestFiles.nnfassD), of(Builder.assDPlain, TestFiles.nnfassDPlain),
+            of(Builder.dDom, TestFiles.nnfdDom));
     }
 
     @ParameterizedTest
     @MethodSource("getData")
-    void testAssertion(OWLAxiom object, String expected) {
-        NNF testsubject = new NNF(OWLManager.getOWLDataFactory());
-        String result = object.accept(testsubject).toString();
+    void testAssertion(OWLAxiom ax, String expected) {
+        NNF testsubject = new NNF(df);
+        String result = ax.accept(testsubject).toString();
         assertEquals(expected, result);
     }
 }

@@ -1,1 +1,0 @@
-ClassAssertion(Annotation(<urn:test:test#ann> "test"^^xsd:string) ObjectExactCardinality(1 <urn:test:test#op> <urn:test:test#c>) <urn:test:test#i>)

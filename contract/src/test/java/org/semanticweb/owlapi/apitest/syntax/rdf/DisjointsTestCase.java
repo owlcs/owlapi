@@ -13,24 +13,17 @@
 package org.semanticweb.owlapi.apitest.syntax.rdf;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.semanticweb.owlapi.OWLFunctionalSyntaxFactory.createClass;
-import static org.semanticweb.owlapi.OWLFunctionalSyntaxFactory.createObjectProperty;
 import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.contains;
-
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
 
 import org.junit.jupiter.api.Test;
 import org.semanticweb.owlapi.apitest.baseclasses.TestBase;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAxiom;
-import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLDisjointClassesAxiom;
 import org.semanticweb.owlapi.model.OWLLiteral;
-import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 
@@ -48,16 +41,10 @@ class DisjointsTestCase extends TestBase {
 
     @Test
     void testAnonDisjoints() {
-        OWLOntology ontA = getOWLOntology();
-        OWLClass clsA = createClass();
-        OWLClass clsB = createClass();
-        OWLObjectProperty prop = createObjectProperty();
-        OWLClassExpression descA = df.getOWLObjectSomeValuesFrom(prop, clsA);
-        OWLClassExpression descB = df.getOWLObjectSomeValuesFrom(prop, clsB);
-        Set<OWLClassExpression> classExpressions = new HashSet<>();
-        classExpressions.add(descA);
-        classExpressions.add(descB);
-        OWLAxiom ax = df.getOWLDisjointClassesAxiom(classExpressions);
+        OWLOntology ontA = create();
+        OWLClassExpression descA = ObjectSomeValuesFrom(OBJPROPS.P, CLASSES.A);
+        OWLClassExpression descB = ObjectSomeValuesFrom(OBJPROPS.P, CLASSES.B);
+        OWLAxiom ax = DisjointClasses(descA, descB);
         ontA.add(ax);
         OWLOntology ontB = roundTrip(ontA);
         assertTrue(contains(ontB.axioms(), ax));
@@ -66,30 +53,24 @@ class DisjointsTestCase extends TestBase {
     @Test
     void shouldAcceptSingleDisjointAxiom() {
         // The famous idiomatic use of DisjointClasses with one operand
-        OWLClass t = df.getOWLClass("urn:test:class");
-        OWLDisjointClassesAxiom ax = df.getOWLDisjointClassesAxiom(Arrays.asList(t));
-        assertEquals(df.getOWLDisjointClassesAxiom(Arrays.asList(t, df.getOWLThing())),
-            ax.getAxiomWithoutAnnotations());
-        OWLLiteral value = df.getOWLLiteral(
-            "DisjointClasses(<urn:test:class>) replaced by DisjointClasses(<urn:test:class> owl:Thing)");
+        OWLDisjointClassesAxiom ax = DisjointClasses(CLASSES.C);
+        assertEquals(DisjointClasses(CLASSES.C, OWLThing()), ax.getAxiomWithoutAnnotations());
+        OWLLiteral value = Literal("DisjointClasses(" + CLASSES.C + ") replaced by DisjointClasses("
+            + CLASSES.C + " owl:Thing)");
         OWLAnnotation a = ax.annotationsAsList().get(0);
         assertEquals(value, a.getValue());
-        assertEquals(df.getRDFSComment(), a.getProperty());
+        assertEquals(RDFSComment(), a.getProperty());
     }
 
     @Test
     void shouldRejectDisjointClassesWithSingletonThing() {
-        assertThrowsWithMessage(
-            "DisjointClasses(owl:Thing) cannot be created. It is not a syntactically valid OWL 2 axiom. If the intent is to declare owl:Thing as disjoint with itself and therefore empty, it cannot be created as a DisjointClasses axiom. Please rewrite it as SubClassOf(owl:Thing, owl:Nothing).",
-            OWLRuntimeException.class,
-            () -> df.getOWLDisjointClassesAxiom(Arrays.asList(df.getOWLThing())));
+        assertThrows(OWLRuntimeException.class, () -> DisjointClasses(OWLThing()),
+            "DisjointClasses(owl:Thing) cannot be created. It is not a syntactically valid OWL 2 axiom. If the intent is to declare owl:Thing as disjoint with itself and therefore empty, it cannot be created as a DisjointClasses axiom. Please rewrite it as SubClassOf(owl:Thing, owl:Nothing).");
     }
 
     @Test
     void shouldRejectDisjointClassesWithSingletonNothing() {
-        assertThrowsWithMessage(
-            "DisjointClasses(owl:Nothing) cannot be created. It is not a syntactically valid OWL 2 axiom. If the intent is to declare owl:Nothing as disjoint with itself and therefore empty, it cannot be created as a DisjointClasses axiom, and it is also redundant as owl:Nothing is always empty. Please rewrite it as SubClassOf(owl:Nothing, owl:Nothing) or remove the axiom.",
-            OWLRuntimeException.class,
-            () -> df.getOWLDisjointClassesAxiom(Arrays.asList(df.getOWLNothing())));
+        assertThrows(OWLRuntimeException.class, () -> DisjointClasses(OWLNothing()),
+            "DisjointClasses(owl:Nothing) cannot be created. It is not a syntactically valid OWL 2 axiom. If the intent is to declare owl:Nothing as disjoint with itself and therefore empty, it cannot be created as a DisjointClasses axiom, and it is also redundant as owl:Nothing is always empty. Please rewrite it as SubClassOf(owl:Nothing, owl:Nothing) or remove the axiom.");
     }
 }

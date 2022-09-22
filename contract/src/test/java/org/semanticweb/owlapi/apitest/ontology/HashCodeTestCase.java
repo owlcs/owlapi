@@ -23,13 +23,10 @@ import java.util.Set;
 import org.junit.jupiter.api.Test;
 import org.semanticweb.owlapi.apitest.baseclasses.TestBase;
 import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyID;
 import org.semanticweb.owlapi.model.SetOntologyID;
-import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
 /**
  * @author Matthew Horridge, Stanford University, Bio-Medical Informatics Research Group
@@ -41,25 +38,23 @@ class HashCodeTestCase extends TestBase {
 
     @Test
     void testSetContainsLong() {
-        OWLDatatype datatype = df.getOWLDatatype(OWL2Datatype.XSD_LONG.getIRI());
-        OWLLiteral litNoComp = df.getOWLLiteral("3", datatype);
-        OWLLiteral litNoComp2 = df.getOWLLiteral("3", datatype);
-        OWLLiteral litIntImpl = df.getOWLLiteral(3L);
-        assertEquals(litNoComp, litIntImpl);
-        assertEquals(litNoComp.hashCode(), litIntImpl.hashCode());
-        assertEquals(litNoComp.getLiteral(), litIntImpl.getLiteral());
+        OWLLiteral litNoComp = Literal("3", Long());
+        OWLLiteral litNoComp2 = Literal("3", Long());
+        OWLLiteral litLongImpl = Literal(3L);
+        assertEquals(litNoComp, litLongImpl);
+        assertEquals(litNoComp.hashCode(), litLongImpl.hashCode());
+        assertEquals(litNoComp.getLiteral(), litLongImpl.getLiteral());
         Set<OWLLiteral> lncset = new HashSet<>();
         lncset.add(litNoComp);
         assertTrue(lncset.contains(litNoComp2));
-        assertTrue(lncset.contains(litIntImpl));
+        assertTrue(lncset.contains(litLongImpl));
     }
 
     @Test
     void testSetContainsInt() {
-        OWLDatatype datatype = df.getOWLDatatype(OWL2Datatype.XSD_INTEGER.getIRI());
-        OWLLiteral litNoComp = df.getOWLLiteral("3", datatype);
-        OWLLiteral litNoComp2 = df.getOWLLiteral("3", datatype);
-        OWLLiteral litIntImpl = df.getOWLLiteral(3);
+        OWLLiteral litNoComp = Literal("3", Integer());
+        OWLLiteral litNoComp2 = Literal("3", Integer());
+        OWLLiteral litIntImpl = Literal(3);
         assertEquals(litNoComp, litIntImpl);
         assertEquals(litNoComp.hashCode(), litIntImpl.hashCode());
         assertEquals(litNoComp.getLiteral(), litIntImpl.getLiteral());
@@ -71,10 +66,9 @@ class HashCodeTestCase extends TestBase {
 
     @Test
     void testSetContainsDouble() {
-        OWLDatatype datatype = df.getOWLDatatype(OWL2Datatype.XSD_DOUBLE.getIRI());
-        OWLLiteral litNoComp = df.getOWLLiteral(THREE, datatype);
-        OWLLiteral litNoComp2 = df.getOWLLiteral(THREE, datatype);
-        OWLLiteral litIntImpl = df.getOWLLiteral(3.0D);
+        OWLLiteral litNoComp = Literal(THREE, Double());
+        OWLLiteral litNoComp2 = Literal(THREE, Double());
+        OWLLiteral litIntImpl = Literal(3.0D);
         assertEquals(litNoComp, litIntImpl);
         assertEquals(litNoComp.hashCode(), litIntImpl.hashCode());
         assertEquals(litNoComp.getLiteral(), litIntImpl.getLiteral());
@@ -86,10 +80,9 @@ class HashCodeTestCase extends TestBase {
 
     @Test
     void testSetContainsFloat() {
-        OWLDatatype datatype = df.getOWLDatatype(OWL2Datatype.XSD_FLOAT.getIRI());
-        OWLLiteral litNoComp = df.getOWLLiteral(THREE, datatype);
-        OWLLiteral litNoComp2 = df.getOWLLiteral(THREE, datatype);
-        OWLLiteral litIntImpl = df.getOWLLiteral(3.0F);
+        OWLLiteral litNoComp = Literal(THREE, Float());
+        OWLLiteral litNoComp2 = Literal(THREE, Float());
+        OWLLiteral litIntImpl = Literal(3.0F);
         assertEquals(litNoComp, litIntImpl);
         assertEquals(litNoComp.hashCode(), litIntImpl.hashCode());
         assertEquals(litNoComp.getLiteral(), litIntImpl.getLiteral());
@@ -101,10 +94,9 @@ class HashCodeTestCase extends TestBase {
 
     @Test
     void testSetContainsBoolean() {
-        OWLDatatype datatype = df.getOWLDatatype(OWL2Datatype.XSD_BOOLEAN.getIRI());
-        OWLLiteral litNoComp = df.getOWLLiteral("true", datatype);
-        OWLLiteral litNoComp2 = df.getOWLLiteral("true", datatype);
-        OWLLiteral litIntImpl = df.getOWLLiteral(true);
+        OWLLiteral litNoComp = Literal("true", Boolean());
+        OWLLiteral litNoComp2 = Literal("true", Boolean());
+        OWLLiteral litIntImpl = Literal(true);
         assertEquals(litNoComp, litIntImpl);
         assertEquals(litNoComp.hashCode(), litIntImpl.hashCode());
         assertEquals(litNoComp.getLiteral(), litIntImpl.getLiteral());
@@ -115,8 +107,8 @@ class HashCodeTestCase extends TestBase {
     }
 
     @Test
-    void shouldHaveSameHashCodeForOntologies() throws OWLOntologyCreationException {
-        final OWLOntology ontology = m.createOntology();
+    void shouldHaveSameHashCodeForOntologies() {
+        final OWLOntology ontology = createAnon();
         int hash = ontology.hashCode();
         IRI iri = iri("urn:test:", "ontology");
         ontology.applyChange(new SetOntologyID(ontology, iri));
@@ -128,8 +120,8 @@ class HashCodeTestCase extends TestBase {
 
     @Test
     void shouldHaveSameHashCodeForOntologies1() {
-        OWLOntologyID id1 = df.getOWLOntologyID(df.getIRI("http://purl.org/dc/elements/1.1/"));
-        OWLOntologyID id2 = df.getOWLOntologyID(df.getIRI("http://purl.org/dc/elements/1.1/"));
+        OWLOntologyID id1 = OntologyID(iri("http://purl.org/dc/elements/1.1/", ""), null);
+        OWLOntologyID id2 = OntologyID(iri("http://purl.org/dc/elements/1.1/", ""), null);
         assertEquals(id1, id2);
         assertEquals(id1.hashCode(), id2.hashCode());
     }

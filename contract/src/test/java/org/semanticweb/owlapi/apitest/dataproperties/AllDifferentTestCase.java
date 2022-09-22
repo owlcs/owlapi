@@ -22,10 +22,8 @@ class AllDifferentTestCase extends TestBase {
 
     @Test
     void testDistinctMembers() {
-        OWLOntology o1 =
-            loadOntologyFromString(TestFiles.distinctMembers1, new RDFXMLDocumentFormat());
-        OWLOntology o2 =
-            loadOntologyFromString(TestFiles.distinctMembers2, new RDFXMLDocumentFormat());
+        OWLOntology o1 = loadFrom(TestFiles.distinctMembers1, new RDFXMLDocumentFormat());
+        OWLOntology o2 = loadFrom(TestFiles.distinctMembers2, new RDFXMLDocumentFormat());
         equal(o2, o1);
     }
 }

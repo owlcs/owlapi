@@ -46,7 +46,7 @@ class ConcurrentOWLOntologyBuilder_TestCase {
 
     @Test
     void shouldCreateWrappedOntology() throws NoSuchFieldException, SecurityException,
-    IllegalArgumentException, IllegalAccessException {
+        IllegalArgumentException, IllegalAccessException {
         ConcurrentOWLOntologyImpl concurrentOntology =
             (ConcurrentOWLOntologyImpl) builder.createOWLOntology(manager, ontologyId, config);
         Field declaredField = ConcurrentOWLOntologyImpl.class.getDeclaredField("delegate");

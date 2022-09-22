@@ -1,1 +1,3 @@
-[SubClassOf(<http://www.semanticweb.org/ontology#X0> owl:Thing), SubClassOf(<http://www.semanticweb.org/ontology#X1> ObjectComplementOf(<urn:test:test#c>)), SubClassOf(owl:Thing ObjectUnionOf(<http://www.semanticweb.org/ontology#X0> <http://www.semanticweb.org/ontology#X1>))]
+SubClassOf(<http://www.semanticweb.org/ontology#X0> owl:Thing)
+SubClassOf(<http://www.semanticweb.org/ontology#X1> ObjectComplementOf(<http://www.semanticweb.org/owlapi/test#C>))
+SubClassOf(owl:Thing ObjectUnionOf(<http://www.semanticweb.org/ontology#X0> <http://www.semanticweb.org/ontology#X1>))

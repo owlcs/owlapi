@@ -12,9 +12,9 @@ import org.semanticweb.owlapi.model.OWLOntology;
 
 class ProfileBase extends TestBase {
 
-    protected void test(OWLDocumentFormat f, String in, boolean el, boolean ql, boolean rl,
+    protected void test(OWLDocumentFormat format, String in, boolean el, boolean ql, boolean rl,
         boolean dl) {
-        OWLOntology o = loadOntologyFromString(in, f);
+        OWLOntology o = loadFrom(in, format);
         assertTrue(o.getAxiomCount() > 0);
         assertTrue(el == OWL2_EL.checkOntology(o).isInProfile());
         assertTrue(ql == OWL2_QL.checkOntology(o).isInProfile());

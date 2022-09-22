@@ -23,7 +23,6 @@ class TestOWLClassExpressionsAndObjectOneOfTestCase extends TestBase {
 
     @Test
     void testAnonymous() {
-        assertNotNull(
-            loadOntologyFromString(TestFiles.anonOneOf, new FunctionalSyntaxDocumentFormat()));
+        assertNotNull(loadFrom(TestFiles.anonOneOf, new FunctionalSyntaxDocumentFormat()));
     }
 }

@@ -25,6 +25,6 @@ class BlankNodeTestCase extends TestBase {
 
     @Test
     void testBlankNodes() {
-        loadOntologyFromString(TestFiles.anonTurtle, new TurtleDocumentFormat());
+        loadFrom(TestFiles.anonTurtle, new TurtleDocumentFormat());
     }
 }

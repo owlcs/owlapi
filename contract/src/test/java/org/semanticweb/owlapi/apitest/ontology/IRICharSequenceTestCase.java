@@ -13,50 +13,50 @@
 package org.semanticweb.owlapi.apitest.ontology;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.semanticweb.owlapi.OWLFunctionalSyntaxFactory.IRI;
 
 import org.junit.jupiter.api.Test;
+import org.semanticweb.owlapi.apitest.baseclasses.TestBase;
 import org.semanticweb.owlapi.model.IRI;
 
 /**
  * @author Matthew Horridge, Stanford University, Bio-Medical Informatics Research Group
  * @since 3.3.0
  */
-class IRICharSequenceTestCase {
+class IRICharSequenceTestCase extends TestBase {
 
     static final String abcString = "http://owlapi.sourceforge.net#ABC";
-    static final IRI abc = IRI("http://owlapi.sourceforge.net#", "ABC");
+    static final IRI abc = iri("http://owlapi.sourceforge.net#", "ABC");
 
     @Test
     void testCharAt() {
-        for (int i = 0; i < abcString.length(); i++) {
-            assertEquals(abcString.charAt(i), abc.charAt(i));
+        for (int index = 0; index < abcString.length(); index++) {
+            assertEquals(abcString.charAt(index), abc.charAt(index));
         }
     }
 
     @Test
     void testCharAtNoRemainder() {
         String str = "http://owlapi.sourceforge.net";
-        IRI iri = IRI(str, "");
-        for (int i = 0; i < str.length(); i++) {
-            assertEquals(str.charAt(i), iri.charAt(i));
+        IRI iri = iri(str, "");
+        for (int index = 0; index < str.length(); index++) {
+            assertEquals(str.charAt(index), iri.charAt(index));
         }
     }
 
     @Test
     void testCharAtNoPrefix() {
         String str = "#ABC";
-        IRI iri = IRI("#", "ABC");
-        for (int i = 0; i < str.length(); i++) {
-            assertEquals(str.charAt(i), iri.charAt(i));
+        IRI iri = iri("#", "ABC");
+        for (int index = 0; index < str.length(); index++) {
+            assertEquals(str.charAt(index), iri.charAt(index));
         }
     }
 
     @Test
     void testSubSequence() {
-        for (int i = 0; i < abcString.length(); i++) {
-            for (int j = i; j < abcString.length(); j++) {
-                assertEquals(abcString.subSequence(i, j), abc.subSequence(i, j));
+        for (int index = 0; index < abcString.length(); index++) {
+            for (int j = index; j < abcString.length(); j++) {
+                assertEquals(abcString.subSequence(index, j), abc.subSequence(index, j));
             }
         }
     }
@@ -68,11 +68,11 @@ class IRICharSequenceTestCase {
 
     @Test
     void testLengthNoRemainder() {
-        assertEquals(29, IRI("http://owlapi.sourceforge.net", "").length());
+        assertEquals(29, iri("http://owlapi.sourceforge.net", "").length());
     }
 
     @Test
     void testLengthNoPrefix() {
-        assertEquals(4, IRI("#", "ABC").length());
+        assertEquals(4, iri("#", "ABC").length());
     }
 }

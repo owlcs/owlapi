@@ -21,7 +21,7 @@ class OWLZipClosureIRIMapperTestCase extends TestBase {
         "owlzipnoindex.zip",})
     void shouldLoadClosure(String child) throws OWLOntologyCreationException, IOException {
         File file2 = new File(RESOURCES, child);
-        m1.getIRIMappers().add(new AutoIRIMapper(imports(), true, df));
+        m1.getIRIMappers().add(mapper());
         OWLOntology test = m1.loadOntologyFromOntologyDocument(d());
         m.getIRIMappers().add(new OWLZipClosureIRIMapper(file2, df));
         OWLOntology loadOntology = m.loadOntology(dIRI);
@@ -29,21 +29,47 @@ class OWLZipClosureIRIMapperTestCase extends TestBase {
     }
 
     @Test
-    void shouldMapIRIsWithAutoIRIMapper() throws OWLOntologyCreationException {
+    void shouldLoadClosureWithCatalog() throws OWLOntologyCreationException, IOException {
+        File file2 = new File(RESOURCES, "owlzipwithcatalog.zip");
+        m1.getIRIMappers().add(new AutoIRIMapper(imports(), true, df));
+        OWLOntology test = m1.loadOntologyFromOntologyDocument(d());
+        OWLZipClosureIRIMapper source = new OWLZipClosureIRIMapper(file2, df);
+        m.getIRIMappers().add(source);
+        OWLOntology loadOntology = m.loadOntology(dIRI);
+        equal(loadOntology, test);
+    }
+
+    @Test
+    void shouldMapIRIsWithoutIndex() throws OWLOntologyCreationException, IOException {
         File file2 = new File(RESOURCES, "owlzipnoindex.zip");
         m1.getIRIMappers().add(new AutoIRIMapper(imports(), true, df));
+        OWLOntology test = m1.loadOntologyFromOntologyDocument(d());
+        OWLZipClosureIRIMapper source = new OWLZipClosureIRIMapper(file2, df);
+        m.getIRIMappers().add(source);
+        OWLOntology loadOntology = m.loadOntology(dIRI);
+        equal(loadOntology, test);
+    }
+
+    @Test
+    void shouldMapIRIsWithAutoIRIMapper() throws OWLOntologyCreationException {
+        File file2 = new File(RESOURCES, "owlzipnoindex.zip");
+        m1.getIRIMappers().add(mapper());
         OWLOntology test = m1.loadOntologyFromOntologyDocument(d());
         m.getIRIMappers().add(new AutoIRIMapper(file2, false, df));
         OWLOntology loadOntology = m.loadOntology(dIRI);
         equal(loadOntology, test);
     }
 
-    private File imports() {
+    private static File imports() {
         return new File(RESOURCES, "imports");
     }
 
-    private File d() {
+    private static File d() {
         return new File(RESOURCES, "/imports/D.owl");
+    }
+
+    protected AutoIRIMapper mapper() {
+        return new AutoIRIMapper(imports(), true, df);
     }
 }
 

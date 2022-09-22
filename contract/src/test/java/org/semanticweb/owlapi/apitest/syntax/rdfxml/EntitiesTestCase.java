@@ -14,19 +14,18 @@ class EntitiesTestCase extends TestBase {
 
     @Test
     void shouldRoundtripEntities() {
-        OWLOntology o = loadOntologyFromString(new StringDocumentSource(TestFiles.roundtripEntities,
-            "urn:test:test", new RDFXMLDocumentFormat(), null));
+        OWLOntology o = loadFrom(new StringDocumentSource(TestFiles.roundtripEntities,
+            "urn:test#test", new RDFXMLDocumentFormat(), null));
         o.getOWLOntologyManager().getOntologyConfigurator().withUseNamespaceEntities(true);
         StringDocumentTarget o2 = saveOntology(o);
         assertTrue(o2.toString().contains("<owl:priorVersion rdf:resource=\"&vin;test\"/>"));
     }
 
     @Test
-    void shouldNotIncludeExternalEntities() throws Exception {
-        OWLOntology o = loadOntologyFromString(TestFiles.doNotIncludeExternalEntities,
-            new RDFXMLDocumentFormat());
-        OWLOntology o1 = m.createOntology();
-        o1.add(df.getOWLAnnotationAssertionAxiom(df.getIRI("urn:test:i"), df.getRDFSComment("")));
+    void shouldNotIncludeExternalEntities() {
+        OWLOntology o =
+            loadFrom(TestFiles.doNotIncludeExternalEntities, new RDFXMLDocumentFormat());
+        OWLOntology o1 = o(AnnotationAssertion(RDFSComment(), IRIS.iriTest, Literal("")));
         equal(o, o1);
     }
 }

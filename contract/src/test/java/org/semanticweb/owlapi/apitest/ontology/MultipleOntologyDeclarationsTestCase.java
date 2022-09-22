@@ -31,12 +31,11 @@ import org.semanticweb.owlapi.rioformats.RioTurtleDocumentFormat;
 class MultipleOntologyDeclarationsTestCase extends TestBase {
 
     @Test
-    void shouldLoadFirstOfMultipleOntologyDeclarationsRdfXml() throws Exception {
-        OWLOntology o =
-            m.loadOntologyFromOntologyDocument(new StringDocumentSource(TestFiles.doubleOntology,
-                "urn:test:t1", new TurtleDocumentFormat(), null));
-        assertEquals(o.getOntologyID(), df.getOWLOntologyID(df.getIRI("urn:test:Ontology1"),
-            df.getIRI("urn:test:Ontology1Version1")));
+    void shouldLoadFirstOfMultipleOntologyDeclarationsRdfXml() {
+        OWLOntology o = loadFrom(new StringDocumentSource(TestFiles.doubleOntology, "urn:test:t1",
+            new TurtleDocumentFormat(), null));
+        assertEquals(o.getOntologyID(),
+            OntologyID(iri("urn:test:", "Ontology1"), iri("urn:test:", "Ontology1Version1")));
     }
 
     @Test
