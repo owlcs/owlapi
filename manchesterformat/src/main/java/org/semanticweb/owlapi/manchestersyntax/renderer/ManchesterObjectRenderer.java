@@ -5,6 +5,7 @@ import java.io.StringWriter;
 import org.semanticweb.owlapi.annotations.Renders;
 import org.semanticweb.owlapi.formats.ManchesterSyntaxDocumentFormat;
 import org.semanticweb.owlapi.io.OWLObjectRenderer;
+import org.semanticweb.owlapi.io.OWLStorerParameters;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.PrefixManager;
 import org.semanticweb.owlapi.utilities.PrefixManagerImpl;
@@ -27,7 +28,8 @@ public class ManchesterObjectRenderer implements OWLObjectRenderer {
     @Override
     public String render(OWLObject object) {
         StringWriter w = new StringWriter();
-        ManchesterOWLSyntaxObjectRenderer r = new ManchesterOWLSyntaxObjectRenderer(w, pm);
+        ManchesterOWLSyntaxObjectRenderer r =
+            new ManchesterOWLSyntaxObjectRenderer(w, new OWLStorerParameters(), pm);
         object.accept(r);
         return w.toString();
     }

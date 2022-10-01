@@ -14,13 +14,12 @@ package org.semanticweb.owlapi.rdf.rdfxml.renderer;
 
 import static org.semanticweb.owlapi.utilities.OWLAPIPreconditions.checkNotNull;
 import static org.semanticweb.owlapi.utilities.OWLAPIPreconditions.verifyNotNull;
-import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.builtInVocabularyIris;
 import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.RDFS_LITERAL;
 import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.RDF_DESCRIPTION;
 import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.RDF_TYPE;
+import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.builtInVocabularyIris;
 
 import java.io.PrintWriter;
-import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -36,6 +35,7 @@ import org.semanticweb.owlapi.documents.RDFNode;
 import org.semanticweb.owlapi.documents.RDFResource;
 import org.semanticweb.owlapi.documents.RDFResourceBlankNode;
 import org.semanticweb.owlapi.documents.RDFTriple;
+import org.semanticweb.owlapi.io.OWLStorerParameters;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLClass;
@@ -64,33 +64,36 @@ public class RDFXMLRenderer extends RDFRendererBase {
     private final RDFXMLWriter writer;
     private final RDFXMLNamespaceManager qnameManager;
     private final ShortFormProvider labelMaker;
+    private boolean explicitXsdString;
 
     /**
      * @param ontology ontology
-     * @param w        writer
-     * @param encoding encoding for the writer, to use for the encoding attribute on the prologue
+     * @param w writer
+     * @param parameters storer parameters
      */
-    public RDFXMLRenderer(OWLOntology ontology, PrintWriter w, Charset encoding) {
-        this(ontology, w, verifyNotNull(ontology.getFormat()), encoding);
+    public RDFXMLRenderer(OWLOntology ontology, PrintWriter w, OWLStorerParameters parameters) {
+        this(ontology, w, verifyNotNull(ontology.getFormat()), parameters);
     }
 
     /**
      * @param ontology ontology
-     * @param w        writer
-     * @param format   format
-     * @param encoding encoding for the writer, to use for the encoding attribute on the prologue
+     * @param w writer
+     * @param format format
+     * @param parameters storer parameters
      */
     public RDFXMLRenderer(OWLOntology ontology, PrintWriter w, OWLDocumentFormat format,
-        Charset encoding) {
+        OWLStorerParameters parameters) {
         super(checkNotNull(ontology, "ontology cannot be null"), format,
             ontology.getOWLOntologyManager().getOntologyConfigurator());
         checkNotNull(w, "w cannot be null");
         checkNotNull(format, "format cannot be null");
+        explicitXsdString = Boolean.parseBoolean(
+            parameters.getParameter("force xsd:string on literals", Boolean.FALSE).toString());
         qnameManager = new RDFXMLNamespaceManager(ontology, format);
         String defaultNamespace = qnameManager.getDefaultNamespace();
         String base = base(defaultNamespace);
         XMLWriter xmlWriter = new XMLWriterImpl(w, qnameManager, base, config);
-        xmlWriter.setEncoding(encoding);
+        xmlWriter.setEncoding(parameters.getEncoding());
         writer = new RDFXMLWriter(xmlWriter);
         Map<OWLAnnotationProperty, List<String>> prefLangMap = new HashMap<>();
         OWLOntologyManager manager = ontology.getOWLOntologyManager();
@@ -297,8 +300,8 @@ public class RDFXMLRenderer extends RDFRendererBase {
     protected void writew(RDFLiteral rdfLiteralNode) {
         if (rdfLiteralNode.hasLang()) {
             writer.writeLangAttribute(rdfLiteralNode.getLang());
-        } else if (!rdfLiteralNode.isPlainLiteral()
-            && !OWL2Datatype.XSD_STRING.getIRI().equals(rdfLiteralNode.getDatatype())) {
+        } else if (!rdfLiteralNode.isPlainLiteral() && (explicitXsdString
+            || !OWL2Datatype.XSD_STRING.getIRI().equals(rdfLiteralNode.getDatatype()))) {
             writer.writeDatatypeAttribute(rdfLiteralNode.getDatatype());
         }
         writer.writeTextContent(rdfLiteralNode.getLexicalValue());

@@ -41,7 +41,7 @@ public class RDFXMLStorer implements OWLStorer {
         OWLStorerParameters storerParameters) throws OWLOntologyStorageException {
         try {
             RDFXMLRenderer renderer =
-                new RDFXMLRenderer(ontology, writer, format, storerParameters.getEncoding());
+                new RDFXMLRenderer(ontology, writer, format, storerParameters);
             checkUnserialisableEntities(renderer);
             renderer.render();
         } catch (OWLRuntimeException e) {

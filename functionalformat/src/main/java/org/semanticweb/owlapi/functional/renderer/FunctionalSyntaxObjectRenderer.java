@@ -53,6 +53,7 @@ import org.semanticweb.owlapi.annotations.Renders;
 import org.semanticweb.owlapi.formats.FunctionalSyntaxDocumentFormat;
 import org.semanticweb.owlapi.functional.parser.TokenMap;
 import org.semanticweb.owlapi.io.OWLObjectRenderer;
+import org.semanticweb.owlapi.io.OWLStorerParameters;
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.HasAnnotations;
 import org.semanticweb.owlapi.model.HasOperands;
@@ -121,6 +122,7 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor, OWLObje
     private Optional<PrefixManager> prefixManager = Optional.empty();
     private boolean writeEntitiesAsURIs = true;
     private boolean addMissingDeclarations = true;
+    private final boolean explicitXsdString;
     private boolean prettyPrint = false;
     private int tabIndex = 0;
     static EnumMap<OWLObjectType, BiFunction<OWLOntology, OWLEntity, Stream<? extends OWLAxiom>>> retrievers =
@@ -129,17 +131,21 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor, OWLObje
     /** Empty constructor, for use from ToStringRenderer */
     @Inject
     public FunctionalSyntaxObjectRenderer() {
-        this(null, new StringWriter());
+        this(null, new OWLStorerParameters(), new StringWriter());
     }
 
     /**
      * @param ontology the ontology
+     * @param parameters storer parameters
      * @param writer the writer
      */
-    public FunctionalSyntaxObjectRenderer(@Nullable OWLOntology ontology, Writer writer) {
+    public FunctionalSyntaxObjectRenderer(@Nullable OWLOntology ontology,
+        OWLStorerParameters parameters, Writer writer) {
         ont = Optional.ofNullable(ontology);
         this.writer = new PrintWriter(writer);
         w = writer;
+        explicitXsdString =
+            parameters.getParameter("force xsd:string on literals", Boolean.FALSE).booleanValue();
         ont.ifPresent(this::initFromOntology);
     }
 
@@ -651,7 +657,7 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor, OWLObje
             writer.write('@');
             write(node.getLang());
         } else if (!node.isRDFPlainLiteral()
-            && !OWL2Datatype.XSD_STRING.matches(node.getDatatype())) {
+            && (explicitXsdString || !OWL2Datatype.XSD_STRING.matches(node.getDatatype()))) {
             write("^^").write(node.getDatatype().getIRI());
         }
     }

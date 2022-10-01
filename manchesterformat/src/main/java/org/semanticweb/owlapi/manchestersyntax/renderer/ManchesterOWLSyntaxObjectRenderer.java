@@ -67,6 +67,7 @@ import java.util.function.Consumer;
 
 import javax.annotation.Nullable;
 
+import org.semanticweb.owlapi.io.OWLStorerParameters;
 import org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.IsAnonymous;
@@ -175,13 +176,18 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer
 
     private boolean wrapSave;
     private boolean tabSave;
+    private boolean explicitXsdString;
 
     /**
      * @param writer writer
+     * @param parameters storer parameters
      * @param entityShortFormProvider entityShortFormProvider
      */
-    public ManchesterOWLSyntaxObjectRenderer(Writer writer, PrefixManager entityShortFormProvider) {
+    public ManchesterOWLSyntaxObjectRenderer(Writer writer, OWLStorerParameters parameters,
+        PrefixManager entityShortFormProvider) {
         super(writer, entityShortFormProvider);
+        explicitXsdString = Boolean.parseBoolean(
+            parameters.getParameter("force xsd:string on literals", Boolean.FALSE).toString());;
     }
 
     protected ManchesterOWLSyntaxObjectRenderer accept(OWLObject o) {
@@ -567,7 +573,7 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer
             if (node.hasLang()) {
                 write("@").write(node.getLang());
             } else if (!node.isRDFPlainLiteral()
-                && !OWL2Datatype.XSD_STRING.matches(node.getDatatype())) {
+                && (explicitXsdString || !OWL2Datatype.XSD_STRING.matches(node.getDatatype()))) {
                 write("^^").accept(node.getDatatype());
             }
             popTab();

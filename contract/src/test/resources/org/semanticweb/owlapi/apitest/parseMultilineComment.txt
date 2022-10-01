@@ -9,7 +9,7 @@ Prefix(rdfs:=<http://www.w3.org/2000/01/rdf-schema#>)
 Ontology(<file:test.owl>
 
 Declaration(Annotation(rdfs:label "blah 
-blah") Class(<urn:test.owl#ContactInformation>))
+blah"^^xsd:string) Class(<urn:test.owl#ContactInformation>))
 Declaration(DataProperty(<urn:test.owl#city>))
 
 
@@ -22,7 +22,7 @@ Declaration(DataProperty(<urn:test.owl#city>))
 # blah)
 
 AnnotationAssertion(rdfs:label <urn:test.owl#ContactInformation> "blah 
-blah")
+blah"^^xsd:string)
 SubClassOf(<urn:test.owl#ContactInformation> DataMaxCardinality(1 <urn:test.owl#city> xsd:string))
 
 

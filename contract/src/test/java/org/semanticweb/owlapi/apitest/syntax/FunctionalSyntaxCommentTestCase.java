@@ -54,10 +54,12 @@ class FunctionalSyntaxCommentTestCase extends TestBase {
         o.addAxiom(
             SubClassOf(CLASSES.contactInfo, DataMaxCardinality(1, DATAPROPS.city, String())));
         o.addAxiom(Declaration(RDFSLabel(multiline), CLASSES.contactInfo));
-        StringDocumentTarget saveOntology = saveOntology(o, new FunctionalSyntaxDocumentFormat());
-        assertEquals(TestFiles.parseMultilineComment, saveOntology.toString());
+        StringDocumentTarget target = new StringDocumentTarget();
+        target.getStorerParameters().setParameter("force xsd:string on literals", Boolean.TRUE);
+        saveOntology(o, new FunctionalSyntaxDocumentFormat(), target);
+        assertEquals(TestFiles.parseMultilineComment, target.toString());
         OWLOntology loadOntologyFromString =
-            loadFrom(saveOntology.toString(), new FunctionalSyntaxDocumentFormat());
+            loadFrom(target.toString(), new FunctionalSyntaxDocumentFormat());
         equal(o, loadOntologyFromString);
     }
 

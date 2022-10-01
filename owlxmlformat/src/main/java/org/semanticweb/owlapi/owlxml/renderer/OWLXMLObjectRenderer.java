@@ -14,12 +14,14 @@ package org.semanticweb.owlapi.owlxml.renderer;
 
 import static org.semanticweb.owlapi.utilities.OWLAPIPreconditions.checkNotNull;
 import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asUnorderedSet;
+
 import java.util.Collection;
 import java.util.EnumMap;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Stream;
 
+import org.semanticweb.owlapi.io.OWLStorerParameters;
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotation;
@@ -57,14 +59,20 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
 
     private final OWLXMLWriter writer;
     private final OWLDataFactory df;
+    private boolean explicitXsdString = false;
 
     /**
      * @param writer writer
      * @param df data factory
+     * @param parameters storer parameters
      */
-    public OWLXMLObjectRenderer(OWLXMLWriter writer, OWLDataFactory df) {
+    public OWLXMLObjectRenderer(OWLXMLWriter writer, OWLDataFactory df,
+        OWLStorerParameters parameters) {
         this.writer = checkNotNull(writer, "writer cannot be null");
         this.df = df;
+        explicitXsdString =
+            parameters.getParameter("force xsd:string on literals", Boolean.FALSE).booleanValue();
+
     }
 
     @Override
@@ -97,8 +105,7 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
                 }
             }
         }
-        Stream<? extends OWLAxiom> flatMap =
-            AxiomType.skipDeclarations().flatMap(ontology::axioms);
+        Stream<? extends OWLAxiom> flatMap = AxiomType.skipDeclarations().flatMap(ontology::axioms);
         flatMap.distinct().sorted().forEach(this::accept);
     }
 
@@ -286,8 +293,8 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
         writer.writeStartElement(OWLXMLVocabulary.LITERAL);
         if (node.hasLang()) {
             writer.writeLangAttribute(node.getLang());
-        } else if (!node.isRDFPlainLiteral()
-            && !OWL2Datatype.XSD_STRING.getIRI().equals(node.getDatatype().getIRI())) {
+        } else if (!node.isRDFPlainLiteral() && (explicitXsdString
+            || !OWL2Datatype.XSD_STRING.getIRI().equals(node.getDatatype().getIRI()))) {
             writer.writeDatatypeAttribute(node.getDatatype());
         }
         writer.writeTextContent(node.getLiteral());

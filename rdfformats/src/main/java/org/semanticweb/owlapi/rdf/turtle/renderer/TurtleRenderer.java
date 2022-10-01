@@ -32,6 +32,7 @@ import org.semanticweb.owlapi.documents.RDFNode;
 import org.semanticweb.owlapi.documents.RDFResource;
 import org.semanticweb.owlapi.documents.RDFResourceIRI;
 import org.semanticweb.owlapi.documents.RDFTriple;
+import org.semanticweb.owlapi.io.OWLStorerParameters;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.NodeID;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
@@ -64,14 +65,19 @@ public class TurtleRenderer extends RDFRendererBase {
     int bufferLength = 0;
     int lastNewLineIndex = 0;
     int level = 0;
+    private boolean explicitXsdString;
 
     /**
      * @param ontology ontology
-     * @param format   target format
-     * @param writer   writer
+     * @param format target format
+     * @param writer writer
+     * @param parameters storer parameters
      */
-    public TurtleRenderer(OWLOntology ontology, OWLDocumentFormat format, Writer writer) {
+    public TurtleRenderer(OWLOntology ontology, OWLDocumentFormat format, Writer writer,
+        OWLStorerParameters parameters) {
         super(ontology, format, ontology.getOWLOntologyManager().getOntologyConfigurator());
+        explicitXsdString =
+            parameters.getParameter("force xsd:string on literals", Boolean.FALSE).booleanValue();
         this.writer = new PrintWriter(writer);
         pm = ontology.getPrefixManager();
         if (pm.getDefaultPrefix() == null && ontology.isNamed()) {
@@ -224,7 +230,8 @@ public class TurtleRenderer extends RDFRendererBase {
                 if (node.hasLang()) {
                     writeAt();
                     write(node.getLang());
-                } else if (!OWL2Datatype.XSD_STRING.getIRI().equals(node.getDatatype())) {
+                } else if (explicitXsdString
+                    || !OWL2Datatype.XSD_STRING.getIRI().equals(node.getDatatype())) {
                     write("^^");
                     write(node.getDatatype());
                 }

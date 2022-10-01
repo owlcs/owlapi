@@ -23,8 +23,7 @@ import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.2.0
  */
 public class TurtleStorer implements OWLStorer {
@@ -33,7 +32,7 @@ public class TurtleStorer implements OWLStorer {
     public void storeOntology(OWLOntology ontology, PrintWriter writer, OWLDocumentFormat format,
         OWLStorerParameters storerParameters) throws OWLOntologyStorageException {
         try {
-            new TurtleRenderer(ontology, format, writer).render();
+            new TurtleRenderer(ontology, format, writer, storerParameters).render();
         } catch (OWLRuntimeException e) {
             throw new OWLOntologyStorageException(e);
         }

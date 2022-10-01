@@ -37,7 +37,7 @@ public class FunctionalSyntaxStorer implements OWLStorer {
     public void storeOntology(OWLOntology ontology, PrintWriter writer, OWLDocumentFormat format,
         OWLStorerParameters storerParameters) throws OWLOntologyStorageException {
         try {
-            ontology.accept(new FunctionalSyntaxObjectRenderer(ontology, writer));
+            ontology.accept(new FunctionalSyntaxObjectRenderer(ontology, storerParameters, writer));
             writer.flush();
         } catch (OWLRuntimeException e) {
             throw new OWLOntologyStorageException(e);

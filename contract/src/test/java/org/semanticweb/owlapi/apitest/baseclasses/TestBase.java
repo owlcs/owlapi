@@ -58,6 +58,7 @@ import org.semanticweb.owlapi.formats.OWLXMLDocumentFormat;
 import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
 import org.semanticweb.owlapi.formats.TurtleDocumentFormat;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
+import org.semanticweb.owlapi.io.OWLOntologyDocumentTarget;
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotation;
@@ -121,6 +122,12 @@ public abstract class TestBase extends DF {
             new RioTurtleDocumentFormat(), new ManchesterSyntaxDocumentFormat(),
             new TrigDocumentFormat(), new RDFJsonLDDocumentFormat(), new NTriplesDocumentFormat(),
             new NQuadsDocumentFormat());
+    }
+
+    public static List<OWLDocumentFormat> formatsNoRio() {
+        return l(new RDFXMLDocumentFormat(), new OWLXMLDocumentFormat(),
+            new FunctionalSyntaxDocumentFormat(), new TurtleDocumentFormat(),
+            new ManchesterSyntaxDocumentFormat());
     }
 
     protected static Stream<OWLDocumentFormat> formatsSkip(Class<?> typeToSkip) {
@@ -739,8 +746,12 @@ public abstract class TestBase extends DF {
     }
 
     protected StringDocumentTarget saveOntology(OWLOntology o, OWLDocumentFormat format) {
+        return saveOntology(o, format, new StringDocumentTarget());
+    }
+
+    protected <T extends OWLOntologyDocumentTarget> T saveOntology(OWLOntology o,
+        OWLDocumentFormat format, T target) {
         try {
-            StringDocumentTarget target = new StringDocumentTarget();
             o.saveOntology(format, target);
             return target;
         } catch (OWLException ex) {

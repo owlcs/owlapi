@@ -75,11 +75,8 @@ import java.util.stream.Stream;
 
 import javax.annotation.Nullable;
 
+import org.semanticweb.owlapi.io.OWLStorerParameters;
 import org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax;
-import org.semanticweb.owlapi.manchestersyntax.renderer.ManchesterOWLSyntaxObjectRenderer;
-import org.semanticweb.owlapi.manchestersyntax.renderer.RendererEvent;
-import org.semanticweb.owlapi.manchestersyntax.renderer.RendererListener;
-import org.semanticweb.owlapi.manchestersyntax.renderer.RenderingDirector;
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotation;
@@ -135,6 +132,7 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
         ax -> ((OWLNaryPropertyAxiom<?>) ax).getOperandsAsList().size() == 2;
     private OntologyIRIShortFormProvider shortFormProvider = new OntologyIRIShortFormProvider();
     private boolean renderExtensions = false;
+    private boolean explicitXsdStrings;
     private OWLAxiomFilter axiomFilter = axiom -> true;
     private RenderingDirector renderingDirector = (a, b) -> false;
     /**
@@ -147,12 +145,16 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
      * Instantiates a new manchester owl syntax frame renderer.
      *
      * @param ontology the ontology
+     * @param parameters storer parameters
      * @param writer the writer
      */
-    public ManchesterOWLSyntaxFrameRenderer(OWLOntology ontology, Writer writer) {
-        super(writer, ontology.getPrefixManager());
+    public ManchesterOWLSyntaxFrameRenderer(OWLOntology ontology, OWLStorerParameters parameters,
+        Writer writer) {
+        super(writer, parameters, ontology.getPrefixManager());
         o = ontology;
         ooc = new OWLObjectComparator(ontology.getPrefixManager());
+        explicitXsdStrings = Boolean.parseBoolean(
+            parameters.getParameter("force xsd:string on literals", Boolean.FALSE).toString());
     }
 
     /**
@@ -160,16 +162,19 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
      *
      * @param ontologies the ontologies
      * @param writer the writer
+     * @param parameters storer parameters
      * @param entityShortFormProvider the entity short form provider
      */
-    public ManchesterOWLSyntaxFrameRenderer(Collection<OWLOntology> ontologies, Writer writer,
-        PrefixManager entityShortFormProvider) {
-        super(writer, entityShortFormProvider);
+    public ManchesterOWLSyntaxFrameRenderer(Collection<OWLOntology> ontologies,
+        OWLStorerParameters parameters, Writer writer, PrefixManager entityShortFormProvider) {
+        super(writer, parameters, entityShortFormProvider);
         if (ontologies.size() != 1) {
             throw new OWLRuntimeException("Can only render one ontology");
         }
         o = ontologies.iterator().next();
         ooc = new OWLObjectComparator(entityShortFormProvider);
+        explicitXsdStrings = Boolean.parseBoolean(
+            parameters.getParameter("force xsd:string on literals", Boolean.FALSE).toString());
     }
 
     static <E> Collection<E> sortedSet() {

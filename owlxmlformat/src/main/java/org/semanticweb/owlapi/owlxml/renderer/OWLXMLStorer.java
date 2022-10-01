@@ -60,8 +60,8 @@ public class OWLXMLStorer implements OWLStorer {
             OWLXMLWriter w = new OWLXMLWriter(writer, ontology, storerParameters.getEncoding());
             w.startDocument(ontology);
             writePrefixes(ontology, w);
-            OWLXMLObjectRenderer ren =
-                new OWLXMLObjectRenderer(w, ontology.getOWLOntologyManager().getOWLDataFactory());
+            OWLXMLObjectRenderer ren = new OWLXMLObjectRenderer(w,
+                ontology.getOWLOntologyManager().getOWLDataFactory(), storerParameters);
             ontology.accept(ren);
             w.endDocument();
             writer.flush();
