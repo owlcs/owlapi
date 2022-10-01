@@ -90,7 +90,7 @@ public class RDFXMLRenderer extends RDFRendererBase {
             checkNotNull(format, "format cannot be null"));
         this.format = checkNotNull(format, "format cannot be null");
         explicitXsdString = Boolean
-            .parseBoolean(format.getParameter("force xsd:string on literals", "false").toString());
+            .parseBoolean(format.getParameter("force xsd:string on literals", Boolean.FALSE).toString());
         qnameManager = new RDFXMLNamespaceManager(ontology, format);
         String defaultNamespace = qnameManager.getDefaultNamespace();
         String base = base(defaultNamespace);
