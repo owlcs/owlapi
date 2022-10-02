@@ -244,6 +244,7 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
     private Optional<PrefixManager> prefixManager = Optional.empty();
     private boolean writeEntitiesAsURIs = true;
     private boolean addMissingDeclarations = true;
+    private boolean explicitXsdString = false;
 
     protected Stream<? extends OWLAxiom> retrieve(OWLEntity e, OWLOntology o) {
         if (e.isOWLClass()) {
@@ -274,18 +275,35 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
      * @param writer the writer
      */
     public FunctionalSyntaxObjectRenderer(@Nullable OWLOntology ontology, Writer writer) {
+        this(ontology,
+            ontology == null ? null : ontology.getOWLOntologyManager().getOntologyFormat(ontology),
+            writer);
+    }
+
+    /**
+     * @param ontology the ontology
+     * @param ontologyFormat format
+     * @param writer the writer
+     */
+    public FunctionalSyntaxObjectRenderer(@Nullable OWLOntology ontology,
+        @Nullable OWLDocumentFormat ontologyFormat, Writer writer) {
         ont = Optional.ofNullable(ontology);
         this.writer = writer;
         defaultPrefixManager = new DefaultPrefixManager();
         ont.ifPresent(o -> {
-            OWLDocumentFormat ontologyFormat = o.getNonnullFormat();
             // reuse the setting on the existing format
-            addMissingDeclarations = ontologyFormat.isAddMissingTypes();
-            if (ontologyFormat instanceof PrefixDocumentFormat) {
+            OWLDocumentFormat format = ontologyFormat;
+            if (format == null) {
+                format = o.getNonnullFormat();
+            }
+            explicitXsdString =
+                format.getParameter("force xsd:string on literals", Boolean.FALSE).booleanValue();
+            addMissingDeclarations = format.isAddMissingTypes();
+            if (format instanceof PrefixDocumentFormat) {
                 prefixManager = Optional.of(new DefaultPrefixManager());
-                prefixManager.get().copyPrefixesFrom((PrefixDocumentFormat) ontologyFormat);
-                prefixManager.get().setPrefixComparator(
-                    ((PrefixDocumentFormat) ontologyFormat).getPrefixComparator());
+                prefixManager.get().copyPrefixesFrom((PrefixDocumentFormat) format);
+                prefixManager.get()
+                    .setPrefixComparator(((PrefixDocumentFormat) format).getPrefixComparator());
                 if (!o.isAnonymous() && prefixManager.get().getDefaultPrefix() == null) {
                     prefixManager.get().setDefaultPrefix(XMLUtils.iriWithTerminatingHash(
                         o.getOntologyID().getOntologyIRI().get().toString()));
@@ -1295,7 +1313,7 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor {
             write("@");
             write(node.getLang());
         } else if (!node.isRDFPlainLiteral()
-            && !OWL2Datatype.XSD_STRING.matches(node.getDatatype())) {
+            && (explicitXsdString || !OWL2Datatype.XSD_STRING.matches(node.getDatatype()))) {
             write("^^");
             write(node.getDatatype().getIRI());
         }

@@ -68,15 +68,18 @@ public class TurtleRenderer extends RDFRendererBase {
     int bufferLength = 0;
     int lastNewLineIndex = 0;
     int level = 0;
+    private boolean explicitXsdString;
 
     /**
      * @param ontology ontology
-     * @param writer   writer
-     * @param format   format
+     * @param writer writer
+     * @param format format
      */
     public TurtleRenderer(OWLOntology ontology, Writer writer, OWLDocumentFormat format) {
         super(ontology, format, ontology.getOWLOntologyManager().getOntologyWriterConfiguration());
         this.format = checkNotNull(format, "format cannot be null");
+        explicitXsdString =
+            format.getParameter("force xsd:string on literals", Boolean.FALSE).booleanValue();
         this.writer = new PrintWriter(writer);
         pm = new DefaultPrefixManager();
         if (!ontology.isAnonymous() && pm.getDefaultPrefix() == null) {
@@ -234,7 +237,8 @@ public class TurtleRenderer extends RDFRendererBase {
                 if (node.hasLang()) {
                     writeAt();
                     write(node.getLang());
-                } else if (!OWL2Datatype.XSD_STRING.getIRI().equals(node.getDatatype())) {
+                } else if (explicitXsdString
+                    || !OWL2Datatype.XSD_STRING.getIRI().equals(node.getDatatype())) {
                     write("^^");
                     write(node.getDatatype());
                 }

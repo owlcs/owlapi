@@ -202,12 +202,23 @@ import org.semanticweb.owlapi.vocab.OWL2Datatype;
 public class OWLXMLObjectRenderer implements OWLObjectVisitor {
 
     private final OWLXMLWriter writer;
+    private OWLDocumentFormat format;
+    private boolean explicitXsdString = false;
 
     /**
      * @param writer writer
      */
     public OWLXMLObjectRenderer(OWLXMLWriter writer) {
+        this(writer, null);
+    }
+
+    /**
+     * @param writer writer
+     * @param format format
+     */
+    public OWLXMLObjectRenderer(OWLXMLWriter writer, OWLDocumentFormat format) {
         this.writer = checkNotNull(writer, "writer cannot be null");
+        this.format = format;
     }
 
     private void writeAnnotations(OWLAxiom axiom) {
@@ -232,8 +243,15 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
         });
         // any undeclared entities?
         if (!declared.isEmpty()) {
-            OWLDocumentFormat format = ontology.getNonnullFormat();
-            boolean addMissing = format.isAddMissingTypes();
+            boolean addMissing = true;
+            if (format == null) {
+                format = ontology.getOWLOntologyManager().getOntologyFormat(ontology);
+            }
+            if (format != null) {
+                addMissing = format.isAddMissingTypes();
+                explicitXsdString = format
+                    .getParameter("force xsd:string on literals", Boolean.FALSE).booleanValue();
+            }
             if (addMissing) {
                 Collection<IRI> illegalPunnings = OWLDocumentFormat.determineIllegalPunnings(
                     addMissing, ontology.signature(), ontology.getPunnedIRIs(Imports.INCLUDED));
@@ -750,7 +768,7 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
         if (node.hasLang()) {
             writer.writeLangAttribute(node.getLang());
         } else if (!node.isRDFPlainLiteral()
-            && !OWL2Datatype.XSD_STRING.matches(node.getDatatype())) {
+            && (explicitXsdString || !OWL2Datatype.XSD_STRING.matches(node.getDatatype()))) {
             writer.writeDatatypeAttribute(node.getDatatype());
         }
         writer.writeTextContent(node.getLiteral());

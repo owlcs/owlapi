@@ -28,6 +28,7 @@ import java.io.InputStream;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
@@ -134,6 +135,12 @@ public abstract class TestBase extends DF {
             new RioTurtleDocumentFormat(), new ManchesterSyntaxDocumentFormat(),
             new TrigDocumentFormat(), new RDFJsonLDDocumentFormat(), new NTriplesDocumentFormat(),
             new NQuadsDocumentFormat());
+    }
+
+    public static List<OWLDocumentFormat> formatsNoRio() {
+        return Arrays.asList(new RDFXMLDocumentFormat(), new OWLXMLDocumentFormat(),
+            new FunctionalSyntaxDocumentFormat(), new TurtleDocumentFormat(),
+            new ManchesterSyntaxDocumentFormat());
     }
 
     protected static Stream<OWLDocumentFormat> formatsSkip(Class<?> typeToSkip) {

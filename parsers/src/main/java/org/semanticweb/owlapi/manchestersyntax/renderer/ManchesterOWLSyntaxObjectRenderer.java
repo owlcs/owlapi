@@ -179,6 +179,7 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer
 
     private boolean wrapSave;
     private boolean tabSave;
+    private boolean explicitXsdString;
 
     /**
      * @param writer writer
@@ -186,7 +187,18 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer
      */
     public ManchesterOWLSyntaxObjectRenderer(Writer writer,
         ShortFormProvider entityShortFormProvider) {
+        this(writer, false, entityShortFormProvider);
+    }
+
+    /**
+     * @param writer writer
+     * @param explicitXsdString true if {@code xsd:string} datatype should be explicit in the output
+     * @param entityShortFormProvider entityShortFormProvider
+     */
+    public ManchesterOWLSyntaxObjectRenderer(Writer writer, boolean explicitXsdString,
+        ShortFormProvider entityShortFormProvider) {
         super(writer, entityShortFormProvider);
+        this.explicitXsdString = explicitXsdString;
     }
 
     protected void write(Stream<? extends OWLObject> objects, ManchesterOWLSyntax delimeter,
@@ -517,7 +529,7 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer
                 write("@");
                 write(node.getLang());
             } else if (!node.isRDFPlainLiteral()
-                && !OWL2Datatype.XSD_STRING.matches(node.getDatatype())) {
+                && (explicitXsdString || !OWL2Datatype.XSD_STRING.matches(node.getDatatype()))) {
                 write("^^");
                 node.getDatatype().accept(this);
             }

@@ -13,6 +13,7 @@
 package org.semanticweb.owlapi.manchestersyntax.renderer;
 
 import java.io.PrintWriter;
+
 import org.semanticweb.owlapi.formats.ManchesterSyntaxDocumentFormat;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -31,11 +32,11 @@ public class ManchesterSyntaxStorer extends AbstractOWLStorer {
     }
 
     @Override
-    protected void storeOntology(OWLOntology ontology, PrintWriter writer,
-        OWLDocumentFormat format) throws OWLOntologyStorageException {
-        ManchesterOWLSyntaxFrameRenderer ren = new ManchesterOWLSyntaxFrameRenderer(
-            ontology, writer,
-            new ManchesterOWLSyntaxPrefixNameShortFormProvider(format));
+    protected void storeOntology(OWLOntology ontology, PrintWriter writer, OWLDocumentFormat format)
+        throws OWLOntologyStorageException {
+        ManchesterOWLSyntaxFrameRenderer ren = new ManchesterOWLSyntaxFrameRenderer(ontology,
+            format.getParameter("force xsd:string on literals", Boolean.FALSE).booleanValue(),
+            writer, new ManchesterOWLSyntaxPrefixNameShortFormProvider(format));
         ren.writeOntology();
     }
 }

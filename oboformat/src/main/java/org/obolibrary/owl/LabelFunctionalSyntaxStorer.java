@@ -42,7 +42,7 @@ public class LabelFunctionalSyntaxStorer extends AbstractOWLStorer {
         throws OWLOntologyStorageException {
         try {
             FunctionalSyntaxObjectRenderer renderer =
-                new FunctionalSyntaxObjectRenderer(ontology, writer);
+                new FunctionalSyntaxObjectRenderer(ontology, format, writer);
             renderer.setPrefixManager(new LabelPrefixManager(ontology));
             ontology.accept(renderer);
             writer.flush();

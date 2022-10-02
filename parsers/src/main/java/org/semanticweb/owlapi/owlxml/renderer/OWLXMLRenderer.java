@@ -16,6 +16,7 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.io.PrintWriter;
 import java.util.Map;
+
 import org.semanticweb.owlapi.formats.PrefixDocumentFormat;
 import org.semanticweb.owlapi.io.AbstractOWLRenderer;
 import org.semanticweb.owlapi.io.OWLRendererException;
@@ -71,7 +72,7 @@ public class OWLXMLRenderer extends AbstractOWLRenderer {
                 w.writePrefix("xsd:", Namespaces.XSD.toString());
                 w.writePrefix("owl:", Namespaces.OWL.toString());
             }
-            OWLXMLObjectRenderer ren = new OWLXMLObjectRenderer(w);
+            OWLXMLObjectRenderer ren = new OWLXMLObjectRenderer(w, format);
             ontology.accept(ren);
             w.endDocument();
             writer.flush();

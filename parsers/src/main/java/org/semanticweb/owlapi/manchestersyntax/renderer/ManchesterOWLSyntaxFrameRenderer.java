@@ -134,6 +134,7 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
         ax -> ((OWLNaryPropertyAxiom<?>) ax).properties().count() == 2;
     private OntologyIRIShortFormProvider shortFormProvider = new OntologyIRIShortFormProvider();
     private boolean renderExtensions = false;
+    private boolean explicitXsdStrings;
     private OWLAxiomFilter axiomFilter = axiom -> true;
     private RenderingDirector renderingDirector = new DefaultRenderingDirector();
     /**
@@ -151,7 +152,20 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
      */
     public ManchesterOWLSyntaxFrameRenderer(OWLOntology ontology, Writer writer,
         ShortFormProvider entityShortFormProvider) {
-        super(writer, entityShortFormProvider);
+        this(ontology, false, writer, entityShortFormProvider);
+    }
+
+    /**
+     * Instantiates a new manchester owl syntax frame renderer.
+     * 
+     * @param ontology the ontology
+     * @param explicitXsdString true if {@code xsd:string} datatype should be explicit in the output
+     * @param writer the writer
+     * @param entityShortFormProvider the entity short form provider
+     */
+    public ManchesterOWLSyntaxFrameRenderer(OWLOntology ontology, boolean explicitXsdString,
+        Writer writer, ShortFormProvider entityShortFormProvider) {
+        super(writer, explicitXsdString, entityShortFormProvider);
         o = ontology;
         ooc = new OWLObjectComparator(entityShortFormProvider);
     }
@@ -294,8 +308,7 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
         o.axioms(AxiomType.SWRL_RULE).sorted(ooc).forEach(
             rule -> writeSection(RULE, Collections.singleton(rule).iterator(), ", ", false));
         filtersort(o.axioms(AxiomType.SUBCLASS_OF), a -> ((OWLSubClassOfAxiom) a).isGCI())
-                .collect(Collectors.groupingBy(OWLSubClassOfAxiom::getSubClass))
-                .forEach(this::write);
+            .collect(Collectors.groupingBy(OWLSubClassOfAxiom::getSubClass)).forEach(this::write);
         flush();
     }
 
@@ -961,11 +974,9 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
         writeSection(keyword);
 
         boolean resetTab = false;
-        if(entity instanceof OWLEntity) {
+        if (entity instanceof OWLEntity) {
             Set<OWLAnnotation> annotations = o.declarationAxioms((OWLEntity) entity)
-                    .flatMap(HasAnnotations::annotations)
-                    .sorted()
-                    .collect(Collectors.toSet());
+                .flatMap(HasAnnotations::annotations).sorted().collect(Collectors.toSet());
 
             if (!annotations.isEmpty()) {
                 incrementTab(4);
@@ -989,7 +1000,7 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
         }
 
         entity.accept(this);
-        if(resetTab) {
+        if (resetTab) {
             popTab();
         }
         fireFrameRenderingStarted(kw);
