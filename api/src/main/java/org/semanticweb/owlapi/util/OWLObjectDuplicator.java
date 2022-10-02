@@ -177,6 +177,7 @@ public class OWLObjectDuplicator implements OWLObjectVisitor, SWRLObjectVisitor 
      */
     public OWLObjectDuplicator(@Nonnull OWLDataFactory dataFactory,
         @Nonnull Map<IRI, IRI> iriReplacementMap, @Nonnull Map<OWLLiteral, OWLLiteral> literals) {
+        anonProvider = new RemappingIndividualProvider(dataFactory, false);
         this.dataFactory = checkNotNull(dataFactory, "dataFactory cannot be null");
         checkNotNull(iriReplacementMap, "iriReplacementMap cannot be null");
         checkNotNull(literals, "literals cannot be null");
