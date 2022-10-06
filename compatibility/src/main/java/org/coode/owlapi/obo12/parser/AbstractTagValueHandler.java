@@ -46,7 +46,9 @@ import java.util.Set;
 import java.util.StringTokenizer;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
 import javax.annotation.Nullable;
+
 import org.semanticweb.owlapi.model.AddAxiom;
 import org.semanticweb.owlapi.model.AddOntologyAnnotation;
 import org.semanticweb.owlapi.model.HasIRI;
@@ -73,48 +75,43 @@ import org.semanticweb.owlapi.util.CollectionFactory;
  * Date: 10-Jan-2007<br>
  * <br>
  * <p/>
- * Concrete implementations of this interface allow specific behaviour for
- * processing specific tag value pairs in an OBO file to be specified.
+ * Concrete implementations of this interface allow specific behaviour for processing specific tag
+ * value pairs in an OBO file to be specified.
  * <p>
- * <h3>Tag-Value Pairs (From the OBO 1.4 Guide)</h3>
+ * <h2>Tag-Value Pairs (From the OBO 1.4 Guide)</h2>
  * <p/>
- * Tag-value pairs consist of a tag name, an unescaped colon, the tag value, and
- * a newline:
+ * Tag-value pairs consist of a tag name, an unescaped colon, the tag value, and a newline:
  * <p/>
- * &lt;tag&gt;: &lt;value&gt; {&lt;trailing modifiers&gt;} ! &lt;comment&gt; The
- * tag name is always a string. The value is always a string, but the value
- * string may require special parsing depending on the tag with which it is
- * associated.
+ * &lt;tag&gt;: &lt;value&gt; {&lt;trailing modifiers&gt;} ! &lt;comment&gt; The tag name is always
+ * a string. The value is always a string, but the value string may require special parsing
+ * depending on the tag with which it is associated.
  * <p/>
- * In general, tag-value pairs occur on a single line. Multi-line values are
- * possible using escape characters (see escape characters).
+ * In general, tag-value pairs occur on a single line. Multi-line values are possible using escape
+ * characters (see escape characters).
  * <p/>
- * In general, each stanza type expects a particular set of pre-defined tags.
- * However, a stanza may contain any tag. If a parser does not recognize a tag
- * name for a particular stanza, no error will be generated. This allows new
- * experimental tags to be added without breaking existing parsers. See handling
- * unrecognized tags for specifics.
+ * In general, each stanza type expects a particular set of pre-defined tags. However, a stanza may
+ * contain any tag. If a parser does not recognize a tag name for a particular stanza, no error will
+ * be generated. This allows new experimental tags to be added without breaking existing parsers.
+ * See handling unrecognized tags for specifics.
  * <p/>
- * <h3>Trailing Modifiers</h3>
+ * <h2>Trailing Modifiers</h2>
  * <p/>
- * Any tag-value pair may be followed by a trailing modifier. Trailing modifiers
- * have been introduced into the OBO 1.2 Specification to allow the graceful
- * addition of new features to existing tags.
+ * Any tag-value pair may be followed by a trailing modifier. Trailing modifiers have been
+ * introduced into the OBO 1.2 Specification to allow the graceful addition of new features to
+ * existing tags.
  * <p/>
  * A trailing modifier has the following structure:
  * <p/>
- * {&lt;name&gt;=&lt;value&gt;, &lt;name=value&gt;, &lt;name=value&gt;} That is,
- * trailing modifiers are lists of name-value pairs.
+ * {&lt;name&gt;=&lt;value&gt;, &lt;name=value&gt;, &lt;name=value&gt;} That is, trailing modifiers
+ * are lists of name-value pairs.
  * <p/>
- * Parser implementations may choose to decode and/or round-trip these trailing
- * modifiers. However, this is not required. A parser may choose to ignore or
- * strip away trailing modifiers.
+ * Parser implementations may choose to decode and/or round-trip these trailing modifiers. However,
+ * this is not required. A parser may choose to ignore or strip away trailing modifiers.
  * <p/>
- * For this reason, trailing modifiers should only include information that is
- * optional or experimental.
+ * For this reason, trailing modifiers should only include information that is optional or
+ * experimental.
  * <p/>
- * Trailing modifiers may also occur within dbxref definitions (see dbxref
- * formatting).
+ * Trailing modifiers may also occur within dbxref definitions (see dbxref formatting).
  * <p/>
  * </p>
  */
@@ -128,17 +125,18 @@ interface TagValueHandler {
     String getTagName();
 
     /**
-     * Handles a tag. This is called by the OBOConsumer during parsing to handle
-     * tags that match the value returned by the {@link #getTagName()} method.
+     * Handles a tag. This is called by the OBOConsumer during parsing to handle tags that match the
+     * value returned by the {@link #getTagName()} method.
      *
      * @param currentId The id of the current frame.
      * @param value The value of the tag
      * @param qualifierBlock qualifier block
      * @param comment The hidden comment. This is made up of any characters between ! and the end of
-     * line.
+     *        line.
      */
     void handle(String currentId, String value, String qualifierBlock, String comment);
 }
+
 
 abstract class AbstractTagValueHandler implements TagValueHandler {
 
@@ -180,8 +178,8 @@ abstract class AbstractTagValueHandler implements TagValueHandler {
     }
 
     /**
-     * Gets an IRI for a tag name. This is a helper method, which ultimately
-     * calls {@link OBOConsumer#getIRIFromTagName(String)}.
+     * Gets an IRI for a tag name. This is a helper method, which ultimately calls
+     * {@link OBOConsumer#getIRIFromTagName(String)}.
      *
      * @param tagName The tag name.
      * @return The IRI corresponding to the tag name.
@@ -199,9 +197,9 @@ abstract class AbstractTagValueHandler implements TagValueHandler {
      *
      * @param tagName The tag name.
      * @param value The tag value. Note that the tag value is un-escaped and stripped of double
-     * quotes if they exist.
+     *        quotes if they exist.
      * @return An {@link OWLAnnotation} that is formed by converting the tagName to an IRI and then
-     * to an {@link OWLAnnotationProperty} and the value to an {@link OWLLiteral}.
+     *         to an {@link OWLAnnotationProperty} and the value to an {@link OWLLiteral}.
      */
     public OWLAnnotation getAnnotationForTagValuePair(String tagName, String value) {
         IRI tagIRI = getTagIRI(tagName);
@@ -257,13 +255,14 @@ abstract class AbstractTagValueHandler implements TagValueHandler {
 
     protected void addAnnotation(String id, String uriID, OWLLiteral value) {
         IRI subject = getIRIFromOBOId(id);
-        OWLAnnotationProperty annotationProperty = getDataFactory()
-            .getOWLAnnotationProperty(getIRIFromOBOId(uriID));
-        OWLAxiom ax = getDataFactory()
-            .getOWLAnnotationAssertionAxiom(annotationProperty, subject, value);
+        OWLAnnotationProperty annotationProperty =
+            getDataFactory().getOWLAnnotationProperty(getIRIFromOBOId(uriID));
+        OWLAxiom ax =
+            getDataFactory().getOWLAnnotationAssertionAxiom(annotationProperty, subject, value);
         applyChange(new AddAxiom(getOntology(), ax));
     }
 }
+
 
 class AltIdTagValueHandler extends AbstractTagValueHandler {
 
@@ -274,15 +273,15 @@ class AltIdTagValueHandler extends AbstractTagValueHandler {
     @Override
     public void handle(String currentId, String value, String qualifierBlock, String comment) {
         HasIRI subject = getConsumer().getCurrentEntity();
-        OWLAnnotationProperty property = getDataFactory()
-            .getOWLAnnotationProperty(OBOVocabulary.ALT_ID);
+        OWLAnnotationProperty property =
+            getDataFactory().getOWLAnnotationProperty(OBOVocabulary.ALT_ID);
         IRI object = getIRIFromOBOId(value);
-        OWLAnnotationAssertionAxiom ax = getDataFactory()
-            .getOWLAnnotationAssertionAxiom(property, subject.getIRI(),
-                object);
+        OWLAnnotationAssertionAxiom ax =
+            getDataFactory().getOWLAnnotationAssertionAxiom(property, subject.getIRI(), object);
         applyChange(new AddAxiom(getOntology(), ax));
     }
 }
+
 
 class AsymmetricHandler extends AbstractTagValueHandler {
 
@@ -303,6 +302,7 @@ class AsymmetricHandler extends AbstractTagValueHandler {
     }
 }
 
+
 class DataVersionTagValueHandler extends AbstractTagValueHandler {
 
     public DataVersionTagValueHandler(OBOConsumer consumer) {
@@ -315,6 +315,7 @@ class DataVersionTagValueHandler extends AbstractTagValueHandler {
     }
 }
 
+
 /**
  * Author: Matthew Horridge<br>
  * The University Of Manchester<br>
@@ -322,50 +323,43 @@ class DataVersionTagValueHandler extends AbstractTagValueHandler {
  * Date: 01-Sep-2008<br>
  * <br>
  * <p/>
- * OBO Namespaces are NOT like XML Namespaces. They are NOT used to form
- * abbreviations for IRIs. The description below, taken from the OBOEdit manual,
- * explains their provenance.
+ * OBO Namespaces are NOT like XML Namespaces. They are NOT used to form abbreviations for IRIs. The
+ * description below, taken from the OBOEdit manual, explains their provenance.
  * <p/>
- * <h3>OBO Namespaces and Ontology Name (OBO Syntax and Semantics Document:
- * Section 4.3)</h3>
+ * <h2>OBO Namespaces and Ontology Name (OBO Syntax and Semantics Document: Section 4.3)</h2>
  * <p/>
- * Note that OBO namespaces are not the same as OWL namespaces - the analog of
- * OWL namespaces are OBO ID spaces. OBO namespaces are semantics-free
- * properties of a frame that allow partitioning of an ontology into
- * sub-ontologies. For example, the GO is partitioned into 3 ontologies (3 OBO
+ * Note that OBO namespaces are not the same as OWL namespaces - the analog of OWL namespaces are
+ * OBO ID spaces. OBO namespaces are semantics-free properties of a frame that allow partitioning of
+ * an ontology into sub-ontologies. For example, the GO is partitioned into 3 ontologies (3 OBO
  * namespaces, 1 OWL namespace).
  * <p/>
- * Every frame must have exactly one namespace. However, these do not need to be
- * explicitly assigned. After parsing an OBO Document, any frame without a
- * namespace is assigned the default-namespace, from the OBO Document header. If
- * this is not specified, the Parser assigns a namespace arbitrarily. It is
- * recommended this is equivalent to the URL or file path from which the
- * document was retrieved.
+ * Every frame must have exactly one namespace. However, these do not need to be explicitly
+ * assigned. After parsing an OBO Document, any frame without a namespace is assigned the
+ * default-namespace, from the OBO Document header. If this is not specified, the Parser assigns a
+ * namespace arbitrarily. It is recommended this is equivalent to the URL or file path from which
+ * the document was retrieved.
  * <p/>
- * Every OBODoc should have an "ontology" tag specified in the header. If this
- * is not specified, then the parser should supply a default value. This value
- * should be derived from the URL of the source of the ontology (typically using
- * http or file schemes).
+ * Every OBODoc should have an "ontology" tag specified in the header. If this is not specified,
+ * then the parser should supply a default value. This value should be derived from the URL of the
+ * source of the ontology (typically using http or file schemes).
  * <p/>
  * <p/>
  * <p/>
  * <p/>
- * <h3>OBO Namespaces (From the OBOEdit Manual)</h3>
+ * <h2>OBO Namespaces (From the OBOEdit Manual)</h2>
  * <p/>
  * Namespaces
  * <p/>
- * OBO files are designed to be easily merged and separated. Most tools that use
- * OBO files can load many OBO files at once. If several ontologies have been
- * loaded together and saved into a single file, it would be impossible to know
- * which terms came from which file unless the origin of each term is indicated
- * somehow. Namespaces are used to solve this problem by indicating a "logical
- * ontology" to which every term, relation, instance OR relationship belongs,
- * i.e., each entity is tagged with a Namespace that indicates which ontology it
- * is part of.
+ * OBO files are designed to be easily merged and separated. Most tools that use OBO files can load
+ * many OBO files at once. If several ontologies have been loaded together and saved into a single
+ * file, it would be impossible to know which terms came from which file unless the origin of each
+ * term is indicated somehow. Namespaces are used to solve this problem by indicating a "logical
+ * ontology" to which every term, relation, instance OR relationship belongs, i.e., each entity is
+ * tagged with a Namespace that indicates which ontology it is part of.
  * <p/>
- * Namespaces are user-definable. Every ontology object belongs to a single
- * namespace. When terms from many ontologies have been loaded together,
- * namespaces are used to break the merged ontology back into separate files.
+ * Namespaces are user-definable. Every ontology object belongs to a single namespace. When terms
+ * from many ontologies have been loaded together, namespaces are used to break the merged ontology
+ * back into separate files.
  */
 class DefaultNamespaceTagValueHandler extends AbstractTagValueHandler {
 
@@ -379,16 +373,17 @@ class DefaultNamespaceTagValueHandler extends AbstractTagValueHandler {
         // annotation to the ontology
         getConsumer().setDefaultNamespaceTagValue(value);
         // Add an annotation to the ontology
-        OWLAnnotation annotation = getAnnotationForTagValuePair(
-            OBOVocabulary.DEFAULT_NAMESPACE.getName(), value);
+        OWLAnnotation annotation =
+            getAnnotationForTagValuePair(OBOVocabulary.DEFAULT_NAMESPACE.getName(), value);
         applyChange(new AddOntologyAnnotation(getOntology(), annotation));
     }
 }
 
+
 class DefTagValueHandler extends AbstractTagValueHandler {
 
-    private static final Pattern PATTERN = Pattern
-        .compile("\"([^\"]*)\"\\s*(\\[([^\\]]*)\\])?\\s*");
+    private static final Pattern PATTERN =
+        Pattern.compile("\"([^\"]*)\"\\s*(\\[([^\\]]*)\\])?\\s*");
     private static final int QUOTED_STRING_CONTENT_GROUP = 1;
     private static final int XREF_GROUP = 3;
 
@@ -412,9 +407,8 @@ class DefTagValueHandler extends AbstractTagValueHandler {
         OWLAnnotationProperty property = df.getOWLAnnotationProperty(propertyIRI);
         OWLEntity currentEntity = getConsumer().getCurrentEntity();
         OWLLiteral literal = df.getOWLLiteral(annotationValue);
-        OWLAnnotationAssertionAxiom ax = df
-            .getOWLAnnotationAssertionAxiom(property, currentEntity.getIRI(), literal,
-                xrefAnnotations);
+        OWLAnnotationAssertionAxiom ax = df.getOWLAnnotationAssertionAxiom(property,
+            currentEntity.getIRI(), literal, xrefAnnotations);
         applyChange(new AddAxiom(getOntology(), ax));
     }
 
@@ -430,6 +424,7 @@ class DefTagValueHandler extends AbstractTagValueHandler {
     }
 }
 
+
 class DisjointFromHandler extends AbstractTagValueHandler {
 
     public DisjointFromHandler(OBOConsumer consumer) {
@@ -438,12 +433,12 @@ class DisjointFromHandler extends AbstractTagValueHandler {
 
     @Override
     public void handle(String currentId, String value, String qualifierBlock, String comment) {
-        OWLAxiom ax = getDataFactory()
-            .getOWLDisjointClassesAxiom(CollectionFactory.createSet(getCurrentClass(),
-                getOWLClass(value)));
+        OWLAxiom ax = getDataFactory().getOWLDisjointClassesAxiom(
+            CollectionFactory.createSet(getCurrentClass(), getOWLClass(value)));
         applyChange(new AddAxiom(getOntology(), ax));
     }
 }
+
 
 class DomainHandler extends AbstractTagValueHandler {
 
@@ -459,6 +454,7 @@ class DomainHandler extends AbstractTagValueHandler {
             getDataFactory().getOWLObjectPropertyDomainAxiom(prop, cls)));
     }
 }
+
 
 class IDSpaceTagValueHandler extends AbstractTagValueHandler {
 
@@ -481,6 +477,7 @@ class IDSpaceTagValueHandler extends AbstractTagValueHandler {
     }
 }
 
+
 class IDTagValueHandler extends AbstractTagValueHandler {
 
     public IDTagValueHandler(OBOConsumer consumer) {
@@ -495,6 +492,7 @@ class IDTagValueHandler extends AbstractTagValueHandler {
     }
 }
 
+
 class IntersectionOfHandler extends AbstractTagValueHandler {
 
     public IntersectionOfHandler(OBOConsumer consumer) {
@@ -507,6 +505,7 @@ class IntersectionOfHandler extends AbstractTagValueHandler {
     }
 }
 
+
 class InverseHandler extends AbstractTagValueHandler {
 
     public InverseHandler(OBOConsumer consumer) {
@@ -515,12 +514,12 @@ class InverseHandler extends AbstractTagValueHandler {
 
     @Override
     public void handle(String currentId, String value, String qualifierBlock, String comment) {
-        OWLAxiom ax = getDataFactory()
-            .getOWLInverseObjectPropertiesAxiom(getOWLObjectProperty(currentId),
-                getOWLObjectProperty(value));
+        OWLAxiom ax = getDataFactory().getOWLInverseObjectPropertiesAxiom(
+            getOWLObjectProperty(currentId), getOWLObjectProperty(value));
         applyChange(new AddAxiom(getOntology(), ax));
     }
 }
+
 
 class IsATagValueHandler extends AbstractTagValueHandler {
 
@@ -532,9 +531,8 @@ class IsATagValueHandler extends AbstractTagValueHandler {
     public void handle(String currentId, String value, String qualifierBlock, String comment) {
         if (getConsumer().isTerm()) {
             // We simply add a subclass axiom
-            applyChange(new AddAxiom(getOntology(),
-                getDataFactory().getOWLSubClassOfAxiom(getClassFromId(currentId),
-                    getClassFromId(value))));
+            applyChange(new AddAxiom(getOntology(), getDataFactory()
+                .getOWLSubClassOfAxiom(getClassFromId(currentId), getClassFromId(value))));
         } else if (getConsumer().isTypedef()) {
             // We simply add a sub property axiom
             applyChange(new AddAxiom(getOntology(), getDataFactory().getOWLSubObjectPropertyOfAxiom(
@@ -542,6 +540,7 @@ class IsATagValueHandler extends AbstractTagValueHandler {
         }
     }
 }
+
 
 class IsObsoleteTagValueHandler extends AbstractTagValueHandler {
 
@@ -555,12 +554,12 @@ class IsObsoleteTagValueHandler extends AbstractTagValueHandler {
         OWLAnnotationProperty deprecatedProperty = df.getOWLDeprecated();
         OWLLiteral annotationValue = df.getOWLLiteral(true);
         IRI subject = getIRIFromOBOId(currentId);
-        OWLAnnotationAssertionAxiom ax = df
-            .getOWLAnnotationAssertionAxiom(deprecatedProperty, subject,
-                annotationValue);
+        OWLAnnotationAssertionAxiom ax =
+            df.getOWLAnnotationAssertionAxiom(deprecatedProperty, subject, annotationValue);
         applyChange(new AddAxiom(getOntology(), ax));
     }
 }
+
 
 class NameTagValueHandler extends AbstractTagValueHandler {
 
@@ -579,12 +578,12 @@ class NameTagValueHandler extends AbstractTagValueHandler {
         } else {
             ent = getDataFactory().getOWLNamedIndividual(getIRIFromOBOId(currentId));
         }
-        OWLAxiom ax = getDataFactory()
-            .getOWLAnnotationAssertionAxiom(ent.getIRI(), getDataFactory().getRDFSLabel(
-                value));
+        OWLAxiom ax = getDataFactory().getOWLAnnotationAssertionAxiom(ent.getIRI(),
+            getDataFactory().getRDFSLabel(value));
         applyChange(new AddAxiom(getOntology(), ax));
     }
 }
+
 
 class OntologyTagValueHandler extends AbstractTagValueHandler {
 
@@ -597,6 +596,7 @@ class OntologyTagValueHandler extends AbstractTagValueHandler {
         getConsumer().setOntologyTagValue(value);
     }
 }
+
 
 class PartOfTagValueHandler extends AbstractTagValueHandler {
 
@@ -617,6 +617,7 @@ class PartOfTagValueHandler extends AbstractTagValueHandler {
         applyChange(new AddAxiom(getOntology(), ax));
     }
 }
+
 
 class RawFrameHandler implements OBOParserHandler {
 
@@ -688,6 +689,7 @@ class RawFrameHandler implements OBOParserHandler {
     }
 }
 
+
 class ReflexiveHandler extends AbstractTagValueHandler {
 
     public ReflexiveHandler(OBOConsumer consumer) {
@@ -707,10 +709,11 @@ class ReflexiveHandler extends AbstractTagValueHandler {
     }
 }
 
+
 class RelationshipTagValueHandler extends AbstractTagValueHandler {
 
-    private final Pattern tagValuePattern = Pattern
-        .compile("([^\\s]*)\\s*([^\\s]*)\\s*(\\{([^\\}]*)\\})?");
+    private final Pattern tagValuePattern =
+        Pattern.compile("([^\\s]*)\\s*([^\\s]*)\\s*(\\{([^\\}]*)\\})?");
 
     public RelationshipTagValueHandler(OBOConsumer consumer) {
         super(OBOVocabulary.RELATIONSHIP.getName(), consumer);
@@ -724,8 +727,8 @@ class RelationshipTagValueHandler extends AbstractTagValueHandler {
             IRI fillerIRI = getIRIFromOBOId(matcher.group(2));
             OWLObjectProperty prop = getDataFactory().getOWLObjectProperty(propIRI);
             OWLClass filler = getDataFactory().getOWLClass(fillerIRI);
-            OWLClassExpression restriction = getDataFactory()
-                .getOWLObjectSomeValuesFrom(prop, filler);
+            OWLClassExpression restriction =
+                getDataFactory().getOWLObjectSomeValuesFrom(prop, filler);
             OWLClass subCls = getDataFactory().getOWLClass(getIRIFromOBOId(currentId));
             applyChange(new AddAxiom(getOntology(),
                 getDataFactory().getOWLSubClassOfAxiom(subCls, restriction)));
@@ -733,6 +736,7 @@ class RelationshipTagValueHandler extends AbstractTagValueHandler {
         }
     }
 }
+
 
 class SymmetricTagValueHandler extends AbstractTagValueHandler {
 
@@ -753,14 +757,15 @@ class SymmetricTagValueHandler extends AbstractTagValueHandler {
     }
 }
 
+
 class SynonymTagValueHandler extends AbstractTagValueHandler {
 
     public static final IRI SYNONYM_TYPE_IRI = OBOVocabulary.SYNONYM_TYPE.getIRI();
     public static final IRI XREF_IRI = OBOVocabulary.XREF.getIRI();
     private static final String TAG_NAME = OBOVocabulary.SYNONYM.toString();
     // synonym: "synonym" (EXACT|BROAD|NARROW|RELATED) TYPE? XRefList
-    private static final Pattern VALUEPATTERN = Pattern.compile(
-        "\"([^\"]*)\"\\s*([^\\s]*)\\s*([^\\[\\s]+)?\\s*\\[([^\\]]*)\\]");
+    private static final Pattern VALUEPATTERN =
+        Pattern.compile("\"([^\"]*)\"\\s*([^\\s]*)\\s*([^\\[\\s]+)?\\s*\\[([^\\]]*)\\]");
     private static final int VALUE_GROUP = 1;
     private static final int SCOPE_GROUP = 2;
     private static final int SYNONYM_TYPE_GROUP = 3;
@@ -782,9 +787,8 @@ class SynonymTagValueHandler extends AbstractTagValueHandler {
             OWLEntity subject = getConsumer().getCurrentEntity();
             String synonym = matcher.group(VALUE_GROUP);
             OWLLiteral synonymLiteral = df.getOWLLiteral(synonym);
-            OWLAnnotationAssertionAxiom annoAssertion = df
-                .getOWLAnnotationAssertionAxiom(property, subject.getIRI(),
-                    synonymLiteral, annotations);
+            OWLAnnotationAssertionAxiom annoAssertion = df.getOWLAnnotationAssertionAxiom(property,
+                subject.getIRI(), synonymLiteral, annotations);
             applyChange(new AddAxiom(getOntology(), annoAssertion));
         }
     }
@@ -837,10 +841,11 @@ class SynonymTagValueHandler extends AbstractTagValueHandler {
     }
 }
 
+
 class SynonymTypeDefTagHandler extends AbstractTagValueHandler {
 
-    private static final Pattern PATTERN = Pattern
-        .compile("([^\\s]*)\\s+\"([^\"]*)\"(\\s*([^\\s]*)\\s*)?");
+    private static final Pattern PATTERN =
+        Pattern.compile("([^\\s]*)\\s+\"([^\"]*)\"(\\s*([^\\s]*)\\s*)?");
     private static final int ID_GROUP = 1;
     private static final int NAME_GROUP = 2;
 
@@ -856,21 +861,19 @@ class SynonymTypeDefTagHandler extends AbstractTagValueHandler {
             IRI annotationPropertyIRI = getIRIFromOBOId(id);
             String name = matcher.group(NAME_GROUP);
             OWLDataFactory df = getDataFactory();
-            OWLAnnotationProperty annotationProperty = df
-                .getOWLAnnotationProperty(annotationPropertyIRI);
+            OWLAnnotationProperty annotationProperty =
+                df.getOWLAnnotationProperty(annotationPropertyIRI);
             applyChange(new AddAxiom(getOntology(), df.getOWLDeclarationAxiom(annotationProperty)));
             IRI subsetdefIRI = getTagIRI(OBOVocabulary.SUBSETDEF.getName());
-            OWLAnnotationProperty subsetdefAnnotationProperty = df
-                .getOWLAnnotationProperty(subsetdefIRI);
+            OWLAnnotationProperty subsetdefAnnotationProperty =
+                df.getOWLAnnotationProperty(subsetdefIRI);
+            applyChange(new AddAxiom(getOntology(), df.getOWLSubAnnotationPropertyOfAxiom(
+                annotationProperty, subsetdefAnnotationProperty)));
             applyChange(new AddAxiom(getOntology(),
-                df.getOWLSubAnnotationPropertyOfAxiom(annotationProperty,
-                    subsetdefAnnotationProperty)));
-            applyChange(new AddAxiom(getOntology(),
-                df.getOWLAnnotationAssertionAxiom(annotationPropertyIRI, df
-                    .getRDFSLabel(name))));
+                df.getOWLAnnotationAssertionAxiom(annotationPropertyIRI, df.getRDFSLabel(name))));
         } else {
-            OWLAnnotation annotation = getAnnotationForTagValuePair(
-                OBOVocabulary.SYNONYM_TYPE_DEF.getName(), value);
+            OWLAnnotation annotation =
+                getAnnotationForTagValuePair(OBOVocabulary.SYNONYM_TYPE_DEF.getName(), value);
             applyChange(new AddOntologyAnnotation(getOntology(), annotation));
         }
         // ID QuotedString [Scope]
@@ -881,6 +884,7 @@ class SynonymTypeDefTagHandler extends AbstractTagValueHandler {
         // AnnotationAssertion(T(hasScope) T(ID) Scope)
     }
 }
+
 
 class TransitiveOverHandler extends AbstractTagValueHandler {
 
@@ -900,6 +904,7 @@ class TransitiveOverHandler extends AbstractTagValueHandler {
     }
 }
 
+
 class TransitiveTagValueHandler extends AbstractTagValueHandler {
 
     public TransitiveTagValueHandler(OBOConsumer consumer) {
@@ -909,13 +914,14 @@ class TransitiveTagValueHandler extends AbstractTagValueHandler {
     @Override
     public void handle(String currentId, String value, String qualifierBlock, String comment) {
         if (Boolean.parseBoolean(value)) {
-            OWLObjectProperty prop = getDataFactory()
-                .getOWLObjectProperty(getIRIFromOBOId(currentId));
+            OWLObjectProperty prop =
+                getDataFactory().getOWLObjectProperty(getIRIFromOBOId(currentId));
             OWLAxiom ax = getDataFactory().getOWLTransitiveObjectPropertyAxiom(prop);
             applyChange(new AddAxiom(getOntology(), ax));
         }
     }
 }
+
 
 class UnionOfHandler extends AbstractTagValueHandler {
 
@@ -928,6 +934,7 @@ class UnionOfHandler extends AbstractTagValueHandler {
         getConsumer().addUnionOfOperand(getOWLClassOrRestriction(value));
     }
 }
+
 
 class XRefTagHandler extends AbstractTagValueHandler {
 
@@ -943,9 +950,8 @@ class XRefTagHandler extends AbstractTagValueHandler {
         }
         OWLAnnotation xrefAnnotation = getConsumer().parseXRef(value);
         IRI subject = getIRIFromOBOId(currentId);
-        OWLAnnotationAssertionAxiom ax = getDataFactory()
-            .getOWLAnnotationAssertionAxiom(xrefAnnotation.getProperty(),
-                subject, xrefAnnotation.getValue());
+        OWLAnnotationAssertionAxiom ax = getDataFactory().getOWLAnnotationAssertionAxiom(
+            xrefAnnotation.getProperty(), subject, xrefAnnotation.getValue());
         applyChange(new AddAxiom(getOntology(), ax));
         if (getConsumer().isTypedef() && xrefAnnotation.getValue().isIRI()) {
             IRI xrefIRI = (IRI) xrefAnnotation.getValue();

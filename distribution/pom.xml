@@ -8,9 +8,8 @@
 	<parent>
 		<groupId>net.sourceforge.owlapi</groupId>
 		<artifactId>owlapi-parent</artifactId>
-		<version>5.1.20</version>
+		<version>5.5.0-SNAPSHOT</version>
 	</parent>
-
 	<properties>
 		<inherited.rdf4j.version>${rdf4j.version}</inherited.rdf4j.version>
 	</properties>
@@ -26,13 +25,13 @@
 		<dependency><groupId>${project.groupId}</groupId><artifactId>owlapi-rio</artifactId><version>${project.version}</version></dependency>
 		<dependency><groupId>${project.groupId}</groupId><artifactId>owlapi-api</artifactId><version>${project.version}</version></dependency>
 		<dependency><groupId>${project.groupId}</groupId><artifactId>owlapi-compatibility</artifactId><version>${project.version}</version></dependency>
-		<dependency><groupId>com.fasterxml.jackson.core</groupId><artifactId>jackson-core</artifactId><version>2.12.6</version></dependency>
-		<dependency><groupId>com.fasterxml.jackson.core</groupId><artifactId>jackson-databind</artifactId><version>2.12.6.1</version></dependency>
-		<dependency><groupId>com.fasterxml.jackson.core</groupId><artifactId>jackson-annotations</artifactId><version>2.12.6</version></dependency>
-		<dependency><groupId>org.apache.commons</groupId><artifactId>commons-rdf-api</artifactId></dependency>
-		<dependency><groupId>org.tukaani</groupId><artifactId>xz</artifactId><version>1.6</version></dependency>
-		<dependency><groupId>org.slf4j</groupId><artifactId>slf4j-api</artifactId><version>1.7.22</version></dependency>
-		<dependency><groupId>org.slf4j</groupId><artifactId>jcl-over-slf4j</artifactId><version>1.7.22</version></dependency>
+		<dependency><groupId>com.fasterxml.jackson.core</groupId><artifactId>jackson-core</artifactId><version>2.13.4</version></dependency>
+		<dependency><groupId>com.fasterxml.jackson.core</groupId><artifactId>jackson-databind</artifactId><version>2.13.4</version></dependency>
+		<dependency><groupId>com.fasterxml.jackson.core</groupId><artifactId>jackson-annotations</artifactId><version>2.13.4</version></dependency>
+		<dependency><groupId>org.apache.commons</groupId><artifactId>commons-rdf-api</artifactId><version>0.5.0</version></dependency>
+		<dependency><groupId>org.tukaani</groupId><artifactId>xz</artifactId><version>1.9</version></dependency>
+		<dependency><groupId>org.slf4j</groupId><artifactId>slf4j-api</artifactId><version>1.7.30</version></dependency>
+		<dependency><groupId>org.slf4j</groupId><artifactId>jcl-over-slf4j</artifactId><version>1.7.30</version></dependency>
 		<dependency><groupId>org.eclipse.rdf4j</groupId><artifactId>rdf4j-model</artifactId><version>${inherited.rdf4j.version}</version></dependency>
 		<dependency><groupId>org.eclipse.rdf4j</groupId><artifactId>rdf4j-model-api</artifactId><version>${inherited.rdf4j.version}</version></dependency>
 		<dependency><groupId>org.eclipse.rdf4j</groupId><artifactId>rdf4j-model-vocabulary</artifactId><version>${inherited.rdf4j.version}</version></dependency>
@@ -41,6 +40,10 @@
 				<exclusion>
 					<groupId>javax.xml.bind</groupId>
 					<artifactId>jaxb-api</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>jakarta.xml.bind</groupId>
+					<artifactId>jakarta.xml.bind-api</artifactId>
 				</exclusion>
 			</exclusions>
 		</dependency>
@@ -57,7 +60,7 @@
 		<dependency><groupId>org.eclipse.rdf4j</groupId><artifactId>rdf4j-rio-turtle</artifactId><version>${inherited.rdf4j.version}</version></dependency>
 		<dependency><groupId>org.eclipse.rdf4j</groupId><artifactId>rdf4j-rio-trig</artifactId><version>${inherited.rdf4j.version}</version></dependency>
 		<dependency><groupId>org.eclipse.rdf4j</groupId><artifactId>rdf4j-rio-hdt</artifactId><version>${inherited.rdf4j.version}</version></dependency>
-		<dependency><groupId>org.eclipse.rdf4j</groupId><artifactId>rdf4j-util</artifactId><version>${inherited.rdf4j.version}</version></dependency>
+		<dependency><groupId>org.eclipse.rdf4j</groupId><artifactId>rdf4j-common-util</artifactId><version>${inherited.rdf4j.version}</version></dependency>
 		<dependency><groupId>com.github.jsonld-java</groupId><artifactId>jsonld-java</artifactId><version>0.13.4</version></dependency>
 		<!-- Disable until updated to use RDF4J  <dependency><groupId>org.semarglproject</groupId><artifactId>semargl-sesame</artifactId><version>0.7</version></dependency> -->
 
@@ -95,7 +98,7 @@
 						</_exportcontents>
 						<Import-Package>
 							!sun.misc,
-							org.eclipse.rdf4j.*;version="[3.0,4.0)",
+							org.eclipse.rdf4j.*;version="[3.0,4.2.0]",
 							!javax.annotation,
 							!com.google.inject.internal.*;resolution:=optional,
 							!com.github.jsonldjava.shaded.com.google.common.collect.*;resolution:=optional,
@@ -161,7 +164,7 @@
 			</plugin>
 			<plugin>
 				<artifactId>maven-javadoc-plugin</artifactId>
-				<version>2.10.4</version>
+				<version>3.4.1</version>
 				<configuration>
 					<show>public</show>
 				</configuration>

@@ -21,7 +21,7 @@ import org.semanticweb.owlapi.model.OWLObject;
 
 /**
  * Represents a node (set) of entities. The entities in a node are equivalent to each other. <br>
- * <h3>Nodes in hierarchies</h3> In the OWL API, a reasoner treats a class hierarchy, an object
+ * <h2>Nodes in hierarchies</h2> In the OWL API, a reasoner treats a class hierarchy, an object
  * property hierarchy or a data property hierarchy as a hierarchy (directed acyclic graph - DAG) of
  * {@code Nodes}. Each node contains entities that are equivalent to each other. A hierarchy
  * contains a <i>top node</i>, which is the ancestor of all nodes in the hierarchy, and a <i>bottom
@@ -37,7 +37,7 @@ import org.semanticweb.owlapi.model.OWLObject;
  * contains {@code owl:topDataProperty} (and any other data properties that are equivalent to
  * {@code owl:topDataProperty}). The bottom node contains {@code owl:bottomDataProperty} (and any
  * other data properties that are equivalent to {@code owl:bottomDataProperty}). <br>
- * <h4>Class Hierarchy Example</h4> The figure below shows an example class hierarchy. Each box in
+ * <h2>Class Hierarchy Example</h2> The figure below shows an example class hierarchy. Each box in
  * the hierarchy represents a {@code Node}. In this case the top node contains {@code owl:Thing} and
  * the bottom node contains {@code owl:Nothing} because the nodes in the hierarchy are
  * {@code OWLClass} nodes. In this case, class {@code G} is equivalent to {@code owl:Thing} so it

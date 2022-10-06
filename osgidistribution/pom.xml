@@ -8,7 +8,7 @@
 	<parent>
 		<groupId>net.sourceforge.owlapi</groupId>
 		<artifactId>owlapi-parent</artifactId>
-		<version>5.1.20</version>
+		<version>5.5.0-SNAPSHOT</version>
 	</parent>
 	<properties>
 		<inherited.rdf4j.version>${rdf4j.version}</inherited.rdf4j.version>
@@ -26,11 +26,11 @@
 		<dependency><groupId>${project.groupId}</groupId><artifactId>owlapi-api</artifactId><version>${project.version}</version></dependency>
 		<dependency><groupId>${project.groupId}</groupId><artifactId>owlapi-compatibility</artifactId><version>${project.version}</version></dependency>
 		<dependency><groupId>com.google.code.findbugs</groupId><artifactId>jsr305</artifactId><version>3.0.2</version></dependency>
-		<dependency><groupId>com.fasterxml.jackson.core</groupId><artifactId>jackson-core</artifactId><version>2.12.6</version></dependency>
-		<dependency><groupId>com.fasterxml.jackson.core</groupId><artifactId>jackson-databind</artifactId><version>2.12.6.1</version></dependency>
-		<dependency><groupId>com.fasterxml.jackson.core</groupId><artifactId>jackson-annotations</artifactId><version>2.12.6</version></dependency>
-		<dependency><groupId>org.apache.commons</groupId><artifactId>commons-rdf-api</artifactId><version>0.3.0-incubating</version></dependency>
-		<dependency><groupId>org.tukaani</groupId><artifactId>xz</artifactId><version>1.6</version></dependency>
+		<dependency><groupId>com.fasterxml.jackson.core</groupId><artifactId>jackson-core</artifactId><version>2.13.4</version></dependency>
+		<dependency><groupId>com.fasterxml.jackson.core</groupId><artifactId>jackson-databind</artifactId><version>2.13.4</version></dependency>
+		<dependency><groupId>com.fasterxml.jackson.core</groupId><artifactId>jackson-annotations</artifactId><version>2.13.4</version></dependency>
+		<dependency><groupId>org.apache.commons</groupId><artifactId>commons-rdf-api</artifactId><version>0.5.0</version></dependency>
+		<dependency><groupId>org.tukaani</groupId><artifactId>xz</artifactId><version>1.9</version></dependency>
 		<dependency><groupId>org.slf4j</groupId><artifactId>slf4j-api</artifactId><version>1.7.30</version></dependency>
 		<dependency><groupId>org.slf4j</groupId><artifactId>jcl-over-slf4j</artifactId><version>1.7.30</version></dependency>
 		<dependency><groupId>org.eclipse.rdf4j</groupId><artifactId>rdf4j-model</artifactId><version>${inherited.rdf4j.version}</version></dependency>
@@ -41,6 +41,10 @@
 				<exclusion>
 					<groupId>javax.xml.bind</groupId>
 					<artifactId>jaxb-api</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>jakarta.xml.bind</groupId>
+					<artifactId>jakarta.xml.bind-api</artifactId>
 				</exclusion>
 			</exclusions>
 		</dependency>
@@ -57,23 +61,61 @@
 		<dependency><groupId>org.eclipse.rdf4j</groupId><artifactId>rdf4j-rio-turtle</artifactId><version>${inherited.rdf4j.version}</version></dependency>
 		<dependency><groupId>org.eclipse.rdf4j</groupId><artifactId>rdf4j-rio-trig</artifactId><version>${inherited.rdf4j.version}</version></dependency>
 		<dependency><groupId>org.eclipse.rdf4j</groupId><artifactId>rdf4j-rio-hdt</artifactId><version>${inherited.rdf4j.version}</version></dependency>
-		<dependency><groupId>org.eclipse.rdf4j</groupId><artifactId>rdf4j-util</artifactId><version>${inherited.rdf4j.version}</version></dependency>
+		<dependency><groupId>org.eclipse.rdf4j</groupId><artifactId>rdf4j-common-util</artifactId><version>${inherited.rdf4j.version}</version></dependency>
+		<dependency><groupId>org.eclipse.rdf4j</groupId><artifactId>rdf4j-common-annotation</artifactId><version>${inherited.rdf4j.version}</version></dependency>
+		<dependency><groupId>org.eclipse.rdf4j</groupId><artifactId>rdf4j-common-exception</artifactId><version>${inherited.rdf4j.version}</version></dependency>
+		<dependency><groupId>org.eclipse.rdf4j</groupId><artifactId>rdf4j-model-vocabulary</artifactId><version>${inherited.rdf4j.version}</version></dependency>
+		<dependency><groupId>org.eclipse.rdf4j</groupId><artifactId>rdf4j-model-api</artifactId><version>${inherited.rdf4j.version}</version></dependency>
+		<dependency><groupId>org.eclipse.rdf4j</groupId><artifactId>rdf4j-common-text</artifactId><version>${inherited.rdf4j.version}</version></dependency>
+		<dependency><groupId>org.eclipse.rdf4j</groupId><artifactId>rdf4j-common-io</artifactId><version>${inherited.rdf4j.version}</version></dependency>
+		<dependency><groupId>org.eclipse.rdf4j</groupId><artifactId>rdf4j-common-iterator</artifactId><version>${inherited.rdf4j.version}</version></dependency>
+		<dependency><groupId>org.eclipse.rdf4j</groupId><artifactId>rdf4j-model</artifactId><version>${inherited.rdf4j.version}</version></dependency>
+		<dependency><groupId>org.eclipse.rdf4j</groupId><artifactId>rdf4j-common-xml</artifactId><version>${inherited.rdf4j.version}</version></dependency>
+		<dependency><groupId>org.eclipse.rdf4j</groupId><artifactId>rdf4j-rio-api</artifactId><version>${inherited.rdf4j.version}</version></dependency>
+
 		<dependency><groupId>com.github.jsonld-java</groupId><artifactId>jsonld-java</artifactId><version>0.13.4</version></dependency>
 		<dependency><groupId>org.apache.httpcomponents</groupId><artifactId>httpclient</artifactId><version>4.5.13</version></dependency>
 		<dependency><groupId>org.apache.httpcomponents</groupId><artifactId>httpclient-cache</artifactId><version>4.5.13</version></dependency>
-		<dependency><groupId>org.apache.httpcomponents</groupId><artifactId>httpcore</artifactId><version>4.4.5</version></dependency>
+		<dependency><groupId>org.apache.httpcomponents</groupId><artifactId>httpcore</artifactId><version>4.4.15</version></dependency>
 		<dependency><groupId>commons-codec</groupId><artifactId>commons-codec</artifactId><version>1.15</version></dependency>
 		<dependency><groupId>commons-logging</groupId><artifactId>commons-logging</artifactId><version>1.2</version></dependency>
 		<dependency><groupId>commons-io</groupId><artifactId>commons-io</artifactId><version>2.11.0</version></dependency>
 		<dependency><groupId>com.github.vsonnier</groupId><artifactId>hppcrt</artifactId><version>0.7.5</version></dependency>
-		<dependency><groupId>com.google.guava</groupId><artifactId>guava</artifactId><version>31.1-jre</version></dependency>
-		<dependency><groupId>com.github.ben-manes.caffeine</groupId><artifactId>caffeine</artifactId><version>2.9.3</version></dependency>
+		<dependency><groupId>com.google.guava</groupId><artifactId>guava</artifactId><version>31.1-jre</version>
+			<exclusions>
+				<exclusion>
+					<groupId>com.google.guava</groupId>
+					<artifactId>failureaccess</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>com.google.guava</groupId>
+<artifactId>listenablefuture</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>com.google.code.findbugs</groupId>
+<artifactId>jsr305</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.checkerframework</groupId>
+<artifactId>checker-qual</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>com.google.errorprone</groupId>
+<artifactId>error_prone_annotations</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>com.google.j2objc</groupId>
+<artifactId>j2objc-annotations</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency><groupId>com.github.ben-manes.caffeine</groupId><artifactId>caffeine</artifactId><version>3.1.1</version></dependency>
 		<!--  Disable until updated to use RDF4J
 		<dependency><groupId>org.semarglproject</groupId><artifactId>semargl-sesame</artifactId><version>0.7</version></dependency>
 		<dependency><groupId>org.semarglproject</groupId><artifactId>semargl-core</artifactId><version>0.7</version></dependency>
 		<dependency><groupId>org.semarglproject</groupId><artifactId>semargl-rdfa</artifactId><version>0.7</version></dependency>
 		<dependency><groupId>org.semarglproject</groupId><artifactId>semargl-rdf</artifactId><version>0.7</version></dependency -->
-		<dependency><groupId>org.apache.felix</groupId><artifactId>org.apache.felix.framework</artifactId><version>5.6.10</version><scope>test</scope></dependency>
+		<dependency><groupId>org.apache.felix</groupId><artifactId>org.apache.felix.framework</artifactId><version>7.0.5</version><scope>test</scope></dependency>
 		<dependency><groupId>org.apache.felix</groupId><artifactId>org.osgi.core</artifactId><version>1.4.0</version><scope>test</scope></dependency>
 		<dependency><groupId>org.apache.servicemix.bundles</groupId><artifactId>org.apache.servicemix.bundles.javax-inject</artifactId><version>1_2</version></dependency>
 		<dependency><groupId>org.slf4j</groupId><artifactId>slf4j-simple</artifactId><version>1.7.30</version><scope>test</scope></dependency>
@@ -85,7 +127,7 @@
 			<plugin>
 				<groupId>org.apache.felix</groupId>
 				<artifactId>maven-bundle-plugin</artifactId>
-				<version>3.5.1</version>
+				<version>5.1.8</version>
 				<extensions>true</extensions>
 				<configuration>
 					<instructions>
@@ -112,7 +154,15 @@
 							groupId=commons-*;scope=compile|runtime|provided,
 							groupId=com.google.guava;scope=compile|runtime|provided,
 							slf4j-api;scope=compile|runtime|provided,
-							slf4j-simple;scope=compile|runtime|provided
+							slf4j-simple;scope=compile|runtime|provided,
+							groupId=javax.xml.*;scope=compile|runtime|provided,
+							groupId=jakarta.xml.*;scope=compile|runtime|provided,
+							org.osgi.core;scope=compile|runtime|provided|test,
+							failureaccess;scope=compile|runtime|provided,
+							listenablefuture;scope=compile|runtime|provided,
+							checker-qual;scope=compile|runtime|provided,
+							error_prone_annotations;scope=compile|runtime|provided,
+							j2objc-annotations;scope=compile|runtime|provided
 						</excludeDependencies>
 						<Embed-Directory>lib</Embed-Directory>
 						<_exportcontents>
@@ -128,6 +178,8 @@
 						<Import-Package>
 							!sun.misc,
 							!javax.servlet,
+							!javax.xml.*,
+							!jakarta.xml.*,
 							!org.apache.avalon.framework.logger,
 							!org.apache.log*,
 							!javax.annotation,
@@ -143,6 +195,7 @@
 							!com.github.jsonldjava.shaded.com.google.common.util.concurrent.internal.*;resolution:=optional,
 							!com.google.common.cache.*,
 							!org.checkerframework.*,
+							!osgi.*,
 							net.sf.ehcache.*;resolution:=optional,
 							net.spy.memcached.*;resolution:=optional,
 							com.google.common.base;version=30.1.1.jre;resolution:=optional,
@@ -150,6 +203,8 @@
 							com.google.common.hash;version=30.1.1.jre;resolution:=optional,
 							javax.inject;version="[1.0,2)",
 							javax.annotation;version=!,
+							!com.google.appengine.*,
+							!com.google.apphosting.*,
 							*
 						</Import-Package>
 					</instructions>
@@ -158,7 +213,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-shade-plugin</artifactId>
-				<version>2.4.3</version>
+				<version>3.4.0</version>
 				<executions>
 					<execution>
 						<phase>package</phase>
@@ -194,6 +249,8 @@
 									<exclude>commons-io:*</exclude>
 									<exclude>org.tukaani:*</exclude>
 									<exclude>com.github.vsonnier:*</exclude>
+									<exclude>javax.xml.bind:*</exclude>
+									<exclude>jakarta.xml.bind:*</exclude>
 								</excludes>
 							</artifactSet>
 							<transformers>
@@ -206,7 +263,7 @@
 			</plugin>
 			<plugin>
 				<artifactId>maven-failsafe-plugin</artifactId>
-				<version>3.0.0-M5</version>
+				<version>3.0.0-M7</version>
 				<dependencies>
 					<dependency><groupId>org.junit.jupiter</groupId><artifactId>junit-jupiter-engine</artifactId><version>5.7.0</version></dependency>
 				</dependencies>
@@ -228,7 +285,7 @@
 			</plugin>
 			<plugin>
 				<artifactId>maven-javadoc-plugin</artifactId>
-				<version>2.10.4</version>
+				<version>3.4.1</version>
 				<configuration>
 					<show>public</show>
 				</configuration>
@@ -259,7 +316,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-assembly-plugin</artifactId>
-				<version>3.0.0</version>
+				<version>3.4.2</version>
 				<configuration>
 					<attach>true</attach>
 					<descriptors>
