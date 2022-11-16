@@ -15,7 +15,7 @@ import javax.annotation.Nonnull;
 
 import org.eclipse.rdf4j.model.Statement;
 import org.eclipse.rdf4j.model.ValueFactory;
-import org.eclipse.rdf4j.model.impl.ValueFactoryImpl;
+import org.eclipse.rdf4j.model.impl.SimpleValueFactory;
 import org.eclipse.rdf4j.model.vocabulary.OWL;
 import org.eclipse.rdf4j.model.vocabulary.RDF;
 import org.eclipse.rdf4j.rio.RDFFormat;
@@ -54,7 +54,7 @@ class RioRendererTestCase extends TestBase {
 
     @BeforeEach
     void setUp() {
-        vf = new ValueFactoryImpl();
+        vf = SimpleValueFactory.getInstance();
         m.getOntologyStorers().set(new RioNTriplesStorerFactory(), new RioRDFXMLStorerFactory(),
             new RioTurtleStorerFactory());
         testOntologyEmpty = create(testOntologyUri1);
@@ -62,7 +62,7 @@ class RioRendererTestCase extends TestBase {
         assertEquals(70, testOntologyKoala.getAxiomCount());
         testHandlerStatementCollector = new StatementCollector();
         testOntologyEmptyStatement =
-            vf.createStatement(vf.createURI("urn:test:ontology:uri:1"), RDF.TYPE, OWL.ONTOLOGY);
+            vf.createStatement(vf.createIRI("urn:test:ontology:uri:1"), RDF.TYPE, OWL.ONTOLOGY);
         testRdfXmlStringWriter = new StringWriter();
         testRdfXmlRioWriter = Rio.createWriter(RDFFormat.RDFXML, testRdfXmlStringWriter);
         testTurtleStringWriter = new StringWriter();

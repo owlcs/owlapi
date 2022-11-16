@@ -24,7 +24,7 @@
 	<properties>
 		<!-- Specify the encoding of the source files. -->
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<rdf4j.version>3.7.7</rdf4j.version>
+		<rdf4j.version>4.2.1</rdf4j.version>
 		<!-- remove this line for releases, if the release process fails because of missing javadoc jars -->
 		<no-javadoc>false</no-javadoc>
 		<!-- 4.0.0 is the earliest release on Maven Central for this series -->
@@ -234,6 +234,7 @@
 						<artifactId>maven-javadoc-plugin</artifactId>
 						<version>3.0.1</version>
 						<configuration>
+							<javadocExecutable>${java.home}/bin/javadoc</javadocExecutable>
 							<show>public</show>
 						</configuration>
 						<executions>
@@ -262,8 +263,8 @@
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>3.6.2</version>
 				<configuration>
-					<source>1.8</source>
-					<target>1.8</target>
+					<source>11</source>
+					<target>11</target>
 					<encoding>UTF-8</encoding>
 					<fork>true</fork>
 				</configuration>
@@ -288,7 +289,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-javadoc-plugin</artifactId>
-				<version>3.0.1</version>
+				<version>3.4.1</version>
 				<configuration>
 					<show>public</show>
 				</configuration>
@@ -346,7 +347,7 @@
 				<!-- verify all bytecode (including third party libs) is Java 7 max -->
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-enforcer-plugin</artifactId>
-				<version>3.0.0-M1</version>
+				<version>3.0.0</version>
 				<executions>
 					<execution>
 						<id>enforce-bytecode-version</id>
@@ -356,7 +357,7 @@
 						<configuration>
 							<rules>
 								<enforceBytecodeVersion>
-									<maxJdkVersion>1.8</maxJdkVersion>
+									<maxJdkVersion>11</maxJdkVersion>
 								</enforceBytecodeVersion>
 							</rules>
 							<fail>true</fail>
@@ -367,7 +368,7 @@
 					<dependency>
 						<groupId>org.codehaus.mojo</groupId>
 						<artifactId>extra-enforcer-rules</artifactId>
-						<version>1.0-beta-6</version>
+						<version>1.5.1</version>
 					</dependency>
 				</dependencies>
 			</plugin>

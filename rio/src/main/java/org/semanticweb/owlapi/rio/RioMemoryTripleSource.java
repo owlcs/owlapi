@@ -47,7 +47,7 @@ import java.util.Set;
 
 import javax.annotation.Nonnull;
 
-import org.eclipse.rdf4j.OpenRDFException;
+import org.eclipse.rdf4j.common.exception.RDF4JException;
 import org.eclipse.rdf4j.common.iteration.CloseableIteration;
 import org.eclipse.rdf4j.model.Model;
 import org.eclipse.rdf4j.model.Namespace;
@@ -122,7 +122,7 @@ public class RioMemoryTripleSource implements OWLOntologyDocumentSource {
      *                   source.
      */
     public RioMemoryTripleSource(
-        final CloseableIteration<Statement, ? extends OpenRDFException> statements) {
+        final CloseableIteration<Statement, ? extends RDF4JException> statements) {
         documentIRI = OWLOntologyDocumentSourceBase.getNextDocumentIRI("rio-memory-triples:");
         statementIterator = new Iterator<Statement>() {
 
@@ -142,13 +142,13 @@ public class RioMemoryTripleSource implements OWLOntologyDocumentSource {
                     } else {
                         throw new NoSuchElementException("No more statements in this iterator");
                     }
-                } catch (OpenRDFException e) {
+                } catch (RDF4JException e) {
                     throw new OWLRuntimeException("Found exception while iterating", e);
                 } finally {
                     if (nextStatement == null) {
                         try {
                             statements.close();
-                        } catch (OpenRDFException e) {
+                        } catch (RDF4JException e) {
                             throw new OWLRuntimeException(e);
                         }
                     }
@@ -161,13 +161,13 @@ public class RioMemoryTripleSource implements OWLOntologyDocumentSource {
                 try {
                     result = statements.hasNext();
                     return result;
-                } catch (OpenRDFException e) {
+                } catch (RDF4JException e) {
                     throw new OWLRuntimeException("Found exception while iterating", e);
                 } finally {
                     if (!result) {
                         try {
                             statements.close();
-                        } catch (OpenRDFException e) {
+                        } catch (RDF4JException e) {
                             throw new OWLRuntimeException(e);
                         }
                     }
@@ -187,7 +187,7 @@ public class RioMemoryTripleSource implements OWLOntologyDocumentSource {
      *                   source.
      */
     public RioMemoryTripleSource(
-        final CloseableIteration<Statement, ? extends OpenRDFException> statements,
+        final CloseableIteration<Statement, ? extends RDF4JException> statements,
         final Map<String, String> namespaces) {
         this(statements);
         this.namespaces.putAll(namespaces);

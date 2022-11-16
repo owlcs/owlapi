@@ -38,15 +38,12 @@ package org.semanticweb.owlapi.rio.utils;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Objects;
 
 import javax.annotation.Nullable;
 
-import org.eclipse.rdf4j.OpenRDFUtil;
-import org.eclipse.rdf4j.model.Resource;
-import org.eclipse.rdf4j.model.Statement;
-import org.eclipse.rdf4j.model.URI;
-import org.eclipse.rdf4j.model.Value;
-import org.eclipse.rdf4j.model.impl.ValueFactoryImpl;
+import org.eclipse.rdf4j.model.*;
+import org.eclipse.rdf4j.model.impl.SimpleValueFactory;
 import org.semanticweb.owlapi.io.RDFLiteral;
 import org.semanticweb.owlapi.io.RDFResourceIRI;
 import org.semanticweb.owlapi.io.RDFTriple;
@@ -91,12 +88,12 @@ public final class RioUtils {
      */
     public static Collection<Statement> tripleAsStatements(final RDFTriple triple,
         final Resource... contexts) {
-        OpenRDFUtil.verifyContextNotNull(contexts);
-        final ValueFactoryImpl vf = ValueFactoryImpl.getInstance();
+        Objects.requireNonNull(contexts,
+                "contexts argument may not be null; either the value should be cast to Resource or an empty array should be supplied");        final SimpleValueFactory vf = SimpleValueFactory.getInstance();
         Resource subject;
         if (triple.getSubject() instanceof RDFResourceIRI) {
             try {
-                subject = vf.createURI(triple.getSubject().getIRI().toString());
+                subject = vf.createIRI(triple.getSubject().getIRI().toString());
             } catch (IllegalArgumentException iae) {
                 LOGGER.error("Subject URI was invalid: {}", triple);
                 return Collections.emptyList();
@@ -111,11 +108,11 @@ public final class RioUtils {
                 subject = vf.createBNode(triple.getSubject().getIRI().toString());
             }
         }
-        URI predicate = vf.createURI(triple.getPredicate().getIRI().toString());
+        IRI predicate = vf.createIRI(triple.getPredicate().getIRI().toString());
         Value object;
         if (triple.getObject() instanceof RDFResourceIRI) {
             try {
-                object = vf.createURI(triple.getObject().getIRI().toString());
+                object = vf.createIRI(triple.getObject().getIRI().toString());
             } catch (IllegalArgumentException iae) {
                 LOGGER.error("Object URI was invalid: {}", triple);
                 return Collections.emptyList();
@@ -133,7 +130,7 @@ public final class RioUtils {
                 }
             } else {
                 object = vf.createLiteral(literalObject.getLexicalValue(),
-                    vf.createURI(literalObject.getDatatype().toString()));
+                    vf.createIRI(literalObject.getDatatype().toString()));
             }
         } else {
             // FIXME: When blank nodes are no longer represented as IRIs

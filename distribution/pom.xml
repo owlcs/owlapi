@@ -47,7 +47,6 @@
 		<dependency><groupId>org.eclipse.rdf4j</groupId><artifactId>rdf4j-rio-trix</artifactId><version>${inherited.rdf4j.version}</version></dependency>
 		<dependency><groupId>org.eclipse.rdf4j</groupId><artifactId>rdf4j-rio-turtle</artifactId><version>${inherited.rdf4j.version}</version></dependency>
 		<dependency><groupId>org.eclipse.rdf4j</groupId><artifactId>rdf4j-rio-trig</artifactId><version>${inherited.rdf4j.version}</version></dependency>
-		<dependency><groupId>org.eclipse.rdf4j</groupId><artifactId>rdf4j-util</artifactId><version>${inherited.rdf4j.version}</version></dependency>
 		<dependency><groupId>com.github.jsonld-java</groupId><artifactId>jsonld-java</artifactId><version>0.12.0</version></dependency>
 	</dependencies>
 

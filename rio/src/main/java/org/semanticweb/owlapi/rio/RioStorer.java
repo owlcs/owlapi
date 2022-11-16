@@ -44,11 +44,11 @@ import java.io.Writer;
 import java.net.URISyntaxException;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Objects;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import org.eclipse.rdf4j.OpenRDFUtil;
 import org.eclipse.rdf4j.model.Resource;
 import org.eclipse.rdf4j.model.impl.SimpleValueFactory;
 import org.eclipse.rdf4j.rio.RDFFormat;
@@ -104,7 +104,8 @@ public class RioStorer extends AbstractOWLStorer {
      * @param contexts contexts
      */
     public RioStorer(OWLDocumentFormatFactory ontologyFormat, Resource... contexts) {
-        OpenRDFUtil.verifyContextNotNull(contexts);
+        Objects.requireNonNull(contexts,
+                "contexts argument may not be null; either the value should be cast to Resource or an empty array should be supplied");
         ontFormat = ontologyFormat;
         this.contexts = contexts;
     }

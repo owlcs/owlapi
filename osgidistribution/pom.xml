@@ -48,7 +48,6 @@
 		<dependency><groupId>org.eclipse.rdf4j</groupId><artifactId>rdf4j-rio-trix</artifactId><version>${inherited.rdf4j.version}</version></dependency>
 		<dependency><groupId>org.eclipse.rdf4j</groupId><artifactId>rdf4j-rio-turtle</artifactId><version>${inherited.rdf4j.version}</version></dependency>
 		<dependency><groupId>org.eclipse.rdf4j</groupId><artifactId>rdf4j-rio-trig</artifactId><version>${inherited.rdf4j.version}</version></dependency>
-		<dependency><groupId>org.eclipse.rdf4j</groupId><artifactId>rdf4j-util</artifactId><version>${inherited.rdf4j.version}</version></dependency>
 		<dependency><groupId>com.github.jsonld-java</groupId><artifactId>jsonld-java</artifactId><version>0.12.0</version></dependency>
 		<dependency><groupId>org.apache.httpcomponents</groupId><artifactId>httpclient</artifactId><version>4.5.13</version></dependency>
 		<dependency><groupId>org.apache.httpcomponents</groupId><artifactId>httpclient-cache</artifactId><version>4.5.13</version></dependency>
@@ -259,7 +258,7 @@
 				     due to its reliance on Caffeine which is only available for Java 8 -->
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-enforcer-plugin</artifactId>
-				<version>3.0.0-M1</version>
+				<version>3.0.0</version>
 				<executions>
 					<execution>
 						<id>enforce-bytecode-version</id>
@@ -269,7 +268,7 @@
 						<configuration>
 							<rules>
 								<enforceBytecodeVersion>
-									<maxJdkVersion>1.8</maxJdkVersion>
+									<maxJdkVersion>11</maxJdkVersion>
 								</enforceBytecodeVersion>
 							</rules>
 							<fail>true</fail>
@@ -280,7 +279,7 @@
 					<dependency>
 						<groupId>org.codehaus.mojo</groupId>
 						<artifactId>extra-enforcer-rules</artifactId>
-						<version>1.0-beta-6</version>
+						<version>1.5.1</version>
 					</dependency>
 				</dependencies>
 			</plugin>

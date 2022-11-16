@@ -57,7 +57,7 @@ import javax.annotation.Nonnull;
 import org.eclipse.rdf4j.model.Resource;
 import org.eclipse.rdf4j.model.Statement;
 import org.eclipse.rdf4j.model.ValueFactory;
-import org.eclipse.rdf4j.model.impl.ValueFactoryImpl;
+import org.eclipse.rdf4j.model.impl.SimpleValueFactory;
 import org.eclipse.rdf4j.model.vocabulary.RDF;
 import org.eclipse.rdf4j.rio.RDFHandler;
 import org.eclipse.rdf4j.rio.RDFHandlerException;
@@ -278,7 +278,7 @@ public class RioParserImpl extends AbstractOWLParser implements RioParser {
         private final RDFHandler consumer;
         private long owlParseStart;
         private final Set<Resource> typedLists = new HashSet<>();
-        private final ValueFactory vf = ValueFactoryImpl.getInstance();
+        private final ValueFactory vf = SimpleValueFactory.getInstance();
 
         RioParserRDFHandler(RDFHandler consumer) {
             this.consumer = consumer;

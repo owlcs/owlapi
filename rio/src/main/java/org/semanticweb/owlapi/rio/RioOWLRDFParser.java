@@ -48,7 +48,7 @@ import javax.inject.Inject;
 
 import org.eclipse.rdf4j.model.ValueFactory;
 import org.eclipse.rdf4j.rio.RDFHandler;
-import org.eclipse.rdf4j.rio.helpers.RDFParserBase;
+import org.eclipse.rdf4j.rio.helpers.AbstractRDFParser;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
 import org.semanticweb.owlapi.io.ReaderDocumentSource;
 import org.semanticweb.owlapi.io.StreamDocumentSource;
@@ -65,7 +65,7 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
  * @author Peter Ansell p_ansell@yahoo.com
  * @since 4.0.0
  */
-public class RioOWLRDFParser extends RDFParserBase {
+public class RioOWLRDFParser extends AbstractRDFParser {
 
     private final OWLAPIRDFFormat owlFormat;
     private final Set<OWLOntologyManagerFactory> ontologyManagerFactories = new HashSet<>();
