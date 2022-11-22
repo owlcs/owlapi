@@ -42,30 +42,25 @@ public class MacroExpansionVisitor {
     protected Set<OWLAnnotation> extraAnnotations;
 
     /**
-     * @param ontology
-     *        ontology to use
+     * @param ontology ontology to use
      */
     public MacroExpansionVisitor(OWLOntology ontology) {
         this(ontology, AbstractMacroExpansionVisitor.EMPTY_ANNOTATIONS, false, false);
     }
 
     /**
-     * @param ontology
-     *        ontology to use
-     * @param shouldAddExpansionMarker
-     *        true if expansions should be added
+     * @param ontology ontology to use
+     * @param shouldAddExpansionMarker true if expansions should be added
      */
     public MacroExpansionVisitor(OWLOntology ontology, boolean shouldAddExpansionMarker) {
-        this(ontology, AbstractMacroExpansionVisitor.EMPTY_ANNOTATIONS, false, shouldAddExpansionMarker);
+        this(ontology, AbstractMacroExpansionVisitor.EMPTY_ANNOTATIONS, false,
+            shouldAddExpansionMarker);
     }
 
     /**
-     * @param ontology
-     *        ontology to use
-     * @param shouldTransferAnnotations
-     *        true if annotations should be transferred
-     * @param shouldAddExpansionMarker
-     *        true if expansions should be added
+     * @param ontology ontology to use
+     * @param shouldTransferAnnotations true if annotations should be transferred
+     * @param shouldAddExpansionMarker true if expansions should be added
      */
     public MacroExpansionVisitor(OWLOntology ontology, boolean shouldTransferAnnotations,
         boolean shouldAddExpansionMarker) {
@@ -74,14 +69,10 @@ public class MacroExpansionVisitor {
     }
 
     /**
-     * @param inputOntology
-     *        inputOntology
-     * @param extraAnnotations
-     *        extra annotations to add
-     * @param shouldTransferAnnotations
-     *        true if annotations should be transferred
-     * @param shouldAddExpansionMarker
-     *        true if expansions should be added
+     * @param inputOntology inputOntology
+     * @param extraAnnotations extra annotations to add
+     * @param shouldTransferAnnotations true if annotations should be transferred
+     * @param shouldAddExpansionMarker true if expansions should be added
      */
     public MacroExpansionVisitor(OWLOntology inputOntology, Set<OWLAnnotation> extraAnnotations,
         boolean shouldTransferAnnotations, boolean shouldAddExpansionMarker) {
@@ -122,8 +113,7 @@ public class MacroExpansionVisitor {
     }
 
     /**
-     * @param shouldTransferAnnotations
-     *        new value
+     * @param shouldTransferAnnotations new value
      */
     public void setShouldTransferAnnotations(boolean shouldTransferAnnotations) {
         this.shouldTransferAnnotations = shouldTransferAnnotations;
@@ -154,7 +144,8 @@ public class MacroExpansionVisitor {
                 OWLAxiom newAxiom = axiom.accept(visitor);
                 replaceIfDifferent(axiom, newAxiom);
             });
-            add(rmAxioms, inputOntology.axioms(AxiomType.ANNOTATION_ASSERTION).filter(this::expand));
+            add(rmAxioms,
+                inputOntology.axioms(AxiomType.ANNOTATION_ASSERTION).filter(this::expand));
         }
 
         private void replaceIfDifferent(OWLAxiom ax, OWLAxiom exAx) {
@@ -194,8 +185,8 @@ public class MacroExpansionVisitor {
                     OWLDataFactory dataFactory = visitor.df;
                     OWLClass axValClass = dataFactory.getOWLClass(axValIRI);
                     if (!inputOntology.declarationAxioms(axValClass).iterator().hasNext()) {
-                        OWLDeclarationAxiom declarationAxiom = dataFactory.getOWLDeclarationAxiom(axValClass,
-                            annotations);
+                        OWLDeclarationAxiom declarationAxiom =
+                            dataFactory.getOWLDeclarationAxiom(axValClass, annotations);
                         declarations.add(declarationAxiom);
                         newAxioms.add(declarationAxiom);
                         inputOntology.addAxiom(declarationAxiom);
@@ -211,8 +202,9 @@ public class MacroExpansionVisitor {
                         visitor.rebuild(inputOntology);
                     }
                     LOG.info("Template to Expand {}", expandTo);
-                    expandTo = expandTo.replaceAll("\\?X", visitor.getTool().getId((IRI) axiom.getSubject()));
-                    expandTo = expandTo.replaceAll("\\?Y", visitor.getTool().getId(axValIRI));
+                    expandTo =
+                        expandTo.replace("?X", visitor.getTool().getId((IRI) axiom.getSubject()));
+                    expandTo = expandTo.replace("?Y", visitor.getTool().getId(axValIRI));
                     LOG.info("Expanding {}", expandTo);
                     try {
                         expandAndAddAnnotations(expandTo, expandedSomething, annotations);
@@ -228,7 +220,8 @@ public class MacroExpansionVisitor {
 
         protected void expandAndAddAnnotations(String expandTo, AtomicBoolean expandedSomething,
             Set<OWLAnnotation> annotations) {
-            visitor.getTool().parseManchesterExpressionFrames(expandTo).stream().map(OntologyAxiomPair::getAxiom)
+            visitor.getTool().parseManchesterExpressionFrames(expandTo).stream()
+                .map(OntologyAxiomPair::getAxiom)
                 .map(ax -> shouldTransferAnnotations() ? ax.getAnnotatedAxiom(annotations) : ax)
                 .forEach(expandedAxiom -> {
                     newAxioms.add(expandedAxiom);
@@ -253,8 +246,8 @@ public class MacroExpansionVisitor {
 
                 @Override
                 @Nullable
-                protected OWLClassExpression expandOWLObjHasVal(OWLObjectHasValue desc, OWLIndividual filler,
-                    OWLObjectPropertyExpression p) {
+                protected OWLClassExpression expandOWLObjHasVal(OWLObjectHasValue desc,
+                    OWLIndividual filler, OWLObjectPropertyExpression p) {
                     OWLClassExpression result = expandObject(filler, p);
                     if (result != null) {
                         result = df.getOWLObjectSomeValuesFrom(desc.getProperty(), result);

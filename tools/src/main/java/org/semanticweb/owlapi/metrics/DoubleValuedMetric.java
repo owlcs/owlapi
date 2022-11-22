@@ -25,7 +25,7 @@ public abstract class DoubleValuedMetric extends AbstractOWLMetric<Double> {
      *
      * @param o ontology to use
      */
-    public DoubleValuedMetric(OWLOntology o) {
+    protected DoubleValuedMetric(OWLOntology o) {
         super(o);
     }
 }

@@ -191,7 +191,7 @@ public abstract class AbstractMacroExpansionVisitor implements OWLAxiomVisitorEx
     @Nullable
     protected IRI valFromOneOf(Object filler) {
         Iterator<? extends OWLIndividual> inds = ((OWLObjectOneOf) filler).individuals()
-            .filter(x -> x instanceof OWLNamedIndividual).iterator();
+            .filter(OWLNamedIndividual.class::isInstance).iterator();
         if (inds.hasNext()) {
             OWLIndividual ind = inds.next();
             // more than one value? Then cannot select a value

@@ -1743,8 +1743,7 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
     }
 
     private SWRLVariable parseDVariable() {
-        IRI var = parseVariable();
-        return df.getSWRLVariable(var);
+        return df.getSWRLVariable(parseVariable());
     }
 
     private SWRLLiteralArgument parseLiteralObject() {

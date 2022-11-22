@@ -82,7 +82,7 @@ public enum Construct {
      * Constructs incompatible with each other - if one is found in an ontology, the other cannot be
      * found. E.g., if Rr and I are found, then Rr is upgraded to R.
      */
-    public static EnumSet<Construct> incompatibleRoleFetures =
+    protected static final Set<Construct> incompatibleRoleFetures =
         EnumSet.of(ROLE_REFLEXIVITY_CHAINS, ROLE_INVERSE);
 
     private final String s;

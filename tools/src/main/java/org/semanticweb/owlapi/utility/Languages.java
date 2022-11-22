@@ -22,6 +22,7 @@ import static org.semanticweb.owlapi.utility.Construct.UNIVERSAL_RESTRICTION;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.EnumSet;
+import java.util.Set;
 
 /** Enumeration of known DL languages */
 public enum Languages {
@@ -318,7 +319,7 @@ public enum Languages {
     /**
      * @return constructs occurring within this name. Plain constructs have no components.
      */
-    public EnumSet<Construct> components() {
+    public Set<Construct> components() {
         return components;
     }
 

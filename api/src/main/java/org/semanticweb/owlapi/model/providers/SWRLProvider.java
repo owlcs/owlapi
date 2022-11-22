@@ -141,10 +141,10 @@ public interface SWRLProvider {
     /**
      * Gets a SWRLVariable.
      *
-     * @param var The id (IRI) of the variable
+     * @param variable The id (IRI) of the variable
      * @return A SWRLVariable that has the name specified by the IRI
      */
-    SWRLVariable getSWRLVariable(IRI var);
+    SWRLVariable getSWRLVariable(IRI variable);
 
     /**
      * Gets a SWRLVariable.
@@ -166,11 +166,11 @@ public interface SWRLProvider {
     /**
      * Gets a SWRLVariable with the same IRI as the input.
      *
-     * @param var an HasIRI instance. The variable will have the same IRI
+     * @param variable an HasIRI instance. The variable will have the same IRI
      * @return A SWRLVariable that has the name specified by the IRI
      */
-    default SWRLVariable getSWRLVariable(HasIRI var) {
-        return getSWRLVariable(var.getIRI());
+    default SWRLVariable getSWRLVariable(HasIRI variable) {
+        return getSWRLVariable(variable.getIRI());
     }
 
     /**

@@ -8,6 +8,8 @@ import java.util.Map;
 import java.util.Set;
 import java.util.function.BiConsumer;
 
+import javax.annotation.Nullable;
+
 /**
  * A wrapper for storer specific parameters.
  * 
@@ -33,7 +35,7 @@ public class OWLStorerParameters implements Serializable {
      * @return the value
      */
     @SuppressWarnings("unchecked")
-    public <T> T getParameter(Serializable key, T defaultValue) {
+    public <T> T getParameter(Serializable key, @Nullable T defaultValue) {
         Serializable val = parameterMap.get(key);
         if (val == null) {
             return defaultValue;

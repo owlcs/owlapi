@@ -621,8 +621,8 @@ public class OWLOntologyManagerImpl
         }
 
         @Override
-        public boolean move() {
-            return delegate.move();
+        public boolean shouldMove() {
+            return delegate.shouldMove();
         }
     }
 
@@ -644,7 +644,7 @@ public class OWLOntologyManagerImpl
         writeLock.lock();
         try {
             OWLOntology toReturn = null;
-            if (settings.move()) {
+            if (settings.shouldMove()) {
                 toReturn = toCopy;
                 ontologiesByID.put(toReturn.getOntologyID(), toReturn);
             } else {
@@ -656,14 +656,14 @@ public class OWLOntologyManagerImpl
             }
             // toReturn now initialized
             OWLOntologyManager m = toCopy.getOWLOntologyManager();
-            if (settings.move() || !settings.applyToAxiomsAndAnnotationsOnly()) {
+            if (settings.shouldMove() || !settings.applyToAxiomsAndAnnotationsOnly()) {
                 setOntologyDocumentIRI(toReturn, m.getOntologyDocumentIRI(toCopy));
                 OWLDocumentFormat ontologyFormat = m.getOntologyFormat(toCopy);
                 if (ontologyFormat != null) {
                     setOntologyFormat(toReturn, ontologyFormat);
                 }
             }
-            if (settings.move()) {
+            if (settings.shouldMove()) {
                 m.removeOntology(toCopy);
                 // at this point toReturn and toCopy are the same object
                 // change the manager on the ontology

@@ -142,7 +142,7 @@ public class OWLAnnotationPropertyTransformer implements OWLObjectVisitor, SWRLO
      * @param dataFactory The data factory to be used for the duplication.
      */
     public OWLAnnotationPropertyTransformer(OWLDataFactory dataFactory) {
-        this(new HashMap<OWLEntity, OWLEntity>(), dataFactory);
+        this(new HashMap<>(), dataFactory);
     }
 
     /**

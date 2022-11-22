@@ -1022,7 +1022,7 @@ public final class Searcher {
     public static Stream<OWLClassExpression> getEquivalentClasses(OWLClass e,
         OWLOntology ontology) {
         return equivalent(ontology.equivalentClassesAxioms(e)).filter(c -> !c.equals(e))
-            .map(c -> (OWLClassExpression) c);
+            .map(OWLClassExpression.class::cast);
     }
 
     /**

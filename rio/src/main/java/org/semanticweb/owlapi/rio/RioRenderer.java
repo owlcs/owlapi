@@ -239,12 +239,10 @@ public class RioRenderer extends RDFRendererBase {
         for (int i = 0; i < list.size(); i++) {
             if (list.get(i).getObject() instanceof RDFResource) {
                 RDFResource node = (RDFResource) list.get(i).getObject();
-                if (!pending.contains(node) && subnodes.add(node)) {
-                    if (graph != null) {
-                        final Collection<RDFTriple> triples = graph.getTriplesForSubject(node);
-                        trace(triples);
-                        addNewTriples(list, i, triples);
-                    }
+                if (!pending.contains(node) && subnodes.add(node) && graph != null) {
+                    final Collection<RDFTriple> triples = graph.getTriplesForSubject(node);
+                    trace(triples);
+                    addNewTriples(list, i, triples);
                 }
             }
         }

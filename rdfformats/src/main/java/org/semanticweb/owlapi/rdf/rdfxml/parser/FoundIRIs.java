@@ -387,7 +387,10 @@ class FoundIRIs {
     }
 
     @Nullable
-    public IRI getOntologyVersion(IRI ontology) {
+    public IRI getOntologyVersion(@Nullable IRI ontology) {
+        if (ontology == null) {
+            return null;
+        }
         return ontologyVersions.get(ontology);
     }
 

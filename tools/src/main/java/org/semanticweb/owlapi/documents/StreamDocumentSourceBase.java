@@ -37,12 +37,12 @@ public abstract class StreamDocumentSourceBase extends OWLOntologyDocumentSource
      * Constructs an input source which will read an ontology from a representation from the
      * specified stream.
      *
-     * @param stream      The stream that the ontology representation will be read from.
+     * @param stream The stream that the ontology representation will be read from.
      * @param documentIRI The document IRI
-     * @param format      ontology format
-     * @param mime        mime type
+     * @param format ontology format
+     * @param mime mime type
      */
-    public StreamDocumentSourceBase(InputStream stream, String documentIRI,
+    protected StreamDocumentSourceBase(InputStream stream, String documentIRI,
         @Nullable OWLDocumentFormat format, @Nullable String mime) {
         super(documentIRI, readIntoBuffer(stream), format, mime);
     }

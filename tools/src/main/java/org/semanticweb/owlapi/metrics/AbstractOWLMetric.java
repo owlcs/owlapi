@@ -45,7 +45,7 @@ public abstract class AbstractOWLMetric<M extends Serializable>
      *
      * @param o the ontology to use
      */
-    public AbstractOWLMetric(OWLOntology o) {
+    protected AbstractOWLMetric(OWLOntology o) {
         ontology = checkNotNull(o, "o cannot be null");
         ontology.getOWLOntologyManager().addOntologyChangeListener(this);
         dirty = true;

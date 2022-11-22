@@ -26,7 +26,7 @@ public abstract class ImportChange extends OWLOntologyChange {
      * @param ont the ontology to which the change is to be applied
      * @param importDeclaration the import declaration
      */
-    public ImportChange(OWLOntology ont, OWLImportsDeclaration importDeclaration) {
+    protected ImportChange(OWLOntology ont, OWLImportsDeclaration importDeclaration) {
         super(ont);
         declaration = checkNotNull(importDeclaration, "importDeclaration cannot be null");
     }

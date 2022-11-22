@@ -30,11 +30,10 @@ import org.semanticweb.owlapi.model.OWLOntologyID;
 import org.semanticweb.owlapi.model.RemoveAxiom;
 
 /**
- * Describes a violation of an OWLProfile by an axiom. Ultimately, there may be
- * part of the axiom that violates the profile rather than the complete axiom.
+ * Describes a violation of an OWLProfile by an axiom. Ultimately, there may be part of the axiom
+ * that violates the profile rather than the complete axiom.
  *
- * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group
+ * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 4.0.0
  */
 public abstract class OWLProfileViolation {
@@ -42,18 +41,18 @@ public abstract class OWLProfileViolation {
     private static final String S_IN_S = " [%s in %s]";
     protected final OWLOntology ontology;
     protected OWLDataFactory df;
-    @Nullable protected final OWLAxiom axiom;
-    @Nullable protected final Object expression;
+    @Nullable
+    protected final OWLAxiom axiom;
+    @Nullable
+    protected final Object expression;
 
     /**
-     * @param ontology
-     *        the ontology with the violation
-     * @param axiom
-     *        the axiom with the violation
-     * @param o
-     *        violation expression
+     * @param ontology the ontology with the violation
+     * @param axiom the axiom with the violation
+     * @param o violation expression
      */
-    public OWLProfileViolation(OWLOntology ontology, @Nullable OWLAxiom axiom, @Nullable Object o) {
+    protected OWLProfileViolation(OWLOntology ontology, @Nullable OWLAxiom axiom,
+        @Nullable Object o) {
         this.axiom = axiom;
         this.ontology = ontology;
         df = ontology.getOWLOntologyManager().getOWLDataFactory();
@@ -89,8 +88,8 @@ public abstract class OWLProfileViolation {
     }
 
     /**
-     * @return a set of changes to fix the violation - it might be just an axiom
-     *         removal, or a rewrite, or addition of other needed axioms.
+     * @return a set of changes to fix the violation - it might be just an axiom removal, or a
+     *         rewrite, or addition of other needed axioms.
      */
     public List<OWLOntologyChange> repair() {
         // default fix is to drop the axiom
@@ -107,16 +106,13 @@ public abstract class OWLProfileViolation {
     /**
      * Visitor accept method.
      *
-     * @param visitor
-     *        visitor
+     * @param visitor visitor
      */
     public abstract void accept(OWLProfileViolationVisitor visitor);
 
     /**
-     * @param visitor
-     *        visitor
-     * @param <O>
-     *        visitor return type
+     * @param visitor visitor
+     * @param <O> visitor return type
      * @return visitor return value
      */
     public abstract <O> Optional<O> accept(OWLProfileViolationVisitorEx<O> visitor);

@@ -29,7 +29,7 @@ public abstract class OWLOntologyChangeException extends OWLRuntimeException {
      * @param change change causing the error
      * @param message message
      */
-    public OWLOntologyChangeException(OWLOntologyChangeData change, String message) {
+    protected OWLOntologyChangeException(OWLOntologyChangeData change, String message) {
         super(message);
         this.change = change;
     }
@@ -39,7 +39,7 @@ public abstract class OWLOntologyChangeException extends OWLRuntimeException {
      * @param message message
      * @param cause cause
      */
-    public OWLOntologyChangeException(OWLOntologyChangeData change, String message,
+    protected OWLOntologyChangeException(OWLOntologyChangeData change, String message,
         Throwable cause) {
         super(message, cause);
         this.change = change;
@@ -49,7 +49,7 @@ public abstract class OWLOntologyChangeException extends OWLRuntimeException {
      * @param change change causing the error
      * @param cause cause
      */
-    public OWLOntologyChangeException(OWLOntologyChangeData change, Throwable cause) {
+    protected OWLOntologyChangeException(OWLOntologyChangeData change, Throwable cause) {
         super(cause);
         this.change = change;
     }

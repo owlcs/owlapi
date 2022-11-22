@@ -14,6 +14,7 @@ package org.semanticweb.owlapi.utility;
 
 import java.util.Collection;
 import java.util.LinkedHashSet;
+import java.util.Set;
 
 import org.semanticweb.owlapi.model.SWRLBuiltInAtom;
 import org.semanticweb.owlapi.model.SWRLClassAtom;
@@ -31,8 +32,7 @@ import org.semanticweb.owlapi.model.SWRLVariable;
 /**
  * Extracts the variables from rules.
  *
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.1.0
  */
 public class SWRLVariableExtractor implements SWRLObjectVisitorEx<Collection<SWRLVariable>> {
@@ -42,7 +42,7 @@ public class SWRLVariableExtractor implements SWRLObjectVisitorEx<Collection<SWR
     /**
      * @return the set of variables
      */
-    public LinkedHashSet<SWRLVariable> getVariables() {
+    public Set<SWRLVariable> getVariables() {
         return variables;
     }
 

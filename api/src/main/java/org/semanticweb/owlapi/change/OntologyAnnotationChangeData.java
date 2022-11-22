@@ -39,7 +39,7 @@ public abstract class OntologyAnnotationChangeData extends OWLOntologyChangeData
      *
      * @param annotation The {@link OWLAnnotation} that is the focus of some change.
      */
-    public OntologyAnnotationChangeData(OWLAnnotation annotation) {
+    protected OntologyAnnotationChangeData(OWLAnnotation annotation) {
         this.annotation = checkNotNull(annotation, "annotation must not be null");
     }
 

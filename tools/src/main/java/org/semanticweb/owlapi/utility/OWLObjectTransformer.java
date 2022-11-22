@@ -78,8 +78,8 @@ public class OWLObjectTransformer<T> {
         checkNotNull(o, "o cannot be null");
         List<AxiomChangeData> changes = new ArrayList<>();
         // no ontology changes will be collected
-        Visitor<T> v = new Visitor<>(new ArrayList<OWLOntologyChange>(), changes, predicate,
-            transformer, df, witness);
+        Visitor<T> v =
+            new Visitor<>(new ArrayList<>(), changes, predicate, transformer, df, witness);
         o.accept(v);
         return changes;
     }

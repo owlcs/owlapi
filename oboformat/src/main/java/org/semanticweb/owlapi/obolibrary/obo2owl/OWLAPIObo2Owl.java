@@ -795,7 +795,7 @@ public class OWLAPIObo2Owl {
             String xid = translateShorthandIdToExpandedId(id);
             if (!id.equals(xid)) {
                 OWLAxiom ax = df.getOWLAnnotationAssertionAxiom(trTagToAnnotationProp("shorthand"),
-                    p.getIRI(), trLiteral(id), new HashSet<OWLAnnotation>());
+                    p.getIRI(), trLiteral(id), new HashSet<>());
                 add(ax);
             }
             typedefToAnnotationProperty.put(p.getIRI().toString(), p);
@@ -843,7 +843,7 @@ public class OWLAPIObo2Owl {
         String xid = translateShorthandIdToExpandedId(id);
         if (!xid.equals(id)) {
             OWLAxiom ax = df.getOWLAnnotationAssertionAxiom(trTagToAnnotationProp("shorthand"),
-                p.getIRI(), trLiteral(id), new HashSet<OWLAnnotation>());
+                p.getIRI(), trLiteral(id), new HashSet<>());
             add(ax);
         }
     }

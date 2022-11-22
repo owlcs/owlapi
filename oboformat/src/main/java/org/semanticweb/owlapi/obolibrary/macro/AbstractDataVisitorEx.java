@@ -1,9 +1,5 @@
 package org.semanticweb.owlapi.obolibrary.macro;
 
-import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asList;
-
-import java.util.List;
-
 import org.semanticweb.owlapi.model.OWLDataComplementOf;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLDataIntersectionOf;

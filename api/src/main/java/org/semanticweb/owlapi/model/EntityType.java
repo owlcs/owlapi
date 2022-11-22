@@ -140,7 +140,7 @@ public class EntityType<E extends OWLEntity>
     }
 
     @FunctionalInterface
-    private static interface Builder<T> {
+    private static interface Builder<T> extends Serializable {
 
         T buildEntity(IRI i, EntityProvider p);
     }

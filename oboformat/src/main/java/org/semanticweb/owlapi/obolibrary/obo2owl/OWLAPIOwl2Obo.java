@@ -1042,7 +1042,7 @@ public class OWLAPIOwl2Obo {
         Clause clause, Set<OWLAnnotation> unprocessedQualifiers) {
         clause.setTag(OboFormatTag.TAG_SYNONYM.getTag());
         String type = null;
-        clause.setXrefs(new ArrayList<Xref>());
+        clause.setXrefs(new ArrayList<>());
         for (OWLAnnotation aan : qualifiers) {
             String propId = owlObjectToTag(aan.getProperty());
             if (OboFormatTag.TAG_XREF.getTag().equals(propId)) {

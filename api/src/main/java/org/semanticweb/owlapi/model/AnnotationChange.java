@@ -28,7 +28,7 @@ public abstract class AnnotationChange extends OWLOntologyChange {
      * @param ont the ontology to which the change is to be applied
      * @param annotation the annotation
      */
-    public AnnotationChange(OWLOntology ont, OWLAnnotation annotation) {
+    protected AnnotationChange(OWLOntology ont, OWLAnnotation annotation) {
         super(ont);
         this.annotation = checkNotNull(annotation, "annotation cannot be null");
     }

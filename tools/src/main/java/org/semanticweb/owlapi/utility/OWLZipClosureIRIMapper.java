@@ -13,12 +13,15 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
 import javax.annotation.Nullable;
+import javax.xml.XMLConstants;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLOntologyIRIMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
@@ -30,6 +33,7 @@ import org.yaml.snakeyaml.Yaml;
  * {@code jar:} IRIs. This enables access to zipped imports closures.
  */
 public class OWLZipClosureIRIMapper implements OWLOntologyIRIMapper {
+    private static final Logger LOGGER = LoggerFactory.getLogger(OWLZipClosureIRIMapper.class);
     private static final Pattern CATALOG_PATTERN = Pattern.compile("catalog[\\-v0-9]*\\.xml");
     private final List<IRI> physicalRoots = new ArrayList<>();
     private final Map<IRI, IRI> logicalToPhysicalIRI = new ConcurrentHashMap<>();
@@ -98,8 +102,8 @@ public class OWLZipClosureIRIMapper implements OWLOntologyIRIMapper {
             return false;
         }
         try {
-            Document doc = DocumentBuilderFactory.newInstance().newDocumentBuilder()
-                .parse(z.getInputStream(yaml));
+            DocumentBuilderFactory factory = factory();
+            Document doc = factory.newDocumentBuilder().parse(z.getInputStream(yaml));
             NodeList uris = doc.getElementsByTagName("uri");
             for (int i = 0; i < uris.getLength(); i++) {
                 // Catalogs do not have a way to indicate root ontologies; all ontologies will be
@@ -119,6 +123,23 @@ public class OWLZipClosureIRIMapper implements OWLOntologyIRIMapper {
         } catch (SAXException | ParserConfigurationException e1) {
             throw new IOException(e1);
         }
+    }
+
+    protected DocumentBuilderFactory factory() {
+        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+        try {
+            // to be compliant, completely disable DOCTYPE declaration:
+            factory.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true);
+            // or completely disable external entities declarations:
+            factory.setFeature("http://xml.org/sax/features/external-general-entities", false);
+            factory.setFeature("http://xml.org/sax/features/external-parameter-entities", false);
+            // or prohibit the use of all protocols by external entities:
+            factory.setAttribute(XMLConstants.ACCESS_EXTERNAL_DTD, "");
+            factory.setAttribute(XMLConstants.ACCESS_EXTERNAL_SCHEMA, "");
+        } catch (Exception e) {
+            LOGGER.warn("Disabling doctype parsing not supported", e);
+        }
+        return factory;
     }
 
     protected boolean loadFromOwlzipProperties(String basePhysicalIRI, ZipFile z)

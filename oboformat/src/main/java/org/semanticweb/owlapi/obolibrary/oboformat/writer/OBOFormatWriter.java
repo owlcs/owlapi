@@ -932,7 +932,7 @@ public class OBOFormatWriter {
                 .axioms(OWLAnnotationAssertionAxiom.class, OWLAnnotationSubject.class, iri,
                     Imports.INCLUDED, IN_SUB_POSITION)
                 .filter(ax -> ax.getProperty().isLabel()).filter(ax -> ax.getValue().isLiteral())
-                .map(OWLAnnotationAssertionAxiom::getValue).findAny().map(v -> (OWLLiteral) v)
+                .map(OWLAnnotationAssertionAxiom::getValue).findAny().map(OWLLiteral.class::cast)
                 .map(OWLLiteral::getLiteral).orElse(null);
         }
 

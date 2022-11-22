@@ -55,14 +55,14 @@ import org.semanticweb.owlapi.vocab.OWL2Datatype;
  */
 public class SimpleRendererDebug implements OWLObjectVisitor, OWLObjectRenderer {
 
-    private StringBuilder _sb = new StringBuilder();
+    private StringBuilder builder = new StringBuilder();
     private PrefixManager shortFormProvider = new PrefixManagerImpl();
 
     /**
      * reset the renderer.
      */
     public void reset() {
-        _sb = new StringBuilder();
+        builder = new StringBuilder();
     }
 
     /**
@@ -105,7 +105,7 @@ public class SimpleRendererDebug implements OWLObjectVisitor, OWLObjectRenderer 
     public String render(OWLObject object) {
         reset();
         accept(object);
-        return _sb.toString();
+        return builder.toString();
     }
 
     protected SimpleRendererDebug accept(OWLObject object) {
@@ -125,7 +125,7 @@ public class SimpleRendererDebug implements OWLObjectVisitor, OWLObjectRenderer 
     }
 
     private SimpleRendererDebug insertSpace() {
-        _sb.append(' ');
+        builder.append(' ');
         return this;
     }
 
@@ -139,7 +139,7 @@ public class SimpleRendererDebug implements OWLObjectVisitor, OWLObjectRenderer 
 
     @Override
     public String toString() {
-        return _sb.toString();
+        return builder.toString();
     }
 
     @Override
@@ -153,7 +153,7 @@ public class SimpleRendererDebug implements OWLObjectVisitor, OWLObjectRenderer 
     }
 
     protected SimpleRendererDebug name(OWLObject object) {
-        _sb.append(System.identityHashCode(object)).append(object.type().getName());
+        builder.append(System.identityHashCode(object)).append(object.type().getName());
         return this;
     }
 
@@ -167,7 +167,7 @@ public class SimpleRendererDebug implements OWLObjectVisitor, OWLObjectRenderer 
             } else if (o instanceof OWLObject) {
                 accept((OWLObject) o);
             } else {
-                _sb.append(System.identityHashCode(o)).append(o);
+                builder.append(System.identityHashCode(o)).append(o);
             }
             if (it.hasNext()) {
                 insertSpace();
@@ -178,7 +178,7 @@ public class SimpleRendererDebug implements OWLObjectVisitor, OWLObjectRenderer 
 
     @Override
     public void visit(OWLOntology ontology) {
-        _sb.append(ontology.type().getName()).append('(').append(ontology.getOntologyID())
+        builder.append(ontology.type().getName()).append('(').append(ontology.getOntologyID())
             .append(" [Axioms: ").append(ontology.getAxiomCount()).append("] [Logical axioms: ")
             .append(ontology.getLogicalAxiomCount()).append("])");
     }
@@ -192,7 +192,7 @@ public class SimpleRendererDebug implements OWLObjectVisitor, OWLObjectRenderer 
     @Override
     public void visit(OWLSubPropertyChainOfAxiom axiom) {
         name(axiom).left().writeAnnotations(axiom);
-        _sb.append("ObjectPropertyChain");
+        builder.append("ObjectPropertyChain");
         left().render(axiom.getPropertyChain()).right().insertSpace()
             .accept(axiom.getSuperProperty()).right();
     }
@@ -208,12 +208,12 @@ public class SimpleRendererDebug implements OWLObjectVisitor, OWLObjectRenderer 
     }
 
     protected SimpleRendererDebug right() {
-        _sb.append(')');
+        builder.append(')');
         return this;
     }
 
     protected SimpleRendererDebug left() {
-        _sb.append('(');
+        builder.append('(');
         return this;
     }
 
@@ -223,12 +223,12 @@ public class SimpleRendererDebug implements OWLObjectVisitor, OWLObjectRenderer 
         if (node.isRDFPlainLiteral()
             || node.getDatatype().getIRI().equals(OWL2Datatype.RDF_LANG_STRING.getIRI())) {
             // We can use a syntactic shortcut
-            _sb.append('"').append(literal).append('"');
+            builder.append('"').append(literal).append('"');
             if (node.hasLang()) {
-                _sb.append('@').append(node.getLang());
+                builder.append('@').append(node.getLang());
             }
         } else {
-            _sb.append('"').append(literal).append("\"^^");
+            builder.append('"').append(literal).append("\"^^");
             node.getDatatype().accept(this);
         }
     }
@@ -249,7 +249,8 @@ public class SimpleRendererDebug implements OWLObjectVisitor, OWLObjectRenderer 
     }
 
     protected SimpleRendererDebug shortIRI(HasIRI i) {
-        _sb.append(System.identityHashCode(i)).append(shortFormProvider.getShortForm(i.getIRI()));
+        builder.append(System.identityHashCode(i))
+            .append(shortFormProvider.getShortForm(i.getIRI()));
         return this;
     }
 
@@ -267,20 +268,20 @@ public class SimpleRendererDebug implements OWLObjectVisitor, OWLObjectRenderer 
 
     @Override
     public void visit(OWLAnonymousIndividual individual) {
-        _sb.append(System.identityHashCode(individual)).append(individual.getID());
+        builder.append(System.identityHashCode(individual)).append(individual.getID());
     }
 
     @Override
     public void visit(IRI iri) {
-        _sb.append(System.identityHashCode(iri)).append('<').append(iri).append('>');
+        builder.append(System.identityHashCode(iri)).append('<').append(iri).append('>');
     }
 
     @Override
     public void visit(SWRLRule rule) {
         name(rule).left().writeAnnotations(rule);
-        _sb.append("Body");
+        builder.append("Body");
         left().render(rule.bodyList()).right().insertSpace();
-        _sb.append("Head");
+        builder.append("Head");
         left().render(rule.headList()).right().right();
     }
 

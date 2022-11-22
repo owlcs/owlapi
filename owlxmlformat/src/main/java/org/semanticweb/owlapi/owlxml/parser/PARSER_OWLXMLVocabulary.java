@@ -674,7 +674,7 @@ class AxiomEH<X extends OWLAxiom, B extends Builder<X>> extends OWLEH<X, B> {
 
 abstract class DataRangeEH<X extends OWLDataRange, B extends Builder<X>> extends OWLEH<X, B> {
 
-    public DataRangeEH(Function<OWLDataFactory, B> b) {
+    protected DataRangeEH(Function<OWLDataFactory, B> b) {
         provider = b;
         child = HandleChild.ABSTRACTOWLDATARANGEHANDLER;
     }
@@ -1832,7 +1832,7 @@ class SubObjectPropertyOfEH extends AxiomEH<OWLSubObjectPropertyOfAxiom, Builder
 
 abstract class AtomEH<X extends SWRLAtom, B extends Builder<X>> extends OWLEH<X, B> {
 
-    public AtomEH() {
+    protected AtomEH() {
         child = HandleChild.SWRLATOMEH;
     }
 

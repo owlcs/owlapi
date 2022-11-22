@@ -155,7 +155,7 @@ public abstract class RDFRendererBase {
      * @param ontology ontology
      * @param format format
      */
-    public RDFRendererBase(OWLOntology ontology, @Nullable OWLDocumentFormat format) {
+    protected RDFRendererBase(OWLOntology ontology, @Nullable OWLDocumentFormat format) {
         this(ontology, format, ontology.getOWLOntologyManager().getOntologyConfigurator());
     }
 
@@ -442,8 +442,8 @@ public abstract class RDFRendererBase {
             writeBanner(RULES_BANNER_TEXT);
             SWRLVariableExtractor variableExtractor = new SWRLVariableExtractor();
             ruleAxioms.forEach(rule -> rule.accept(variableExtractor));
-            variableExtractor.getVariables()
-                .forEach(var -> render(new RDFResourceIRI(verifyAbsolute(var.getIRI())), true));
+            variableExtractor.getVariables().forEach(
+                variable -> render(new RDFResourceIRI(verifyAbsolute(variable.getIRI())), true));
             renderAnonRoots();
         }
     }

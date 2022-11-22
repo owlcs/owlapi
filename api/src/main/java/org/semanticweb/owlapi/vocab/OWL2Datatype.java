@@ -434,7 +434,7 @@ public enum OWL2Datatype implements HasIRI, HasShortForm, HasPrefixedName {
 
             @Override
             public String getNormalisedString(String s) {
-                return s.replaceAll("\\t|\\n|\\r", " ");
+                return replacePattern.matcher(s).replaceAll(" ");
             }
         },
         /**
@@ -445,9 +445,13 @@ public enum OWL2Datatype implements HasIRI, HasShortForm, HasPrefixedName {
 
             @Override
             public String getNormalisedString(String s) {
-                return REPLACE.getNormalisedString(s).replaceAll("\\s+", " ").trim();
+                return collapsePattern.matcher(REPLACE.getNormalisedString(s)).replaceAll(" ")
+                    .trim();
             }
         };
+
+        private static final Pattern replacePattern = Pattern.compile("[\\t\\n\\r]");
+        private static final Pattern collapsePattern = Pattern.compile("\\s+");
 
         /**
          * Gets the normalised version of a string.

@@ -59,13 +59,13 @@ public interface OntologyCopy extends Serializable {
 
         private final boolean applyToImportsClosure;
         private final boolean applyToAxiomsAndAnnotationsOnly;
-        private final boolean move;
+        private final boolean shouldMove;
 
         private KnownValues(boolean applyToImportsClosure, boolean applyToAxiomsAndAnnotationsOnly,
             boolean move) {
             this.applyToImportsClosure = applyToImportsClosure;
             this.applyToAxiomsAndAnnotationsOnly = applyToAxiomsAndAnnotationsOnly;
-            this.move = move;
+            shouldMove = move;
         }
 
         @Override
@@ -79,8 +79,8 @@ public interface OntologyCopy extends Serializable {
         }
 
         @Override
-        public boolean move() {
-            return move;
+        public boolean shouldMove() {
+            return shouldMove;
         }
     }
 
@@ -124,5 +124,5 @@ public interface OntologyCopy extends Serializable {
     boolean applyToAxiomsAndAnnotationsOnly();
 
     /** @return true if the ontology should be moved */
-    boolean move();
+    boolean shouldMove();
 }

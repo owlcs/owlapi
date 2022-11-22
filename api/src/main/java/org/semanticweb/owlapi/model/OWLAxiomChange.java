@@ -28,7 +28,7 @@ public abstract class OWLAxiomChange extends OWLOntologyChange {
      * @param ont the ontology to which the change is to be applied
      * @param axiom the axiom to be changed
      */
-    public OWLAxiomChange(OWLOntology ont, OWLAxiom axiom) {
+    protected OWLAxiomChange(OWLOntology ont, OWLAxiom axiom) {
         super(ont);
         this.axiom = checkNotNull(axiom, "axiom cannot be null");
     }

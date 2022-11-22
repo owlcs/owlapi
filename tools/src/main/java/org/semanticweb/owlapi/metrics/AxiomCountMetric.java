@@ -28,7 +28,7 @@ public abstract class AxiomCountMetric extends ObjectCountMetric<OWLAxiom> {
      *
      * @param o ontology to use
      */
-    public AxiomCountMetric(OWLOntology o) {
+    protected AxiomCountMetric(OWLOntology o) {
         super(o);
     }
 

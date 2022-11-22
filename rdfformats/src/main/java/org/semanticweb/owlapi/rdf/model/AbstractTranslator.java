@@ -270,7 +270,7 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
      * @param multiple will tell whether anonymous individuals need an id or not
      * @param translatedAxioms translated axioms
      */
-    public AbstractTranslator(OWLOntologyManager manager, OWLOntology ontology,
+    protected AbstractTranslator(OWLOntologyManager manager, OWLOntology ontology,
         @Nullable OWLDocumentFormat format, boolean useStrongTyping, IndividualAppearance multiple,
         Set<OWLAxiom> translatedAxioms) {
         this.ont = checkNotNull(ontology, "ontology cannot be null");

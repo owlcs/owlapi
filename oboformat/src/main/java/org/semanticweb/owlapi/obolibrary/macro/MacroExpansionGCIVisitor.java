@@ -119,10 +119,8 @@ public class MacroExpansionGCIVisitor {
             String expandTo = visitor.expandAssertionToMap.get(prop.getIRI());
             if (expandTo != null) {
                 LOG.info("Template to Expand{}", expandTo);
-                expandTo =
-                    expandTo.replaceAll("\\?X", visitor.getTool().getId((IRI) ax.getSubject()));
-                expandTo =
-                    expandTo.replaceAll("\\?Y", visitor.getTool().getId((IRI) ax.getValue()));
+                expandTo = expandTo.replace("?X", visitor.getTool().getId((IRI) ax.getSubject()));
+                expandTo = expandTo.replace("?Y", visitor.getTool().getId((IRI) ax.getValue()));
                 LOG.info("Expanding {}", expandTo);
                 try {
                     visitor.getTool().parseManchesterExpressionFrames(expandTo).forEach(axp -> {

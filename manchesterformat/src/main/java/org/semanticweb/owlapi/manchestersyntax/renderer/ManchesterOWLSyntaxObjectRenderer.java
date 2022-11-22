@@ -187,7 +187,7 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer
         PrefixManager entityShortFormProvider) {
         super(writer, entityShortFormProvider);
         explicitXsdString = Boolean.parseBoolean(
-            parameters.getParameter("force xsd:string on literals", Boolean.FALSE).toString());;
+            parameters.getParameter("force xsd:string on literals", Boolean.FALSE).toString());
     }
 
     protected ManchesterOWLSyntaxObjectRenderer accept(OWLObject o) {

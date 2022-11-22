@@ -33,7 +33,7 @@ public abstract class ObjectCountMetric<E> extends IntegerValuedMetric {
      *
      * @param o ontology to use
      */
-    public ObjectCountMetric(OWLOntology o) {
+    protected ObjectCountMetric(OWLOntology o) {
         super(o);
     }
 

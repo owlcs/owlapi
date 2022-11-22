@@ -33,7 +33,7 @@ public abstract class AxiomChangeData extends OWLOntologyChangeData {
      *
      * @param axiom The {@link OWLAxiom} involved in a change.
      **/
-    public AxiomChangeData(OWLAxiom axiom) {
+    protected AxiomChangeData(OWLAxiom axiom) {
         this.axiom = checkNotNull(axiom, "axiom must not be null");
     }
 

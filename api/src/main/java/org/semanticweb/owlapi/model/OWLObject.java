@@ -16,9 +16,9 @@ import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.empty;
 import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.flatComponents;
 
 import java.io.Serializable;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.concurrent.atomic.AtomicInteger;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Set;
 import java.util.stream.Stream;
 
 /**
@@ -137,12 +137,16 @@ public interface OWLObject
      *         <br>
      */
     default boolean hasSharedStructure() {
-        Map<OWLObject, AtomicInteger> counters = new HashMap<>();
-        Stream<OWLObject> filter = flatComponents(this).filter(x -> x instanceof OWLObject)
-            .map(x -> (OWLObject) x).filter(OWLObject::isAnonymousExpression);
-        filter
-            .forEach(x -> counters.computeIfAbsent(x, q -> new AtomicInteger(0)).incrementAndGet());
-        return counters.values().stream().anyMatch(x -> x.get() > 1);
+        Set<OWLObject> counters = new HashSet<>();
+        Stream<OWLObject> filter = flatComponents(this).filter(OWLObject.class::isInstance)
+            .map(OWLObject.class::cast).filter(OWLObject::isAnonymousExpression);
+        Iterator<OWLObject> iterator = filter.iterator();
+        while (iterator.hasNext()) {
+            if (!counters.add(iterator.next())) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**

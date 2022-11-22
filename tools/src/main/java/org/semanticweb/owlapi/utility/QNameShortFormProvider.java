@@ -35,7 +35,7 @@ public class QNameShortFormProvider implements ShortFormProvider {
      * generated.
      */
     public QNameShortFormProvider() {
-        this(new HashMap<String, String>());
+        this(new HashMap<>());
     }
 
     /**
@@ -43,7 +43,7 @@ public class QNameShortFormProvider implements ShortFormProvider {
      * namespace mappings.
      *
      * @param prefix2Ns The map which contains a prefix to namespace mapping. The prefix must not
-     * have a trailing ":"; if one is there, it will be removed
+     *        have a trailing ":"; if one is there, it will be removed
      */
     public QNameShortFormProvider(Map<String, String> prefix2Ns) {
         checkNotNull(prefix2Ns, "prefix2NamespaceMap cannot be null");
