@@ -1,25 +1,33 @@
 package org.obolibrary.oboformat;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.StringWriter;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Stream;
 
 import org.junit.jupiter.api.Test;
 import org.obolibrary.oboformat.model.Clause;
 import org.obolibrary.oboformat.model.Frame;
 import org.obolibrary.oboformat.model.OBODoc;
 import org.obolibrary.oboformat.parser.OBOFormatConstants.OboFormatTag;
+import org.obolibrary.oboformat.parser.OBOFormatParser;
 import org.obolibrary.oboformat.writer.OBOFormatWriter;
 import org.semanticweb.owlapi.apitest.TestFilenames;
+import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 
 /**
@@ -139,4 +147,30 @@ class OBOFormatWriterTestCase extends OboFormatTestBasics {
         String written = renderOboToString(obodoc);
         assertEquals(input, written);
     }
+    
+    @Test
+    void testRoundTrip() throws IOException {
+		File oboFile = new File(this.getClass().getClassLoader().getResource("obo/writer_round_trip.obo").getFile());
+
+		assertNotNull(oboFile);
+		OBOFormatParser parser = new OBOFormatParser();
+		OBODoc oboDoc = parser.parse(oboFile);
+		assertNotNull(oboDoc);
+		
+		OWLOntology owlOntology = convert(oboDoc);
+		OBODoc oboDoc2 = convert(owlOntology);
+
+		OBOFormatWriter writer = new OBOFormatWriter();
+		StringWriter stringWriter = new StringWriter();
+		writer.write(oboDoc2, stringWriter);
+
+		final List<String> outputLines = Arrays.asList(stringWriter.toString().split("\n"));
+		try (Stream<String> stream = Files.lines(oboFile.toPath(), StandardCharsets.UTF_8)) {
+			stream.forEach(s -> assertTrue(outputLines.contains(s),
+					String.format("'%s' doesn't exist in the output file.", s)));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+    }
+    
 }
