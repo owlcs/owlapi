@@ -279,36 +279,36 @@ public class OBOFormatWriter {
      * @param writer the writer
      * @throws IOException Signals that an I/O exception has occurred.
      */
-	public static void writePropertyValue(Clause clause, Writer writer) throws IOException {
-		Collection<?> cols = clause.getValues();
-		if (cols.size() < 2) {
-			LOG.error("The {} has incorrect number of values: {}", OboFormatTag.TAG_PROPERTY_VALUE.getTag(), clause);
-			return;
-		}
-		Object v = clause.getValue();
-		Object v2 = clause.getValue2();
+    public static void writePropertyValue(Clause clause, Writer writer) throws IOException {
+        Collection<?> cols = clause.getValues();
+        if (cols.size() < 2) {
+            LOG.error("The {} has incorrect number of values: {}", OboFormatTag.TAG_PROPERTY_VALUE.getTag(), clause);
+            return;
+        }
+        Object v = clause.getValue();
+        Object v2 = clause.getValue2();
 
-		StringBuilder sb = new StringBuilder();
-		sb.append(clause.getTag());
-		sb.append(": ");
-		sb.append(escapeOboString(v.toString(), EscapeMode.SIMPLE));
-		sb.append(' ');
-		if (cols.size() == 2) {
-			sb.append(escapeOboString(v2.toString(), EscapeMode.SIMPLE));
-		} else if (cols.size() == 3) {
-			Iterator<Object> it = clause.getValues().iterator();
-			it.next();
-			it.next();
-			String v3String = (String) it.next();
-			sb.append('"');
-			sb.append(escapeOboString(v2.toString(), EscapeMode.QUOTES));
-			sb.append('"');
-			sb.append(' ');
-			sb.append(escapeOboString(v3String, EscapeMode.SIMPLE));
-		}
-		appendQualifiers(sb, clause);
-		writeLine(sb, writer);
-	}
+        StringBuilder sb = new StringBuilder();
+        sb.append(clause.getTag());
+        sb.append(": ");
+        sb.append(escapeOboString(v.toString(), EscapeMode.SIMPLE));
+        sb.append(' ');
+        if (cols.size() == 2) {
+            sb.append(escapeOboString(v2.toString(), EscapeMode.SIMPLE));
+        } else if (cols.size() == 3) {
+            Iterator<Object> it = clause.getValues().iterator();
+            it.next();
+            it.next();
+            String v3String = (String) it.next();
+            sb.append('"');
+            sb.append(escapeOboString(v2.toString(), EscapeMode.QUOTES));
+            sb.append('"');
+            sb.append(' ');
+            sb.append(escapeOboString(v3String, EscapeMode.SIMPLE));
+        }
+        appendQualifiers(sb, clause);
+        writeLine(sb, writer);
+    }
 
     /**
      * Write synonym.
