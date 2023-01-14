@@ -41,7 +41,6 @@ comment: The embryo proper is the entire embryo exclusive of the suspensor.
 synonym: "embri&#243foro (Spanish, exact)" EXACT Spanish [POC:Maria_Alejandra_Gandolfo]
 synonym: "胚本体 (Japanese, exact)" EXACT Japanese [NIG:Yukiko_Yamazaki]
 xref: PO_GIT:246
-customTag: custom value
 property_value: dc-source http://purl.obolibrary.org/obo/aao.owl
 property_value: dc-source "ISBN:0030229073 Invertebrate Zoology, Barnes" xsd:string
 property_value: depicted_by http://upload.wikimedia.org/wikipedia/commons/4/41/Parts_of_feather_modified.jpg
