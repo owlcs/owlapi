@@ -1,8 +1,22 @@
+## 4.5.23 14 January 2023
+
+### Features:
+
+*    Allow forcing explicit xsd:xstrig type #1063
+
+### Bug fixes:
+
+*    OBO serializer incorrectly quoting IRI property values #1085
+*    Update dependencies for security issues
+*    Check for empty collections on AxiomSubjectProvder #1069
+*    Correct bad default args #1063
+*    Fix OWLEntityRenamer and anonymous individuals #892
+
 ## 4.5.22 7 May 2022
 
 ### Bug fixes:
 
-* Do not output xsd:string when unnecessary #640
+*    Do not output xsd:string when unnecessary #640
 
 ## 4.5.21 19 February 2022
 

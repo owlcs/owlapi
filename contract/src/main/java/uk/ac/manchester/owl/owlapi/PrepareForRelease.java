@@ -11,8 +11,8 @@ import java.util.stream.Collectors;
 
 public class PrepareForRelease {
     public static void main(String[] args) throws IOException {
-        String newVersion = "4.5.22";
-        String[] toReplace = new String[] {"4.5.21", "4.5.21-SNAPSHOT"};
+        String newVersion = "4.5.23";
+        String[] toReplace = new String[] {"4.5.22", "4.5.22-SNAPSHOT"};
         treat(newVersion, toReplace,
             "../api/src/main/java/org/semanticweb/owlapi/util/VersionInfo.java");
         treat(newVersion, toReplace,
