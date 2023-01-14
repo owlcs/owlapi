@@ -537,37 +537,34 @@ public class OBOFormatWriter {
      * @param writer the writer
      * @throws IOException Signals that an I/O exception has occurred.
      */
-    public static void writePropertyValue(@Nonnull Clause clause, @Nonnull BufferedWriter writer)
-        throws IOException {
+    public static void writePropertyValue(Clause clause, BufferedWriter writer) throws IOException {
         Collection<?> cols = clause.getValues();
         if (cols.size() < 2) {
             LOG.error("The {} has incorrect number of values: {}",
                 OboFormatTag.TAG_PROPERTY_VALUE.getTag(), clause);
             return;
         }
+        Object v = clause.getValue();
+        Object v2 = clause.getValue2();
+        assert v != null;
+        assert v2 != null;
         StringBuilder sb = new StringBuilder();
         sb.append(clause.getTag());
         sb.append(": ");
-        Iterator<?> it = cols.iterator();
-        // write property
-        // TODO replace toString() method
-        String property = it.next().toString();
-        assert property != null;
-        sb.append(escapeOboString(property, EscapeMode.simple));
-        // write value and optional type
-        if (it.hasNext()) {
-            // value
-            sb.append(' ');
-            String val = it.next().toString(); // TODO replace toString() method
+        sb.append(escapeOboString(v.toString(), EscapeMode.simple));
+        sb.append(' ');
+        if (cols.size() == 2) {
+            sb.append(escapeOboString(v2.toString(), EscapeMode.simple));
+        } else if (cols.size() == 3) {
+            Iterator<Object> it = clause.getValues().iterator();
+            it.next();
+            it.next();
+            String v3String = (String) it.next();
             sb.append('"');
-            sb.append(escapeOboString(val, EscapeMode.quotes));
+            sb.append(escapeOboString(v2.toString(), EscapeMode.quotes));
             sb.append('"');
-        }
-        while (it.hasNext()) {
-            // optional type; there should be only one value left in the iterator
             sb.append(' ');
-            String val = it.next().toString(); // TODO replace toString() method
-            sb.append(escapeOboString(val, EscapeMode.simple));
+            sb.append(escapeOboString(v3String, EscapeMode.simple));
         }
         appendQualifiers(sb, clause);
         writeLine(sb, writer);
