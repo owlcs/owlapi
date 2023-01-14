@@ -1,3 +1,20 @@
+## 5.5.0 14 January 2023
+
+### Features:
+
+*    Java 11 required to include dependencies that require Java 9 or newer
+*    Added support for MS syntax to include all features from OWL2 DL
+
+### Bug fixes:
+
+*    Memory leaks in semantic module extraction
+*    Ensure pending annotations are cleared after handling triple
+*    Only remove unannotated axiom if it received annotations.
+*    Check for empty collections on AxiomSubjectProvder #1069
+*    Allow forcing explicit xsd:xstrig type #1063
+*    Bump rdf4j.version to 4.2.0, JDK to 11, version to 5.5.0
+*    OBO serializer incorrectly quoting IRI property values (#1085)
+
 ## 5.1.20 19 February 2022
 
 ### Features:
@@ -422,6 +439,40 @@ Features:
 *    Enabled OWLOntologyManager to build and keep an OntologyConfigurator instance
 *    Declaration of save methods on OWLOntology
 *    OWLAPI 5 uses Java 8
+
+## 4.5.23 14 January 2023
+
+### Features:
+
+*    Allow forcing explicit xsd:xstrig type #1063
+
+### Bug fixes:
+
+*    OBO serializer incorrectly quoting IRI property values #1085
+*    Update dependencies for security issues
+*    Check for empty collections on AxiomSubjectProvder #1069
+*    Correct bad default args #1063
+*    Fix OWLEntityRenamer and anonymous individuals #892
+
+## 4.5.22 7 May 2022
+
+### Bug fixes:
+
+*    Do not output xsd:string when unnecessary #640
+
+## 4.5.21 19 February 2022
+
+### Features:
+
+*    Improve MAVEN build Performance
+*    Extend messages for OWL exceptions #1020
+
+### Bug fixes:
+
+*    Fix OWLDifferentIndividuals with two ops rendered with one triple #1031
+*    Fix Abbreviated IRI as OntologyIRI in Manchester syntax #1041
+*    Fix Individuals: anonymous individuals in Manchester syntax #1006
+*    Fix UNPARSED TRIPLES ERROR for class assertions #1023
 
 ## 4.5.20 31 July 2021
 
