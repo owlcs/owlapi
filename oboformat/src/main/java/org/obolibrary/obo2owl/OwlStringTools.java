@@ -19,8 +19,10 @@ import org.semanticweb.owlapi.io.StringDocumentSource;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyBuilder;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyFactory;
+import org.semanticweb.owlapi.model.OWLOntologyID;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.UnloadableImportException;
 import org.semanticweb.owlapi.utilities.Injector;
@@ -88,6 +90,12 @@ public class OwlStringTools {
     private static Injector injector() {
         Injector i = new Injector();
         i.bindToOne(() -> new ReentrantReadWriteLock(), ReadWriteLock.class);
+        i.bindToOne(() -> new OWLOntologyBuilder() {
+			@Override
+			public OWLOntology createOWLOntology(OWLOntologyManager manager, OWLOntologyID ontologyID) {
+				return null;
+			}
+		}, OWLOntologyBuilder.class);
         return i;
     }
 
