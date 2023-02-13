@@ -3,6 +3,7 @@ package org.obolibrary.oboformat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -173,4 +174,21 @@ class OBOFormatWriterTestCase extends OboFormatTestBasics {
                 String.format("'%s' doesn't exist in the output file.", s)));
         }
     }
+    
+    @Test
+    void testIllegalOWLWriting() throws IOException {
+    	File illegalOWLFile = getFile("illegal_property.owl");
+    	
+        OWLOntology illegalOntology = loadOntologyFromFile(illegalOWLFile);
+        OBODoc oboDoc = convert(illegalOntology);
+        
+        OBOFormatWriter writer = new OBOFormatWriter();
+		StringWriter stringWriter = new StringWriter();
+		BufferedWriter bw = new BufferedWriter(stringWriter);
+		writer.write(oboDoc, bw);
+		
+		String illegalOutput = "{http://www.w3.org/1999/02/22-rdf-syntax-ns#type=\"owl:Axiom\"}";
+		assertFalse(stringWriter.toString().contains(illegalOutput), String.format("Ilegal output '%s' exists in the output", illegalOutput));
+    }
+    
 }

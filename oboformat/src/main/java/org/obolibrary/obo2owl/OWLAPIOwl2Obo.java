@@ -83,6 +83,7 @@ import org.semanticweb.owlapi.model.OWLSubObjectPropertyOfAxiom;
 import org.semanticweb.owlapi.model.OWLSubPropertyChainOfAxiom;
 import org.semanticweb.owlapi.model.OWLSymmetricObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
+import org.semanticweb.owlapi.rdf.rdfxml.parser.RDFConstants;
 import org.semanticweb.owlapi.vocab.Namespaces;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
@@ -1156,6 +1157,9 @@ public class OWLAPIOwl2Obo {
                 continue;
             }
             String value = ann.getValue().toString();
+            if (prop.equals(RDFConstants.RDF_TYPE) && value.equals(OWLRDFVocabulary.OWL_AXIOM.toString())) {
+            	continue;
+            }
             if (ann.getValue() instanceof OWLLiteral) {
                 value = ((OWLLiteral) ann.getValue()).getLiteral();
             } else if (ann.getValue() instanceof IRI) {
