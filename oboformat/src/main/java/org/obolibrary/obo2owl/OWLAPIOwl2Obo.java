@@ -112,6 +112,9 @@ public class OWLAPIOwl2Obo {
      * The absoulte url pattern.
      */
     protected final Pattern absoulteURLPattern = Pattern.compile("<\\s*http.*?>");
+	// RDF_TYPE added to guard against scenario when a syntactic triple is
+	// accidentally interpreted as an annotation.
+	// See https://github.com/ontodev/robot/issues/1089 for context
     private static final Set<String> SKIPPED_QUALIFIERS =
         new HashSet<>(Arrays.asList("gci_relation", "gci_filler", "cardinality", MIN_CARDINALITY,
             MAX_CARDINALITY, "all_some", "all_only", RDFConstants.RDF_TYPE));
