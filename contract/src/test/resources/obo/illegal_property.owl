@@ -20,7 +20,7 @@
         <rdfs:label>database_cross_reference</rdfs:label>
     </owl:AnnotationProperty>
     
-    <!-- THIS AXIOM IS ILEGAL --> 
+    <!-- THIS AXIOM IS ILLEGAL --> 
     <owl:AnnotationProperty rdf:about="http://www.w3.org/1999/02/22-rdf-syntax-ns#type"/>
 
     <owl:Class rdf:about="http://purl.obolibrary.org/obo/FBbt_00000006">
