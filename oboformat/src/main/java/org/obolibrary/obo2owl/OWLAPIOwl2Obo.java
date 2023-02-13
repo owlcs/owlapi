@@ -1158,6 +1158,8 @@ public class OWLAPIOwl2Obo {
             }
             String value = ann.getValue().toString();
             if (prop.equals(RDFConstants.RDF_TYPE) && value.equals(OWLRDFVocabulary.OWL_AXIOM.toString())) {
+                // Guard against scenario when a syntactic triple is accidentally interpreted as an annotation.
+                // See https://github.com/ontodev/robot/issues/1089 for context
             	continue;
             }
             if (ann.getValue() instanceof OWLLiteral) {
