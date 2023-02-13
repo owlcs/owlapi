@@ -183,19 +183,20 @@ class Owl2OboTestCase extends OboFormatTestBasics {
         assertEquals(COMMENT, comment.get().getLiteral());
     }
     
-    @Test
-    void testIllegalOWLAxiomConversion() throws IOException {
-    	File illegalOWLFile = getFile("illegal_property.owl");
-    	
-        OWLOntology illegalOntology = loadOntologyFromFile(illegalOWLFile);
-        OBODoc oboDoc = convert(illegalOntology);
-        
-        OBOFormatWriter writer = new OBOFormatWriter();
+	@Test
+	void testIllegalOWLAxiomConversion() throws IOException {
+		File illegalOWLFile = getFile("illegal_property.owl");
+
+		OWLOntology illegalOntology = loadOntologyFromFile(illegalOWLFile);
+		OBODoc oboDoc = convert(illegalOntology);
+
+		OBOFormatWriter writer = new OBOFormatWriter();
 		StringWriter stringWriter = new StringWriter();
 		BufferedWriter bw = new BufferedWriter(stringWriter);
 		writer.write(oboDoc, bw);
-		
+
 		String illegalOutput = "{http://www.w3.org/1999/02/22-rdf-syntax-ns#type=\"owl:Axiom\"}";
-		assertFalse(stringWriter.toString().contains(illegalOutput), String.format("Ilegal output '%s' exists in the output", illegalOutput));
-    }
+		assertFalse(stringWriter.toString().contains(illegalOutput),
+				String.format("Ilegal output '%s' exists in the output", illegalOutput));
+	}
 }
