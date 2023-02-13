@@ -1,8 +1,13 @@
 package org.obolibrary.oboformat;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.IOException;
+import java.io.StringWriter;
 import java.util.Collection;
 import java.util.Set;
 
@@ -17,6 +22,7 @@ import org.obolibrary.oboformat.model.Clause;
 import org.obolibrary.oboformat.model.Frame;
 import org.obolibrary.oboformat.model.OBODoc;
 import org.obolibrary.oboformat.parser.OBOFormatConstants.OboFormatTag;
+import org.obolibrary.oboformat.writer.OBOFormatWriter;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
@@ -175,5 +181,21 @@ class Owl2OboTestCase extends OboFormatTestBasics {
         Optional<OWLLiteral> comment = findComment(p2.getIRI(), roundTripped);
         assertTrue(comment.isPresent());
         assertEquals(COMMENT, comment.get().getLiteral());
+    }
+    
+    @Test
+    void testIllegalOWLAxiomConversion() throws IOException {
+    	File illegalOWLFile = getFile("illegal_property.owl");
+    	
+        OWLOntology illegalOntology = loadOntologyFromFile(illegalOWLFile);
+        OBODoc oboDoc = convert(illegalOntology);
+        
+        OBOFormatWriter writer = new OBOFormatWriter();
+		StringWriter stringWriter = new StringWriter();
+		BufferedWriter bw = new BufferedWriter(stringWriter);
+		writer.write(oboDoc, bw);
+		
+		String illegalOutput = "{http://www.w3.org/1999/02/22-rdf-syntax-ns#type=\"owl:Axiom\"}";
+		assertFalse(stringWriter.toString().contains(illegalOutput), String.format("Ilegal output '%s' exists in the output", illegalOutput));
     }
 }
