@@ -90,6 +90,7 @@ import org.semanticweb.owlapi.model.OWLSubObjectPropertyOfAxiom;
 import org.semanticweb.owlapi.model.OWLSubPropertyChainOfAxiom;
 import org.semanticweb.owlapi.model.OWLSymmetricObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
+import org.semanticweb.owlapi.rdf.rdfxml.parser.RDFConstants;
 import org.semanticweb.owlapi.vocab.Namespaces;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 import org.slf4j.Logger;
@@ -116,9 +117,12 @@ public class OWLAPIOwl2Obo {
         Obo2OWLConstants.DEFAULT_IRI_PREFIX + "IAO_synonymtypedef";
     private static final String IRI_CLASS_SUBSETDEF =
         Obo2OWLConstants.DEFAULT_IRI_PREFIX + "IAO_subsetdef";
+    // RDF_TYPE added to guard against scenario when a syntactic triple is
+    // accidentally interpreted as an annotation.
+    // See https://github.com/ontodev/robot/issues/1089 for context
     private static final Set<String> SKIPPED_QUALIFIERS =
         new HashSet<>(Arrays.asList("gci_relation", "gci_filler", "cardinality", MIN_CARDINALITY,
-            MAX_CARDINALITY, "all_some", "all_only"));
+            MAX_CARDINALITY, "all_some", "all_only", RDFConstants.RDF_TYPE));
     protected final Pattern absoluteURLPattern = Pattern.compile("<\\s*http.*?>");
     protected final Set<OWLAxiom> untranslatableAxioms = new HashSet<>();
     protected final Map<String, String> idSpaceMap = new HashMap<>();
