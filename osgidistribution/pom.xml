@@ -38,14 +38,8 @@
 		<dependency><groupId>org.eclipse.rdf4j</groupId><artifactId>rdf4j-model-vocabulary</artifactId><version>${inherited.rdf4j.version}</version></dependency>
 		<dependency><groupId>org.eclipse.rdf4j</groupId><artifactId>rdf4j-rio-api</artifactId><version>${inherited.rdf4j.version}</version>
 			<exclusions>
-				<exclusion>
-					<groupId>javax.xml.bind</groupId>
-					<artifactId>jaxb-api</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>jakarta.xml.bind</groupId>
-					<artifactId>jakarta.xml.bind-api</artifactId>
-				</exclusion>
+				<exclusion><groupId>javax.xml.bind</groupId><artifactId>jaxb-api</artifactId></exclusion>
+				<exclusion><groupId>jakarta.xml.bind</groupId><artifactId>jakarta.xml.bind-api</artifactId></exclusion>
 			</exclusions>
 		</dependency>
 		<dependency><groupId>org.eclipse.rdf4j</groupId><artifactId>rdf4j-rio-languages</artifactId><version>${inherited.rdf4j.version}</version></dependency>
@@ -83,30 +77,12 @@
 		<dependency><groupId>com.github.vsonnier</groupId><artifactId>hppcrt</artifactId><version>0.7.5</version></dependency>
 		<dependency><groupId>com.google.guava</groupId><artifactId>guava</artifactId><version>31.1-jre</version>
 			<exclusions>
-				<exclusion>
-					<groupId>com.google.guava</groupId>
-					<artifactId>failureaccess</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>com.google.guava</groupId>
-<artifactId>listenablefuture</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>com.google.code.findbugs</groupId>
-<artifactId>jsr305</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>org.checkerframework</groupId>
-<artifactId>checker-qual</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>com.google.errorprone</groupId>
-<artifactId>error_prone_annotations</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>com.google.j2objc</groupId>
-<artifactId>j2objc-annotations</artifactId>
-				</exclusion>
+				<exclusion><groupId>com.google.guava</groupId><artifactId>failureaccess</artifactId></exclusion>
+				<exclusion><groupId>com.google.guava</groupId><artifactId>listenablefuture</artifactId></exclusion>
+				<exclusion><groupId>com.google.code.findbugs</groupId><artifactId>jsr305</artifactId></exclusion>
+				<exclusion><groupId>org.checkerframework</groupId><artifactId>checker-qual</artifactId></exclusion>
+				<exclusion><groupId>com.google.errorprone</groupId><artifactId>error_prone_annotations</artifactId></exclusion>
+				<exclusion><groupId>com.google.j2objc</groupId><artifactId>j2objc-annotations</artifactId></exclusion>
 			</exclusions>
 		</dependency>
 		<dependency><groupId>com.github.ben-manes.caffeine</groupId><artifactId>caffeine</artifactId><version>3.1.1</version></dependency>
@@ -198,9 +174,9 @@
 							!osgi.*,
 							net.sf.ehcache.*;resolution:=optional,
 							net.spy.memcached.*;resolution:=optional,
-							com.google.common.base;version=30.1.1.jre;resolution:=optional,
-							com.google.common.collect;version=30.1.1.jre;resolution:=optional,
-							com.google.common.hash;version=30.1.1.jre;resolution:=optional,
+							com.google.common.hash;version=[18.0,32);resolution:=optional,
+							com.google.common.base;version=[18.0,32);resolution:=optional,
+							com.google.common.collect;version=[18.0,32);resolution:=optional,
 							javax.inject;version="[1.0,2)",
 							javax.annotation;version=!,
 							!com.google.appengine.*,
