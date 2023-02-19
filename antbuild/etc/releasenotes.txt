@@ -1,3 +1,17 @@
+## 4.5.25 15 February 2023
+
+### Bug fixes:
+
+*    Add Trix to list of BANNED_PARSERS in OWLAPI 4.X #1088
+*    OBO serialisation illegal axiom annotation #1093
+*    Remove unnecessary log when OBO unsupported axioms are serialized
+
+## 4.5.24 20 January 2023
+
+### Features:
+
+*    Fix OSGI distribution Guava version #1086
+
 ## 4.5.23 14 January 2023
 
 ### Features:
