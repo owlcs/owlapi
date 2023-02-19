@@ -1,24 +1,32 @@
 package org.semanticweb.owlapi.obolibrarytest.oboformat;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.StringWriter;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Stream;
 
 import org.junit.jupiter.api.Test;
 import org.semanticweb.owlapi.apitest.TestFilenames;
+import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.obolibrary.oboformat.model.Clause;
 import org.semanticweb.owlapi.obolibrary.oboformat.model.Frame;
 import org.semanticweb.owlapi.obolibrary.oboformat.model.OBODoc;
+import org.semanticweb.owlapi.obolibrary.oboformat.parser.OBOFormatParser;
 import org.semanticweb.owlapi.obolibrary.oboformat.writer.OBOFormatWriter;
 import org.semanticweb.owlapi.vocab.OBOFormatConstants.OboFormatTag;
 
@@ -138,5 +146,48 @@ class OBOFormatWriterTestCase extends OboFormatTestBasics {
         OBODoc obodoc = parseOboToString(input);
         String written = renderOboToString(obodoc);
         assertEquals(input, written);
+    }
+
+    @Test
+    void testRoundTrip() throws IOException {
+        File oboFile = getFile("writer_round_trip.obo");
+
+        assertNotNull(oboFile);
+        OBOFormatParser parser = new OBOFormatParser();
+        OBODoc oboDoc = parser.parse(oboFile);
+        assertNotNull(oboDoc);
+
+        OWLOntology owlOntology = convert(oboDoc);
+        OBODoc oboDoc2 = convert(owlOntology);
+
+        OBOFormatWriter writer = new OBOFormatWriter();
+        StringWriter stringWriter = new StringWriter();
+        writer.write(oboDoc2, stringWriter);
+
+        final List<String> outputLines = Arrays.asList(stringWriter.toString().split("\n"));
+        try (Stream<String> stream = Files.lines(oboFile.toPath(), StandardCharsets.UTF_8)) {
+            stream.forEach(s -> assertTrue(outputLines.contains(s),
+                String.format("'%s' doesn't exist in the output file.", s)));
+        }
+    }
+
+    @Test
+    void testOBOFormatRoundTrip() throws IOException {
+        File oboFile = getFile("example1.obo");
+
+        assertNotNull(oboFile);
+        OBOFormatParser parser = new OBOFormatParser();
+        OBODoc oboDoc = parser.parse(oboFile);
+        assertNotNull(oboDoc);
+
+        OBOFormatWriter writer = new OBOFormatWriter();
+        StringWriter stringWriter = new StringWriter();
+        writer.write(oboDoc, stringWriter);
+
+        final List<String> outputLines = Arrays.asList(stringWriter.toString().split("\n"));
+        try (Stream<String> stream = Files.lines(oboFile.toPath(), StandardCharsets.UTF_8)) {
+            stream.forEach(s -> assertTrue(outputLines.contains(s),
+                String.format("'%s' doesn't exist in the output file.", s)));
+        }
     }
 }

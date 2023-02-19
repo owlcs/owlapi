@@ -283,32 +283,29 @@ public class OBOFormatWriter {
     public static void writePropertyValue(Clause clause, Writer writer) throws IOException {
         Collection<?> cols = clause.getValues();
         if (cols.size() < 2) {
-            LOG.error("The {} has incorrect number of values: {}",
-                OboFormatTag.TAG_PROPERTY_VALUE.getTag(), clause);
+            LOG.error("The {} has incorrect number of values: {}", OboFormatTag.TAG_PROPERTY_VALUE.getTag(), clause);
             return;
         }
+        Object v = clause.getValue();
+        Object v2 = clause.getValue2();
+
         StringBuilder sb = new StringBuilder();
         sb.append(clause.getTag());
         sb.append(": ");
-        Iterator<?> it = cols.iterator();
-        // write property
-        // TODO replace toString() method
-        String property = it.next().toString();
-        sb.append(escapeOboString(property, EscapeMode.SIMPLE));
-        // write value and optional type
-        if (it.hasNext()) {
-            // value
-            sb.append(' ');
-            String val = it.next().toString(); // TODO replace toString() method
+        sb.append(escapeOboString(v.toString(), EscapeMode.SIMPLE));
+        sb.append(' ');
+        if (cols.size() == 2) {
+            sb.append(escapeOboString(v2.toString(), EscapeMode.SIMPLE));
+        } else if (cols.size() == 3) {
+            Iterator<Object> it = clause.getValues().iterator();
+            it.next();
+            it.next();
+            String v3String = (String) it.next();
             sb.append('"');
-            sb.append(escapeOboString(val, EscapeMode.QUOTES));
+            sb.append(escapeOboString(v2.toString(), EscapeMode.QUOTES));
             sb.append('"');
-        }
-        while (it.hasNext()) {
-            // optional type; there should be only one value left in the iterator
             sb.append(' ');
-            String val = it.next().toString(); // TODO replace toString() method
-            sb.append(escapeOboString(val, EscapeMode.SIMPLE));
+            sb.append(escapeOboString(v3String, EscapeMode.SIMPLE));
         }
         appendQualifiers(sb, clause);
         writeLine(sb, writer);
