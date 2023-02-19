@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<rdf:RDF xmlns="http://purl.obolibrary.org/obo/fbbt/fbbt-simple.owl#"
+     xml:base="http://purl.obolibrary.org/obo/fbbt/fbbt-simple.owl"
+     xmlns:obo="http://purl.obolibrary.org/obo/"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:xml="http://www.w3.org/XML/1998/namespace"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:oboInOwl="http://www.geneontology.org/formats/oboInOwl#">
+    <owl:Ontology rdf:about="http://purl.obolibrary.org/obo/fbbt/fbbt-simple.owl">
+    </owl:Ontology>
+    
+    <owl:AnnotationProperty rdf:about="http://purl.obolibrary.org/obo/IAO_0000115">
+        <obo:IAO_0000114 rdf:resource="http://purl.obolibrary.org/obo/IAO_0000122"/>
+        <rdfs:label>definition</rdfs:label>
+    </owl:AnnotationProperty>
+
+    <owl:AnnotationProperty rdf:about="http://www.geneontology.org/formats/oboInOwl#hasDbXref">
+        <rdfs:label>database_cross_reference</rdfs:label>
+    </owl:AnnotationProperty>
+    
+    <!-- THIS AXIOM IS ILLEGAL --> 
+    <owl:AnnotationProperty rdf:about="http://www.w3.org/1999/02/22-rdf-syntax-ns#type"/>
+
+    <owl:Class rdf:about="http://purl.obolibrary.org/obo/FBbt_00000006">
+        <obo:IAO_0000115>Any segment (FBbt:00000003) that is part of some head (FBbt:00000004).</obo:IAO_0000115>
+        <oboInOwl:hasDbXref>UBERON:6000006</oboInOwl:hasDbXref>
+    </owl:Class>
+    <owl:Axiom>
+        <owl:annotatedSource rdf:resource="http://purl.obolibrary.org/obo/FBbt_00000006"/>
+        <owl:annotatedProperty rdf:resource="http://purl.obolibrary.org/obo/IAO_0000115"/>
+        <owl:annotatedTarget>Any segment (FBbt:00000003) that is part of some head (FBbt:00000004).</owl:annotatedTarget>
+        <oboInOwl:hasDbXref>FlyBase:FBrf0075072</oboInOwl:hasDbXref>
+    </owl:Axiom>
+
+</rdf:RDF>
+
+<!-- See: https://github.com/ontodev/robot/issues/1089 -->

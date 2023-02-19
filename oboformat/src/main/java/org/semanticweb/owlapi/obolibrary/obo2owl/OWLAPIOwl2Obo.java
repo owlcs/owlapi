@@ -122,9 +122,12 @@ public class OWLAPIOwl2Obo {
         Obo2OWLConstants.DEFAULT_IRI_PREFIX + "IAO_synonymtypedef";
     private static final String IRI_CLASS_SUBSETDEF =
         Obo2OWLConstants.DEFAULT_IRI_PREFIX + "IAO_subsetdef";
-    private static final Set<String> SKIPPED_QUALIFIERS =
-        new HashSet<>(Arrays.asList("gci_relation", "gci_filler", CARDINALITY, MIN_CARDINALITY,
-            MAX_CARDINALITY, "all_some", ALL_ONLY));
+    // RDF_TYPE added to guard against scenario when a syntactic triple is
+    // accidentally interpreted as an annotation.
+    // See https://github.com/ontodev/robot/issues/1089 for context
+    private static final Set<String> SKIPPED_QUALIFIERS = new HashSet<>(
+        Arrays.asList("gci_relation", "gci_filler", CARDINALITY, MIN_CARDINALITY, MAX_CARDINALITY,
+            "all_some", ALL_ONLY, "http://www.w3.org/1999/02/22-rdf-syntax-ns#type"));
     protected final Pattern absoluteURLPattern = Pattern.compile("<\\s*http.*?>");
     protected final Set<OWLAxiom> untranslatableAxioms = new HashSet<>();
     protected final Map<String, String> idSpaceMap = new HashMap<>();
