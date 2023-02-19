@@ -61,7 +61,7 @@ public enum ConfigurationOptions {
     /** True if banners for ontology sections and entity comments should be output. */
     BANNERS_ENABLED(Boolean.TRUE),
     /** List of banned parsers keys. */
-    BANNED_PARSERS(""),
+    BANNED_PARSERS("org.semanticweb.owlapi.rio.RioTrixParserFactory"),
     /** Entity expansion limit for XML parsing. */
     ENTITY_EXPANSION_LIMIT("100000000"),
     /** Repair illegal punnings 
