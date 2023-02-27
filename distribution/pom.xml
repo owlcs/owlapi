@@ -12,6 +12,8 @@
 	</parent>
 	<properties>
 		<inherited.rdf4j.version>${rdf4j.version}</inherited.rdf4j.version>
+
+		<maven-bundle-plugin.version>5.1.8</maven-bundle-plugin.version>
 	</properties>
 
 	<!-- NOTE: These dependency declarations are only required to sort this 
@@ -72,7 +74,7 @@
 			<plugin>
 				<groupId>org.apache.felix</groupId>
 				<artifactId>maven-bundle-plugin</artifactId>
-				<version>3.2.0</version>
+				<version>${maven-bundle-plugin.version}</version>
 				<extensions>true</extensions>
 				<configuration>
 					<instructions>
