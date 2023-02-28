@@ -57,7 +57,8 @@ public class TestFiles {
     public static final String wrong =
         "rdf:datatype=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#XMLLiteral\"";
 
-    public static final String manShortOnto = "Prefix: : <urn:shortened#>\nOntology: Role1\nClass: Role";
+    public static final String manShortOnto =
+        "Prefix: : <urn:shortened#>\nOntology: Role1\nClass: Role";
     public static final String NO_INPUT =
         "ontology: uberon\n" + "[Term]\nid: X:1\nname: x1\nrelationship: part_of X:2\n\n"
             + "[Typedef]\nid: part_of\nxref: BFO:0000050";
@@ -688,6 +689,7 @@ public class TestFiles {
     public static final String ontology = string("ontology.txt");
     public static final String galenFragment = string("galenFragment.txt");
     public static final String violation = string("violation.txt");
+    public static final String violationDeclaration = string("violationDeclaration.txt");
     public static final String[] profileFullTestCases = strings("profileFullTestCases.txt");
     public static final String[] profileDLTestCases = strings("profileDLTestCases.txt");
     public static final String[] profileAllTestCases = strings("profileAllTestCases.txt");
