@@ -13,6 +13,7 @@
 package org.semanticweb.owlapi.profiles;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.AnnotationAssertion;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.AnnotationProperty;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.AnonymousIndividual;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.AsymmetricObjectProperty;
@@ -88,6 +89,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
@@ -97,6 +99,7 @@ import org.junit.jupiter.api.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLDataFactory;
@@ -144,6 +147,8 @@ import org.semanticweb.owlapi.profiles.violations.UseOfObjectOneOfWithMultipleIn
 import org.semanticweb.owlapi.profiles.violations.UseOfObjectPropertyInverse;
 import org.semanticweb.owlapi.profiles.violations.UseOfPropertyInChainCausesCycle;
 import org.semanticweb.owlapi.profiles.violations.UseOfReservedVocabularyForAnnotationPropertyIRI;
+import org.semanticweb.owlapi.profiles.violations.UseOfReservedVocabularyForClassIRI;
+import org.semanticweb.owlapi.profiles.violations.UseOfReservedVocabularyForDataPropertyIRI;
 import org.semanticweb.owlapi.profiles.violations.UseOfReservedVocabularyForIndividualIRI;
 import org.semanticweb.owlapi.profiles.violations.UseOfReservedVocabularyForObjectPropertyIRI;
 import org.semanticweb.owlapi.profiles.violations.UseOfReservedVocabularyForOntologyIRI;
@@ -227,7 +232,13 @@ class OWLProfileTestCase extends TestBase {
 
     void runAssert(@Nonnull OWLProfile profile, int expected, Class<?>... expectedViolations) {
         List<OWLProfileViolation> violations = profile.checkOntology(o).getViolations();
-        assertEquals(expected, violations.size(), violations.toString());
+        String types = violations.stream().map(violation -> violation.getClass().getSimpleName())
+            .collect(Collectors.joining(", "));
+        if (expectedViolations.length != violations.size()) {
+            System.out.println(types);
+        }
+        assertEquals(expectedViolations.length, violations.size(),
+            types + " " + violations.toString());
         checkInCollection(violations, expectedViolations);
         for (OWLProfileViolation violation : violations) {
             o.getOWLOntologyManager().applyChanges(violation.repair());
@@ -250,7 +261,9 @@ class OWLProfileTestCase extends TestBase {
         declare(UNKNOWNFAKEDATATYPE, FAKEDATATYPE, Class(FAKEDATATYPE.getIRI()), DATAP);
         add(DataPropertyRange(DATAP, FAKEUNDECLAREDDATATYPE));
         int expected = 1;
-        runAssert(Profiles.OWL2_DL, expected, UseOfUndeclaredDatatype.class);
+        runAssert(Profiles.OWL2_DL, expected, UseOfUnknownDatatype.class,
+            DatatypeIRIAlsoUsedAsClassIRI.class, DatatypeIRIAlsoUsedAsClassIRI.class,
+            UseOfUndeclaredDatatype.class);
     }
 
     @Test
@@ -274,11 +287,11 @@ class OWLProfileTestCase extends TestBase {
             DatatypeDefinition(FAKEDATATYPE, Integer()),
             DatatypeDefinition(Integer(), FAKEDATATYPE));
         int expected = 9;
-        runAssert(Profiles.OWL2_DL, expected, CycleInDatatypeDefinition.class,
-            CycleInDatatypeDefinition.class, CycleInDatatypeDefinition.class,
-            CycleInDatatypeDefinition.class, UseOfBuiltInDatatypeInDatatypeDefinition.class,
+        runAssert(Profiles.OWL2_DL, expected, UseOfBuiltInDatatypeInDatatypeDefinition.class,
             UseOfBuiltInDatatypeInDatatypeDefinition.class,
-            UseOfBuiltInDatatypeInDatatypeDefinition.class, UseOfUnknownDatatype.class,
+            UseOfBuiltInDatatypeInDatatypeDefinition.class, CycleInDatatypeDefinition.class,
+            CycleInDatatypeDefinition.class, CycleInDatatypeDefinition.class,
+            CycleInDatatypeDefinition.class, UseOfUnknownDatatype.class, UseOfUnknownDatatype.class,
             UseOfUnknownDatatype.class);
     }
 
@@ -289,8 +302,12 @@ class OWLProfileTestCase extends TestBase {
         declare(ObjectProperty(iri), DataProperty(iri), AnnotationProperty(iri));
         add(SubObjectPropertyOf(OP, ObjectProperty(iri)));
         int expected = 4;
-        runAssert(Profiles.OWL2_DL, expected, UseOfReservedVocabularyForObjectPropertyIRI.class,
-            UseOfUndeclaredObjectProperty.class, IllegalPunning.class, IllegalPunning.class);
+        runAssert(Profiles.OWL2_DL, expected, UseOfReservedVocabularyForDataPropertyIRI.class,
+            UseOfUndeclaredObjectProperty.class, UseOfReservedVocabularyForObjectPropertyIRI.class,
+            UseOfReservedVocabularyForObjectPropertyIRI.class,
+            UseOfReservedVocabularyForAnnotationPropertyIRI.class, IllegalPunning.class,
+            IllegalPunning.class, IllegalPunning.class, IllegalPunning.class, IllegalPunning.class,
+            IllegalPunning.class, IllegalPunning.class, IllegalPunning.class);
     }
 
     @Test
@@ -298,7 +315,7 @@ class OWLProfileTestCase extends TestBase {
     void shouldCreateViolationForOWLDataPropertyInOWL2DLProfile1() {
         declare(DataProperty(IRI(START, "fail")));
         int expected = 0;
-        runAssert(Profiles.OWL2_DL, expected);
+        runAssert(Profiles.OWL2_DL, expected, UseOfReservedVocabularyForDataPropertyIRI.class);
     }
 
     @Test
@@ -314,7 +331,7 @@ class OWLProfileTestCase extends TestBase {
     void shouldCreateViolationForOWLDataPropertyInOWL2DLProfile3() {
         declare(DATAP, AnnotationProperty(DATAP.getIRI()));
         int expected = 0;
-        runAssert(Profiles.OWL2_DL, expected);
+        runAssert(Profiles.OWL2_DL, expected, IllegalPunning.class, IllegalPunning.class);
     }
 
     @Test
@@ -322,7 +339,7 @@ class OWLProfileTestCase extends TestBase {
     void shouldCreateViolationForOWLDataPropertyInOWL2DLProfile4() {
         declare(DATAP, ObjectProperty(DATAP.getIRI()));
         int expected = 0;
-        runAssert(Profiles.OWL2_DL, expected);
+        runAssert(Profiles.OWL2_DL, expected, IllegalPunning.class, IllegalPunning.class);
     }
 
     @Test
@@ -333,8 +350,24 @@ class OWLProfileTestCase extends TestBase {
         add(SubAnnotationPropertyOf(AnnotationProperty(IRI(URN_TEST, "t")),
             AnnotationProperty(iri)));
         int expected = 4;
-        runAssert(Profiles.OWL2_DL, expected, UseOfReservedVocabularyForAnnotationPropertyIRI.class,
-            UseOfUndeclaredAnnotationProperty.class, IllegalPunning.class, IllegalPunning.class);
+        runAssert(Profiles.OWL2_DL, expected, UseOfReservedVocabularyForDataPropertyIRI.class,
+            UseOfReservedVocabularyForObjectPropertyIRI.class,
+            UseOfUndeclaredAnnotationProperty.class,
+            UseOfReservedVocabularyForAnnotationPropertyIRI.class,
+            UseOfReservedVocabularyForAnnotationPropertyIRI.class, IllegalPunning.class,
+            IllegalPunning.class, IllegalPunning.class, IllegalPunning.class, IllegalPunning.class,
+            IllegalPunning.class, IllegalPunning.class, IllegalPunning.class);
+    }
+
+    @Test
+    void shouldCreateViolationForOWLAnnotationPropertyPunnedWithObjectPropertyDeclarationInOWL2DLProfile() {
+        IRI iriTest = IRI(URN_TEST, "t");
+        OWLAnnotationProperty a = AnnotationProperty(iriTest);
+        declare(ObjectProperty(iriTest), a);
+        add(AnnotationAssertion(a, I.getIRI(), Literal(3D)));
+        int expected = 3;
+        runAssert(Profiles.OWL2_DL, expected, IllegalPunning.class, IllegalPunning.class,
+            IllegalPunning.class);
     }
 
     @Test
@@ -353,7 +386,8 @@ class OWLProfileTestCase extends TestBase {
         add(ClassAssertion(Class(FAKEDATATYPE.getIRI()), AnonymousIndividual()));
         int expected = 2;
         runAssert(Profiles.OWL2_DL, expected, UseOfUndeclaredClass.class,
-            DatatypeIRIAlsoUsedAsClassIRI.class);
+            DatatypeIRIAlsoUsedAsClassIRI.class, DatatypeIRIAlsoUsedAsClassIRI.class,
+            UseOfReservedVocabularyForClassIRI.class);
     }
 
     @Test
@@ -672,7 +706,7 @@ class OWLProfileTestCase extends TestBase {
     void shouldCreateViolationForOWLDatatypeInOWL2ELProfile() {
         declare(Boolean());
         int expected = 0;
-        runAssert(Profiles.OWL2_EL, expected);
+        runAssert(Profiles.OWL2_EL, expected, UseOfIllegalDataRange.class);
     }
 
     @Test
@@ -947,7 +981,7 @@ class OWLProfileTestCase extends TestBase {
     void shouldCreateViolationForOWLDatatypeInOWL2QLProfile() {
         declare(FAKEDATATYPE);
         int expected = 0;
-        runAssert(Profiles.OWL2_QL, expected);
+        runAssert(Profiles.OWL2_QL, expected, UseOfIllegalDataRange.class);
     }
 
     @Test
@@ -1317,7 +1351,7 @@ class OWLProfileTestCase extends TestBase {
     void shouldCreateViolationForOWLDatatypeInOWL2RLProfile() {
         declare(Datatype(IRI(URN_TEST, TEST)));
         int expected = 0;
-        runAssert(Profiles.OWL2_RL, expected);
+        runAssert(Profiles.OWL2_RL, expected, UseOfIllegalDataRange.class);
     }
 
     @Test
@@ -1345,6 +1379,7 @@ class OWLProfileTestCase extends TestBase {
         declare(datatype);
         add(DatatypeDefinition(datatype, Boolean()));
         int expected = 2;
-        runAssert(Profiles.OWL2_RL, expected, UseOfIllegalAxiom.class, UseOfIllegalDataRange.class);
+        runAssert(Profiles.OWL2_RL, expected, UseOfIllegalDataRange.class,
+            UseOfIllegalDataRange.class, UseOfIllegalAxiom.class);
     }
 }

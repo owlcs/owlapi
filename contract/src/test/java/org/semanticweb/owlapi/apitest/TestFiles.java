@@ -45,7 +45,9 @@ public class TestFiles {
             throw new UncheckedIOException(e);
         }
     }
-    public static final String manShortOnto = "Prefix: : <urn:shortened#>\nOntology: Role1\nClass: Role";
+
+    public static final String manShortOnto =
+        "Prefix: : <urn:shortened#>\nOntology: Role1\nClass: Role";
     public static String ontologyIRI = string("ontologyIRI.rdf");
     public static String ontFirst = string("ontFirst.txt");
     public static String labelFirst = string("labelFirst.txt");
@@ -437,6 +439,7 @@ public class TestFiles {
     public static String ontology = string("ontology.txt");
     public static String galenFragment = string("galenFragment.txt");
     public static String violation = string("violation.txt");
+    public static String violationDeclaration = string("violationDeclaration.txt");
     public static String[] profileFullTestCases = strings("profileFullTestCases.txt");
     public static String[] profileDLTestCases = strings("profileDLTestCases.txt");
     public static String[] profileAllTestCases = strings("profileAllTestCases.txt");

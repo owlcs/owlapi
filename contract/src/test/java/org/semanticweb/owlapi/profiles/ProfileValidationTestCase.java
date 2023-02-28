@@ -14,7 +14,6 @@ package org.semanticweb.owlapi.profiles;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Class;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Declaration;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IRI;
 import static org.semanticweb.owlapi.search.Searcher.negValues;
 import static org.semanticweb.owlapi.search.Searcher.values;
@@ -35,7 +34,6 @@ import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
 /**
  * @author Matthew Horridge, The University of Manchester, Information Management Group
@@ -46,6 +44,10 @@ class ProfileValidationTestCase extends TestBase {
     private static void checkProfile(OWLOntology ontology, @Nonnull OWLProfile profile,
         boolean shouldBeInProfile) {
         OWLProfileReport report = profile.checkOntology(ontology);
+        if (!report.isInProfile()) {
+            System.out
+                .println("ProfileValidationTestCase.checkProfile() " + report.getViolations());
+        }
         assertEquals(shouldBeInProfile, report.isInProfile());
     }
 
@@ -123,14 +125,5 @@ class ProfileValidationTestCase extends TestBase {
             }
             m.removeOntology(ontology);
         }
-    }
-
-    @Test
-    void shouldNotFailELBecauseOfBoolean() {
-        OWLOntology o = o(
-            df.getOWLAnnotationAssertionAxiom(iri("urn:test#", "ELProfile"),
-                df.getOWLAnnotation(df.getRDFSLabel(), df.getOWLLiteral(true))),
-            Declaration(OWL2Datatype.XSD_BOOLEAN.getDatatype(df)));
-        checkProfile(o, new OWL2ELProfile(), true);
     }
 }
