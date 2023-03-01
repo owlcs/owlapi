@@ -155,6 +155,7 @@ public class TestFiles {
     public static final String ontology = string("ontology.txt");
     public static final String galenFragment = string("galenFragment.txt");
     public static final String violation = string("violation.txt");
+    public static final String violationDeclaration = string("violationDeclaration.txt");
     public static final String[] profileFullTestCases = strings("profileFullTestCases.txt");
     public static final String[] profileDLTestCases = strings("profileDLTestCases.txt");
     public static final String[] profileAllTestCases = strings("profileAllTestCases.txt");

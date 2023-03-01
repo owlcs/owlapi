@@ -36,6 +36,7 @@ import org.semanticweb.owlapi.model.OWLDataUnionOf;
 import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLDatatypeDefinitionAxiom;
 import org.semanticweb.owlapi.model.OWLDatatypeRestriction;
+import org.semanticweb.owlapi.model.OWLDeclarationAxiom;
 import org.semanticweb.owlapi.model.OWLDifferentIndividualsAxiom;
 import org.semanticweb.owlapi.model.OWLDisjointClassesAxiom;
 import org.semanticweb.owlapi.model.OWLDisjointDataPropertiesAxiom;
@@ -103,6 +104,11 @@ public class ProfileVisitor extends ProfileVisitorBase {
     @Override
     public void visit(IRI iri) {
         relativeIRI(iri);
+    }
+
+    @Override
+    public void visit(OWLDeclarationAxiom declaration) {
+        declaration.getEntity().accept(this);
     }
 
     @Override

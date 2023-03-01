@@ -45,6 +45,16 @@ class ForbiddenVocabularyTestCase extends TestBase {
     }
 
     @Test
+    void shouldFindViolationOnDeclaration() {
+        OWLOntology o = loadFrom(TestFiles.violationDeclaration, new RDFXMLDocumentFormat());
+        OWL2DLProfile p = new OWL2DLProfile();
+        OWLProfileReport checkOntology = p.checkOntology(o);
+        assertEquals(1, checkOntology.getViolations().size());
+        OWLProfileViolation violation = checkOntology.getViolations().get(0);
+        assertTrue(violation instanceof UseOfReservedVocabularyForAnnotationPropertyIRI);
+    }
+
+    @Test
     void testGenIdGalenFragment() {
         OWLOntology o = loadFrom(TestFiles.galenFragment, new RDFXMLDocumentFormat());
         OWL2DLProfile profile = new OWL2DLProfile();
