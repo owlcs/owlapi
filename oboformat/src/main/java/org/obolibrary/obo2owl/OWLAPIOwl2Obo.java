@@ -1869,6 +1869,8 @@ public class OWLAPIOwl2Obo {
             String prefix = Obo2OWLConstants.OIOVOCAB_IRI_PREFIX;
             if (iri.startsWith(prefix)) {
                 tag = iri.substring(prefix.length());
+            } else {
+                tag = getIdentifier(iriObj);
             }
         }
         return tag;

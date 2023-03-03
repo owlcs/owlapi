@@ -1,6 +1,7 @@
 package org.obolibrary.obo2owl;
 
 import static org.obolibrary.obo2owl.Obo2OWLConstants.DEFAULT_IRI_PREFIX;
+import static org.obolibrary.obo2owl.Obo2OWLConstants.OIOVOCAB_IRI_PREFIX;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 
 import java.io.File;
@@ -1518,6 +1519,15 @@ public class OWLAPIObo2Owl {
         return iri;
     }
 
+    @Nonnull
+    private IRI trTagToIRIIncludingTypedefs(String tag) {
+        IRI iri = ANNOTATIONPROPERTYMAP.get(tag);
+        if (iri == null) {
+            iri = oboIdToIRI(tag, true);
+        }
+        return iri;
+    }
+
     /**
      * Translate tag to annotation prop.
      * 
@@ -1526,7 +1536,7 @@ public class OWLAPIObo2Owl {
      */
     @Nonnull
     protected OWLAnnotationProperty trTagToAnnotationProp(@Nonnull String tag) {
-        IRI iri = trTagToIRI(tag);
+        IRI iri = trTagToIRIIncludingTypedefs(tag);
         OWLAnnotationProperty ap = fac.getOWLAnnotationProperty(iri);
         if (!apToDeclare.contains(ap)) {
             apToDeclare.add(ap);
@@ -1624,12 +1634,21 @@ public class OWLAPIObo2Owl {
      */
     @Nonnull
     public IRI oboIdToIRI(@Nonnull String id) {
+        return oboIdToIRI(id, false);
+    }
+
+    private IRI oboIdToIRI(@Nonnull String id, boolean oboInOwlDefault) {
         IRI iri = idToIRICache.get(id);
         if (iri == null) {
-            iri = oboIdToIRI_load(id);
+            iri = oboIdToIRI_load(id, oboInOwlDefault);
             idToIRICache.put(id, iri);
         }
         return iri;
+    }
+
+    @Nonnull
+    public IRI oboIdToIRI_load(@Nonnull String id) {
+        return oboIdToIRI_load(id, false);
     }
 
     /**
@@ -1639,7 +1658,7 @@ public class OWLAPIObo2Owl {
      * @return the iri
      */
     @Nonnull
-    public IRI oboIdToIRI_load(@Nonnull String id) {
+    public IRI oboIdToIRI_load(@Nonnull String id, boolean oboInOwlDefault) {
         if (id.contains(" ")) {
             LOG.error("id contains space: \"{}\"", id);
             throw new OWLParserException("spaces not allowed: '" + id + '\'');
@@ -1704,10 +1723,16 @@ public class OWLAPIObo2Owl {
             // if(id.contains("_"))
             // db += "_";
             localId = idParts[0];// Unprefixed-ID
+
         }
-        String uriPrefix = DEFAULT_IRI_PREFIX + db;
-        if (idSpaceMap.containsKey(db)) {
-            uriPrefix = idSpaceMap.get(db);
+        String uriPrefix;
+        if (oboInOwlDefault) {
+            uriPrefix = OIOVOCAB_IRI_PREFIX;
+        } else {
+            uriPrefix = DEFAULT_IRI_PREFIX + db;
+            if (idSpaceMap.containsKey(db)) {
+                uriPrefix = idSpaceMap.get(db);
+            }
         }
         String safeId;
         try {
