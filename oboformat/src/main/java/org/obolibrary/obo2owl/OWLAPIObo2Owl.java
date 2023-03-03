@@ -1518,6 +1518,15 @@ public class OWLAPIObo2Owl {
         return iri;
     }
 
+    @Nonnull
+    private IRI trTagToIRIIncludingTypedefs(String tag) {
+        IRI iri = ANNOTATIONPROPERTYMAP.get(tag);
+        if (iri == null) {
+            iri = oboIdToIRI(tag);
+        }
+        return iri;
+    }
+
     /**
      * Translate tag to annotation prop.
      * 
@@ -1526,7 +1535,7 @@ public class OWLAPIObo2Owl {
      */
     @Nonnull
     protected OWLAnnotationProperty trTagToAnnotationProp(@Nonnull String tag) {
-        IRI iri = trTagToIRI(tag);
+        IRI iri = trTagToIRIIncludingTypedefs(tag);
         OWLAnnotationProperty ap = fac.getOWLAnnotationProperty(iri);
         if (!apToDeclare.contains(ap)) {
             apToDeclare.add(ap);
