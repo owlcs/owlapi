@@ -170,18 +170,7 @@ class CustomTokenizer implements TokenManager {
             try {
                 c = readChar();
                 switch (c) {
-                    case '=':
-                    case '"':
-                    case '(':
-                    case ')':
-                    case '<':
-                    case '>':
-                    case '@':
-                    case '^':
-                    case '\r':
-                    case '\n':
-                    case ' ':
-                    case '\t':
+                    case '=', '"', '(', ')', '<', '>', '@', '^', '\r', '\n', ' ', '\t':
                         unread(c);
                         break loop;
                     case ':':

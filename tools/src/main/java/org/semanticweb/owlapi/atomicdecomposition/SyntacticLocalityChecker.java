@@ -12,7 +12,6 @@ import org.semanticweb.owlapi.model.OWLAnnotationPropertyDomainAxiom;
 import org.semanticweb.owlapi.model.OWLAnnotationPropertyRangeAxiom;
 import org.semanticweb.owlapi.model.OWLAsymmetricObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLAxiom;
-import org.semanticweb.owlapi.model.OWLAxiomVisitor;
 import org.semanticweb.owlapi.model.OWLClassAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLDataPropertyAssertionAxiom;
@@ -55,7 +54,7 @@ import org.semanticweb.owlapi.model.SWRLRule;
 /**
  * syntactic locality checker for DL axioms
  */
-public class SyntacticLocalityChecker implements OWLAxiomVisitor, LocalityChecker {
+public class SyntacticLocalityChecker implements LocalityChecker {
 
     /**
      * top evaluator

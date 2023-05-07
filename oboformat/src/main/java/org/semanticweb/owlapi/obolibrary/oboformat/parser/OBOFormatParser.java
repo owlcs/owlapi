@@ -26,6 +26,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.BiFunction;
+import java.util.regex.Pattern;
 
 import javax.annotation.Nullable;
 
@@ -53,6 +54,8 @@ import com.github.benmanes.caffeine.cache.LoadingCache;
 public class OBOFormatParser {
 
     private static final String BRACE = " !{";
+    private static final Pattern REMOVE_FROM_LAST_SPACE = Pattern.compile(" +\\Z");
+    private static final Pattern REMOVE_LAST_SPACES = Pattern.compile("\\s*$");
     static final Logger LOG = LoggerFactory.getLogger(OBOFormatParser.class);
     protected final MyStream stream;
     private final LoadingCache<String, String> stringCache;
@@ -158,7 +161,7 @@ public class OBOFormatParser {
     protected OBOFormatParser(MyStream s, Map<String, OBODoc> importsMap) {
         stream = s;
         importCache.putAll(importsMap);
-        Caffeine<String, String> builder = Caffeine.newBuilder().weakKeys().maximumWeight(8388608)
+        Caffeine<String, String> builder = Caffeine.newBuilder().weakKeys().maximumWeight(8_388_608)
             .weigher((String key, String value) -> key.length());
         if (LOG.isDebugEnabled()) {
             builder.recordStats();
@@ -196,7 +199,7 @@ public class OBOFormatParser {
     }
 
     private static String removeTrailingWS(String s) {
-        return s.replaceAll("\\s*$", "");
+        return REMOVE_LAST_SPACES.matcher(s).replaceAll("");
     }
 
     /**
@@ -250,7 +253,7 @@ public class OBOFormatParser {
         location = file;
         try (FileInputStream f = new FileInputStream(file);
             InputStreamReader in2 = new InputStreamReader(f, StandardCharsets.UTF_8);
-            BufferedReader in = new BufferedReader(in2);) {
+            BufferedReader in = new BufferedReader(in2)) {
             return parse(in);
         }
     }
@@ -285,7 +288,7 @@ public class OBOFormatParser {
     private String resolvePath(String inputPath) {
         String path = inputPath;
         if (!(path.startsWith("http:") || path.startsWith("file:") || path.startsWith("https:"))) {
-            // path is not absolue then guess it.
+            // path is not absolute then guess it.
             if (location instanceof URL) {
                 URL url = (URL) location;
                 String p = url.toString();
@@ -1002,7 +1005,7 @@ public class OBOFormatParser {
         if (id.contains(" ")) {
             warn("accepting bad xref with spaces:<" + id + '>');
         }
-        id = id.replaceAll(" +\\Z", "");
+        id = removeFromLastSpace(id);
         Xref xrefId = new Xref(id);
         cl.addValue(xrefId);
         parseZeroOrMoreWs();
@@ -1013,6 +1016,10 @@ public class OBOFormatParser {
         parseZeroOrMoreWs();
         parseQualifierBlock(cl);
         return cl;
+    }
+
+    protected String removeFromLastSpace(String id) {
+        return REMOVE_FROM_LAST_SPACE.matcher(id).replaceAll("");
     }
 
     /**

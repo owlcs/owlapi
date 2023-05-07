@@ -67,8 +67,8 @@ class Utf8TestCase extends TestBase {
         // this test checks for the condition described in issue #47
         // Input with character = 0240 (octal) should work with an input stream,
         // not with a reader
-        assertThrows(OWLRuntimeException.class,
-            () -> loadFrom(TestFiles.INVALID_UTF8, new RDFXMLDocumentFormat()));
+        var format = new RDFXMLDocumentFormat();
+        assertThrows(OWLRuntimeException.class, () -> loadFrom(TestFiles.INVALID_UTF8, format));
     }
 
     @Test

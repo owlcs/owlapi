@@ -14,7 +14,6 @@ package org.semanticweb.owlapi.documents;
 
 import static org.semanticweb.owlapi.utilities.OWLAPIPreconditions.checkNotNull;
 
-import java.io.Serializable;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
@@ -32,7 +31,7 @@ import org.semanticweb.owlapi.model.IRI;
  * @author Matthew Horridge, The University of Manchester, Bio-Health Informatics Group
  * @since 3.2
  */
-public class RDFParserMetaData implements OWLOntologyLoaderMetaData, Serializable {
+public class RDFParserMetaData implements OWLOntologyLoaderMetaData {
 
     private final int tripleCount;
     private final RDFOntologyHeaderStatus headerStatus;

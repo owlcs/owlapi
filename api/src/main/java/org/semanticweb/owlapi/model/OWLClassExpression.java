@@ -22,7 +22,8 @@ import java.util.stream.Stream;
  * @author Matthew Horridge The University Of Manchester Bio-Health Informatics Group
  * @since 2.0.0
  */
-public interface OWLClassExpression extends OWLObject, OWLPropertyRange, OWLPropertyDomain, SWRLPredicate, AsOWLClass {
+public interface OWLClassExpression
+    extends OWLPropertyRange, OWLPropertyDomain, SWRLPredicate, AsOWLClass {
 
     /**
      * Gets the class expression type for this class expression.

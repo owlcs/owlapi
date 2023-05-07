@@ -22,7 +22,6 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.ObjectOutputStream;
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -113,7 +112,7 @@ import org.slf4j.LoggerFactory;
  * @since 2.0.0
  */
 public class OWLOntologyManagerImpl
-    implements OWLOntologyManager, OWLOntologyFactory.OWLOntologyCreationHandler, Serializable {
+    implements OWLOntologyManager, OWLOntologyFactory.OWLOntologyCreationHandler {
 
     private static final String BADLISTENER = "BADLY BEHAVING LISTENER: {} has been removed";
     private static final Logger LOGGER = LoggerFactory.getLogger(OWLOntologyManagerImpl.class);

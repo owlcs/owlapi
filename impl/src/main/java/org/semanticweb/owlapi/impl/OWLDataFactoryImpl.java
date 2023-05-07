@@ -41,7 +41,6 @@ import static org.semanticweb.owlapi.utilities.OWLAPIPreconditions.checkIterable
 import static org.semanticweb.owlapi.utilities.OWLAPIPreconditions.checkNotNull;
 import static org.semanticweb.owlapi.utilities.OWLAPIPreconditions.verifyNotNull;
 
-import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Collection;
 import java.util.Collections;
@@ -164,7 +163,6 @@ import org.semanticweb.owlapi.model.SWRLRule;
 import org.semanticweb.owlapi.model.SWRLSameIndividualAtom;
 import org.semanticweb.owlapi.model.SWRLVariable;
 import org.semanticweb.owlapi.model.parameters.ConfigurationOptions;
-import org.semanticweb.owlapi.model.providers.ClassProvider;
 import org.semanticweb.owlapi.utilities.OWLAPIStreamUtils;
 import org.semanticweb.owlapi.utilities.XMLUtils;
 import org.semanticweb.owlapi.utility.VersionInfo;
@@ -184,7 +182,7 @@ import com.github.benmanes.caffeine.cache.LoadingCache;
  * @since 2.0.0
  */
 @Singleton
-public class OWLDataFactoryImpl implements OWLDataFactory, Serializable, ClassProvider {
+public class OWLDataFactoryImpl implements OWLDataFactory {
 
     private static final String PREFIX_MANAGER_CANNOT_BE_NULL = "prefixManager cannot be null";
     private static final Logger LOGGER = LoggerFactory.getLogger(OWLDataFactoryImpl.class);
@@ -1150,8 +1148,8 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable, ClassPr
     }
 
     @Override
-    public SWRLVariable getSWRLVariable(IRI var) {
-        return new SWRLVariableImpl(var);
+    public SWRLVariable getSWRLVariable(IRI variable) {
+        return new SWRLVariableImpl(variable);
     }
 
     @Override

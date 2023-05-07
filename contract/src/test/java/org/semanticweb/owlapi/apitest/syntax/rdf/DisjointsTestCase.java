@@ -21,6 +21,7 @@ import org.junit.jupiter.api.Test;
 import org.semanticweb.owlapi.apitest.baseclasses.TestBase;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLDisjointClassesAxiom;
 import org.semanticweb.owlapi.model.OWLLiteral;
@@ -64,13 +65,15 @@ class DisjointsTestCase extends TestBase {
 
     @Test
     void shouldRejectDisjointClassesWithSingletonThing() {
-        assertThrows(OWLRuntimeException.class, () -> DisjointClasses(OWLThing()),
+        OWLClass owlThing = OWLThing();
+        assertThrows(OWLRuntimeException.class, () -> DisjointClasses(owlThing),
             "DisjointClasses(owl:Thing) cannot be created. It is not a syntactically valid OWL 2 axiom. If the intent is to declare owl:Thing as disjoint with itself and therefore empty, it cannot be created as a DisjointClasses axiom. Please rewrite it as SubClassOf(owl:Thing, owl:Nothing).");
     }
 
     @Test
     void shouldRejectDisjointClassesWithSingletonNothing() {
-        assertThrows(OWLRuntimeException.class, () -> DisjointClasses(OWLNothing()),
+        OWLClass owlNothing = OWLNothing();
+        assertThrows(OWLRuntimeException.class, () -> DisjointClasses(owlNothing),
             "DisjointClasses(owl:Nothing) cannot be created. It is not a syntactically valid OWL 2 axiom. If the intent is to declare owl:Nothing as disjoint with itself and therefore empty, it cannot be created as a DisjointClasses axiom, and it is also redundant as owl:Nothing is always empty. Please rewrite it as SubClassOf(owl:Nothing, owl:Nothing) or remove the axiom.");
     }
 }

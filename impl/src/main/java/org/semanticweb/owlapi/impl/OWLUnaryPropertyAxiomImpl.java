@@ -26,7 +26,7 @@ import org.semanticweb.owlapi.model.OWLUnaryPropertyAxiom;
  * @param <P> property type
  */
 public abstract class OWLUnaryPropertyAxiomImpl<P extends OWLPropertyExpression>
-                extends OWLPropertyAxiomImpl implements OWLUnaryPropertyAxiom<P> {
+    extends OWLPropertyAxiomImpl implements OWLUnaryPropertyAxiom<P> {
 
     private final P property;
 
@@ -34,7 +34,7 @@ public abstract class OWLUnaryPropertyAxiomImpl<P extends OWLPropertyExpression>
      * @param property property
      * @param annotations annotations
      */
-    public OWLUnaryPropertyAxiomImpl(P property, Collection<OWLAnnotation> annotations) {
+    protected OWLUnaryPropertyAxiomImpl(P property, Collection<OWLAnnotation> annotations) {
         super(annotations);
         this.property = checkNotNull(property, "property cannot be null");
     }

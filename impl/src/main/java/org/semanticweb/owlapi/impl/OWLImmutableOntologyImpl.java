@@ -20,7 +20,6 @@ import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.empty;
 import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.streamFromSorted;
 
 import java.io.OutputStream;
-import java.io.Serializable;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -133,8 +132,7 @@ import com.github.benmanes.caffeine.cache.LoadingCache;
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
-public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl
-    implements OWLOntology, Serializable {
+public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements OWLOntology {
 
     // @formatter:off
     protected static LoadingCache<OWLImmutableOntologyImpl, Set<OWLEntity>>              ontsignatures =                     build(OWLImmutableOntologyImpl::build);
@@ -337,7 +335,7 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl
 
     @Override
     public Stream<OWLAxiom> axiomsIgnoreAnnotations(OWLAxiom axiom) {
-        return axioms(axiom.getAxiomType()).map(x -> (OWLAxiom) x)
+        return axioms(axiom.getAxiomType()).map(OWLAxiom.class::cast)
             .filter(ax -> ax.equalsIgnoreAnnotations(axiom));
     }
 
@@ -689,7 +687,7 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl
         }
     }
 
-    private boolean recurse(Stream<OWLAnnotation> s, Predicate<OWLAnnotationValue> p) {
+    private static boolean recurse(Stream<OWLAnnotation> s, Predicate<OWLAnnotationValue> p) {
         return s.anyMatch(a -> p.test(a.annotationValue()) || recurse(a.annotations(), p));
     }
 

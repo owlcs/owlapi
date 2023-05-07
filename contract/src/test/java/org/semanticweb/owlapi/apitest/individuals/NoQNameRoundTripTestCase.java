@@ -12,7 +12,9 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.apitest.individuals;
 
-import static org.junit.jupiter.api.Assertions.fail;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
 
@@ -54,30 +56,26 @@ class NoQNameRoundTripTestCase extends TestBase {
 
     @Test
     void testRDFXML() {
-        try {
-            roundTripOntology(noQNameRoundTripTestCase(), new RDFXMLDocumentFormat());
-            fail("Expected an exception specifying that a QName could not be generated");
-        } catch (OWLRuntimeException ex) {
-            if (!(ex.getCause().getCause() instanceof IllegalElementNameException)) {
-                throw ex;
-            }
-        }
+        // Expected an exception specifying that a QName could not be generated
+        OWLOntology arg1 = noQNameRoundTripTestCase();
+        RDFXMLDocumentFormat arg2 = new RDFXMLDocumentFormat();
+        var ex = assertThrows(OWLRuntimeException.class, () -> roundTripOntology(arg1, arg2));
+        Throwable root = ex.getCause().getCause();
+        assertTrue(root instanceof IllegalElementNameException, root.getClass().getName());
     }
 
     @Test
     void testRioRDFXML() {
-        try {
-            roundTripOntology(noQNameRoundTripTestCase(), new RioRDFXMLDocumentFormat());
-            fail("Expected an exception specifying that a QName could not be generated");
-        } catch (OWLRuntimeException exc) {
-            Throwable ex = exc.getCause();
-            while (ex != null && !(ex instanceof RDFHandlerException)) {
-                ex = ex.getCause();
-            }
-            if (ex == null || !ex.getMessage().contains("http://example.com/place/123")) {
-                throw exc;
-            }
+        // Expected an exception specifying that a QName could not be generated
+        OWLOntology arg1 = noQNameRoundTripTestCase();
+        RioRDFXMLDocumentFormat arg2 = new RioRDFXMLDocumentFormat();
+        var exc = assertThrows(OWLRuntimeException.class, () -> roundTripOntology(arg1, arg2));
+        Throwable ex = exc.getCause();
+        while (ex != null && !(ex instanceof RDFHandlerException)) {
+            ex = ex.getCause();
         }
+        assertNotNull(ex);
+        assertTrue(ex.getMessage().contains("http://example.com/place/123"), ex.getMessage());
     }
 
     static List<OWLDocumentFormat> noQNameFormats() {

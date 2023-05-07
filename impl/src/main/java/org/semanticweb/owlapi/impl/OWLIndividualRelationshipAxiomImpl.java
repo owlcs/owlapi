@@ -29,7 +29,7 @@ import org.semanticweb.owlapi.model.OWLPropertyExpression;
  * @since 2.0.0
  */
 public abstract class OWLIndividualRelationshipAxiomImpl<P extends OWLPropertyExpression, O extends OWLPropertyAssertionObject>
-                extends OWLLogicalAxiomImpl implements OWLPropertyAssertionAxiom<P, O> {
+    extends OWLLogicalAxiomImpl implements OWLPropertyAssertionAxiom<P, O> {
 
     private final OWLIndividual subject;
     private final P property;
@@ -41,8 +41,8 @@ public abstract class OWLIndividualRelationshipAxiomImpl<P extends OWLPropertyEx
      * @param object the object
      * @param annotations the annotations
      */
-    public OWLIndividualRelationshipAxiomImpl(OWLIndividual subject, P property, O object,
-                    Collection<OWLAnnotation> annotations) {
+    protected OWLIndividualRelationshipAxiomImpl(OWLIndividual subject, P property, O object,
+        Collection<OWLAnnotation> annotations) {
         super(annotations);
         this.subject = checkNotNull(subject, "subject cannot be null");
         this.property = checkNotNull(property, "property cannot be null");

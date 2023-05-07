@@ -57,8 +57,7 @@ import org.slf4j.LoggerFactory;
  * @since 2.0.0
  */
 @SuppressWarnings({"null"})
-enum AbstractTriplePH
-    implements ResourceTripleHandler, TriplePredicateHandler, LiteralTripleHandler {
+enum AbstractTriplePH implements TriplePredicateHandler, LiteralTripleHandler {
     //@formatter:off
     FIRSTLITERALHANDLER             (                           
         (c, s, p, o) -> RDF_FIRST.getIRI().equals(p), 

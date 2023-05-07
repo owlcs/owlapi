@@ -18,7 +18,7 @@ package org.semanticweb.owlapi.model;
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
-public interface OWLIndividual extends OWLObject, OWLPropertyAssertionObject, AsOWLNamedIndividual {
+public interface OWLIndividual extends OWLPropertyAssertionObject, AsOWLNamedIndividual {
 
     @Override
     default boolean isIndividual() {

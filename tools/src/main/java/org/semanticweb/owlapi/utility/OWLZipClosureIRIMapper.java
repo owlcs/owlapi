@@ -2,6 +2,7 @@ package org.semanticweb.owlapi.utility;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -35,6 +36,7 @@ import org.yaml.snakeyaml.Yaml;
 public class OWLZipClosureIRIMapper implements OWLOntologyIRIMapper {
     private static final Logger LOGGER = LoggerFactory.getLogger(OWLZipClosureIRIMapper.class);
     private static final Pattern CATALOG_PATTERN = Pattern.compile("catalog[\\-v0-9]*\\.xml");
+    private static final Pattern COMMA_SPLIT = Pattern.compile(", ");
     private final List<IRI> physicalRoots = new ArrayList<>();
     private final Map<IRI, IRI> logicalToPhysicalIRI = new ConcurrentHashMap<>();
     private final OWLDataFactory df;
@@ -149,8 +151,10 @@ public class OWLZipClosureIRIMapper implements OWLOntologyIRIMapper {
             return false;
         }
         Properties p = new Properties();
-        p.load(z.getInputStream(yaml));
-        String[] roots = p.getProperty("roots", "").split(", ");
+        try (InputStream input = z.getInputStream(yaml)) {
+            p.load(input);
+        }
+        String[] roots = COMMA_SPLIT.split(p.getProperty("roots", ""));
         for (String s : roots) {
             String name = s.trim();
             if (!name.isEmpty()) {

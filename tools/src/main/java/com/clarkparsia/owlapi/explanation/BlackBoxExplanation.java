@@ -49,8 +49,7 @@ import com.clarkparsia.owlapi.explanation.util.OntologyUtils;
 /**
  * A black box explanation.
  */
-public class BlackBoxExplanation extends SingleExplanationGeneratorImpl
-    implements SingleExplanationGenerator {
+public class BlackBoxExplanation extends SingleExplanationGeneratorImpl {
 
     /**
      * default expansion limit.

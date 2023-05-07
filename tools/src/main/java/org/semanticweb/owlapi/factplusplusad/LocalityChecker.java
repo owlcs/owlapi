@@ -32,16 +32,13 @@ abstract class LocalityChecker extends SigAccessor
      * @return locality checker by a method
      */
     static LocalityChecker createLocalityChecker(ModuleMethod moduleMethod, Signature pSig) {
-        switch (moduleMethod) {
-            case SYNTACTIC_STANDARD:
-                return new SyntacticLocalityChecker(pSig);
-            case SYNTACTIC_COUNTING:
-                return new ExtendedSyntacticLocalityChecker(pSig);
-            case QUERY_ANSWERING:
-                // return new SemanticLocalityChecker(pSig)
-            default:
-                throw new OWLRuntimeException("Unsupported module method: " + moduleMethod);
-        }
+        return switch (moduleMethod) {
+            case SYNTACTIC_STANDARD -> new SyntacticLocalityChecker(pSig);
+            case SYNTACTIC_COUNTING -> new ExtendedSyntacticLocalityChecker(pSig);
+            case QUERY_ANSWERING,
+            /* return new SemanticLocalityChecker(pSig) */
+            default -> throw new OWLRuntimeException("Unsupported module method: " + moduleMethod);
+        };
     }
 
     @Override

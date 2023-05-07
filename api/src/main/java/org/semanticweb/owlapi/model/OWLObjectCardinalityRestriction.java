@@ -17,6 +17,5 @@ package org.semanticweb.owlapi.model;
  * @since 2.0.0
  */
 public interface OWLObjectCardinalityRestriction
-    extends OWLCardinalityRestriction<OWLClassExpression>,
-    OWLQuantifiedObjectRestriction, OWLObjectRestriction {
+    extends OWLCardinalityRestriction<OWLClassExpression>, OWLQuantifiedObjectRestriction {
 }

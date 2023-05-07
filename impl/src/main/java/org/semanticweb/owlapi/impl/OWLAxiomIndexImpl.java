@@ -29,27 +29,27 @@ public abstract class OWLAxiomIndexImpl extends OWLObjectImpl
     public Stream<OWLDatatypeDefinitionAxiom> datatypeDefinitions(OWLDatatype datatype) {
         // XXX stream better?
         return ints.filterAxioms(Filters.datatypeDefFilter, datatype).stream()
-            .map(ax -> (OWLDatatypeDefinitionAxiom) ax);
+            .map(OWLDatatypeDefinitionAxiom.class::cast);
     }
 
     @Override
     public Stream<OWLSubAnnotationPropertyOfAxiom> subAnnotationPropertyOfAxioms(
         OWLAnnotationProperty subProperty) {
         return ints.filterAxioms(Filters.subAnnotationWithSub, subProperty).stream()
-            .map(ax -> (OWLSubAnnotationPropertyOfAxiom) ax);
+            .map(OWLSubAnnotationPropertyOfAxiom.class::cast);
     }
 
     @Override
     public Stream<OWLAnnotationPropertyDomainAxiom> annotationPropertyDomainAxioms(
         OWLAnnotationProperty property) {
         return ints.filterAxioms(Filters.apDomainFilter, property).stream()
-            .map(ax -> (OWLAnnotationPropertyDomainAxiom) ax);
+            .map(OWLAnnotationPropertyDomainAxiom.class::cast);
     }
 
     @Override
     public Stream<OWLAnnotationPropertyRangeAxiom> annotationPropertyRangeAxioms(
         OWLAnnotationProperty property) {
         return ints.filterAxioms(Filters.apRangeFilter, property).stream()
-            .map(ax -> (OWLAnnotationPropertyRangeAxiom) ax);
+            .map(OWLAnnotationPropertyRangeAxiom.class::cast);
     }
 }

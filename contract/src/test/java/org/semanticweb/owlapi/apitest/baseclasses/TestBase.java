@@ -13,7 +13,7 @@
 package org.semanticweb.owlapi.apitest.baseclasses;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -574,7 +574,7 @@ public abstract class TestBase extends DF {
         Set<OWLAxiom> ax2 = new HashSet<>();
         ax2.add(DataPropertyAssertion(DATAPROPS.DPT, AnonymousIndividual(), Literal("test1")));
         ax2.add(DataPropertyAssertion(DATAPROPS.DPT, AnonymousIndividual(), Literal("test2")));
-        assertFalse(ax1.equals(ax2));
+        assertNotEquals(ax1, ax2);
         assertTrue(verifyErrorIsDueToBlankNodesId(ax1, ax2));
     }
 

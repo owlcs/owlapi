@@ -76,7 +76,7 @@ public class Injector {
 
         /**
          * @param cl class
-         * @param a  annotations
+         * @param a annotations
          * @return modified key
          */
         public Key with(Class<?> cl, Annotation[] a) {
@@ -109,8 +109,8 @@ public class Injector {
     /**
      * Associate a key made of interface type and optional annotations with an implementation type
      * 
-     * @param t           implementation type
-     * @param c           interface type
+     * @param t implementation type
+     * @param c interface type
      * @param annotations annotations
      * @return modified injector
      */
@@ -123,8 +123,8 @@ public class Injector {
      * Associate a key made of interface type and optional annotations with an instance, replacing
      * existing associations
      * 
-     * @param t           instance
-     * @param c           interface type
+     * @param t instance
+     * @param c interface type
      * @param annotations annotations
      * @return modified injector
      */
@@ -137,8 +137,8 @@ public class Injector {
      * Associate a key made of interface type and optional annotations with a supplier of instances,
      * replacing existing associations
      * 
-     * @param t           supplier
-     * @param c           interface type
+     * @param t supplier
+     * @param c interface type
      * @param annotations annotations
      * @return modified injector
      */
@@ -151,10 +151,10 @@ public class Injector {
      * Associate a key made of interface type and optional annotations with an instance, adding to
      * existing associations
      * 
-     * @param t           instance
-     * @param c           interface type
+     * @param t instance
+     * @param c interface type
      * @param annotations annotations
-     * @param <T>         type bound
+     * @param <T> type bound
      * @return modified injector
      */
     public <T> Injector bindOneMore(T t, Class<T> c, Annotation... annotations) {
@@ -166,10 +166,10 @@ public class Injector {
      * Associate a key made of interface type and optional annotations with a supplier of instances,
      * adding to existing associations
      * 
-     * @param t           supplier
-     * @param c           interface type
+     * @param t supplier
+     * @param c interface type
      * @param annotations annotations
-     * @param <T>         type bound
+     * @param <T> type bound
      * @return modified injector
      */
     public <T> Injector bindOneMore(Supplier<T> t, Class<T> c, Annotation... annotations) {
@@ -186,7 +186,7 @@ public class Injector {
     }
 
     /**
-     * @param t   object to inject
+     * @param t object to inject
      * @param <T> type bound
      * @return input object with all methods annotated with @Inject having been set with instances.
      */
@@ -228,8 +228,7 @@ public class Injector {
                 LOGGER.debug("Injecting values {} on method {}.", Arrays.toString(args), m);
             }
             m.invoke(t, args);
-        } catch (IllegalAccessException | IllegalArgumentException
-            | InvocationTargetException e) {
+        } catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
             LOGGER.error("Injection failed", e);
         }
     }
@@ -246,9 +245,9 @@ public class Injector {
     }
 
     /**
-     * @param c          class
+     * @param c class
      * @param qualifiers optional annotations
-     * @param <T>        type bound
+     * @param <T> type bound
      * @return instance
      */
     public <T> T getImplementation(Class<T> c, Annotation... qualifiers) {
@@ -256,7 +255,7 @@ public class Injector {
     }
 
     /**
-     * @param c          type to look up
+     * @param c type to look up
      * @param qualifiers optional qualifiers
      * @return all implementations for the arguments
      * @param <T> type bound
@@ -266,10 +265,10 @@ public class Injector {
     }
 
     /**
-     * @param c          type to look up
-     * @param v          local override for configuration properties
+     * @param c type to look up
+     * @param v local override for configuration properties
      * @param qualifiers optional qualifiers
-     * @param <T>        type bound
+     * @param <T> type bound
      * @return implementation for the arguments (first of the list if multiple ones exist)
      */
     public <T> T getImplementation(Class<T> c, OntologyConfigurator v, Annotation... qualifiers) {
@@ -278,10 +277,10 @@ public class Injector {
     }
 
     /**
-     * @param c          class
-     * @param overrides  local overrides of existing bindings
+     * @param c class
+     * @param overrides local overrides of existing bindings
      * @param qualifiers optional annotations
-     * @param <T>        type bound
+     * @param <T> type bound
      * @return instance
      */
     public <T> T getImplementation(Class<T> c, Map<Object, List<Supplier<?>>> overrides,
@@ -302,9 +301,9 @@ public class Injector {
     }
 
     /**
-     * @param type       type to load
+     * @param type type to load
      * @param qualifiers qualifying annotations
-     * @param <T>        return type
+     * @param <T> return type
      * @return iterable over T implementations
      */
     protected <T> Stream<T> load(Class<T> type, Annotation... qualifiers) {
@@ -426,7 +425,7 @@ public class Injector {
     }
 
     private Stream<String> entries(URI c) {
-        int time = (int) (System.currentTimeMillis() & 0x00000000FFFFFFFFL);
+        int time = (int) (System.currentTimeMillis() & 0x0000_0000_FFFF_FFFFL);
         AtomicStampedReference<List<String>> l = filesCache.get(c);
         if (l == null || time - l.getStamp() > 30000) {
             // no cache or oldest value is more than 30 seconds old

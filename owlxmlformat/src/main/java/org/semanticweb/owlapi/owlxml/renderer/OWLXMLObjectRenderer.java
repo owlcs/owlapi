@@ -253,8 +253,9 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
     private void render(Object o) {
         if (o instanceof Collection) {
             ((Collection<? extends OWLObject>) o).forEach(this::accept);
-        } else if (o instanceof OWLObject) {
-            accept((OWLObject) o);
+        }
+        if (o instanceof OWLObject v) {
+            accept(v);
         }
     }
 

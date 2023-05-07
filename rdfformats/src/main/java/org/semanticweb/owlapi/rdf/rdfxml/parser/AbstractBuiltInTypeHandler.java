@@ -67,8 +67,7 @@ import java.util.stream.Stream;
 import org.semanticweb.owlapi.model.HasIRI;
 import org.semanticweb.owlapi.model.IRI;
 
-enum AbstractBuiltInTypeHandler
-    implements BuiltInTypeHandler, ResourceTripleHandler, TriplePredicateHandler {
+enum AbstractBuiltInTypeHandler implements BuiltInTypeHandler {
     //@formatter:off
     TYPEANNOTATIONHANDLER            (OWL_ANNOTATION,          (c, s, p, o) -> c.handleAnnotationTriple(s, p, o)),
     TYPEANNOTATIONPROPERTYHANDLER    (OWL_ANNOTATION_PROPERTY, (c, s, p, o) -> c.handleAnnotationPropertyTriple(s, p, o)),

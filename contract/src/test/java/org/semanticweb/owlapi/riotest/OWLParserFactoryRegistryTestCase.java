@@ -34,7 +34,7 @@ import org.semanticweb.owlapi.utilities.PriorityCollection;
 class OWLParserFactoryRegistryTestCase extends TestBase {
 
     @Test
-    void setUp() {
+    void assertFactories() {
         // this test used to count the parsers. However, the extra parser in the
         // compatibility package will show up here in Eclipse tests, creating
         // confusion

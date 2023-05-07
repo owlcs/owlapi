@@ -14,7 +14,6 @@ package org.semanticweb.owlapi.impl;
 
 import static org.semanticweb.owlapi.utilities.OWLAPIPreconditions.checkNotNull;
 
-import java.io.Serializable;
 import java.util.Set;
 import java.util.stream.Stream;
 
@@ -27,7 +26,7 @@ import org.semanticweb.owlapi.utility.CollectionFactory;
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
-public class OWLClassImpl extends OWLClassExpressionImpl implements OWLClass, Serializable {
+public class OWLClassImpl extends OWLClassExpressionImpl implements OWLClass {
 
     private final IRI iri;
     private final boolean isThing;

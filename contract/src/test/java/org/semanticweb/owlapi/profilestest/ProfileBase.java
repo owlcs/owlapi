@@ -1,5 +1,6 @@
 package org.semanticweb.owlapi.profilestest;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.semanticweb.owlapi.profiles.Profiles.OWL2_DL;
 import static org.semanticweb.owlapi.profiles.Profiles.OWL2_EL;
@@ -16,9 +17,9 @@ class ProfileBase extends TestBase {
         boolean dl) {
         OWLOntology o = loadFrom(in, format);
         assertTrue(o.getAxiomCount() > 0);
-        assertTrue(el == OWL2_EL.checkOntology(o).isInProfile());
-        assertTrue(ql == OWL2_QL.checkOntology(o).isInProfile());
-        assertTrue(rl == OWL2_RL.checkOntology(o).isInProfile());
-        assertTrue(dl == OWL2_DL.checkOntology(o).isInProfile());
+        assertEquals(el, OWL2_EL.checkOntology(o).isInProfile());
+        assertEquals(ql, OWL2_QL.checkOntology(o).isInProfile());
+        assertEquals(rl, OWL2_RL.checkOntology(o).isInProfile());
+        assertEquals(dl, OWL2_DL.checkOntology(o).isInProfile());
     }
 }

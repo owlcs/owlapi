@@ -43,8 +43,7 @@ import org.semanticweb.owlapi.model.parameters.Imports;
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
-public interface OWLOntology
-    extends OWLObject, HasAnnotations, HasDirectImports, HasImportsClosure, HasOntologyID,
+public interface OWLOntology extends OWLObject, HasAnnotations, HasDirectImports, HasOntologyID,
     OWLAxiomCollection, OWLSignature, OWLAxiomIndex, HasApplyChange, HasApplyChanges, HasAddAxiom,
     HasAddAxioms, HasRemoveAxiom, HasRemoveAxioms, HasOntologyConfigurator, HasSaveOntology {
 
@@ -109,7 +108,7 @@ public interface OWLOntology
     /**
      * Accepts a visitor
      *
-     * @param <O>     visitor return type
+     * @param <O> visitor return type
      * @param visitor The visitor
      * @return visitor return value
      */
@@ -173,7 +172,7 @@ public interface OWLOntology
      * @return The stream of ontologies that this ontology is related to via the transitive closure
      *         of the directlyImports relation.
      * @throws UnknownOWLOntologyException if this ontology is no longer managed by its manager
-     *                                     because it was removed from the manager.
+     *         because it was removed from the manager.
      */
     Stream<OWLOntology> imports();
 
@@ -288,7 +287,7 @@ public interface OWLOntology
      * declaration axiom for the specified entity.
      *
      * @param owlEntity The entity to be tested for
-     * @param imports   if INCLUDED, the imports closure is included.
+     * @param imports if INCLUDED, the imports closure is included.
      * @return {@code true} if the ontology or its imports closure contains a declaration for the
      *         specified entity, otherwise {@code false}.
      */
@@ -308,7 +307,7 @@ public interface OWLOntology
 
     /**
      * @param add true if missing declarations should be added. If false, no declarations will be
-     *            added.
+     *        added.
      * @return collection of IRIS used in illegal punnings
      */
     default Collection<IRI> determineIllegalPunnings(boolean add) {
@@ -319,8 +318,8 @@ public interface OWLOntology
     }
 
     /**
-     * @param add       true if missing declarations should be added. If false, no declarations will
-     *                  be added.
+     * @param add true if missing declarations should be added. If false, no declarations will be
+     *        added.
      * @param signature signature to explore.
      * @return collection of IRIS used in illegal punnings
      */
@@ -352,8 +351,8 @@ public interface OWLOntology
 
     /**
      * @param illegals set of illegal punnings
-     * @param i        iri to check
-     * @param puns     list of pun types
+     * @param i iri to check
+     * @param puns list of pun types
      */
     static void computeIllegal(Collection<IRI> illegals, IRI i, List<EntityType<?>> puns) {
         boolean hasObject = puns.contains(EntityType.OBJECT_PROPERTY);

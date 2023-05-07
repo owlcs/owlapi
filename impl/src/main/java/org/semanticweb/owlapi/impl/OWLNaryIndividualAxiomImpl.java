@@ -37,7 +37,7 @@ public abstract class OWLNaryIndividualAxiomImpl extends OWLIndividualAxiomImpl
      * @param individuals individuals (list must be sorted in the factory)
      * @param annotations annotations on the axiom
      */
-    public OWLNaryIndividualAxiomImpl(List<OWLIndividual> individuals,
+    protected OWLNaryIndividualAxiomImpl(List<OWLIndividual> individuals,
         Collection<OWLAnnotation> annotations) {
         super(annotations);
         this.individuals = Collections.unmodifiableList(

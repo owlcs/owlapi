@@ -15,7 +15,7 @@ class OWLOntologyStorerFactoryRegistryTestCase extends TestBase {
     private static final int EXPECTED_STORERS = 21;
 
     @Test
-    void setUp() {
+    void assertExpectedStorers() {
         PriorityCollection<OWLStorerFactory> ontologyStorers = setupManager().getOntologyStorers();
         assertEquals(EXPECTED_STORERS, ontologyStorers.size());
     }

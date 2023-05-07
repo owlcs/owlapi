@@ -39,8 +39,7 @@ import org.semanticweb.owlapi.model.parameters.ChangeApplied;
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
-public class OWLOntologyImpl extends OWLImmutableOntologyImpl
-    implements OWLMutableOntology, Serializable {
+public class OWLOntologyImpl extends OWLImmutableOntologyImpl implements OWLMutableOntology {
 
     /**
      * @param manager ontology manager

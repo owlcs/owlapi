@@ -13,15 +13,13 @@
 package org.semanticweb.owlapi.model;
 
 /**
- * Represents an
- * <a href="http://www.w3.org/TR/owl2-syntax/#Self-Restriction">ObjectHasSelf
- * </a> class expression in the OWL 2 Specification.
+ * Represents an <a href="http://www.w3.org/TR/owl2-syntax/#Self-Restriction">ObjectHasSelf </a>
+ * class expression in the OWL 2 Specification.
  *
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
-public interface OWLObjectHasSelf extends OWLRestriction, OWLObjectRestriction {
+public interface OWLObjectHasSelf extends OWLObjectRestriction {
 
     @Override
     default OWLObjectType type() {

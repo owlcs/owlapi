@@ -582,16 +582,12 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
     public Set<OWLAxiom> extract(Set<OWLEntity> sig, int superClassLevel, int subClassLevel,
         @Nullable OWLReasoner reasoner) {
         Set<OWLEntity> enrichedSig = enrichSignature(sig, superClassLevel, subClassLevel, reasoner);
-        switch (moduleType) {
-            case TOP:
-                return extractUnnestedModule(enrichedSig, LocalityClass.TOP_TOP);
-            case BOT:
-                return extractUnnestedModule(enrichedSig, LocalityClass.BOTTOM_BOTTOM);
-            case STAR:
-                return extractStar(enrichedSig);
-            default:
-                throw new OWLRuntimeException("Unsupported module type: " + moduleType);
-        }
+        return switch (moduleType) {
+            case TOP -> extractUnnestedModule(enrichedSig, LocalityClass.TOP_TOP);
+            case BOT -> extractUnnestedModule(enrichedSig, LocalityClass.BOTTOM_BOTTOM);
+            case STAR -> extractStar(enrichedSig);
+            default -> throw new OWLRuntimeException("Unsupported module type: " + moduleType);
+        };
     }
 
     protected Set<OWLAxiom> extractStar(Set<OWLEntity> enrichedSig) {

@@ -15,7 +15,6 @@ package org.semanticweb.owlapi.builders;
 import static org.semanticweb.owlapi.utilities.OWLAPIPreconditions.verifyNotNull;
 
 import javax.annotation.Nullable;
-import javax.inject.Inject;
 
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
@@ -37,8 +36,7 @@ public abstract class BaseAnnotationPropertyBuilder<T extends OWLObject, B>
     /**
      * @param df data factory
      */
-    @Inject
-    public BaseAnnotationPropertyBuilder(OWLDataFactory df) {
+    protected BaseAnnotationPropertyBuilder(OWLDataFactory df) {
         super(df);
     }
 

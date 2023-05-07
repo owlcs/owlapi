@@ -21,7 +21,7 @@ import org.semanticweb.owlapi.vocab.OWL2Datatype;
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
-public interface OWLDatatype extends OWLDataRange, OWLEntity, OWLNamedObject {
+public interface OWLDatatype extends OWLDataRange, OWLEntity {
 
     @Override
     default OWLObjectType type() {

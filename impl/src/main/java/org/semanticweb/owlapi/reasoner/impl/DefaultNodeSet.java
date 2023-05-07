@@ -39,33 +39,33 @@ public abstract class DefaultNodeSet<E extends OWLObject> implements NodeSet<E> 
     /**
      * constructor for an empty node set.
      */
-    public DefaultNodeSet() {}
+    protected DefaultNodeSet() {}
 
     /**
      * @param entity the entity to be contained
      */
-    public DefaultNodeSet(E entity) {
+    protected DefaultNodeSet(E entity) {
         addNode(getNode(checkNotNull(entity, "entity cannot be null")));
     }
 
     /**
      * @param node the node to be contained
      */
-    public DefaultNodeSet(Node<E> node) {
+    protected DefaultNodeSet(Node<E> node) {
         addNode(checkNotNull(node, "node cannot be null"));
     }
 
     /**
      * @param nodes a set of nodes to be contained
      */
-    public DefaultNodeSet(Set<Node<E>> nodes) {
+    protected DefaultNodeSet(Set<Node<E>> nodes) {
         addAllNodes(checkNotNull(nodes, "nodes cannot be null"));
     }
 
     /**
      * @param nodes a set of nodes to be contained
      */
-    public DefaultNodeSet(Stream<Node<E>> nodes) {
+    protected DefaultNodeSet(Stream<Node<E>> nodes) {
         addAllNodes(checkNotNull(nodes, "nodes cannot be null"));
     }
 

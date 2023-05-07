@@ -58,7 +58,7 @@ import org.xml.sax.helpers.DefaultHandler;
  * @since 2.0.0
  */
 @HasPriority(1)
-public class ZipIRIMapper extends DefaultHandler implements OWLOntologyIRIMapper, Serializable {
+public class ZipIRIMapper extends DefaultHandler implements OWLOntologyIRIMapper {
 
     private static final String EXCEPTION_READING_FILE = "Exception reading file";
     static final Pattern pattern = Pattern.compile("Ontology\\(<([^>]+)>");
@@ -75,9 +75,9 @@ public class ZipIRIMapper extends DefaultHandler implements OWLOntologyIRIMapper
     /**
      * Creates an auto-mapper which examines ontologies that reside in the specified zip file.
      *
-     * @param zip     The zip file to map.
+     * @param zip The zip file to map.
      * @param baseIRI base iri for physical IRIs
-     * @param df      data factory
+     * @param df data factory
      * @throws IOException if an exception reading from input is raised
      */
     @SuppressWarnings("resource")
@@ -88,9 +88,9 @@ public class ZipIRIMapper extends DefaultHandler implements OWLOntologyIRIMapper
     /**
      * Creates an auto-mapper which examines ontologies that reside in the specified zip file.
      *
-     * @param zip     The zip file to map.
+     * @param zip The zip file to map.
      * @param baseIRI base iri for physical IRIs
-     * @param df      data factory
+     * @param df data factory
      * @throws IOException if an exception reading from input is raised
      */
     public ZipIRIMapper(ZipFile zip, String baseIRI, OWLDataFactory df) throws IOException {
@@ -333,7 +333,7 @@ public class ZipIRIMapper extends DefaultHandler implements OWLOntologyIRIMapper
 
     /**
      * @param ontologyIRI ontology
-     * @param file        file
+     * @param file file
      */
     protected void addMapping(IRI ontologyIRI, File file) {
         ontologyIRI2PhysicalURIMap.put(ontologyIRI, df.getIRI(file));

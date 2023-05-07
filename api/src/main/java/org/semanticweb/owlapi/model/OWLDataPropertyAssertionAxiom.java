@@ -20,8 +20,7 @@ package org.semanticweb.owlapi.model;
  * @since 2.0.0
  */
 public interface OWLDataPropertyAssertionAxiom
-    extends OWLPropertyAssertionAxiom<OWLDataPropertyExpression, OWLLiteral>,
-    OWLSubClassOfAxiomShortCut {
+    extends OWLPropertyAssertionAxiom<OWLDataPropertyExpression, OWLLiteral> {
 
     @Override
     @SuppressWarnings("unchecked")

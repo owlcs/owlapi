@@ -32,12 +32,13 @@ public abstract class AbstractCollector implements OWLObjectVisitor {
     }
 
     protected final void processStream(Object o) {
-        if (o instanceof OWLObject) {
-            ((OWLObject) o).accept(this);
-        } else if (o instanceof Stream) {
-            ((Stream<?>) o).forEach(this::processStream);
-        } else if (o instanceof Collection) {
-            ((Collection<?>) o).stream().forEach(this::processStream);
+        switch (o) {
+            case OWLObject v -> v.accept(this);
+            case Stream s -> s.forEach(this::processStream);
+            case Collection l -> l.stream().forEach(this::processStream);
+            default -> {
+                break;
+            }
         }
     }
 }

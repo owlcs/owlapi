@@ -14,8 +14,6 @@ package org.semanticweb.owlapi.impl;
 
 import static org.semanticweb.owlapi.utilities.OWLAPIPreconditions.checkNotNull;
 
-import java.io.Serializable;
-
 import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.IRI;
@@ -25,7 +23,7 @@ import org.semanticweb.owlapi.model.OWLImportsDeclaration;
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
-public class OWLImportsDeclarationImpl implements OWLImportsDeclaration, Serializable {
+public class OWLImportsDeclarationImpl implements OWLImportsDeclaration {
 
     private final IRI iri;
 

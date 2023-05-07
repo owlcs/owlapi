@@ -214,7 +214,8 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
     protected final Set<String> dataTypeParsedNames = new HashSet<>();
     protected final Set<String> annotationPropertyNames = new HashSet<>();
     protected final PrefixManager pm;
-    protected final Set<ManchesterOWLSyntax> potentialKeywords = new HashSet<>();
+    protected final Set<ManchesterOWLSyntax> potentialKeywords =
+        EnumSet.noneOf(ManchesterOWLSyntax.class);
     private final List<Token> tokens = new ArrayList<>();
     private final Map<String, SWRLBuiltInsVocabulary> ruleBuiltIns = new TreeMap<>();
     //@formatter:off
@@ -701,9 +702,8 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
             return parseObjectOneOf();
         } else if (OPEN.matches(tok)) {
             return parseNestedClassExpression(false);
-        }
-        // Add option for strict class name checking
-        else {
+        } else {
+            // Add option for strict class name checking
             consumeToken();
             throw new ExceptionBuilder().withClass().withObject().withData()
                 .withKeyword(OPEN, OPENBRACE, NOT, INVERSE).build();
@@ -1125,7 +1125,7 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
     @Override
     public Set<OntologyAxiomPair> parseFrames() {
         Set<OntologyAxiomPair> axioms = new HashSet<>();
-        Set<ManchesterOWLSyntax> possible = new HashSet<>();
+        Set<ManchesterOWLSyntax> possible = EnumSet.noneOf(ManchesterOWLSyntax.class);
         resetPossible(possible);
         while (true) {
             String tok = peekToken();

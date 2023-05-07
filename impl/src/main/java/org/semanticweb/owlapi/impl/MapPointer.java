@@ -130,7 +130,8 @@ public class MapPointer<K, V extends OWLAxiom> {
     protected void consumer(Set<IRI> set, K k) {
         if (k instanceof HasIRI) {
             set.add(((HasIRI) k).getIRI());
-        } else if (k instanceof IRI) {
+        }
+        if (k instanceof IRI) {
             set.add((IRI) k);
         }
     }
@@ -159,7 +160,8 @@ public class MapPointer<K, V extends OWLAxiom> {
         if (visitor instanceof InitVisitor) {
             InitVisitor<K> v = (InitVisitor<K>) visitor;
             i.getAxiomsByType().forEach(t, ax -> putInternal(ax.accept(v), (V) ax));
-        } else if (visitor instanceof InitCollectionVisitor) {
+        }
+        if (visitor instanceof InitCollectionVisitor) {
             InitCollectionVisitor<K> v = (InitCollectionVisitor<K>) visitor;
             i.getAxiomsByType().forEach(t,
                 ax -> ax.accept(v).forEach(key -> putInternal(key, (V) ax)));

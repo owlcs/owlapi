@@ -343,7 +343,7 @@ public class Translators {
 
         @Override
         public boolean matches(IRI mainNode, Mode mode) {
-            if (mode.equals(Mode.LAX)) {
+            if (mode == Mode.LAX) {
                 return matchesLax(mainNode);
             } else {
                 return matchesStrict(mainNode);

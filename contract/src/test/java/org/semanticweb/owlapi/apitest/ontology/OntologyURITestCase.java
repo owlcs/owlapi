@@ -14,6 +14,7 @@ package org.semanticweb.owlapi.apitest.ontology;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.contains;
 
@@ -56,10 +57,10 @@ class OntologyURITestCase extends TestBase {
         OWLOntologyID ontIDBoth2 = OntologyID(onto, version);
         assertEquals(ontIDBoth, ontIDBoth2);
         OWLOntologyID ontIDURIOnly = OntologyID(onto);
-        assertFalse(ontIDBoth.equals(ontIDURIOnly));
+        assertNotEquals(ontIDBoth, ontIDURIOnly);
         OWLOntologyID ontIDNoneA = OntologyID();
         OWLOntologyID ontIDNoneB = OntologyID();
-        assertFalse(ontIDNoneA.equals(ontIDNoneB));
+        assertNotEquals(ontIDNoneA, ontIDNoneB);
     }
 
     @Test

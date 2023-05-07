@@ -14,8 +14,6 @@ package org.semanticweb.owlapi.utility;
 
 import static org.semanticweb.owlapi.utilities.OWLAPIPreconditions.checkNotNull;
 
-import java.io.Serializable;
-
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.utilities.IRIShortFormProvider;
 
@@ -26,7 +24,7 @@ import org.semanticweb.owlapi.utilities.IRIShortFormProvider;
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.2.0
  */
-public class SimpleIRIShortFormProvider implements IRIShortFormProvider, Serializable {
+public class SimpleIRIShortFormProvider implements IRIShortFormProvider {
 
     @Override
     public String getShortForm(IRI iri) {

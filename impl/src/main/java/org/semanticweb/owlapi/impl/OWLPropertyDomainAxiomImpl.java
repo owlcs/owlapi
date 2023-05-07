@@ -37,7 +37,8 @@ public abstract class OWLPropertyDomainAxiomImpl<P extends OWLPropertyExpression
      * @param domain domain
      * @param annotations annotations
      */
-    public OWLPropertyDomainAxiomImpl(P property, R domain, Collection<OWLAnnotation> annotations) {
+    protected OWLPropertyDomainAxiomImpl(P property, R domain,
+        Collection<OWLAnnotation> annotations) {
         super(property, annotations);
         this.domain = checkNotNull(domain, "domain cannot be null");
     }

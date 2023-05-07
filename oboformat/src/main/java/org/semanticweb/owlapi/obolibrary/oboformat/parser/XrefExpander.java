@@ -8,6 +8,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Pattern;
 
 import javax.annotation.Nullable;
 
@@ -25,7 +26,7 @@ import org.slf4j.LoggerFactory;
  * Xref expander.
  */
 public class XrefExpander {
-
+    private static final Pattern SPLIT_SPACE = Pattern.compile("\\s");
     protected static final Logger LOG = LoggerFactory.getLogger(XrefExpander.class);
     protected Map<String, Rule> treatMap = new HashMap<>();
     protected Map<String, OBODoc> targetDocMap = new HashMap<>();
@@ -104,7 +105,7 @@ public class XrefExpander {
     protected void expand(Map<String, String> relationsUseByIdSpace, Clause c,
         @Nullable String tag) {
         String v = c.getValue().toString();
-        String[] parts = v.split("\\s");
+        String[] parts = SPLIT_SPACE.split(v);
         String idSpace = parts[0];
         assert tag != null;
         String relation = null;

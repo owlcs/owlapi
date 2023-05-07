@@ -22,9 +22,8 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
-public interface OWLEntity
-    extends OWLObject, OWLNamedObject, OWLPrimitive, AsOWLClass, AsOWLDataProperty, AsOWLDatatype,
-    AsOWLAnnotationProperty, AsOWLNamedIndividual, AsOWLObjectProperty {
+public interface OWLEntity extends OWLNamedObject, OWLPrimitive, AsOWLClass, AsOWLDataProperty,
+    AsOWLDatatype, AsOWLAnnotationProperty, AsOWLNamedIndividual, AsOWLObjectProperty {
 
     /**
      * Gets the entity type for this entity.

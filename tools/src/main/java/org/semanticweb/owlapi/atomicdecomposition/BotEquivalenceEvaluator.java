@@ -26,7 +26,6 @@ import org.semanticweb.owlapi.model.OWLObjectOneOf;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLObjectSomeValuesFrom;
 import org.semanticweb.owlapi.model.OWLObjectUnionOf;
-import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLPropertyExpression;
 import org.semanticweb.owlapi.model.OWLPropertyRange;
 
@@ -34,7 +33,7 @@ import org.semanticweb.owlapi.model.OWLPropertyRange;
  * check whether class expressions are equivalent to bottom wrt given locality class
  */
 // XXX verify unused parameters
-public class BotEquivalenceEvaluator extends SigAccessor implements OWLObjectVisitor {
+public class BotEquivalenceEvaluator extends SigAccessor {
 
     /**
      * keep the value here

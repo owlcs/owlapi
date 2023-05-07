@@ -16,7 +16,6 @@ import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.sorted;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -84,8 +83,7 @@ public class OWLSameIndividualAxiomImpl extends OWLNaryIndividualAxiomImpl
     @Override
     public Set<OWLSubClassOfAxiom> asOWLSubClassOfAxioms() {
         List<OWLClassExpression> nominalsList = new ArrayList<>();
-        individuals()
-            .forEach(i -> nominalsList.add(new OWLObjectOneOfImpl(Collections.singletonList(i))));
+        individuals().forEach(i -> nominalsList.add(new OWLObjectOneOfImpl(i)));
         Set<OWLSubClassOfAxiom> result = new HashSet<>();
         for (int i = 0; i < nominalsList.size() - 1; i++) {
             OWLClassExpression ceI = nominalsList.get(i);

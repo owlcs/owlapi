@@ -315,12 +315,12 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor, OWLObje
             + ")\n\n");
         annotationAssertionAxioms.stream().filter(alreadyWrittenAxioms::add)
             .forEach(this::acceptAndReturn);
-        axiomsForEntity.stream().filter(this::shouldWrite).filter(alreadyWrittenAxioms::add)
-            .forEach(this::acceptAndReturn);
+        axiomsForEntity.stream().filter(FunctionalSyntaxObjectRenderer::shouldWrite)
+            .filter(alreadyWrittenAxioms::add).forEach(this::acceptAndReturn);
         writeReturn();
     }
 
-    private boolean shouldWrite(OWLAxiom ax) {
+    private static boolean shouldWrite(OWLAxiom ax) {
         if (ax.getAxiomType().equals(AxiomType.DIFFERENT_INDIVIDUALS)) {
             return false;
         }

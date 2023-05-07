@@ -39,8 +39,7 @@ import org.semanticweb.owlapi.model.SWRLVariable;
 import org.semanticweb.owlapi.utility.SWRLVariableExtractor;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public class SWRLRuleImpl extends OWLLogicalAxiomImpl implements SWRLRule {
@@ -51,12 +50,9 @@ public class SWRLRuleImpl extends OWLLogicalAxiomImpl implements SWRLRule {
     protected static final AtomSimplifier ATOM_SIMPLIFIER = new AtomSimplifier();
 
     /**
-     * @param body
-     *        rule body
-     * @param head
-     *        rule head
-     * @param annotations
-     *        annotations on the axiom
+     * @param body rule body
+     * @param head rule head
+     * @param annotations annotations on the axiom
      */
     public SWRLRuleImpl(Collection<? extends SWRLAtom> body, Collection<? extends SWRLAtom> head,
         Collection<OWLAnnotation> annotations) {
@@ -69,10 +65,8 @@ public class SWRLRuleImpl extends OWLLogicalAxiomImpl implements SWRLRule {
     }
 
     /**
-     * @param body
-     *        rule body
-     * @param head
-     *        rule head
+     * @param body rule body
+     * @param head rule head
      */
     public SWRLRuleImpl(Collection<? extends SWRLAtom> body, Collection<? extends SWRLAtom> head) {
         this(body, head, NO_ANNOTATIONS);
@@ -106,7 +100,7 @@ public class SWRLRuleImpl extends OWLLogicalAxiomImpl implements SWRLRule {
 
     @Override
     public Stream<OWLClassExpression> classAtomPredicates() {
-        return Stream.concat(head(), body()).filter(c -> c instanceof SWRLClassAtom)
+        return Stream.concat(head(), body()).filter(SWRLClassAtom.class::isInstance)
             .map(c -> ((SWRLClassAtom) c).getPredicate()).distinct().sorted();
     }
 

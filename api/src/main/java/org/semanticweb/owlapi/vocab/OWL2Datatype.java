@@ -311,7 +311,7 @@ public enum OWL2Datatype implements HasIRI, HasShortForm, HasPrefixedName {
      * @return {@code true} if this datatype is a numeric datatype
      */
     public boolean isNumeric() {
-        return category.equals(Category.CAT_NUMBER);
+        return category == Category.CAT_NUMBER;
     }
 
     /**

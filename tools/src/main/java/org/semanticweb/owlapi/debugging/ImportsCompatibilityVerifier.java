@@ -105,7 +105,7 @@ public class ImportsCompatibilityVerifier {
             list.put(ontologyIRI, o);
             return o;
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            throw new IllegalArgumentException(e);
         }
     }
 

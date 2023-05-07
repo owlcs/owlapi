@@ -27,14 +27,13 @@ import org.semanticweb.owlapi.model.OWLObjectOneOf;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLObjectSomeValuesFrom;
 import org.semanticweb.owlapi.model.OWLObjectUnionOf;
-import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLPropertyExpression;
 import org.semanticweb.owlapi.model.OWLPropertyRange;
 
 /**
  * check whether class expressions are equivalent to top wrt given locality class
  */
-public class TopEquivalenceEvaluator extends SigAccessor implements OWLObjectVisitor {
+public class TopEquivalenceEvaluator extends SigAccessor {
 
     /**
      * keep the value here

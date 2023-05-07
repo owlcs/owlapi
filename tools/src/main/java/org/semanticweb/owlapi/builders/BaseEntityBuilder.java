@@ -15,7 +15,6 @@ package org.semanticweb.owlapi.builders;
 import static org.semanticweb.owlapi.utilities.OWLAPIPreconditions.verifyNotNull;
 
 import javax.annotation.Nullable;
-import javax.inject.Inject;
 
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLDataFactory;
@@ -41,8 +40,7 @@ public abstract class BaseEntityBuilder<T extends OWLEntity, B> extends BaseBuil
     /**
      * @param df data factory
      */
-    @Inject
-    public BaseEntityBuilder(OWLDataFactory df) {
+    protected BaseEntityBuilder(OWLDataFactory df) {
         super(df);
     }
 

@@ -36,9 +36,9 @@ public abstract class OWLNaryClassAxiomImpl extends OWLClassAxiomImpl implements
 
     /**
      * @param classExpressions classes (list must be sorted in the factory)
-     * @param annotations      annotations
+     * @param annotations annotations
      */
-    public OWLNaryClassAxiomImpl(List<OWLClassExpression> classExpressions,
+    protected OWLNaryClassAxiomImpl(List<OWLClassExpression> classExpressions,
         Collection<OWLAnnotation> annotations) {
         super(annotations);
         this.classExpressions =

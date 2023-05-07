@@ -37,9 +37,8 @@ import org.semanticweb.owlapi.utilities.PriorityCollection;
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
-public interface OWLOntologyManager
-    extends OWLOntologySetProvider, HasDataFactory, HasGetOntologyById, HasContainsOntology,
-    HasOntologyChangeListeners, HasOntologyConfigurator, Serializable {
+public interface OWLOntologyManager extends OWLOntologySetProvider, HasDataFactory,
+    HasGetOntologyById, HasContainsOntology, HasOntologyChangeListeners, HasOntologyConfigurator {
 
     /**
      * Clear all ontologies, listeners and maps from the manager. Leave injected factories, storers

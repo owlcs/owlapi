@@ -13,13 +13,12 @@
 package org.semanticweb.owlapi.reasoner;
 
 import java.io.PrintStream;
-import java.io.Serializable;
 
 /**
  * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
  */
-public class ConsoleProgressMonitor implements ReasonerProgressMonitor, Serializable {
+public class ConsoleProgressMonitor implements ReasonerProgressMonitor {
 
     private int lastPercentage;
     protected PrintStream output = System.out;

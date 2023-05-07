@@ -83,7 +83,7 @@ class LiteralTestCase extends TestBase {
         assertFalse(LITERAL_WITH_LANG.isRDFPlainLiteral());
         assertTrue(LITERAL_WITH_LANG.hasLang());
         assertEquals("en", LITERAL_WITH_LANG.getLang());
-        assertEquals(LITERAL_WITH_LANG.getDatatype(), DATATYPES.LANG_STRING);
+        assertEquals(DATATYPES.LANG_STRING, LITERAL_WITH_LANG.getDatatype());
     }
 
     @Test
@@ -93,7 +93,7 @@ class LiteralTestCase extends TestBase {
         assertFalse(litvalue.isRDFPlainLiteral());
         assertEquals("en", litvalue.getLang());
         assertEquals(ABC, litvalue.getLiteral());
-        assertEquals(litvalue.getDatatype(), DATATYPES.LANG_STRING);
+        assertEquals(DATATYPES.LANG_STRING, litvalue.getDatatype());
     }
 
     @Test
@@ -113,7 +113,7 @@ class LiteralTestCase extends TestBase {
         assertFalse(litvalue.isRDFPlainLiteral());
         assertEquals("en", litvalue.getLang());
         assertEquals("abc@", litvalue.getLiteral());
-        assertEquals(litvalue.getDatatype(), DATATYPES.LANG_STRING);
+        assertEquals(DATATYPES.LANG_STRING, litvalue.getDatatype());
     }
 
     @Test

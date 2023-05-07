@@ -987,7 +987,8 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
         writeNewLine();
         if (entity instanceof OWLEntity) {
             return writeAnnotations(((OWLEntity) entity).getIRI());
-        } else if (entity instanceof OWLAnonymousIndividual) {
+        }
+        if (entity instanceof OWLAnonymousIndividual) {
             return writeAnnotations((OWLAnonymousIndividual) entity);
         }
         return Collections.emptySet();

@@ -35,7 +35,7 @@ public abstract class OWLAxiomImpl extends OWLObjectImpl implements OWLAxiom {
     /**
      * @param annotations annotations on the axiom
      */
-    public OWLAxiomImpl(Collection<OWLAnnotation> annotations) {
+    protected OWLAxiomImpl(Collection<OWLAnnotation> annotations) {
         checkIterableNotNull(annotations, "annotations cannot be null", true);
         this.annotations = sorted(OWLAnnotation.class, annotations);
     }

@@ -61,10 +61,10 @@ public abstract class OWLReasonerBase implements OWLReasoner {
         manager.addOntologyChangeListener(this::handleRawOntologyChanges);
         reasonerAxioms = asUnorderedSet(rootOntology.importsClosure()
             .flatMap(o -> Stream.concat(o.logicalAxioms(), o.axioms(AxiomType.DECLARATION)))
-            .map(this::removeAnns));
+            .map(OWLReasonerBase::removeAnns));
     }
 
-    private OWLAxiom removeAnns(OWLAxiom ax) {
+    private static OWLAxiom removeAnns(OWLAxiom ax) {
         return OWLAxiom.getAxiomWithoutAnnotations(ax);
     }
 
@@ -101,7 +101,7 @@ public abstract class OWLReasonerBase implements OWLReasoner {
         Collection<? extends OWLOntologyChange> changes) {
         rawChanges.addAll(changes);
         // We auto-flush the changes if the reasoner is non-buffering
-        if (bufferingMode.equals(BufferingMode.NON_BUFFERING)) {
+        if (bufferingMode == BufferingMode.NON_BUFFERING) {
             flush();
         }
     }
@@ -114,14 +114,14 @@ public abstract class OWLReasonerBase implements OWLReasoner {
     @Override
     public Set<OWLAxiom> getPendingAxiomAdditions() {
         Set<OWLAxiom> added = new HashSet<>();
-        computeDiff(added, new HashSet<OWLAxiom>());
+        computeDiff(added, new HashSet<>());
         return added;
     }
 
     @Override
     public Set<OWLAxiom> getPendingAxiomRemovals() {
         Set<OWLAxiom> removed = new HashSet<>();
-        computeDiff(new HashSet<OWLAxiom>(), removed);
+        computeDiff(new HashSet<>(), removed);
         return removed;
     }
 
@@ -144,10 +144,10 @@ public abstract class OWLReasonerBase implements OWLReasoner {
      * list of pending changes. Note that even if the list of pending changes is non-empty then
      * there may be no changes for the reasoner to deal with.
      *
-     * @param added   The logical axioms that have been added to the imports closure of the reasoner
-     *                root ontology
+     * @param added The logical axioms that have been added to the imports closure of the reasoner
+     *        root ontology
      * @param removed The logical axioms that have been removed from the imports closure of the
-     *                reasoner root ontology
+     *        reasoner root ontology
      */
     private void computeDiff(Set<OWLAxiom> added, Set<OWLAxiom> removed) {
         if (rawChanges.isEmpty()) {
@@ -184,7 +184,7 @@ public abstract class OWLReasonerBase implements OWLReasoner {
      * closure of the root ontology. The changes will not include annotation axiom additions and
      * removals.
      *
-     * @param addAxioms    The axioms to be added to the reasoner.
+     * @param addAxioms The axioms to be added to the reasoner.
      * @param removeAxioms The axioms to be removed from the reasoner
      */
     protected abstract void handleChanges(Set<OWLAxiom> addAxioms, Set<OWLAxiom> removeAxioms);

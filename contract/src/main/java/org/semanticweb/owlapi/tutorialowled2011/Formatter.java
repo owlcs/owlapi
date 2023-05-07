@@ -28,6 +28,7 @@ public final class Formatter {
     private static final String BEAMERBOXESROUNDED = "beamerboxesrounded";
     private static final String BEGIN_BEAMERBOXESROUNDED = "\\begin{" + BEAMERBOXESROUNDED + "}{";
     private static final String HSPACE_4MM = "\\hspace{4mm}";
+    private static final Pattern stringPattern = Pattern.compile("(\"[\\w\\.\\:\\s\\#/\\-]*\")");
 
     private Formatter() {}
 
@@ -37,7 +38,6 @@ public final class Formatter {
         specials.put("() throws Exception \\{", "}\n\\scriptsize");
         String[] keywords =
             {" class ", " void ", " extends ", "public", " static final", "return", "throws"};
-        Pattern stringPattern = Pattern.compile("(\"[\\w\\.\\:\\s\\#/\\-]*\")");
         try (BufferedReader r = new BufferedReader(new InputStreamReader(new FileInputStream(
             "../OWLAPI3/tutorial2011/uk/ac/manchester/owl/owlapi/tutorialowled2011/TutorialSnippets.java")))) {
             String line = r.readLine();

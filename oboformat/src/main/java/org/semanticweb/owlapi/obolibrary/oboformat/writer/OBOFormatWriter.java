@@ -283,7 +283,8 @@ public class OBOFormatWriter {
     public static void writePropertyValue(Clause clause, Writer writer) throws IOException {
         Collection<?> cols = clause.getValues();
         if (cols.size() < 2) {
-            LOG.error("The {} has incorrect number of values: {}", OboFormatTag.TAG_PROPERTY_VALUE.getTag(), clause);
+            LOG.error("The {} has incorrect number of values: {}",
+                OboFormatTag.TAG_PROPERTY_VALUE.getTag(), clause);
             return;
         }
         Object v = clause.getValue();
@@ -622,7 +623,7 @@ public class OBOFormatWriter {
     public void write(OBODoc doc, File outFile) throws IOException {
         try (FileOutputStream os = new FileOutputStream(outFile);
             OutputStreamWriter osw = new OutputStreamWriter(os, StandardCharsets.UTF_8);
-            Writer bw = new BufferedWriter(osw);) {
+            Writer bw = new BufferedWriter(osw)) {
             write(doc, bw);
         }
     }

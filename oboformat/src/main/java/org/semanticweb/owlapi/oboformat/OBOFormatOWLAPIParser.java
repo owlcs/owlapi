@@ -13,7 +13,6 @@
 package org.semanticweb.owlapi.oboformat;
 
 import java.io.Reader;
-import java.io.Serializable;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
@@ -33,7 +32,7 @@ import org.semanticweb.owlapi.obolibrary.oboformat.parser.OBOFormatParser;
 /**
  * OBOformat parser.
  */
-public class OBOFormatOWLAPIParser implements OWLParser, Serializable {
+public class OBOFormatOWLAPIParser implements OWLParser {
 
     private static final BiConsumer<OWLOntology, OBODoc> defaultBridge =
         OBOFormatOWLAPIParser::bridge;

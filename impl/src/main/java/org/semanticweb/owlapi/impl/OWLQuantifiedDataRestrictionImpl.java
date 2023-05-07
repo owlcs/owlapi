@@ -20,7 +20,7 @@ import org.semanticweb.owlapi.model.OWLDataRestriction;
 
 /** Quantified data restriction. */
 public abstract class OWLQuantifiedDataRestrictionImpl
-                extends OWLQuantifiedRestrictionImpl<OWLDataRange> implements OWLDataRestriction {
+    extends OWLQuantifiedRestrictionImpl<OWLDataRange> implements OWLDataRestriction {
 
     private final OWLDataPropertyExpression property;
 
@@ -28,8 +28,8 @@ public abstract class OWLQuantifiedDataRestrictionImpl
      * @param property property
      * @param filler filler
      */
-    public OWLQuantifiedDataRestrictionImpl(OWLDataPropertyExpression property,
-                    OWLDataRange filler) {
+    protected OWLQuantifiedDataRestrictionImpl(OWLDataPropertyExpression property,
+        OWLDataRange filler) {
         super(filler);
         this.property = checkNotNull(property, "property cannot be null");
     }

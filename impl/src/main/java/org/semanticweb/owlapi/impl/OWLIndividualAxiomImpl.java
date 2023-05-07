@@ -22,12 +22,12 @@ import org.semanticweb.owlapi.model.OWLIndividualAxiom;
  * @since 2.0.0
  */
 public abstract class OWLIndividualAxiomImpl extends OWLLogicalAxiomImpl
-                implements OWLIndividualAxiom {
+    implements OWLIndividualAxiom {
 
     /**
      * @param annotations annotations on the axiom
      */
-    public OWLIndividualAxiomImpl(Collection<OWLAnnotation> annotations) {
+    protected OWLIndividualAxiomImpl(Collection<OWLAnnotation> annotations) {
         super(annotations);
     }
 }

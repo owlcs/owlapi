@@ -13,7 +13,7 @@
 package org.semanticweb.owlapi.apitest.annotations;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asUnorderedSet;
 
 import java.util.HashSet;
@@ -61,7 +61,7 @@ class LoadAnnotationAxiomsTestCase extends TestBase {
         OntologyConfigurator withoutAnnosConfig =
             new OntologyConfigurator().setLoadAnnotationAxioms(false);
         OWLOntology reloadedWithoutAnnoAxioms = reload(ontology, format, withoutAnnosConfig);
-        assertFalse(axioms.equals(asUnorderedSet(reloadedWithoutAnnoAxioms.axioms())));
+        assertNotEquals(axioms, asUnorderedSet(reloadedWithoutAnnoAxioms.axioms()));
         Set<OWLAxiom> axiomsMinusAnnotationAxioms = new HashSet<>(axioms);
         axiomsMinusAnnotationAxioms.removeAll(annotationAxioms);
         assertEquals(axiomsMinusAnnotationAxioms,

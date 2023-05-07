@@ -22,7 +22,7 @@ package org.semanticweb.owlapi.model;
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
-public interface OWLDataRange extends OWLObject, OWLPropertyRange, SWRLPredicate, AsOWLDatatype {
+public interface OWLDataRange extends OWLPropertyRange, SWRLPredicate, AsOWLDatatype {
 
     /**
      * Determines if this data range is the top data type.

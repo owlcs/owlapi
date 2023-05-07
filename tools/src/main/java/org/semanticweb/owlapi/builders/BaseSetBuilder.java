@@ -20,8 +20,6 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Stream;
 
-import javax.inject.Inject;
-
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLObject;
 
@@ -40,8 +38,7 @@ public abstract class BaseSetBuilder<T extends OWLObject, B, I> extends BaseBuil
     /**
      * @param df data factory
      */
-    @Inject
-    public BaseSetBuilder(OWLDataFactory df) {
+    protected BaseSetBuilder(OWLDataFactory df) {
         super(df);
     }
 

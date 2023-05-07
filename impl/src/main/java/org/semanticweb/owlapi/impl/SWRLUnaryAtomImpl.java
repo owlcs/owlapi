@@ -26,7 +26,7 @@ import org.semanticweb.owlapi.model.SWRLUnaryAtom;
  * @param <A> atom type
  */
 public abstract class SWRLUnaryAtomImpl<A extends SWRLArgument> extends SWRLAtomImpl
-                implements SWRLUnaryAtom<A> {
+    implements SWRLUnaryAtom<A> {
 
     private final A arg;
 
@@ -34,7 +34,7 @@ public abstract class SWRLUnaryAtomImpl<A extends SWRLArgument> extends SWRLAtom
      * @param predicate predicate
      * @param arg atom
      */
-    public SWRLUnaryAtomImpl(SWRLPredicate predicate, A arg) {
+    protected SWRLUnaryAtomImpl(SWRLPredicate predicate, A arg) {
         super(predicate);
         this.arg = checkNotNull(arg, "arg cannot be null");
     }

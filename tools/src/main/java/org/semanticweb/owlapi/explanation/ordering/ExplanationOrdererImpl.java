@@ -40,8 +40,7 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.2.0
  */
-public class ExplanationOrdererImpl extends ExplanationOrdererImplNoManager
-    implements ExplanationOrderer {
+public class ExplanationOrdererImpl extends ExplanationOrdererImplNoManager {
 
     private static final AtomicLong RANDOMSTART = new AtomicLong(System.currentTimeMillis());
     private final OWLOntologyManager man;

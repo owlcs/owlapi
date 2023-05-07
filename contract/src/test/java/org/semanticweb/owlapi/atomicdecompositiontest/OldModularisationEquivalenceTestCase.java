@@ -82,7 +82,7 @@ class OldModularisationEquivalenceTestCase extends TestBase {
 
     @ParameterizedTest
     @MethodSource("params")
-    @Disabled
+    @Disabled("not working yet")
     void testModularizationWithAtomicDecompositionStar(Set<OWLEntity> signature) {
         OWLOntology o = loadFrom(TestFiles.KOALA, new RDFXMLDocumentFormat());
         List<OWLAxiom> module1 =

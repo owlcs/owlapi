@@ -27,7 +27,7 @@ public class OWLZipYaml {
      * @param l list of YAML parsed objects
      */
     public OWLZipYaml(List<Map<String, Object>> l) {
-        list = asList(l.stream().map(this::map));
+        list = asList(l.stream().map(OWLZipEntry::new));
     }
 
     /**
@@ -48,13 +48,9 @@ public class OWLZipYaml {
             }
             Yaml yamlParser = new Yaml();
             Map<String, List<Map<String, Object>>> load2 = yamlParser.load(z.getInputStream(yaml));
-            list = asList(load2.get("ontologies").stream().map(this::map));
+            list = asList(load2.get("ontologies").stream().map(OWLZipEntry::new));
         }
 
-    }
-
-    private OWLZipEntry map(Map<String, Object> o) {
-        return new OWLZipEntry(o);
     }
 
     /**

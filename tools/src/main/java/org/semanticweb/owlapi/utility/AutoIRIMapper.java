@@ -59,7 +59,7 @@ import org.xml.sax.helpers.DefaultHandler;
  * @since 2.0.0
  */
 @HasPriority(1)
-public class AutoIRIMapper extends DefaultHandler implements OWLOntologyIRIMapper, Serializable {
+public class AutoIRIMapper extends DefaultHandler implements OWLOntologyIRIMapper {
 
     private static final String ONTOLOGY_ELEMENT_FOUND_PARSING_COMPLETE =
         "Ontology element found, parsing complete.";

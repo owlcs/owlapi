@@ -13,7 +13,7 @@
 package org.semanticweb.owlapi.apitest.literals;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Set;
@@ -33,7 +33,7 @@ class TestCornerCasesTestCase extends TestBase {
     @Test
     void testFloatZeros() {
         // +0 and -0 are not equal
-        assertFalse(Literal("0.0", Float()).equals(Literal("-0.0", Float())));
+        assertNotEquals(Literal("0.0", Float()), Literal("-0.0", Float()));
     }
 
     @Test
@@ -55,7 +55,7 @@ class TestCornerCasesTestCase extends TestBase {
 
     @Test
     void testGetDataPropertyValues() {
-        assertFalse(Literal("01", Integer()).equals(Literal("1", Integer())));
+        assertNotEquals(Literal("01", Integer()), Literal("1", Integer()));
     }
 
     @Test

@@ -193,7 +193,6 @@ import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLObjectPropertyRangeAxiom;
 import org.semanticweb.owlapi.model.OWLObjectSomeValuesFrom;
 import org.semanticweb.owlapi.model.OWLObjectUnionOf;
-import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLProperty;
@@ -242,7 +241,7 @@ import org.slf4j.LoggerFactory;
  * @since 2.0.0
  */
 public abstract class AbstractTranslator<N extends Serializable, R extends N, P extends N, L extends N>
-    implements OWLObjectVisitor, SWRLObjectVisitor {
+    implements SWRLObjectVisitor {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(AbstractTranslator.class);
     protected final IndividualAppearance multipleOccurrences;

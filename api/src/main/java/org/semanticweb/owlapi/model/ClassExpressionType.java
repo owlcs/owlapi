@@ -12,8 +12,6 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model;
 
-import java.io.Serializable;
-
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 /**
@@ -22,7 +20,7 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
  * @author Matthew Horridge, The University Of Manchester, Information Management Group
  * @since 2.2.0
  */
-public enum ClassExpressionType implements Serializable, HasShortForm, HasPrefixedName, HasIRI {
+public enum ClassExpressionType implements HasShortForm, HasPrefixedName, HasIRI {
     //@formatter:off
     /** Represents {@link OWLClass}.                    */  OWL_CLASS               (OWLRDFVocabulary.OWL_CLASS                 ),
     /** Represents {@link OWLObjectSomeValuesFrom}.     */  OBJECT_SOME_VALUES_FROM (OWLRDFVocabulary.OWL_ObjectSomeValuesFrom  ),

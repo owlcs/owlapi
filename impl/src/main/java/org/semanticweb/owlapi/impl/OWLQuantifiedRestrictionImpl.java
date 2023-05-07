@@ -23,14 +23,14 @@ import org.semanticweb.owlapi.model.OWLQuantifiedRestriction;
  * @param <F> range type
  */
 public abstract class OWLQuantifiedRestrictionImpl<F extends OWLPropertyRange>
-                extends OWLAnonymousClassExpressionImpl implements OWLQuantifiedRestriction<F> {
+    extends OWLAnonymousClassExpressionImpl implements OWLQuantifiedRestriction<F> {
 
     private final F filler;
 
     /**
      * @param filler filler
      */
-    public OWLQuantifiedRestrictionImpl(F filler) {
+    protected OWLQuantifiedRestrictionImpl(F filler) {
         this.filler = checkNotNull(filler, "filler cannot be null");
     }
 

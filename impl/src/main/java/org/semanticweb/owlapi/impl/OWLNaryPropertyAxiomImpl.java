@@ -37,10 +37,10 @@ public abstract class OWLNaryPropertyAxiomImpl<P extends OWLPropertyExpression>
     private final List<P> properties;
 
     /**
-     * @param properties  properties (list must be sorted in the factory)
+     * @param properties properties (list must be sorted in the factory)
      * @param annotations annotations
      */
-    public OWLNaryPropertyAxiomImpl(List<P> properties, Collection<OWLAnnotation> annotations) {
+    protected OWLNaryPropertyAxiomImpl(List<P> properties, Collection<OWLAnnotation> annotations) {
         super(annotations);
         this.properties = Collections.unmodifiableList(
             checkValidForNAryExpressions(properties, "properties cannot be null or empty"));

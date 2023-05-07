@@ -13,7 +13,6 @@
 package org.semanticweb.owlapi.builders;
 
 import javax.annotation.Nullable;
-import javax.inject.Inject;
 
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.SWRLBinaryAtom;
@@ -36,8 +35,7 @@ public abstract class BuilderSWRLIndividualsAtom<X extends SWRLBinaryAtom<SWRLIA
     /**
      * @param df data factory
      */
-    @Inject
-    public BuilderSWRLIndividualsAtom(OWLDataFactory df) {
+    protected BuilderSWRLIndividualsAtom(OWLDataFactory df) {
         super(df);
     }
 

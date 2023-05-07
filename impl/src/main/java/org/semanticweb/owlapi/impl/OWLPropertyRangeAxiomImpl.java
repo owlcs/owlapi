@@ -28,7 +28,7 @@ import org.semanticweb.owlapi.model.OWLPropertyRangeAxiom;
  * @param <R> range type
  */
 public abstract class OWLPropertyRangeAxiomImpl<P extends OWLPropertyExpression, R extends OWLPropertyRange>
-                extends OWLUnaryPropertyAxiomImpl<P> implements OWLPropertyRangeAxiom<P, R> {
+    extends OWLUnaryPropertyAxiomImpl<P> implements OWLPropertyRangeAxiom<P, R> {
 
     private final R range;
 
@@ -37,7 +37,8 @@ public abstract class OWLPropertyRangeAxiomImpl<P extends OWLPropertyExpression,
      * @param range range
      * @param annotations annotations
      */
-    public OWLPropertyRangeAxiomImpl(P property, R range, Collection<OWLAnnotation> annotations) {
+    protected OWLPropertyRangeAxiomImpl(P property, R range,
+        Collection<OWLAnnotation> annotations) {
         super(property, annotations);
         this.range = checkNotNull(range, "range cannot be null");
     }

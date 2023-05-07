@@ -254,7 +254,8 @@ public class DLExpressivityChecker implements OWLObjectVisitor {
     protected void iterate(Object o) {
         if (o instanceof Collection) {
             ((Collection<? extends OWLObject>) o).forEach(this::accept);
-        } else if (o instanceof OWLObject) {
+        }
+        if (o instanceof OWLObject) {
             accept((OWLObject) o);
         }
     }

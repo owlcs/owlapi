@@ -44,8 +44,8 @@ public class OWLOntologyMerger implements OWLAxiomFilter {
      */
     public OWLOntologyMerger(OWLOntologySetProvider setProvider) {
         this.setProvider = checkNotNull(setProvider, "setProvider cannot be null");
-        axiomFilter = this;
         mergeOnlyLogicalAxioms = false;
+        axiomFilter = this;
     }
 
     /**
@@ -53,7 +53,7 @@ public class OWLOntologyMerger implements OWLAxiomFilter {
      * @param mergeOnlyLogicalAxioms true if only logical axioms should be included
      */
     public OWLOntologyMerger(OWLOntologySetProvider setProvider, boolean mergeOnlyLogicalAxioms) {
-        this.setProvider = checkNotNull(setProvider, "setProvider cannot be null");
+        this.setProvider = checkNotNull(setProvider, "provider cannot be null");
         this.mergeOnlyLogicalAxioms = mergeOnlyLogicalAxioms;
         axiomFilter = this;
     }

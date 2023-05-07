@@ -38,7 +38,7 @@ class NamespacesTestCase extends TestBase {
         for (Namespaces n : Namespaces.values()) {
             IRI iriNamespace = iri(n.getPrefixIRI(), "test");
             boolean reservedVocabulary = iriNamespace.isReservedVocabulary();
-            assertTrue(reservedVocabulary == reserved.contains(n), iriNamespace
+            assertEquals(reservedVocabulary, reserved.contains(n), iriNamespace
                 + " reserved? Should be " + reserved.contains(n) + " but is " + reservedVocabulary);
         }
     }

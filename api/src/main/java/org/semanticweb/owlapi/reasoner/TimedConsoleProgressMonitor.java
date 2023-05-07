@@ -13,13 +13,12 @@
 package org.semanticweb.owlapi.reasoner;
 
 import java.io.PrintStream;
-import java.io.Serializable;
 
 /**
  * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
  */
-public class TimedConsoleProgressMonitor implements ReasonerProgressMonitor, Serializable {
+public class TimedConsoleProgressMonitor implements ReasonerProgressMonitor {
 
     private int lastPercentage;
     private long lastTime;
@@ -46,7 +45,7 @@ public class TimedConsoleProgressMonitor implements ReasonerProgressMonitor, Ser
         if (max > 0) {
             int percent = value * 100 / max;
             if (lastPercentage != percent) {
-                output.println("    " + percent + "%\t" + (time - lastTime) / 1000000);
+                output.println("    " + percent + "%\t" + (time - lastTime) / 1_000_000);
                 lastTime = time;
                 lastPercentage = percent;
             }

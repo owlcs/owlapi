@@ -97,6 +97,7 @@ import org.slf4j.LoggerFactory;
  * The Class OWLAPIOwl2Obo.
  */
 public class OWLAPIOwl2Obo {
+    private static final Pattern BLANK_NODE_MARKER = Pattern.compile("#_");
 
     private static final String ALL_ONLY = "all_only";
     private static final String PURL_OBO = "http://purl.obolibrary.org/obo/";
@@ -128,7 +129,7 @@ public class OWLAPIOwl2Obo {
     private static final Set<String> SKIPPED_QUALIFIERS = new HashSet<>(
         Arrays.asList("gci_relation", "gci_filler", CARDINALITY, MIN_CARDINALITY, MAX_CARDINALITY,
             "all_some", ALL_ONLY, "http://www.w3.org/1999/02/22-rdf-syntax-ns#type"));
-    protected final Pattern absoluteURLPattern = Pattern.compile("<\\s*http.*?>");
+    protected static final Pattern absoluteURLPattern = Pattern.compile("<\\s*http[^>]*>");
     protected final Set<OWLAxiom> untranslatableAxioms = new HashSet<>();
     protected final Map<String, String> idSpaceMap = new HashMap<>();
     protected final Set<OWLAnnotationProperty> apToDeclare = new HashSet<>();
@@ -229,7 +230,7 @@ public class OWLAPIOwl2Obo {
         if (iri.startsWith(PURL_OBO)) {
             id = iri.replace(PURL_OBO, "");
             if (id.endsWith(".owl")) {
-                id = id.replaceFirst(".owl$", "");
+                id = id.substring(0, id.length() - 4);
             }
         } else {
             id = iri;
@@ -389,7 +390,7 @@ public class OWLAPIOwl2Obo {
         String iri = iriId.toString();
         // canonical IRIs
         String id = getId(iri);
-        String[] s = id.split("#_");
+        String[] s = BLANK_NODE_MARKER.split(id);
         // table 5.9.2 row 2 - NonCanonical-Prefixed-ID
         if (s.length > 1) {
             return s[0] + ':' + s[1];
@@ -414,8 +415,7 @@ public class OWLAPIOwl2Obo {
                 throw new OWLRuntimeException("UTF-8 not supported, JRE corrupted?", e);
             }
         }
-        if (s.length > 2 && !id.contains("#")
-            && s[s.length - 1].replaceAll("[0-9]", "").isEmpty()) {
+        if (s.length > 2 && !id.contains("#") && lastStringIsNumeric(s)) {
             StringBuilder sb = new StringBuilder();
             for (int i = 0; i < s.length; i++) {
                 if (i > 0) {
@@ -430,6 +430,10 @@ public class OWLAPIOwl2Obo {
             return sb.toString();
         }
         return iri;
+    }
+
+    protected static boolean lastStringIsNumeric(String[] s) {
+        return s[s.length - 1].chars().allMatch(Character::isDigit);
     }
 
     protected static String getId(String iri) {
@@ -604,7 +608,8 @@ public class OWLAPIOwl2Obo {
                 int newValue = Integer.parseInt(newQV.getValue());
                 int mergedValue = Math.min(currentValue, newValue);
                 target.setValue(Integer.toString(mergedValue));
-            } else if (MAX_CARDINALITY.equals(target.getQualifier())) {
+            }
+            if (MAX_CARDINALITY.equals(target.getQualifier())) {
                 // try to merge, parse as integers
                 int currentValue = Integer.parseInt(target.getValue());
                 int newValue = Integer.parseInt(newQV.getValue());
@@ -930,7 +935,7 @@ public class OWLAPIOwl2Obo {
             tag = OBOFormatConstants.getTag(tagString);
         }
         if (tag == null) {
-            if (annVal.isIRI() && FrameType.TERM.equals(frame.getType()) && isMetadataTag(prop)) {
+            if (annVal.isIRI() && FrameType.TERM == frame.getType() && isMetadataTag(prop)) {
                 String propId = this.getIdentifier(prop);
                 if (propId != null) {
                     Clause clause = new Clause(OboFormatTag.TAG_RELATIONSHIP);
@@ -1321,7 +1326,8 @@ public class OWLAPIOwl2Obo {
         String q = CARDINALITY;
         if (restriction instanceof OWLObjectMinCardinality) {
             q = MIN_CARDINALITY;
-        } else if (restriction instanceof OWLObjectMaxCardinality) {
+        }
+        if (restriction instanceof OWLObjectMaxCardinality) {
             q = MAX_CARDINALITY;
         }
         c.addQualifierValue(new QualifierValue(q, Integer.toString(restriction.getCardinality())));
@@ -1822,7 +1828,7 @@ public class OWLAPIOwl2Obo {
                 // subsetdef/synonymtypedef
                 // gets placed in a temp ID space, and only this id space is
                 // stripped
-                indvId = indvId.replaceFirst(".*:", "");
+                indvId = indvId.substring(indvId.indexOf(':') + 1);
                 c.addValue(indvId);
                 c.addValue(indvId);
                 String nameValue = "";
@@ -1855,7 +1861,7 @@ public class OWLAPIOwl2Obo {
                 // subsetdef/synonymtypedef
                 // gets placed in a temp ID space, and only this id space is
                 // stripped
-                indvId = indvId.replaceFirst(".*:", "");
+                indvId = indvId.substring(indvId.indexOf(':') + 1);
                 c.addValue(indvId);
                 String nameValue = "";
                 Optional<OWLAnnotation> value =

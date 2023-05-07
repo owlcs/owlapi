@@ -2,6 +2,7 @@ package org.semanticweb.owlapi.obolibrary.obo2owl;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.regex.Pattern;
 
 import javax.annotation.Nullable;
 
@@ -16,6 +17,7 @@ import org.semanticweb.owlapi.model.IRI;
 public class IdTranslator {
 
     static final String OBO_IRI_PREFIX = "http://purl.obolibrary.org/obo/";
+    static final Pattern ID = Pattern.compile("[0-9]+");
     private final Map<String, String> idspaceMap = new HashMap<>();
 
     /**
@@ -52,7 +54,7 @@ public class IdTranslator {
             int p = id.lastIndexOf(':');
             String prefix = id.substring(0, p);
             String localId = id.substring(p + 1);
-            if (!localId.isEmpty() && localId.replaceAll("[0-9]", "").isEmpty()) {
+            if (!localId.isEmpty() && ID.matcher(localId).matches()) {
                 // CANONICAL
                 return expandPrefix(prefix) + localId;
             }

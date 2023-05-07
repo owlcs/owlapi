@@ -33,8 +33,8 @@ import javax.annotation.Nullable;
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
-public interface OWLLiteral extends OWLObject, OWLAnnotationObject, OWLAnnotationValue,
-    OWLPropertyAssertionObject, OWLPrimitive, HasLang, HasDatatype {
+public interface OWLLiteral
+    extends OWLAnnotationValue, OWLPropertyAssertionObject, HasLang, HasDatatype {
 
     @Override
     default OWLObjectType type() {

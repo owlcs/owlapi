@@ -32,11 +32,11 @@ public abstract class OWLSubPropertyAxiomImpl<P extends OWLPropertyExpression>
     private final P superProperty;
 
     /**
-     * @param subProperty   subProperty
+     * @param subProperty subProperty
      * @param superProperty super property
-     * @param annotations   annotations
+     * @param annotations annotations
      */
-    public OWLSubPropertyAxiomImpl(P subProperty, P superProperty,
+    protected OWLSubPropertyAxiomImpl(P subProperty, P superProperty,
         Collection<OWLAnnotation> annotations) {
         super(annotations);
         this.subProperty = checkNotNull(subProperty, "subProperty cannot be null");

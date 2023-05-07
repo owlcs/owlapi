@@ -320,7 +320,7 @@ public class Frame {
         if (type == null) {
             return f.getType() == null;
         }
-        return verifyNotNull(type).equals(f.getType());
+        return verifyNotNull(type) == f.getType();
     }
 
     /**
@@ -348,16 +348,16 @@ public class Frame {
      * @see OboInOwlCardinalityTools for equivalent checks in OWL
      */
     public void check() {
-        if (FrameType.HEADER.equals(type)) {
+        if (FrameType.HEADER == type) {
             checkMaxOneCardinality(OboFormatTag.TAG_ONTOLOGY, OboFormatTag.TAG_FORMAT_VERSION,
                 OboFormatTag.TAG_DATE, OboFormatTag.TAG_DEFAULT_NAMESPACE,
                 OboFormatTag.TAG_SAVED_BY, OboFormatTag.TAG_AUTO_GENERATED_BY);
         }
-        if (FrameType.TYPEDEF.equals(type)) {
+        if (FrameType.TYPEDEF == type) {
             checkMaxOneCardinality(OboFormatTag.TAG_DOMAIN, OboFormatTag.TAG_RANGE,
                 OboFormatTag.TAG_IS_METADATA_TAG, OboFormatTag.TAG_IS_CLASS_LEVEL_TAG);
         }
-        if (!FrameType.HEADER.equals(getType())) {
+        if (FrameType.HEADER != getType()) {
             List<Clause> tagIdClauses = getClauses(OboFormatTag.TAG_ID);
             if (tagIdClauses.size() != 1) {
                 throw new FrameStructureException(this, "cardinality of id field must be 1");

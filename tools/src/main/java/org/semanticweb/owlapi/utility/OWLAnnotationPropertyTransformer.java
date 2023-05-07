@@ -96,7 +96,6 @@ import org.semanticweb.owlapi.model.OWLObjectPropertyDomainAxiom;
 import org.semanticweb.owlapi.model.OWLObjectPropertyRangeAxiom;
 import org.semanticweb.owlapi.model.OWLObjectSomeValuesFrom;
 import org.semanticweb.owlapi.model.OWLObjectUnionOf;
-import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLProperty;
 import org.semanticweb.owlapi.model.OWLReflexiveObjectPropertyAxiom;
@@ -127,7 +126,7 @@ import org.slf4j.LoggerFactory;
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
-public class OWLAnnotationPropertyTransformer implements OWLObjectVisitor, SWRLObjectVisitor {
+public class OWLAnnotationPropertyTransformer implements SWRLObjectVisitor {
 
     private static final Logger LOGGER =
         LoggerFactory.getLogger(OWLAnnotationPropertyTransformer.class);
@@ -311,7 +310,8 @@ public class OWLAnnotationPropertyTransformer implements OWLObjectVisitor, SWRLO
             obj = df.getOWLObjectPropertyAssertionAxiom(prop.asOWLObjectProperty(), individual,
                 relatedIndividual, ax.annotationsAsList());
             return;
-        } else if (prop.isDataPropertyExpression()) {
+        }
+        if (prop.isDataPropertyExpression()) {
             // turn to data property assertion
             OWLIndividual individual;
             if (subject instanceof OWLAnonymousIndividual) {
@@ -687,7 +687,8 @@ public class OWLAnnotationPropertyTransformer implements OWLObjectVisitor, SWRLO
             obj = df.getOWLObjectPropertyDomainAxiom(prop.asOWLObjectProperty(), d,
                 ax.annotationsAsList());
             return;
-        } else if (prop.isDataPropertyExpression()) {
+        }
+        if (prop.isDataPropertyExpression()) {
             // turn to data property domain
             OWLClassExpression d = df.getOWLClass(domain);
             LOGGER.warn(
@@ -714,7 +715,8 @@ public class OWLAnnotationPropertyTransformer implements OWLObjectVisitor, SWRLO
             obj = df.getOWLObjectPropertyRangeAxiom(prop.asOWLObjectProperty(), d,
                 ax.annotationsAsList());
             return;
-        } else if (prop.isDataPropertyExpression()) {
+        }
+        if (prop.isDataPropertyExpression()) {
             // turn to data property domain
             OWLDataRange d = df.getOWLDatatype(range);
             LOGGER.warn(
@@ -743,7 +745,8 @@ public class OWLAnnotationPropertyTransformer implements OWLObjectVisitor, SWRLO
                 obj = ax;
             }
             return;
-        } else if (sub.isDataPropertyExpression() || sup.isDataPropertyExpression()) {
+        }
+        if (sub.isDataPropertyExpression() || sup.isDataPropertyExpression()) {
             if (sub.isOWLDataProperty() && sup.isOWLDataProperty()) {
                 obj = df.getOWLSubDataPropertyOfAxiom(sub.asOWLDataProperty(),
                     sup.asOWLDataProperty(), ax.annotationsAsList());

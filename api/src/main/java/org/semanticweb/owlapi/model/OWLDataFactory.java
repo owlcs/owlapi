@@ -44,9 +44,7 @@ import org.semanticweb.owlapi.model.providers.IRIProvider;
 import org.semanticweb.owlapi.model.providers.IndividualAssertionProvider;
 import org.semanticweb.owlapi.model.providers.IntersectionProvider;
 import org.semanticweb.owlapi.model.providers.InverseProvider;
-import org.semanticweb.owlapi.model.providers.LiteralProvider;
 import org.semanticweb.owlapi.model.providers.NominalProvider;
-import org.semanticweb.owlapi.model.providers.OWLVocabularyProvider;
 import org.semanticweb.owlapi.model.providers.ObjectAssertionProvider;
 import org.semanticweb.owlapi.model.providers.OntologyIDProvider;
 import org.semanticweb.owlapi.model.providers.SWRLProvider;
@@ -59,10 +57,9 @@ import org.semanticweb.owlapi.model.providers.UniversalProvider;
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
-public interface OWLDataFactory
-    extends SWRLProvider, IRIProvider, OntologyIDProvider, IRICreator, EntityProvider,
-    EntityByTypeProvider, AnonymousIndividualProvider, AnonymousIndividualByIdProvider,
-    OWLVocabularyProvider, LiteralProvider, AnnotationProvider, AnnotationAssertionProvider,
+public interface OWLDataFactory extends SWRLProvider, IRIProvider, OntologyIDProvider, IRICreator,
+    EntityProvider, EntityByTypeProvider, AnonymousIndividualProvider,
+    AnonymousIndividualByIdProvider, AnnotationProvider, AnnotationAssertionProvider,
     ClassAssertionProvider, DataAssertionProvider, ObjectAssertionProvider,
     IndividualAssertionProvider, CardinalityRestrictionProvider, DisjointAxiomProvider,
     EquivalentAxiomProvider, PropertyCharacteristicAxiomProvider, DatatypeExpressionProvider,

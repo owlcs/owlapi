@@ -20,7 +20,7 @@ class OWLEntityURIConverterTest extends TestBase {
     private static final String NEW_NAMESPACE = "http://www.example.org/newTestOntology#";
 
     @Test
-    public void test() {
+    void test() {
         OWLOntology ontology = load(TEST_ONTOLOGY_RESOURCE);
         entities(ontology).forEach(OWLEntityURIConverterTest::assertOldName);
         OWLEntityURIConverter converter =

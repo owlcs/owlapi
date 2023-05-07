@@ -41,21 +41,21 @@ public abstract class DefaultNode<E extends OWLObject> implements Node<E> {
     /**
      * @param entity the entity to add
      */
-    public DefaultNode(E entity) {
+    protected DefaultNode(E entity) {
         entities.add(checkNotNull(entity, "entity cannot be null"));
     }
 
     /**
      * @param entities the entities to add
      */
-    public DefaultNode(Collection<E> entities) {
+    protected DefaultNode(Collection<E> entities) {
         this.entities.addAll(checkNotNull(entities, "entities cannot be null"));
     }
 
     /**
      * @param entities the entities to add
      */
-    public DefaultNode(Stream<E> entities) {
+    protected DefaultNode(Stream<E> entities) {
         OWLAPIStreamUtils.add(this.entities, checkNotNull(entities, "entities cannot be null"));
     }
 

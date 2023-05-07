@@ -34,7 +34,7 @@ class RenameToExistingOntologyTestCase extends TestBase {
         onto.add(Declaration(Class(iri("urn:test:", "testclass"))));
         IRI ontologyBIRI = iri("http://www.semanticweb.org/ontologies/", "ontologyB");
         OWLOntology ontologyB = create(ontologyBIRI);
-        assertThrows(OWLOntologyRenameException.class,
-            () -> ontologyB.applyChange(new SetOntologyID(ontologyB, OntologyID(ontologyAIRI))));
+        var change = new SetOntologyID(ontologyB, OntologyID(ontologyAIRI));
+        assertThrows(OWLOntologyRenameException.class, () -> ontologyB.applyChange(change));
     }
 }

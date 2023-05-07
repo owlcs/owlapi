@@ -17,7 +17,6 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -131,8 +130,9 @@ class ImportsTestCase extends TestBase {
 
     @Test
     void shouldThrowExceptionWithDefaultImportsconfig() {
+        var format = new RDFXMLDocumentFormat();
         assertThrows(UnloadableImportException.class,
-            () -> loadFrom(TestFiles.unloadableImport, new RDFXMLDocumentFormat()));
+            () -> loadFrom(TestFiles.unloadableImport, format));
     }
 
     @Test
@@ -204,7 +204,7 @@ class ImportsTestCase extends TestBase {
         IRI testImport = iri("http://test.org/", "TestPizzaImport.owl");
         IRI remap = iri("urn:test:", "mockImport");
         OWLOntologyIRIMapper mock = mock(OWLOntologyIRIMapper.class);
-        when(mock.getDocumentIRI(eq(testImport))).thenReturn(remap);
+        when(mock.getDocumentIRI(testImport)).thenReturn(remap);
         m.getIRIMappers().set(mock);
         create(remap);
         OWLOntology o = loadFrom(new StringDocumentSource(TestFiles.remapImport), m);
@@ -217,7 +217,7 @@ class ImportsTestCase extends TestBase {
         IRI testImport = iri("http://test.org/", "TestPizzaImport.owl");
         IRI remap = iri("urn:test:", "mockImport");
         OWLOntologyIRIMapper mock = mock(OWLOntologyIRIMapper.class);
-        when(mock.getDocumentIRI(eq(testImport))).thenReturn(remap);
+        when(mock.getDocumentIRI(testImport)).thenReturn(remap);
         m.getIRIMappers().set(mock);
         create(remap, m);
         OWLOntology o = loadFrom(

@@ -19,7 +19,6 @@ import javax.inject.Inject;
 
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLDataHasValue;
-import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
 import org.semanticweb.owlapi.model.OWLLiteral;
 
 /**
@@ -27,8 +26,7 @@ import org.semanticweb.owlapi.model.OWLLiteral;
  */
 public class BuilderDataHasValue
     extends BaseDataPropertyBuilder<OWLDataHasValue, BuilderDataHasValue>
-    implements SettableRange<OWLLiteral, BuilderDataHasValue>,
-    SettableProperty<OWLDataPropertyExpression, BuilderDataHasValue> {
+    implements SettableRange<OWLLiteral, BuilderDataHasValue> {
 
     @Nullable
     private OWLLiteral literal = null;

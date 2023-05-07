@@ -12,7 +12,6 @@ import org.semanticweb.owlapi.formats.ManchesterSyntaxDocumentFormat;
 import org.semanticweb.owlapi.formats.OWLXMLDocumentFormat;
 import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
 import org.semanticweb.owlapi.formats.TurtleDocumentFormat;
-import org.semanticweb.owlapi.io.UnparsableOntologyException;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -34,8 +33,8 @@ class IRITestCase extends TestBase {
 
     @Test
     void shouldParseIRIAndSkipPrefixedSpaceTriG() {
-        assertThrows(OWLRuntimeException.class,
-            () -> loadFrom(TestFiles.BAD_TRIG, new TrigDocumentFormat()));
+        var format = new TrigDocumentFormat();
+        assertThrows(OWLRuntimeException.class, () -> loadFrom(TestFiles.BAD_TRIG, format));
     }
 
     protected void shouldFail(String bad, OWLDocumentFormat f2) {
@@ -75,8 +74,8 @@ class IRITestCase extends TestBase {
 
     @Test
     void shouldParseIRIAndSkipPrefixedSpaceRioRDFXML() {
-        assertThrows(OWLRuntimeException.class,
-            () -> loadFrom(TestFiles.BAD_RIO_RDF, new RioRDFXMLDocumentFormat()));
+        RioRDFXMLDocumentFormat format = new RioRDFXMLDocumentFormat();
+        assertThrows(OWLRuntimeException.class, () -> loadFrom(TestFiles.BAD_RIO_RDF, format));
     }
 
     @Test
@@ -92,8 +91,8 @@ class IRITestCase extends TestBase {
 
     @Test
     void shouldParseIRIAndSkipPrefixedSpaceNQUADS() {
-        assertThrows(Exception.class,
-            () -> roundTrip(new NQuadsDocumentFormat(), TestFiles.BAD_NTRIPLES));
+        var format = new NQuadsDocumentFormat();
+        assertThrows(Exception.class, () -> roundTrip(format, TestFiles.BAD_NTRIPLES));
     }
 
     @Test

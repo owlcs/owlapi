@@ -15,7 +15,6 @@ package org.semanticweb.owlapi.builders;
 import static org.semanticweb.owlapi.utilities.OWLAPIPreconditions.verifyNotNull;
 
 import javax.annotation.Nullable;
-import javax.inject.Inject;
 
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLDataFactory;
@@ -36,8 +35,7 @@ public abstract class BaseObjectBuilder<T extends OWLObject, B>
     /**
      * @param df data factory
      */
-    @Inject
-    public BaseObjectBuilder(OWLDataFactory df) {
+    protected BaseObjectBuilder(OWLDataFactory df) {
         super(df);
     }
 

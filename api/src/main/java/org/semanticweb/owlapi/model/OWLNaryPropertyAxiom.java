@@ -16,14 +16,12 @@ import java.util.Set;
 import java.util.stream.Stream;
 
 /**
- * @param <P>
- *        property expression
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @param <P> property expression
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
 public interface OWLNaryPropertyAxiom<P extends OWLPropertyExpression>
-    extends OWLPropertyAxiom, OWLNaryAxiom<P>, HasOperands<P> {
+    extends OWLPropertyAxiom, OWLNaryAxiom<P> {
 
     /**
      * @return all of the properties that appear in this axiom
@@ -36,8 +34,7 @@ public interface OWLNaryPropertyAxiom<P extends OWLPropertyExpression>
     }
 
     /**
-     * @param property
-     *        the property to skip
+     * @param property the property to skip
      * @return the set of properties minus property
      */
     Set<P> getPropertiesMinus(P property);

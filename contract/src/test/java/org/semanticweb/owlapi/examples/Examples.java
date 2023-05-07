@@ -128,7 +128,7 @@ import org.semanticweb.owlapi.vocab.OWLFacet;
  * @since 2.0.0
  */
 @SuppressWarnings("unused")
-public class Examples extends TestBase {
+class Examples extends TestBase {
 
     private static final String QUOKKA_IRI =
         "http://protege.stanford.edu/plugins/owl/owl-library/koala.owl#Quokka";
@@ -234,7 +234,7 @@ public class Examples extends TestBase {
      *
      * @throws Exception exception
      */
-    public void shouldLoad() throws Exception {
+    void shouldLoad() throws Exception {
         // Get hold of an ontology manager
         OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
         OWLOntology ontology = load(manager);
@@ -277,7 +277,7 @@ public class Examples extends TestBase {
      * @throws Exception exception
      */
     @Test
-    public void shouldSaveOntologies() throws Exception {
+    void shouldSaveOntologies() throws Exception {
         // Get hold of an ontology manager
         OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
         OWLOntology ontology = load(manager);
@@ -310,7 +310,7 @@ public class Examples extends TestBase {
      * @throws Exception exception
      */
     @Test
-    public void shouldAccessEntities() throws Exception {
+    void shouldAccessEntities() throws Exception {
         // In order to create objects that represent entities we need a
         // data factory.
         OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
@@ -360,7 +360,7 @@ public class Examples extends TestBase {
      * This example shows how to create dataranges.
      */
     @Test
-    public void shouldBuildDataRanges() throws Exception {
+    void shouldBuildDataRanges() throws Exception {
         // OWLDataRange is the superclass of all data ranges in the OWL API.
         // Data ranges are used as the types of literals, as the ranges for data
         // properties, as filler for data reatrictions. Get hold of a manager to
@@ -437,7 +437,7 @@ public class Examples extends TestBase {
      * @throws Exception exception
      */
     @Test
-    public void shouldUseDataranges() throws Exception {
+    void shouldUseDataranges() throws Exception {
         OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
         String base = "http://org.semanticweb.datarangeexample#";
         OWLOntology ontology = manager.createOntology(df.getIRI(base, ""));
@@ -481,7 +481,7 @@ public class Examples extends TestBase {
     }
 
     @Test
-    public void shouldInstantiateLiterals() {
+    void shouldInstantiateLiterals() {
         OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
         OWLDataFactory factory = manager.getOWLDataFactory();
         // Get an plain literal with an empty language tag
@@ -508,7 +508,7 @@ public class Examples extends TestBase {
      * @throws Exception exception
      */
     @Test
-    public void shouldLoadAndSave() throws Exception {
+    void shouldLoadAndSave() throws Exception {
         // A simple example of how to load and save an ontology We first need to
         // obtain a copy of an OWLOntologyManager, which, as the name suggests,
         // manages a set of ontologies. An ontology is unique within an ontology
@@ -532,7 +532,7 @@ public class Examples extends TestBase {
     }
 
     @Test
-    public void shouldAddAxiom() throws Exception {
+    void shouldAddAxiom() throws Exception {
         // Create the manager that we will use to load ontologies.
         OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
         // Ontologies can have an IRI, which is used to identify the ontology.
@@ -597,7 +597,7 @@ public class Examples extends TestBase {
      * @throws Exception exception
      */
     @Test
-    public void shouldCreateOntology() throws Exception {
+    void shouldCreateOntology() throws Exception {
         // We first need to create an OWLOntologyManager, which will provide a
         // point for creating, loading and saving ontologies. We can create a
         // default ontology manager with the OWLManager class. This provides a
@@ -664,7 +664,7 @@ public class Examples extends TestBase {
      * @throws Exception exception
      */
     @Test
-    public void shouldCreatePropertyAssertions() throws Exception {
+    void shouldCreatePropertyAssertions() throws Exception {
         // We can specify the properties of an individual using property
         // assertions Get a copy of an ontology manager
         OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
@@ -709,7 +709,7 @@ public class Examples extends TestBase {
      * @throws Exception exception
      */
     @Test
-    public void shouldAddClassAssertion() throws Exception {
+    void shouldAddClassAssertion() throws Exception {
         // For more information on classes and instances see the OWL 2 Primer
         // http://www.w3.org/TR/2009/REC-owl2-primer-20091027/#Classes_and_Instances
         // In order to say that an individual is an instance of a class (in an
@@ -744,7 +744,7 @@ public class Examples extends TestBase {
      * @throws Exception exception
      */
     @Test
-    public void shouldCreateAndSaveOntology() throws Exception {
+    void shouldCreateAndSaveOntology() throws Exception {
         OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
         // Let's create an ontology and name it
         // "http://www.co-ode.org/ontologies/testont.owl" We need to set up a
@@ -793,7 +793,7 @@ public class Examples extends TestBase {
      * @throws Exception exception
      */
     @Test
-    public void shouldAddObjectPropertyAssertions() throws Exception {
+    void shouldAddObjectPropertyAssertions() throws Exception {
         OWLOntologyManager man = OWLManager.createOWLOntologyManager();
         String base = "http://www.semanticweb.org/ontologies/individualsexample";
         OWLOntology ont = man.createOntology(df.getIRI(base, ""));
@@ -836,7 +836,7 @@ public class Examples extends TestBase {
      * @throws Exception exception
      */
     @Test
-    public void shouldDeleteIndividuals() throws Exception {
+    void shouldDeleteIndividuals() throws Exception {
         // The Koala ontology contains an individual of type Degree.
         // In this example we will delete it..
         OWLOntologyManager man = OWLManager.createOWLOntologyManager();
@@ -884,7 +884,7 @@ public class Examples extends TestBase {
      * @throws Exception exception
      */
     @Test
-    public void shouldCreateRestrictions() throws Exception {
+    void shouldCreateRestrictions() throws Exception {
         OWLOntologyManager man = OWLManager.createOWLOntologyManager();
         String base = "http://org.semanticweb.restrictionexample";
         OWLOntology ont = man.createOntology(df.getIRI(base, ""));
@@ -924,7 +924,7 @@ public class Examples extends TestBase {
      * @throws Exception exception
      */
     @Test
-    public void shouldUseReasoner() throws Exception {
+    void shouldUseReasoner() throws Exception {
         // Create our ontology manager in the usual way.
         OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
         OWLOntology ont = load(manager);
@@ -1035,7 +1035,7 @@ public class Examples extends TestBase {
      * @throws Exception exception
      */
     @Test
-    public void shouldLookAtRestrictions() throws Exception {
+    void shouldLookAtRestrictions() throws Exception {
         // Create our manager
         OWLOntologyManager man = OWLManager.createOWLOntologyManager();
         // Load the Koala ontology
@@ -1079,7 +1079,7 @@ public class Examples extends TestBase {
      * @throws Exception exception
      */
     @Test
-    public void shouldCreateAndReadAnnotations() throws Exception {
+    void shouldCreateAndReadAnnotations() throws Exception {
         // Create our manager
         OWLOntologyManager man = OWLManager.createOWLOntologyManager();
         // Load the Koala ontology
@@ -1137,7 +1137,7 @@ public class Examples extends TestBase {
      * @throws Exception exception
      */
     @Test
-    public void shouldCreateInferredAxioms() throws Exception {
+    void shouldCreateInferredAxioms() throws Exception {
         // Create a reasoner factory.
         // See Profiles for a list of known reasoner factories; note that you
         // will need to add the reasoner and any dependency to the classpath for
@@ -1181,7 +1181,7 @@ public class Examples extends TestBase {
      * @throws Exception exception
      */
     @Test
-    public void shouldMergeOntologies() throws Exception {
+    void shouldMergeOntologies() throws Exception {
         // Just load two arbitrary ontologies for the purposes of this example
         OWLOntologyManager man = OWLManager.createOWLOntologyManager();
         load(man);
@@ -1201,7 +1201,7 @@ public class Examples extends TestBase {
      * @throws Exception exception
      */
     @Test
-    public void shouldWalkOntology() throws Exception {
+    void shouldWalkOntology() throws Exception {
         // This example shows how to use an ontology walker to walk the asserted
         // structure of an ontology. Suppose we want to find the axioms that use
         // a some values from (existential restriction) we can use the walker to
@@ -1241,7 +1241,7 @@ public class Examples extends TestBase {
      * @throws Exception exception
      */
     @Test
-    public void shouldQueryWithReasoner() throws Exception {
+    void shouldQueryWithReasoner() throws Exception {
         // We will load the Koala ontology and query it using a reasoner
         OWLOntologyManager man = OWLManager.createOWLOntologyManager();
         OWLOntology ont = load(man);
@@ -1276,7 +1276,7 @@ public class Examples extends TestBase {
      */
     @Disabled("This test is ignored. We do not want to fetch stuff from the network just to run a unit test for an example")
     @Test
-    public void shouldUseIRIMappers() throws Exception {
+    void shouldUseIRIMappers() throws Exception {
         IRI mgedOntologyIri =
             df.getIRI("http://mged.sourceforge.net/ontologies/", "MGEDOntology.owl");
         IRI protegeOntologyIri = df.getIRI("http://protege.stanford.edu/plugins/owl/", "protege");
@@ -1335,7 +1335,7 @@ public class Examples extends TestBase {
      * @throws Exception exception
      */
     @Test
-    public void shouldExtractModules() throws Exception {
+    void shouldExtractModules() throws Exception {
         // Create our manager
         OWLOntologyManager man = OWLManager.createOWLOntologyManager();
         OWLDataFactory dataFactory = OWLManager.getOWLDataFactory();
@@ -1388,7 +1388,7 @@ public class Examples extends TestBase {
      * @throws Exception exception
      */
     @Test
-    public void owlPrimer() throws Exception {
+    void owlPrimer() throws Exception {
         // The OWLOntologyManager is at the heart of the OWL API, we can create
         // an instance of this using the OWLManager class, which will set up
         // commonly used options (such as which parsers are registered etc.

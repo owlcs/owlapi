@@ -34,7 +34,7 @@ public abstract class OWLNaryBooleanClassExpressionImpl extends OWLAnonymousClas
     /**
      * @param operands operands (list must be sorted in the factory)
      */
-    public OWLNaryBooleanClassExpressionImpl(List<OWLClassExpression> operands) {
+    protected OWLNaryBooleanClassExpressionImpl(List<OWLClassExpression> operands) {
         this.operands = Collections.unmodifiableList(
             checkValidForNAryExpressions(operands, "operands cannot be null or empty"));
     }

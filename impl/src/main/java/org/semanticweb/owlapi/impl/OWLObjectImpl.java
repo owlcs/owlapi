@@ -16,7 +16,6 @@ import static org.semanticweb.owlapi.utilities.OWLAPIPreconditions.verifyNotNull
 import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asList;
 import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.streamFromSorted;
 
-import java.io.Serializable;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
@@ -55,8 +54,7 @@ import com.github.benmanes.caffeine.cache.LoadingCache;
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.0.0
  */
-public abstract class OWLObjectImpl
-    implements OWLObject, Serializable, HasIncrementalSignatureGenerationSupport {
+public abstract class OWLObjectImpl implements HasIncrementalSignatureGenerationSupport {
 
     /**
      * a convenience reference for an empty annotation set, saves on typing.

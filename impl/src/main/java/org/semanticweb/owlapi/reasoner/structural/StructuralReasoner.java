@@ -108,7 +108,7 @@ public class StructuralReasoner extends OWLReasonerBase {
     private boolean prepared = false;
 
     /**
-     * @param rootOntology  the ontology
+     * @param rootOntology the ontology
      * @param configuration the reasoner configuration
      * @param bufferingMode the buffering mode
      */
@@ -166,7 +166,7 @@ public class StructuralReasoner extends OWLReasonerBase {
 
     /**
      * @throws ReasonerInterruptedException on interruption
-     * @throws TimeOutException             on timeout
+     * @throws TimeOutException on timeout
      */
     public final void prepareReasoner() {
         classHierarchyInfo.computeHierarchy();
@@ -487,7 +487,7 @@ public class StructuralReasoner extends OWLReasonerBase {
     }
 
     protected void instances(DefaultNodeSet<OWLNamedIndividual> result, OWLNamedIndividual i) {
-        if (getIndividualNodeSetPolicy().equals(IndividualNodeSetPolicy.BY_SAME_AS)) {
+        if (getIndividualNodeSetPolicy() == IndividualNodeSetPolicy.BY_SAME_AS) {
             result.addNode(getSameIndividuals(i));
         } else {
             result.addNode(new OWLNamedIndividualNode(i));
@@ -518,7 +518,7 @@ public class StructuralReasoner extends OWLReasonerBase {
         if (axiom.getObject().equals(ind) && axiom.getSubject().isNamed()) {
             OWLObjectPropertyExpression invPe = axiom.getProperty().getInverseProperty();
             if (invPe.isNamed() && inverses.contains(invPe.asOWLObjectProperty())) {
-                if (getIndividualNodeSetPolicy().equals(IndividualNodeSetPolicy.BY_SAME_AS)) {
+                if (getIndividualNodeSetPolicy() == IndividualNodeSetPolicy.BY_SAME_AS) {
                     result.addNode(getSameIndividuals(axiom.getObject().asOWLNamedIndividual()));
                 } else {
                     result.addNode(
@@ -531,7 +531,7 @@ public class StructuralReasoner extends OWLReasonerBase {
     protected void handleSameAs(OWLObjectPropertyExpression pe, OWLNamedIndividualNodeSet result,
         OWLObjectPropertyAssertionAxiom axiom) {
         if (axiom.getObject().isNamed() && axiom.getProperty().equals(pe)) {
-            if (getIndividualNodeSetPolicy().equals(IndividualNodeSetPolicy.BY_SAME_AS)) {
+            if (getIndividualNodeSetPolicy() == IndividualNodeSetPolicy.BY_SAME_AS) {
                 result.addNode(getSameIndividuals(axiom.getObject().asOWLNamedIndividual()));
             } else {
                 result
@@ -890,8 +890,8 @@ public class StructuralReasoner extends OWLReasonerBase {
          * Processes the specified signature that represents the signature of potential changes.
          *
          * @param signature The signature
-         * @param added     added axioms
-         * @param removed   removed axioms
+         * @param added added axioms
+         * @param removed removed axioms
          */
         @SuppressWarnings("unused")
         public void processChanges(Set<T> signature, Set<OWLAxiom> added, Set<OWLAxiom> removed) {
@@ -902,9 +902,9 @@ public class StructuralReasoner extends OWLReasonerBase {
          * Applies the tarjan algorithm for a given entity. This computes the cycle that the entity
          * is involved in (if any).
          *
-         * @param entity     The entity
+         * @param entity The entity
          * @param inputIndex index
-         * @param structure  structure holding all data
+         * @param structure structure holding all data
          */
         public void tarjan(T entity, int inputIndex, TarjanStructure<T> structure) {
             int index = inputIndex;
