@@ -59,7 +59,6 @@ import static org.semanticweb.owlapi.model.AxiomType.SYMMETRIC_OBJECT_PROPERTY;
 import static org.semanticweb.owlapi.model.AxiomType.TRANSITIVE_OBJECT_PROPERTY;
 import static org.semanticweb.owlapi.model.AxiomType.logicalAxiomTypes;
 import static org.semanticweb.owlapi.utilities.OWLAPIPreconditions.checkNotNull;
-import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asList;
 import static org.semanticweb.owlapi.utility.CollectionFactory.createSyncSet;
 
 import java.io.IOException;
@@ -448,7 +447,7 @@ protected transient EnumMap<InternalsPointers, MapPointer<?, ? extends OWLAxiom>
     }
 
     private void writeObject(ObjectOutputStream stream) throws IOException {
-        axiomsForSerialization = asList(axiomsByType.getAllValues());
+        axiomsForSerialization = axiomsByType.getAllValues().toList();
         stream.defaultWriteObject();
     }
 

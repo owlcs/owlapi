@@ -41,7 +41,6 @@ package org.semanticweb.owlapi.apitest.multithread;
 import static org.semanticweb.owlapi.model.parameters.AxiomAnnotations.IGNORE_AXIOM_ANNOTATIONS;
 import static org.semanticweb.owlapi.model.parameters.Imports.EXCLUDED;
 import static org.semanticweb.owlapi.model.parameters.Imports.INCLUDED;
-import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asList;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
@@ -99,21 +98,21 @@ class OwlOntologyMultipleThreadsTest extends TestBase {
                 o1.importsDeclarations().forEach(this::consume);
                 o1.axioms().forEach(this::consume);
                 o1.getAxiomCount();
-                List<OWLClass> classes = asList(o1.classesInSignature());
+                List<OWLClass> classes = o1.classesInSignature().toList();
                 o1.classesInSignature(INCLUDED).forEach(this::consume);
                 o1.classesInSignature(EXCLUDED).forEach(this::consume);
                 List<OWLObjectProperty> objectProperties =
-                    asList(o1.objectPropertiesInSignature(INCLUDED));
+                    o1.objectPropertiesInSignature(INCLUDED).toList();
                 o1.objectPropertiesInSignature(EXCLUDED).forEach(this::consume);
                 o1.objectPropertiesInSignature().forEach(this::consume);
-                List<OWLDataProperty> dataProperties = asList(o1.dataPropertiesInSignature());
+                List<OWLDataProperty> dataProperties = o1.dataPropertiesInSignature().toList();
                 o1.dataPropertiesInSignature(INCLUDED).forEach(this::consume);
                 o1.dataPropertiesInSignature(EXCLUDED).forEach(this::consume);
-                List<OWLNamedIndividual> individuals = asList(o1.individualsInSignature());
+                List<OWLNamedIndividual> individuals = o1.individualsInSignature().toList();
                 o1.individualsInSignature(INCLUDED).forEach(this::consume);
                 o1.individualsInSignature(EXCLUDED).forEach(this::consume);
                 List<OWLAnonymousIndividual> anonIndividuals =
-                    asList(o1.referencedAnonymousIndividuals(EXCLUDED));
+                    o1.referencedAnonymousIndividuals(EXCLUDED).toList();
                 o1.datatypesInSignature().forEach(this::consume);
                 o1.datatypesInSignature(INCLUDED).forEach(this::consume);
                 o1.datatypesInSignature(EXCLUDED).forEach(this::consume);
@@ -187,15 +186,15 @@ class OwlOntologyMultipleThreadsTest extends TestBase {
                     o1.axioms(ax, INCLUDED).forEach(this::consume);
                     o1.axioms(ax, EXCLUDED).forEach(this::consume);
                 }
-                for (OWLDatatype type : asList(o1.datatypesInSignature())) {
+                for (OWLDatatype type : o1.datatypesInSignature().toList()) {
                     o1.axioms(type, EXCLUDED).forEach(this::consume);
                     o1.containsDatatypeInSignature(type.getIRI(), EXCLUDED);
                     o1.containsDatatypeInSignature(type.getIRI(), INCLUDED);
                     o1.containsDatatypeInSignature(type.getIRI(), EXCLUDED);
                     o1.datatypeDefinitions(type).forEach(this::consume);
                 }
-                for (OWLAnnotationProperty property : asList(
-                    o1.annotationPropertiesInSignature(EXCLUDED))) {
+                for (OWLAnnotationProperty property : o1.annotationPropertiesInSignature(EXCLUDED)
+                    .toList()) {
                     assert property != null;
                     o1.axioms(property, EXCLUDED).forEach(this::consume);
                     o1.containsAnnotationPropertyInSignature(property.getIRI(), EXCLUDED);
@@ -213,19 +212,19 @@ class OwlOntologyMultipleThreadsTest extends TestBase {
                 }
                 o1.logicalAxioms().forEach(this::consume);
                 o1.getLogicalAxiomCount();
-                for (OWLAxiom ax : asList(o1.logicalAxioms())) {
+                for (OWLAxiom ax : o1.logicalAxioms().toList()) {
                     assert ax != null;
                     o1.containsAxiom(ax);
                     o1.containsAxiom(ax, INCLUDED, IGNORE_AXIOM_ANNOTATIONS);
                     o1.containsAxiom(ax, EXCLUDED, IGNORE_AXIOM_ANNOTATIONS);
                 }
-                for (OWLAxiom ax : asList(o1.logicalAxioms())) {
+                for (OWLAxiom ax : o1.logicalAxioms().toList()) {
                     assert ax != null;
                     o1.containsAxiom(ax, EXCLUDED, IGNORE_AXIOM_ANNOTATIONS);
                     o1.containsAxiom(ax, INCLUDED, IGNORE_AXIOM_ANNOTATIONS);
                     o1.containsAxiom(ax, EXCLUDED, IGNORE_AXIOM_ANNOTATIONS);
                 }
-                for (OWLAxiom ax : asList(o1.logicalAxioms())) {
+                for (OWLAxiom ax : o1.logicalAxioms().toList()) {
                     assert ax != null;
                     o1.axiomsIgnoreAnnotations(ax, EXCLUDED).forEach(this::consume);
                     o1.axiomsIgnoreAnnotations(ax, INCLUDED).forEach(this::consume);
@@ -256,7 +255,7 @@ class OwlOntologyMultipleThreadsTest extends TestBase {
                             .forEach(this::consume);
                     }
                 });
-                List<OWLAxiom> axioms = asList(o1.axioms());
+                List<OWLAxiom> axioms = o1.axioms().toList();
                 for (OWLAxiom ax : axioms) {
                     o1.add(ax);
                     o2.remove(ax);

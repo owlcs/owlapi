@@ -39,7 +39,6 @@
 package org.semanticweb.owlapi.apitest.multithread;
 
 import static org.junit.jupiter.api.Assertions.fail;
-import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asList;
 import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.contains;
 
 import java.util.HashSet;
@@ -155,7 +154,7 @@ class RaceTestCase extends TestBase {
             @Override
             public void diagnose() {
                 List<OWLSubClassOfAxiom> axiomsFound =
-                    asList(ontology.subClassAxiomsForSubClass(CLASSES.xClass));
+                    ontology.subClassAxiomsForSubClass(CLASSES.xClass).toList();
                 System.out.println("Expected getSubClassAxiomsForSubClass to return " + counter
                     + " axioms but it only found " + axiomsFound.size());
                 for (int index = 0; index < counter.get(); index++) {

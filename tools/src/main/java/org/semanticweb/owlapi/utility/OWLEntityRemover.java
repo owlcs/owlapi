@@ -13,7 +13,6 @@
 package org.semanticweb.owlapi.utility;
 
 import static org.semanticweb.owlapi.utilities.OWLAPIPreconditions.checkNotNull;
-import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asList;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -64,7 +63,7 @@ public class OWLEntityRemover implements OWLEntityVisitor {
      * @param ontologies The stream of ontologies that contain references to axioms to be removed.
      */
     public OWLEntityRemover(Stream<OWLOntology> ontologies) {
-        this.ontologies = asList(checkNotNull(ontologies, "ontologies cannot be null"));
+        this.ontologies = checkNotNull(ontologies, "ontologies cannot be null").toList();
     }
 
     /**
@@ -79,7 +78,7 @@ public class OWLEntityRemover implements OWLEntityVisitor {
 
     /**
      * @return the list of ontology changes that are required in order to remove visited entities
-     * from the set of ontologies.
+     *         from the set of ontologies.
      */
     public List<RemoveAxiom> getChanges() {
         return new ArrayList<>(changes);

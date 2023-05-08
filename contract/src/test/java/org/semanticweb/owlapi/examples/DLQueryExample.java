@@ -12,7 +12,6 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.examples;
 
-import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asList;
 import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asUnorderedSet;
 
 import java.io.BufferedReader;
@@ -239,7 +238,7 @@ class DLQueryParser {
     DLQueryParser(OWLOntology rootOntology, ShortFormProvider shortFormProvider) {
         this.rootOntology = rootOntology;
         OWLOntologyManager manager = rootOntology.getOWLOntologyManager();
-        List<OWLOntology> importsClosure = asList(rootOntology.importsClosure());
+        List<OWLOntology> importsClosure = rootOntology.importsClosure().toList();
         // Create a bidirectional short form provider to do the actual mapping.
         // It will generate names using the input
         // short form provider.

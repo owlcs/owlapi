@@ -13,7 +13,6 @@
 package org.semanticweb.owlapi.utility;
 
 import static org.semanticweb.owlapi.utilities.OWLAPIPreconditions.checkNotNull;
-import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asList;
 
 import java.util.List;
 import java.util.Map;
@@ -65,31 +64,32 @@ public class PropertyAssertionValueShortFormProvider implements ShortFormProvide
      * Constructs a property value short form provider.
      *
      * @param properties A {@code List} of preferred properties. The list is searched from start to
-     * end, so that property assertions whose property is at the start of the list have a higher
-     * priority and are selected over properties that appear towards or at the end of the list.
+     *        end, so that property assertions whose property is at the start of the list have a
+     *        higher priority and are selected over properties that appear towards or at the end of
+     *        the list.
      * @param preferredLanguageMap A map which maps data properties to preferred languages. For any
-     * given data property there may be a list of preferred languages for the values of that
-     * property Languages at the start of the list have a higher priority over languages at the end
-     * of the list. This parameter may be empty but it must not be {@code null}.
+     *        given data property there may be a list of preferred languages for the values of that
+     *        property Languages at the start of the list have a higher priority over languages at
+     *        the end of the list. This parameter may be empty but it must not be {@code null}.
      * @param ontologySetProvider An {@code OWLOntologySetProvider} which provides a set of ontology
-     * from which candidate annotation axioms should be taken. For a given entity, all ontologies
-     * are examined.
+     *        from which candidate annotation axioms should be taken. For a given entity, all
+     *        ontologies are examined.
      * @param alternateShortFormProvider A short form provider which will be used to generate the
-     * short form for an entity that does not have any property values (e.g. class, property). This
-     * provider will also be used in the case where the value of an annotation is an {@code
+     *        short form for an entity that does not have any property values (e.g. class,
+     *        property). This provider will also be used in the case where the value of an
+     *        annotation is an {@code
      * OWLIndividual} for providing the short form of the individual.
      */
     public PropertyAssertionValueShortFormProvider(List<OWLPropertyExpression> properties,
         Map<OWLDataPropertyExpression, List<String>> preferredLanguageMap,
-        OWLOntologySetProvider ontologySetProvider,
-        ShortFormProvider alternateShortFormProvider) {
+        OWLOntologySetProvider ontologySetProvider, ShortFormProvider alternateShortFormProvider) {
         this.properties = checkNotNull(properties, "properties cannot be null");
         this.preferredLanguageMap =
             checkNotNull(preferredLanguageMap, "preferredLanguageMap cannot be null");
         this.ontologySetProvider =
             checkNotNull(ontologySetProvider, "ontologySetProvider cannot be null");
-        this.alternateShortFormProvider = checkNotNull(alternateShortFormProvider,
-            "alternateShortFormProvider cannot be null");
+        this.alternateShortFormProvider =
+            checkNotNull(alternateShortFormProvider, "alternateShortFormProvider cannot be null");
     }
 
     @Override
@@ -104,9 +104,9 @@ public class PropertyAssertionValueShortFormProvider implements ShortFormProvide
         OWLObject candidateValue = null;
         int lastURIMatchIndex = Integer.MAX_VALUE;
         int lastLangMatchIndex = Integer.MAX_VALUE;
-        for (OWLOntology ontology : asList(ontologySetProvider.ontologies())) {
-            for (OWLObjectPropertyAssertionAxiom ax : asList(
-                ontology.objectPropertyAssertionAxioms(individual))) {
+        for (OWLOntology ontology : ontologySetProvider.ontologies().toList()) {
+            for (OWLObjectPropertyAssertionAxiom ax : ontology
+                .objectPropertyAssertionAxioms(individual).toList()) {
                 int index = properties.indexOf(ax.getProperty());
                 if (index == -1) {
                     continue;
@@ -115,8 +115,8 @@ public class PropertyAssertionValueShortFormProvider implements ShortFormProvide
                     candidateValue = ax.getObject();
                 }
             }
-            for (OWLDataPropertyAssertionAxiom ax : asList(
-                ontology.dataPropertyAssertionAxioms(individual))) {
+            for (OWLDataPropertyAssertionAxiom ax : ontology.dataPropertyAssertionAxioms(individual)
+                .toList()) {
                 int index = properties.indexOf(ax.getProperty());
                 if (index == -1) {
                     continue;

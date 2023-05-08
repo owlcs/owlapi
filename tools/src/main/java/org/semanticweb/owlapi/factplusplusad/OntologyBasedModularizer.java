@@ -1,7 +1,5 @@
 package org.semanticweb.owlapi.factplusplusad;
 
-import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asList;
-
 import java.util.Collection;
 import java.util.Objects;
 import java.util.stream.Stream;
@@ -35,7 +33,7 @@ public class OntologyBasedModularizer {
     public OntologyBasedModularizer(OWLOntology ontology, ModuleMethod moduleMethod) {
         this.ontology = ontology;
         modularizer = new Modularizer(moduleMethod);
-        modularizer.preprocessOntology(asList(ontology.axioms().map(AxiomWrapper::new)));
+        modularizer.preprocessOntology(ontology.axioms().map(AxiomWrapper::new).toList());
     }
 
     /**
@@ -60,7 +58,7 @@ public class OntologyBasedModularizer {
      * @return module
      */
     Collection<AxiomWrapper> getModule(Signature sig, ModuleType type) {
-        return getModule(asList(ontology.axioms().map(AxiomWrapper::new)), sig, type);
+        return getModule(ontology.axioms().map(AxiomWrapper::new).toList(), sig, type);
     }
 
     /**
@@ -76,7 +74,7 @@ public class OntologyBasedModularizer {
      * @return module
      */
     public Collection<OWLAxiom> getModule(Stream<OWLEntity> entities, ModuleType type) {
-        return asList(getModule(new Signature(entities), type).stream().map(AxiomWrapper::getAxiom)
-            .filter(Objects::nonNull));
+        return getModule(new Signature(entities), type).stream().map(AxiomWrapper::getAxiom)
+            .filter(Objects::nonNull).toList();
     }
 }

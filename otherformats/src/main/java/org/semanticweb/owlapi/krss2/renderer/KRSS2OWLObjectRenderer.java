@@ -31,7 +31,6 @@ import static org.semanticweb.owlapi.search.Searcher.isSymmetric;
 import static org.semanticweb.owlapi.search.Searcher.isTransitive;
 import static org.semanticweb.owlapi.search.Searcher.range;
 import static org.semanticweb.owlapi.search.Searcher.sup;
-import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asList;
 
 import java.io.Writer;
 import java.util.Collection;
@@ -68,10 +67,8 @@ public class KRSS2OWLObjectRenderer extends KRSSObjectRenderer {
 
     @Override
     public void visit(OWLOntology ontology) {
-        List<OWLClass> classes1 = asList(ontology.classesInSignature());
-        classes1.remove(ontology.getOWLOntologyManager().getOWLDataFactory().getOWLThing());
-        classes1.remove(ontology.getOWLOntologyManager().getOWLDataFactory().getOWLNothing());
-        classes1.sort(null);
+        List<OWLClass> classes1 = ontology.classesInSignature()
+            .filter(x -> !x.isOWLThing() && !x.isOWLNothing()).sorted().toList();
         for (OWLClass eachClass : classes1) {
             boolean primitive = !isDefined(eachClass, ontology);
             if (primitive) {
@@ -79,13 +76,13 @@ public class KRSS2OWLObjectRenderer extends KRSSObjectRenderer {
                 write(DEFINE_PRIMITIVE_CONCEPT);
                 write(eachClass);
                 writeSpace();
-                flatten(asList(
-                    sup(ontology.subClassAxiomsForSubClass(eachClass), OWLClassExpression.class)));
+                flatten(sup(ontology.subClassAxiomsForSubClass(eachClass), OWLClassExpression.class)
+                    .toList());
                 writeCloseBracket();
                 writeln();
                 Collection<OWLClassExpression> classes =
-                    asList(equivalent(ontology.equivalentClassesAxioms(eachClass),
-                        OWLClassExpression.class));
+                    equivalent(ontology.equivalentClassesAxioms(eachClass),
+                        OWLClassExpression.class).toList();
                 writeClasses(eachClass, classes);
             } else {
                 writeOpenBracket();
@@ -95,7 +92,7 @@ public class KRSS2OWLObjectRenderer extends KRSSObjectRenderer {
             }
         }
         ontology.generalClassAxioms().forEach(a -> a.accept(this));
-        for (OWLObjectProperty property : asList(ontology.objectPropertiesInSignature())) {
+        for (OWLObjectProperty property : ontology.objectPropertiesInSignature().toList()) {
             writeOpenBracket();
             write(DEFINE_PRIMITIVE_ROLE);
             write(property);
@@ -134,7 +131,7 @@ public class KRSS2OWLObjectRenderer extends KRSSObjectRenderer {
 
     protected void writeRanges(OWLOntology ontology, OWLObjectProperty property) {
         List<OWLClassExpression> ranges =
-            asList(range(ontology.objectPropertyRangeAxioms(property)));
+            range(ontology.objectPropertyRangeAxioms(property), OWLClassExpression.class).toList();
         if (!ranges.isEmpty()) {
             writeAttribute(RANGE_ATTR);
             flatten(ranges);
@@ -143,7 +140,8 @@ public class KRSS2OWLObjectRenderer extends KRSSObjectRenderer {
 
     protected void writeDomains(OWLOntology ontology, OWLObjectProperty property) {
         List<OWLClassExpression> domains =
-            asList(domain(ontology.objectPropertyDomainAxioms(property)));
+            domain(ontology.objectPropertyDomainAxioms(property), OWLClassExpression.class)
+                .toList();
         if (!domains.isEmpty()) {
             writeAttribute(DOMAIN);
             flatten(domains);
@@ -152,8 +150,8 @@ public class KRSS2OWLObjectRenderer extends KRSSObjectRenderer {
 
     protected void writeDefinitionClasses(OWLOntology ontology, OWLClass eachClass) {
         Collection<OWLClassExpression> classes =
-            asList(equivalent(ontology.equivalentClassesAxioms(eachClass),
-                OWLClassExpression.class));
+            equivalent(ontology.equivalentClassesAxioms(eachClass), OWLClassExpression.class)
+                .toList();
         if (classes.isEmpty()) {
             // ?
             writeCloseBracket();

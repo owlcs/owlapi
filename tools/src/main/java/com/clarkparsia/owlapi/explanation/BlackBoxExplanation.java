@@ -15,7 +15,6 @@ package com.clarkparsia.owlapi.explanation;
 import static org.semanticweb.owlapi.model.parameters.Imports.INCLUDED;
 import static org.semanticweb.owlapi.utilities.OWLAPIPreconditions.verifyNotNull;
 import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.add;
-import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asList;
 import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asUnorderedSet;
 
 import java.util.ArrayList;
@@ -207,7 +206,7 @@ public class BlackBoxExplanation extends SingleExplanationGeneratorImpl {
         for (OWLAxiom ax : new ArrayList<>(debuggingAxioms)) {
             if (expandedWithDefiningAxioms.add(ax)) {
                 // Collect the entities that have been used in the axiom
-                for (OWLEntity curObj : asList(ax.signature())) {
+                for (OWLEntity curObj : ax.signature().toList()) {
                     if (!objectsExpandedWithDefiningAxioms.contains(curObj)) {
                         int added = expandWithDefiningAxioms(curObj, remainingSpace);
                         axiomsAdded += added;
@@ -232,7 +231,7 @@ public class BlackBoxExplanation extends SingleExplanationGeneratorImpl {
         for (OWLAxiom ax : new ArrayList<>(debuggingAxioms)) {
             if (expandedWithReferencingAxioms.add(ax)) {
                 // Keep track of the number of axioms that have been added
-                for (OWLEntity curObj : asList(ax.signature())) {
+                for (OWLEntity curObj : ax.signature().toList()) {
                     if (!objectsExpandedWithReferencingAxioms.contains(curObj)) {
                         int added = expandWithReferencingAxioms(curObj, expansionLimit);
                         axiomsAdded += added;

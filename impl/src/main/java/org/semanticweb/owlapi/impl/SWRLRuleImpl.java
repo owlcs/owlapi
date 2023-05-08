@@ -13,7 +13,6 @@
 package org.semanticweb.owlapi.impl;
 
 import static org.semanticweb.owlapi.utilities.OWLAPIPreconditions.checkIterableNotNull;
-import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asList;
 import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asSet;
 import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.equalStreams;
 
@@ -168,8 +167,8 @@ public class SWRLRuleImpl extends OWLLogicalAxiomImpl implements SWRLRule {
 
         @Override
         public SWRLRule visit(SWRLRule node) {
-            List<SWRLAtom> nodebody = asList(node.body().map(a -> (SWRLAtom) a.accept(this)));
-            List<SWRLAtom> nodehead = asList(node.head().map(a -> (SWRLAtom) a.accept(this)));
+            List<SWRLAtom> nodebody = node.body().map(a -> (SWRLAtom) a.accept(this)).toList();
+            List<SWRLAtom> nodehead = node.head().map(a -> (SWRLAtom) a.accept(this)).toList();
             return new SWRLRuleImpl(nodebody, nodehead, NO_ANNOTATIONS);
         }
 

@@ -20,7 +20,6 @@ import static org.semanticweb.owlapi.model.AxiomType.SYMMETRIC_OBJECT_PROPERTY;
 import static org.semanticweb.owlapi.model.AxiomType.TRANSITIVE_OBJECT_PROPERTY;
 import static org.semanticweb.owlapi.search.Searcher.inverse;
 import static org.semanticweb.owlapi.utilities.OWLAPIPreconditions.checkNotNull;
-import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asList;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -103,11 +102,11 @@ public class OWLObjectPropertyManager {
     }
 
     /**
-     * @param <T>        type
+     * @param <T> type
      * @param ontologies The ontologies
-     * @param prop       the property
-     * @param index      index
-     * @param structure  structure
+     * @param prop the property
+     * @param index index
+     * @param structure structure
      */
     public static <T extends OWLObjectPropertyExpression> void tarjan(
         Stream<OWLOntology> ontologies, T prop, int index, TarjanStructure<T> structure) {
@@ -375,8 +374,8 @@ public class OWLObjectPropertyManager {
                 nonSimpleProperties.add(prop);
                 nonSimpleProperties.addAll(reflexiveTransitiveClosureMap.get(prop));
             });
-            nonSimpleProperties.addAll(asList(
-                nonSimpleProperties.stream().map(OWLObjectPropertyExpression::getInverseProperty)));
+            nonSimpleProperties.addAll(nonSimpleProperties.stream()
+                .map(OWLObjectPropertyExpression::getInverseProperty).toList());
             simpleDirty = false;
         }
         return nonSimpleProperties;

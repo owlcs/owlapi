@@ -15,7 +15,6 @@ package org.semanticweb.owlapi.compositechanges;
 import static org.semanticweb.owlapi.search.Searcher.isDefined;
 import static org.semanticweb.owlapi.search.Searcher.sub;
 import static org.semanticweb.owlapi.utilities.OWLAPIPreconditions.checkNotNull;
-import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asList;
 
 import java.util.Collection;
 
@@ -70,8 +69,8 @@ public class MakePrimitiveSubClassesMutuallyDisjoint extends AbstractCompositeOn
 
     private void generateChanges(OWLClass cls, OWLOntology o, boolean usePairwiseDisjointAxioms) {
         Collection<OWLClassExpression> sub =
-            asList(sub(o.subClassAxiomsForSuperClass(cls), OWLClassExpression.class)
-                .filter(c -> undefinedPrimitive(o, c)));
+            sub(o.subClassAxiomsForSuperClass(cls), OWLClassExpression.class)
+                .filter(c -> undefinedPrimitive(o, c)).toList();
         addChanges(
             new MakeClassesMutuallyDisjoint(df, sub, usePairwiseDisjointAxioms, o).getChanges());
     }

@@ -10,7 +10,6 @@ import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
-import org.semanticweb.owlapi.utilities.OWLAPIStreamUtils;
 import org.semanticweb.owlapi.utility.OWLEntityURIConverter;
 
 class OWLEntityURIConverterTest extends TestBase {
@@ -35,7 +34,7 @@ class OWLEntityURIConverterTest extends TestBase {
 
     private static OWLEntityURIConverter getOWLEntityNamespaceConverter(
         OWLOntologyManager manager) {
-        return new OWLEntityURIConverter(manager, OWLAPIStreamUtils.asList(manager.ontologies()),
+        return new OWLEntityURIConverter(manager, manager.ontologies().toList(),
             OWLEntityURIConverterTest::rename);
     }
 

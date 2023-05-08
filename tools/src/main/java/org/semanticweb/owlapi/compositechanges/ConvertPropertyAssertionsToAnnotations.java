@@ -13,7 +13,6 @@
 package org.semanticweb.owlapi.compositechanges;
 
 import static org.semanticweb.owlapi.utilities.OWLAPIPreconditions.checkNotNull;
-import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asList;
 
 import java.util.Collection;
 import java.util.stream.Stream;
@@ -71,8 +70,9 @@ public class ConvertPropertyAssertionsToAnnotations extends AbstractCompositeOnt
      */
     private Collection<OWLNamedIndividual> getPunnedIndividuals(
         Stream<OWLNamedIndividual> individuals) {
-        return asList(individuals
-            .filter(i -> ontologies().anyMatch(o -> o.containsClassInSignature(i.getIRI()))));
+        return individuals
+            .filter(i -> ontologies().anyMatch(o -> o.containsClassInSignature(i.getIRI())))
+            .toList();
     }
 
     private void generateChanges() {

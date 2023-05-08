@@ -1,9 +1,8 @@
 package org.semanticweb.owlapi.utility;
 
-import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asList;
-
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -27,7 +26,7 @@ public class OWLZipYaml {
      * @param l list of YAML parsed objects
      */
     public OWLZipYaml(List<Map<String, Object>> l) {
-        list = asList(l.stream().map(OWLZipEntry::new));
+        list = l.stream().map(OWLZipEntry::new).toList();
     }
 
     /**
@@ -47,8 +46,10 @@ public class OWLZipYaml {
                     "File does not have an owlzip.yaml entry: " + f.getName());
             }
             Yaml yamlParser = new Yaml();
-            Map<String, List<Map<String, Object>>> load2 = yamlParser.load(z.getInputStream(yaml));
-            list = asList(load2.get("ontologies").stream().map(OWLZipEntry::new));
+            try (InputStream in = z.getInputStream(yaml)) {
+                Map<String, List<Map<String, Object>>> load2 = yamlParser.load(in);
+                list = load2.get("ontologies").stream().map(OWLZipEntry::new).toList();
+            }
         }
 
     }

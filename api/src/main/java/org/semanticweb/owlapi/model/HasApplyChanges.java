@@ -12,8 +12,6 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model;
 
-import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asList;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -96,7 +94,8 @@ public interface HasApplyChanges extends HasManager {
         } catch (OWLOntologyChangeVetoException e) {
             // Some listener blocked the changes.
             getOWLOntologyManager().broadcastOntologyChangesVetoed(changes, e);
-            return new ChangeReport(asList(changes.stream().map(c -> ChangeApplied.UNSUCCESSFULLY)),
+            return new ChangeReport(
+                changes.stream().map(c -> ChangeApplied.UNSUCCESSFULLY).toList(),
                 new ArrayList<>(changes));
         }
     }
@@ -126,7 +125,7 @@ public interface HasApplyChanges extends HasManager {
      * @throws OWLOntologyChangeException If one or more of the changes could not be applied.
      */
     default ChangeReport applyChanges(Stream<? extends OWLOntologyChange> changes) {
-        return applyChanges(asList(changes));
+        return applyChanges(changes.toList());
     }
 
     /**

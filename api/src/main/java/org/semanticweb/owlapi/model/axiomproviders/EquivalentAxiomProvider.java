@@ -13,7 +13,6 @@
 package org.semanticweb.owlapi.model.axiomproviders;
 
 import static org.semanticweb.owlapi.utilities.OWLAPIPreconditions.checkIterableNotNull;
-import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asList;
 import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asUnorderedSet;
 
 import java.util.Arrays;
@@ -49,12 +48,12 @@ public interface EquivalentAxiomProvider {
      */
     default OWLEquivalentClassesAxiom getOWLEquivalentClassesAxiom(
         Stream<? extends OWLClassExpression> classExpressions) {
-        return getOWLEquivalentClassesAxiom(asList(classExpressions), Collections.emptySet());
+        return getOWLEquivalentClassesAxiom(classExpressions.toList(), Collections.emptySet());
     }
 
     /**
      * @param classExpressions equivalent classes. Cannot be null or contain nulls.
-     * @param annotations      A set of annotations. Cannot be null or contain nulls.
+     * @param annotations A set of annotations. Cannot be null or contain nulls.
      * @return an equivalent classes axiom with specified operands and annotations
      */
     OWLEquivalentClassesAxiom getOWLEquivalentClassesAxiom(
@@ -83,8 +82,8 @@ public interface EquivalentAxiomProvider {
     }
 
     /**
-     * @param clsA        one class for equivalence
-     * @param clsB        one class for equivalence
+     * @param clsA one class for equivalence
+     * @param clsB one class for equivalence
      * @param annotations A set of annotations. Cannot be null or contain nulls.
      * @return an equivalent classes axiom with specified operands and annotations (special case
      *         with only two operands)
@@ -104,7 +103,7 @@ public interface EquivalentAxiomProvider {
     }
 
     /**
-     * @param properties  Cannot be null or contain nulls.
+     * @param properties Cannot be null or contain nulls.
      * @param annotations A set of annotations. Cannot be null or contain nulls.
      * @return an equivalent properties axiom with specified properties and annotations
      */
@@ -133,8 +132,8 @@ public interface EquivalentAxiomProvider {
     }
 
     /**
-     * @param propertyA   property A
-     * @param propertyB   property B
+     * @param propertyA property A
+     * @param propertyB property B
      * @param annotations A set of annotations. Cannot be null or contain nulls.
      * @return an equivalent properties axiom with specified properties and annotations
      */
@@ -155,7 +154,7 @@ public interface EquivalentAxiomProvider {
     }
 
     /**
-     * @param properties  properties
+     * @param properties properties
      * @param annotations A set of annotations. Cannot be null or contain nulls.
      * @return an equivalent data properties axiom with annotations
      */
@@ -184,8 +183,8 @@ public interface EquivalentAxiomProvider {
     }
 
     /**
-     * @param propertyA   property A
-     * @param propertyB   property B
+     * @param propertyA property A
+     * @param propertyB property B
      * @param annotations A set of annotations. Cannot be null or contain nulls.
      * @return an equivalent data properties axiom with annotations
      */

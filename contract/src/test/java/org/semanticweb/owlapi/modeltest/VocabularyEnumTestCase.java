@@ -16,7 +16,6 @@ import static java.util.Arrays.stream;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.startsWith;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asList;
 import static org.semanticweb.owlapi.vocab.Namespaces.DC;
 import static org.semanticweb.owlapi.vocab.Namespaces.OWL;
 import static org.semanticweb.owlapi.vocab.Namespaces.SKOS;
@@ -46,16 +45,19 @@ import org.semanticweb.owlapi.vocab.XSDVocabulary;
  */
 class VocabularyEnumTestCase {
 
+    static <T extends Enum<T>> Stream<Object[]> v(T[] c, Namespaces n) {
+        return stream(c).map(input -> new Object[] {input, n});
+    }
+
+    static Stream<Object[]> v(OWLRDFVocabulary[] c) {
+        return stream(c).map(input -> new Object[] {input, input.getNamespace()});
+    }
+
     static Collection<Object[]> getData() {
-        return asList(
-            concat(stream(DublinCoreVocabulary.values()).map(input -> new Object[] {input, DC}),
-                stream(OWLRDFVocabulary.values())
-                    .map(input -> new Object[] {input, input.getNamespace()}),
-                stream(OWLXMLVocabulary.values()).map(input -> new Object[] {input, OWL}),
-                stream(SKOSVocabulary.values()).map(input -> new Object[] {input, SKOS}),
-                stream(SWRLBuiltInsVocabulary.values()).map(input -> new Object[] {input, SWRLB}),
-                stream(SWRLVocabulary.values()).map(input -> new Object[] {input, SWRL}),
-                stream(XSDVocabulary.values()).map(input -> new Object[] {input, XSD})));
+        return concat(v(DublinCoreVocabulary.values(), DC), v(OWLRDFVocabulary.values()),
+            v(OWLXMLVocabulary.values(), OWL), v(SKOSVocabulary.values(), SKOS),
+            v(SWRLBuiltInsVocabulary.values(), SWRLB), v(SWRLVocabulary.values(), SWRL),
+            v(XSDVocabulary.values(), XSD)).toList();
     }
 
     @SafeVarargs

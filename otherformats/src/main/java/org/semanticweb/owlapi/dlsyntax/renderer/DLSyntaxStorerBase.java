@@ -13,13 +13,13 @@
 package org.semanticweb.owlapi.dlsyntax.renderer;
 
 import static org.semanticweb.owlapi.utilities.OWLAPIPreconditions.checkNotNull;
-import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asList;
 
 import java.io.PrintWriter;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.function.Predicate;
 import java.util.stream.Stream;
 
 import javax.annotation.Nullable;
@@ -73,8 +73,9 @@ public abstract class DLSyntaxStorerBase implements OWLStorer {
                 endWritingAxiom(writer);
             }
         }
-        List<OWLAxiom> usages = asList(ont.referencingAxioms(entity).sorted());
-        usages.removeAll(axioms);
+        Predicate<OWLAxiom> inAxioms = axioms::contains;
+        List<OWLAxiom> usages =
+            ont.referencingAxioms(entity).filter(inAxioms.negate()).sorted().toList();
         beginWritingUsage(usages.size(), writer);
         for (OWLAxiom usage : usages) {
             if (!axioms.contains(usage) && printed.add(usage)) {
@@ -89,7 +90,7 @@ public abstract class DLSyntaxStorerBase implements OWLStorer {
 
     private void write(OWLOntology ont, OWLEntity entity, Stream<? extends OWLAxiom> axioms,
         PrintWriter writer, Set<OWLAxiom> printed) {
-        write(ont, entity, asList(axioms), writer, printed);
+        write(ont, entity, axioms.toList(), writer, printed);
     }
 
     protected void writeAxiom(@Nullable OWLEntity subject, OWLAxiom axiom, PrintWriter writer) {

@@ -1,7 +1,6 @@
 package org.semanticweb.owlapi.atomicdecompositiontest;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asList;
 import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asSet;
 
 import java.util.ArrayList;
@@ -86,9 +85,9 @@ class OldModularisationEquivalenceTestCase extends TestBase {
     void testModularizationWithAtomicDecompositionStar(Set<OWLEntity> signature) {
         OWLOntology o = loadFrom(TestFiles.KOALA, new RDFXMLDocumentFormat());
         List<OWLAxiom> module1 =
-            asList(getADModule1(o, signature, ModuleType.STAR).stream().sorted());
-        List<OWLAxiom> module2 = asList(getTraditionalModule(m, o, signature, ModuleType.STAR)
-            .stream().filter(ax -> ax.isLogicalAxiom()).sorted());
+            getADModule1(o, signature, ModuleType.STAR).stream().sorted().toList();
+        List<OWLAxiom> module2 = getTraditionalModule(m, o, signature, ModuleType.STAR).stream()
+            .filter(ax -> ax.isLogicalAxiom()).sorted().toList();
         makeAssertion(module1, module2);
     }
 
@@ -97,9 +96,9 @@ class OldModularisationEquivalenceTestCase extends TestBase {
     void testModularizationWithAtomicDecompositionTop(Set<OWLEntity> signature) {
         OWLOntology o = loadFrom(TestFiles.KOALA, new RDFXMLDocumentFormat());
         List<OWLAxiom> module1 =
-            asList(getADModule1(o, signature, ModuleType.TOP).stream().sorted());
-        List<OWLAxiom> module2 = asList(getTraditionalModule(m, o, signature, ModuleType.TOP)
-            .stream().filter(ax -> ax.isLogicalAxiom()).sorted());
+            getADModule1(o, signature, ModuleType.TOP).stream().sorted().toList();
+        List<OWLAxiom> module2 = getTraditionalModule(m, o, signature, ModuleType.TOP).stream()
+            .filter(ax -> ax.isLogicalAxiom()).sorted().toList();
         makeAssertion(module1, module2);
     }
 
@@ -108,13 +107,15 @@ class OldModularisationEquivalenceTestCase extends TestBase {
     void testModularizationWithAtomicDecompositionBottom(Set<OWLEntity> signature) {
         OWLOntology o = loadFrom(TestFiles.KOALA, new RDFXMLDocumentFormat());
         List<OWLAxiom> module1 =
-            asList(getADModule1(o, signature, ModuleType.BOT).stream().sorted());
-        List<OWLAxiom> module2 = asList(getTraditionalModule(m, o, signature, ModuleType.BOT)
-            .stream().filter(ax -> ax.isLogicalAxiom()).sorted());
+            getADModule1(o, signature, ModuleType.BOT).stream().sorted().toList();
+        List<OWLAxiom> module2 = getTraditionalModule(m, o, signature, ModuleType.BOT).stream()
+            .filter(ax -> ax.isLogicalAxiom()).sorted().toList();
         makeAssertion(module1, module2);
     }
 
-    protected void makeAssertion(List<OWLAxiom> module1, List<OWLAxiom> module2) {
+    protected void makeAssertion(List<OWLAxiom> mod1, List<OWLAxiom> mod2) {
+        List<OWLAxiom> module1 = new ArrayList<>(mod1);
+        List<OWLAxiom> module2 = new ArrayList<>(mod2);
         List<OWLAxiom> list = new ArrayList<>(module1);
         module1.removeAll(module2);
         module2.removeAll(list);

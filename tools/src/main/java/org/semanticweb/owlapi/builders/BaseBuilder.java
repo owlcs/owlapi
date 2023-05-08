@@ -14,7 +14,6 @@ package org.semanticweb.owlapi.builders;
 
 import static org.semanticweb.owlapi.utilities.OWLAPIPreconditions.checkNotNull;
 import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.add;
-import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asList;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -108,11 +107,12 @@ public abstract class BaseBuilder<T extends OWLObject, B> implements Builder<T> 
         OWLProfileReport report = Profiles.OWL2_DL.checkOntology(o);
         // collect all changes to fix the ontology
         List<OWLOntologyChange> changes =
-            asList(report.getViolations().stream().flatMap(v -> v.repair().stream()));
+            report.getViolations().stream().flatMap(v -> v.repair().stream()).toList();
         // fix the ontology
         o.applyChanges(changes);
         // return all applied changes for reference
-        changes.add(change);
-        return changes;
+        List<OWLOntologyChange> allChanges = new ArrayList<>(changes);
+        allChanges.add(change);
+        return allChanges;
     }
 }

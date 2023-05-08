@@ -13,7 +13,6 @@
 package org.semanticweb.owlapi.utility;
 
 import static org.semanticweb.owlapi.model.parameters.Imports.EXCLUDED;
-import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asList;
 import static org.semanticweb.owlapi.utility.Construct.ATOMIC_NEGATION;
 import static org.semanticweb.owlapi.utility.Construct.CONCEPT_COMPLEX_NEGATION;
 import static org.semanticweb.owlapi.utility.Construct.CONCEPT_INTERSECTION;
@@ -68,7 +67,7 @@ public class DLExpressivityChecker implements OWLObjectVisitor {
      *         returned.
      */
     public Collection<Languages> expressibleInLanguages() {
-        return Arrays.stream(Languages.values()).filter(this::minimal).collect(Collectors.toList());
+        return Arrays.stream(Languages.values()).filter(this::minimal).toList();
     }
 
     /**
@@ -116,7 +115,7 @@ public class DLExpressivityChecker implements OWLObjectVisitor {
      * @param ontologies ontologies
      */
     public DLExpressivityChecker(Stream<OWLOntology> ontologies) {
-        this.ontologies = asList(ontologies);
+        this.ontologies = ontologies.toList();
     }
 
     private static boolean isTop(OWLClassExpression classExpression) {

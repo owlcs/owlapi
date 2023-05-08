@@ -22,7 +22,6 @@ import static org.semanticweb.owlapi.search.Filters.subDataPropertyWithSub;
 import static org.semanticweb.owlapi.search.Filters.subDataPropertyWithSuper;
 import static org.semanticweb.owlapi.search.Filters.subObjectPropertyWithSub;
 import static org.semanticweb.owlapi.search.Filters.subObjectPropertyWithSuper;
-import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asList;
 import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.contains;
 import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.empty;
 
@@ -1762,7 +1761,7 @@ public final class Searcher {
      */
     public static Collection<OWLAxiom> getAxiomsIgnoreAnnotations(OWLAxiom a, OWLOntology ontology,
         Imports imports) {
-        return asList(ontology.axiomsIgnoreAnnotations(a, imports));
+        return ontology.axiomsIgnoreAnnotations(a, imports).toList();
     }
 
     /**

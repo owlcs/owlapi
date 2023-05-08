@@ -1,7 +1,6 @@
 package org.semanticweb.owlapi.utility;
 
 import static org.semanticweb.owlapi.utilities.OWLAPIPreconditions.verifyNotNull;
-import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asList;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -76,7 +75,7 @@ public class OWLZipSaver {
     public void saveImportsClosure(OWLOntology root, OutputStream out)
         throws IOException, OWLOntologyStorageException {
         saveOntologies(Collections.singletonList(root),
-            asList(root.importsClosure().filter(x -> x != root)), out);
+            root.importsClosure().filter(x -> x != root).toList(), out);
     }
 
     /**
@@ -90,9 +89,8 @@ public class OWLZipSaver {
      */
     public void saveImportsClosures(Collection<OWLOntology> roots, OutputStream out)
         throws IOException, OWLOntologyStorageException {
-        saveOntologies(roots, asList(
-            roots.stream().flatMap(OWLOntology::importsClosure).filter(x -> !roots.contains(x))),
-            out);
+        saveOntologies(roots, roots.stream().flatMap(OWLOntology::importsClosure)
+            .filter(x -> !roots.contains(x)).toList(), out);
     }
 
     /**

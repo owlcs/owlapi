@@ -439,8 +439,7 @@ public class Injector {
         try (InputStream in = c.toURL().openStream();
             InputStreamReader in2 = new InputStreamReader(in, StandardCharsets.UTF_8);
             BufferedReader r = new BufferedReader(in2)) {
-            return r.lines().map(String::trim).filter(Injector::notBlankAndNotCmoment)
-                .collect(Collectors.toList());
+            return r.lines().map(String::trim).filter(Injector::notBlankAndNotCmoment).toList();
         } catch (IOException e) {
             String msg = "Error reading services files: " + c;
             LOGGER.error(msg, e);

@@ -1,6 +1,5 @@
 package org.semanticweb.owlapi.factplusplusad;
 
-import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asList;
 import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.pairs;
 
 import java.util.Collection;
@@ -104,7 +103,7 @@ class SemanticLocalityChecker extends LocalityChecker {
         Signature s = new Signature();
         for (AxiomWrapper q : axioms) {
             if (q.isUsed()) {
-                exprMap.put(q.getAxiom(), asList(getExpr(q.getAxiom())));
+                exprMap.put(q.getAxiom(), getExpr(q.getAxiom()).toList());
                 s.addAll(q.getAxiom().signature());
             }
         }

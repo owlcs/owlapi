@@ -12,8 +12,6 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.profiles;
 
-import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asList;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -32,7 +30,7 @@ public class OWLProfileReport {
     private final List<OWLProfileViolation> violations;
 
     /**
-     * @param profile    the profile used
+     * @param profile the profile used
      * @param violations the set of violations
      */
     public OWLProfileReport(OWLProfile profile, Collection<OWLProfileViolation> violations) {
@@ -66,7 +64,7 @@ public class OWLProfileReport {
      * @return the violations found, filtered by ontology
      */
     public List<OWLProfileViolation> getViolations(OWLOntology o) {
-        return asList(violations.stream().filter(v -> Objects.equals(v.getOntology(), o)));
+        return violations.stream().filter(v -> Objects.equals(v.getOntology(), o)).toList();
     }
 
     /**
@@ -74,7 +72,7 @@ public class OWLProfileReport {
      * @return the violations found, filtered by entity
      */
     public List<OWLProfileViolation> getViolations(OWLEntity e) {
-        return asList(violations.stream().filter(v -> Objects.equals(v.getExpression(), e)));
+        return violations.stream().filter(v -> Objects.equals(v.getExpression(), e)).toList();
     }
 
     /**
@@ -82,7 +80,7 @@ public class OWLProfileReport {
      * @return the violations found, filtered by axiom
      */
     public List<OWLProfileViolation> getViolations(OWLAxiom ax) {
-        return asList(violations.stream().filter(v -> Objects.equals(v.getAxiom(), ax)));
+        return violations.stream().filter(v -> Objects.equals(v.getAxiom(), ax)).toList();
     }
 
     @Override

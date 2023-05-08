@@ -14,7 +14,6 @@ package com.clarkparsia.owlapi.modularity.locality;
 
 import static org.semanticweb.owlapi.utilities.OWLAPIPreconditions.checkNotNull;
 import static org.semanticweb.owlapi.utilities.OWLAPIPreconditions.verifyNotNull;
-import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asList;
 
 import java.util.Collection;
 import java.util.EnumSet;
@@ -1015,7 +1014,7 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
 
         protected boolean checkIfLocalProperties(
             OWLNaryPropertyAxiom<? extends OWLPropertyExpression> axiom) {
-            Collection<? extends OWLPropertyExpression> disjs = asList(axiom.properties());
+            Collection<? extends OWLPropertyExpression> disjs = axiom.properties().toList();
             int size = disjs.size();
             if (size > 1) {
                 boolean nonBottomEquivPropFound = false;

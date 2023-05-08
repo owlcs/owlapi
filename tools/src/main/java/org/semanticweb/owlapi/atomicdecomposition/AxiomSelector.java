@@ -1,7 +1,6 @@
 package org.semanticweb.owlapi.atomicdecomposition;
 
 import static org.semanticweb.owlapi.model.AxiomType.logicalAxiomsAndDeclarationsTypes;
-import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asList;
 
 import java.util.List;
 import java.util.stream.Stream;
@@ -38,7 +37,8 @@ public class AxiomSelector {
         if (excludeAssertions) {
             types = types.filter(x -> !AxiomType.aboxAxiomTypes().contains(x));
         }
-        return asList(types.flatMap(type -> o.axioms(type, Imports.INCLUDED)));
+        Stream<OWLAxiom> axioms = types.flatMap(type -> o.axioms(type, Imports.INCLUDED));
+        return axioms.toList();
     }
 
     /**
@@ -46,6 +46,6 @@ public class AxiomSelector {
      * @return axioms wrapped as AxiomWrapper
      */
     public static List<AxiomWrapper> wrap(List<OWLAxiom> o) {
-        return asList(o.stream().map(AxiomWrapper::new));
+        return o.stream().map(AxiomWrapper::new).toList();
     }
 }

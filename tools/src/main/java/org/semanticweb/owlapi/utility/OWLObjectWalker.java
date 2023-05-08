@@ -14,7 +14,6 @@ package org.semanticweb.owlapi.utility;
 
 import static org.semanticweb.owlapi.utilities.OWLAPIPreconditions.checkNotNull;
 import static org.semanticweb.owlapi.utilities.OWLAPIPreconditions.verifyNotNull;
-import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asList;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -93,7 +92,7 @@ public class OWLObjectWalker<O extends OWLObject> {
      */
     public OWLObjectWalker(Stream<O> objects, boolean walkDuplicates,
         AnnotationWalkingControl walkFlag) {
-        this.objects = asList(checkNotNull(objects, "objects cannot be null"));
+        this.objects = checkNotNull(objects, "objects cannot be null").toList();
         this.visitDuplicates = walkDuplicates;
         this.walker = new StructureWalker<>(this, walkFlag);
     }
@@ -206,7 +205,7 @@ public class OWLObjectWalker<O extends OWLObject> {
      * last item in the path is the current class expression being visited.
      *
      * @return A list of class expressions that represents the path of class expressions, with the
-     * root of the class expression being the first element in the list.
+     *         root of the class expression being the first element in the list.
      */
     public List<OWLClassExpression> getClassExpressionPath() {
         return new ArrayList<>(classExpressionPath);
@@ -218,7 +217,8 @@ public class OWLObjectWalker<O extends OWLObject> {
      *
      * @param classExpression The class expression
      * @return {@code true} if the specified class expression is the first class expression in the
-     * current class expression path, otherwise {@code false} ({@code false} if the path is empty)
+     *         current class expression path, otherwise {@code false} ({@code false} if the path is
+     *         empty)
      */
     public boolean isFirstClassExpressionInPath(OWLClassExpression classExpression) {
         checkNotNull(classExpression, "classExpression cannot be null");
@@ -253,7 +253,7 @@ public class OWLObjectWalker<O extends OWLObject> {
      * current data range being visited.
      *
      * @return A list of data ranges that represents the path of data ranges, with the root of the
-     * data range being the first element in the list.
+     *         data range being the first element in the list.
      */
     public List<OWLDataRange> getDataRangePath() {
         return new ArrayList<>(dataRangePath);

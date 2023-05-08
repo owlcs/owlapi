@@ -29,8 +29,6 @@ package org.semanticweb.owlapi.modularity.locality;
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
  */
 
-import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asList;
-
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.Objects;
@@ -322,7 +320,7 @@ public enum SyntacticLocalityEvaluator implements LocalityEvaluator {
         /**
          * Instantiates a new {@link BottomLocalityAxiomVisitor}.
          *
-         * @param axiom     the axiom to test
+         * @param axiom the axiom to test
          * @param signature the signature to test against
          */
         BottomLocalityAxiomVisitor(OWLAxiom axiom, Collection<OWLEntity> signature) {
@@ -331,7 +329,7 @@ public enum SyntacticLocalityEvaluator implements LocalityEvaluator {
 
         protected boolean checkIfLocalProperties(
             OWLNaryPropertyAxiom<? extends OWLPropertyExpression> axiom) {
-            Collection<? extends OWLPropertyExpression> disjs = asList(axiom.properties());
+            Collection<? extends OWLPropertyExpression> disjs = axiom.properties().toList();
             int size = disjs.size();
             if (size > 1) {
                 boolean nonBottomEquivPropFound = false;
@@ -568,7 +566,7 @@ public enum SyntacticLocalityEvaluator implements LocalityEvaluator {
          * local w.r.t the given signature. The result may be retrieved calling
          * {@link LocalityAxiomVisitor#isLocal()}.
          *
-         * @param axiom     the axiom to test
+         * @param axiom the axiom to test
          * @param signature the signature to test against
          */
         protected LocalityAxiomVisitor(OWLAxiom axiom, Collection<OWLEntity> signature) {
@@ -663,7 +661,7 @@ public enum SyntacticLocalityEvaluator implements LocalityEvaluator {
 
         @Override
         public void visit(OWLDisjointClassesAxiom axiom) {
-            Collection<OWLClassExpression> disjs = asList(axiom.classExpressions());
+            Collection<OWLClassExpression> disjs = axiom.classExpressions().toList();
             boolean nonBottomEquivDescFound = false;
             for (OWLClassExpression desc : disjs) {
                 if (!getBottomEquivalenceEvaluator().isEquivalent(desc)) {
@@ -948,7 +946,7 @@ public enum SyntacticLocalityEvaluator implements LocalityEvaluator {
         /**
          * Instantiates a new {@link TopLocalityAxiomVisitor}.
          *
-         * @param axiom     the axiom to test
+         * @param axiom the axiom to test
          * @param signature the signature to test against
          */
         TopLocalityAxiomVisitor(OWLAxiom axiom, Collection<OWLEntity> signature) {
@@ -1093,7 +1091,7 @@ public enum SyntacticLocalityEvaluator implements LocalityEvaluator {
      * Creates the {@link LocalityAxiomVisitor} to check locality associated with the locality class
      * represented by this {@link SyntacticLocalityEvaluator}.
      *
-     * @param axiom     The axiom to visit
+     * @param axiom The axiom to visit
      * @param signature The signature to check against
      * @return {@link LocalityAxiomVisitor} to check locality
      */

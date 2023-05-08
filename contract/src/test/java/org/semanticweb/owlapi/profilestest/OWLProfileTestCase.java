@@ -18,7 +18,6 @@ import static org.semanticweb.owlapi.profiles.Profiles.OWL2_EL;
 import static org.semanticweb.owlapi.profiles.Profiles.OWL2_FULL;
 import static org.semanticweb.owlapi.profiles.Profiles.OWL2_QL;
 import static org.semanticweb.owlapi.profiles.Profiles.OWL2_RL;
-import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asList;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -192,7 +191,7 @@ class OWLProfileTestCase extends TestBase {
     private static void checkInCollection(List<OWLProfileViolation> violations,
         List<Class<?>> inputList) {
         inputList.sort(comp);
-        assertEquals(inputList, asList(violations.stream().map(Object::getClass).sorted(comp)));
+        assertEquals(inputList, violations.stream().map(Object::getClass).sorted(comp).toList());
     }
 
     void runAssert(OWLOntology ontology, OWLProfile profile, List<Class<?>> expectedViolations,

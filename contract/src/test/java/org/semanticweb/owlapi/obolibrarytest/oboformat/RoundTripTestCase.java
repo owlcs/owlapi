@@ -5,7 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
-import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asList;
 import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asSet;
 
 import java.io.BufferedWriter;
@@ -99,7 +98,7 @@ class RoundTripTestCase extends RoundTripTestBasics {
         // Relations
         boolean foundRel1 = false;
         boolean foundRel2 = false;
-        List<OWLSubClassOfAxiom> axioms = asList(owlOntology.subClassAxiomsForSubClass(cl));
+        List<OWLSubClassOfAxiom> axioms = owlOntology.subClassAxiomsForSubClass(cl).toList();
         assertEquals(3, axioms.size());
         for (OWLSubClassOfAxiom axiom : axioms) {
             OWLClassExpression superClass = axiom.getSuperClass();
@@ -324,7 +323,7 @@ class RoundTripTestCase extends RoundTripTestBasics {
         boolean ok = false;
         // test that transitive over is translated to a property chain
         List<OWLSubPropertyChainOfAxiom> axioms =
-            asList(ontology.axioms(AxiomType.SUB_PROPERTY_CHAIN_OF));
+            ontology.axioms(AxiomType.SUB_PROPERTY_CHAIN_OF).toList();
         for (OWLSubPropertyChainOfAxiom axiom : axioms) {
             OWLObjectProperty p = (OWLObjectProperty) axiom.getSuperProperty();
             if (regulatesIRI.equals(p.getIRI())) {

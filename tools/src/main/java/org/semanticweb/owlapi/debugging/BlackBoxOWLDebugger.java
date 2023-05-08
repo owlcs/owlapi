@@ -16,7 +16,6 @@ import static org.semanticweb.owlapi.model.parameters.Imports.INCLUDED;
 import static org.semanticweb.owlapi.utilities.OWLAPIPreconditions.checkNotNull;
 import static org.semanticweb.owlapi.utilities.OWLAPIPreconditions.verifyNotNull;
 import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.add;
-import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asList;
 import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asUnorderedSet;
 import static org.semanticweb.owlapi.utility.CollectionFactory.createSet;
 
@@ -198,7 +197,7 @@ public class BlackBoxOWLDebugger extends AbstractOWLDebugger {
                 continue;
             }
             // Collect the entities that have been used in the axiom
-            for (OWLEntity curObj : asList(ax.signature())) {
+            for (OWLEntity curObj : ax.signature().toList()) {
                 if (!objectsExpandedWithDefiningAxioms.contains(curObj)) {
                     int added = expandWithDefiningAxioms(curObj, remainingSpace);
                     axiomsAdded += added;
@@ -226,7 +225,7 @@ public class BlackBoxOWLDebugger extends AbstractOWLDebugger {
                 continue;
             }
             // Keep track of the number of axioms that have been added
-            for (OWLEntity curObj : asList(ax.signature())) {
+            for (OWLEntity curObj : ax.signature().toList()) {
                 if (!objectsExpandedWithReferencingAxioms.contains(curObj)) {
                     int added = expandWithReferencingAxioms(curObj, expansionLimit);
                     axiomsAdded += added;

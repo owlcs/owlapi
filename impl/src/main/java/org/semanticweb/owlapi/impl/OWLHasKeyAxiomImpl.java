@@ -13,7 +13,6 @@
 package org.semanticweb.owlapi.impl;
 
 import static org.semanticweb.owlapi.utilities.OWLAPIPreconditions.checkNotNull;
-import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asList;
 import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.sorted;
 import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.streamFromSorted;
 
@@ -52,12 +51,12 @@ public class OWLHasKeyAxiomImpl extends OWLLogicalAxiomImpl implements OWLHasKey
         this.expression = checkNotNull(expression, "expression cannot be null");
         checkNotNull(propertyExpressions, "propertyExpressions cannot be null");
         this.propertyExpressions = sorted(OWLPropertyExpression.class, propertyExpressions);
-        dataPropertyExpressions = asList(this.propertyExpressions.stream()
+        dataPropertyExpressions = this.propertyExpressions.stream()
             .filter(OWLPropertyExpression::isDataPropertyExpression)
-            .map(OWLPropertyExpression::asDataPropertyExpression));
-        objectPropertyExpressions = asList(this.propertyExpressions.stream()
+            .map(OWLPropertyExpression::asDataPropertyExpression).toList();
+        objectPropertyExpressions = this.propertyExpressions.stream()
             .filter(OWLPropertyExpression::isObjectPropertyExpression)
-            .map(OWLPropertyExpression::asObjectPropertyExpression));
+            .map(OWLPropertyExpression::asObjectPropertyExpression).toList();
     }
 
     @Override

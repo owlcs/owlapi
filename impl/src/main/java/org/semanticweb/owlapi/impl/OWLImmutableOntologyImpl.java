@@ -14,7 +14,6 @@ package org.semanticweb.owlapi.impl;
 
 import static org.semanticweb.owlapi.utilities.OWLAPIPreconditions.checkNotNull;
 import static org.semanticweb.owlapi.utilities.OWLAPIPreconditions.verifyNotNull;
-import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asList;
 import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asSet;
 import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.empty;
 import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.streamFromSorted;
@@ -136,13 +135,13 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements OWLOn
 
     // @formatter:off
     protected static LoadingCache<OWLImmutableOntologyImpl, Set<OWLEntity>>              ontsignatures =                     build(OWLImmutableOntologyImpl::build);
-    protected static LoadingCache<OWLImmutableOntologyImpl, List<OWLAnonymousIndividual>> ontanonCaches =                    build(key -> asList(key.ints.owlAnonymousIndividualReferences  .keySet().distinct().sorted()));
-    protected static LoadingCache<OWLImmutableOntologyImpl, List<OWLClass>>              ontclassesSignatures =              build(key -> asList(key.ints.owlClassReferences                .keySet().distinct().sorted()));
-    protected static LoadingCache<OWLImmutableOntologyImpl, List<OWLDataProperty>>       ontdataPropertySignatures =         build(key -> asList(key.ints.owlDataPropertyReferences         .keySet().distinct().sorted()));
-    protected static LoadingCache<OWLImmutableOntologyImpl, List<OWLObjectProperty>>     ontobjectPropertySignatures =       build(key -> asList(key.ints.owlObjectPropertyReferences       .keySet().distinct().sorted()));
-    protected static LoadingCache<OWLImmutableOntologyImpl, List<OWLDatatype>>           ontdatatypeSignatures =             build(key -> asList(Stream.concat(key.ints.owlDatatypeReferences.keySet(), key.ints.getOntologyAnnotations().flatMap(HasDatatypesInSignature::datatypesInSignature)).distinct().sorted()));
-    protected static LoadingCache<OWLImmutableOntologyImpl, List<OWLNamedIndividual>>    ontindividualSignatures =           build(key -> asList(key.ints.owlIndividualReferences           .keySet().distinct().sorted()));
-    protected static LoadingCache<OWLImmutableOntologyImpl, List<OWLAnnotationProperty>> ontannotationPropertiesSignatures = build(key -> asList(Stream.concat(key.ints.annotationProperties(), key.ints.getOntologyAnnotations().flatMap(OWLAnnotation::annotationPropertiesInSignature)).distinct().sorted()));
+    protected static LoadingCache<OWLImmutableOntologyImpl, List<OWLAnonymousIndividual>> ontanonCaches =                    build(key -> key.ints.owlAnonymousIndividualReferences  .keySet().distinct().sorted().toList());
+    protected static LoadingCache<OWLImmutableOntologyImpl, List<OWLClass>>              ontclassesSignatures =              build(key -> key.ints.owlClassReferences                .keySet().distinct().sorted().toList());
+    protected static LoadingCache<OWLImmutableOntologyImpl, List<OWLDataProperty>>       ontdataPropertySignatures =         build(key -> key.ints.owlDataPropertyReferences         .keySet().distinct().sorted().toList());
+    protected static LoadingCache<OWLImmutableOntologyImpl, List<OWLObjectProperty>>     ontobjectPropertySignatures =       build(key -> key.ints.owlObjectPropertyReferences       .keySet().distinct().sorted().toList());
+    protected static LoadingCache<OWLImmutableOntologyImpl, List<OWLDatatype>>           ontdatatypeSignatures =             build(key -> Stream.concat(key.ints.owlDatatypeReferences.keySet(), key.ints.getOntologyAnnotations().flatMap(HasDatatypesInSignature::datatypesInSignature)).distinct().sorted().toList());
+    protected static LoadingCache<OWLImmutableOntologyImpl, List<OWLNamedIndividual>>    ontindividualSignatures =           build(key -> key.ints.owlIndividualReferences           .keySet().distinct().sorted().toList());
+    protected static LoadingCache<OWLImmutableOntologyImpl, List<OWLAnnotationProperty>> ontannotationPropertiesSignatures = build(key -> Stream.concat(key.ints.annotationProperties(), key.ints.getOntologyAnnotations().flatMap(OWLAnnotation::annotationPropertiesInSignature)).distinct().sorted().toList());
     // @formatter:on
     protected static void invalidateOntologyCaches(OWLImmutableOntologyImpl o) {
         ontsignatures.invalidate(o);
@@ -319,7 +318,7 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements OWLOn
 
     @Override
     public List<OWLAnnotation> annotationsAsList() {
-        return asList(annotations());
+        return annotations().toList();
     }
 
     @Override

@@ -13,7 +13,6 @@
 package org.semanticweb.owlapi.impl;
 
 import static org.semanticweb.owlapi.utilities.OWLAPIPreconditions.verifyNotNull;
-import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asList;
 import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.streamFromSorted;
 
 import java.util.Collection;
@@ -81,7 +80,7 @@ public abstract class OWLObjectImpl implements HasIncrementalSignatureGeneration
     }
 
     static <T> List<T> cacheSig(OWLObject o, Predicate<OWLEntity> p, Function<OWLEntity, T> f) {
-        return asList(o.unsortedSignature().filter(p).map(f).sorted());
+        return o.unsortedSignature().filter(p).map(f).sorted().toList();
     }
 
     protected int hashCode = 0;

@@ -23,7 +23,6 @@ import static org.semanticweb.owlapi.model.AxiomType.SWRL_RULE;
 import static org.semanticweb.owlapi.model.parameters.Imports.EXCLUDED;
 import static org.semanticweb.owlapi.utilities.OWLAPIPreconditions.verifyNotNull;
 import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.add;
-import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asList;
 import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asUnorderedSet;
 import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_ANNOTATION;
 import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_ANNOTATION_PROPERTY;
@@ -45,7 +44,6 @@ import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.RDF_TYPE;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.Deque;
 import java.util.HashSet;
 import java.util.IdentityHashMap;
@@ -96,7 +94,6 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLSameIndividualAxiom;
 import org.semanticweb.owlapi.model.OntologyConfigurator;
-import org.semanticweb.owlapi.model.SWRLRule;
 import org.semanticweb.owlapi.model.parameters.Imports;
 import org.semanticweb.owlapi.rdf.model.RDFGraph;
 import org.semanticweb.owlapi.rdf.model.RDFTranslator;
@@ -397,7 +394,7 @@ public abstract class RDFRendererBase {
 
     protected void renderIRI(IRI iri) {
         beginObject();
-        createGraph(asList(ontology.annotationAssertionAxioms(iri)));
+        createGraph(ontology.annotationAssertionAxioms(iri));
         render(new RDFResourceIRI(verifyAbsolute(iri)), true);
         renderAnonRoots();
         endObject();
@@ -411,7 +408,7 @@ public abstract class RDFRendererBase {
         List<OWLAxiom> axioms = new ArrayList<>();
         if (ontology.referencingAxioms(anonInd).filter(ax -> includeInSingleTriple(ax, anonInd))
             .noneMatch(ax -> shouldNotRender(anonInd, axioms, ax))) {
-            createGraph(axioms);
+            createGraph(axioms.stream());
             renderAnonRoots();
         }
     }
@@ -436,12 +433,11 @@ public abstract class RDFRendererBase {
     }
 
     private void renderSWRLRules() {
-        List<SWRLRule> ruleAxioms = asList(ontology.axioms(SWRL_RULE).sorted());
-        if (!ruleAxioms.isEmpty()) {
-            createGraph(ruleAxioms);
+        if (ontology.getAxiomCount(SWRL_RULE) > 0) {
+            createGraph(ontology.axioms(SWRL_RULE));
             writeBanner(RULES_BANNER_TEXT);
             SWRLVariableExtractor variableExtractor = new SWRLVariableExtractor();
-            ruleAxioms.forEach(rule -> rule.accept(variableExtractor));
+            ontology.axioms(SWRL_RULE).forEach(rule -> rule.accept(variableExtractor));
             variableExtractor.getVariables().forEach(
                 variable -> render(new RDFResourceIRI(verifyAbsolute(variable.getIRI())), true));
             renderAnonRoots();
@@ -520,7 +516,7 @@ public abstract class RDFRendererBase {
         if (!punned.contains(entity.getIRI())) {
             add(axioms, ontology.annotationAssertionAxioms(entity.getIRI(), EXCLUDED));
         }
-        createGraph(axioms);
+        createGraph(axioms.stream());
         return !axioms.isEmpty();
     }
 
@@ -528,18 +524,17 @@ public abstract class RDFRendererBase {
         return config.shouldAddMissingTypes();
     }
 
-    protected void createGraph(List<? extends OWLObject> objects) {
-        objects.sort(null);
+    protected void createGraph(Stream<? extends OWLObject> objects) {
         RDFTranslator translator =
             new RDFTranslator(ontology, format, shouldInsertDeclarations(), occurrences,
                 translatedAxioms).withOccurrences(axiomOccurrences, nextBlankNodeId, blankNodeMap);
-        objects.stream().map(this::deshare).forEach(translator::translate);
+        objects.sorted().map(this::deshare).forEach(translator::translate);
         graph = translator.getGraph();
         getRDFGraph().forceIdOutput();
     }
 
     protected void createGraph(OWLObject o) {
-        createGraph(Collections.singletonList(o));
+        createGraph(Stream.of(o));
     }
 
     protected OWLObject deshare(OWLObject o) {

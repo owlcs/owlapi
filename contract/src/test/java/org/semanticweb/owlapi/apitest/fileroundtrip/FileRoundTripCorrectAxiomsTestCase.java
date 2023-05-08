@@ -17,7 +17,6 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.semanticweb.owlapi.model.parameters.Imports.EXCLUDED;
 import static org.semanticweb.owlapi.model.parameters.Imports.INCLUDED;
-import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asList;
 import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asUnorderedSet;
 
 import java.util.List;
@@ -154,7 +153,7 @@ class FileRoundTripCorrectAxiomsTestCase extends TestBase {
     void testParsedAxiomsSubClassOfUntypedOWLClass() {
         OWLOntology ontology =
             ontologyFromClasspathFile(TestFilenames.SUB_CLASS_OF_UNTYPED_OWL_CLASS_RDF);
-        List<OWLSubClassOfAxiom> axioms = asList(ontology.axioms(AxiomType.SUBCLASS_OF));
+        List<OWLSubClassOfAxiom> axioms = ontology.axioms(AxiomType.SUBCLASS_OF).toList();
         assertEquals(1, axioms.size());
         OWLSubClassOfAxiom ax = axioms.get(0);
         assertEquals(CLASSES.A, ax.getSubClass());
@@ -165,7 +164,7 @@ class FileRoundTripCorrectAxiomsTestCase extends TestBase {
     void testParsedAxiomsSubClassOfUntypedSomeValuesFrom() {
         OWLOntology ontology =
             ontologyFromClasspathFile(TestFilenames.SUB_CLASS_OF_UNTYPED_SOME_VALUES_FROM_RDF);
-        List<OWLSubClassOfAxiom> axioms = asList(ontology.axioms(AxiomType.SUBCLASS_OF));
+        List<OWLSubClassOfAxiom> axioms = ontology.axioms(AxiomType.SUBCLASS_OF).toList();
         assertEquals(1, axioms.size());
         OWLSubClassOfAxiom ax = axioms.get(0);
         assertEquals(CLASSES.A, ax.getSubClass());

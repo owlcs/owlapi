@@ -1,7 +1,5 @@
 package org.semanticweb.owlapi.utilities;
 
-import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asList;
-
 import java.util.EnumMap;
 import java.util.List;
 import java.util.function.Predicate;
@@ -137,7 +135,7 @@ public class TransformerVisitorBase<T> implements OWLObjectVisitorEx<OWLObject> 
 
     protected <Q extends OWLObject> List<Q> t(Stream<Q> c) {
         // XXx review
-        return asList(c.map(this::t));
+        return c.map(this::t).toList();
     }
 
     protected <Q extends OWLObject> List<Q> t(List<Q> c) {

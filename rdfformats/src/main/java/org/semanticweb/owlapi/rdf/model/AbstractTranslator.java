@@ -13,7 +13,6 @@
 package org.semanticweb.owlapi.rdf.model;
 
 import static org.semanticweb.owlapi.utilities.OWLAPIPreconditions.checkNotNull;
-import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asList;
 import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.pairs;
 import static org.semanticweb.owlapi.utility.CollectionFactory.createLinkedSet;
 import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_ALL_DIFFERENT;
@@ -1043,7 +1042,7 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
     private void addSingleTripleAxiom(OWLAxiom ax, OWLObject subj, IRI pred,
         Stream<? extends OWLObject> obj) {
         addSingleTripleAxiomRPN(ax, getNode(subj), getPredicateNode(pred),
-            translateList(asList(obj)));
+            translateList(obj.toList()));
     }
 
     private void addSingleTripleAxiom(OWLAxiom ax, OWLObject subj, OWLObject pred, OWLObject obj) {
@@ -1253,13 +1252,13 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
 
     private void addListTriples(OWLObject subject, IRI pred, Stream<? extends OWLObject> objects) {
         addTriple(getNode(subject), getPredicateNode(pred),
-            translateList(asList(objects.sorted())));
+            translateList(objects.sorted().toList()));
     }
 
     private void addTriple(OWLObject subject, IRI pred, Stream<? extends OWLObject> objects,
         IRI listType) {
         addTriple(getNode(subject), getPredicateNode(pred),
-            translateList(asList(objects), listType));
+            translateList(objects.toList(), listType));
     }
 
     private OWLLiteral toTypedConstant(int i) {

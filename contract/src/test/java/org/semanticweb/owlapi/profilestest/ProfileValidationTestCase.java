@@ -15,7 +15,6 @@ package org.semanticweb.owlapi.profilestest;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.semanticweb.owlapi.search.Searcher.negValues;
 import static org.semanticweb.owlapi.search.Searcher.values;
-import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asList;
 import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asUnorderedSet;
 
 import java.net.URL;
@@ -52,12 +51,11 @@ class ProfileValidationTestCase extends TestBase {
     void testProfiles() {
         URL resourceURL = ProfileValidationTestCase.class.getResource("/all.rdf");
         OWLOntology testCasesOntology = loadFrom(iri(resourceURL));
-        for (OWLClassAssertionAxiom ax : asList(
-            testCasesOntology.classAssertionAxioms(CLASSES.profileIdentificationTestClass))) {
+        for (OWLClassAssertionAxiom ax : testCasesOntology
+            .classAssertionAxioms(CLASSES.profileIdentificationTestClass).toList()) {
             OWLIndividual ind = ax.getIndividual();
-            Collection<OWLLiteral> vals =
-                asUnorderedSet(values(testCasesOntology.dataPropertyAssertionAxioms(ind),
-                    DATAPROPS.rdfXML));
+            Collection<OWLLiteral> vals = asUnorderedSet(
+                values(testCasesOntology.dataPropertyAssertionAxioms(ind), DATAPROPS.rdfXML));
             if (vals.size() != 1) {
                 continue;
             }

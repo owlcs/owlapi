@@ -13,7 +13,6 @@
 package org.semanticweb.owlapi.rdf.model;
 
 import static org.semanticweb.owlapi.utilities.OWLAPIPreconditions.checkNotNull;
-import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asList;
 import static org.semanticweb.owlapi.utility.CollectionFactory.createLinkedSet;
 import static org.semanticweb.owlapi.utility.CollectionFactory.createMap;
 
@@ -205,8 +204,8 @@ public class RDFGraph implements Serializable {
      * @return all subjects referring to the input object
      */
     public List<RDFResource> getSubjectsForObject(RDFResource node) {
-        List<RDFResource> current = asList(
-            triples.stream().filter(p -> p.getObject().equals(node)).map(RDFTriple::getSubject));
+        List<RDFResource> current = triples.stream().filter(p -> p.getObject().equals(node))
+            .map(RDFTriple::getSubject).toList();
         Set<RDFResource> visited = new HashSet<>();
         List<RDFResource> next = new ArrayList<>();
         boolean change = true;
@@ -214,8 +213,8 @@ public class RDFGraph implements Serializable {
             change = false;
             for (RDFResource n : current) {
                 if (visited.add(n)) {
-                    List<RDFResource> l = asList(triples.stream()
-                        .filter(p -> p.getObject().equals(n)).map(RDFTriple::getSubject));
+                    List<RDFResource> l = triples.stream().filter(p -> p.getObject().equals(n))
+                        .map(RDFTriple::getSubject).toList();
                     if (!l.isEmpty()) {
                         change = true;
                         next.addAll(l);

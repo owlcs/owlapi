@@ -52,7 +52,6 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicLong;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import javax.annotation.Nullable;
@@ -223,7 +222,7 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
 
     private <T> List<T> sortedList(Class<T> witness, Stream<? extends T> stream) {
         if (config.shouldAllowDuplicatesInConstructSets()) {
-            return stream.filter(Objects::nonNull).sorted().collect(Collectors.toList());
+            return stream.filter(Objects::nonNull).sorted().map(witness::cast).toList();
         }
         return OWLAPIStreamUtils.sorted(witness, stream);
     }
@@ -829,7 +828,7 @@ public class OWLDataFactoryImpl implements OWLDataFactory {
                     "DisjointClasses(owl:Nothing) cannot be created. It is not a syntactically valid OWL 2 axiom. If the intent is to declare owl:Nothing as disjoint with itself and therefore empty, it cannot be created as a DisjointClasses axiom, and it is also redundant as owl:Nothing is always empty. Please rewrite it as SubClassOf(owl:Nothing, owl:Nothing) or remove the axiom.");
             }
             List<OWLClassExpression> modifiedClassExpressions =
-                OWLAPIStreamUtils.asList(Stream.of(OWL_THING, classExpression).sorted());
+                Stream.of(OWL_THING, classExpression).sorted().toList();
             return new OWLDisjointClassesAxiomImpl(modifiedClassExpressions,
                 makeSingletonDisjoinClassWarningAnnotation(anns, classExpression, OWL_THING));
         }

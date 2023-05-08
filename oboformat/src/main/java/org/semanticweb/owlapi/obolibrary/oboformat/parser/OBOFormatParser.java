@@ -1,7 +1,6 @@
 package org.semanticweb.owlapi.obolibrary.oboformat.parser;
 
 import static org.semanticweb.owlapi.utilities.OWLAPIPreconditions.verifyNotNull;
-import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asList;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -380,7 +379,7 @@ public class OBOFormatParser {
         // check typedef frames
         doc.getTypedefFrames()
             .forEach(f -> f.getTags().forEach(tag -> validate3(doc, danglingReferences, f, tag)));
-        return asList(danglingReferences.stream().filter(Objects::nonNull));
+        return danglingReferences.stream().filter(Objects::nonNull).toList();
     }
 
     protected void validate3(OBODoc doc, List<String> danglingReferences, Frame f, String tag) {

@@ -1,7 +1,6 @@
 package org.semanticweb.owlapi.apitest.annotations;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asList;
 
 import java.util.Set;
 import java.util.TreeSet;
@@ -27,7 +26,7 @@ class AnnotatetAnnotationsTestCase extends TestBase {
         OWLAnnotation c1 = RDFSLabel(LITERALS.LIT_ONE, c3);
         OWLAnnotation c2 = RDFSLabel(LITERALS.LIT_TWO, c4);
         OWLOntology ont = loadFrom(TestFiles.nestedAnnotations, new RDFXMLDocumentFormat());
-        assertEquals(asList(ont.logicalAxioms()),
+        assertEquals(ont.logicalAxioms().toList(),
             l(ObjectPropertyAssertion(l(c1, c2), OBJPROPS.op1, INDIVIDUALS.I, INDIVIDUALS.J)));
     }
 

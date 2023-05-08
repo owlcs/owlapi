@@ -2,7 +2,6 @@ package org.semanticweb.owlapi.util;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asList;
 import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.contains;
 
 import java.util.HashSet;
@@ -33,7 +32,7 @@ class EntitySearcherTestCase extends TestBase {
     @Test
     void shouldReturnSuperProperty() {
         List<OWLObjectPropertyExpression> supers =
-            asList(Searcher.getSuperProperties(OBJPROPS.subProperty, ontologies.stream()));
+            Searcher.getSuperProperties(OBJPROPS.subProperty, ontologies.stream()).toList();
         assertTrue(supers.contains(OBJPROPS.superProperty), supers.toString());
     }
 

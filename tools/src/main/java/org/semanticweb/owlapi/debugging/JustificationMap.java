@@ -14,7 +14,6 @@ package org.semanticweb.owlapi.debugging;
 
 import static org.semanticweb.owlapi.utilities.OWLAPIPreconditions.checkNotNull;
 import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.add;
-import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asList;
 import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asUnorderedSet;
 
 import java.util.ArrayList;
@@ -111,7 +110,7 @@ public class JustificationMap {
 
     private void buildChildren(OWLClassExpression seed) {
         // Return the axioms that have the entity on the LHS
-        List<OWLAxiom> result = asList(seed.signature().flatMap(this::getAxiomsByLHS));
+        List<OWLAxiom> result = seed.signature().flatMap(this::getAxiomsByLHS).toList();
         usedAxioms.addAll(result);
         rootAxioms.addAll(result);
         buildChildren(result);

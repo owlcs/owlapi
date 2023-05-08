@@ -15,7 +15,6 @@ package org.semanticweb.owlapi.utility;
 import static org.semanticweb.owlapi.model.parameters.Imports.EXCLUDED;
 import static org.semanticweb.owlapi.utilities.OWLAPIPreconditions.checkNotNull;
 import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.add;
-import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asList;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -59,7 +58,7 @@ public class OWLLiteralReplacer {
     }
 
     private static Collection<OWLAxiom> getAxioms(OWLOntology ont, OWLLiteral entity) {
-        List<OWLAxiom> axioms = asList(ont.referencingAxioms(entity, EXCLUDED));
+        List<OWLAxiom> axioms = ont.referencingAxioms(entity, EXCLUDED).toList();
         add(axioms, ont.declarationAxioms(entity.getDatatype()));
         return axioms;
     }

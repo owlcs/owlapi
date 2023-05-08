@@ -1,7 +1,5 @@
 package org.semanticweb.owlapi.obolibrary.owl;
 
-import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asList;
-
 import java.io.PrintWriter;
 import java.util.Map;
 import java.util.stream.Stream;
@@ -102,8 +100,8 @@ public class LabelFunctionalSyntaxStorer implements OWLStorer {
         @Override
         @Nullable
         public String getPrefixIRI(IRI iri) {
-            for (OWLAnnotationAssertionAxiom annotation : asList(
-                ontology.annotationAssertionAxioms(iri))) {
+            for (OWLAnnotationAssertionAxiom annotation : ontology.annotationAssertionAxioms(iri)
+                .toList()) {
                 if (annotation.getProperty().isLabel()) {
                     OWLAnnotationValue value = annotation.getValue();
                     if (value instanceof OWLLiteral) {

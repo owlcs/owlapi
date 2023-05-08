@@ -3,7 +3,6 @@ package org.semanticweb.owlapi.obolibrary.obo2owl;
 import static org.semanticweb.owlapi.search.Searcher.getAnnotationObjects;
 import static org.semanticweb.owlapi.utilities.OWLAPIPreconditions.checkNotNull;
 import static org.semanticweb.owlapi.utilities.OWLAPIPreconditions.verifyNotNull;
-import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asList;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
@@ -355,8 +354,8 @@ public class OWLAPIOwl2Obo {
         throws UntranslatableAxiomException {
         if (obj instanceof OWLObjectProperty || obj instanceof OWLAnnotationProperty) {
             OWLEntity entity = (OWLEntity) obj;
-            for (OWLAnnotationAssertionAxiom ax : asList(
-                ont.annotationAssertionAxioms(entity.getIRI()))) {
+            for (OWLAnnotationAssertionAxiom ax : ont.annotationAssertionAxioms(entity.getIRI())
+                .toList()) {
                 String propId = getIdentifierFromObject(ax.getProperty().getIRI(), ont);
                 // see BFOROXrefTest
                 // 5.9.3. Special Rules for Relations
@@ -1417,7 +1416,7 @@ public class OWLAPIOwl2Obo {
                 return;
             }
             List<OWLAnnotationAssertionAxiom> set =
-                asList(owlOntology.annotationAssertionAxioms(entity.getIRI()));
+                owlOntology.annotationAssertionAxioms(entity.getIRI()).toList();
             if (set.isEmpty()) {
                 return;
             }
@@ -1898,8 +1897,8 @@ public class OWLAPIOwl2Obo {
             if (OboFormatTag.TAG_SYNONYMTYPEDEF.getTag().equals(tagObject)) {
                 String name = "";
                 String scope = null;
-                for (OWLAnnotationAssertionAxiom axiom : asList(
-                    getOWLOntology().annotationAssertionAxioms(sub.getIRI()))) {
+                for (OWLAnnotationAssertionAxiom axiom : getOWLOntology()
+                    .annotationAssertionAxioms(sub.getIRI()).toList()) {
                     String tg = owlObjectToTag(axiom.getProperty());
                     if (OboFormatTag.TAG_NAME.getTag().equals(tg)) {
                         name = ((OWLLiteral) axiom.getValue()).getLiteral();
@@ -1924,8 +1923,8 @@ public class OWLAPIOwl2Obo {
                 return;
             } else if (OboFormatTag.TAG_SUBSETDEF.getTag().equals(tagObject)) {
                 String comment = "";
-                for (OWLAnnotationAssertionAxiom axiom : asList(
-                    getOWLOntology().annotationAssertionAxioms(sub.getIRI()))) {
+                for (OWLAnnotationAssertionAxiom axiom : getOWLOntology()
+                    .annotationAssertionAxioms(sub.getIRI()).toList()) {
                     String tg = owlObjectToTag(axiom.getProperty());
                     if (OboFormatTag.TAG_COMMENT.getTag().equals(tg)) {
                         comment = ((OWLLiteral) axiom.getValue()).getLiteral();
@@ -2152,7 +2151,7 @@ public class OWLAPIOwl2Obo {
                 clause = new Clause(OboFormatTag.TAG_TRANSITIVE_OVER, rel2);
             } else {
                 OboFormatTag tag = OboFormatTag.TAG_HOLDS_OVER_CHAIN;
-                List<OWLAnnotation> collect = asList(ax.annotations());
+                List<OWLAnnotation> collect = ax.annotations().toList();
                 for (OWLAnnotation ann : collect) {
                     if (OWLAPIObo2Owl.IRI_PROP_ISREVERSIBLEPROPERTYCHAIN
                         .equals(ann.getProperty().getIRI().toString())) {

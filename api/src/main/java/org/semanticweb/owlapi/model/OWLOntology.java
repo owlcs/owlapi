@@ -12,8 +12,6 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model;
 
-import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asList;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -78,7 +76,7 @@ public interface OWLOntology extends OWLObject, HasAnnotations, HasDirectImports
 
     @Override
     default ChangeReport addAxioms(Stream<? extends OWLAxiom> axioms) {
-        return applyChanges(asList(axioms.map(ax -> new AddAxiom(this, ax))));
+        return applyChanges(axioms.map(ax -> new AddAxiom(this, ax)).toList());
     }
 
     @Override
@@ -88,7 +86,7 @@ public interface OWLOntology extends OWLObject, HasAnnotations, HasDirectImports
 
     @Override
     default ChangeReport removeAxioms(Stream<? extends OWLAxiom> axioms) {
-        return applyChanges(asList(axioms.map(ax -> new RemoveAxiom(this, ax))));
+        return applyChanges(axioms.map(ax -> new RemoveAxiom(this, ax)).toList());
     }
 
     @Override
@@ -314,7 +312,7 @@ public interface OWLOntology extends OWLObject, HasAnnotations, HasDirectImports
         if (!add) {
             return Collections.emptySet();
         }
-        return illegalPunnings(add, asList(this.unsortedSignature(Imports.INCLUDED)));
+        return illegalPunnings(add, this.unsortedSignature(Imports.INCLUDED).toList());
     }
 
     /**

@@ -37,9 +37,9 @@ public class OWLAPIStreamUtils {
     private OWLAPIStreamUtils() {}
 
     /**
-     * @param <T>  type of the returned collection
+     * @param <T> type of the returned collection
      * @param type type of the returned collection
-     * @param s    stream to turn to sorted, duplicate free, no null, list
+     * @param s stream to turn to sorted, duplicate free, no null, list
      * @return sorted array containing all elements in the stream, minus nulls and duplicates. The
      *         list is immutable.
      */
@@ -50,9 +50,9 @@ public class OWLAPIStreamUtils {
     }
 
     /**
-     * @param <T>  type of the returned collection
+     * @param <T> type of the returned collection
      * @param type type of the returned collection
-     * @param c    collection to turn to sorted, duplicate free, no null, list
+     * @param c collection to turn to sorted, duplicate free, no null, list
      * @return sorted array containing all elements in the collection, minus nulls and duplicates.
      *         The list is immutable.
      */
@@ -70,9 +70,9 @@ public class OWLAPIStreamUtils {
     }
 
     /**
-     * @param <T>  type of the returned collection
+     * @param <T> type of the returned collection
      * @param type type of the returned collection
-     * @param c    collection to turn to sorted, duplicate free, no null, list
+     * @param c collection to turn to sorted, duplicate free, no null, list
      * @return sorted array containing all elements in the collection, minus nulls and duplicates.
      *         The list is immutable.
      */
@@ -94,9 +94,9 @@ public class OWLAPIStreamUtils {
     }
 
     /**
-     * @param <T>  type of the returned collection
+     * @param <T> type of the returned collection
      * @param type type of the returned collection
-     * @param c    collection to turn to sorted, duplicate free, no null, list
+     * @param c collection to turn to sorted, duplicate free, no null, list
      * @return sorted array containing all elements in the collection, minus nulls and duplicates.
      *         The list is immutable.
      */
@@ -113,9 +113,9 @@ public class OWLAPIStreamUtils {
     }
 
     /**
-     * @param <T>  type of the returned collection
+     * @param <T> type of the returned collection
      * @param type type of the returned collection
-     * @param c    array to sort
+     * @param c array to sort
      * @return sorted list containing all elements in the collection, minus nulls and duplicates.
      *         The list is immutable.
      */
@@ -128,7 +128,7 @@ public class OWLAPIStreamUtils {
      * A method to be used on collections that are sorted, immutable and do not contain nulls.
      * 
      * @param <T> type of the returned stream
-     * @param c   sorted collection of distinct, non null elements; the collection must be immutable
+     * @param c sorted collection of distinct, non null elements; the collection must be immutable
      * @return stream that won't cause sorted() calls to sort the collection again
      */
     public static <T> Stream<T> streamFromSorted(Collection<T> c) {
@@ -139,7 +139,7 @@ public class OWLAPIStreamUtils {
      * A method to be used on arrays that are sorted and do not contain nulls.
      * 
      * @param <T> type of the returned stream
-     * @param c   sorted array of distinct, non null elements
+     * @param c sorted array of distinct, non null elements
      * @return stream that won't cause sorted() calls to sort the array again
      */
     public static <T> Stream<T> streamFromSorted(T[] c) {
@@ -148,7 +148,7 @@ public class OWLAPIStreamUtils {
 
     /**
      * @param <T> type of the returned collection
-     * @param s   stream to turn to set. The stream is consumed by this operation.
+     * @param s stream to turn to set. The stream is consumed by this operation.
      * @return set including all elements in the stream
      */
     public static <T> Set<T> asSet(Stream<T> s) {
@@ -156,9 +156,9 @@ public class OWLAPIStreamUtils {
     }
 
     /**
-     * @param s    stream to turn to set. The stream is consumed by this operation.
+     * @param s stream to turn to set. The stream is consumed by this operation.
      * @param type force return type to be exactly T
-     * @param <T>  type of return collection
+     * @param <T> type of return collection
      * @return set including all elements in the stream
      */
     public static <T> Set<T> asSet(Stream<?> s, Class<T> type) {
@@ -169,7 +169,7 @@ public class OWLAPIStreamUtils {
 
     /**
      * @param <T> type of the returned collection
-     * @param s   stream to turn to set. The stream is consumed by this operation.
+     * @param s stream to turn to set. The stream is consumed by this operation.
      * @return set including all elements in the stream
      */
     public static <T> Set<T> asUnorderedSet(Stream<T> s) {
@@ -178,7 +178,7 @@ public class OWLAPIStreamUtils {
 
     /**
      * @param <T> type of the returned collection
-     * @param s   objects to turn to set.
+     * @param s objects to turn to set.
      * @return set including all elements
      */
     @SafeVarargs
@@ -188,7 +188,7 @@ public class OWLAPIStreamUtils {
 
     /**
      * @param <T> type of the returned collection
-     * @param s   element to turn to set.
+     * @param s element to turn to set.
      * @return set including element
      */
     public static <T> Set<T> asUnorderedSet(T s) {
@@ -196,9 +196,9 @@ public class OWLAPIStreamUtils {
     }
 
     /**
-     * @param s    stream to turn to set. The stream is consumed by this operation.
+     * @param s stream to turn to set. The stream is consumed by this operation.
      * @param type force return type to be exactly T
-     * @param <T>  type of return collection
+     * @param <T> type of return collection
      * @return set including all elements in the stream
      */
     public static <T> Set<T> asUnorderedSet(Stream<?> s, Class<T> type) {
@@ -207,35 +207,26 @@ public class OWLAPIStreamUtils {
 
     /**
      * @param <T> type of the returned collection
-     * @param s   stream to turn to list. The stream is consumed by this operation.
-     * @return list including all elements in the stream
-     */
-    public static <T> List<T> asList(Stream<T> s) {
-        return s.collect(Collectors.toList());
-    }
-
-    /**
-     * @param <T> type of the returned collection
-     * @param s   stream to turn to list. The stream is consumed by this operation.
+     * @param s stream to turn to list. The stream is consumed by this operation.
      * @return list including all elements in the stream
      */
     public static <T> List<T> asListNullsForbidden(Stream<T> s) {
-        return asList(s.map(OWLAPIPreconditions::checkNotNull));
+        return s.map(OWLAPIPreconditions::checkNotNull).toList();
     }
 
     /**
-     * @param s    stream to turn to list. The stream is consumed by this operation.
+     * @param s stream to turn to list. The stream is consumed by this operation.
      * @param type force return type to be exactly T
-     * @param <T>  type of return collection
+     * @param <T> type of return collection
      * @return list including all elements in the stream
      */
     public static <T> List<T> asList(Stream<?> s, Class<T> type) {
-        return asList(s.map(type::cast));
+        return s.map(type::cast).toList();
     }
 
     /**
-     * @param s   stream to turn to map. The stream is consumed by this operation.
-     * @param f   function to create the key
+     * @param s stream to turn to map. The stream is consumed by this operation.
+     * @param f function to create the key
      * @param <T> type of key
      * @param <Q> type of input and value
      * @return map including all elements in the stream, keyed by f
@@ -245,7 +236,7 @@ public class OWLAPIStreamUtils {
     }
 
     /**
-     * @param s   stream to turn to map. The stream is consumed by this operation.
+     * @param s stream to turn to map. The stream is consumed by this operation.
      * @param key function to create the key
      * @param val function to create the value
      * @param <K> type of key
@@ -260,7 +251,7 @@ public class OWLAPIStreamUtils {
 
     /**
      * @param s stream to check for containment. The stream is consumed at least partially by this
-     *          operation
+     *        operation
      * @param o object to search
      * @return true if the stream contains the object
      */
@@ -270,8 +261,8 @@ public class OWLAPIStreamUtils {
 
     /**
      * @param <T> type of the stream
-     * @param s   stream of elements to add
-     * @param c   collection to add to
+     * @param s stream of elements to add
+     * @param c collection to add to
      * @return true if any element in the stream is added to the collection
      */
     public static <T> boolean add(Collection<? super T> c, Stream<T> s) {
@@ -488,7 +479,7 @@ public class OWLAPIStreamUtils {
     }
 
     /**
-     * @param <T>   type of the input
+     * @param <T> type of the input
      * @param input collection to partition
      * @return a stream of elements for a triangular matrix of size {@code l.size()}, where l is the
      *         list corresponding to the input collection. For input of length 3, the values are
@@ -512,17 +503,17 @@ public class OWLAPIStreamUtils {
     }
 
     /**
-     * @param <T>   type of the input and output
+     * @param <T> type of the input and output
      * @param input stream to partition
      * @return a stream of elements for all pairs (input[i], input[i+1]), e.g., the minimal set of
      *         pairwise equivalent class axioms that can replace an n-ary equivalent class axiom.
      */
     public static <T> Stream<Pair<T>> minimalPairs(Stream<T> input) {
-        return minimalPairs(asList(input));
+        return minimalPairs(input.toList());
     }
 
     /**
-     * @param <T>   type of the input and output
+     * @param <T> type of the input and output
      * @param input collection to partition
      * @return a stream of elements for all pairs (input[i], input[i+1]), e.g., the minimal set of
      *         pairwise equivalent class axioms that can replace an n-ary equivalent class axiom.
@@ -543,7 +534,7 @@ public class OWLAPIStreamUtils {
     }
 
     /**
-     * @param <T>   type of the input and output
+     * @param <T> type of the input and output
      * @param input collection to partition
      * @return a stream of coordinates for a symmetric matrix of size {@code l.size()}, where l is
      *         the list corresponding to the input collection, excluding main diagonal. For input 3,
@@ -570,18 +561,18 @@ public class OWLAPIStreamUtils {
     }
 
     /**
-     * @param <T>   type of the input and output
+     * @param <T> type of the input and output
      * @param input collection to partition
      * @return a stream of elements for a triangular matrix of size {@code l.size()}, where l is the
      *         list corresponding to the input collection. For input of length 3, the values are
      *         (l.get(1),l.get(2)), (l.get(1),l.get(3)), (l.get(2),l.get(3))
      */
     public static <T> Stream<Pair<T>> pairs(Stream<T> input) {
-        return pairs(asList(input));
+        return pairs(input.toList());
     }
 
     /**
-     * @param <T>   type of the input and output
+     * @param <T> type of the input and output
      * @param input collection to partition
      * @return a stream of coordinates for a symmetric matrix of size {@code l.size()}, where l is
      *         the list corresponding to the input collection, excluding main diagonal. For input 3,
@@ -589,13 +580,13 @@ public class OWLAPIStreamUtils {
      *         (l.get(2),l.get(1)),(l.get(3),l.get(1)), (l.get(3),l.get(2))
      */
     public static <T> Stream<Pair<T>> allPairs(Stream<T> input) {
-        return allPairs(asList(input));
+        return allPairs(input.toList());
     }
 
     /**
      * @param <T> type of the returned pair
-     * @param i   first
-     * @param j   second
+     * @param i first
+     * @param j second
      * @return pair of (i,j)
      */
     public static <T> Pair<T> pair(T i, T j) {

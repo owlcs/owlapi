@@ -1578,8 +1578,7 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
         consumeToken(">");
         List<SWRLAtom> head = parseRuleAtoms();
         SWRLRule rule = df.getSWRLRule(new LinkedHashSet<>(body), new LinkedHashSet<>(head));
-        return OWLAPIStreamUtils
-            .asList(getOntologies().stream().map(o -> new OntologyAxiomPair(o, rule)));
+        return getOntologies().stream().map(o -> new OntologyAxiomPair(o, rule)).toList();
     }
 
     private List<SWRLAtom> parseRuleAtoms() {

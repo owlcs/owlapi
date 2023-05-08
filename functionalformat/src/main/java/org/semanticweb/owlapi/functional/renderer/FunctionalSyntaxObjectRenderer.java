@@ -25,7 +25,6 @@ import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParser
 import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.SUBOBJECTPROPERTYOF;
 import static org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxParserConstants.VARIABLE;
 import static org.semanticweb.owlapi.model.parameters.Imports.EXCLUDED;
-import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asList;
 import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asSet;
 
 import java.io.PrintWriter;
@@ -276,7 +275,7 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor, OWLObje
     private void writeSortedEntities(Function<IRI, Stream<OWLAnnotationAssertionAxiom>> annotations,
         String bannerComment, String entityTypeName, Stream<? extends OWLEntity> entities,
         Set<OWLAxiom> writtenAxioms) {
-        List<? extends OWLEntity> sortOptionally = asList(entities.sorted());
+        List<? extends OWLEntity> sortOptionally = entities.sorted().toList();
         if (!sortOptionally.isEmpty()) {
             writeEntities(annotations, bannerComment, entityTypeName, sortOptionally,
                 writtenAxioms);
@@ -290,9 +289,9 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor, OWLObje
         boolean haveWrittenBanner = false;
         for (OWLEntity owlEntity : entities) {
             List<? extends OWLAxiom> axiomsForEntity =
-                asList(retrieve(owlEntity).filter(ax -> !writtenAxioms.contains(ax)));
-            List<OWLAnnotationAssertionAxiom> list = asList(
-                annotations.apply(owlEntity.getIRI()).filter(ax -> !writtenAxioms.contains(ax)));
+                retrieve(owlEntity).filter(ax -> !writtenAxioms.contains(ax)).sorted().toList();
+            List<OWLAnnotationAssertionAxiom> list = annotations.apply(owlEntity.getIRI())
+                .filter(ax -> !writtenAxioms.contains(ax)).sorted().toList();
             if (axiomsForEntity.isEmpty() && list.isEmpty()) {
                 continue;
             }
@@ -301,8 +300,6 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor, OWLObje
                     + "\n############################\n\n");
                 haveWrittenBanner = true;
             }
-            axiomsForEntity.sort(null);
-            list.sort(null);
             writeEntity2(owlEntity, entityTypeName, axiomsForEntity, list, writtenAxioms);
         }
     }
@@ -369,7 +366,7 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor, OWLObje
         Collection<IRI> illegals) {
         if (ont.isPresent()) {
             Collection<OWLDeclarationAxiom> axioms =
-                asList(ont.get().declarationAxioms(entity).sorted());
+                ont.get().declarationAxioms(entity).sorted().toList();
             axioms.stream().filter(alreadyWrittenAxioms::add).forEach(this::acceptAndReturn);
             // if multiple illegal declarations already exist, they have already
             // been output the renderer cannot take responsibility for

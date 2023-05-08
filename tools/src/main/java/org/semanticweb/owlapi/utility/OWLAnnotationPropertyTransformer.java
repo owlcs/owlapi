@@ -14,7 +14,6 @@ package org.semanticweb.owlapi.utility;
 
 import static org.semanticweb.owlapi.utilities.OWLAPIPreconditions.checkNotNull;
 import static org.semanticweb.owlapi.utilities.OWLAPIPreconditions.verifyNotNull;
-import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asList;
 
 import java.util.Collection;
 import java.util.HashMap;
@@ -389,7 +388,7 @@ public class OWLAnnotationPropertyTransformer implements SWRLObjectVisitor {
     @Override
     public void visit(OWLSubPropertyChainOfAxiom ax) {
         obj =
-            df.getOWLSubPropertyChainOfAxiom(asList(ax.getPropertyChain().stream().map(this::dup)),
+            df.getOWLSubPropertyChainOfAxiom(ax.getPropertyChain().stream().map(this::dup).toList(),
                 dup(ax.getSuperProperty()), anns(ax));
     }
 
@@ -550,7 +549,7 @@ public class OWLAnnotationPropertyTransformer implements SWRLObjectVisitor {
     @Override
     public void visit(OWLDatatypeRestriction node) {
         obj = df.getOWLDatatypeRestriction(dup(node.getDatatype()),
-            asList(node.facetRestrictions().map(this::dup)));
+            node.facetRestrictions().map(this::dup).toList());
     }
 
     @Override
@@ -595,8 +594,8 @@ public class OWLAnnotationPropertyTransformer implements SWRLObjectVisitor {
 
     @Override
     public void visit(SWRLRule rule) {
-        obj =
-            df.getSWRLRule(asList(rule.body().map(this::dup)), asList(rule.head().map(this::dup)));
+        obj = df.getSWRLRule(rule.body().map(this::dup).toList(),
+            rule.head().map(this::dup).toList());
     }
 
     @Override
@@ -623,7 +622,7 @@ public class OWLAnnotationPropertyTransformer implements SWRLObjectVisitor {
 
     @Override
     public void visit(SWRLBuiltInAtom node) {
-        obj = df.getSWRLBuiltInAtom(node.getPredicate(), asList(node.arguments().map(this::dup)));
+        obj = df.getSWRLBuiltInAtom(node.getPredicate(), node.arguments().map(this::dup).toList());
     }
 
     @Override
@@ -803,7 +802,7 @@ public class OWLAnnotationPropertyTransformer implements SWRLObjectVisitor {
      * @return The set of duplicated objects
      */
     private <O extends OWLObject> Collection<O> set(Stream<O> objects) {
-        return asList(objects.map(this::dup));
+        return objects.map(this::dup).toList();
         // XXX review and remove intermediate steps
     }
 }

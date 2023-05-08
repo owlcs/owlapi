@@ -14,7 +14,6 @@ package org.semanticweb.owlapi.modularity;
 
 import static org.semanticweb.owlapi.utilities.OWLAPIPreconditions.checkNotNull;
 import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.add;
-import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asList;
 
 import java.util.Arrays;
 import java.util.HashSet;
@@ -215,7 +214,7 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
         manager = checkNotNull(man, "man cannot be null");
         Predicate<OWLAxiom> filter =
             ax -> !excludeAssertions || !AxiomType.aboxAxiomTypes().contains(ax.getAxiomType());
-        List<OWLAxiom> collect = asList(axs.filter(filter));
+        List<OWLAxiom> collect = axs.filter(filter).toList();
         ontologyAxiomSet = new OntologyAxiomSet(collect);
         try {
             ontology = checkNotNull(man.createOntology(collect));
@@ -380,7 +379,7 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
         // Adding all entity annotation axioms
         for (OWLEntity entity : sig) {
             List<OWLDeclarationAxiom> declarationAxioms =
-                asList(ontology.declarationAxioms(entity));
+                ontology.declarationAxioms(entity).toList();
             enrichedModule.addAll(declarationAxioms);
             if (LOGGER.isInfoEnabled()) {
                 declarationAxioms
@@ -408,14 +407,14 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
     protected void iterateOnSignature(Set<OWLAxiom> enrichedModule, OWLEntity entity) {
         if (entity.isOWLNamedIndividual()) {
             List<OWLSameIndividualAxiom> sameIndividualAxioms =
-                asList(ontology.sameIndividualAxioms(entity.asOWLNamedIndividual()));
+                ontology.sameIndividualAxioms(entity.asOWLNamedIndividual()).toList();
             enrichedModule.addAll(sameIndividualAxioms);
             if (LOGGER.isInfoEnabled()) {
                 sameIndividualAxioms
                     .forEach(i -> LOGGER.info("  Added same individual axiom:   {}", i));
             }
             List<OWLDifferentIndividualsAxiom> differentIndividualAxioms =
-                asList(ontology.differentIndividualAxioms(entity.asOWLNamedIndividual()));
+                ontology.differentIndividualAxioms(entity.asOWLNamedIndividual()).toList();
             enrichedModule.addAll(differentIndividualAxioms);
             if (LOGGER.isInfoEnabled()) {
                 differentIndividualAxioms

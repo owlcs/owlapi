@@ -13,7 +13,6 @@
 package org.semanticweb.owlapi.compositechanges;
 
 import static org.semanticweb.owlapi.utilities.OWLAPIPreconditions.checkNotNull;
-import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asList;
 
 import java.util.Collection;
 import java.util.List;
@@ -53,7 +52,7 @@ public class AmalgamateSubClassAxioms extends AbstractCompositeOntologyChange {
     }
 
     protected void amalgamate(OWLOntology ont, OWLClass cls) {
-        List<OWLSubClassOfAxiom> axioms = asList(ont.subClassAxiomsForSubClass(cls));
+        List<OWLSubClassOfAxiom> axioms = ont.subClassAxiomsForSubClass(cls).toList();
         if (axioms.size() < 2) {
             return;
         }

@@ -9,7 +9,6 @@ import static org.junit.jupiter.api.Assertions.fail;
 import static org.semanticweb.owlapi.model.AxiomType.DISJOINT_CLASSES;
 import static org.semanticweb.owlapi.model.AxiomType.EQUIVALENT_CLASSES;
 import static org.semanticweb.owlapi.model.AxiomType.SUBCLASS_OF;
-import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asList;
 import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asUnorderedSet;
 
 import java.io.BufferedWriter;
@@ -112,8 +111,8 @@ class BasicsTestCase extends OboFormatTestBasics {
 
     private static void assertAnnotationPropertyCountEquals(OWLOntology owlOnt, IRI subjectIRI,
         OWLAnnotationProperty property, int expected) {
-        List<OWLAnnotationAssertionAxiom> matches = asList(owlOnt
-            .annotationAssertionAxioms(subjectIRI).filter(ax -> ax.getProperty().equals(property)));
+        List<OWLAnnotationAssertionAxiom> matches = owlOnt.annotationAssertionAxioms(subjectIRI)
+            .filter(ax -> ax.getProperty().equals(property)).toList();
         assertEquals(expected, matches.size());
     }
 
@@ -912,7 +911,7 @@ class BasicsTestCase extends OboFormatTestBasics {
         // PARSE TEST FILE, CONVERT TO OWL, AND WRITE TO OWL FILE
         OWLOntology ontology = convert(parseOBOFile(TestFilenames.RELATION_SHORTHAND_TEST_OBO));
         // TEST CONTENTS OF OWL ONTOLOGY
-        List<OWLSubClassOfAxiom> scas = asList(ontology.axioms(SUBCLASS_OF));
+        List<OWLSubClassOfAxiom> scas = ontology.axioms(SUBCLASS_OF).toList();
         boolean ok = false;
         for (OWLSubClassOfAxiom sca : scas) {
             OWLClassExpression sup = sca.getSuperClass();
@@ -927,7 +926,7 @@ class BasicsTestCase extends OboFormatTestBasics {
             }
         }
         assertTrue(ok);
-        scas = asList(ontology.axioms(SUBCLASS_OF));
+        scas = ontology.axioms(SUBCLASS_OF).toList();
         ok = false;
         for (OWLSubClassOfAxiom sca : scas) {
             OWLClassExpression sup = sca.getSuperClass();
@@ -984,8 +983,8 @@ class BasicsTestCase extends OboFormatTestBasics {
         OWLClass c49 = Class(bridge.oboIdToIRI("CARO:0000049"));
         // Def
         int counter = 0;
-        for (OWLAnnotationAssertionAxiom ax : asList(
-            owlOntology.annotationAssertionAxioms(c49.getIRI()))) {
+        for (OWLAnnotationAssertionAxiom ax : owlOntology.annotationAssertionAxioms(c49.getIRI())
+            .toList()) {
             if (ax.getProperty().equals(ANNPROPS.defProperty)) {
                 counter++;
                 assertTrue(ax.getValue() instanceof OWLLiteral);

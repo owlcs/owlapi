@@ -39,7 +39,6 @@ import static org.semanticweb.owlapi.search.Searcher.equivalent;
 import static org.semanticweb.owlapi.search.Searcher.isDefined;
 import static org.semanticweb.owlapi.search.Searcher.sup;
 import static org.semanticweb.owlapi.utilities.OWLAPIPreconditions.checkNotNull;
-import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asList;
 import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.pairs;
 
 import java.io.PrintWriter;
@@ -476,10 +475,8 @@ public class KRSSObjectRenderer implements OWLObjectVisitor {
 
     @Override
     public void visit(OWLOntology ontology) {
-        List<OWLClass> classes = asList(ontology.classesInSignature());
-        classes.remove(ontology.getOWLOntologyManager().getOWLDataFactory().getOWLThing());
-        classes.remove(ontology.getOWLOntologyManager().getOWLDataFactory().getOWLNothing());
-        classes.sort(null);
+        List<OWLClass> classes = ontology.classesInSignature()
+            .filter(x -> !x.isOWLThing() && !x.isOWLNothing()).sorted().toList();
         for (OWLClass eachClass : classes) {
             boolean primitive = !isDefined(eachClass, ontology);
             if (primitive) {
@@ -487,15 +484,16 @@ public class KRSSObjectRenderer implements OWLObjectVisitor {
                 write(DEFINE_PRIMITIVE_CONCEPT);
                 write(eachClass);
                 writeSpace();
-                flatten(asList(
-                    sup(ontology.subClassAxiomsForSubClass(eachClass), OWLClassExpression.class)));
+                flatten(sup(ontology.subClassAxiomsForSubClass(eachClass), OWLClassExpression.class)
+                    .toList());
                 writeCloseBracket();
                 writeln();
             } else {
                 writeOpenBracket();
                 write(DEFINE_CONCEPT);
                 write(eachClass);
-                flatten(asList(equivalent(ontology.equivalentClassesAxioms(eachClass))));
+                flatten(equivalent(ontology.equivalentClassesAxioms(eachClass),
+                    OWLClassExpression.class).toList());
                 writeCloseBracket();
                 writeln();
             }
@@ -504,15 +502,16 @@ public class KRSSObjectRenderer implements OWLObjectVisitor {
             writeOpenBracket();
             Stream<OWLObjectPropertyExpression> pStream =
                 equivalent(ontology.equivalentObjectPropertiesAxioms(property));
-            Collection<OWLObjectPropertyExpression> properties = asList(pStream);
+            Collection<OWLObjectPropertyExpression> properties = pStream.toList();
             boolean isDefined = !properties.isEmpty();
             if (isDefined) {
                 write(DEFINE_ROLE);
                 write(property);
                 // choose randomly one property (KRSS restriction)
-                properties.remove(property);
-                if (!properties.isEmpty()) {
-                    write(properties.iterator().next());
+                Iterator<OWLObjectPropertyExpression> it =
+                    properties.stream().filter(x -> !x.equals(property)).iterator();
+                if (it.hasNext()) {
+                    write(it.next());
                 }
             } else {
                 write(DEFINE_PRIMITIVE_ROLE);

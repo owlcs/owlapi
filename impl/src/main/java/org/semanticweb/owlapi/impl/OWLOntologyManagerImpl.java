@@ -14,7 +14,6 @@ package org.semanticweb.owlapi.impl;
 
 import static org.semanticweb.owlapi.utilities.OWLAPIPreconditions.checkNotNull;
 import static org.semanticweb.owlapi.utilities.OWLAPIPreconditions.verifyNotNull;
-import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asList;
 import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asUnorderedSet;
 import static org.semanticweb.owlapi.utility.CollectionFactory.createSyncMap;
 
@@ -490,7 +489,7 @@ public class OWLOntologyManagerImpl
     public List<OWLOntology> getSortedImportsClosure(OWLOntology ontology) {
         readLock.lock();
         try {
-            return asList(ontology.importsClosure().sorted());
+            return ontology.importsClosure().sorted().toList();
         } finally {
             readLock.unlock();
         }
@@ -635,7 +634,7 @@ public class OWLOntologyManagerImpl
         if (settings.applyToImportsClosure()) {
             OntologyCopy newSettings = new OntologyCopyWrapper(settings);
             List<OWLOntology> importsToCopy =
-                asList(toCopy.importsClosure().filter(x -> !toCopy.equals(x)));
+                toCopy.importsClosure().filter(x -> !toCopy.equals(x)).toList();
             for (OWLOntology o : importsToCopy) {
                 copyOntology(o, newSettings);
             }
@@ -988,8 +987,8 @@ public class OWLOntologyManagerImpl
     }
 
     protected <Q, S> void removeValue(Map<Q, S> map, S id) {
-        List<Q> keys = asList(
-            map.entrySet().stream().filter(e -> e.getValue().equals(id)).map(Map.Entry::getKey));
+        List<Q> keys = map.entrySet().stream().filter(e -> e.getValue().equals(id))
+            .map(Map.Entry::getKey).toList();
         keys.forEach(map::remove);
     }
 

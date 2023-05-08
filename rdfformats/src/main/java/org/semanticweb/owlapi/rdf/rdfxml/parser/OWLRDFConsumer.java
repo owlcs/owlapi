@@ -19,7 +19,6 @@ import static org.semanticweb.owlapi.rdf.rdfxml.parser.AbstractTriplePH.TYPEHAND
 import static org.semanticweb.owlapi.rdf.rdfxml.parser.AbstractTriplePH.getLiteralTripleHandlers;
 import static org.semanticweb.owlapi.rdf.rdfxml.parser.AbstractTriplePH.getPredicateHandlers;
 import static org.semanticweb.owlapi.utilities.OWLAPIPreconditions.verifyNotNull;
-import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asList;
 import static org.semanticweb.owlapi.utility.CollectionFactory.createLinkedSet;
 import static org.semanticweb.owlapi.utility.CollectionFactory.createMap;
 import static org.semanticweb.owlapi.utility.CollectionFactory.createSet;
@@ -623,8 +622,8 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousIndividualByIdProvi
 
     protected void removeUnnecessaryAxioms() {
         IRI iri = verifyNotNull(iris.firstOntologyIRI);
-        asList(ont().annotationAssertionAxioms(iri)).forEach(this::removeUnnecessaryAxiom);
-        asList(parsedAnnotationAxioms.stream().filter(this::annotationToRemove))
+        ont().annotationAssertionAxioms(iri).toList().forEach(this::removeUnnecessaryAxiom);
+        parsedAnnotationAxioms.stream().filter(this::annotationToRemove).toList()
             .forEach(this::removeUnnecessaryParsedAnnotations);
     }
 

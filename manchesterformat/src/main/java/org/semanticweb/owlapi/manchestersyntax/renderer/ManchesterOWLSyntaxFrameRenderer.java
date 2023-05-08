@@ -12,7 +12,6 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.manchestersyntax.renderer;
 
-import static java.util.stream.Collectors.toList;
 import static org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.ANNOTATIONS;
 import static org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.ANNOTATION_PROPERTY;
 import static org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax.ASYMMETRIC;
@@ -70,6 +69,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
+import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
 
@@ -830,12 +830,13 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
             });
             writeSection(TYPES, expressions, ",", true);
         }
-        List<OWLPropertyAssertionAxiom<?, ?>> assertions = Stream
-            .of(o.objectPropertyAssertionAxioms(individual),
+        Stream<Stream<? extends OWLPropertyAssertionAxiom<?, ?>>> stream =
+            Stream.of(o.objectPropertyAssertionAxioms(individual),
                 o.negativeObjectPropertyAssertionAxioms(individual),
                 o.dataPropertyAssertionAxioms(individual),
-                o.negativeDataPropertyAssertionAxioms(individual))
-            .flatMap(x -> x).sorted(ooc).collect(toList());
+                o.negativeDataPropertyAssertionAxioms(individual));
+        List<OWLPropertyAssertionAxiom<?, ?>> assertions =
+            stream.flatMap(Function.identity()).sorted(ooc).toList();
         if (!assertions.isEmpty()) {
             handleAssertions(assertions);
         }

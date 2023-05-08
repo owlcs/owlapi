@@ -13,7 +13,6 @@
 package org.semanticweb.owlapi.model;
 
 import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.allPairs;
-import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asList;
 import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.minimalPairs;
 import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.pairs;
 
@@ -58,8 +57,8 @@ public interface OWLNaryAxiom<C extends OWLObject> extends OWLAxiom, HasOperands
      * @return collection of all visitor return values that are not null
      */
     default <T> Collection<T> walkPairwise(OWLPairwiseVisitor<T, C> visitor) {
-        return asList(minimalPairs(getOperandsAsList()).map(v -> visitor.visit(v.i, v.j))
-            .filter(Objects::nonNull));
+        return minimalPairs(getOperandsAsList()).map(v -> visitor.visit(v.i, v.j))
+            .filter(Objects::nonNull).toList();
     }
 
     /**
@@ -69,8 +68,8 @@ public interface OWLNaryAxiom<C extends OWLObject> extends OWLAxiom, HasOperands
      * @return collection of all visitor return values that are not null
      */
     default <T> Collection<T> walkAllPairwise(OWLPairwiseVisitor<T, C> visitor) {
-        return asList(allPairs(getOperandsAsList()).map(v -> visitor.visit(v.i, v.j))
-            .filter(Objects::nonNull));
+        return allPairs(getOperandsAsList()).map(v -> visitor.visit(v.i, v.j))
+            .filter(Objects::nonNull).toList();
     }
 
     /**
