@@ -72,7 +72,7 @@ public class OWLAnnotationImplNotAnnotated extends OWLObjectImpl implements OWLA
 
     @Override
     public boolean isDeprecatedIRIAnnotation() {
-        return property.isDeprecated() && value instanceof OWLLiteral
-            && ((OWLLiteral) value).isBoolean() && ((OWLLiteral) value).parseBoolean();
+        return property.isDeprecated() && value.isLiteral() && ((OWLLiteral) value).isBoolean()
+            && ((OWLLiteral) value).parseBoolean();
     }
 }

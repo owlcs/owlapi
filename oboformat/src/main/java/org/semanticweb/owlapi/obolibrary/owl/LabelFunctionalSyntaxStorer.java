@@ -12,7 +12,6 @@ import org.semanticweb.owlapi.io.OWLStorer;
 import org.semanticweb.owlapi.io.OWLStorerParameters;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
-import org.semanticweb.owlapi.model.OWLAnnotationValue;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLEntity;
@@ -58,8 +57,8 @@ public class LabelFunctionalSyntaxStorer implements OWLStorer {
         LabelPrefixManager(OWLOntology ontology) {
             this.ontology = ontology;
             OWLDocumentFormat ontologyFormat = ontology.getFormat();
-            if (ontologyFormat instanceof PrefixManager) {
-                delegate = (PrefixManager) ontologyFormat;
+            if (ontologyFormat instanceof PrefixManager pm) {
+                delegate = pm;
             } else {
                 delegate = new PrefixManagerImpl();
             }
@@ -103,9 +102,8 @@ public class LabelFunctionalSyntaxStorer implements OWLStorer {
             for (OWLAnnotationAssertionAxiom annotation : ontology.annotationAssertionAxioms(iri)
                 .toList()) {
                 if (annotation.getProperty().isLabel()) {
-                    OWLAnnotationValue value = annotation.getValue();
-                    if (value instanceof OWLLiteral) {
-                        return '<' + ((OWLLiteral) value).getLiteral() + '>';
+                    if (annotation.getValue() instanceof OWLLiteral l) {
+                        return '<' + l.getLiteral() + '>';
                     }
                 }
             }

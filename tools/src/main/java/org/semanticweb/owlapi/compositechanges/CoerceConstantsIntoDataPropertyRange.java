@@ -119,45 +119,43 @@ public class CoerceConstantsIntoDataPropertyRange extends AbstractCompositeOntol
 
         @Override
         public OWLDataSomeValuesFrom visit(OWLDataSomeValuesFrom ce) {
-            if (ce.getFiller() instanceof OWLDataOneOf) {
-                return df.getOWLDataSomeValuesFrom(ce.getProperty(),
-                    process(ce.getProperty(), (OWLDataOneOf) ce.getFiller()));
+            if (ce.getFiller() instanceof OWLDataOneOf f) {
+                return df.getOWLDataSomeValuesFrom(ce.getProperty(), process(ce.getProperty(), f));
             }
             return (OWLDataSomeValuesFrom) super.visit(ce);
         }
 
         @Override
         public OWLDataMinCardinality visit(OWLDataMinCardinality ce) {
-            if (ce.getFiller() instanceof OWLDataOneOf) {
+            if (ce.getFiller() instanceof OWLDataOneOf f) {
                 return df.getOWLDataMinCardinality(ce.getCardinality(), ce.getProperty(),
-                    process(ce.getProperty(), (OWLDataOneOf) ce.getFiller()));
+                    process(ce.getProperty(), f));
             }
             return (OWLDataMinCardinality) super.visit(ce);
         }
 
         @Override
         public OWLDataMaxCardinality visit(OWLDataMaxCardinality ce) {
-            if (ce.getFiller() instanceof OWLDataOneOf) {
+            if (ce.getFiller() instanceof OWLDataOneOf f) {
                 return df.getOWLDataMaxCardinality(ce.getCardinality(), ce.getProperty(),
-                    process(ce.getProperty(), (OWLDataOneOf) ce.getFiller()));
+                    process(ce.getProperty(), f));
             }
             return (OWLDataMaxCardinality) super.visit(ce);
         }
 
         @Override
         public OWLDataExactCardinality visit(OWLDataExactCardinality ce) {
-            if (ce.getFiller() instanceof OWLDataOneOf) {
+            if (ce.getFiller() instanceof OWLDataOneOf f) {
                 return df.getOWLDataExactCardinality(ce.getCardinality(), ce.getProperty(),
-                    process(ce.getProperty(), (OWLDataOneOf) ce.getFiller()));
+                    process(ce.getProperty(), f));
             }
             return (OWLDataExactCardinality) super.visit(ce);
         }
 
         @Override
         public OWLDataAllValuesFrom visit(OWLDataAllValuesFrom ce) {
-            if (ce.getFiller() instanceof OWLDataOneOf) {
-                return df.getOWLDataAllValuesFrom(ce.getProperty(),
-                    process(ce.getProperty(), (OWLDataOneOf) ce.getFiller()));
+            if (ce.getFiller() instanceof OWLDataOneOf f) {
+                return df.getOWLDataAllValuesFrom(ce.getProperty(), process(ce.getProperty(), f));
             }
             return (OWLDataAllValuesFrom) super.visit(ce);
         }

@@ -89,8 +89,8 @@ public class Signature {
         if (this == obj) {
             return true;
         }
-        if (obj instanceof Signature) {
-            return set.equals(((Signature) obj).set);
+        if (obj instanceof Signature sig) {
+            return set.equals(sig.set);
         }
         return false;
     }

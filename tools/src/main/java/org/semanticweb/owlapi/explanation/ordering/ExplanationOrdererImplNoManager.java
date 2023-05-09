@@ -93,9 +93,8 @@ public class ExplanationOrdererImplNoManager implements ExplanationOrderer {
         if (diff != 0) {
             return diff;
         }
-        if (ax1 instanceof OWLSubClassOfAxiom && ax2 instanceof OWLSubClassOfAxiom) {
-            return ((OWLSubClassOfAxiom) ax1).getSuperClass()
-                .compareTo(((OWLSubClassOfAxiom) ax2).getSuperClass());
+        if (ax1 instanceof OWLSubClassOfAxiom a1 && ax2 instanceof OWLSubClassOfAxiom a2) {
+            return a1.getSuperClass().compareTo(a2.getSuperClass());
         }
         return 1;
     };

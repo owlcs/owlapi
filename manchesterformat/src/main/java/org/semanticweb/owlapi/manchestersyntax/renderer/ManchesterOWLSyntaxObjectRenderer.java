@@ -343,28 +343,34 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer
 
     private ManchesterOWLSyntaxObjectRenderer writeFrameType(OWLObject object) {
         setAxiomWriting();
-        if (object instanceof OWLOntology) {
-            writeFrameKeyword(ONTOLOGY);
-            OWLOntology ont = (OWLOntology) object;
-            if (ont.isNamed()) {
-                write("<");
-                ont.getOntologyID().getOntologyIRI().ifPresent(x -> write(x.toString()));
-                write(">");
+        switch (object) {
+            case OWLOntology ont: {
+                writeFrameKeyword(ONTOLOGY);
+                if (ont.isNamed()) {
+                    write("<");
+                    ont.getOntologyID().getOntologyIRI().ifPresent(x -> write(x.toString()));
+                    write(">");
+                }
+                return accept(object);
             }
-        } else {
-            if (object instanceof OWLClassExpression) {
+            case OWLClassExpression c:
                 writeFrameKeyword(CLASS);
-            } else if (object instanceof OWLObjectPropertyExpression) {
+                return accept(c);
+            case OWLObjectPropertyExpression op:
                 writeFrameKeyword(OBJECT_PROPERTY);
-            } else if (object instanceof OWLDataPropertyExpression) {
+                return accept(op);
+            case OWLDataPropertyExpression dp:
                 writeFrameKeyword(DATA_PROPERTY);
-            } else if (object instanceof OWLIndividual) {
+                return accept(dp);
+            case OWLIndividual i:
                 writeFrameKeyword(INDIVIDUAL);
-            } else if (object instanceof OWLAnnotationProperty) {
+                return accept(i);
+            case OWLAnnotationProperty ap:
                 writeFrameKeyword(ANNOTATION_PROPERTY);
-            }
+                return accept(ap);
+            default:
+                return accept(object);
         }
-        return accept(object);
     }
 
     private ManchesterOWLSyntaxObjectRenderer section(ManchesterOWLSyntax v, OWLObject o) {
@@ -408,10 +414,10 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer
 
     @Override
     public void doDefault(OWLObject object) {
-        if (object instanceof OWLEntity) {
-            String iri = getPrefixManager().getPrefixIRIIgnoreQName(((OWLEntity) object).getIRI());
+        if (object instanceof OWLEntity e) {
+            String iri = getPrefixManager().getPrefixIRIIgnoreQName(e.getIRI());
             if (iri == null || iri.isEmpty()) {
-                iri = getPrefixManager().getShortForm((OWLEntity) object);
+                iri = getPrefixManager().getShortForm(e);
             }
             write(iri);
             return;

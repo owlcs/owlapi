@@ -192,14 +192,18 @@ public class OWLAPIOwl2Obo {
         if (SKIPPED_QUALIFIERS.contains(prop)) {
             return;
         }
-        String value = qualifier.getValue().toString();
-        if (qualifier.getValue() instanceof OWLLiteral) {
-            value = ((OWLLiteral) qualifier.getValue()).getLiteral();
-        } else if (qualifier.getValue().isIRI()) {
-            value = getIdentifier((IRI) qualifier.getValue());
-        }
-        QualifierValue qv = new QualifierValue(prop, value);
+        QualifierValue qv = new QualifierValue(prop, qualifierValue(qualifier));
         c.addQualifierValue(qv);
+    }
+
+    protected static String qualifierValue(OWLAnnotation qualifier) {
+        if (qualifier.getValue() instanceof OWLLiteral v) {
+            return v.getLiteral();
+        }
+        if (qualifier.getValue().isIRI()) {
+            return getIdentifier((IRI) qualifier.getValue());
+        }
+        return qualifier.getValue().toString();
     }
 
     /**
@@ -361,8 +365,8 @@ public class OWLAPIOwl2Obo {
                 // 5.9.3. Special Rules for Relations
                 if (shorthand(propId)) {
                     OWLAnnotationValue value = ax.getValue();
-                    if (value instanceof OWLLiteral) {
-                        return ((OWLLiteral) value).getLiteral();
+                    if (value instanceof OWLLiteral l) {
+                        return l.getLiteral();
                     }
                     throw new UntranslatableAxiomException(
                         "Untranslatable axiom, expected literal value, but was: " + value
@@ -370,8 +374,8 @@ public class OWLAPIOwl2Obo {
                 }
             }
         }
-        if (obj instanceof OWLEntity) {
-            return getIdentifier(((OWLEntity) obj).getIRI());
+        if (obj instanceof OWLEntity e) {
+            return getIdentifier(e.getIRI());
         }
         if (obj.isIRI()) {
             return getIdentifier((IRI) obj);
@@ -452,8 +456,8 @@ public class OWLAPIOwl2Obo {
     @Nullable
     public static String owlObjectToTag(OWLObject obj) {
         IRI iriObj = null;
-        if (obj instanceof OWLNamedObject) {
-            iriObj = ((OWLNamedObject) obj).getIRI();
+        if (obj instanceof OWLNamedObject o) {
+            iriObj = o.getIRI();
         } else if (obj.isIRI()) {
             iriObj = (IRI) obj;
         }
@@ -770,8 +774,8 @@ public class OWLAPIOwl2Obo {
         Optional<OWLAnnotation> ann = getOWLOntology().annotations(logicalDef).findFirst();
         if (ann.isPresent()) {
             OWLAnnotationValue v = ann.get().getValue();
-            if (v instanceof OWLLiteral) {
-                viewRel = ((OWLLiteral) v).getLiteral();
+            if (v instanceof OWLLiteral l) {
+                viewRel = l.getLiteral();
             } else if (v.isIRI()) {
                 viewRel = getIdentifier((IRI) v);
             }
@@ -796,9 +800,8 @@ public class OWLAPIOwl2Obo {
             if (x instanceof OWLClass) {
                 xs.add(x);
                 numNamed.incrementAndGet();
-            } else if (x instanceof OWLObjectSomeValuesFrom) {
-                OWLObjectProperty p =
-                    (OWLObjectProperty) ((OWLObjectSomeValuesFrom) x).getProperty();
+            } else if (x instanceof OWLObjectSomeValuesFrom some) {
+                OWLObjectProperty p = (OWLObjectProperty) some.getProperty();
                 if (!view.equals(getIdentifier(p))) {
                     LOG.error("Expected: {} got: {} in {}", view, p, eca);
                 }
@@ -993,10 +996,9 @@ public class OWLAPIOwl2Obo {
                 for (OWLAnnotation annotation : qualifiers) {
                     if (df.getRDFSLabel().equals(annotation.getProperty())) {
                         OWLAnnotationValue owlAnnotationValue = annotation.getValue();
-                        if (owlAnnotationValue instanceof OWLLiteral) {
+                        if (owlAnnotationValue instanceof OWLLiteral l) {
                             unprocessedQualifiers.remove(annotation);
-                            String xrefAnnotation =
-                                ((OWLLiteral) owlAnnotationValue).getLiteral().trim();
+                            String xrefAnnotation = l.getLiteral().trim();
                             if (!xrefAnnotation.isEmpty()) {
                                 xref.setAnnotation(xrefAnnotation);
                             }
@@ -1106,8 +1108,7 @@ public class OWLAPIOwl2Obo {
         addQualifiers(clause, qualifiers);
         if (!shorthand(propId)) {
             clause.addValue(propId);
-            if (annVal instanceof OWLLiteral) {
-                OWLLiteral owlLiteral = (OWLLiteral) annVal;
+            if (annVal instanceof OWLLiteral owlLiteral) {
                 clause.addValue(owlLiteral.getLiteral());
                 OWLDatatype datatype = owlLiteral.getDatatype();
                 IRI dataTypeIri = datatype.getIRI();
@@ -1139,8 +1140,7 @@ public class OWLAPIOwl2Obo {
      */
     protected Object getValue(OWLAnnotationValue annVal, @Nullable String tag) {
         Object value = annVal.toString();
-        if (annVal instanceof OWLLiteral) {
-            OWLLiteral l = (OWLLiteral) annVal;
+        if (annVal instanceof OWLLiteral l) {
             value = l.isBoolean() ? Boolean.valueOf(l.parseBoolean()) : l.getLiteral();
         } else if (annVal.isIRI()) {
             value = getIdentifier((IRI) annVal);
@@ -1467,8 +1467,8 @@ public class OWLAPIOwl2Obo {
                 return;
             }
             // 5.2.2
-            if (sub instanceof OWLObjectIntersectionOf) {
-                List<OWLClassExpression> xs = ((OWLObjectIntersectionOf) sub).getOperandsAsList();
+            if (sub instanceof OWLObjectIntersectionOf cl) {
+                List<OWLClassExpression> xs = cl.getOperandsAsList();
                 // obo-format is limited to very restricted GCIs - the LHS of
                 // the
                 // axiom
@@ -1479,15 +1479,14 @@ public class OWLAPIOwl2Obo {
                     OWLObjectProperty p = null;
                     OWLClass filler = null;
                     for (OWLClassExpression x : xs) {
-                        if (x instanceof OWLClass) {
-                            c = (OWLClass) x;
+                        if (x instanceof OWLClass cx) {
+                            c = cx;
                         }
-                        if (x instanceof OWLObjectSomeValuesFrom) {
-                            OWLObjectSomeValuesFrom r = (OWLObjectSomeValuesFrom) x;
+                        if (x instanceof OWLObjectSomeValuesFrom r) {
                             if (r.getProperty().isOWLObjectProperty()
-                                && r.getFiller() instanceof OWLClass) {
+                                && r.getFiller() instanceof OWLClass f) {
                                 p = r.getProperty().asOWLObjectProperty();
-                                filler = (OWLClass) r.getFiller();
+                                filler = f;
                             }
                         }
                     }
@@ -1499,20 +1498,18 @@ public class OWLAPIOwl2Obo {
                     }
                 }
             }
-            if (sub instanceof OWLClass) {
-                Frame f = getTermFrame((OWLClass) sub);
+            if (sub instanceof OWLClass cl) {
+                Frame f = getTermFrame(cl);
                 if (sup instanceof OWLClass) {
                     Clause c = new Clause(OboFormatTag.TAG_IS_A.getTag());
                     c.setValue(checkNotNull(getIdentifier(sup)));
                     c.setQualifierValues(qvs);
                     f.addClause(c);
                     addQualifiers(c, ax.annotations());
-                } else if (sup instanceof OWLObjectCardinalityRestriction) {
+                } else if (sup instanceof OWLObjectCardinalityRestriction cardinality) {
                     // OWLObjectExactCardinality
                     // OWLObjectMinCardinality
                     // OWLObjectMaxCardinality
-                    OWLObjectCardinalityRestriction cardinality =
-                        (OWLObjectCardinalityRestriction) sup;
                     OWLClassExpression filler = cardinality.getFiller();
                     if (filler.isBottomEntity() || filler.isTopEntity()) {
                         error(TOP_BOTTOM_NONTRANSLATEABLE, ax, false);
@@ -1525,10 +1522,9 @@ public class OWLAPIOwl2Obo {
                     }
                     f.addClause(
                         createRelationshipClauseWithCardinality(cardinality, fillerId, qvs, ax));
-                } else if (sup instanceof OWLQuantifiedObjectRestriction) {
+                } else if (sup instanceof OWLQuantifiedObjectRestriction r) {
                     // OWLObjectSomeValuesFrom
                     // OWLObjectAllValuesFrom
-                    OWLQuantifiedObjectRestriction r = (OWLQuantifiedObjectRestriction) sup;
                     OWLClassExpression filler = r.getFiller();
                     if (filler.isBottomEntity() || filler.isTopEntity()) {
                         error(TOP_BOTTOM_NONTRANSLATEABLE, ax, false);
@@ -1543,13 +1539,10 @@ public class OWLAPIOwl2Obo {
                         qvs.add(new QualifierValue(ALL_ONLY, "true"));
                     }
                     f.addClause(createRelationshipClauseWithRestrictions(r, fillerId, qvs, ax));
-                } else if (sup instanceof OWLObjectIntersectionOf) {
-                    OWLObjectIntersectionOf i = (OWLObjectIntersectionOf) sup;
+                } else if (sup instanceof OWLObjectIntersectionOf i) {
                     List<Clause> clauses = new ArrayList<>();
                     for (OWLClassExpression operand : i.getOperandsAsList()) {
-                        if (operand instanceof OWLObjectCardinalityRestriction) {
-                            OWLObjectCardinalityRestriction restriction =
-                                (OWLObjectCardinalityRestriction) operand;
+                        if (operand instanceof OWLObjectCardinalityRestriction restriction) {
                             OWLClassExpression filler = restriction.getFiller();
                             if (filler.isBottomEntity() || filler.isTopEntity()) {
                                 error(TOP_BOTTOM_NONTRANSLATEABLE, ax, false);
@@ -1562,9 +1555,7 @@ public class OWLAPIOwl2Obo {
                             }
                             clauses.add(createRelationshipClauseWithCardinality(restriction,
                                 fillerId, new HashSet<>(qvs), ax));
-                        } else if (operand instanceof OWLQuantifiedObjectRestriction) {
-                            OWLQuantifiedObjectRestriction restriction =
-                                (OWLQuantifiedObjectRestriction) operand;
+                        } else if (operand instanceof OWLQuantifiedObjectRestriction restriction) {
                             OWLClassExpression filler = restriction.getFiller();
                             if (filler.isBottomEntity() || filler.isTopEntity()) {
                                 error(TOP_BOTTOM_NONTRANSLATEABLE, ax, false);
@@ -1671,9 +1662,8 @@ public class OWLAPIOwl2Obo {
                 c.setValue(cls2);
                 f.addClause(c);
                 addQualifiers(c, ax.annotations());
-            } else if (ce2 instanceof OWLObjectUnionOf) {
-                List<? extends OWLClassExpression> list2 =
-                    ((OWLObjectUnionOf) ce2).getOperandsAsList();
+            } else if (ce2 instanceof OWLObjectUnionOf c2) {
+                List<? extends OWLClassExpression> list2 = c2.getOperandsAsList();
                 for (OWLClassExpression oce : list2) {
                     String id = getIdentifier(oce);
                     if (id == null) {
@@ -1685,9 +1675,8 @@ public class OWLAPIOwl2Obo {
                     equivalenceAxiomClauses.add(c);
                     addQualifiers(c, ax.annotations());
                 }
-            } else if (ce2 instanceof OWLObjectIntersectionOf) {
-                List<? extends OWLClassExpression> list2 =
-                    ((OWLObjectIntersectionOf) ce2).getOperandsAsList();
+            } else if (ce2 instanceof OWLObjectIntersectionOf c2) {
+                List<? extends OWLClassExpression> list2 = c2.getOperandsAsList();
                 for (OWLClassExpression ce : list2) {
                     String r = null;
                     cls2 = getIdentifier(ce);
@@ -1696,63 +1685,50 @@ public class OWLAPIOwl2Obo {
                     Integer max = null; // maxCardinality
                     Boolean allSome = null; // all_some
                     Boolean allOnly = null; // all_only
-                    if (ce instanceof OWLObjectSomeValuesFrom) {
-                        OWLObjectSomeValuesFrom ristriction = (OWLObjectSomeValuesFrom) ce;
+                    if (ce instanceof OWLObjectSomeValuesFrom ristriction) {
                         r = getIdentifier(ristriction.getProperty());
                         cls2 = getIdentifier(ristriction.getFiller());
-                    } else if (ce instanceof OWLObjectExactCardinality) {
-                        OWLObjectExactCardinality card = (OWLObjectExactCardinality) ce;
+                    } else if (ce instanceof OWLObjectExactCardinality card) {
                         r = getIdentifier(card.getProperty());
                         cls2 = getIdentifier(card.getFiller());
                         exact = Integer.valueOf(card.getCardinality());
-                    } else if (ce instanceof OWLObjectMinCardinality) {
-                        OWLObjectMinCardinality card = (OWLObjectMinCardinality) ce;
+                    } else if (ce instanceof OWLObjectMinCardinality card) {
                         r = getIdentifier(card.getProperty());
                         cls2 = getIdentifier(card.getFiller());
                         min = Integer.valueOf(card.getCardinality());
-                    } else if (ce instanceof OWLObjectMaxCardinality) {
-                        OWLObjectMaxCardinality card = (OWLObjectMaxCardinality) ce;
+                    } else if (ce instanceof OWLObjectMaxCardinality card) {
                         r = getIdentifier(card.getProperty());
                         cls2 = getIdentifier(card.getFiller());
                         max = Integer.valueOf(card.getCardinality());
-                    } else if (ce instanceof OWLObjectAllValuesFrom) {
-                        OWLObjectAllValuesFrom all = (OWLObjectAllValuesFrom) ce;
+                    } else if (ce instanceof OWLObjectAllValuesFrom all) {
                         OWLClassExpression filler = all.getFiller();
                         if (filler instanceof OWLClass) {
                             r = getIdentifier(all.getProperty());
                             cls2 = getIdentifier(filler);
                             allOnly = Boolean.TRUE;
-                        } else if (filler instanceof OWLObjectComplementOf) {
-                            OWLObjectComplementOf restriction = (OWLObjectComplementOf) filler;
+                        } else if (filler instanceof OWLObjectComplementOf restriction) {
                             r = getIdentifier(all.getProperty());
                             cls2 = getIdentifier(restriction.getOperand());
                             exact = Integer.valueOf(0);
                         }
-                    } else if (ce instanceof OWLObjectIntersectionOf) {
+                    } else if (ce instanceof OWLObjectIntersectionOf cl) {
                         // either a min-max or a some-all combination
-                        List<OWLClassExpression> operands =
-                            ((OWLObjectIntersectionOf) ce).getOperandsAsList();
+                        List<OWLClassExpression> operands = cl.getOperandsAsList();
                         if (operands.size() == 2) {
                             for (OWLClassExpression operand : operands) {
-                                if (operand instanceof OWLObjectMinCardinality) {
-                                    OWLObjectMinCardinality card =
-                                        (OWLObjectMinCardinality) operand;
+                                if (operand instanceof OWLObjectMinCardinality card) {
                                     r = getIdentifier(card.getProperty());
                                     cls2 = getIdentifier(card.getFiller());
                                     min = Integer.valueOf(card.getCardinality());
-                                } else if (operand instanceof OWLObjectMaxCardinality) {
-                                    OWLObjectMaxCardinality card =
-                                        (OWLObjectMaxCardinality) operand;
+                                } else if (operand instanceof OWLObjectMaxCardinality card) {
                                     r = getIdentifier(card.getProperty());
                                     cls2 = getIdentifier(card.getFiller());
                                     max = Integer.valueOf(card.getCardinality());
-                                } else if (operand instanceof OWLObjectAllValuesFrom) {
-                                    OWLObjectAllValuesFrom all = (OWLObjectAllValuesFrom) operand;
+                                } else if (operand instanceof OWLObjectAllValuesFrom all) {
                                     r = getIdentifier(all.getProperty());
                                     cls2 = getIdentifier(all.getFiller());
                                     allOnly = Boolean.TRUE;
-                                } else if (operand instanceof OWLObjectSomeValuesFrom) {
-                                    OWLObjectSomeValuesFrom all = (OWLObjectSomeValuesFrom) operand;
+                                } else if (operand instanceof OWLObjectSomeValuesFrom all) {
                                     r = getIdentifier(all.getProperty());
                                     cls2 = getIdentifier(all.getFiller());
                                     allSome = Boolean.TRUE;

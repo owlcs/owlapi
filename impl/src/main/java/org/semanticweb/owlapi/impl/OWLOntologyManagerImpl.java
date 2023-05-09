@@ -667,8 +667,8 @@ public class OWLOntologyManagerImpl
                 // change the manager on the ontology
                 toReturn.setOWLOntologyManager(this);
                 // change the lock on the ontology
-                if (toReturn instanceof OWLMutableOntology) {
-                    ((OWLMutableOntology) toReturn).setLock(lock);
+                if (toReturn instanceof OWLMutableOntology mo) {
+                    mo.setLock(lock);
                 }
             }
             return toReturn;
@@ -843,9 +843,9 @@ public class OWLOntologyManagerImpl
                 ex = e;
                 throw e;
             } catch (OWLRuntimeException e) {
-                if (e.getCause() instanceof OWLOntologyCreationException) {
-                    ex = (OWLOntologyCreationException) e.getCause();
-                    throw (OWLOntologyCreationException) e.getCause();
+                if (e.getCause() instanceof OWLOntologyCreationException crEx) {
+                    ex = crEx;
+                    throw crEx;
                 }
                 throw e;
             } finally {
@@ -868,8 +868,7 @@ public class OWLOntologyManagerImpl
         // this will stop
         // ontologies
         // that cyclically import themselves from being loaded twice.
-        if (documentSource instanceof IRIDocumentSource) {
-            IRIDocumentSource source = (IRIDocumentSource) documentSource;
+        if (documentSource instanceof IRIDocumentSource source) {
             Optional<Entry<OWLOntologyID, IRI>> findAny = documentIRIsByID.entrySet().stream()
                 .filter(v -> Objects.equals(source.getDocumentIRI(), v.getValue().toString()))
                 .findAny();
@@ -897,8 +896,9 @@ public class OWLOntologyManagerImpl
                     }
                     // Store the ontology to the document IRI mapping
                     documentIRIsByID.put(ontology.getOntologyID(), documentIRI);
-                    if (ontology instanceof HasTrimToSize && configuration.shouldTrimToSize()) {
-                        ((HasTrimToSize) ontology).trimToSize();
+                    if (ontology instanceof HasTrimToSize toTrim
+                        && configuration.shouldTrimToSize()) {
+                        toTrim.trimToSize();
                     }
                     return ontology;
                 } catch (OWLOntologyRenameException e) {
@@ -1520,9 +1520,8 @@ public class OWLOntologyManagerImpl
     public void handleImportsChange(OWLOntologyChange change) {
         if (change.isImportChange()) {
             resetImportsClosureCache();
-            if (change instanceof AddImport) {
-                OWLImportsDeclaration addImportDeclaration =
-                    ((AddImport) change).getImportDeclaration();
+            if (change instanceof AddImport add) {
+                OWLImportsDeclaration addImportDeclaration = add.getImportDeclaration();
                 IRI iri = addImportDeclaration.getIRI();
                 Optional<OWLOntologyID> findFirst =
                     ids().filter(o -> o.match(iri) || o.matchDocument(iri)).findFirst();

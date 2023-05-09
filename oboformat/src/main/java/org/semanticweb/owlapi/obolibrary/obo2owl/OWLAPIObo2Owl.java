@@ -1294,8 +1294,8 @@ public class OWLAPIObo2Owl {
         // obo-format allows dangling references to classes in class
         // expressions.
         // Create an explicit class declaration to be sure
-        if (ce instanceof OWLClass && config.shouldAddMissingTypes()) {
-            add(df.getOWLDeclarationAxiom((OWLClass) ce));
+        if (ce instanceof OWLClass c && config.shouldAddMissingTypes()) {
+            add(df.getOWLDeclarationAxiom(c));
         }
         if (exact != null && exact.intValue() > 0) {
             return df.getOWLObjectExactCardinality(exact.intValue(), pe, ce);
@@ -1440,28 +1440,20 @@ public class OWLAPIObo2Owl {
     /**
      * Translate literal.
      *
-     * @param inputValue the value
+     * @param value the value
      * @return the OWL annotation value
      */
-    protected OWLAnnotationValue trLiteral(Object inputValue) {
-        Object value = inputValue;
-        if (value instanceof Xref) {
-            value = ((Xref) value).getIdref();
-        } else if (value instanceof Date) {
-            // use proper OWL2 data type, write lexical value as ISO 8601 date
-            // string
-            String lexicalValue = OBOFormatConstants.headerDateFormat().format((Date) value);
-            return df.getOWLLiteral(lexicalValue, OWL2Datatype.XSD_DATE_TIME);
-        } else if (value instanceof Boolean) {
-            return df.getOWLLiteral(((Boolean) value).booleanValue());
-        } else if (!(value instanceof String)) {
-            // TODO
-            // e.g. boolean
-            value = value.toString();
-        }
-        String value2 = (String) value;
-        // TODO
-        return df.getOWLLiteral(value2);
+    protected OWLAnnotationValue trLiteral(Object value) {
+        return switch (value) {
+            case Xref x -> df.getOWLLiteral(x.getIdref());
+            case Date d ->
+                // use proper OWL2 data type, write lexical value as ISO 8601 date string
+                df.getOWLLiteral(OBOFormatConstants.headerDateFormat().format(d),
+                    OWL2Datatype.XSD_DATE_TIME);
+            case Boolean b -> df.getOWLLiteral(b.booleanValue());
+            case String v -> df.getOWLLiteral(v);
+            default -> df.getOWLLiteral(value.toString());
+        };
     }
 
     /**

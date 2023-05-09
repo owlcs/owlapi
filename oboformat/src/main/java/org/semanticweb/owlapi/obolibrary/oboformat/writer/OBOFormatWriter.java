@@ -161,8 +161,8 @@ public class OBOFormatWriter {
         sb.append(clause.getTag());
         sb.append(": ");
         Object value = clause.getValue();
-        if (value instanceof Date) {
-            sb.append(OBOFormatConstants.headerDateFormat().format((Date) value));
+        if (value instanceof Date d) {
+            sb.append(OBOFormatConstants.headerDateFormat().format(d));
         } else if (value instanceof String) {
             sb.append(value);
         } else {
@@ -527,17 +527,12 @@ public class OBOFormatWriter {
      * @return string representation
      */
     private static String toStringRepresentation(@Nullable Object obj) {
-        if (obj == null) {
-            return "";
-        }
-        if (obj instanceof Xref) {
-            Xref xref = (Xref) obj;
-            return xref.getIdref() + ' ' + xref.getAnnotation();
-        }
-        if (obj instanceof String) {
-            return (String) obj;
-        }
-        return obj.toString();
+        return switch (obj) {
+            case null -> "";
+            case Xref xref -> xref.getIdref() + ' ' + xref.getAnnotation();
+            case String s -> s;
+            default -> obj.toString();
+        };
     }
 
     /**

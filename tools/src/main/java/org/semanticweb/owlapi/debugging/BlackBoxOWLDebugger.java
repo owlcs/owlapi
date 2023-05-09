@@ -253,13 +253,13 @@ public class BlackBoxOWLDebugger extends AbstractOWLDebugger {
     private int expandWithDefiningAxioms(OWLEntity obj, int limit) {
         Set<OWLAxiom> expansionAxioms = new HashSet<>();
         if (obj instanceof OWLClass) {
-            add(expansionAxioms, getOWLOntology().axioms((OWLClass) obj, INCLUDED));
+            add(expansionAxioms, getOWLOntology().axioms(obj.asOWLClass(), INCLUDED));
         } else if (obj.isOWLObjectProperty()) {
             add(expansionAxioms, getOWLOntology().axioms(obj.asOWLObjectProperty(), INCLUDED));
         } else if (obj.isOWLDataProperty()) {
             add(expansionAxioms, getOWLOntology().axioms(obj.asOWLDataProperty(), INCLUDED));
-        } else if (obj instanceof OWLIndividual) {
-            add(expansionAxioms, getOWLOntology().axioms((OWLIndividual) obj, INCLUDED));
+        } else if (obj instanceof OWLIndividual i) {
+            add(expansionAxioms, getOWLOntology().axioms(i, INCLUDED));
         }
         expansionAxioms.removeAll(debuggingAxioms);
         return addMax(expansionAxioms, debuggingAxioms, limit);

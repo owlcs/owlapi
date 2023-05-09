@@ -18,8 +18,8 @@ public enum AnnotationWalkingControl {
     WALK_ONTOLOGY_ANNOTATIONS_ONLY {
         @Override
         public <T extends OWLObject> void walk(StructureWalker<T> walker, OWLObject o) {
-            if (o instanceof OWLOntology) {
-                ((OWLOntology) o).annotations().forEach(a -> a.accept(walker));
+            if (o instanceof OWLOntology ont) {
+                ont.annotations().forEach(a -> a.accept(walker));
             }
         }
     },
@@ -29,8 +29,8 @@ public enum AnnotationWalkingControl {
     WALK_ANNOTATIONS {
         @Override
         public <T extends OWLObject> void walk(StructureWalker<T> walker, OWLObject o) {
-            if (o instanceof HasAnnotations) {
-                ((HasAnnotations) o).annotations().forEach(a -> a.accept(walker));
+            if (o instanceof HasAnnotations ann) {
+                ann.annotations().forEach(a -> a.accept(walker));
             }
         }
     };

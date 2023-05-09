@@ -986,13 +986,11 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
         writeNewLine();
         incrementTab(4);
         writeNewLine();
-        if (entity instanceof OWLEntity) {
-            return writeAnnotations(((OWLEntity) entity).getIRI());
-        }
-        if (entity instanceof OWLAnonymousIndividual) {
-            return writeAnnotations((OWLAnonymousIndividual) entity);
-        }
-        return Collections.emptySet();
+        return switch (entity) {
+            case OWLEntity e -> writeAnnotations(e.getIRI());
+            case OWLAnonymousIndividual i -> writeAnnotations(i);
+            default -> Collections.emptySet();
+        };
     }
 
     /**
@@ -1087,8 +1085,8 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
     }
 
     protected void handleCollectionElement(Object obj) {
-        if (obj instanceof OWLObject) {
-            ((OWLObject) obj).accept(this);
+        if (obj instanceof OWLObject o) {
+            o.accept(this);
         } else {
             write(obj.toString());
         }

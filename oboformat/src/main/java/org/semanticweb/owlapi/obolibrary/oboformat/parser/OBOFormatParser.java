@@ -288,8 +288,7 @@ public class OBOFormatParser {
         String path = inputPath;
         if (!(path.startsWith("http:") || path.startsWith("file:") || path.startsWith("https:"))) {
             // path is not absolute then guess it.
-            if (location instanceof URL) {
-                URL url = (URL) location;
+            if (location instanceof URL url) {
                 String p = url.toString();
                 int index = p.lastIndexOf('/');
                 path = p.substring(0, index + 1) + path;

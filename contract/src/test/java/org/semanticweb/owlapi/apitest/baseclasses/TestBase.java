@@ -315,7 +315,7 @@ public abstract class TestBase extends DF {
      *
      * @param axioms1 first set
      * @param axioms2 second set
-     * @param format format
+     * @param destination destination format
      */
     protected void applyEquivalentsRoundtrip(Set<OWLAxiom> axioms1, Set<OWLAxiom> axioms2,
         OWLDocumentFormat destination) {
@@ -324,36 +324,27 @@ public abstract class TestBase extends DF {
             // axioms
             // http://www.w3.org/TR/owl2-mapping-to-rdf/#Axioms_that_are_Translated_to_Multiple_Triples
             for (OWLAxiom ax : new ArrayList<>(axioms1)) {
-                if (ax instanceof OWLEquivalentClassesAxiom) {
-                    OWLEquivalentClassesAxiom ax2 = (OWLEquivalentClassesAxiom) ax;
-                    if (ax2.getOperandsAsList().size() > 2) {
-                        Collection<OWLEquivalentClassesAxiom> pairs = ax2.splitToAnnotatedPairs();
-                        if (removeIfContainsAll(axioms2, pairs, destination)) {
-                            axioms1.remove(ax);
-                            axioms2.removeAll(pairs);
+                switch (ax) {
+                    case OWLEquivalentClassesAxiom ax2:
+                        if (ax2.getOperandsAsList().size() > 2) {
+                            removeIfContainsAll(axioms1, axioms2, destination, ax,
+                                ax2.splitToAnnotatedPairs());
                         }
-                    }
-                } else if (ax instanceof OWLEquivalentDataPropertiesAxiom) {
-                    OWLEquivalentDataPropertiesAxiom ax2 = (OWLEquivalentDataPropertiesAxiom) ax;
-                    if (ax2.getOperandsAsList().size() > 2) {
-                        Collection<OWLEquivalentDataPropertiesAxiom> pairs =
-                            ax2.splitToAnnotatedPairs();
-                        if (removeIfContainsAll(axioms2, pairs, destination)) {
-                            axioms1.remove(ax);
-                            axioms2.removeAll(pairs);
+                        break;
+                    case OWLEquivalentDataPropertiesAxiom ax2:
+                        if (ax2.getOperandsAsList().size() > 2) {
+                            removeIfContainsAll(axioms1, axioms2, destination, ax,
+                                ax2.splitToAnnotatedPairs());
                         }
-                    }
-                } else if (ax instanceof OWLEquivalentObjectPropertiesAxiom) {
-                    OWLEquivalentObjectPropertiesAxiom ax2 =
-                        (OWLEquivalentObjectPropertiesAxiom) ax;
-                    if (ax2.getOperandsAsList().size() > 2) {
-                        Collection<OWLEquivalentObjectPropertiesAxiom> pairs =
-                            ax2.splitToAnnotatedPairs();
-                        if (removeIfContainsAll(axioms2, pairs, destination)) {
-                            axioms1.remove(ax);
-                            axioms2.removeAll(pairs);
+                        break;
+                    case OWLEquivalentObjectPropertiesAxiom ax2:
+                        if (ax2.getOperandsAsList().size() > 2) {
+                            removeIfContainsAll(axioms1, axioms2, destination, ax,
+                                ax2.splitToAnnotatedPairs());
                         }
-                    }
+                        break;
+                    default:
+                        break;
                 }
             }
         }
@@ -367,6 +358,14 @@ public abstract class TestBase extends DF {
             axioms2.forEach(a -> reannotated2.add(reannotate(a)));
             axioms2.clear();
             axioms2.addAll(reannotated2);
+        }
+    }
+
+    protected void removeIfContainsAll(Set<OWLAxiom> axioms1, Set<OWLAxiom> axioms2,
+        OWLDocumentFormat destination, OWLAxiom ax, Collection<? extends OWLAxiom> pairs) {
+        if (removeIfContainsAll(axioms2, pairs, destination)) {
+            axioms1.remove(ax);
+            axioms2.removeAll(pairs);
         }
     }
 

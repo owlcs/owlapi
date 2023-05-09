@@ -628,8 +628,8 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousIndividualByIdProvi
     }
 
     protected boolean annotationToRemove(OWLAnnotationAxiom ax) {
-        return ax instanceof OWLAnnotationAssertionAxiom
-            && ((OWLAnnotationAssertionAxiom) ax).getSubject().equals(iris.firstOntologyIRI);
+        return ax instanceof OWLAnnotationAssertionAxiom ap
+            && ap.getSubject().equals(iris.firstOntologyIRI);
     }
 
     protected void removeUnnecessaryParsedAnnotations(OWLAnnotationAxiom ax) {
@@ -1856,9 +1856,9 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousIndividualByIdProvi
             return false;
         }
         OWLObject target = target(s);
-        if (target instanceof OWLLiteral && (!isStrict() || iris.isDPLax(property))) {
-            add(df.getOWLNegativeDataPropertyAssertionAxiom(dp(property), individual(source),
-                (OWLLiteral) target, pendingAnns(s)));
+        if (target instanceof OWLLiteral l && (!isStrict() || iris.isDPLax(property))) {
+            add(df.getOWLNegativeDataPropertyAssertionAxiom(dp(property), individual(source), l,
+                pendingAnns(s)));
             return tripleIndex.consumeTriple(s, p, o);
         } else if (target.isIRI() && (!isStrict() || iris.isOpLax(property))) {
             add(df.getOWLNegativeObjectPropertyAssertionAxiom(translateOPE(property),

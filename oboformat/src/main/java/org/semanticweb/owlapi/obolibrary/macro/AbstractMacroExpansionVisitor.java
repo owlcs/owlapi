@@ -107,8 +107,8 @@ public abstract class AbstractMacroExpansionVisitor implements OWLAxiomVisitorEx
 
     protected void mapToExpand(OWLObjectProperty p, OWLAnnotation a) {
         OWLAnnotationValue v = a.getValue();
-        if (v instanceof OWLLiteral) {
-            String str = ((OWLLiteral) v).getLiteral();
+        if (v instanceof OWLLiteral lit) {
+            String str = lit.getLiteral();
             LOG.info("mapping {} to {}", p.getIRI(), str);
             expandExpressionMap.put(p.getIRI(), str);
         }

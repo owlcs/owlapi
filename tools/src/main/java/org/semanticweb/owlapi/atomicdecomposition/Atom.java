@@ -86,8 +86,8 @@ public class Atom {
         if (obj == null) {
             return false;
         }
-        if (obj instanceof Atom) {
-            return axioms.equals(((Atom) obj).axioms);
+        if (obj instanceof Atom a) {
+            return axioms.equals(a.axioms);
         }
         return false;
     }

@@ -26,8 +26,7 @@ import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 import org.semanticweb.owlapi.utility.NamedConjunctChecker;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.1.0
  */
 public class NumberOfClassesWithMultipleInheritance extends IntegerValuedMetric {
@@ -35,8 +34,7 @@ public class NumberOfClassesWithMultipleInheritance extends IntegerValuedMetric 
     /**
      * Instantiates a new number of classes with multiple inheritance.
      *
-     * @param o
-     *        ontology to use
+     * @param o ontology to use
      */
     public NumberOfClassesWithMultipleInheritance(OWLOntology o) {
         super(o);
@@ -52,26 +50,23 @@ public class NumberOfClassesWithMultipleInheritance extends IntegerValuedMetric 
         Set<OWLClass> processed = new HashSet<>();
         Set<OWLClass> clses = new HashSet<>();
         NamedConjunctChecker checker = new NamedConjunctChecker();
-        getOntologies()
-            .forEach(ont -> ont.classesInSignature().forEach(cls -> process(processed, clses, checker, ont, cls)));
+        getOntologies().forEach(ont -> ont.classesInSignature()
+            .forEach(cls -> process(processed, clses, checker, ont, cls)));
         return Integer.valueOf(clses.size());
     }
 
-    protected void process(Set<OWLClass> processed, Set<OWLClass> clses, NamedConjunctChecker checker, OWLOntology ont,
-        OWLClass cls) {
-        if (processed.add(cls) && equivalent(ont.equivalentClassesAxioms(cls), OWLClassExpression.class)
-            .anyMatch(checker::hasNamedConjunct)) {
+    protected void process(Set<OWLClass> processed, Set<OWLClass> clses,
+        NamedConjunctChecker checker, OWLOntology ont, OWLClass cls) {
+        if (processed.add(cls)
+            && equivalent(ont.equivalentClassesAxioms(cls), OWLClassExpression.class)
+                .anyMatch(checker::hasNamedConjunct)) {
             clses.add(cls);
         }
     }
 
     @Override
     protected boolean isMetricInvalidated(Collection<? extends OWLOntologyChange> changes) {
-        for (OWLOntologyChange change : changes) {
-            if (change.isAxiomChange() && change.getAxiom() instanceof OWLSubClassOfAxiom) {
-                return true;
-            }
-        }
-        return false;
+        return changes.stream().anyMatch(
+            change -> change.isAxiomChange() && change.getAxiom() instanceof OWLSubClassOfAxiom);
     }
 }

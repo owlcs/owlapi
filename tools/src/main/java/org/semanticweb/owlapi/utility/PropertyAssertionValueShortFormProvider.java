@@ -126,13 +126,12 @@ public class PropertyAssertionValueShortFormProvider implements ShortFormProvide
                     // candidate - look at lang tag for that URI
                     // and see if we take priority over the previous one
                     OWLObject obj = ax.getObject();
-                    if (obj instanceof OWLLiteral) {
+                    if (obj instanceof OWLLiteral lit) {
                         List<String> langList = preferredLanguageMap.get(ax.getProperty());
                         if (langList != null) {
                             // There is no need to check if lang is null. It may
                             // well be that no
                             // lang is preferred over any other lang.
-                            OWLLiteral lit = (OWLLiteral) obj;
                             int langIndex = langList.indexOf(lit.getLang());
                             if (langIndex != -1 && langIndex < lastLangMatchIndex) {
                                 lastLangMatchIndex = langIndex;
@@ -164,11 +163,10 @@ public class PropertyAssertionValueShortFormProvider implements ShortFormProvide
     private String getRendering(OWLObject object) {
         // We return the literal value of constants or use the alternate
         // short form provider to render individuals.
-        if (object instanceof OWLLiteral) {
-            return ((OWLLiteral) object).getLiteral();
-        } else {
-            return alternateShortFormProvider.getShortForm((OWLEntity) object);
+        if (object instanceof OWLLiteral lit) {
+            return lit.getLiteral();
         }
+        return alternateShortFormProvider.getShortForm((OWLEntity) object);
     }
 
     /**

@@ -568,11 +568,10 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements OWLOn
 
     @Override
     public Stream<OWLAxiom> referencingAxioms(OWLPrimitive owlEntity) {
-        if (owlEntity instanceof OWLEntity) {
-            return ints.getReferencingAxioms((OWLEntity) owlEntity);
-        } else if (owlEntity instanceof OWLAnonymousIndividual) {
-            return ints.owlAnonymousIndividualReferences.values((OWLAnonymousIndividual) owlEntity,
-                OWLAxiom.class);
+        if (owlEntity instanceof OWLEntity e) {
+            return ints.getReferencingAxioms(e);
+        } else if (owlEntity instanceof OWLAnonymousIndividual i) {
+            return ints.owlAnonymousIndividualReferences.values(i, OWLAxiom.class);
         } else if (owlEntity.isIRI()) {
             Set<OWLAxiom> axioms = new HashSet<>();
             String iriString = owlEntity.toString();
@@ -592,9 +591,9 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements OWLOn
             axioms().filter(OWLAxiom::isAnnotated)
                 .forEach(ax -> examineAnnotations(owlEntity, axioms, ax));
             return axioms.stream();
-        } else if (owlEntity instanceof OWLLiteral) {
+        } else if (owlEntity instanceof OWLLiteral l) {
             Set<OWLAxiom> axioms = new HashSet<>();
-            FindLiterals v = new FindLiterals((OWLLiteral) owlEntity);
+            FindLiterals v = new FindLiterals(l);
             AxiomType.axiomTypes().stream().flatMap(this::axioms)
                 .filter(ax -> ax.accept(v).booleanValue()).forEach(axioms::add);
             return axioms.stream();
@@ -624,17 +623,11 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements OWLOn
         }
 
         protected Boolean processStream(Stream<?> s) {
-            return Boolean.valueOf(s.map(o -> {
-                if (o instanceof OWLObject) {
-                    return ((OWLObject) o).accept(this);
-                }
-                if (o instanceof Stream) {
-                    return processStream((Stream<?>) o);
-                }
-                if (o instanceof Collection) {
-                    return processStream(((Collection<?>) o).stream());
-                }
-                return Boolean.FALSE;
+            return Boolean.valueOf(s.map(o -> switch (o) {
+                case OWLObject obj -> obj.accept(this);
+                case Stream st -> processStream(st);
+                case Collection c -> processStream(((Collection<?>) c).stream());
+                default -> Boolean.FALSE;
             }).anyMatch(Boolean.TRUE::equals));
         }
 
@@ -920,11 +913,11 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements OWLOn
         if (optional.isPresent()) {
             return optional.get().values(entity, type);
         }
-        if (!(entity instanceof OWLEntity)) {
-            return empty();
+        if (entity instanceof OWLEntity e) {
+            return axioms(AxiomType.getTypeForClass(type))
+                .filter(a -> a.containsEntityInSignature(e));
         }
-        return axioms(AxiomType.getTypeForClass(type))
-            .filter(a -> a.containsEntityInSignature((OWLEntity) entity));
+        return empty();
     }
 
     @SuppressWarnings("unchecked")

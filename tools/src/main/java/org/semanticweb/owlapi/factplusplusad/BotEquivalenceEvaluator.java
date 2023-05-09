@@ -97,9 +97,8 @@ class BotEquivalenceEvaluator extends SigAccessor implements OWLObjectVisitor {
         if (c instanceof OWLDataRange && isTopEquivalent(c)) {
             return true;
         }
-        if (c instanceof OWLDatatype) {
+        if (c instanceof OWLDatatype dt) {
             // string/time are infinite DT
-            OWLDatatype dt = ((OWLDatatype) c).asOWLDatatype();
             if (OWL2Datatype.XSD_STRING.matches(dt) || OWL2Datatype.XSD_DATE_TIME.matches(dt)
                 || OWL2Datatype.XSD_DATE_TIME_STAMP.matches(dt)) {
                 return true;

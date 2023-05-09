@@ -116,20 +116,18 @@ public class RDFTriple implements Serializable, Comparable<RDFTriple>, Triple {
         if (obj == this) {
             return true;
         }
-        if (obj instanceof RDFTriple) {
-            RDFTriple other = (RDFTriple) obj;
+        if (obj instanceof RDFTriple other) {
             return subject.equals(other.subject) && predicate.equals(other.predicate)
                 && object.equals(other.object);
         }
         // Commons RDF Triple.equals() contract
-        if (obj instanceof Triple) {
+        if (obj instanceof Triple triple) {
             // Note: This also works on RDFLiteral
             // but is slightly more expensive as it must call the
             // getter methods when accessing obj.
             //
             // To ensure future compatibility, the Commons RDF getter
             // methods are also called on this rather than using the fields.
-            Triple triple = (Triple) obj;
             return getSubject().equals(triple.getSubject())
                 && getPredicate().equals(triple.getPredicate())
                 && getObject().equals(triple.getObject());

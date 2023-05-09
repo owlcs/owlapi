@@ -146,8 +146,8 @@ public class RioParserImpl implements RioParser {
                 }
             });
             createParser.setRDFHandler(handler);
-            if (r instanceof Reader) {
-                createParser.parse((Reader) r, baseIRI(p.getOntology(), p.getDocumentIRI()));
+            if (r instanceof Reader rdr) {
+                createParser.parse(rdr, baseIRI(p.getOntology(), p.getDocumentIRI()));
             } else {
                 createParser.parse((InputStream) r, baseIRI(p.getOntology(), p.getDocumentIRI()));
             }
@@ -156,8 +156,8 @@ public class RioParserImpl implements RioParser {
             // See sourceforge bug 3566820 for more information about this
             // branch
             if (e.getCause() != null && e.getCause().getCause() != null
-                && e.getCause().getCause() instanceof UnloadableImportException) {
-                throw (UnloadableImportException) e.getCause().getCause();
+                && e.getCause().getCause() instanceof UnloadableImportException unload) {
+                throw unload;
             } else {
                 throw new OWLParserException(e);
             }

@@ -105,8 +105,8 @@ public class RioMemoryTripleSource implements OWLOntologyDocumentSource {
     public RioMemoryTripleSource(Iterable<Statement> statements) {
         documentIRI = RIO_MEMORY_TRIPLES + IRICounter.incrementAndGet();
         statementIterator = statements.iterator();
-        if (statements instanceof Model) {
-            namespaces.putAll(Namespaces.asMap(((Model) statements).getNamespaces()));
+        if (statements instanceof Model m) {
+            namespaces.putAll(Namespaces.asMap(m.getNamespaces()));
         }
     }
 

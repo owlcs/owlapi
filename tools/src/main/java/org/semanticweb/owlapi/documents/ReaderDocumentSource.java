@@ -43,8 +43,8 @@ public class ReaderDocumentSource extends StreamDocumentSourceBase {
      * Constructs and ontology input source which will read an ontology from a reader.
      *
      * @param reader The reader that will be used to read an ontology.
-     * @param iri    The ontology document IRI which will be used as the base of the document if
-     *               needed.
+     * @param iri The ontology document IRI which will be used as the base of the document if
+     *        needed.
      */
     public ReaderDocumentSource(Reader reader, String iri) {
         this(reader, iri, null, null);
@@ -54,18 +54,18 @@ public class ReaderDocumentSource extends StreamDocumentSourceBase {
      * Constructs and ontology input source which will read an ontology from a reader.
      *
      * @param reader The reader that will be used to read an ontology.
-     * @param iri    The ontology document IRI which will be used as the base of the document if
-     *               needed.
-     * @param f      ontology format
-     * @param mime   mime type
+     * @param iri The ontology document IRI which will be used as the base of the document if
+     *        needed.
+     * @param f ontology format
+     * @param mime mime type
      */
     public ReaderDocumentSource(Reader reader, String iri, @Nullable OWLDocumentFormat f,
         @Nullable String mime) {
         super(new ReaderInputStream(reader, selectEncoding(reader)), iri, f, mime);
         // if the input stream carries encoding information, use it; else leave
         // the default as UTF-8
-        if (reader instanceof InputStreamReader) {
-            encoding = Charset.forName(((InputStreamReader) reader).getEncoding());
+        if (reader instanceof InputStreamReader rdr) {
+            encoding = Charset.forName(rdr.getEncoding());
         }
     }
 
@@ -73,8 +73,8 @@ public class ReaderDocumentSource extends StreamDocumentSourceBase {
         // if the input stream carries encoding information, use it; else leave
         // the default as UTF-8
         Charset enc = StandardCharsets.UTF_8;
-        if (in instanceof InputStreamReader) {
-            enc = Charset.forName(((InputStreamReader) in).getEncoding());
+        if (in instanceof InputStreamReader rdr) {
+            enc = Charset.forName(rdr.getEncoding());
         }
         return enc;
     }

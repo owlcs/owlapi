@@ -261,13 +261,13 @@ public class BlackBoxExplanation extends SingleExplanationGeneratorImpl {
         getOntology().importsClosure().forEach(ont -> {
             boolean referenceFound = false;
             if (obj instanceof OWLClass) {
-                referenceFound = add(expansionAxioms, ont.axioms((OWLClass) obj));
+                referenceFound = add(expansionAxioms, ont.axioms(obj.asOWLClass()));
             } else if (obj.isOWLObjectProperty()) {
                 referenceFound = add(expansionAxioms, ont.axioms(obj.asOWLObjectProperty()));
             } else if (obj.isOWLDataProperty()) {
                 referenceFound = add(expansionAxioms, ont.axioms(obj.asOWLDataProperty()));
-            } else if (obj instanceof OWLIndividual) {
-                referenceFound = add(expansionAxioms, ont.axioms((OWLIndividual) obj));
+            } else if (obj instanceof OWLIndividual i) {
+                referenceFound = add(expansionAxioms, ont.axioms(i));
             }
             if (!referenceFound) {
                 expansionAxioms.add(man.getOWLDataFactory().getOWLDeclarationAxiom(obj));

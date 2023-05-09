@@ -1110,25 +1110,14 @@ public class StructuralReasoner extends OWLReasonerBase {
         @Override
         public void processChanges(Set<OWLObjectPropertyExpression> signature, Set<OWLAxiom> added,
             Set<OWLAxiom> removed) {
-            boolean rebuild = false;
-            for (OWLAxiom ax : added) {
-                if (ax instanceof OWLObjectPropertyAxiom) {
-                    rebuild = true;
-                    break;
-                }
-            }
-            if (!rebuild) {
-                for (OWLAxiom ax : removed) {
-                    if (ax instanceof OWLObjectPropertyAxiom) {
-                        rebuild = true;
-                        break;
-                    }
-                }
-            }
-            if (rebuild) {
+            if (hasObjectProperty(added) || hasObjectProperty(removed)) {
                 ((RawObjectPropertyHierarchyProvider) getRawParentChildProvider()).rebuild();
             }
             super.processChanges(signature, added, removed);
+        }
+
+        protected boolean hasObjectProperty(Set<OWLAxiom> l) {
+            return l.stream().anyMatch(OWLObjectPropertyAxiom.class::isInstance);
         }
     }
 
@@ -1180,8 +1169,7 @@ public class StructuralReasoner extends OWLReasonerBase {
         protected void classToAdd(Collection<OWLClass> result, OWLClassExpression ce) {
             if (ce.isNamed()) {
                 result.add(ce.asOWLClass());
-            } else if (ce instanceof OWLObjectIntersectionOf) {
-                OWLObjectIntersectionOf intersectionOf = (OWLObjectIntersectionOf) ce;
+            } else if (ce instanceof OWLObjectIntersectionOf intersectionOf) {
                 for (OWLClassExpression conjunct : intersectionOf.asConjunctSet()) {
                     if (conjunct.isNamed()) {
                         result.add(conjunct.asOWLClass());
@@ -1202,7 +1190,8 @@ public class StructuralReasoner extends OWLReasonerBase {
         protected void visit(OWLClass parent, Collection<OWLClass> result, OWLAxiom ax) {
             if (ax instanceof OWLSubClassOfAxiom) {
                 handleSubclasses(parent, result, ax);
-            } else if (ax instanceof OWLEquivalentClassesAxiom) {
+            }
+            if (ax instanceof OWLEquivalentClassesAxiom) {
                 handleEquivalentClasses(parent, result, ax);
             }
         }

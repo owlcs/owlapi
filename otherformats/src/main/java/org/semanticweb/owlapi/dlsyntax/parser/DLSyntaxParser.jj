@@ -203,12 +203,10 @@ public OWLAxiom parseClassAxiom() :
     (<SUBCLASSOF>
         rhs = parseClassDescription() {
         if(lhs.isOWLThing()) {
-             if(rhs instanceof OWLObjectAllValuesFrom) {
+             if(rhs instanceof OWLObjectAllValuesFrom r) {
                  // Interpret as Range
-                 OWLObjectAllValuesFrom r = (OWLObjectAllValuesFrom) rhs;
                  ax = factory.getOWLObjectPropertyRangeAxiom(r.getProperty(), r.getFiller());
-             } else if(rhs instanceof OWLObjectMaxCardinality) {
-                OWLObjectMaxCardinality r = (OWLObjectMaxCardinality) rhs;
+             } else if(rhs instanceof OWLObjectMaxCardinality r) {
                 if(r.getCardinality() == 1 && r.getFiller().isOWLThing()) {
                     ax = factory.getOWLFunctionalObjectPropertyAxiom(r.getProperty());
                 }
@@ -219,8 +217,8 @@ public OWLAxiom parseClassAxiom() :
                 ax = factory.getOWLObjectPropertyDomainAxiom(restriction.getProperty(), rhs);
             }
         } else { 
-            if(rhs instanceof OWLObjectComplementOf && rhs.isNamed()) {
-                ax = factory.getOWLDisjointClassesAxiom(lhs, ((OWLObjectComplementOf) rhs).getOperand());
+            if(rhs instanceof OWLObjectComplementOf cof && rhs.isNamed()) {
+                ax = factory.getOWLDisjointClassesAxiom(lhs, cof.getOperand());
             } else { 
                 ax = factory.getOWLSubClassOfAxiom(lhs, rhs);
             }
@@ -257,8 +255,7 @@ public OWLAxiom parsePropertyAxiom() :
         (<SUBCLASSOF> rhs = parseObjectPropertyId() {ax = factory.getOWLSubObjectPropertyOfAxiom(lhs, rhs);})
         |
         (<EQUIVALENTTO> rhs = parseObjectPropertyId() {
-            if(rhs instanceof OWLObjectInverseOf) {
-                OWLObjectInverseOf inv = (OWLObjectInverseOf) rhs;
+            if(rhs instanceof OWLObjectInverseOf inv) {
                 ax = factory.getOWLInverseObjectPropertiesAxiom(lhs, inv.getInverse());
             } else { 
                 ax = factory.getOWLEquivalentObjectPropertiesAxiom(CollectionFactory.createSet(lhs, rhs));

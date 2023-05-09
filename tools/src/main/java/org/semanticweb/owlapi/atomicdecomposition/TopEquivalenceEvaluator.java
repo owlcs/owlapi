@@ -72,9 +72,8 @@ public class TopEquivalenceEvaluator extends SigAccessor {
         if (n == 0) {
             return isBotDistinct(c);
         }
-        if (c instanceof OWLDatatype) {
-            return ((OWLDatatype) c).isBuiltIn()
-                && !((OWLDatatype) c).getBuiltInDatatype().isFinite();
+        if (c instanceof OWLDatatype dt) {
+            return dt.isBuiltIn() && !dt.getBuiltInDatatype().isFinite();
         }
         // FIXME!! try to be more precise
         return false;

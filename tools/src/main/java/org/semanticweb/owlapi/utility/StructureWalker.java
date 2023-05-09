@@ -54,11 +54,11 @@ public class StructureWalker<O extends OWLObject> implements OWLObjectVisitor {
     }
 
     protected void process(OWLObject object) {
-        if (object instanceof OWLAxiom) {
-            walkerCallback.setAxiom((OWLAxiom) object);
+        if (object instanceof OWLAxiom ax) {
+            walkerCallback.setAxiom(ax);
         }
-        if (object instanceof OWLAnnotation) {
-            walkerCallback.setAnnotation((OWLAnnotation) object);
+        if (object instanceof OWLAnnotation a) {
+            walkerCallback.setAnnotation(a);
         }
         if (!walkerCallback.visitDuplicates) {
             if (visited.add(object)) {
@@ -85,16 +85,14 @@ public class StructureWalker<O extends OWLObject> implements OWLObjectVisitor {
 
     @Override
     public void doDefault(OWLObject object) {
-        if (object instanceof OWLClassExpression) {
-            OWLClassExpression ce = (OWLClassExpression) object;
+        if (object instanceof OWLClassExpression ce) {
             walkerCallback.pushClassExpression(ce);
             process(ce);
             ce.componentStream().forEach(this::accept);
             walkerCallback.popClassExpression();
             return;
         }
-        if (object instanceof OWLDataRange) {
-            OWLDataRange ce = (OWLDataRange) object;
+        if (object instanceof OWLDataRange ce) {
             walkerCallback.pushDataRange(ce);
             process(ce);
             ce.componentStream().forEach(this::accept);
@@ -109,8 +107,8 @@ public class StructureWalker<O extends OWLObject> implements OWLObjectVisitor {
     private void accept(Object o) {
         if (o instanceof Collection) {
             ((Collection<OWLObject>) o).forEach(this::accept);
-        } else if (o instanceof OWLObject) {
-            ((OWLObject) o).accept(this);
+        } else if (o instanceof OWLObject obj) {
+            obj.accept(this);
         }
     }
 }

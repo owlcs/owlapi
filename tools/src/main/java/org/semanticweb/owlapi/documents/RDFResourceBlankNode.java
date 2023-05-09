@@ -39,10 +39,10 @@ public class RDFResourceBlankNode extends RDFResource implements BlankNode {
     /**
      * Create an RDFResource that is anonymous.
      *
-     * @param resource     The IRI of the resource
+     * @param resource The IRI of the resource
      * @param isIndividual true if the node represents an individual
-     * @param forceId      true if id should be output
-     * @param isAxiom      true if the resource is an axiom
+     * @param forceId true if id should be output
+     * @param isAxiom true if the resource is an axiom
      */
     public RDFResourceBlankNode(IRI resource, boolean isIndividual, boolean forceId,
         boolean isAxiom) {
@@ -92,13 +92,11 @@ public class RDFResourceBlankNode extends RDFResource implements BlankNode {
         if (obj == this) {
             return true;
         }
-        if (obj instanceof RDFResourceBlankNode) {
-            RDFResourceBlankNode other = (RDFResourceBlankNode) obj;
+        if (obj instanceof RDFResourceBlankNode other) {
             return resource.equals(other.resource);
         }
         // Commons RDF BlankNode.equals() contract
-        if (obj instanceof BlankNode) {
-            BlankNode blankNode = (BlankNode) obj;
+        if (obj instanceof BlankNode blankNode) {
             return uniqueReference().equals(blankNode.uniqueReference());
         }
         return false;

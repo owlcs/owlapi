@@ -292,8 +292,8 @@ public class Frame {
         Clause clause = getClause(tag);
         if (clause != null) {
             for (Object ob : clause.getValues()) {
-                if (ob instanceof Xref) {
-                    xrefs.add((Xref) ob);
+                if (ob instanceof Xref x) {
+                    xrefs.add(x);
                 }
             }
         }

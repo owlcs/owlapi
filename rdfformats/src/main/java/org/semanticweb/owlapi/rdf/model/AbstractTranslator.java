@@ -287,8 +287,8 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
      * @param input input to process
      */
     public void translate(OWLObject input) {
-        if (input instanceof OWLAxiom) {
-            if (translatedAxioms.add((OWLAxiom) input)) {
+        if (input instanceof OWLAxiom ax) {
+            if (translatedAxioms.add(ax)) {
                 input.accept(this);
             } else {
                 LOGGER.debug("Axiom {} is being rendered twice, second pass skipped.", input);
@@ -786,8 +786,8 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
     @Override
     public void visit(OWLAnnotationAssertionAxiom axiom) {
         addSingleTripleAxiom(axiom, axiom.getSubject(), axiom.getProperty(), axiom.getValue());
-        if (axiom.getValue() instanceof OWLAnonymousIndividual) {
-            processIfAnonymous((OWLAnonymousIndividual) axiom.getValue(), axiom);
+        if (axiom.getValue() instanceof OWLAnonymousIndividual i) {
+            processIfAnonymous(i, axiom);
         }
     }
 
@@ -1097,8 +1097,7 @@ public abstract class AbstractTranslator<N extends Serializable, R extends N, P 
         addTriple(subject, annotation.getProperty().getIRI(), annotation.getValue());
         annotation.getProperty().accept(this);
         // if the annotation has a blank node as subject, add the triples here
-        if (annotation.getValue() instanceof OWLAnonymousIndividual) {
-            OWLAnonymousIndividual ind = (OWLAnonymousIndividual) annotation.getValue();
+        if (annotation.getValue() instanceof OWLAnonymousIndividual ind) {
             translateAnonymousNode(ind);
             processIfAnonymous(ind);
         }

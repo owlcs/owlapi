@@ -79,8 +79,7 @@ public class RDFLiteral implements RDFNode, Literal {
         if (obj == this) {
             return true;
         }
-        if (obj instanceof RDFLiteral) {
-            RDFLiteral other = (RDFLiteral) obj;
+        if (obj instanceof RDFLiteral other) {
             if (!lexicalValue.equals(other.lexicalValue)) {
                 return false;
             }
@@ -89,14 +88,13 @@ public class RDFLiteral implements RDFNode, Literal {
             }
             return datatype.equals(other.datatype);
         }
-        if (obj instanceof Literal) {
+        if (obj instanceof Literal literal) {
             // Note: This also works on RDFLiteral
             // but is slightly more expensive as it must call the
             // getter methods when accessing obj.
             //
             // To ensure future compatibility, the Commons RDF getter
             // methods are also called on this rather than using the fields.
-            Literal literal = (Literal) obj;
             if (!getLexicalForm().equals(literal.getLexicalForm())) {
                 return false;
             }

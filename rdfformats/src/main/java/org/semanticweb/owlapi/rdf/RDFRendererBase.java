@@ -414,8 +414,7 @@ public abstract class RDFRendererBase {
     }
 
     protected static boolean includeInSingleTriple(OWLAxiom ax, OWLIndividual possibleSubject) {
-        if (ax instanceof OWLDifferentIndividualsAxiom) {
-            OWLDifferentIndividualsAxiom d = (OWLDifferentIndividualsAxiom) ax;
+        if (ax instanceof OWLDifferentIndividualsAxiom d) {
             List<OWLIndividual> individualsAsList = d.getOperandsAsList();
             return individualsAsList.size() == 2
                 && possibleSubject.equals(individualsAsList.get(0));
@@ -593,9 +592,9 @@ public abstract class RDFRendererBase {
                     return null;
                 }
             } else {
-                if (triple.getObject() instanceof RDFResource) {
+                if (triple.getObject() instanceof RDFResource n) {
                     // Should be another list
-                    return triple.getObject();
+                    return n;
                 }
             }
         }
@@ -621,8 +620,7 @@ public abstract class RDFRendererBase {
         }
 
         static boolean inverse(OWLAxiom ax, OWLNamedIndividual i) {
-            if (ax instanceof OWLObjectPropertyAssertionAxiom) {
-                OWLObjectPropertyAssertionAxiom candidate = (OWLObjectPropertyAssertionAxiom) ax;
+            if (ax instanceof OWLObjectPropertyAssertionAxiom candidate) {
                 if (candidate.getProperty().isAnonymous() && candidate.getObject().equals(i)) {
                     return true;
                 }
@@ -631,8 +629,7 @@ public abstract class RDFRendererBase {
         }
 
         static boolean inverseFirst(OWLAxiom ax, OWLNamedIndividual i) {
-            if (ax instanceof OWLObjectPropertyAssertionAxiom) {
-                OWLObjectPropertyAssertionAxiom candidate = (OWLObjectPropertyAssertionAxiom) ax;
+            if (ax instanceof OWLObjectPropertyAssertionAxiom candidate) {
                 if (candidate.getProperty().isAnonymous() && candidate.getSubject().equals(i)) {
                     return false;
                 }
@@ -648,8 +645,7 @@ public abstract class RDFRendererBase {
         }
 
         static boolean equiv(OWLAxiom ax, OWLClass cls) {
-            if (ax instanceof OWLEquivalentClassesAxiom) {
-                OWLEquivalentClassesAxiom invAxiom = (OWLEquivalentClassesAxiom) ax;
+            if (ax instanceof OWLEquivalentClassesAxiom invAxiom) {
                 if (!invAxiom.getOperandsAsList().get(0).equals(cls)) {
                     return false;
                 }
@@ -658,8 +654,7 @@ public abstract class RDFRendererBase {
         }
 
         static boolean disjoint(OWLAxiom ax, OWLClass cls) {
-            if (ax instanceof OWLDisjointClassesAxiom) {
-                OWLDisjointClassesAxiom invAxiom = (OWLDisjointClassesAxiom) ax;
+            if (ax instanceof OWLDisjointClassesAxiom invAxiom) {
                 if (!invAxiom.getOperandsAsList().get(0).equals(cls)) {
                     return false;
                 }
@@ -668,8 +663,7 @@ public abstract class RDFRendererBase {
         }
 
         static boolean disjoint(OWLAxiom ax, OWLDataProperty cls) {
-            if (ax instanceof OWLDisjointDataPropertiesAxiom) {
-                OWLDisjointDataPropertiesAxiom invAxiom = (OWLDisjointDataPropertiesAxiom) ax;
+            if (ax instanceof OWLDisjointDataPropertiesAxiom invAxiom) {
                 if (!invAxiom.getOperandsAsList().get(0).equals(cls)) {
                     return false;
                 }
@@ -678,8 +672,7 @@ public abstract class RDFRendererBase {
         }
 
         static boolean disjoint(OWLAxiom ax, OWLObjectProperty cls) {
-            if (ax instanceof OWLDisjointObjectPropertiesAxiom) {
-                OWLDisjointObjectPropertiesAxiom invAxiom = (OWLDisjointObjectPropertiesAxiom) ax;
+            if (ax instanceof OWLDisjointObjectPropertiesAxiom invAxiom) {
                 if (!invAxiom.getOperandsAsList().get(0).equals(cls)) {
                     return false;
                 }
@@ -688,8 +681,7 @@ public abstract class RDFRendererBase {
         }
 
         static boolean equiv(OWLAxiom ax, OWLDataProperty cls) {
-            if (ax instanceof OWLEquivalentDataPropertiesAxiom) {
-                OWLEquivalentDataPropertiesAxiom invAxiom = (OWLEquivalentDataPropertiesAxiom) ax;
+            if (ax instanceof OWLEquivalentDataPropertiesAxiom invAxiom) {
                 if (!invAxiom.getOperandsAsList().get(0).equals(cls)) {
                     return false;
                 }
@@ -698,9 +690,7 @@ public abstract class RDFRendererBase {
         }
 
         static boolean equiv(OWLAxiom ax, OWLObjectProperty cls) {
-            if (ax instanceof OWLEquivalentObjectPropertiesAxiom) {
-                OWLEquivalentObjectPropertiesAxiom invAxiom =
-                    (OWLEquivalentObjectPropertiesAxiom) ax;
+            if (ax instanceof OWLEquivalentObjectPropertiesAxiom invAxiom) {
                 if (!invAxiom.getOperandsAsList().get(0).equals(cls)) {
                     return false;
                 }
@@ -753,8 +743,7 @@ public abstract class RDFRendererBase {
         }
 
         static boolean inverse(OWLAxiom ax, OWLObjectProperty p) {
-            if (ax instanceof OWLInverseObjectPropertiesAxiom) {
-                OWLInverseObjectPropertiesAxiom invAxiom = (OWLInverseObjectPropertiesAxiom) ax;
+            if (ax instanceof OWLInverseObjectPropertiesAxiom invAxiom) {
                 // inverse properties axioms where the first property is not the
                 // property being
                 // rendered will be rendered when the first property is rendered
@@ -766,8 +755,7 @@ public abstract class RDFRendererBase {
         }
 
         static boolean same(OWLAxiom ax, OWLIndividual i) {
-            if (ax instanceof OWLSameIndividualAxiom) {
-                OWLSameIndividualAxiom invAxiom = (OWLSameIndividualAxiom) ax;
+            if (ax instanceof OWLSameIndividualAxiom invAxiom) {
                 // inverse properties axioms where the first property is not the
                 // property being
                 // rendered will be rendered when the first property is rendered
@@ -779,8 +767,7 @@ public abstract class RDFRendererBase {
         }
 
         static boolean threewayDisjoint(OWLAxiom ax) {
-            if (ax instanceof OWLDisjointClassesAxiom) {
-                OWLDisjointClassesAxiom disjAx = (OWLDisjointClassesAxiom) ax;
+            if (ax instanceof OWLDisjointClassesAxiom disjAx) {
                 if (disjAx.getOperandsAsList().size() > 2) {
                     return false;
                 }
@@ -789,13 +776,13 @@ public abstract class RDFRendererBase {
         }
 
         static boolean threewayDisjointData(OWLAxiom ax) {
-            return !(ax instanceof OWLDisjointDataPropertiesAxiom
-                && ((OWLDisjointDataPropertiesAxiom) ax).getOperandsAsList().size() > 2);
+            return !(ax instanceof OWLDisjointDataPropertiesAxiom disj
+                && disj.getOperandsAsList().size() > 2);
         }
 
         static boolean threewayDisjointObject(OWLAxiom ax) {
-            return !(ax instanceof OWLDisjointObjectPropertiesAxiom
-                && ((OWLDisjointObjectPropertiesAxiom) ax).getOperandsAsList().size() > 2);
+            return !(ax instanceof OWLDisjointObjectPropertiesAxiom disj
+                && disj.getOperandsAsList().size() > 2);
         }
     }
 

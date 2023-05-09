@@ -97,9 +97,9 @@ class SharedBlankNodeTestCase extends TestBase {
         OWLOntology o1 = loadFrom(TestFiles.remapOnReading, new FunctionalSyntaxDocumentFormat());
         OWLOntology o2 = loadFrom(TestFiles.remapOnReading, new FunctionalSyntaxDocumentFormat());
         Set<OWLAnnotationValue> values1 = asUnorderedSet(o1.axioms(AxiomType.ANNOTATION_ASSERTION)
-            .map(a -> a.getValue()).filter(a -> a instanceof OWLAnonymousIndividual));
+            .map(a -> a.getValue()).filter(OWLAnonymousIndividual.class::isInstance));
         Set<OWLAnnotationValue> values2 = asUnorderedSet(o2.axioms(AxiomType.ANNOTATION_ASSERTION)
-            .map(a -> a.getValue()).filter(a -> a instanceof OWLAnonymousIndividual));
+            .map(a -> a.getValue()).filter(OWLAnonymousIndividual.class::isInstance));
         assertEquals(1, values1.size(), values1.toString());
         assertEquals(1, values2.size(), values2.toString());
         assertNotEquals(values1, values2);
@@ -110,9 +110,9 @@ class SharedBlankNodeTestCase extends TestBase {
         OWLOntology o1 = loadFrom(TestFiles.oneAnonIndividuall, new RDFXMLDocumentFormat());
         OWLOntology o2 = loadFrom(TestFiles.oneAnonIndividuall, new RDFXMLDocumentFormat());
         Set<OWLAnnotationValue> values1 = asUnorderedSet(o1.axioms(AxiomType.ANNOTATION_ASSERTION)
-            .map(a -> a.getValue()).filter(a -> a instanceof OWLAnonymousIndividual));
+            .map(a -> a.getValue()).filter(OWLAnonymousIndividual.class::isInstance));
         Set<OWLAnnotationValue> values2 = asUnorderedSet(o2.axioms(AxiomType.ANNOTATION_ASSERTION)
-            .map(a -> a.getValue()).filter(a -> a instanceof OWLAnonymousIndividual));
+            .map(a -> a.getValue()).filter(OWLAnonymousIndividual.class::isInstance));
         assertEquals(1, values1.size(), values1.toString());
         assertEquals(1, values2.size(), values2.toString());
         assertNotEquals(values1, values2);
@@ -125,10 +125,10 @@ class SharedBlankNodeTestCase extends TestBase {
         values1.add(AnonymousIndividual("_:genid-nodeid-1058025095"));
         OWLOntology o1 = loadFrom(TestFiles.noRemapOnRead, new RDFXMLDocumentFormat());
         add(values1, o1.axioms(AxiomType.ANNOTATION_ASSERTION).map(a -> a.getValue())
-            .filter(a -> a instanceof OWLAnonymousIndividual));
+            .filter(OWLAnonymousIndividual.class::isInstance));
         o1 = loadFrom(TestFiles.noRemapOnRead, new RDFXMLDocumentFormat());
         add(values1, o1.axioms(AxiomType.ANNOTATION_ASSERTION).map(a -> a.getValue())
-            .filter(a -> a instanceof OWLAnonymousIndividual));
+            .filter(OWLAnonymousIndividual.class::isInstance));
         assertEquals(1, values1.size(), values1.toString());
         m.getOntologyConfigurator().withRemapAllAnonymousIndividualsIds(true);
     }

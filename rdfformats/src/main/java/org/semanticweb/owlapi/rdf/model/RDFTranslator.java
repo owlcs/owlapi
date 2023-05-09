@@ -49,10 +49,10 @@ public class RDFTranslator
     private Map<Object, Integer> blankNodeMap;
 
     /**
-     * @param ontology         the ontology
-     * @param format           target format
-     * @param useStrongTyping  true if strong typing is required
-     * @param occurrences      will tell whether anonymous individuals need an id or not
+     * @param ontology the ontology
+     * @param format target format
+     * @param useStrongTyping true if strong typing is required
+     * @param occurrences will tell whether anonymous individuals need an id or not
      * @param translatedAxioms translated axioms
      */
     public RDFTranslator(OWLOntology ontology, @Nullable OWLDocumentFormat format,
@@ -63,8 +63,8 @@ public class RDFTranslator
 
     /**
      * @param axiomOccurs axiom occurrences
-     * @param counter     counter for blank nodes
-     * @param bnodeMap    map for blank node renaming
+     * @param counter counter for blank nodes
+     * @param bnodeMap map for blank node renaming
      * @return this modified object
      */
     public RDFTranslator withOccurrences(AxiomAppearance axiomOccurs, AtomicInteger counter,
@@ -91,10 +91,10 @@ public class RDFTranslator
             needId = multipleOccurrences.appearsMultipleTimes(anonymousIndividual);
             return getBlankNodeFor(anonymousIndividual.getID().getID(), isIndividual, isAxiom,
                 needId);
-        } else if (key instanceof OWLAxiom) {
+        } else if (key instanceof OWLAxiom k) {
             isIndividual = false;
             isAxiom = true;
-            needId = axiomOccurrences.appearsMultipleTimes((OWLAxiom) key);
+            needId = axiomOccurrences.appearsMultipleTimes(k);
         }
         return getBlankNodeFor(key, isIndividual, isAxiom, needId);
     }

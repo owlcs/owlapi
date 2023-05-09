@@ -12,8 +12,10 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.apitest.syntax.rdfxml;
 
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Test;
 import org.semanticweb.owlapi.apitest.TestFiles;
@@ -26,9 +28,9 @@ import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLObjectCardinalityRestriction;
 import org.semanticweb.owlapi.model.OWLObjectIntersectionOf;
-import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLObjectSomeValuesFrom;
 import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyID;
 
 /**
  * Tests the loading of a single ontology multiple times, using the same ontologyIRI in the
@@ -78,31 +80,29 @@ class EquivalentAndSubclassTestCase extends TestBase {
     }
 
     private static Set<OWLObjectSomeValuesFrom> getSomeValuesFromAncestor(OWLClassExpression ex) {
-        Set<OWLObjectSomeValuesFrom> svfs = new HashSet<>();
-        if (ex instanceof OWLObjectSomeValuesFrom) {
-            OWLObjectSomeValuesFrom svf = (OWLObjectSomeValuesFrom) ex;
-            svfs.add(svf);
-        } else if (ex instanceof OWLObjectCardinalityRestriction) {
-            OWLObjectCardinalityRestriction ocr = (OWLObjectCardinalityRestriction) ex;
-            OWLClassExpression filler = ocr.getFiller();
-            OWLObjectPropertyExpression p = ocr.getProperty();
-            if (ocr.getCardinality() > 0) {
-                svfs.add(ObjectSomeValuesFrom(p, filler));
-            }
-        } else if (ex instanceof OWLObjectIntersectionOf) {
-            ((OWLObjectIntersectionOf) ex).operands()
-                .forEach(op -> svfs.addAll(getSomeValuesFromAncestor(op)));
+        return switch (ex) {
+            case OWLObjectSomeValuesFrom svf -> Collections.singleton(svf);
+            case OWLObjectCardinalityRestriction ocr -> asSomeValuesFrom(ocr);
+            case OWLObjectIntersectionOf and -> and.operands()
+                .flatMap(op -> getSomeValuesFromAncestor(op).stream()).collect(Collectors.toSet());
+            default -> Collections.emptySet();
+        };
+    }
+
+    protected static Set<OWLObjectSomeValuesFrom> asSomeValuesFrom(
+        OWLObjectCardinalityRestriction ocr) {
+        if (ocr.getCardinality() > 0) {
+            return Collections.singleton(ObjectSomeValuesFrom(ocr.getProperty(), ocr.getFiller()));
         }
-        return svfs;
+        return Collections.emptySet();
     }
 
     private static Set<OWLClass> getNamedAncestors(OWLClassExpression expression) {
         Set<OWLClass> cs = new HashSet<>();
         if (!expression.isAnonymous()) {
             cs.add(expression.asOWLClass());
-        } else if (expression instanceof OWLObjectIntersectionOf) {
-            ((OWLObjectIntersectionOf) expression).operands()
-                .forEach(op -> cs.addAll(getNamedAncestors(op)));
+        } else if (expression instanceof OWLObjectIntersectionOf and) {
+            and.operands().forEach(op -> cs.addAll(getNamedAncestors(op)));
         }
         return cs;
     }

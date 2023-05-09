@@ -145,8 +145,8 @@ public class SimpleRendererDebug implements OWLObjectVisitor, OWLObjectRenderer 
     @Override
     public void doDefault(OWLObject object) {
         name(object).left();
-        if (object instanceof HasAnnotations) {
-            writeAnnotations((HasAnnotations) object);
+        if (object instanceof HasAnnotations a) {
+            writeAnnotations(a);
         }
         iterate(object.componentStream());
         right();
@@ -164,8 +164,8 @@ public class SimpleRendererDebug implements OWLObjectVisitor, OWLObjectRenderer 
             Object o = it.next();
             if (o instanceof Collection) {
                 render((Collection<? extends OWLObject>) o);
-            } else if (o instanceof OWLObject) {
-                accept((OWLObject) o);
+            } else if (o instanceof OWLObject obj) {
+                accept(obj);
             } else {
                 builder.append(System.identityHashCode(o)).append(o);
             }

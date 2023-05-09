@@ -95,19 +95,19 @@ public class XrefExpander {
         Frame headerFrame = sourceOBODoc.getHeaderFrame();
         if (headerFrame != null) {
             for (Clause c : headerFrame.getClauses()) {
-                if (XREF_EXPANDABLE.contains(c.getTag())) {
-                    expand(relationsUseByIdSpace, c, c.getTag());
+                String tag = c.getTag();
+                if (XREF_EXPANDABLE.contains(tag)) {
+                    assert tag != null;
+                    expand(relationsUseByIdSpace, c, tag);
                 }
             }
         }
     }
 
-    protected void expand(Map<String, String> relationsUseByIdSpace, Clause c,
-        @Nullable String tag) {
+    protected void expand(Map<String, String> relationsUseByIdSpace, Clause c, String tag) {
         String v = c.getValue().toString();
         String[] parts = SPLIT_SPACE.split(v);
         String idSpace = parts[0];
-        assert tag != null;
         String relation = null;
         if (tag.equals(OboFormatTag.TAG_TREAT_XREFS_AS_EQUIVALENT.getTag())) {
             addRule(parts[0], new EquivalenceExpansion());

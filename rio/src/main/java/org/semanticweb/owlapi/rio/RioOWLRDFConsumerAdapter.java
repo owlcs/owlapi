@@ -90,8 +90,8 @@ public class RioOWLRDFConsumerAdapter extends OWLRDFConsumer implements RDFHandl
         Statement st = checkNotNull(st1);
         String subjectString;
         String objectString;
-        if (st.getSubject() instanceof BNode) {
-            subjectString = st.getSubject().stringValue();
+        if (st.getSubject() instanceof BNode bn) {
+            subjectString = bn.stringValue();
             // it is not mandatory for BNode.stringValue() to return a string
             // prefixed with the turtle blank node syntax, so we check here to
             // make sure
@@ -99,8 +99,8 @@ public class RioOWLRDFConsumerAdapter extends OWLRDFConsumer implements RDFHandl
         } else {
             subjectString = st.getSubject().stringValue();
         }
-        if (st.getObject() instanceof BNode) {
-            objectString = st.getObject().stringValue();
+        if (st.getObject() instanceof BNode bn) {
+            objectString = bn.stringValue();
             // it is not mandatory for BNode.stringValue() to return a string
             // prefixed with the turtle blank node syntax, so we check here to
             // make sure

@@ -95,9 +95,9 @@ public final class RioUtils {
         }
         final ValueFactory vf = SimpleValueFactory.getInstance();
         Resource subject;
-        if (triple.getSubject() instanceof RDFResourceIRI) {
+        if (triple.getSubject() instanceof RDFResourceIRI rIRI) {
             try {
-                subject = vf.createIRI(triple.getSubject().getIRI().toString());
+                subject = vf.createIRI(rIRI.getIRI().toString());
             } catch (@SuppressWarnings("unused") IllegalArgumentException iae) {
                 LOGGER.error("Subject URI was invalid: {}", triple);
                 return Collections.emptyList();
@@ -115,15 +115,15 @@ public final class RioUtils {
             return Collections.emptyList();
         }
         Value object;
-        if (triple.getObject() instanceof RDFResourceIRI) {
+        if (triple.getObject() instanceof RDFResourceIRI rIRI) {
             try {
-                object = vf.createIRI(triple.getObject().getIRI().toString());
+                object = vf.createIRI(rIRI.getIRI().toString());
             } catch (@SuppressWarnings("unused") IllegalArgumentException iae) {
                 LOGGER.error("Object URI was invalid: {}", triple);
                 return Collections.emptyList();
             }
-        } else if (triple.getObject() instanceof RDFLiteral) {
-            object = literal(vf, (RDFLiteral) triple.getObject());
+        } else if (triple.getObject() instanceof RDFLiteral l) {
+            object = literal(vf, l);
         } else {
             // FIXME: When blank nodes are no longer represented as IRIs
             // internally, need to fix

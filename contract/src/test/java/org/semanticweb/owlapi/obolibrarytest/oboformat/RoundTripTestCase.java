@@ -262,7 +262,7 @@ class RoundTripTestCase extends RoundTripTestBasics {
                 if (superClass.getIRI().equals(t1) && subClass.getIRI().equals(t3)) {
                     axiom.annotations(ANNPROPS.infIRI).map(OWLAnnotation::getValue)
                         .forEach(annValue -> {
-                            if (annValue instanceof OWLLiteral) {
+                            if (annValue.isLiteral()) {
                                 assertEquals("true", ((OWLLiteral) annValue).getLiteral());
                             } else {
                                 fail(

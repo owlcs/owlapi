@@ -37,8 +37,8 @@ public class EDTChangeBroadcastStrategy implements OWLOntologyChangeBroadcastStr
         try {
             SwingUtilities.invokeLater(() -> l.ontologiesChanged(changes));
         } catch (OWLRuntimeException e) {
-            if (e.getCause() instanceof OWLException) {
-                throw (OWLException) e.getCause();
+            if (e.getCause() instanceof OWLException ex) {
+                throw ex;
             }
             throw new OWLException(e);
         }

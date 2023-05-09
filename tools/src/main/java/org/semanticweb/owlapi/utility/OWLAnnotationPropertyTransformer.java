@@ -296,13 +296,13 @@ public class OWLAnnotationPropertyTransformer implements SWRLObjectVisitor {
             // turn to object property assertion
             OWLIndividual individual;
             OWLIndividual relatedIndividual;
-            if (subject instanceof OWLAnonymousIndividual) {
-                individual = (OWLIndividual) subject;
+            if (subject instanceof OWLAnonymousIndividual i) {
+                individual = i;
             } else {
                 individual = df.getOWLNamedIndividual((IRI) subject);
             }
-            if (value instanceof OWLIndividual) {
-                relatedIndividual = (OWLIndividual) value;
+            if (value instanceof OWLIndividual i) {
+                relatedIndividual = i;
             } else {
                 relatedIndividual = df.getOWLNamedIndividual((IRI) value);
             }
@@ -313,8 +313,8 @@ public class OWLAnnotationPropertyTransformer implements SWRLObjectVisitor {
         if (prop.isDataPropertyExpression()) {
             // turn to data property assertion
             OWLIndividual individual;
-            if (subject instanceof OWLAnonymousIndividual) {
-                individual = (OWLIndividual) subject;
+            if (subject instanceof OWLAnonymousIndividual i) {
+                individual = i;
             } else {
                 individual = df.getOWLNamedIndividual((IRI) subject);
             }

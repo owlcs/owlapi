@@ -240,8 +240,8 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
             card((OWLCardinalityRestriction<? extends OWLObject>) object);
             return;
         }
-        if (object instanceof OWLEntity) {
-            iri((OWLEntity) object);
+        if (object instanceof OWLEntity e) {
+            iri(e);
             return;
         }
         writer.writeStartElement(tags.get(object.type()));

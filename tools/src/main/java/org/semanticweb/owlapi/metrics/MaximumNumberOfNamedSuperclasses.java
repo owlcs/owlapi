@@ -27,8 +27,7 @@ import org.semanticweb.owlapi.model.OWLOntologyChange;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.1.0
  */
 public class MaximumNumberOfNamedSuperclasses extends IntegerValuedMetric {
@@ -36,8 +35,7 @@ public class MaximumNumberOfNamedSuperclasses extends IntegerValuedMetric {
     /**
      * Instantiates a new maximum number of named superclasses.
      *
-     * @param o
-     *        ontology to use
+     * @param o ontology to use
      */
     public MaximumNumberOfNamedSuperclasses(OWLOntology o) {
         super(o);
@@ -51,20 +49,17 @@ public class MaximumNumberOfNamedSuperclasses extends IntegerValuedMetric {
     @Override
     public Integer recomputeMetric() {
         Set<OWLClass> processedClasses = new HashSet<>();
-        OptionalLong max = getOntologies().flatMapToLong(o -> o.classesInSignature().filter(processedClasses::add)
-            .mapToLong(cls -> sup(o.subClassAxiomsForSubClass(cls), OWLClassExpression.class)
-                .filter(IsAnonymous::isNamed).count()))
-            .max();
+        OptionalLong max =
+            getOntologies().flatMapToLong(o -> o.classesInSignature().filter(processedClasses::add)
+                .mapToLong(cls -> sup(o.subClassAxiomsForSubClass(cls), OWLClassExpression.class)
+                    .filter(IsAnonymous::isNamed).count()))
+                .max();
         return Integer.valueOf((int) max.orElse(0L));
     }
 
     @Override
     protected boolean isMetricInvalidated(Collection<? extends OWLOntologyChange> changes) {
-        for (OWLOntologyChange chg : changes) {
-            if (chg.isAxiomChange() && chg.getAxiom() instanceof OWLSubClassOfAxiom) {
-                return true;
-            }
-        }
-        return false;
+        return changes.stream()
+            .anyMatch(chg -> chg.isAxiomChange() && chg.getAxiom() instanceof OWLSubClassOfAxiom);
     }
 }

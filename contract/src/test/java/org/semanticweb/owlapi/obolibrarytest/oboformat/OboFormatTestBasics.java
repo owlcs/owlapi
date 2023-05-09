@@ -170,7 +170,7 @@ class OboFormatTestBasics extends TestBase {
     protected @Nullable IRI getIriByLabel(OWLOntology ontology, String label) {
         Optional<OWLAnnotationAssertionAxiom> anyMatch =
             ontology.axioms(AxiomType.ANNOTATION_ASSERTION)
-                .filter(aa -> aa.getProperty().isLabel() && aa.getValue() instanceof OWLLiteral
+                .filter(aa -> aa.getProperty().isLabel() && aa.getValue().isLiteral()
                     && label.equals(((OWLLiteral) aa.getValue()).getLiteral()))
                 .filter(aa -> aa.getSubject().isIRI()).findAny();
         if (anyMatch.isPresent()) {

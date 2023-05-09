@@ -197,7 +197,7 @@ class BasicsTestCase extends OboFormatTestBasics {
         OWLOntology owlOntology = convert(obo);
         Set<String> comments =
             asUnorderedSet(owlOntology.annotations(RDFSComment()).map(OWLAnnotation::getValue)
-                .filter(a -> a instanceof OWLLiteral).map(a -> ((OWLLiteral) a).getLiteral()));
+                .filter(OWLLiteral.class::isInstance).map(a -> ((OWLLiteral) a).getLiteral()));
         // check that all remarks have been translated to rdfs:comment
         assertEquals(remarks.size(), comments.size());
         assertTrue(comments.containsAll(remarks));
@@ -525,9 +525,9 @@ class BasicsTestCase extends OboFormatTestBasics {
         AtomicBoolean ok = new AtomicBoolean(false);
         outputOntology.equivalentClassesAxioms(CLASSES.C4)
             .flatMap(OWLEquivalentClassesAxiom::classExpressions)
-            .filter(ce -> ce instanceof OWLObjectIntersectionOf)
+            .filter(OWLObjectIntersectionOf.class::isInstance)
             .flatMap(intersect -> ((OWLObjectIntersectionOf) intersect).operands())
-            .filter(operand -> operand instanceof OWLObjectSomeValuesFrom)
+            .filter(OWLObjectSomeValuesFrom.class::isInstance)
             .map(svf -> ((OWLObjectSomeValuesFrom) svf).getProperty().toString()).forEach(pStr -> {
                 assertEquals(IRIS.BFO51.toQuotedString(), pStr);
                 ok.set(true);
@@ -1026,7 +1026,7 @@ class BasicsTestCase extends OboFormatTestBasics {
         OWLOntology owlOnt = convertOBOFile(TestFilenames.TAXON_UNION_TERMS_OBO);
         assertNotNull(owlOnt);
         boolean ok = owlOnt.equivalentClassesAxioms(CLASSES.cls_union)
-            .flatMap(ax -> ax.classExpressions()).anyMatch(ce -> ce instanceof OWLObjectUnionOf);
+            .flatMap(ax -> ax.classExpressions()).anyMatch(OWLObjectUnionOf.class::isInstance);
         assertTrue(ok);
     }
 
