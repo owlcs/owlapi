@@ -40,6 +40,9 @@ public class LabelExtractor implements OWLAnnotationObjectVisitor {
         }
     }
 
+    /**
+     * @return result
+     */
     public @Nullable String getResult() {
         return result;
     }

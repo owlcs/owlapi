@@ -15,6 +15,7 @@ package org.semanticweb.owlapi.apitest;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
+import org.semanticweb.owlapi.apitest.baseclasses.Builder;
 
 class OWLObjectTypeIndexProviderTestCase {
 

@@ -27,7 +27,7 @@ import java.util.stream.Stream;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
-import org.semanticweb.owlapi.apitest.baseclasses.DF;
+import org.semanticweb.owlapi.apitest.baseclasses.Builder;
 import org.semanticweb.owlapi.apitest.baseclasses.TestBase;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLEntity;
@@ -36,14 +36,14 @@ import org.semanticweb.owlapi.utility.OWLEntityCollector;
 class OWLEntityCollectorTestCase extends TestBase {
 
     static Stream<Arguments> getData() {
-        String ann = DF.ANNPROPS.ap.getIRI().toQuotedString();
-        String datatype = DF.DATATYPES.DT.getIRI().toQuotedString();
-        String dp = DF.DATAPROPS.DP.getIRI().toQuotedString();
-        String iri = DF.IRIS.iri.toQuotedString();
-        String ciri = DF.CLASSES.C.getIRI().toQuotedString();
-        String op = DF.OBJPROPS.OP.getIRI().toQuotedString();
-        String iIri = DF.INDIVIDUALS.I.getIRI().toQuotedString();
-        String j = DF.INDIVIDUALS.J.getIRI().toQuotedString();
+        String ann = ANNPROPS.ap.getIRI().toQuotedString();
+        String datatype = DATATYPES.DT.getIRI().toQuotedString();
+        String dp = DATAPROPS.DP.getIRI().toQuotedString();
+        String iri = IRIS.iri.toQuotedString();
+        String ciri = CLASSES.C.getIRI().toQuotedString();
+        String op = OBJPROPS.OP.getIRI().toQuotedString();
+        String iIri = INDIVIDUALS.I.getIRI().toQuotedString();
+        String j = INDIVIDUALS.J.getIRI().toQuotedString();
 
         return Stream.of(of(Builder.dRange, l(ann, string, datatype, dp)),
             of(Builder.dDef, l(ann, string, doubl, datatype)),

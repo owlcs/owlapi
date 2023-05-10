@@ -31,8 +31,6 @@ import org.semanticweb.owlapi.utility.SimpleIRIMapper;
  */
 class OWLOntologyManagerTestCase extends TestBase {
 
-    private static final String NS = "http://www.semanticweb.org/ontologies/ontology";
-
     static final IRI next(String n) {
         return NextIRI(n);
     }

@@ -32,7 +32,6 @@ import org.semanticweb.owlapi.model.SWRLVariable;
 
 class SWRLAnnotationTestCase extends TestBase {
 
-    private static final String NS = "http://protege.org/ontologies/SWRLAnnotation.owl";
     protected OWLAxiom axiom;
 
     @BeforeEach

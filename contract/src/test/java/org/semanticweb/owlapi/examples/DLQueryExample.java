@@ -62,6 +62,9 @@ public class DLQueryExample {
 
     private DLQueryExample() {}
 
+    /**
+     * @param args arguments
+     */
     public static void main(String[] args) {
         try {
             // Load an example ontology. In this case, we'll just load the pizza

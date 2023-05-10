@@ -47,8 +47,8 @@ public abstract class AbstractCollectorEx<E> implements OWLObjectVisitorEx<Colle
     protected final void processStream(Object o) {
         switch (o) {
             case OWLObject v -> v.accept(this);
-            case Stream s -> s.forEach(this::processStream);
-            case Collection l -> l.stream().forEach(this::processStream);
+            case Stream<?> s -> s.forEach(this::processStream);
+            case Collection<?> l -> l.stream().forEach(this::processStream);
             default -> {
                 break;
             }

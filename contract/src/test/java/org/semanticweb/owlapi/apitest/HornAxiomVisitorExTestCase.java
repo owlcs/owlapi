@@ -19,6 +19,7 @@ import java.util.Collection;
 
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
+import org.semanticweb.owlapi.apitest.baseclasses.Builder;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.utility.HornAxiomVisitorEx;
 

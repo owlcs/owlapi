@@ -78,13 +78,8 @@ public class OWLAPIStreamUtils {
      */
     public static <T> List<T> sorted(@SuppressWarnings("unused") Class<T> type,
         List<? extends T> c) {
-        List<T> list = new ArrayList<>(c);
-        for (int i = list.size() - 1; i > -1; i--) {
-            if (list.get(i) == null) {
-                list.remove(i);
-            }
-        }
-        list.sort(null);
+        List<T> list = new ArrayList<>(c.size());
+        c.stream().filter(Objects::nonNull).map(type::cast).sorted().forEach(list::add);
         for (int i = list.size() - 1; i > 0; i--) {
             if (list.get(i).equals(list.get(i - 1))) {
                 list.remove(i);
@@ -102,13 +97,8 @@ public class OWLAPIStreamUtils {
      */
     public static <T> List<T> sorted(@SuppressWarnings("unused") Class<T> type,
         Set<? extends T> c) {
-        List<T> list = new ArrayList<>(c);
-        for (int i = list.size() - 1; i > -1; i--) {
-            if (list.get(i) == null) {
-                list.remove(i);
-            }
-        }
-        list.sort(null);
+        List<T> list = new ArrayList<>(c.size());
+        c.stream().filter(Objects::nonNull).map(type::cast).sorted().forEach(list::add);
         return Collections.unmodifiableList(list);
     }
 

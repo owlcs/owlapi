@@ -50,7 +50,6 @@ import org.semanticweb.owlapi.model.SWRLVariable;
 class OWLDataFactoryImplTestCase extends TestBase {
     private static final String LANG = "LANG";
     private static final String TEST = "TEST";
-    private static final String URN_TEST = "urn:test#";
 
     private static void assertEqualsFromSupplier(Supplier<?> supplier) {
         Object s1 = supplier.get();

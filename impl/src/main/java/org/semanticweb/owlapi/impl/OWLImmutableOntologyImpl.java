@@ -625,8 +625,8 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements OWLOn
         protected Boolean processStream(Stream<?> s) {
             return Boolean.valueOf(s.map(o -> switch (o) {
                 case OWLObject obj -> obj.accept(this);
-                case Stream st -> processStream(st);
-                case Collection c -> processStream(((Collection<?>) c).stream());
+                case Stream<?> st -> processStream(st);
+                case Collection<?> c -> processStream(c.stream());
                 default -> Boolean.FALSE;
             }).anyMatch(Boolean.TRUE::equals));
         }

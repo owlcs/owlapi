@@ -124,6 +124,9 @@ public abstract class TestBase extends DF {
             new NQuadsDocumentFormat());
     }
 
+    /**
+     * @return all formats except RIO formats
+     */
     public static List<OWLDocumentFormat> formatsNoRio() {
         return l(new RDFXMLDocumentFormat(), new OWLXMLDocumentFormat(),
             new FunctionalSyntaxDocumentFormat(), new TurtleDocumentFormat(),
@@ -417,7 +420,7 @@ public abstract class TestBase extends DF {
      */
     @SafeVarargs
     public static <S> Set<S> set(Class<S> witness, S... values) {
-        return asUnorderedSet(Stream.of(values).distinct());
+        return asUnorderedSet(Stream.of(values).distinct().map(witness::cast));
     }
 
     /**

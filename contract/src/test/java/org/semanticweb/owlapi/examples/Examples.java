@@ -358,6 +358,8 @@ class Examples extends TestBase {
 
     /**
      * This example shows how to create dataranges.
+     * 
+     * @throws Exception exception
      */
     @Test
     void shouldBuildDataRanges() throws Exception {

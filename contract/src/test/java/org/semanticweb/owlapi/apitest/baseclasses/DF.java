@@ -124,7 +124,7 @@ import org.semanticweb.owlapi.vocab.Obo2OWLConstants;
 import org.semanticweb.owlapi.vocab.Obo2OWLConstants.Obo2OWLVocabulary;
 import org.semanticweb.owlapi.vocab.XSDVocabulary;
 
-public class DF {
+class DF {
 
     //@formatter:off
     protected static final OWLDataFactory df = OWLManager.getOWLDataFactory();

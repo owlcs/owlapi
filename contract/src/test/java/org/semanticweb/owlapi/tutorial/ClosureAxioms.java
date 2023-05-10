@@ -39,11 +39,17 @@ public class ClosureAxioms {
     private final OWLOntology ontology;
     private final OWLDataFactory factory;
 
+    /**
+     * @param ontology ontology to use
+     */
     public ClosureAxioms(OWLOntology ontology) {
         this.ontology = ontology;
         factory = ontology.getOWLOntologyManager().getOWLDataFactory();
     }
 
+    /**
+     * @param clazz class to add
+     */
     public void addClosureAxioms(OWLClass clazz) {
         /* Get the class axioms */
         /* Collect those that assert superclasses of the class */

@@ -336,7 +336,7 @@ public abstract class RDFRendererBase {
             writeBanner(bannerText);
         }
         renderEntity(entity);
-        Iterator<OWLEntity> it = graph.getRootIRIs(entity).iterator();
+        Iterator<OWLEntity> it = verifyNotNull(graph).getRootIRIs(entity).iterator();
         while (it.hasNext()) {
             renderEntity(it.next());
         }

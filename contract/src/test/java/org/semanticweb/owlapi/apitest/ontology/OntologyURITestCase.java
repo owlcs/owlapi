@@ -105,8 +105,7 @@ class OntologyURITestCase extends TestBase {
     @Test
     void testNullVersionURI() {
         IRI ontIRI = nextOnt();
-        IRI verIRI = null;
-        OWLOntology ont = create(OntologyID(ontIRI, verIRI));
+        OWLOntology ont = create(OntologyID(ontIRI));
         assertEquals(ont.getOntologyID().getOntologyIRI().get(), ontIRI);
         assertFalse(ont.getOntologyID().getVersionIRI().isPresent());
     }

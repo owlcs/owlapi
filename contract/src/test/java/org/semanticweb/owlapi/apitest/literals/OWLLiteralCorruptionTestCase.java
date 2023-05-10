@@ -30,7 +30,6 @@ import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
 class OWLLiteralCorruptionTestCase extends TestBase {
 
-    static final String URN_TEST = "urn:test#";
     static final OWLLiteral ONESHORT = Literal("1", Datatype(OWL2Datatype.XSD_SHORT.getIRI()));
     static final OWLLiteral ZERO_ONE = Literal("01", Integer());
     static final OWLLiteral ONE = Literal("1", Integer());

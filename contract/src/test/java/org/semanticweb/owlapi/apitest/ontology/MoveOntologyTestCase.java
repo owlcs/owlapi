@@ -117,8 +117,7 @@ class MoveOntologyTestCase extends TestBase {
         assertTrue(m.contains(imported));
         OWLOntology copy = copy(root, OntologyCopy.SHALLOW_COPY_ONTOLOGY_CLOSURE);
         assertEquals(2, copy.importsClosure().count());
-        copy.importsClosure()
-            .forEach(imported -> assertEquals(m1, imported.getOWLOntologyManager()));
+        copy.importsClosure().forEach(imp -> assertEquals(m1, imp.getOWLOntologyManager()));
         assertTrue(m.contains(root));
         assertTrue(m.contains(imported));
         assertTrue(m1.contains(copy));

@@ -20,21 +20,22 @@ import java.util.stream.Stream;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
-import org.semanticweb.owlapi.apitest.baseclasses.DF;
+import org.semanticweb.owlapi.apitest.baseclasses.Builder;
+import org.semanticweb.owlapi.apitest.baseclasses.TestBase;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.utility.AxiomSubjectProviderEx;
 
-class AxiomSubjectProviderExTestCase {
+class AxiomSubjectProviderExTestCase extends TestBase {
 
 
     static Stream<Arguments> getData() {
-        String I = DF.INDIVIDUALS.I.getIRI().toQuotedString();
-        String DP = DF.DATAPROPS.DP.getIRI().toQuotedString();
-        String ANN = DF.ANNPROPS.ap.getIRI().toQuotedString();
-        String OP = DF.OBJPROPS.OP.getIRI().toQuotedString();
-        String c = DF.CLASSES.C.getIRI().toQuotedString();
-        return Stream.of(of(Builder.dDp, DF.IRIS.iri.toQuotedString()), of(Builder.dOp, OP),
-            of(Builder.du, c), of(Builder.ec, c), of(Builder.eDp, DF.IRIS.iri.toQuotedString()),
+        String I = INDIVIDUALS.I.getIRI().toQuotedString();
+        String DP = DATAPROPS.DP.getIRI().toQuotedString();
+        String ANN = ANNPROPS.ap.getIRI().toQuotedString();
+        String OP = OBJPROPS.OP.getIRI().toQuotedString();
+        String c = CLASSES.C.getIRI().toQuotedString();
+        return Stream.of(of(Builder.dDp, IRIS.iri.toQuotedString()), of(Builder.dOp, OP),
+            of(Builder.du, c), of(Builder.ec, c), of(Builder.eDp, IRIS.iri.toQuotedString()),
             of(Builder.eOp, OP), of(Builder.fdp, DP), of(Builder.fop, OP), of(Builder.ifp, OP),
             of(Builder.iop, OP), of(Builder.irr, OP), of(Builder.ndp, I), of(Builder.nop, I),
             of(Builder.opa, I), of(Builder.opaInv, I), of(Builder.opaInvj, I), of(Builder.oDom, OP),
@@ -42,7 +43,7 @@ class AxiomSubjectProviderExTestCase {
             of(Builder.subAnn, ANN), of(Builder.subClass, c), of(Builder.subData, DP),
             of(Builder.subObject, OP), of(Builder.rule, TestFiles.BUILT_IN_ATOM),
             of(Builder.symm, OP), of(Builder.trans, OP), of(Builder.hasKey, c),
-            of(Builder.bigRule, TestFiles.BUILT_IN_ATOM), of(Builder.ann, DF.IRIS.iri.toString()),
+            of(Builder.bigRule, TestFiles.BUILT_IN_ATOM), of(Builder.ann, IRIS.iri.toString()),
             of(Builder.asymm, OP), of(Builder.annDom, ANN), of(Builder.annRange, ANN),
             of(Builder.ass, I), of(Builder.assAnd, I), of(Builder.assOr, I),
             of(Builder.dRangeAnd, DP), of(Builder.dRangeOr, DP), of(Builder.assNot, I),
@@ -55,7 +56,7 @@ class AxiomSubjectProviderExTestCase {
             of(Builder.assD, I), of(Builder.assDPlain, I), of(Builder.dDom, DP),
             of(Builder.dRange, DP), of(Builder.dDef, TestFiles.doubl), of(Builder.decC, c),
             of(Builder.decOp, OP), of(Builder.decDp, DP),
-            of(Builder.decDt, DF.DATATYPES.DT.getIRI().toQuotedString()), of(Builder.decAp, ANN),
+            of(Builder.decDt, DATATYPES.DT.getIRI().toQuotedString()), of(Builder.decAp, ANN),
             of(Builder.decI, I), of(Builder.assDi, I), of(Builder.dc, c));
     }
 

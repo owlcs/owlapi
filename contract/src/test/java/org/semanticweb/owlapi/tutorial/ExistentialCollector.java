@@ -36,6 +36,9 @@ public class ExistentialCollector implements OWLClassExpressionVisitor {
     /* Collected axioms */
     private final Map<OWLObjectPropertyExpression, Set<OWLClassExpression>> restrictions;
 
+    /**
+     * @param restrictions restrictions to use
+     */
     public ExistentialCollector(
         Map<OWLObjectPropertyExpression, Set<OWLClassExpression>> restrictions) {
         this.restrictions = restrictions;

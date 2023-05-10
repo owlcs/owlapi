@@ -46,8 +46,9 @@ public final class SimpleHierarchyExample {
     }
 
     /**
-     * Print the class hierarchy for the given ontology from this class down, assuming this class is
-     * at the given level. Makes no attempt to deal sensibly with multiple inheritance.
+     * @param clazz Print the class hierarchy for the given ontology from this class down, assuming
+     *        this class is at the given level. Makes no attempt to deal sensibly with multiple
+     *        inheritance.
      */
     private void printHierarchy(OWLClass clazz) {
         OWLReasoner reasoner = reasonerFactory.createNonBufferingReasoner(ontology);
@@ -75,6 +76,10 @@ public final class SimpleHierarchyExample {
     /**
      * Print the class hierarchy from this class down, assuming this class is at the given level.
      * Makes no attempt to deal sensibly with multiple inheritance.
+     * 
+     * @param reasoner reasoner to use
+     * @param clazz class
+     * @param level level
      */
     private void printHierarchy(OWLReasoner reasoner, OWLClass clazz, int level) {
         /*
@@ -91,6 +96,10 @@ public final class SimpleHierarchyExample {
         }
     }
 
+    /**
+     * @param args arguments
+     * @throws Exception exception
+     */
     public static void main(String[] args) throws Exception {
         String reasonerFactoryClassName = null;
         // We first need to obtain a copy of an

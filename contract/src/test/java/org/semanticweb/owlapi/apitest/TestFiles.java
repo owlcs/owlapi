@@ -11,6 +11,7 @@ import java.util.List;
 
 import org.apache.commons.io.IOUtils;
 
+@SuppressWarnings("javadoc")
 public class TestFiles {
 
     private static final String TEST_J = "<http://www.semanticweb.org/owlapi/test#j>";

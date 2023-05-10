@@ -733,6 +733,9 @@ class TutorialSnippetsTestCase {
     /**
      * Print the class hierarchy for the given ontology from this class down, assuming this class is
      * at the given level. Makes no attempt to deal sensibly with multiple inheritance.
+     * 
+     * @param o ontology
+     * @param clazz class
      */
     public void printHierarchy(OWLOntology o, OWLClass clazz) {
         OWLReasoner reasoner = reasonerFactory.createNonBufferingReasoner(o);

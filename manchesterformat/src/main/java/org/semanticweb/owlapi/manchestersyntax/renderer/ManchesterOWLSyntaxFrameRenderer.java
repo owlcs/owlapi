@@ -1085,8 +1085,8 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
     }
 
     protected void handleCollectionElement(Object obj) {
-        if (obj instanceof OWLObject o) {
-            o.accept(this);
+        if (obj instanceof OWLObject ob) {
+            ob.accept(this);
         } else {
             write(obj.toString());
         }

@@ -14,7 +14,6 @@ package org.semanticweb.owlapi.apitest;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.params.provider.Arguments.of;
-import static org.semanticweb.owlapi.utilities.OWLAPIStreamUtils.asUnorderedSet;
 
 import java.util.Collection;
 import java.util.Set;
@@ -23,7 +22,7 @@ import java.util.stream.Stream;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
-import org.semanticweb.owlapi.apitest.baseclasses.DF;
+import org.semanticweb.owlapi.apitest.baseclasses.Builder;
 import org.semanticweb.owlapi.apitest.baseclasses.TestBase;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClassExpression;
@@ -33,12 +32,12 @@ class OWLClassExpressionCollectorTestCase extends TestBase {
 
 
     static Stream<Arguments> getData() {
-        String CI = DF.CLASSES.C.getIRI().toQuotedString();
-        String IRII = DF.IRIS.iri.toQuotedString();
-        String dt = DF.DATATYPES.DT.getIRI().toQuotedString();
-        String p = DF.DATAPROPS.DP.getIRI().toQuotedString();
-        String op = DF.OBJPROPS.OP.getIRI().toQuotedString();
-        String i = DF.INDIVIDUALS.I.getIRI().toQuotedString();
+        String CI = CLASSES.C.getIRI().toQuotedString();
+        String IRII = IRIS.iri.toQuotedString();
+        String dt = DATATYPES.DT.getIRI().toQuotedString();
+        String p = DATAPROPS.DP.getIRI().toQuotedString();
+        String op = OBJPROPS.OP.getIRI().toQuotedString();
+        String i = INDIVIDUALS.I.getIRI().toQuotedString();
         Set<String> empty = set();
         Set<String> ci = TestBase.set(CI);
         Set<String> ciIrii = set(CI, IRII);
@@ -87,7 +86,6 @@ class OWLClassExpressionCollectorTestCase extends TestBase {
     void testAssertion(OWLAxiom ax, Set<String> expected) {
         OWLClassExpressionCollector testsubject = new OWLClassExpressionCollector();
         Collection<OWLClassExpression> components = ax.accept(testsubject);
-        Set<String> strings = asUnorderedSet(components.stream().map(Object::toString));
         assertEquals(str(expected), str(components));
     }
 }

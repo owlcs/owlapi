@@ -22,8 +22,6 @@ import org.semanticweb.owlapi.model.OWLOntology;
 
 class AnonymousFunctionalRoundtripTestCase extends TestBase {
 
-    private static final String NS = "http://namespace.owl";
-
     @Test
     void shouldRoundTripFixed() {
         loadFrom(TestFiles.FIXED, new FunctionalSyntaxDocumentFormat());

@@ -120,8 +120,8 @@ class HashCodeTestCase extends TestBase {
 
     @Test
     void shouldHaveSameHashCodeForOntologies1() {
-        OWLOntologyID id1 = OntologyID(iri("http://purl.org/dc/elements/1.1/", ""), null);
-        OWLOntologyID id2 = OntologyID(iri("http://purl.org/dc/elements/1.1/", ""), null);
+        OWLOntologyID id1 = OntologyID(iri("http://purl.org/dc/elements/1.1/", ""));
+        OWLOntologyID id2 = OntologyID(iri("http://purl.org/dc/elements/1.1/", ""));
         assertEquals(id1, id2);
         assertEquals(id1.hashCode(), id2.hashCode());
     }

@@ -1,5 +1,6 @@
 package org.semanticweb.owlapi.apitest;
 
+@SuppressWarnings("javadoc")
 public class TestFilenames {
     public static final String ANNOTATED_IMPORT_OBO = "annotated_import.obo";
     public static final String ANNOTATED_NO_OVERLAP_OBO = "annotated_no_overlap.obo";

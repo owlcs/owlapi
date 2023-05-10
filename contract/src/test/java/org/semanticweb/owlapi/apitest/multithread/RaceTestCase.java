@@ -91,7 +91,6 @@ class RaceTestCase extends TestBase {
 
     static class RaceTestCaseRunner {
 
-        static final String NS = "http://www.race.org#";
         protected RaceCallback callback;
         final AtomicBoolean done = new AtomicBoolean(false);
         ExecutorService exec = Executors.newFixedThreadPool(5);

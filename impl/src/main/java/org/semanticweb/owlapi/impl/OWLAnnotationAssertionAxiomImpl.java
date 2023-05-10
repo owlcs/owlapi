@@ -64,7 +64,7 @@ public class OWLAnnotationAssertionAxiomImpl extends OWLAxiomImpl
      * 
      * @return {@code true} if this annotation assertion deprecates the subject IRI of the
      *         assertion, otherwise {@code false}.
-     * @see org.semanticweb.owlapi.impl.model.OWLAnnotation#isDeprecatedIRIAnnotation()
+     * @see org.semanticweb.owlapi.model.OWLAnnotation#isDeprecatedIRIAnnotation()
      */
     @Override
     public boolean isDeprecatedIRIAssertion() {

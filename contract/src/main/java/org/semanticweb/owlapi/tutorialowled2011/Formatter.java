@@ -23,6 +23,12 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * Utility to format code as TeX for BeamberBoxesRounded template
+ * 
+ * @author ignazio
+ *
+ */
 public final class Formatter {
 
     private static final String BEAMERBOXESROUNDED = "beamerboxesrounded";
@@ -32,6 +38,10 @@ public final class Formatter {
 
     private Formatter() {}
 
+    /**
+     * @param args arguments
+     * @throws Exception exception
+     */
     public static void main(String[] args) throws Exception {
         Map<String, String> specials = new HashMap<>();
         specials.put("public void test", BEGIN_BEAMERBOXESROUNDED);
@@ -42,14 +52,14 @@ public final class Formatter {
             "../OWLAPI3/tutorial2011/uk/ac/manchester/owl/owlapi/tutorialowled2011/TutorialSnippets.java")))) {
             String line = r.readLine();
             while (line != null) {
-                formatLine(specials, keywords, stringPattern, line.trim(), System.out);
+                formatLine(specials, keywords, line.trim(), System.out);
                 line = r.readLine();
             }
         }
     }
 
-    protected static void formatLine(Map<String, String> specials, String[] keywords,
-        Pattern stringPattern, String l, PrintStream out) {
+    protected static void formatLine(Map<String, String> specials, String[] keywords, String l,
+        PrintStream out) {
         String line = l;
         if (line.isEmpty()) {
             out.println("\\end{" + BEAMERBOXESROUNDED + "}\n\n");

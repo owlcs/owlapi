@@ -22,7 +22,6 @@ import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Stream;
 
-import org.semanticweb.owlapi.apitest.baseclasses.DF;
 import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
@@ -46,10 +45,18 @@ public class AnonymousIndividualsNormaliser extends OWLObjectDuplicator {
         super(Collections.emptyMap(), Collections.emptyMap(), m);
     }
 
+    /**
+     * @param axioms axioms to normalise
+     * @return normalised axioms
+     */
     public Set<OWLAxiom> getNormalisedAxioms(Collection<OWLAxiom> axioms) {
         return getNormalisedAxioms(axioms.stream());
     }
 
+    /**
+     * @param axioms axioms to normalise
+     * @return normalised axioms
+     */
     public Set<OWLAxiom> getNormalisedAxioms(Stream<OWLAxiom> axioms) {
         return asSet(axioms.map(this::t));
     }
@@ -57,6 +64,6 @@ public class AnonymousIndividualsNormaliser extends OWLObjectDuplicator {
     @Override
     public OWLAnonymousIndividual visit(OWLAnonymousIndividual individual) {
         return renamingMap.computeIfAbsent(individual,
-            x -> DF.AnonymousIndividual("anon-ind-" + counter.incrementAndGet()));
+            x -> df.getOWLAnonymousIndividual("anon-ind-" + counter.incrementAndGet()));
     }
 }

@@ -94,7 +94,7 @@ import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
  * @author Sean Bechhofer, The University Of Manchester, Information Management Group
  * @since 2.0.0
  */
-public class OWLTutorialSyntaxObjectRenderer implements OWLObjectVisitor {
+class OWLTutorialSyntaxObjectRenderer implements OWLObjectVisitor {
 
     private static final String SUB_PROPERTY = "subProperty";
     private static final String ENDSPAN = "</span>";

@@ -303,7 +303,7 @@ public final class Searcher {
      */
     public static <C extends OWLObject> Stream<C> equivalent(Stream<? extends OWLAxiom> axioms,
         Class<C> type) {
-        return axioms.flatMap(ax -> equivalent(ax, type));
+        return axioms.flatMap(ax -> equivalent(ax).map(type::cast));
     }
 
     /**
@@ -314,18 +314,6 @@ public final class Searcher {
      * @return equivalent entities
      */
     public static <C extends OWLObject> Stream<C> equivalent(OWLAxiom axiom) {
-        return axiom.accept(new EquivalentVisitor<C>(true));
-    }
-
-    /**
-     * Retrieve equivalent entities from an axiom, including individuals from sameAs axioms.
-     *
-     * @param axiom axiom
-     * @param type type returned
-     * @param <C> type contained in the returned collection
-     * @return equivalent entities
-     */
-    public static <C extends OWLObject> Stream<C> equivalent(OWLAxiom axiom, Class<C> type) {
         return axiom.accept(new EquivalentVisitor<C>(true));
     }
 
@@ -355,7 +343,7 @@ public final class Searcher {
      */
     public static <C extends OWLObject> Stream<C> different(Stream<? extends OWLAxiom> axioms,
         Class<C> type) {
-        return axioms.flatMap(ax -> different(ax, type));
+        return axioms.flatMap(ax -> different(ax).map(type::cast));
     }
 
     /**
@@ -366,19 +354,6 @@ public final class Searcher {
      * @return disjoint entities
      */
     public static <C extends OWLObject> Stream<C> different(OWLAxiom axiom) {
-        return axiom.accept(new EquivalentVisitor<C>(false));
-    }
-
-    /**
-     * Retrieve disjoint entities from an axiom, including individuals from differentFrom axioms.
-     *
-     * @param <C> returned type
-     * @param axiom axiom
-     * @param type witness for returned type
-     * @return disjoint entities
-     */
-    public static <C extends OWLObject> Stream<C> different(OWLAxiom axiom,
-        @SuppressWarnings("unused") Class<C> type) {
         return axiom.accept(new EquivalentVisitor<C>(false));
     }
 
@@ -408,7 +383,7 @@ public final class Searcher {
      */
     public static <C extends OWLObject> Stream<C> sub(Stream<? extends OWLAxiom> axioms,
         Class<C> type) {
-        return axioms.map(ax -> sub(ax, type));
+        return axioms.map(ax -> type.cast(sub(ax)));
     }
 
     /**
@@ -425,21 +400,6 @@ public final class Searcher {
     }
 
     /**
-     * Retrieve the sub part of an axiom, i.e., subclass or subproperty. A mixture of axiom types
-     * can be passed in, as long as the entity type they contain is compatible with the return type
-     * for the collection.
-     *
-     * @param <C> returned type
-     * @param axiom axiom
-     * @param type witness for returned type
-     * @return sub expressions
-     */
-    public static <C extends OWLObject> C sub(OWLAxiom axiom,
-        @SuppressWarnings("unused") Class<C> type) {
-        return axiom.accept(new SupSubVisitor<C>(false));
-    }
-
-    /**
      * Retrieve the super part of axioms, i.e., superclass or super property. A mixture of axiom
      * types can be passed in, as long as the entity type they contain is compatible with the return
      * type for the collection.
@@ -451,7 +411,7 @@ public final class Searcher {
      */
     public static <C extends OWLObject> Stream<C> sup(Stream<? extends OWLAxiom> axioms,
         Class<C> type) {
-        return axioms.map(ax -> sup(ax, type));
+        return axioms.map(ax -> type.cast(sup(ax)));
     }
 
     /**
@@ -482,21 +442,6 @@ public final class Searcher {
     }
 
     /**
-     * Retrieve the super part of an axiom, i.e., superclass or superproperty. A mixture of axiom
-     * types can be passed in, as long as the entity type they contain is compatible with the return
-     * type for the collection.
-     *
-     * @param <C> returned type
-     * @param axiom axiom
-     * @param type witness for returned type
-     * @return sub expressions
-     */
-    public static <C extends OWLObject> C sup(OWLAxiom axiom,
-        @SuppressWarnings("unused") Class<C> type) {
-        return axiom.accept(new SupSubVisitor<C>(true));
-    }
-
-    /**
      * Retrieve the domains from domain axioms. A mixture of axiom types can be passed in.
      *
      * @param <C> returned type
@@ -518,7 +463,7 @@ public final class Searcher {
      */
     public static <C extends OWLObject> Stream<C> domain(Stream<? extends OWLAxiom> axioms,
         Class<C> type) {
-        return axioms.map(ax -> domain(ax, type));
+        return axioms.map(ax -> type.cast(domain(ax)));
     }
 
     /**
@@ -529,19 +474,6 @@ public final class Searcher {
      * @return sub expressions
      */
     public static <C extends OWLObject> C domain(OWLAxiom axiom) {
-        return axiom.accept(new DomainVisitor<C>());
-    }
-
-    /**
-     * Retrieve the domains from domain axioms. A mixture of axiom types can be passed in.
-     *
-     * @param <C> returned type
-     * @param axiom axiom
-     * @param type witness for returned type
-     * @return sub expressions
-     */
-    public static <C extends OWLObject> C domain(OWLAxiom axiom,
-        @SuppressWarnings("unused") Class<C> type) {
         return axiom.accept(new DomainVisitor<C>());
     }
 
@@ -567,7 +499,7 @@ public final class Searcher {
      */
     public static <C extends OWLObject> Stream<C> range(Stream<? extends OWLAxiom> axioms,
         Class<C> type) {
-        return axioms.map(ax -> range(ax, type));
+        return axioms.map(ax -> type.cast(range(ax)));
     }
 
     /**
@@ -581,18 +513,6 @@ public final class Searcher {
         return axiom.accept(new RangeVisitor<C>());
     }
 
-    /**
-     * Retrieve the ranges from a range axiom. A mixture of axiom types can be passed in.
-     *
-     * @param <C> returned type
-     * @param axiom axiom
-     * @param type witness for returned type
-     * @return sub expressions
-     */
-    public static <C extends OWLObject> C range(OWLAxiom axiom,
-        @SuppressWarnings("unused") Class<C> type) {
-        return axiom.accept(new RangeVisitor<C>());
-    }
 
     /**
      * Transform a {@code Stream} of ontologies into a {@code Stream} of IRIs of those ontologies.

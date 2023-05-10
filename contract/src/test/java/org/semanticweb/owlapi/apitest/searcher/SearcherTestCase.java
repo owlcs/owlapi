@@ -34,8 +34,6 @@ import org.semanticweb.owlapi.search.Searcher;
 
 class SearcherTestCase extends TestBase {
 
-    private static final String URN_TEST = "urn:test#";
-
     @Test
     void shouldSearch() {
         // given
