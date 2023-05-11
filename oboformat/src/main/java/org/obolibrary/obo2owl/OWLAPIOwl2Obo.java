@@ -171,8 +171,6 @@ public class OWLAPIOwl2Obo {
 
     protected final void init() {
         idSpaceMap = new HashMap<>();
-        // legacy:
-        idSpaceMap.put("http://www.obofoundry.org/ro/ro.owl#", "OBO_REL");
         untranslatableAxioms = new HashSet<>();
         apToDeclare = new HashSet<>();
     }
