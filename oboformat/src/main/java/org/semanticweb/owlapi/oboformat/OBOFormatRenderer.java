@@ -52,6 +52,9 @@ public class OBOFormatRenderer implements OWLRenderer {
         OWLDocumentFormat format) throws OWLOntologyStorageException {
         try {
             OWLAPIOwl2Obo translator = new OWLAPIOwl2Obo(ontology.getOWLOntologyManager());
+            if (format.isPrefixOWLOntologyFormat()) {
+                translator.setPrefixManager(format.asPrefixOWLOntologyFormat());
+            }
             final OBODoc result = translator.convert(ontology);
             boolean hasImports = ontology.getImports().isEmpty() == false;
             NameProvider nameProvider;

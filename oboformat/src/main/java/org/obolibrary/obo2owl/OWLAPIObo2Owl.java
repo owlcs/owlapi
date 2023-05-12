@@ -253,6 +253,10 @@ public class OWLAPIObo2Owl {
         this.obodoc = obodoc;
     }
 
+    public Map<String, String> getIdSpaceMap() {
+        return Collections.unmodifiableMap(this.idSpaceMap);
+    }
+
     /**
      * Gets the owl ontology.
      * 
@@ -550,7 +554,7 @@ public class OWLAPIObo2Owl {
             } else if (tag == OboFormatTag.TAG_IDSPACE) {
                 for (Clause clause : headerFrame.getClauses(t)) {
                     Object[] values = clause.getValues().toArray();
-                    String prefix = values[0].toString() + '_';
+                    String prefix = values[0].toString();
                     String baseurl = values[1].toString();
                     idSpaceMap.put(prefix, baseurl);
                 }

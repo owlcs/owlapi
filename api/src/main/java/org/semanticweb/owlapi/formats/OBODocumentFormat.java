@@ -21,7 +21,7 @@ import org.semanticweb.owlapi.model.OWLDocumentFormatImpl;
  *         Informatics Group
  * @since 2.0.0
  */
-public class OBODocumentFormat extends OWLDocumentFormatImpl {
+public class OBODocumentFormat extends PrefixDocumentFormatImpl {
 
     /**
      * Key for validation parameter. Currently supports Boolean.TRUE and
@@ -36,14 +36,4 @@ public class OBODocumentFormat extends OWLDocumentFormatImpl {
         return "OBO Format";
     }
 
-    @Override
-    public boolean isPrefixOWLOntologyFormat() {
-        return false;
-    }
-
-    @Override
-    public PrefixDocumentFormat asPrefixOWLOntologyFormat() {
-        throw new UnsupportedOperationException(getClass().getName()
-                + " is not a PrefixDocumentFormat");
-    }
 }
