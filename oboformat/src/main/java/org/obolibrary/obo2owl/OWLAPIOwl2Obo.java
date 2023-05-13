@@ -1741,7 +1741,7 @@ public class OWLAPIOwl2Obo {
                 String propId = getIdentifierFromObject(ax.getProperty().getIRI(), ont, namespaceToPrefixMap);
                 // see BFOROXrefTest
                 // 5.9.3. Special Rules for Relations
-                if (propId.equals("shorthand")) {
+                if (propId != null && propId.equals("shorthand")) {
                     OWLAnnotationValue value = ax.getValue();
                     if (value instanceof OWLLiteral) {
                         return ((OWLLiteral) value).getLiteral();
