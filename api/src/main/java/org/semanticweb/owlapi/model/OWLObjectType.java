@@ -287,8 +287,8 @@ public enum OWLObjectType {
         }
         // comparing literals of the same primitive subclass can be achieved with fewer object
         // creations
-        if (first instanceof OWLLiteral) {
-            return specificEquals((OWLLiteral) first, (OWLLiteral) second);
+        if (first instanceof OWLLiteral f1) {
+            return specificEquals(f1, (OWLLiteral) second);
         }
         return useFunctionsForEqual(first, second);
     }

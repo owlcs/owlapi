@@ -488,27 +488,26 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor, OWLObje
 
     @Override
     public void doDefault(OWLObject object) {
-        if (object instanceof OWLEntity) {
-            printConditionally((OWLEntity) object);
+        if (object instanceof OWLEntity e) {
+            printConditionally(e);
             return;
         }
-        if (object instanceof OWLCardinalityRestriction) {
-            writeRestriction((OWLCardinalityRestriction<?>) object);
+        if (object instanceof OWLCardinalityRestriction<?> v) {
+            writeRestriction(v);
             return;
         }
         if (object instanceof OWLNaryDataRange || object instanceof OWLNaryBooleanClassExpression) {
             writeSingleton(object);
             return;
         }
-        if (object instanceof OWLNaryAxiom
-            && ((OWLNaryAxiom<?>) object).getOperandsAsList().size() < 2) {
+        if (object instanceof OWLNaryAxiom<?> nax && nax.getOperandsAsList().size() < 2) {
             LOGGER.warn("{} with less than two elements skipped {}",
                 object.getClass().getSimpleName(), object);
             return;
         }
         name(object).writeOpenBracket();
-        if (object instanceof HasAnnotations) {
-            writeAnnotations((HasAnnotations) object);
+        if (object instanceof HasAnnotations v) {
+            writeAnnotations(v);
         }
         iterate(object.componentStream()).writeCloseBracket();
     }
@@ -535,8 +534,8 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor, OWLObje
             Object o = it.next();
             if (o instanceof Collection) {
                 render((Collection<? extends OWLObject>) o);
-            } else if (o instanceof OWLObject) {
-                accept((OWLObject) o);
+            } else if (o instanceof OWLObject obj) {
+                accept(obj);
             } else {
                 write(o.toString());
             }
@@ -620,8 +619,7 @@ public class FunctionalSyntaxObjectRenderer implements OWLObjectVisitor, OWLObje
     }
 
     boolean annotations(OWLAxiom ax, IRI i) {
-        return ax instanceof OWLAnnotationAssertionAxiom
-            && ((OWLAnnotationAssertionAxiom) ax).getSubject().equals(i);
+        return ax instanceof OWLAnnotationAssertionAxiom ann && ann.getSubject().equals(i);
     }
 
     @Override

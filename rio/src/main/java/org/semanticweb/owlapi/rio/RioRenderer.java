@@ -237,12 +237,11 @@ public class RioRenderer extends RDFRendererBase {
     protected void recurseOnNestedResources(List<RDFTriple> list) {
         Set<RDFResource> subnodes = new HashSet<>();
         for (int i = 0; i < list.size(); i++) {
-            if (list.get(i).getObject() instanceof RDFResource node) {
-                if (!pending.contains(node) && subnodes.add(node) && graph != null) {
-                    final Collection<RDFTriple> triples = graph.getTriplesForSubject(node);
-                    trace(triples);
-                    addNewTriples(list, i, triples);
-                }
+            if (list.get(i).getObject() instanceof RDFResource node && !pending.contains(node)
+                && subnodes.add(node) && graph != null) {
+                final Collection<RDFTriple> triples = graph.getTriplesForSubject(node);
+                trace(triples);
+                addNewTriples(list, i, triples);
             }
         }
     }

@@ -27,8 +27,7 @@ import org.semanticweb.owlapi.model.PrefixManager;
 /**
  * Represents International Resource Identifiers.
  *
- * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group
+ * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 6.0.0
  */
 public class IRIImpl implements IRI {
@@ -38,13 +37,10 @@ public class IRIImpl implements IRI {
     private final int hash;
 
     /**
-     * Constructs an IRI which is built from the concatenation of the specified
-     * prefix and suffix.
+     * Constructs an IRI which is built from the concatenation of the specified prefix and suffix.
      *
-     * @param prefix
-     *        The prefix.
-     * @param suffix
-     *        The suffix.
+     * @param prefix The prefix.
+     * @param suffix The suffix.
      */
     protected IRIImpl(String prefix, @Nullable String suffix) {
         namespace = prefix;
@@ -76,8 +72,7 @@ public class IRIImpl implements IRI {
         if (!o.isIRI()) {
             return -1;
         }
-        if (o instanceof IRIImpl) {
-            IRIImpl other = (IRIImpl) o;
+        if (o instanceof IRIImpl other) {
             int diff = namespace.compareTo(other.namespace);
             if (diff != 0) {
                 return diff;
@@ -110,18 +105,16 @@ public class IRIImpl implements IRI {
         if (obj == this) {
             return true;
         }
-        if (obj instanceof IRIImpl) {
-            IRIImpl other = (IRIImpl) obj;
+        if (obj instanceof IRIImpl other) {
             return remainder.equals(other.remainder) && other.namespace.equals(namespace);
         }
         // Commons RDF IRI equals() contract
-        if (obj instanceof org.apache.commons.rdf.api.IRI) {
-            org.apache.commons.rdf.api.IRI iri = (org.apache.commons.rdf.api.IRI) obj;
+        if (obj instanceof org.apache.commons.rdf.api.IRI iri) {
             return ntriplesString().equals(iri.ntriplesString());
         }
-        if (obj instanceof IRI) {
-            IRI other = (IRI) obj;
-            return getFragment().equals(other.getFragment()) && other.getNamespace().equals(getNamespace());
+        if (obj instanceof IRI other) {
+            return getFragment().equals(other.getFragment())
+                && other.getNamespace().equals(getNamespace());
         }
         return false;
     }

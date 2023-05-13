@@ -267,8 +267,8 @@ public final class Searcher {
     public static Stream<OWLAnnotation> annotations(OWLAxiom axiom,
         @Nullable OWLAnnotationProperty p) {
         Stream<OWLAnnotation> stream = empty();
-        if (axiom instanceof OWLAnnotationAssertionAxiom) {
-            stream = Stream.of(((OWLAnnotationAssertionAxiom) axiom).getAnnotation());
+        if (axiom instanceof OWLAnnotationAssertionAxiom ann) {
+            stream = Stream.of(ann.getAnnotation());
         }
         stream = Stream.concat(stream, axiom.annotations()).distinct().sorted();
         if (p != null) {

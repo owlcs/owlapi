@@ -140,9 +140,9 @@ public class SWRLRuleImpl extends OWLLogicalAxiomImpl implements SWRLRule {
             return false;
         }
         // For same implementation instances, no need to create or sort sets
-        if (obj instanceof SWRLRuleImpl) {
-            return body.equals(((SWRLRuleImpl) obj).body) && head.equals(((SWRLRuleImpl) obj).head)
-                && equalStreams(annotations(), ((SWRLRuleImpl) obj).annotations());
+        if (obj instanceof SWRLRuleImpl r) {
+            return body.equals(r.body) && head.equals(r.head)
+                && equalStreams(annotations(), r.annotations());
         }
         // For different implementations, just use sets, do not sort
         SWRLRule other = (SWRLRule) obj;

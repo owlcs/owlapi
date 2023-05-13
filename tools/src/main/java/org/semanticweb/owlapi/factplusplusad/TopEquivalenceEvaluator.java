@@ -94,10 +94,8 @@ class TopEquivalenceEvaluator extends SigAccessor implements OWLObjectVisitor {
         }
         if (c instanceof OWLDatatype dt) {
             // string/time are infinite DT
-            if (OWL2Datatype.XSD_STRING.matches(dt) || OWL2Datatype.XSD_DATE_TIME.matches(dt)
-                || OWL2Datatype.XSD_DATE_TIME_STAMP.matches(dt)) {
-                return true;
-            }
+            return OWL2Datatype.XSD_STRING.matches(dt) || OWL2Datatype.XSD_DATE_TIME.matches(dt)
+                || OWL2Datatype.XSD_DATE_TIME_STAMP.matches(dt);
         }
         // FIXME!! try to be more precise
         return false;

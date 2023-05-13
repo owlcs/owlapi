@@ -43,8 +43,8 @@ public class OWLObjectComparator implements Comparator<OWLObject> {
     @Override
     public int compare(@Nullable OWLObject o1, @Nullable OWLObject o2) {
         // if both objects are entities, compare their short forms
-        if (o1 instanceof OWLEntity && o2 instanceof OWLEntity) {
-            return entityComparator.compare((OWLEntity) o1, (OWLEntity) o2);
+        if (o1 instanceof OWLEntity e1 && o2 instanceof OWLEntity e2) {
+            return entityComparator.compare(e1, e2);
         }
         return verifyNotNull(o1).compareTo(o2);
     }

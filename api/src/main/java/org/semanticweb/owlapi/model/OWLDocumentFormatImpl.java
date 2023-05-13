@@ -36,8 +36,8 @@ public abstract class OWLDocumentFormatImpl implements OWLDocumentFormat {
         if (obj == this) {
             return true;
         }
-        if (obj instanceof OWLDocumentFormat) {
-            return ((OWLDocumentFormat) obj).getKey().equals(getKey());
+        if (obj instanceof OWLDocumentFormat f) {
+            return f.getKey().equals(getKey());
         }
         return false;
     }

@@ -63,7 +63,9 @@ import org.semanticweb.owlapi.documents.RDFResource;
 import org.semanticweb.owlapi.documents.RDFResourceBlankNode;
 import org.semanticweb.owlapi.documents.RDFResourceIRI;
 import org.semanticweb.owlapi.documents.RDFTriple;
+import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.HasIRI;
+import org.semanticweb.owlapi.model.HasOperands;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLAnnotationSubject;
@@ -86,6 +88,7 @@ import org.semanticweb.owlapi.model.OWLEquivalentObjectPropertiesAxiom;
 import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLInverseObjectPropertiesAxiom;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
+import org.semanticweb.owlapi.model.OWLNaryAxiom;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLObjectInverseOf;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
@@ -362,15 +365,20 @@ public abstract class RDFRendererBase {
     private void writeEntityComment(OWLEntity entity) {
         if (entity.isOWLClass()) {
             writeClassComment(entity.asOWLClass());
-        } else if (entity.isOWLDatatype()) {
+        }
+        if (entity.isOWLDatatype()) {
             writeDatatypeComment(entity.asOWLDatatype());
-        } else if (entity.isOWLObjectProperty()) {
+        }
+        if (entity.isOWLObjectProperty()) {
             writeObjectPropertyComment(entity.asOWLObjectProperty());
-        } else if (entity.isOWLDataProperty()) {
+        }
+        if (entity.isOWLDataProperty()) {
             writeDataPropertyComment(entity.asOWLDataProperty());
-        } else if (entity.isOWLAnnotationProperty()) {
+        }
+        if (entity.isOWLAnnotationProperty()) {
             writeAnnotationPropertyComment(entity.asOWLAnnotationProperty());
-        } else if (entity.isOWLNamedIndividual()) {
+        }
+        if (entity.isOWLNamedIndividual()) {
             writeIndividualComments(entity.asOWLNamedIndividual());
         }
     }
@@ -415,9 +423,8 @@ public abstract class RDFRendererBase {
 
     protected static boolean includeInSingleTriple(OWLAxiom ax, OWLIndividual possibleSubject) {
         if (ax instanceof OWLDifferentIndividualsAxiom d) {
-            List<OWLIndividual> individualsAsList = d.getOperandsAsList();
-            return individualsAsList.size() == 2
-                && possibleSubject.equals(individualsAsList.get(0));
+            List<OWLIndividual> inds = d.getOperandsAsList();
+            return inds.size() == 2 && possibleSubject.equals(inds.get(0));
         }
         return true;
     }
@@ -478,16 +485,22 @@ public abstract class RDFRendererBase {
         List<OWLAxiom> generalAxioms = new ArrayList<>();
         add(generalAxioms, ontology.generalClassAxioms());
         add(generalAxioms, ontology.axioms(DIFFERENT_INDIVIDUALS));
-        add(generalAxioms,
-            ontology.axioms(DISJOINT_CLASSES).filter(ax -> ax.getOperandsAsList().size() > 2));
-        add(generalAxioms, ontology.axioms(DISJOINT_OBJECT_PROPERTIES)
-            .filter(ax -> ax.getOperandsAsList().size() > 2));
-        add(generalAxioms, ontology.axioms(DISJOINT_DATA_PROPERTIES)
-            .filter(ax -> ax.getOperandsAsList().size() > 2));
+        add(generalAxioms, axomsWithMoreThantwoOperands(DISJOINT_CLASSES));
+        add(generalAxioms, axomsWithMoreThantwoOperands(DISJOINT_OBJECT_PROPERTIES));
+        add(generalAxioms, axomsWithMoreThantwoOperands(DISJOINT_DATA_PROPERTIES));
         add(generalAxioms,
             ontology.axioms(HAS_KEY).filter(ax -> ax.getClassExpression().isAnonymous()));
         generalAxioms.sort(null);
         return generalAxioms;
+    }
+
+    Stream<OWLAxiom> axomsWithMoreThantwoOperands(AxiomType<? extends OWLNaryAxiom<?>> t) {
+        return ontology.axioms(t).filter(RDFRendererBase::moreThanTwoOperands)
+            .map(OWLAxiom.class::cast);
+    }
+
+    static boolean moreThanTwoOperands(HasOperands<?> c) {
+        return c.getOperandsAsList().size() > 2;
     }
 
     protected void renderOntologyHeader() {
@@ -620,21 +633,13 @@ public abstract class RDFRendererBase {
         }
 
         static boolean inverse(OWLAxiom ax, OWLNamedIndividual i) {
-            if (ax instanceof OWLObjectPropertyAssertionAxiom candidate) {
-                if (candidate.getProperty().isAnonymous() && candidate.getObject().equals(i)) {
-                    return true;
-                }
-            }
-            return false;
+            return ax instanceof OWLObjectPropertyAssertionAxiom candidate
+                && candidate.getProperty().isAnonymous() && candidate.getObject().equals(i);
         }
 
         static boolean inverseFirst(OWLAxiom ax, OWLNamedIndividual i) {
-            if (ax instanceof OWLObjectPropertyAssertionAxiom candidate) {
-                if (candidate.getProperty().isAnonymous() && candidate.getSubject().equals(i)) {
-                    return false;
-                }
-            }
-            return true;
+            return !(ax instanceof OWLObjectPropertyAssertionAxiom candidate
+                && candidate.getProperty().isAnonymous() && candidate.getSubject().equals(i));
         }
 
         @Override
@@ -645,57 +650,33 @@ public abstract class RDFRendererBase {
         }
 
         static boolean equiv(OWLAxiom ax, OWLClass cls) {
-            if (ax instanceof OWLEquivalentClassesAxiom invAxiom) {
-                if (!invAxiom.getOperandsAsList().get(0).equals(cls)) {
-                    return false;
-                }
-            }
-            return true;
+            return !(ax instanceof OWLEquivalentClassesAxiom invAxiom
+                && !firstOperand(invAxiom, cls));
         }
 
         static boolean disjoint(OWLAxiom ax, OWLClass cls) {
-            if (ax instanceof OWLDisjointClassesAxiom invAxiom) {
-                if (!invAxiom.getOperandsAsList().get(0).equals(cls)) {
-                    return false;
-                }
-            }
-            return true;
+            return !(ax instanceof OWLDisjointClassesAxiom invAxiom
+                && !firstOperand(invAxiom, cls));
         }
 
         static boolean disjoint(OWLAxiom ax, OWLDataProperty cls) {
-            if (ax instanceof OWLDisjointDataPropertiesAxiom invAxiom) {
-                if (!invAxiom.getOperandsAsList().get(0).equals(cls)) {
-                    return false;
-                }
-            }
-            return true;
+            return !(ax instanceof OWLDisjointDataPropertiesAxiom invAxiom
+                && !firstOperand(invAxiom, cls));
         }
 
         static boolean disjoint(OWLAxiom ax, OWLObjectProperty cls) {
-            if (ax instanceof OWLDisjointObjectPropertiesAxiom invAxiom) {
-                if (!invAxiom.getOperandsAsList().get(0).equals(cls)) {
-                    return false;
-                }
-            }
-            return true;
+            return !(ax instanceof OWLDisjointObjectPropertiesAxiom invAxiom
+                && !firstOperand(invAxiom, cls));
         }
 
         static boolean equiv(OWLAxiom ax, OWLDataProperty cls) {
-            if (ax instanceof OWLEquivalentDataPropertiesAxiom invAxiom) {
-                if (!invAxiom.getOperandsAsList().get(0).equals(cls)) {
-                    return false;
-                }
-            }
-            return true;
+            return !(ax instanceof OWLEquivalentDataPropertiesAxiom invAxiom
+                && !firstOperand(invAxiom, cls));
         }
 
         static boolean equiv(OWLAxiom ax, OWLObjectProperty cls) {
-            if (ax instanceof OWLEquivalentObjectPropertiesAxiom invAxiom) {
-                if (!invAxiom.getOperandsAsList().get(0).equals(cls)) {
-                    return false;
-                }
-            }
-            return true;
+            return !(ax instanceof OWLEquivalentObjectPropertiesAxiom invAxiom
+                && !firstOperand(invAxiom, cls));
         }
 
         @Override
@@ -743,46 +724,36 @@ public abstract class RDFRendererBase {
         }
 
         static boolean inverse(OWLAxiom ax, OWLObjectProperty p) {
-            if (ax instanceof OWLInverseObjectPropertiesAxiom invAxiom) {
-                // inverse properties axioms where the first property is not the
-                // property being
-                // rendered will be rendered when the first property is rendered
-                if (!invAxiom.getFirstProperty().equals(p)) {
-                    return false;
-                }
-            }
-            return true;
+            // inverse properties axioms where the first property is not the
+            // property being
+            // rendered will be rendered when the first property is rendered
+            return !(ax instanceof OWLInverseObjectPropertiesAxiom invAxiom
+                && !invAxiom.getFirstProperty().equals(p));
         }
 
         static boolean same(OWLAxiom ax, OWLIndividual i) {
-            if (ax instanceof OWLSameIndividualAxiom invAxiom) {
-                // inverse properties axioms where the first property is not the
-                // property being
-                // rendered will be rendered when the first property is rendered
-                if (!invAxiom.getOperandsAsList().get(0).equals(i)) {
-                    return false;
-                }
-            }
-            return true;
+            // same individual axioms where the first individual is not the
+            // individual being
+            // rendered will be rendered when the first individual is rendered
+            return !(ax instanceof OWLSameIndividualAxiom invAxiom && !firstOperand(invAxiom, i));
+        }
+
+        protected static boolean firstOperand(HasOperands<?> ax, Object i) {
+            return ax.getOperandsAsList().get(0).equals(i);
         }
 
         static boolean threewayDisjoint(OWLAxiom ax) {
-            if (ax instanceof OWLDisjointClassesAxiom disjAx) {
-                if (disjAx.getOperandsAsList().size() > 2) {
-                    return false;
-                }
-            }
-            return true;
+            return !(ax instanceof OWLDisjointClassesAxiom disjAx && moreThanTwoOperands(disjAx));
         }
 
         static boolean threewayDisjointData(OWLAxiom ax) {
             return !(ax instanceof OWLDisjointDataPropertiesAxiom disj
-                && disj.getOperandsAsList().size() > 2);
+                && moreThanTwoOperands(disj));
         }
 
         static boolean threewayDisjointObject(OWLAxiom ax) {
             return !(ax instanceof OWLDisjointObjectPropertiesAxiom disj
-                && disj.getOperandsAsList().size() > 2);
+                && moreThanTwoOperands(disj));
         }
     }
 

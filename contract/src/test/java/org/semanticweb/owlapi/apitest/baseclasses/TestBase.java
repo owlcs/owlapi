@@ -328,26 +328,26 @@ public abstract class TestBase extends DF {
             // http://www.w3.org/TR/owl2-mapping-to-rdf/#Axioms_that_are_Translated_to_Multiple_Triples
             for (OWLAxiom ax : new ArrayList<>(axioms1)) {
                 switch (ax) {
-                    case OWLEquivalentClassesAxiom ax2:
+                    case OWLEquivalentClassesAxiom ax2 -> {
                         if (ax2.getOperandsAsList().size() > 2) {
                             removeIfContainsAll(axioms1, axioms2, destination, ax,
                                 ax2.splitToAnnotatedPairs());
                         }
-                        break;
-                    case OWLEquivalentDataPropertiesAxiom ax2:
+                    }
+                    case OWLEquivalentDataPropertiesAxiom ax2 -> {
                         if (ax2.getOperandsAsList().size() > 2) {
                             removeIfContainsAll(axioms1, axioms2, destination, ax,
                                 ax2.splitToAnnotatedPairs());
                         }
-                        break;
-                    case OWLEquivalentObjectPropertiesAxiom ax2:
+                    }
+                    case OWLEquivalentObjectPropertiesAxiom ax2 -> {
                         if (ax2.getOperandsAsList().size() > 2) {
                             removeIfContainsAll(axioms1, axioms2, destination, ax,
                                 ax2.splitToAnnotatedPairs());
                         }
-                        break;
-                    default:
-                        break;
+                    }
+                    default -> {
+                    }
                 }
             }
         }

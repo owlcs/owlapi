@@ -310,13 +310,12 @@ public class OWLAPIStreamUtils {
             Object o1 = set1.next();
             Object o2 = set2.next();
             int diff;
-            if (o1 instanceof Stream && o2 instanceof Stream) {
-                diff = compareIterators(((Stream<?>) o1).iterator(), ((Stream<?>) o2).iterator());
-            } else if (o1 instanceof Collection && o2 instanceof Collection) {
-                diff = compareIterators(((Collection<?>) o1).iterator(),
-                    ((Collection<?>) o2).iterator());
-            } else if (o1 instanceof Comparable && o2 instanceof Comparable) {
-                diff = ((Comparable) o1).compareTo(o2);
+            if (o1 instanceof Stream<?> s1 && o2 instanceof Stream<?> s2) {
+                diff = compareIterators(s1.iterator(), s2.iterator());
+            } else if (o1 instanceof Collection<?> c1 && o2 instanceof Collection c2) {
+                diff = compareIterators(c1.iterator(), c2.iterator());
+            } else if (o1 instanceof Comparable c1 && o2 instanceof Comparable c2) {
+                diff = c1.compareTo(c2);
             } else {
                 throw new IllegalArgumentException(
                     "Incomparable types: '" + o1 + "' with class " + o1.getClass() + ", '" + o2
@@ -403,8 +402,8 @@ public class OWLAPIStreamUtils {
         if (o == root) {
             return;
         }
-        if (o instanceof OWLObject) {
-            streams.add(allComponents((OWLObject) o));
+        if (o instanceof OWLObject v) {
+            streams.add(allComponents(v));
         } else {
             streams.add(Stream.of(o));
         }
@@ -424,15 +423,14 @@ public class OWLAPIStreamUtils {
     }
 
     protected static void flatIteration(List<Object> streams, Object o) {
-        if (o instanceof Stream) {
-            ((Stream<?>) o).forEach(o1 -> flatIteration(streams, o1));
-        } else if (o instanceof Collection) {
-            ((Collection<?>) o).forEach(o1 -> flatIteration(streams, o1));
-        } else if (o instanceof OWLObject) {
-            streams.add(o);
-            ((OWLObject) o).componentsAnnotationsLast().forEach(o1 -> flatIteration(streams, o1));
-        } else {
-            streams.add(o);
+        switch (o) {
+            case Stream<?> s -> s.forEach(o1 -> flatIteration(streams, o1));
+            case Collection<?> l -> l.forEach(o1 -> flatIteration(streams, o1));
+            case OWLObject v -> {
+                streams.add(o);
+                v.componentsAnnotationsLast().forEach(o1 -> flatIteration(streams, o1));
+            }
+            default -> streams.add(o);
         }
     }
 

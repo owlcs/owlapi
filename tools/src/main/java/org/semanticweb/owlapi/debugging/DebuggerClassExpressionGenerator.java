@@ -99,7 +99,7 @@ public class DebuggerClassExpressionGenerator implements OWLAxiomVisitor {
 
     @Override
     public void visit(OWLSubObjectPropertyOfAxiom axiom) {
-        /* subProp some {a} subClassOf supProp some {a} */
+        /* {@code subProp some {a} subClassOf supProp some {a}} */
         OWLIndividual ind = dataFactory
             .getOWLNamedIndividual(dataFactory.getNextDocumentIRI("http://debugger.com#A"));
         OWLClassExpression sub = dataFactory.getOWLObjectHasValue(axiom.getSubProperty(), ind);

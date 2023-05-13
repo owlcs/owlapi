@@ -155,8 +155,8 @@ public class AnnotationValueShortFormProvider implements ShortFormProvider {
     private String getRendering(OWLObject object) {
         // We return the literal value of constants or use the alternate
         // short form provider to render individuals.
-        if (object instanceof OWLLiteral) {
-            return literalRenderer.visit((OWLLiteral) object);
+        if (object instanceof OWLLiteral l) {
+            return literalRenderer.visit(l);
         } else if (object.isIRI()) {
             return alternateIRIShortFormProvider.getShortForm((IRI) object);
         } else {

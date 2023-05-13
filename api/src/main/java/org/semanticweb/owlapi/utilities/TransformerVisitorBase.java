@@ -147,7 +147,7 @@ public class TransformerVisitorBase<T> implements OWLObjectVisitorEx<OWLObject> 
         if (witness.isInstance(o)) {
             @SuppressWarnings("unchecked")
             Q transform = (Q) transformer.apply(witness.cast(o));
-            if (o instanceof OWLAxiom ? update((OWLAxiom) transform, (OWLAxiom) o) == transform
+            if (o instanceof OWLAxiom ax ? update((OWLAxiom) transform, ax) == transform
                 : transform != o) {
                 return transform;
             }

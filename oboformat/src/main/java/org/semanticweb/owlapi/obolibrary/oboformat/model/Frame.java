@@ -67,9 +67,8 @@ public class Frame {
             clauses = Collections.singletonList(clauses.iterator().next());
             return;
         }
-        if (clauses instanceof ArrayList<?>) {
-            ArrayList<?> arrayList = (ArrayList<?>) clauses;
-            arrayList.trimToSize();
+        if (clauses instanceof ArrayList<?> l) {
+            l.trimToSize();
         }
     }
 

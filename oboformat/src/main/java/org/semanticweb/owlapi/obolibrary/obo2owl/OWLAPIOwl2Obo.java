@@ -1482,12 +1482,11 @@ public class OWLAPIOwl2Obo {
                         if (x instanceof OWLClass cx) {
                             c = cx;
                         }
-                        if (x instanceof OWLObjectSomeValuesFrom r) {
-                            if (r.getProperty().isOWLObjectProperty()
-                                && r.getFiller() instanceof OWLClass f) {
-                                p = r.getProperty().asOWLObjectProperty();
-                                filler = f;
-                            }
+                        if (x instanceof OWLObjectSomeValuesFrom r
+                            && r.getProperty().isOWLObjectProperty()
+                            && r.getFiller() instanceof OWLClass f) {
+                            p = r.getProperty().asOWLObjectProperty();
+                            filler = f;
                         }
                     }
                     if (c != null && p != null && filler != null) {

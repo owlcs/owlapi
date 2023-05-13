@@ -301,8 +301,7 @@ public class ManchesterSyntaxTool {
          */
         protected boolean isMatchingLabel(String label, OWLAnnotationValue v,
             OWLAnnotationProperty property) {
-            return property.isLabel() && v instanceof OWLLiteral
-                && label.equals(((OWLLiteral) v).getLiteral());
+            return property.isLabel() && v instanceof OWLLiteral l && label.equals(l.getLiteral());
         }
 
         /**

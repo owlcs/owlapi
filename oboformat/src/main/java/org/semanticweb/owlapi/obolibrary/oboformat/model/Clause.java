@@ -103,45 +103,34 @@ public class Clause {
 
     void freezeValues() {
         switch (values.size()) {
-            case 0:
-                values = Collections.emptyList();
-                break;
-            case 1:
-                values = Collections.singletonList(values.get(0));
-                break;
-            default:
-                ((ArrayList<?>) values).trimToSize();
+            case 0 -> values = Collections.emptyList();
+            case 1 -> values = Collections.singletonList(values.get(0));
+            default -> ((ArrayList<?>) values).trimToSize();
         }
     }
 
     void freezeXrefs() {
         switch (xrefs.size()) {
-            case 0:
-                xrefs = Collections.emptyList();
-                break;
-            case 1:
-                Xref xref = xrefs.iterator().next();
-                xrefs = Collections.singletonList(xref);
-                break;
-            default:
+            case 0 -> xrefs = Collections.emptyList();
+            case 1 -> xrefs = Collections.singletonList(xrefs.iterator().next());
+            default -> {
                 if (xrefs instanceof ArrayList) {
                     ((ArrayList<?>) xrefs).trimToSize();
                 }
+            }
         }
     }
 
     void freezeQualifiers() {
         switch (qualifierValues.size()) {
-            case 0:
-                qualifierValues = Collections.emptyList();
-                break;
-            case 1:
-                qualifierValues = Collections.singletonList(qualifierValues.iterator().next());
-                break;
-            default:
+            case 0 -> qualifierValues = Collections.emptyList();
+            case 1 -> qualifierValues =
+                Collections.singletonList(qualifierValues.iterator().next());
+            default -> {
                 if (qualifierValues instanceof ArrayList) {
                     ((ArrayList<?>) qualifierValues).trimToSize();
                 }
+            }
         }
     }
 
@@ -183,15 +172,9 @@ public class Clause {
     public Clause setValues(Collection<Object> values) {
         if (!(this.values instanceof ArrayList)) {
             switch (values.size()) {
-                case 0:
-                    this.values = Collections.emptyList();
-                    break;
-                case 1:
-                    Object o = values.iterator().next();
-                    this.values = Collections.singletonList(o);
-                    break;
-                default:
-                    this.values = new ArrayList<>(values);
+                case 0 -> this.values = Collections.emptyList();
+                case 1 -> this.values = Collections.singletonList(values.iterator().next());
+                default -> this.values = new ArrayList<>(values);
             }
         } else {
             this.values.clear();
@@ -283,15 +266,9 @@ public class Clause {
     public Clause setXrefs(Collection<Xref> xrefs) {
         if (!(this.xrefs instanceof ArrayList)) {
             switch (xrefs.size()) {
-                case 0:
-                    this.xrefs = Collections.emptyList();
-                    break;
-                case 1:
-                    Xref xref = xrefs.iterator().next();
-                    this.xrefs = Collections.singletonList(xref);
-                    break;
-                default:
-                    this.xrefs = new ArrayList<>(xrefs);
+                case 0 -> this.xrefs = Collections.emptyList();
+                case 1 -> this.xrefs = Collections.singletonList(xrefs.iterator().next());
+                default -> this.xrefs = new ArrayList<>(xrefs);
             }
         } else {
             this.xrefs.clear();
@@ -326,15 +303,10 @@ public class Clause {
     public Clause setQualifierValues(Collection<QualifierValue> qualifierValues) {
         if (!(this.qualifierValues instanceof ArrayList)) {
             switch (qualifierValues.size()) {
-                case 0:
-                    this.qualifierValues = Collections.emptyList();
-                    break;
-                case 1:
-                    this.qualifierValues =
-                        Collections.singletonList(qualifierValues.iterator().next());
-                    break;
-                default:
-                    this.qualifierValues = new ArrayList<>(qualifierValues);
+                case 0 -> this.qualifierValues = Collections.emptyList();
+                case 1 -> this.qualifierValues =
+                    Collections.singletonList(qualifierValues.iterator().next());
+                default -> this.qualifierValues = new ArrayList<>(qualifierValues);
             }
         } else {
             this.qualifierValues.clear();

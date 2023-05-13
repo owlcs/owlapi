@@ -37,7 +37,6 @@ public abstract class AbstractCollector implements OWLObjectVisitor {
             case Stream<?> s -> s.forEach(this::processStream);
             case Collection<?> l -> l.stream().forEach(this::processStream);
             default -> {
-                break;
             }
         }
     }

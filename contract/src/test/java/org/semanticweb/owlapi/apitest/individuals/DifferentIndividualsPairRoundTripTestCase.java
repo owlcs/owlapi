@@ -17,8 +17,17 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.semanticweb.owlapi.apitest.baseclasses.TestBase;
+import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
+import org.semanticweb.owlapi.formats.TurtleDocumentFormat;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.rioformats.NQuadsDocumentFormat;
+import org.semanticweb.owlapi.rioformats.NTriplesDocumentFormat;
+import org.semanticweb.owlapi.rioformats.RDFJsonDocumentFormat;
+import org.semanticweb.owlapi.rioformats.RDFJsonLDDocumentFormat;
+import org.semanticweb.owlapi.rioformats.RioRDFXMLDocumentFormat;
+import org.semanticweb.owlapi.rioformats.RioTurtleDocumentFormat;
+import org.semanticweb.owlapi.rioformats.TrigDocumentFormat;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 /**
@@ -46,58 +55,42 @@ class DifferentIndividualsPairRoundTripTestCase extends TestBase {
         equal(o, roundTrip(o, format));
     }
 
-    private static void assertSingleTriple(Boolean expectation, String savedOntology,
-        OWLDocumentFormat format) {
-        switch (format.getClass().getName()) {
-            case "org.semanticweb.owlapi.formats.RDFXMLDocumentFormat":
-                assertEquals(expectation,
-                    Boolean.valueOf(
-                        savedOntology.contains("<rdf:type rdf:resource=\"&owl;AllDifferent\"/>")
-                            || savedOntology.contains("<rdf:type rdf:resource=\""
-                                + OWLRDFVocabulary.OWL_ALL_DIFFERENT.getIRI().toString() + "\"/>")),
-                    savedOntology);
-                assertEquals(expectation,
-                    Boolean.valueOf(
-                        savedOntology.contains("<distinctMembers rdf:parseType=\"Collection\">")),
-                    savedOntology);
-                break;
-            case "org.semanticweb.owlapi.formats.RioRDFXMLDocumentFormat":
-                assertEquals(expectation,
-                    Boolean.valueOf(savedOntology.contains("<rdf:type rdf:resource=\""
-                        + OWLRDFVocabulary.OWL_ALL_DIFFERENT.getIRI().toString() + "\"/>")),
-                    savedOntology);
-                assertEquals(expectation,
-                    Boolean.valueOf(savedOntology.contains(
-                        "<" + OWLRDFVocabulary.OWL_DISTINCT_MEMBERS.getPrefixedName() + " ")),
-                    savedOntology);
-                break;
-            case "org.semanticweb.owlapi.formats.RDFJsonDocumentFormat":
-            case "org.semanticweb.owlapi.formats.RDFJsonLDDocumentFormat":
-            case "org.semanticweb.owlapi.formats.NTriplesDocumentFormat":
-            case "org.semanticweb.owlapi.formats.NQuadsDocumentFormat":
-                assertEquals(expectation,
-                    Boolean.valueOf(savedOntology
-                        .contains(OWLRDFVocabulary.OWL_ALL_DIFFERENT.getIRI().toString())),
-                    savedOntology);
-                assertEquals(expectation,
-                    Boolean.valueOf(savedOntology
-                        .contains(OWLRDFVocabulary.OWL_DISTINCT_MEMBERS.getIRI().toString())),
-                    savedOntology);
-                break;
-            case "org.semanticweb.owlapi.formats.TurtleDocumentFormat":
-            case "org.semanticweb.owlapi.formats.RioTurtleDocumentFormat":
-            case "org.semanticweb.owlapi.formats.TrigDocumentFormat":
-                assertEquals(expectation,
-                    Boolean.valueOf(savedOntology
-                        .contains(OWLRDFVocabulary.OWL_ALL_DIFFERENT.getPrefixedName())),
-                    savedOntology);
-                assertEquals(expectation,
-                    Boolean.valueOf(savedOntology
-                        .contains(OWLRDFVocabulary.OWL_DISTINCT_MEMBERS.getPrefixedName())),
-                    savedOntology);
-                break;
-            default:
-                break;
+    private static void assertSingleTriple(Boolean expect, String saved, OWLDocumentFormat format) {
+        java.lang.String allDiff = OWLRDFVocabulary.OWL_ALL_DIFFERENT.getIRI().toString();
+        String lAllDiff = "<rdf:type rdf:resource=\"" + allDiff + "\"/>";
+        String pAllDiff = "<rdf:type rdf:resource=\"&owl;AllDifferent\"/>";
+        java.lang.String dist = "<distinctMembers rdf:parseType=\"Collection\">";
+        java.lang.String pDist = OWLRDFVocabulary.OWL_DISTINCT_MEMBERS.getPrefixedName();
+        java.lang.String lDist = "<" + pDist + " ";
+        java.lang.String distinct = OWLRDFVocabulary.OWL_DISTINCT_MEMBERS.getIRI().toString();
+        java.lang.String prefixAllDiff = OWLRDFVocabulary.OWL_ALL_DIFFERENT.getPrefixedName();
+        switch (format) {
+            case RDFXMLDocumentFormat f -> xmlAllDiffDist(expect, saved, lAllDiff, pAllDiff, dist);
+            case RioRDFXMLDocumentFormat f -> allDiffDist(expect, saved, lAllDiff, lDist);
+            case RDFJsonDocumentFormat f -> allDiffDist(expect, saved, allDiff, distinct);
+            case RDFJsonLDDocumentFormat f -> allDiffDist(expect, saved, allDiff, distinct);
+            case NTriplesDocumentFormat f -> allDiffDist(expect, saved, allDiff, distinct);
+            case NQuadsDocumentFormat f -> allDiffDist(expect, saved, allDiff, distinct);
+            case TurtleDocumentFormat f -> allDiffDist(expect, saved, prefixAllDiff, pDist);
+            case RioTurtleDocumentFormat f -> allDiffDist(expect, saved, prefixAllDiff, pDist);
+            case TrigDocumentFormat f -> allDiffDist(expect, saved, prefixAllDiff, pDist);
+            default -> {
+            }
         }
+    }
+
+    protected static void xmlAllDiffDist(Boolean expectation, String saved, String longAllDifferent,
+        String shortAllDifferent, java.lang.String distinctMembers) {
+        {
+            assertEquals(expectation, Boolean.valueOf(
+                saved.contains(shortAllDifferent) || saved.contains(longAllDifferent)), saved);
+            assertEquals(expectation, Boolean.valueOf(saved.contains(distinctMembers)), saved);
+        }
+    }
+
+    protected static void allDiffDist(Boolean expectation, String saved,
+        java.lang.String allDifferent, java.lang.String distinct) {
+        assertEquals(expectation, Boolean.valueOf(saved.contains(allDifferent)), saved);
+        assertEquals(expectation, Boolean.valueOf(saved.contains(distinct)), saved);
     }
 }

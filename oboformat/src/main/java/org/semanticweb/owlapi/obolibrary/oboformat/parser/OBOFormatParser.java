@@ -472,24 +472,21 @@ public class OBOFormatParser {
         if (tag == null) {
             return parseUnquotedString(cl);
         }
-        switch (tag) {
-            case TAG_SYNONYMTYPEDEF:
-                return parseSynonymTypedef(cl);
-            case TAG_SUBSETDEF:
-                return parseSubsetdef(cl);
-            case TAG_DATE:
-                return parseHeaderDate(cl);
-            case TAG_PROPERTY_VALUE:
-                parsePropertyValue(cl);
-                return parseQualifierAndHiddenComment(cl);
-            case TAG_IMPORT:
-                return parseImport(cl);
-            case TAG_IDSPACE:
-                return parseIdSpace(cl);
+        return switch (tag) {
+            case TAG_SYNONYMTYPEDEF -> parseSynonymTypedef(cl);
+            case TAG_SUBSETDEF -> parseSubsetdef(cl);
+            case TAG_DATE -> parseHeaderDate(cl);
+            case TAG_PROPERTY_VALUE -> parsePropertyQualifierAndHiddenComment(cl);
+            case TAG_IMPORT -> parseImport(cl);
+            case TAG_IDSPACE -> parseIdSpace(cl);
             // $CASES-OMITTED$
-            default:
-                return parseUnquotedString(cl);
-        }
+            default -> parseUnquotedString(cl);
+        };
+    }
+
+    protected Clause parsePropertyQualifierAndHiddenComment(Clause cl) {
+        parsePropertyValue(cl);
+        return parseQualifierAndHiddenComment(cl);
     }
 
     protected Clause parseQualifierAndHiddenComment(Clause cl) {
@@ -1272,21 +1269,16 @@ public class OBOFormatParser {
 
     protected void handleNextChar(StringBuilder sb, char nextChar) {
         switch (nextChar) {
-            case 'n':// newline
-                sb.append('\n');
-                break;
-            case 'W':// single space
-                sb.append(' ');
-                break;
-            case 't':// tab
-                sb.append('\t');
-                break;
-            default:
-                // assume that any char after a backlash is an escaped char.
-                // spec for this optional behavior
-                // http://www.geneontology.org/GO.format.obo-1_2.shtml#S.1.5
-                sb.append(nextChar);
-                break;
+            // newline
+            case 'n' -> sb.append('\n');
+            // single space
+            case 'W' -> sb.append(' ');
+            // tab
+            case 't' -> sb.append('\t');
+            // assume that any char after a backlash is an escaped char.
+            // spec for this optional behavior
+            // http://www.geneontology.org/GO.format.obo-1_2.shtml#S.1.5
+            default -> sb.append(nextChar);
         }
     }
 

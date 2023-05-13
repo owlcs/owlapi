@@ -40,8 +40,8 @@ public class SatisfiabilityReducer implements OWLAxiomVisitorEx<Optional<OWLClas
 
     @Override
     public Optional<OWLClassExpression> doDefault(OWLObject o) {
-        if (o instanceof OWLSubClassOfAxiomShortCut) {
-            return ((OWLSubClassOfAxiomShortCut) o).asOWLSubClassOfAxiom().accept(this);
+        if (o instanceof OWLSubClassOfAxiomShortCut sub) {
+            return sub.asOWLSubClassOfAxiom().accept(this);
         }
         return Optional.empty();
     }

@@ -166,8 +166,8 @@ public abstract class AbstractMacroExpansionVisitor implements OWLAxiomVisitorEx
             if (filler instanceof OWLObjectOneOf) {
                 templateVal = valFromOneOf(filler);
             }
-            if (filler instanceof OWLNamedObject) {
-                templateVal = ((OWLNamedObject) filler).getIRI();
+            if (filler instanceof OWLNamedObject f) {
+                templateVal = f.getIRI();
             }
             if (templateVal != null) {
                 result = resultFromVal(iri, templateVal);

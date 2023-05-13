@@ -50,7 +50,6 @@ public abstract class AbstractCollectorEx<E> implements OWLObjectVisitorEx<Colle
             case Stream<?> s -> s.forEach(this::processStream);
             case Collection<?> l -> l.stream().forEach(this::processStream);
             default -> {
-                break;
             }
         }
     }

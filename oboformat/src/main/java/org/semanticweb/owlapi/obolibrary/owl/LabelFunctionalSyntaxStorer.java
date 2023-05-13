@@ -99,12 +99,9 @@ public class LabelFunctionalSyntaxStorer implements OWLStorer {
         @Override
         @Nullable
         public String getPrefixIRI(IRI iri) {
-            for (OWLAnnotationAssertionAxiom annotation : ontology.annotationAssertionAxioms(iri)
-                .toList()) {
-                if (annotation.getProperty().isLabel()) {
-                    if (annotation.getValue() instanceof OWLLiteral l) {
-                        return '<' + l.getLiteral() + '>';
-                    }
+            for (var ann : ontology.annotationAssertionAxioms(iri).toList()) {
+                if (ann.getProperty().isLabel() && ann.getValue() instanceof OWLLiteral l) {
+                    return '<' + l.getLiteral() + '>';
                 }
             }
             return delegate.getPrefixIRI(iri);

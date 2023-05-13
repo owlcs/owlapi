@@ -2799,11 +2799,11 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
 
         public <T> ExceptionBuilder withKeyword(Collection<T> keys) {
             for (T s : keys) {
-                if (s instanceof String) {
-                    withKeyword((String) s);
+                if (s instanceof String st) {
+                    withKeyword(st);
                 }
-                if (s instanceof ManchesterOWLSyntax) {
-                    withKeyword((ManchesterOWLSyntax) s);
+                if (s instanceof ManchesterOWLSyntax m) {
+                    withKeyword(m);
                 }
             }
             return this;

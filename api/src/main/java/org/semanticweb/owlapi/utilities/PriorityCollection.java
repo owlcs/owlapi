@@ -183,8 +183,7 @@ public class PriorityCollection<T extends Serializable> implements Iterable<T>, 
         // will be ordered as in this PriorityCollection
         for (T t : delegate) {
             // if the instance has MIME types associated
-            if (t instanceof MIMETypeAware) {
-                MIMETypeAware mimeTypeAware = (MIMETypeAware) t;
+            if (t instanceof MIMETypeAware mimeTypeAware) {
                 if (mimeType.equals(mimeTypeAware.getDefaultMIMEType())) {
                     pc.add(t);
                 } else {
@@ -210,8 +209,7 @@ public class PriorityCollection<T extends Serializable> implements Iterable<T>, 
         // will be ordered as in this PriorityCollection
         for (T t : delegate) {
             // if the instance has formats associated
-            if (t instanceof HasSupportedFormat) {
-                HasSupportedFormat mimeTypeAware = (HasSupportedFormat) t;
+            if (t instanceof HasSupportedFormat mimeTypeAware) {
                 if (mimeTypeAware.getSupportedFormat().getKey().equals(formatKey)) {
                     pc.add(t);
                 }

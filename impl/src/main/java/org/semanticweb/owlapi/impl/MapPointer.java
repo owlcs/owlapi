@@ -128,11 +128,11 @@ public class MapPointer<K, V extends OWLAxiom> {
     }
 
     protected void consumer(Set<IRI> set, K k) {
-        if (k instanceof HasIRI) {
-            set.add(((HasIRI) k).getIRI());
+        if (k instanceof HasIRI iri) {
+            set.add(iri.getIRI());
         }
-        if (k instanceof IRI) {
-            set.add((IRI) k);
+        if (k instanceof IRI iri) {
+            set.add(iri);
         }
     }
 

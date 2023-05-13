@@ -169,17 +169,13 @@ public abstract class OWLOntologyDocumentSourceBase implements OWLOntologyDocume
     protected static OWLDocumentFormat getFormat(Function<InputStream, OWLDocumentFormat> c,
         @Nullable String encoding, InputStream in, String fileName) throws IOException {
         if (encoding != null) {
-            switch (encoding) {
-                case "xz":
-                    return c.apply(checkRemoteFileName(new XZInputStream(in), fileName));
-                case "gzip":
-                    return c.apply(checkRemoteFileName(new GZIPInputStream(in), fileName));
-                case "deflate":
-                    return c.apply(checkRemoteFileName(
-                        new InflaterInputStream(in, new Inflater(true)), fileName));
-                default:
-                    break;
-            }
+            return switch (encoding) {
+                case "xz" -> c.apply(checkRemoteFileName(new XZInputStream(in), fileName));
+                case "gzip" -> c.apply(checkRemoteFileName(new GZIPInputStream(in), fileName));
+                case "deflate" -> c.apply(
+                    checkRemoteFileName(new InflaterInputStream(in, new Inflater(true)), fileName));
+                default -> c.apply(checkRemoteFileName(in, fileName));
+            };
         }
         return c.apply(checkRemoteFileName(in, fileName));
     }
