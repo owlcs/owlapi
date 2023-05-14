@@ -14,84 +14,94 @@ package org.semanticweb.owlapi.apitest;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import org.junit.jupiter.api.Test;
+import java.util.stream.Stream;
+
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.semanticweb.owlapi.apitest.baseclasses.Builder;
+import org.semanticweb.owlapi.model.OWLObject;
 
 class OWLObjectTypeIndexProviderTestCase {
 
-    @Test
-    void testAssertions() {
-        assertEquals(2034, Builder.ann.typeIndex());
-        assertEquals(2018, Builder.asymm.typeIndex());
-        assertEquals(2037, Builder.annDom.typeIndex());
-        assertEquals(2036, Builder.annRange.typeIndex());
-        assertEquals(2005, Builder.ass.typeIndex());
-        assertEquals(2005, Builder.assAnd.typeIndex());
-        assertEquals(2005, Builder.assOr.typeIndex());
-        assertEquals(2030, Builder.dRangeAnd.typeIndex());
-        assertEquals(2030, Builder.dRangeOr.typeIndex());
-        assertEquals(2005, Builder.assNot.typeIndex());
-        assertEquals(2005, Builder.assNotAnon.typeIndex());
-        assertEquals(2005, Builder.assSome.typeIndex());
-        assertEquals(2005, Builder.assAll.typeIndex());
-        assertEquals(2005, Builder.assHas.typeIndex());
-        assertEquals(2005, Builder.assMin.typeIndex());
-        assertEquals(2005, Builder.assMax.typeIndex());
-        assertEquals(2005, Builder.assEq.typeIndex());
-        assertEquals(2005, Builder.assHasSelf.typeIndex());
-        assertEquals(2005, Builder.assOneOf.typeIndex());
-        assertEquals(2005, Builder.assDSome.typeIndex());
-        assertEquals(2005, Builder.assDAll.typeIndex());
-        assertEquals(2005, Builder.assDHas.typeIndex());
-        assertEquals(2005, Builder.assDMin.typeIndex());
-        assertEquals(2005, Builder.assDMax.typeIndex());
-        assertEquals(2005, Builder.assDEq.typeIndex());
-        assertEquals(2030, Builder.dOneOf.typeIndex());
-        assertEquals(2030, Builder.dNot.typeIndex());
-        assertEquals(2030, Builder.dRangeRestrict.typeIndex());
-        assertEquals(2010, Builder.assD.typeIndex());
-        assertEquals(2010, Builder.assDPlain.typeIndex());
-        assertEquals(2029, Builder.dDom.typeIndex());
-        assertEquals(2030, Builder.dRange.typeIndex());
-        assertEquals(2038, Builder.dDef.typeIndex());
-        assertEquals(2000, Builder.decC.typeIndex());
-        assertEquals(2000, Builder.decOp.typeIndex());
-        assertEquals(2000, Builder.decDp.typeIndex());
-        assertEquals(2000, Builder.decDt.typeIndex());
-        assertEquals(2000, Builder.decAp.typeIndex());
-        assertEquals(2000, Builder.decI.typeIndex());
-        assertEquals(2007, Builder.assDi.typeIndex());
-        assertEquals(2003, Builder.dc.typeIndex());
-        assertEquals(2031, Builder.dDp.typeIndex());
-        assertEquals(2024, Builder.dOp.typeIndex());
-        assertEquals(2004, Builder.du.typeIndex());
-        assertEquals(2001, Builder.ec.typeIndex());
-        assertEquals(2026, Builder.eDp.typeIndex());
-        assertEquals(2012, Builder.eOp.typeIndex());
-        assertEquals(2028, Builder.fdp.typeIndex());
-        assertEquals(2015, Builder.fop.typeIndex());
-        assertEquals(2016, Builder.ifp.typeIndex());
-        assertEquals(2014, Builder.iop.typeIndex());
-        assertEquals(2021, Builder.irr.typeIndex());
-        assertEquals(2011, Builder.ndp.typeIndex());
-        assertEquals(2009, Builder.nop.typeIndex());
-        assertEquals(2008, Builder.opa.typeIndex());
-        assertEquals(2008, Builder.opaInv.typeIndex());
-        assertEquals(2008, Builder.opaInvj.typeIndex());
-        assertEquals(2022, Builder.oDom.typeIndex());
-        assertEquals(2023, Builder.oRange.typeIndex());
-        assertEquals(2025, Builder.chain.typeIndex());
-        assertEquals(2020, Builder.ref.typeIndex());
-        assertEquals(2006, Builder.same.typeIndex());
-        assertEquals(2035, Builder.subAnn.typeIndex());
-        assertEquals(2002, Builder.subClass.typeIndex());
-        assertEquals(2027, Builder.subData.typeIndex());
-        assertEquals(2013, Builder.subObject.typeIndex());
-        assertEquals(2033, Builder.rule.typeIndex());
-        assertEquals(2017, Builder.symm.typeIndex());
-        assertEquals(2019, Builder.trans.typeIndex());
-        assertEquals(2032, Builder.hasKey.typeIndex());
-        assertEquals(2033, Builder.bigRule.typeIndex());
-        assertEquals(1, Builder.onto.typeIndex());
+    @ParameterizedTest
+    @MethodSource("values")
+    void equal(int i, OWLObject o) {
+        assertEquals(i, o.typeIndex());
+    }
+
+    static Stream<Arguments> values() {
+        return Stream.of(Arguments.of(Integer.valueOf(2034), Builder.ann),
+            Arguments.of(Integer.valueOf(2018), Builder.asymm),
+            Arguments.of(Integer.valueOf(2037), Builder.annDom),
+            Arguments.of(Integer.valueOf(2036), Builder.annRange),
+            Arguments.of(Integer.valueOf(2005), Builder.ass),
+            Arguments.of(Integer.valueOf(2005), Builder.assAnd),
+            Arguments.of(Integer.valueOf(2005), Builder.assOr),
+            Arguments.of(Integer.valueOf(2030), Builder.dRangeAnd),
+            Arguments.of(Integer.valueOf(2030), Builder.dRangeOr),
+            Arguments.of(Integer.valueOf(2005), Builder.assNot),
+            Arguments.of(Integer.valueOf(2005), Builder.assNotAnon),
+            Arguments.of(Integer.valueOf(2005), Builder.assSome),
+            Arguments.of(Integer.valueOf(2005), Builder.assAll),
+            Arguments.of(Integer.valueOf(2005), Builder.assHas),
+            Arguments.of(Integer.valueOf(2005), Builder.assMin),
+            Arguments.of(Integer.valueOf(2005), Builder.assMax),
+            Arguments.of(Integer.valueOf(2005), Builder.assEq),
+            Arguments.of(Integer.valueOf(2005), Builder.assHasSelf),
+            Arguments.of(Integer.valueOf(2005), Builder.assOneOf),
+            Arguments.of(Integer.valueOf(2005), Builder.assDSome),
+            Arguments.of(Integer.valueOf(2005), Builder.assDAll),
+            Arguments.of(Integer.valueOf(2005), Builder.assDHas),
+            Arguments.of(Integer.valueOf(2005), Builder.assDMin),
+            Arguments.of(Integer.valueOf(2005), Builder.assDMax),
+            Arguments.of(Integer.valueOf(2005), Builder.assDEq),
+            Arguments.of(Integer.valueOf(2030), Builder.dOneOf),
+            Arguments.of(Integer.valueOf(2030), Builder.dNot),
+            Arguments.of(Integer.valueOf(2030), Builder.dRangeRestrict),
+            Arguments.of(Integer.valueOf(2010), Builder.assD),
+            Arguments.of(Integer.valueOf(2010), Builder.assDPlain),
+            Arguments.of(Integer.valueOf(2029), Builder.dDom),
+            Arguments.of(Integer.valueOf(2030), Builder.dRange),
+            Arguments.of(Integer.valueOf(2038), Builder.dDef),
+            Arguments.of(Integer.valueOf(2000), Builder.decC),
+            Arguments.of(Integer.valueOf(2000), Builder.decOp),
+            Arguments.of(Integer.valueOf(2000), Builder.decDp),
+            Arguments.of(Integer.valueOf(2000), Builder.decDt),
+            Arguments.of(Integer.valueOf(2000), Builder.decAp),
+            Arguments.of(Integer.valueOf(2000), Builder.decI),
+            Arguments.of(Integer.valueOf(2007), Builder.assDi),
+            Arguments.of(Integer.valueOf(2003), Builder.dc),
+            Arguments.of(Integer.valueOf(2031), Builder.dDp),
+            Arguments.of(Integer.valueOf(2024), Builder.dOp),
+            Arguments.of(Integer.valueOf(2004), Builder.du),
+            Arguments.of(Integer.valueOf(2001), Builder.ec),
+            Arguments.of(Integer.valueOf(2026), Builder.eDp),
+            Arguments.of(Integer.valueOf(2012), Builder.eOp),
+            Arguments.of(Integer.valueOf(2028), Builder.fdp),
+            Arguments.of(Integer.valueOf(2015), Builder.fop),
+            Arguments.of(Integer.valueOf(2016), Builder.ifp),
+            Arguments.of(Integer.valueOf(2014), Builder.iop),
+            Arguments.of(Integer.valueOf(2021), Builder.irr),
+            Arguments.of(Integer.valueOf(2011), Builder.ndp),
+            Arguments.of(Integer.valueOf(2009), Builder.nop),
+            Arguments.of(Integer.valueOf(2008), Builder.opa),
+            Arguments.of(Integer.valueOf(2008), Builder.opaInv),
+            Arguments.of(Integer.valueOf(2008), Builder.opaInvj),
+            Arguments.of(Integer.valueOf(2022), Builder.oDom),
+            Arguments.of(Integer.valueOf(2023), Builder.oRange),
+            Arguments.of(Integer.valueOf(2025), Builder.chain),
+            Arguments.of(Integer.valueOf(2020), Builder.ref),
+            Arguments.of(Integer.valueOf(2006), Builder.same),
+            Arguments.of(Integer.valueOf(2035), Builder.subAnn),
+            Arguments.of(Integer.valueOf(2002), Builder.subClass),
+            Arguments.of(Integer.valueOf(2027), Builder.subData),
+            Arguments.of(Integer.valueOf(2013), Builder.subObject),
+            Arguments.of(Integer.valueOf(2033), Builder.rule),
+            Arguments.of(Integer.valueOf(2017), Builder.symm),
+            Arguments.of(Integer.valueOf(2019), Builder.trans),
+            Arguments.of(Integer.valueOf(2032), Builder.hasKey),
+            Arguments.of(Integer.valueOf(2033), Builder.bigRule),
+            Arguments.of(Integer.valueOf(1), Builder.onto));
     }
 }

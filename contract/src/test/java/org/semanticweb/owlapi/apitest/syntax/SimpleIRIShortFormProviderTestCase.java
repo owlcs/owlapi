@@ -14,9 +14,9 @@ package org.semanticweb.owlapi.apitest.syntax;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 import org.semanticweb.owlapi.apitest.baseclasses.TestBase;
-import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.utility.SimpleIRIShortFormProvider;
 
 /**
@@ -25,27 +25,17 @@ import org.semanticweb.owlapi.utility.SimpleIRIShortFormProvider;
  */
 class SimpleIRIShortFormProviderTestCase extends TestBase {
 
-    @Test
-    void testFragmentShortForm() {
-        IRI iri = iri("http://owl.cs.manchester.ac.uk/ontology/x#", "A");
-        SimpleIRIShortFormProvider sfp = new SimpleIRIShortFormProvider();
-        String shortForm = sfp.getShortForm(iri);
-        assertEquals("A", shortForm);
-    }
+    private SimpleIRIShortFormProvider sfp = new SimpleIRIShortFormProvider();
 
-    @Test
-    void testLastPathShortForm() {
-        IRI iri = iri("http://owl.cs.manchester.ac.uk/ontology/", "x");
-        SimpleIRIShortFormProvider sfp = new SimpleIRIShortFormProvider();
-        String shortForm = sfp.getShortForm(iri);
-        assertEquals("x", shortForm);
-    }
-
-    @Test
-    void testEmptyPathShortForm() {
-        IRI iri = iri("http://owl.cs.manchester.ac.uk/", "");
-        SimpleIRIShortFormProvider sfp = new SimpleIRIShortFormProvider();
-        String shortForm = sfp.getShortForm(iri);
-        assertEquals("<http://owl.cs.manchester.ac.uk/>", shortForm);
+    @ParameterizedTest
+    @CsvSource({
+        // testFragmentShortForm
+        "A,http://owl.cs.manchester.ac.uk/ontology/x#,A",
+        // testLastPathShortForm
+        "x,http://owl.cs.manchester.ac.uk/ontology/,x",
+        // testEmptyPathShortForm
+        "<http://owl.cs.manchester.ac.uk/>,http://owl.cs.manchester.ac.uk/,"})
+    void testFragmentShortForm(String expected, String iri, String fragment) {
+        assertEquals(expected, sfp.getShortForm(iri(iri, fragment)));
     }
 }

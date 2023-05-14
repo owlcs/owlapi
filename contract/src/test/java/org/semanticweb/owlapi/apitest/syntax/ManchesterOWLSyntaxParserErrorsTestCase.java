@@ -7,7 +7,9 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
+import org.junit.jupiter.params.provider.ValueSource;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.apitest.baseclasses.TestBase;
 import org.semanticweb.owlapi.expression.OWLEntityChecker;
@@ -51,422 +53,71 @@ class ManchesterOWLSyntaxParserErrorsTestCase extends TestBase {
         parser = new ParserWrapper();
     }
 
-    @Test
-    void unknownClassNameShouldCauseException() {
-        checkForExceptionAt("Class: X", 7, "X");
-    }
-
-    @Test
-    void unknownObjectPropertyNameShouldCauseException() {
-        checkForExceptionAt("ObjectProperty: P", 16, "P");
-    }
-
-    @Test
-    void unknownDataPropertyNameShouldCauseException() {
-        checkForExceptionAt("DataProperty: D", 14, "D");
-    }
-
-    @Test
-    void unknownAnnotationPropertyNameShouldCauseException() {
-        checkForExceptionAt("AnnotationProperty: A", 20, "A");
-    }
-
-    @Test
-    void unknownNamedIndividualShouldCauseException() {
-        checkForExceptionAt("Individual: I", 12, "I");
-    }
-
-    @Test
-    void unknownDatatypeNameShouldCauseException() {
-        checkForExceptionAt("Datatype: D", 10, "D");
-    }
-
-    @Test
-    void missingLiteralTypeShouldCauseException() {
-        String input = "Class: C Annotations: rdfs:comment \"comment\"^^";
-        checkForExceptionAtEOF(input);
-    }
-
-    @Test
-    void prematureEOFInDeclarationShouldCauseParseException() {
-        checkForExceptionAtEOF("Class: ");
-    }
-
-    @Test
-    void prematureEOFAfterClassAnnotationsShouldCauseParseException() {
-        checkForExceptionAtEOF("Class: C Annotations: ");
-    }
-
-    @Test
-    void prematureEOFAfterSubClassOfShouldCauseParseException() {
-        String input = "Class: C SubClassOf: ";
-        checkForExceptionAtEOF(input);
-    }
-
-    @Test
-    void prematureEOFAfterEquivalentToShouldCauseParseException() {
-        String input = "Class: C EquivalentTo: ";
-        checkForExceptionAtEOF(input);
-    }
-
-    @Test
-    void prematureEOFAfterDisjointWithShouldCauseParseException() {
-        String input = "Class: C DisjointWith: ";
-        checkForExceptionAtEOF(input);
-    }
-
-    @Test
-    void prematureEOFAfterDisjointUnionOfShouldCauseParseException() {
-        checkForExceptionAtEOF("Class: C DisjointUnionOf: ");
-    }
-
-    @Test
-    void prematureEOFAfterHasKeyShouldCauseParseException() {
-        String input = "Class: C HasKey: ";
-        checkForExceptionAtEOF(input);
-    }
-
-    @Test
-    void prematureEOFAfterClassSubClassOfAxiomAnnotationsShouldCauseParseException() {
-        checkForExceptionAtEOF("Class: C SubClassOf: Annotations: ");
-    }
-
-    @Test
-    void prematureEOFAfterClassSubClassOfListShouldCauseParseException() {
-        checkForExceptionAtEOF("Class: C SubClassOf: C1, ");
-    }
-
-    @Test
-    void prematureEOFAfterClassEquivalentToAxiomAnnotationsShouldCauseParseException() {
-        checkForExceptionAtEOF("Class: C EquivalentTo: Annotations: ");
-    }
-
-    @Test
-    void prematureEOFAfterClassEquivalentToListShouldCauseParseException() {
-        checkForExceptionAtEOF("Class: C EquivalentTo: C1, ");
-    }
-
-    @Test
-    void prematureEOFAfterClassDisjointWithAxiomAnnotationsShouldCauseParseException() {
-        checkForExceptionAtEOF("Class: C DisjointWith: Annotations: ");
-    }
-
-    @Test
-    void prematureEOFAfterClassDisjointWithListShouldCauseParseException() {
-        checkForExceptionAtEOF("Class: C DisjointWith: C1, ");
-    }
-
-    @Test
-    void prematureEOFAfterClassDisjointUnionOfAxiomAnnotationsShouldCauseParseException() {
-        checkForExceptionAtEOF("Class: C DisjointUnionOf: Annotations: ");
-    }
-
-    @Test
-    void prematureEOFAfterClassDisjointUnionOfListShouldCauseParseException() {
-        checkForExceptionAtEOF("Class: C DisjointUnionOf: C1, ");
-    }
-
-    @Test
-    void prematureEOFAfterClassHasKeyAxiomAnnotationsShouldCauseParseException() {
-        checkForExceptionAtEOF("Class: C HasKey: Annotations: ");
-    }
-
-    @Test
-    void prematureEOFAfterObjectPropertyShouldCauseParseException() {
-        checkForExceptionAtEOF("ObjectProperty: ");
-    }
-
-    @Test
-    void prematureEOFAfterObjectPropertyAnnotationsShouldCauseParseException() {
-        checkForExceptionAtEOF("ObjectProperty: oP Annotations: ");
-    }
-
-    @Test
-    void prematureEOFAfterObjectPropertyDomainShouldCauseParseException() {
-        checkForExceptionAtEOF("ObjectProperty: oP Domain: ");
-    }
-
-    @Test
-    void unrecognizedClassAfterObjectPropertyDomainShouldCauseParseException() {
-        checkForExceptionAt("ObjectProperty: oP Domain: X", 27, "X");
-    }
-
-    @Test
-    void prematureEOFAfterObjectPropertyRangeShouldCauseParseException() {
-        checkForExceptionAtEOF("ObjectProperty: oP Range: ");
-    }
-
-    @Test
-    void unrecognizedClassAfterObjectPropertyRangeShouldCauseParseException() {
-        checkForExceptionAt("ObjectProperty: oP Range: X", 26, "X");
-    }
-
-    @Test
-    void prematureEOFAfterObjectPropertySubPropertyOfShouldCauseParseException() {
-        checkForExceptionAtEOF("ObjectProperty: oP SubPropertyOf: ");
-    }
-
-    @Test
-    void unrecognizedPropertyAfterObjectPropertySubPropertyOfShouldCauseParseException() {
-        checkForExceptionAt("ObjectProperty: oP SubPropertyOf: Q", 34, "Q");
-    }
-
-    @Test
-    void prematureEOFAfterObjectPropertyEquivalentToShouldCauseParseException() {
-        checkForExceptionAtEOF("ObjectProperty: oP EquivalentTo: ");
-    }
-
-    @Test
-    void unrecognizedPropertyAfterObjectPropertyEquivalentToShouldCauseParseException() {
-        checkForExceptionAt("ObjectProperty: oP EquivalentTo: Q", 33, "Q");
-    }
-
-    @Test
-    void prematureEOFAfterObjectPropertyDisjointWithShouldCauseParseException() {
-        checkForExceptionAtEOF("ObjectProperty: oP DisjointWith: ");
-    }
-
-    @Test
-    void unrecognizedPropertyAfterObjectPropertyDisjointWithToShouldCauseParseException() {
-        checkForExceptionAt("ObjectProperty: oP DisjointWith: Q", 33, "Q");
-    }
-
-    @Test
-    void prematureEOFAfterObjectPropertyCharacteristicsShouldCauseParseException() {
-        checkForExceptionAtEOF("ObjectProperty: oP Characteristics: ");
-    }
-
-    @Test
-    void unrecognizedCharacteristicAfterObjectPropertyCharacteristicsShouldCauseParseException() {
-        checkForExceptionAt("ObjectProperty: oP Characteristics: Q", 36, "Q");
-    }
-
-    @Test
-    void prematureEOFAfterObjectPropertyInverseOfShouldCauseParseException() {
-        checkForExceptionAtEOF("ObjectProperty: oP InverseOf: ");
-    }
-
-    @Test
-    void unrecognizedPropertyAfterObjectPropertyInverseOfShouldCauseParseException() {
-        checkForExceptionAt("ObjectProperty: oP InverseOf: Q", 30, "Q");
-    }
-
-    @Test
-    void prematureEOFAfterObjectPropertySubPropertyChainShouldCauseParseException() {
-        checkForExceptionAtEOF("ObjectProperty: oP SubPropertyChain: ");
-    }
-
-    @Test
-    void unrecognizedPropertyAfterObjectPropertySubPropertyChainOfShouldCauseParseException() {
-        checkForExceptionAt("ObjectProperty: oP SubPropertyChain: Q", 37, "Q");
-    }
-
-    @Test
-    void prematureEOFAfterDataPropertyShouldCauseParseException() {
-        checkForExceptionAtEOF("DataProperty: ");
-    }
-
-    @Test
-    void prematureEOFAfterDataPropertyAnnotationsShouldCauseParseException() {
-        checkForExceptionAtEOF("DataProperty: dP Annotations: ");
-    }
-
-    @Test
-    void unrecognisedAnnotationPropertyAfterDataPropertyAnnotationsShouldCauseParseException() {
-        checkForExceptionAt("DataProperty: dP Annotations: X", 30, "X");
-    }
-
-    @Test
-    void prematureEOFAfterDataPropertyDomainShouldCauseParseException() {
-        checkForExceptionAtEOF("DataProperty: dP Domain: ");
-    }
-
-    @Test
-    void unrecognizedClassAfterDataPropertyDomainShouldCauseParseException() {
-        checkForExceptionAt("DataProperty: dP Domain: X", 25, "X");
-    }
-
-    @Test
-    void prematureEOFAfterDataPropertyRangeShouldCauseParseException() {
-        checkForExceptionAtEOF("DataProperty: dP Range: ");
-    }
-
-    @Test
-    void unrecognizedClassAfterDataPropertyRangeShouldCauseParseException() {
-        checkForExceptionAt("DataProperty: dP Range: X", 24, "X");
-    }
-
-    @Test
-    void prematureEOFAfterDataPropertySubPropertyOfShouldCauseParseException() {
-        checkForExceptionAtEOF("DataProperty: dP SubPropertyOf: ");
-    }
-
-    @Test
-    void unrecognizedPropertyAfterDataPropertySubPropertyOfShouldCauseParseException() {
-        checkForExceptionAt("DataProperty: dP SubPropertyOf: Q", 32, "Q");
-    }
-
-    @Test
-    void prematureEOFAfterDataPropertyEquivalentToShouldCauseParseException() {
-        checkForExceptionAtEOF("DataProperty: dP EquivalentTo: ");
-    }
-
-    @Test
-    void unrecognizedPropertyAfterDataPropertyEquivalentToShouldCauseParseException() {
-        checkForExceptionAt("DataProperty: dP EquivalentTo: Q", 31, "Q");
-    }
-
-    @Test
-    void prematureEOFAfterDataPropertyDisjointWithShouldCauseParseException() {
-        checkForExceptionAtEOF("DataProperty: dP DisjointWith: ");
-    }
-
-    @Test
-    void unrecognizedPropertyAfterDataPropertyDisjointWithToShouldCauseParseException() {
-        checkForExceptionAt("DataProperty: dP DisjointWith: Q", 31, "Q");
-    }
-
-    @Test
-    void prematureEOFAfterDataPropertyCharacteristicsShouldCauseParseException() {
-        checkForExceptionAtEOF("DataProperty: dP Characteristics: ");
-    }
-
-    @Test
-    void unrecognizedCharacteristicAfterDataPropertyCharacteristicsShouldCauseParseException() {
-        checkForExceptionAt("DataProperty: dP Characteristics: Q", 34, "Q");
-    }
-
-    @Test
-    void prematureEOFAfterAnnotationPropertyShouldCauseParseException() {
-        checkForExceptionAtEOF("AnnotationProperty: ");
-    }
-
-    @Test
-    void prematureEOFAfterAnnotationPropertyAnnotationsShouldCauseParseException() {
-        checkForExceptionAtEOF("AnnotationProperty: aP Annotations: ");
-    }
-
-    @Test
-    void unrecognisedAnnotationPropertyAfterAnnotationPropertyAnnotationsShouldCauseParseException() {
-        checkForExceptionAt("AnnotationProperty: aP Annotations: X", 36, "X");
-    }
-
-    @Test
-    void prematureEOFAfterAnnotationPropertyDomainShouldCauseParseException() {
-        checkForExceptionAtEOF("AnnotationProperty: aP Domain: ");
-    }
-
-    @Test
-    void unrecognizedClassAfterAnnotationPropertyDomainShouldCauseParseException() {
-        checkForExceptionAt("AnnotationProperty: aP Domain: X", 31, "X");
-    }
-
-    @Test
-    void prematureEOFAfterAnnotationPropertyRangeShouldCauseParseException() {
-        checkForExceptionAtEOF("AnnotationProperty: aP Range: ");
-    }
-
-    @Test
-    void unrecognizedClassAfterAnnotationPropertyRangeShouldCauseParseException() {
-        checkForExceptionAt("AnnotationProperty: aP Range: X", 30, "X");
-    }
-
-    @Test
-    void prematureEOFAfterAnnotationPropertySubPropertyOfShouldCauseParseException() {
-        checkForExceptionAtEOF("AnnotationProperty: aP SubPropertyOf: ");
-    }
-
-    @Test
-    void unrecognizedPropertyAfterAnnotationPropertySubPropertyOfShouldCauseParseException() {
-        checkForExceptionAt("AnnotationProperty: aP SubPropertyOf: Q", 38, "Q");
-    }
-
-    @Test
-    void prematureEOFAfterIndividualAnnotationsShouldCauseParseException() {
-        checkForExceptionAtEOF("Individual: ind Annotations: ");
-    }
-
-    @Test
-    void unrecognizedAnnotationPropertyAfterIndividualAnnotationsShouldCauseParseException() {
-        checkForExceptionAt("Individual: ind Annotations: Q", 29, "Q");
-    }
-
-    @Test
-    void prematureEOFAfterIndividualTypesShouldCauseParseException() {
-        checkForExceptionAtEOF("Individual: ind Types: ");
-    }
-
-    @Test
-    void unrecognizedClassAfterIndividualTypesShouldCauseParseException() {
-        checkForExceptionAt("Individual: ind Types: X", 23, "X");
-    }
-
-    @Test
-    void prematureEOFAfterIndividualFactsShouldCauseParseException() {
-        checkForExceptionAtEOF("Individual: ind Facts: ");
-    }
-
-    @Test
-    void prematureEOFAfterIndividualFactsNotShouldCauseParseException() {
-        checkForExceptionAtEOF("Individual: ind Facts: not ");
-    }
-
-    @Test
-    void unrecognizedPropertyAfterIndividualFactsShouldCauseParseException() {
-        checkForExceptionAt("Individual: ind Facts: Q", 23, "Q");
-    }
-
-    @Test
-    void unrecognizedPropertyAfterIndividualFactsNotShouldCauseParseException() {
-        checkForExceptionAt("Individual: ind Facts: not Q", 27, "Q");
-    }
-
-    @Test
-    void prematureEOFAfterIndividualSameAsShouldCauseParseException() {
-        checkForExceptionAtEOF("Individual: ind SameAs: ");
-    }
-
-    @Test
-    void unrecognizedIndividualAfterIndividualSameAsShouldCauseParseException() {
-        checkForExceptionAt("Individual: ind SameAs: Q", 24, "Q");
-    }
-
-    @Test
-    void prematureEOFAfterIndividualDifferentFromShouldCauseParseException() {
-        checkForExceptionAtEOF("Individual: ind DifferentFrom: ");
-    }
-
-    @Test
-    void unrecognizedIndividualAfterIndividualDifferentFromShouldCauseParseException() {
-        checkForExceptionAt("Individual: ind DifferentFrom: Q", 31, "Q");
-    }
-
-    @Test
-    void unclosedLiteralShouldCauseParseException() {
-        checkForExceptionAtEOF("Class: C Annotations: rdfs:comment \"XYZ");
-    }
-
-    @Test
-    void prematureEOFAfterRuleShouldCauseParseException() {
-        checkForExceptionAtEOF("Class: C Rule: ");
-    }
-
-    @Test
-    void prematureEOFAfterRuleAtomShouldCauseParseException() {
-        checkForExceptionAtEOF("Class: C Rule: oP(?x, ?y) ");
-    }
-
-    @Test
-    void unrecognisedPropertyAfterRuleShouldCauseParseException() {
-        checkForExceptionAt("Class: C Rule: X(?x, ?y) ", 15, "X");
-    }
-
-    @Test
-    void unmarkedVariableInRuleAtomShouldCauseParseException() {
-        checkForExceptionAt("Class: C Rule: oP(x, ?y)", 18, "x");
-    }
-
-    private void checkForExceptionAt(String input, int index, String currentToken) {
+    @ParameterizedTest
+    @CsvSource({
+        // unknownClassNameShouldCauseException
+        "Class: X,7,X",
+        // unknownObjectPropertyNameShouldCauseException
+        "ObjectProperty: P,16,P",
+        // unknownDataPropertyNameShouldCauseException
+        "DataProperty: D,14,D",
+        // unknownAnnotationPropertyNameShouldCauseException
+        "AnnotationProperty: A,20,A",
+        // unknownNamedIndividualShouldCauseException
+        "Individual: I,12,I",
+        // unknownDatatypeNameShouldCauseException
+        "Datatype: D,10,D",
+        // unrecognizedClassAfterObjectPropertyDomainShouldCauseParseException
+        "ObjectProperty: oP Domain: X,27,X",
+        // unrecognizedClassAfterObjectPropertyRangeShouldCauseParseException
+        "ObjectProperty: oP Range: X,26,X",
+        // unrecognizedPropertyAfterObjectPropertySubPropertyOfShouldCauseParseException
+        "ObjectProperty: oP SubPropertyOf: Q,34,Q",
+        // unrecognizedPropertyAfterObjectPropertyEquivalentToShouldCauseParseException
+        "ObjectProperty: oP EquivalentTo: Q,33,Q",
+        // unrecognizedPropertyAfterObjectPropertyDisjointWithToShouldCauseParseException
+        "ObjectProperty: oP DisjointWith: Q,33,Q",
+        // unrecognizedCharacteristicAfterObjectPropertyCharacteristicsShouldCauseParseException
+        "ObjectProperty: oP Characteristics: Q,36,Q",
+        // unrecognizedPropertyAfterObjectPropertyInverseOfShouldCauseParseException
+        "ObjectProperty: oP InverseOf: Q,30,Q",
+        // unrecognizedPropertyAfterObjectPropertySubPropertyChainOfShouldCauseParseException
+        "ObjectProperty: oP SubPropertyChain: Q,37,Q",
+        // unrecognisedAnnotationPropertyAfterDataPropertyAnnotationsShouldCauseParseException
+        "DataProperty: dP Annotations: X,30,X",
+        // unrecognizedClassAfterDataPropertyDomainShouldCauseParseException
+        "DataProperty: dP Domain: X,25,X",
+        // unrecognizedClassAfterDataPropertyRangeShouldCauseParseException
+        "DataProperty: dP Range: X,24,X",
+        // unrecognizedPropertyAfterDataPropertySubPropertyOfShouldCauseParseException
+        "DataProperty: dP SubPropertyOf: Q,32,Q",
+        // unrecognizedPropertyAfterDataPropertyEquivalentToShouldCauseParseException
+        "DataProperty: dP EquivalentTo: Q,31,Q",
+        // unrecognizedPropertyAfterDataPropertyDisjointWithToShouldCauseParseException
+        "DataProperty: dP DisjointWith: Q,31,Q",
+        // unrecognizedCharacteristicAfterDataPropertyCharacteristicsShouldCauseParseException
+        "DataProperty: dP Characteristics: Q,34,Q",
+        // unrecognisedAnnotationPropertyAfterAnnotationPropertyAnnotationsShouldCauseParseException
+        "AnnotationProperty: aP Annotations: X,36,X",
+        // unrecognizedClassAfterAnnotationPropertyDomainShouldCauseParseException
+        "AnnotationProperty: aP Domain: X,31,X",
+        // unrecognizedClassAfterAnnotationPropertyRangeShouldCauseParseException
+        "AnnotationProperty: aP Range: X,30,X",
+        // unrecognizedPropertyAfterAnnotationPropertySubPropertyOfShouldCauseParseException
+        "AnnotationProperty: aP SubPropertyOf: Q,38,Q",
+        // unrecognizedAnnotationPropertyAfterIndividualAnnotationsShouldCauseParseException
+        "Individual: ind Annotations: Q,29,Q",
+        // unrecognizedClassAfterIndividualTypesShouldCauseParseException
+        "Individual: ind Types: X,23,X",
+        // unrecognizedPropertyAfterIndividualFactsShouldCauseParseException
+        "Individual: ind Facts: Q,23,Q",
+        // unrecognizedPropertyAfterIndividualFactsNotShouldCauseParseException
+        "Individual: ind Facts: not Q,27,Q",
+        // unrecognizedIndividualAfterIndividualSameAsShouldCauseParseException
+        "Individual: ind SameAs: Q,24,Q",
+        // unrecognizedIndividualAfterIndividualDifferentFromShouldCauseParseException
+        "Individual: ind DifferentFrom: Q,31,Q"})
+    void checkForExceptionAt(String input, int index, String currentToken) {
         try {
             parser.parse(input);
             fail();
@@ -478,7 +129,117 @@ class ManchesterOWLSyntaxParserErrorsTestCase extends TestBase {
         }
     }
 
-    private void checkForExceptionAtEOF(String input) {
+    @ParameterizedTest
+    @CsvSource(delimiter = '\t', value = {
+        // unrecognisedPropertyAfterRuleShouldCauseParseException
+        "Class: C Rule: X(?x, ?y) \t15\tX",
+        // unmarkedVariableInRuleAtomShouldCauseParseException
+        "Class: C Rule: oP(x, ?y)\t18\tx"})
+    void checkForExceptionAt1(String input, int index, String currentToken) {
+        checkForExceptionAt(input, index, currentToken);
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {
+        // missingLiteralTypeShouldCauseException
+        "Class: C Annotations: rdfs:comment \"comment\"^^",
+        // prematureEOFInDeclarationShouldCauseParseException
+        "Class: ",
+        // prematureEOFAfterClassAnnotationsShouldCauseParseException
+        "Class: C Annotations: ",
+        // prematureEOFAfterSubClassOfShouldCauseParseException
+        "Class: C SubClassOf: ",
+        // prematureEOFAfterEquivalentToShouldCauseParseException
+        "Class: C EquivalentTo: ",
+        // prematureEOFAfterDisjointWithShouldCauseParseException
+        "Class: C DisjointWith: ",
+        // prematureEOFAfterDisjointUnionOfShouldCauseParseException
+        "Class: C DisjointUnionOf: ",
+        // prematureEOFAfterHasKeyShouldCauseParseException
+        "Class: C HasKey: ",
+        // prematureEOFAfterClassSubClassOfAxiomAnnotationsShouldCauseParseException
+        "Class: C SubClassOf: Annotations: ",
+        // prematureEOFAfterClassSubClassOfListShouldCauseParseException
+        "Class: C SubClassOf: C1, ",
+        // prematureEOFAfterClassEquivalentToAxiomAnnotationsShouldCauseParseException
+        "Class: C EquivalentTo: Annotations: ",
+        // prematureEOFAfterClassEquivalentToListShouldCauseParseException
+        "Class: C EquivalentTo: C1, ",
+        // prematureEOFAfterClassDisjointWithAxiomAnnotationsShouldCauseParseException
+        "Class: C DisjointWith: Annotations: ",
+        // prematureEOFAfterClassDisjointWithListShouldCauseParseException
+        "Class: C DisjointWith: C1, ",
+        // prematureEOFAfterClassDisjointUnionOfAxiomAnnotationsShouldCauseParseException
+        "Class: C DisjointUnionOf: Annotations: ",
+        // prematureEOFAfterClassDisjointUnionOfListShouldCauseParseException
+        "Class: C DisjointUnionOf: C1, ",
+        // prematureEOFAfterClassHasKeyAxiomAnnotationsShouldCauseParseException
+        "Class: C HasKey: Annotations: ",
+        // prematureEOFAfterObjectPropertyShouldCauseParseException
+        "ObjectProperty: ",
+        // prematureEOFAfterObjectPropertyAnnotationsShouldCauseParseException
+        "ObjectProperty: oP Annotations: ",
+        // prematureEOFAfterObjectPropertyDomainShouldCauseParseException
+        "ObjectProperty: oP Domain: ",
+        // prematureEOFAfterObjectPropertyRangeShouldCauseParseException
+        "ObjectProperty: oP Range: ",
+        // prematureEOFAfterObjectPropertySubPropertyOfShouldCauseParseException
+        "ObjectProperty: oP SubPropertyOf: ",
+        // prematureEOFAfterObjectPropertyEquivalentToShouldCauseParseException
+        "ObjectProperty: oP EquivalentTo: ",
+        // prematureEOFAfterObjectPropertyDisjointWithShouldCauseParseException
+        "ObjectProperty: oP DisjointWith: ",
+        // prematureEOFAfterObjectPropertyCharacteristicsShouldCauseParseException
+        "ObjectProperty: oP Characteristics: ",
+        // prematureEOFAfterObjectPropertyInverseOfShouldCauseParseException
+        "ObjectProperty: oP InverseOf: ",
+        // prematureEOFAfterObjectPropertySubPropertyChainShouldCauseParseException
+        "ObjectProperty: oP SubPropertyChain: ",
+        // prematureEOFAfterDataPropertyShouldCauseParseException
+        "DataProperty: ",
+        // prematureEOFAfterDataPropertyAnnotationsShouldCauseParseException
+        "DataProperty: dP Annotations: ",
+        // prematureEOFAfterDataPropertyDomainShouldCauseParseException
+        "DataProperty: dP Domain: ",
+        // prematureEOFAfterDataPropertyRangeShouldCauseParseException
+        "DataProperty: dP Range: ",
+        // prematureEOFAfterDataPropertySubPropertyOfShouldCauseParseException
+        "DataProperty: dP SubPropertyOf: ",
+        // prematureEOFAfterDataPropertyEquivalentToShouldCauseParseException
+        "DataProperty: dP EquivalentTo: ",
+        // prematureEOFAfterDataPropertyDisjointWithShouldCauseParseException
+        "DataProperty: dP DisjointWith: ",
+        // prematureEOFAfterDataPropertyCharacteristicsShouldCauseParseException
+        "DataProperty: dP Characteristics: ",
+        // prematureEOFAfterAnnotationPropertyAnnotationsShouldCauseParseException
+        "AnnotationProperty: aP Annotations: ",
+        // prematureEOFAfterAnnotationPropertyDomainShouldCauseParseException
+        "AnnotationProperty: aP Domain: ",
+        // prematureEOFAfterAnnotationPropertyShouldCauseParseException
+        "AnnotationProperty: ",
+        // prematureEOFAfterAnnotationPropertyRangeShouldCauseParseException
+        "AnnotationProperty: aP Range: ",
+        // prematureEOFAfterAnnotationPropertySubPropertyOfShouldCauseParseException
+        "AnnotationProperty: aP SubPropertyOf: ",
+        // prematureEOFAfterIndividualAnnotationsShouldCauseParseException
+        "Individual: ind Annotations: ",
+        // prematureEOFAfterIndividualTypesShouldCauseParseException
+        "Individual: ind Types: ",
+        // prematureEOFAfterIndividualFactsShouldCauseParseException
+        "Individual: ind Facts: ",
+        // prematureEOFAfterIndividualFactsNotShouldCauseParseException
+        "Individual: ind Facts: not ",
+        // prematureEOFAfterIndividualSameAsShouldCauseParseException
+        "Individual: ind SameAs: ",
+        // prematureEOFAfterIndividualDifferentFromShouldCauseParseException
+        "Individual: ind DifferentFrom: ",
+        // unclosedLiteralShouldCauseParseException
+        "Class: C Annotations: rdfs:comment \"XYZ",
+        // prematureEOFAfterRuleShouldCauseParseException
+        "Class: C Rule: ",
+        // prematureEOFAfterRuleAtomShouldCauseParseException
+        "Class: C Rule: oP(?x, ?y) "})
+    void checkForExceptionAtEOF(String input) {
         checkForExceptionAt(input, input.length(), ManchesterOWLSyntaxTokenizer.EOFTOKEN);
         String trimmedInput = input.trim();
         checkForExceptionAt(trimmedInput, trimmedInput.length(),

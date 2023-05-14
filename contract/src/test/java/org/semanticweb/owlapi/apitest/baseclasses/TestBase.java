@@ -13,7 +13,6 @@
 package org.semanticweb.owlapi.apitest.baseclasses;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -42,7 +41,6 @@ import java.util.stream.Stream;
 import javax.annotation.Nullable;
 
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Timeout;
 import org.junit.jupiter.api.function.Executable;
 import org.junit.jupiter.api.io.TempDir;
@@ -452,7 +450,8 @@ public abstract class TestBase extends DF {
         return elements[1] + "\n" + elements[2] + '\n' + elements[3];
     }
 
-    static boolean verifyErrorIsDueToBlankNodesId(Set<OWLAxiom> leftOnly, Set<OWLAxiom> rightOnly) {
+    protected static boolean verifyErrorIsDueToBlankNodesId(Set<OWLAxiom> leftOnly,
+        Set<OWLAxiom> rightOnly) {
         Set<String> leftOnlyStrings = new HashSet<>();
         Set<String> rightOnlyStrings = new HashSet<>();
         for (OWLAxiom ax : leftOnly) {
@@ -566,18 +565,6 @@ public abstract class TestBase extends DF {
         } catch (OWLException ex) {
             throw new OWLRuntimeException(ex);
         }
-    }
-
-    @Test
-    void checkVerify() {
-        Set<OWLAxiom> ax1 = new HashSet<>();
-        ax1.add(DataPropertyAssertion(DATAPROPS.DPT, AnonymousIndividual(), Literal("test1")));
-        ax1.add(DataPropertyAssertion(DATAPROPS.DPT, AnonymousIndividual(), Literal("test2")));
-        Set<OWLAxiom> ax2 = new HashSet<>();
-        ax2.add(DataPropertyAssertion(DATAPROPS.DPT, AnonymousIndividual(), Literal("test1")));
-        ax2.add(DataPropertyAssertion(DATAPROPS.DPT, AnonymousIndividual(), Literal("test2")));
-        assertNotEquals(ax1, ax2);
-        assertTrue(verifyErrorIsDueToBlankNodesId(ax1, ax2));
     }
 
     protected OWLOntology load(String fileName) {

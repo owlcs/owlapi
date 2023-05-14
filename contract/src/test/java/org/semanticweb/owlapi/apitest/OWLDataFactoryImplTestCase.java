@@ -18,10 +18,12 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.semanticweb.owlapi.vocab.OWLFacet.MAX_EXCLUSIVE;
 import static org.semanticweb.owlapi.vocab.OWLFacet.MIN_INCLUSIVE;
 
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Supplier;
+import java.util.stream.Stream;
 
 import org.junit.jupiter.api.Test;
 import org.semanticweb.owlapi.apitest.baseclasses.TestBase;
@@ -210,234 +212,193 @@ class OWLDataFactoryImplTestCase extends TestBase {
 
     @Test
     void testAsSubAxiomsEquivalentClasses() {
-        assertEqualsFromSupplier(() -> C(iri));
-        assertEqualsFromSupplier(() -> D(iri));
-        assertEqualsFromSupplier(() -> DP(iri));
-        assertEqualsFromSupplier(() -> OP(iri));
-        assertEqualsFromSupplier(() -> subj.getOWLAnnotationProperty(iri));
-        assertEqualsFromSupplier(() -> subj.getOWLAsymmetricObjectPropertyAxiom(prop2));
-        assertEqualsFromSupplier(() -> subj.getOWLClassAssertionAxiom(right, a1));
-        assertEqualsFromSupplier(() -> subj.getOWLDataAllValuesFrom(dataProp, dtype));
-        assertEqualsFromSupplier(() -> subj.getOWLDataComplementOf(dtype));
-        assertEqualsFromSupplier(
-            () -> subj.getOWLDataExactCardinality(cardinality, dataProp, dtype));
-        assertEqualsFromSupplier(
-            () -> subj.getOWLDataExactCardinality(cardinality, dataProp, subj.getTopDatatype()));
-        assertEqualsFromSupplier(() -> subj.getOWLDataHasValue(dataProp, filler1));
-        assertEqualsFromSupplier(() -> subj.getOWLDataMaxCardinality(cardinality, dataProp, dtype));
-        assertEqualsFromSupplier(
-            () -> subj.getOWLDataMaxCardinality(cardinality, dataProp, subj.getTopDatatype()));
-        assertEqualsFromSupplier(() -> subj.getOWLDataMinCardinality(cardinality, dataProp, dtype));
-        assertEqualsFromSupplier(
-            () -> subj.getOWLDataMinCardinality(cardinality, dataProp, subj.getTopDatatype()));
-        assertEqualsFromSupplier(() -> subj.getOWLDataOneOf(a2, b2, c2));
-        assertEqualsFromSupplier(() -> subj.getOWLDataPropertyAssertionAxiom(dataProp, s1, o2));
-        assertEqualsFromSupplier(() -> subj.getOWLDataPropertyDomainAxiom(left, right));
-        assertEqualsFromSupplier(() -> subj.getOWLDataPropertyRangeAxiom(left, dtype));
-        assertEqualsFromSupplier(() -> subj.getOWLDataSomeValuesFrom(dataProp, dtype));
-        assertEqualsFromSupplier(() -> subj.getOWLDatatypeRestriction(dtype,
-            subj.getOWLFacetRestriction(MAX_EXCLUSIVE, facetValue)));
-        assertEqualsFromSupplier(() -> subj.getOWLDifferentIndividualsAxiom(a1, b1, c1));
-        assertEqualsFromSupplier(() -> subj.getOWLDisjointClassesAxiom(a, b, c5));
-        assertEqualsFromSupplier(() -> subj.getOWLDisjointDataPropertiesAxiom(a4, b4, c4));
-        assertEqualsFromSupplier(() -> subj.getOWLDisjointObjectPropertiesAxiom(a3, b3, c3));
-        assertEqualsFromSupplier(() -> subj.getOWLEquivalentClassesAxiom(a, b, c5));
-        assertEqualsFromSupplier(() -> subj.getOWLEquivalentClassesAxiom(classExpressions));
-        assertEqualsFromSupplier(() -> subj.getOWLEquivalentDataPropertiesAxiom(a4, b4, c4));
-        assertEqualsFromSupplier(() -> subj.getOWLEquivalentDataPropertiesAxiom(properties));
-        assertEqualsFromSupplier(() -> subj.getOWLEquivalentObjectPropertiesAxiom(a3, b3, c3));
-        assertEqualsFromSupplier(() -> subj.getOWLFunctionalDataPropertyAxiom(dataProp));
-        assertEqualsFromSupplier(() -> subj.getOWLFunctionalObjectPropertyAxiom(prop2));
-        assertEqualsFromSupplier(() -> subj.getOWLInverseFunctionalObjectPropertyAxiom(prop2));
-        assertEqualsFromSupplier(() -> subj.getOWLIrreflexiveObjectPropertyAxiom(prop2));
-        assertEqualsFromSupplier(() -> subj.getOWLLiteral("3", dtype));
-        assertEqualsFromSupplier(() -> subj.getOWLLiteral(TEST, LANG));
-        assertEqualsFromSupplier(() -> subj.getOWLNamedIndividual(iri));
-        assertEqualsFromSupplier(
-            () -> subj.getOWLNegativeDataPropertyAssertionAxiom(dataProp, s1, o2));
-        assertEqualsFromSupplier(() -> subj.getOWLNegativeObjectPropertyAssertionAxiom(p3, s1, o1));
-        assertEqualsFromSupplier(() -> subj.getOWLObjectAllValuesFrom(prop2, a));
-        assertEqualsFromSupplier(() -> subj.getOWLObjectComplementOf(operand));
-        assertEqualsFromSupplier(() -> subj.getOWLObjectExactCardinality(cardinality, prop2, a));
-        assertEqualsFromSupplier(
-            () -> subj.getOWLObjectExactCardinality(cardinality, prop2, subj.getOWLThing()));
-        assertEqualsFromSupplier(() -> subj.getOWLObjectHasSelf(prop2));
-        assertEqualsFromSupplier(() -> subj.getOWLObjectHasValue(prop2, filler));
-        assertEqualsFromSupplier(() -> subj.getOWLObjectIntersectionOf(a, b, c5));
-        assertEqualsFromSupplier(() -> subj.getOWLObjectMaxCardinality(cardinality, prop2, a));
-        assertEqualsFromSupplier(
-            () -> subj.getOWLObjectMaxCardinality(cardinality, prop2, subj.getOWLThing()));
-        assertEqualsFromSupplier(() -> subj.getOWLObjectMinCardinality(cardinality, prop2, a));
-        assertEqualsFromSupplier(
-            () -> subj.getOWLObjectMinCardinality(cardinality, prop2, subj.getOWLThing()));
-        assertEqualsFromSupplier(() -> subj.getOWLObjectOneOf(a1, b1, c1));
-        assertEqualsFromSupplier(() -> subj.getOWLObjectPropertyAssertionAxiom(p3, s1, o1));
-        assertEqualsFromSupplier(() -> subj.getOWLObjectPropertyDomainAxiom(p3, right));
-        assertEqualsFromSupplier(() -> subj.getOWLObjectPropertyRangeAxiom(p3, right));
-        assertEqualsFromSupplier(() -> subj.getOWLObjectSomeValuesFrom(prop2, a));
-        assertEqualsFromSupplier(() -> subj.getOWLObjectUnionOf(a, b, c5));
-        assertEqualsFromSupplier(() -> subj.getOWLReflexiveObjectPropertyAxiom(prop2));
-        assertEqualsFromSupplier(() -> subj.getOWLSameIndividualAxiom(a1, b1, c1));
-        assertEqualsFromSupplier(() -> subj.getOWLSubDataPropertyOfAxiom(left, dataProp));
-        assertEqualsFromSupplier(() -> subj.getOWLSubObjectPropertyOfAxiom(p3, prop2));
-        assertEqualsFromSupplier(() -> subj.getOWLSymmetricObjectPropertyAxiom(prop2));
-        assertEqualsFromSupplier(() -> subj.getOWLTransitiveObjectPropertyAxiom(prop2));
-        assertNotEqualsFromSupplier(() -> C(IRI()));
-        assertNotEqualsFromSupplier(() -> D(IRI()));
-        assertNotEqualsFromSupplier(() -> DP(IRI()));
-        assertNotEqualsFromSupplier(() -> OP(IRI()));
-        assertNotEqualsFromSupplier(() -> subj.getOWLAnnotationProperty(IRI()));
-        assertNotEqualsFromSupplier(() -> subj.getOWLAsymmetricObjectPropertyAxiom(OP(IRI())));
-        assertNotEqualsFromSupplier(() -> subj.getOWLClassAssertionAxiom(C(IRI()), a1));
-        assertNotEqualsFromSupplier(() -> subj.getOWLClassAssertionAxiom(right, I()));
-        assertNotEqualsFromSupplier(() -> subj.getOWLDataAllValuesFrom(DP(IRI()), dtype));
-        assertNotEqualsFromSupplier(() -> subj.getOWLDataAllValuesFrom(dataProp, D(IRI())));
-        assertNotEqualsFromSupplier(() -> subj.getOWLDataComplementOf(D(IRI())));
-        assertNotEqualsFromSupplier(
-            () -> subj.getOWLDataExactCardinality(3, DP(IRI()), subj.getTopDatatype()));
-        assertNotEqualsFromSupplier(() -> subj.getOWLDataExactCardinality(3, dataProp, D(IRI())));
-        assertNotEqualsFromSupplier(() -> subj.getOWLDataHasValue(DP(IRI()), filler1));
-        assertNotEqualsFromSupplier(() -> subj.getOWLDataHasValue(dataProp, Literal()));
-        assertNotEqualsFromSupplier(
-            () -> subj.getOWLDataMaxCardinality(3, DP(IRI()), subj.getTopDatatype()));
-        assertNotEqualsFromSupplier(() -> subj.getOWLDataMaxCardinality(3, dataProp, D(IRI())));
-        assertNotEqualsFromSupplier(
-            () -> subj.getOWLDataMinCardinality(3, DP(IRI()), subj.getTopDatatype()));
-        assertNotEqualsFromSupplier(() -> subj.getOWLDataMinCardinality(3, dataProp, D(IRI())));
-        assertNotEqualsFromSupplier(() -> subj.getOWLDataPropertyAssertionAxiom(DP(IRI()), s1, o2));
-        assertNotEqualsFromSupplier(() -> subj.getOWLDataPropertyAssertionAxiom(dataProp, I(), o2));
-        assertNotEqualsFromSupplier(
-            () -> subj.getOWLDataPropertyAssertionAxiom(dataProp, s1, Literal()));
-        assertNotEqualsFromSupplier(() -> subj.getOWLDataPropertyDomainAxiom(DP(IRI()), right));
-        assertNotEqualsFromSupplier(() -> subj.getOWLDataPropertyDomainAxiom(left, C(IRI())));
-        assertNotEqualsFromSupplier(() -> subj.getOWLDataPropertyRangeAxiom(DP(IRI()), dtype));
-        assertNotEqualsFromSupplier(() -> subj.getOWLDataPropertyRangeAxiom(left, D(IRI())));
-        assertNotEqualsFromSupplier(() -> subj.getOWLFunctionalDataPropertyAxiom(DP(IRI())));
-        assertNotEqualsFromSupplier(() -> subj.getOWLFunctionalObjectPropertyAxiom(OP(IRI())));
-        assertNotEqualsFromSupplier(
-            () -> subj.getOWLInverseFunctionalObjectPropertyAxiom(OP(IRI())));
-        assertNotEqualsFromSupplier(() -> subj.getOWLIrreflexiveObjectPropertyAxiom(OP(IRI())));
-        assertNotEqualsFromSupplier(() -> subj.getOWLLiteral("3", D(IRI())));
-        assertNotEqualsFromSupplier(() -> subj.getOWLNamedIndividual(IRI()));
-        assertNotEqualsFromSupplier(
-            () -> subj.getOWLNegativeDataPropertyAssertionAxiom(DP(IRI()), s1, o2));
-        assertNotEqualsFromSupplier(
-            () -> subj.getOWLNegativeDataPropertyAssertionAxiom(dataProp, I(), o2));
-        assertNotEqualsFromSupplier(
-            () -> subj.getOWLNegativeDataPropertyAssertionAxiom(dataProp, s1, Literal()));
-        assertNotEqualsFromSupplier(
-            () -> subj.getOWLNegativeObjectPropertyAssertionAxiom(OP(IRI()), s1, o1));
-        assertNotEqualsFromSupplier(
-            () -> subj.getOWLNegativeObjectPropertyAssertionAxiom(p3, I(), o1));
-        assertNotEqualsFromSupplier(
-            () -> subj.getOWLNegativeObjectPropertyAssertionAxiom(p3, s1, I()));
-        assertNotEqualsFromSupplier(() -> subj.getOWLObjectAllValuesFrom(OP(IRI()), a));
-        assertNotEqualsFromSupplier(() -> subj.getOWLObjectAllValuesFrom(prop2, C(IRI())));
-        assertNotEqualsFromSupplier(
-            () -> subj.getOWLObjectExactCardinality(3, OP(IRI()), subj.getOWLThing()));
-        assertNotEqualsFromSupplier(() -> subj.getOWLObjectExactCardinality(3, prop2, C(IRI())));
-        assertNotEqualsFromSupplier(() -> subj.getOWLObjectHasSelf(OP(IRI())));
-        assertNotEqualsFromSupplier(() -> subj.getOWLObjectHasValue(OP(IRI()), filler));
-        assertNotEqualsFromSupplier(() -> subj.getOWLObjectHasValue(prop2, I()));
-        assertNotEqualsFromSupplier(
-            () -> subj.getOWLObjectMaxCardinality(3, OP(IRI()), subj.getOWLThing()));
-        assertNotEqualsFromSupplier(() -> subj.getOWLObjectMaxCardinality(3, prop2, C(IRI())));
-        assertNotEqualsFromSupplier(
-            () -> subj.getOWLObjectMinCardinality(3, OP(IRI()), subj.getOWLThing()));
-        assertNotEqualsFromSupplier(() -> subj.getOWLObjectMinCardinality(3, prop2, C(IRI())));
-        assertNotEqualsFromSupplier(
-            () -> subj.getOWLObjectPropertyAssertionAxiom(OP(IRI()), s1, o1));
-        assertNotEqualsFromSupplier(() -> subj.getOWLObjectPropertyAssertionAxiom(p3, I(), o1));
-        assertNotEqualsFromSupplier(() -> subj.getOWLObjectPropertyAssertionAxiom(p3, s1, I()));
-        assertNotEqualsFromSupplier(() -> subj.getOWLObjectPropertyDomainAxiom(OP(IRI()), right));
-        assertNotEqualsFromSupplier(() -> subj.getOWLObjectPropertyDomainAxiom(p3, C(IRI())));
-        assertNotEqualsFromSupplier(() -> subj.getOWLObjectPropertyRangeAxiom(OP(IRI()), right));
-        assertNotEqualsFromSupplier(() -> subj.getOWLObjectPropertyRangeAxiom(p3, C(IRI())));
-        assertNotEqualsFromSupplier(() -> subj.getOWLObjectSomeValuesFrom(OP(IRI()), a));
-        assertNotEqualsFromSupplier(() -> subj.getOWLObjectSomeValuesFrom(prop2, C(IRI())));
-        assertNotEqualsFromSupplier(() -> subj.getOWLReflexiveObjectPropertyAxiom(OP(IRI())));
-        assertNotEqualsFromSupplier(() -> subj.getOWLSubDataPropertyOfAxiom(DP(IRI()), dataProp));
-        assertNotEqualsFromSupplier(() -> subj.getOWLSubDataPropertyOfAxiom(left, DP(IRI())));
-        assertNotEqualsFromSupplier(() -> subj.getOWLSubObjectPropertyOfAxiom(OP(IRI()), prop2));
-        assertNotEqualsFromSupplier(() -> subj.getOWLSubObjectPropertyOfAxiom(p3, OP(IRI())));
-        assertNotEqualsFromSupplier(() -> subj.getOWLSymmetricObjectPropertyAxiom(OP(IRI())));
-        assertNotEqualsFromSupplier(() -> subj.getOWLTransitiveObjectPropertyAxiom(OP(IRI())));
-        assertNotEqualsFromSuppliers(
-            () -> subj.getOWLDataExactCardinality(3, dataProp, subj.getTopDatatype()),
-            () -> subj.getOWLDataExactCardinality(4, dataProp, subj.getTopDatatype()));
-        assertNotEqualsFromSuppliers(
-            () -> subj.getOWLDataMaxCardinality(3, dataProp, subj.getTopDatatype()),
-            () -> subj.getOWLDataMaxCardinality(4, dataProp, subj.getTopDatatype()));
-        assertNotEqualsFromSuppliers(
-            () -> subj.getOWLDataMinCardinality(3, dataProp, subj.getTopDatatype()),
-            () -> subj.getOWLDataMinCardinality(4, dataProp, subj.getTopDatatype()));
-        assertNotEqualsFromSuppliers(() -> subj.getOWLDataOneOf(a2, b2),
-            () -> subj.getOWLDataOneOf(a2, b2, c2));
-        assertNotEqualsFromSuppliers(() -> subj.getOWLDataSomeValuesFrom(DP(IRI()), dtype),
-            () -> subj.getOWLDataSomeValuesFrom(DP(IRI()), dtype));
-        assertNotEqualsFromSuppliers(() -> subj.getOWLDataSomeValuesFrom(dataProp, D(IRI())),
-            () -> subj.getOWLDataSomeValuesFrom(dataProp, D(IRI())));
-        assertNotEqualsFromSuppliers(
+        s(() -> C(iri), () -> D(iri), () -> DP(iri), () -> OP(iri),
+            () -> subj.getOWLAnnotationProperty(iri),
+            () -> subj.getOWLAsymmetricObjectPropertyAxiom(prop2),
+            () -> subj.getOWLClassAssertionAxiom(right, a1),
+            () -> subj.getOWLDataAllValuesFrom(dataProp, dtype),
+            () -> subj.getOWLDataComplementOf(dtype),
+            () -> subj.getOWLDataHasValue(dataProp, filler1),
+            () -> subj.getOWLDataOneOf(a2, b2, c2),
+            () -> subj.getOWLDataPropertyAssertionAxiom(dataProp, s1, o2),
+            () -> subj.getOWLDataPropertyDomainAxiom(left, right),
+            () -> subj.getOWLDataPropertyRangeAxiom(left, dtype),
+            () -> subj.getOWLDataSomeValuesFrom(dataProp, dtype),
             () -> subj.getOWLDatatypeRestriction(dtype,
                 subj.getOWLFacetRestriction(MAX_EXCLUSIVE, facetValue)),
-            () -> subj.getOWLDatatypeRestriction(dtype,
-                subj.getOWLFacetRestriction(MIN_INCLUSIVE, facetValue)));
-        assertNotEqualsFromSuppliers(() -> subj.getOWLDifferentIndividualsAxiom(a1, b1),
-            () -> subj.getOWLDifferentIndividualsAxiom(a1, b1, c1));
-        assertNotEqualsFromSuppliers(() -> subj.getOWLDisjointClassesAxiom(a, b),
-            () -> subj.getOWLDisjointClassesAxiom(a, b, c5));
-        assertNotEqualsFromSuppliers(() -> subj.getOWLDisjointDataPropertiesAxiom(a4, b4, c4),
-            () -> subj.getOWLDisjointDataPropertiesAxiom(a4, b4));
-        assertNotEqualsFromSuppliers(() -> subj.getOWLDisjointObjectPropertiesAxiom(a3, b3, c3),
-            () -> subj.getOWLDisjointObjectPropertiesAxiom(a3, b3));
-        assertNotEqualsFromSuppliers(() -> subj.getOWLEquivalentClassesAxiom(a, b),
-            () -> subj.getOWLEquivalentClassesAxiom(a, b, c5));
-        assertNotEqualsFromSuppliers(() -> subj.getOWLEquivalentDataPropertiesAxiom(a4, b4),
-            () -> subj.getOWLEquivalentDataPropertiesAxiom(a4, b4, c4));
-        assertNotEqualsFromSuppliers(() -> subj.getOWLEquivalentObjectPropertiesAxiom(a3, b3, c3),
-            () -> subj.getOWLEquivalentObjectPropertiesAxiom(a3, b3));
-        assertNotEqualsFromSuppliers(() -> subj.getOWLLiteral("3", dtype),
-            () -> subj.getOWLLiteral("4", dtype));
-        assertNotEqualsFromSuppliers(() -> subj.getOWLLiteral(TEST, LANG),
-            () -> subj.getOWLLiteral("OTHER", LANG));
-        assertNotEqualsFromSuppliers(() -> subj.getOWLLiteral(TEST, LANG),
-            () -> subj.getOWLLiteral(TEST, "OTHER_LANG"));
-        assertNotEqualsFromSuppliers(() -> subj.getOWLObjectComplementOf(operandA),
-            () -> subj.getOWLObjectComplementOf(operandB));
-        assertNotEqualsFromSuppliers(
-            () -> subj.getOWLObjectExactCardinality(3, prop2, subj.getOWLThing()),
-            () -> subj.getOWLObjectExactCardinality(4, prop2, subj.getOWLThing()));
-        assertNotEqualsFromSuppliers(() -> subj.getOWLObjectIntersectionOf(a, b),
-            () -> subj.getOWLObjectIntersectionOf(a, b, c5));
-        assertNotEqualsFromSuppliers(
-            () -> subj.getOWLObjectMaxCardinality(3, prop2, subj.getOWLThing()),
-            () -> subj.getOWLObjectMaxCardinality(4, prop2, subj.getOWLThing()));
-        assertNotEqualsFromSuppliers(
-            () -> subj.getOWLObjectMinCardinality(3, prop2, subj.getOWLThing()),
-            () -> subj.getOWLObjectMinCardinality(4, prop2, subj.getOWLThing()));
-        assertNotEqualsFromSuppliers(() -> subj.getOWLObjectOneOf(a1, b1),
-            () -> subj.getOWLObjectOneOf(a1, b1, c1));
-        assertNotEqualsFromSuppliers(() -> subj.getOWLObjectUnionOf(a, b, c5),
-            () -> subj.getOWLObjectUnionOf(a, b));
-        assertNotEqualsFromSuppliers(() -> subj.getOWLSameIndividualAxiom(a1, b1),
-            () -> subj.getOWLSameIndividualAxiom(a1, b1, c1));
-        assertSameFromSupplier(subj::getBooleanOWLDatatype);
-        assertSameFromSupplier(subj::getDoubleOWLDatatype);
-        assertSameFromSupplier(subj::getFloatOWLDatatype);
-        assertSameFromSupplier(subj::getOWLBackwardCompatibleWith);
-        assertSameFromSupplier(subj::getOWLBottomDataProperty);
-        assertSameFromSupplier(subj::getOWLBottomObjectProperty);
-        assertSameFromSupplier(subj::getOWLDeprecated);
-        assertSameFromSupplier(subj::getOWLIncompatibleWith);
-        assertSameFromSupplier(subj::getOWLNothing);
-        assertSameFromSupplier(subj::getOWLThing);
-        assertSameFromSupplier(subj::getOWLTopDataProperty);
-        assertSameFromSupplier(subj::getOWLTopObjectProperty);
-        assertSameFromSupplier(subj::getOWLVersionInfo);
-        assertSameFromSupplier(subj::getRDFPlainLiteral);
-        assertSameFromSupplier(subj::getRDFSIsDefinedBy);
-        assertSameFromSupplier(subj::getRDFSLabel);
-        assertSameFromSupplier(subj::getRDFSSeeAlso);
-        assertSameFromSupplier(subj::getTopDatatype);
+            () -> subj.getOWLDifferentIndividualsAxiom(a1, b1, c1),
+            () -> subj.getOWLDisjointClassesAxiom(a, b, c5),
+            () -> subj.getOWLDisjointDataPropertiesAxiom(a4, b4, c4),
+            () -> subj.getOWLDisjointObjectPropertiesAxiom(a3, b3, c3),
+            () -> subj.getOWLEquivalentClassesAxiom(a, b, c5),
+            () -> subj.getOWLEquivalentClassesAxiom(classExpressions),
+            () -> subj.getOWLEquivalentDataPropertiesAxiom(a4, b4, c4),
+            () -> subj.getOWLEquivalentDataPropertiesAxiom(properties),
+            () -> subj.getOWLEquivalentObjectPropertiesAxiom(a3, b3, c3),
+            () -> subj.getOWLFunctionalDataPropertyAxiom(dataProp),
+            () -> subj.getOWLFunctionalObjectPropertyAxiom(prop2),
+            () -> subj.getOWLInverseFunctionalObjectPropertyAxiom(prop2),
+            () -> subj.getOWLIrreflexiveObjectPropertyAxiom(prop2),
+            () -> subj.getOWLLiteral("3", dtype), () -> subj.getOWLLiteral(TEST, LANG),
+            () -> subj.getOWLNamedIndividual(iri),
+            () -> subj.getOWLNegativeDataPropertyAssertionAxiom(dataProp, s1, o2),
+            () -> subj.getOWLNegativeObjectPropertyAssertionAxiom(p3, s1, o1),
+            () -> subj.getOWLObjectAllValuesFrom(prop2, a),
+            () -> subj.getOWLObjectComplementOf(operand), () -> subj.getOWLObjectHasSelf(prop2),
+            () -> subj.getOWLObjectHasValue(prop2, filler),
+            () -> subj.getOWLObjectIntersectionOf(a, b, c5),
+            () -> subj.getOWLDataExactCardinality(cardinality, dataProp, dtype),
+            () -> subj.getOWLDataExactCardinality(cardinality, dataProp, subj.getTopDatatype()),
+            () -> subj.getOWLDataMaxCardinality(cardinality, dataProp, dtype),
+            () -> subj.getOWLDataMaxCardinality(cardinality, dataProp, subj.getTopDatatype()),
+            () -> subj.getOWLDataMinCardinality(cardinality, dataProp, dtype),
+            () -> subj.getOWLDataMinCardinality(cardinality, dataProp, subj.getTopDatatype()),
+            () -> subj.getOWLObjectExactCardinality(cardinality, prop2, a),
+            () -> subj.getOWLObjectExactCardinality(cardinality, prop2, subj.getOWLThing()),
+            () -> subj.getOWLObjectMaxCardinality(cardinality, prop2, a),
+            () -> subj.getOWLObjectMaxCardinality(cardinality, prop2, subj.getOWLThing()),
+            () -> subj.getOWLObjectMinCardinality(cardinality, prop2, a),
+            () -> subj.getOWLObjectMinCardinality(cardinality, prop2, subj.getOWLThing()),
+            () -> subj.getOWLObjectOneOf(a1, b1, c1),
+            () -> subj.getOWLObjectPropertyAssertionAxiom(p3, s1, o1),
+            () -> subj.getOWLObjectPropertyDomainAxiom(p3, right),
+            () -> subj.getOWLObjectPropertyRangeAxiom(p3, right),
+            () -> subj.getOWLObjectSomeValuesFrom(prop2, a),
+            () -> subj.getOWLObjectUnionOf(a, b, c5),
+            () -> subj.getOWLReflexiveObjectPropertyAxiom(prop2),
+            () -> subj.getOWLSameIndividualAxiom(a1, b1, c1),
+            () -> subj.getOWLSubDataPropertyOfAxiom(left, dataProp),
+            () -> subj.getOWLSubObjectPropertyOfAxiom(p3, prop2),
+            () -> subj.getOWLSymmetricObjectPropertyAxiom(prop2),
+            () -> subj.getOWLTransitiveObjectPropertyAxiom(prop2))
+                .forEach(OWLDataFactoryImplTestCase::assertEqualsFromSupplier);
+
+        s(() -> C(IRI()), () -> D(IRI()), () -> DP(IRI()), () -> OP(IRI()),
+            () -> subj.getOWLAnnotationProperty(IRI()),
+            () -> subj.getOWLAsymmetricObjectPropertyAxiom(OP(IRI())),
+            () -> subj.getOWLClassAssertionAxiom(C(IRI()), a1),
+            () -> subj.getOWLClassAssertionAxiom(right, I()),
+            () -> subj.getOWLDataAllValuesFrom(DP(IRI()), dtype),
+            () -> subj.getOWLDataAllValuesFrom(dataProp, D(IRI())),
+            () -> subj.getOWLDataComplementOf(D(IRI())),
+            () -> subj.getOWLDataHasValue(DP(IRI()), filler1),
+            () -> subj.getOWLDataHasValue(dataProp, Literal()),
+            () -> subj.getOWLDataPropertyAssertionAxiom(DP(IRI()), s1, o2),
+            () -> subj.getOWLDataPropertyAssertionAxiom(dataProp, I(), o2),
+            () -> subj.getOWLDataPropertyAssertionAxiom(dataProp, s1, Literal()),
+            () -> subj.getOWLDataPropertyDomainAxiom(DP(IRI()), right),
+            () -> subj.getOWLDataPropertyDomainAxiom(left, C(IRI())),
+            () -> subj.getOWLDataPropertyRangeAxiom(DP(IRI()), dtype),
+            () -> subj.getOWLDataPropertyRangeAxiom(left, D(IRI())),
+            () -> subj.getOWLFunctionalDataPropertyAxiom(DP(IRI())),
+            () -> subj.getOWLFunctionalObjectPropertyAxiom(OP(IRI())),
+            () -> subj.getOWLInverseFunctionalObjectPropertyAxiom(OP(IRI())),
+            () -> subj.getOWLIrreflexiveObjectPropertyAxiom(OP(IRI())),
+            () -> subj.getOWLLiteral("3", D(IRI())), () -> subj.getOWLNamedIndividual(IRI()),
+            () -> subj.getOWLNegativeDataPropertyAssertionAxiom(DP(IRI()), s1, o2),
+            () -> subj.getOWLNegativeDataPropertyAssertionAxiom(dataProp, I(), o2),
+            () -> subj.getOWLNegativeDataPropertyAssertionAxiom(dataProp, s1, Literal()),
+            () -> subj.getOWLNegativeObjectPropertyAssertionAxiom(OP(IRI()), s1, o1),
+            () -> subj.getOWLNegativeObjectPropertyAssertionAxiom(p3, I(), o1),
+            () -> subj.getOWLNegativeObjectPropertyAssertionAxiom(p3, s1, I()),
+            () -> subj.getOWLObjectAllValuesFrom(OP(IRI()), a),
+            () -> subj.getOWLObjectAllValuesFrom(prop2, C(IRI())),
+            () -> subj.getOWLObjectHasSelf(OP(IRI())),
+            () -> subj.getOWLObjectHasValue(OP(IRI()), filler),
+            () -> subj.getOWLObjectHasValue(prop2, I()),
+            () -> subj.getOWLObjectPropertyAssertionAxiom(OP(IRI()), s1, o1),
+            () -> subj.getOWLObjectPropertyAssertionAxiom(p3, I(), o1),
+            () -> subj.getOWLObjectPropertyAssertionAxiom(p3, s1, I()),
+            () -> subj.getOWLObjectPropertyDomainAxiom(OP(IRI()), right),
+            () -> subj.getOWLObjectPropertyDomainAxiom(p3, C(IRI())),
+            () -> subj.getOWLObjectPropertyRangeAxiom(OP(IRI()), right),
+            () -> subj.getOWLObjectPropertyRangeAxiom(p3, C(IRI())),
+            () -> subj.getOWLObjectSomeValuesFrom(OP(IRI()), a),
+            () -> subj.getOWLObjectSomeValuesFrom(prop2, C(IRI())),
+            () -> subj.getOWLReflexiveObjectPropertyAxiom(OP(IRI())),
+            () -> subj.getOWLSubDataPropertyOfAxiom(DP(IRI()), dataProp),
+            () -> subj.getOWLSubDataPropertyOfAxiom(left, DP(IRI())),
+            () -> subj.getOWLSubObjectPropertyOfAxiom(OP(IRI()), prop2),
+            () -> subj.getOWLSubObjectPropertyOfAxiom(p3, OP(IRI())),
+            () -> subj.getOWLSymmetricObjectPropertyAxiom(OP(IRI())),
+            () -> subj.getOWLTransitiveObjectPropertyAxiom(OP(IRI())),
+            () -> subj.getOWLObjectExactCardinality(3, OP(IRI()), subj.getOWLThing()),
+            () -> subj.getOWLObjectExactCardinality(3, prop2, C(IRI())),
+            () -> subj.getOWLObjectMaxCardinality(3, OP(IRI()), subj.getOWLThing()),
+            () -> subj.getOWLObjectMaxCardinality(3, prop2, C(IRI())),
+            () -> subj.getOWLObjectMinCardinality(3, OP(IRI()), subj.getOWLThing()),
+            () -> subj.getOWLObjectMinCardinality(3, prop2, C(IRI())),
+            () -> subj.getOWLDataExactCardinality(3, DP(IRI()), subj.getTopDatatype()),
+            () -> subj.getOWLDataExactCardinality(3, dataProp, D(IRI())),
+            () -> subj.getOWLDataMaxCardinality(3, DP(IRI()), subj.getTopDatatype()),
+            () -> subj.getOWLDataMaxCardinality(3, dataProp, D(IRI())),
+            () -> subj.getOWLDataMinCardinality(3, DP(IRI()), subj.getTopDatatype()),
+            () -> subj.getOWLDataMinCardinality(3, dataProp, D(IRI())))
+                .forEach(OWLDataFactoryImplTestCase::assertNotEqualsFromSupplier);
+
+        Stream
+            .of(s(() -> subj.getOWLDataOneOf(a2, b2), () -> subj.getOWLDataOneOf(a2, b2, c2)),
+                s(() -> subj.getOWLDataSomeValuesFrom(DP(IRI()), dtype),
+                    () -> subj.getOWLDataSomeValuesFrom(DP(IRI()), dtype)),
+                s(() -> subj.getOWLDataSomeValuesFrom(dataProp, D(IRI())),
+                    () -> subj.getOWLDataSomeValuesFrom(dataProp, D(IRI()))),
+                s(() -> subj.getOWLDatatypeRestriction(dtype,
+                    subj.getOWLFacetRestriction(MAX_EXCLUSIVE, facetValue)),
+                    () -> subj.getOWLDatatypeRestriction(dtype,
+                        subj.getOWLFacetRestriction(MIN_INCLUSIVE, facetValue))),
+                s(() -> subj.getOWLDifferentIndividualsAxiom(a1, b1),
+                    () -> subj.getOWLDifferentIndividualsAxiom(a1, b1, c1)),
+                s(() -> subj.getOWLDisjointClassesAxiom(a, b),
+                    () -> subj.getOWLDisjointClassesAxiom(a, b, c5)),
+                s(() -> subj.getOWLDisjointDataPropertiesAxiom(a4, b4, c4),
+                    () -> subj.getOWLDisjointDataPropertiesAxiom(a4, b4)),
+                s(() -> subj.getOWLDisjointObjectPropertiesAxiom(a3, b3, c3),
+                    () -> subj.getOWLDisjointObjectPropertiesAxiom(a3, b3)),
+                s(() -> subj.getOWLEquivalentClassesAxiom(a, b),
+                    () -> subj.getOWLEquivalentClassesAxiom(a, b, c5)),
+                s(() -> subj.getOWLEquivalentDataPropertiesAxiom(a4, b4),
+                    () -> subj.getOWLEquivalentDataPropertiesAxiom(a4, b4, c4)),
+                s(() -> subj.getOWLEquivalentObjectPropertiesAxiom(a3, b3, c3),
+                    () -> subj.getOWLEquivalentObjectPropertiesAxiom(a3, b3)),
+                s(() -> subj.getOWLLiteral("3", dtype), () -> subj.getOWLLiteral("4", dtype)),
+                s(() -> subj.getOWLLiteral(TEST, LANG), () -> subj.getOWLLiteral("OTHER", LANG)),
+                s(() -> subj.getOWLLiteral(TEST, LANG),
+                    () -> subj.getOWLLiteral(TEST, "OTHER_LANG")),
+                s(() -> subj.getOWLObjectComplementOf(operandA),
+                    () -> subj.getOWLObjectComplementOf(operandB)),
+                s(() -> subj.getOWLObjectIntersectionOf(a, b),
+                    () -> subj.getOWLObjectIntersectionOf(a, b, c5)),
+                s(() -> subj.getOWLObjectOneOf(a1, b1), () -> subj.getOWLObjectOneOf(a1, b1, c1)),
+                s(() -> subj.getOWLObjectUnionOf(a, b, c5), () -> subj.getOWLObjectUnionOf(a, b)),
+                s(() -> subj.getOWLSameIndividualAxiom(a1, b1),
+                    () -> subj.getOWLSameIndividualAxiom(a1, b1, c1)),
+                s(() -> subj.getOWLObjectExactCardinality(3, prop2, subj.getOWLThing()),
+                    () -> subj.getOWLObjectExactCardinality(4, prop2, subj.getOWLThing())),
+                s(() -> subj.getOWLObjectMaxCardinality(3, prop2, subj.getOWLThing()),
+                    () -> subj.getOWLObjectMaxCardinality(4, prop2, subj.getOWLThing())),
+                s(() -> subj.getOWLObjectMinCardinality(3, prop2, subj.getOWLThing()),
+                    () -> subj.getOWLObjectMinCardinality(4, prop2, subj.getOWLThing())),
+                s(() -> subj.getOWLDataExactCardinality(3, dataProp, subj.getTopDatatype()),
+                    () -> subj.getOWLDataExactCardinality(4, dataProp, subj.getTopDatatype())),
+                s(() -> subj.getOWLDataMaxCardinality(3, dataProp, subj.getTopDatatype()),
+                    () -> subj.getOWLDataMaxCardinality(4, dataProp, subj.getTopDatatype())),
+                s(() -> subj.getOWLDataMinCardinality(3, dataProp, subj.getTopDatatype()),
+                    () -> subj.getOWLDataMinCardinality(4, dataProp, subj.getTopDatatype())))
+            .forEach(l -> assertNotEqualsFromSuppliers(l.get(0), l.get(1)));
+    }
+
+    static List<Supplier<?>> s(Supplier<?>... suppliers) {
+        return Arrays.asList(suppliers);
+    }
+
+    @Test
+    void singletons() {
+        s(subj::getBooleanOWLDatatype, subj::getDoubleOWLDatatype, subj::getFloatOWLDatatype,
+            subj::getOWLBackwardCompatibleWith, subj::getOWLBottomDataProperty,
+            subj::getOWLBottomObjectProperty, subj::getOWLDeprecated, subj::getOWLIncompatibleWith,
+            subj::getOWLNothing, subj::getOWLThing, subj::getOWLTopDataProperty,
+            subj::getOWLTopObjectProperty, subj::getOWLVersionInfo, subj::getRDFPlainLiteral,
+            subj::getRDFSIsDefinedBy, subj::getRDFSLabel, subj::getRDFSSeeAlso,
+            subj::getTopDatatype).forEach(OWLDataFactoryImplTestCase::assertSameFromSupplier);
     }
 }

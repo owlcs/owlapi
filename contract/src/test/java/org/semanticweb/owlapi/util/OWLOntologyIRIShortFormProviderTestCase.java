@@ -2,7 +2,8 @@ package org.semanticweb.owlapi.util;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 import org.semanticweb.owlapi.apitest.baseclasses.TestBase;
 import org.semanticweb.owlapi.utility.OntologyIRIShortFormProvider;
 
@@ -12,79 +13,36 @@ import org.semanticweb.owlapi.utility.OntologyIRIShortFormProvider;
  */
 class OWLOntologyIRIShortFormProviderTestCase extends TestBase {
 
-    private static final String ONT2 = "ont";
-    private static final String ont = "/ontologies/ont/";
-    private static final String onts = "/ontologies/";
-    static final String SCHEME_DOMAIN = "http://www.semanticweb.org";
     private final OntologyIRIShortFormProvider sfp = new OntologyIRIShortFormProvider();
 
-    @Test
-    void shouldFindLastPathElement() {
-        String shortForm = sfp.getShortForm(iri(SCHEME_DOMAIN + onts, ONT2));
-        assertEquals(ONT2, shortForm);
-    }
-
-    /*
-     * A test to see if a meaningful short form is returned when the ontology IRI encodes version
-     * information at the end. For example, the dublin core IRIs do this.
-     */
-    @Test
-    void shouldReturnLastNonNumericPathElement() {
-        String shortForm = sfp.getShortForm(iri(SCHEME_DOMAIN + "/ontologies/ont/1.1.11", ""));
-        assertEquals(ONT2, shortForm);
-    }
-
-    @Test
-    void shouldReturnLastNonVersionPathElement() {
-        String shortForm = sfp.getShortForm(iri(SCHEME_DOMAIN + ont, "v1.1.11"));
-        assertEquals(ONT2, shortForm);
-    }
-
-    @Test
-    void shouldReturnFullIRIForNoPath() {
-        String shortForm = sfp.getShortForm(iri(SCHEME_DOMAIN, ""));
-        assertEquals(SCHEME_DOMAIN, shortForm);
-    }
-
-    @Test
-    void shouldStripAwayOWLExtension() {
-        String shortForm = sfp.getShortForm(iri(SCHEME_DOMAIN + onts, "ont.owl"));
-        assertEquals(ONT2, shortForm);
-    }
-
-    @Test
-    void shouldStripAwayRDFExtension() {
-        String shortForm = sfp.getShortForm(iri(SCHEME_DOMAIN + onts, "ont.rdf"));
-        assertEquals(ONT2, shortForm);
-    }
-
-    @Test
-    void shouldStripAwayXMLExtension() {
-        String shortForm = sfp.getShortForm(iri(SCHEME_DOMAIN + onts, "ont.xml"));
-        assertEquals(ONT2, shortForm);
-    }
-
-    @Test
-    void shouldStripAwayOBOExtension() {
-        String shortForm = sfp.getShortForm(iri(SCHEME_DOMAIN + onts, "ont.obo"));
-        assertEquals(ONT2, shortForm);
-    }
-
-    @Test
-    void shouldReturnSkosForSKOSNamespace() {
-        String shortForm = sfp.getShortForm(iri("http://www.w3.org/2004/02/skos/", "core"));
-        assertEquals("skos", shortForm);
-    }
-
-    @Test
-    void shouldReturnDcForDublinCoreNamespace() {
-        String shortForm = sfp.getShortForm(iri("http://purl.org/dc/elements/1.1", ""));
-        assertEquals("dc", shortForm);
-    }
-
-    @Test
-    void shouldReturnDcForDublinCoreNamespaceEndingWithSlash() {
-        String shortForm = sfp.getShortForm(iri("http://purl.org/dc/elements/1.1/", ""));
-        assertEquals("dc", shortForm);
+    @ParameterizedTest
+    @CsvSource({
+        // shouldFindLastPathElement
+        "ont,http://www.semanticweb.org/ontologies/,ont",
+        // void shouldReturnLastNonNumericPathElement
+        // A test to see if a meaningful short form is returned when the ontology IRI encodes
+        // version information at the end. For example, the dublin core IRIs do this.
+        "ont,http://www.semanticweb.org/ontologies/ont/1.1.11,",
+        // shouldReturnLastNonVersionPathElement
+        "ont,http://www.semanticweb.org/ontologies/ont/,v1.1.11",
+        // shouldReturnFullIRIForNoPath
+        "http://www.semanticweb.org,http://www.semanticweb.org,",
+        // shouldStripAwayOWLExtension
+        "ont,http://www.semanticweb.org/ontologies/,ont.owl",
+        // shouldStripAwayRDFExtension
+        "ont,http://www.semanticweb.org/ontologies/,ont.rdf",
+        // shouldStripAwayXMLExtension
+        "ont,http://www.semanticweb.org/ontologies/,ont.xml",
+        // shouldStripAwayOBOExtension
+        "ont,http://www.semanticweb.org/ontologies/,ont.obo",
+        // shouldReturnSkosForSKOSNamespace
+        "skos,http://www.w3.org/2004/02/skos/,core",
+        // shouldReturnDcForDublinCoreNamespace
+        "dc,http://purl.org/dc/elements/1.1,",
+        // shouldReturnDcForDublinCoreNamespaceEndingWithSlash
+        "dc,http://purl.org/dc/elements/1.1/,"})
+    void shouldFindExpected(String expected, String iri, String fragment) {
+        String shortForm = sfp.getShortForm(iri(iri, fragment));
+        assertEquals(expected, shortForm);
     }
 }
