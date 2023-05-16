@@ -234,6 +234,7 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
                     ce.isOWLNothing() || !ce.isOWLThing() && !getSignature().contains(ce);
                 case TOP_BOTTOM, TOP_TOP -> isBottomEquivalent = ce.isOWLNothing();
                 default -> {
+                    // no action
                 }
             }
         }
@@ -250,6 +251,7 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
                     !getSignature().contains(ce.getProperty().asOWLDataProperty())
                         && !ce.getFiller().isTopDatatype();
                 default -> {
+                    // no action
                 }
             }
         }
@@ -269,6 +271,7 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
                         && !getSignature().contains(ce.getProperty().asOWLDataProperty())
                         && isTopOrBuiltInInfiniteDatatype(ce.getFiller());
                 default -> {
+                    // no action
                 }
             }
         }
@@ -286,6 +289,7 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
                         zeroCard(ce, p) || oneCard(ce, p) || moreThanOneCard(ce, p);
                 }
                 default -> {
+                    // no action
                 }
             }
         }
@@ -313,6 +317,7 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
                     && !getSignature().contains(ce.getProperty().asOWLDataProperty());
                 case TOP_TOP -> isBottomEquivalent = false;
                 default -> {
+                    // no action
                 }
             }
         }
@@ -324,6 +329,7 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
                     !getSignature().contains(ce.getProperty().asOWLDataProperty());
                 case TOP_TOP -> isBottomEquivalent = false;
                 default -> {
+                    // no action
                 }
             }
         }
@@ -335,6 +341,7 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
                     !getSignature().contains(ce.getProperty().asOWLDataProperty());
                 case TOP_TOP -> isBottomEquivalent = false;
                 default -> {
+                    // no action
                 }
             }
         }
@@ -348,6 +355,7 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
                     !getSignature().contains(ce.getProperty().getNamedProperty())
                         && isBottomEquivalent(ce.getFiller());
                 default -> {
+                    // no action
                 }
             }
         }
@@ -373,6 +381,7 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
                             && topEvaluator.isTopEquivalent(ce.getFiller(), getSignature(),
                                 getLocality()));
                 default -> {
+                    // no action
                 }
             }
         }
@@ -394,6 +403,7 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
                     && !getSignature().contains(ce.getProperty().getNamedProperty())
                     && topEvaluator.isTopEquivalent(ce.getFiller(), getSignature(), getLocality());
                 default -> {
+                    // no action
                 }
             }
         }
@@ -408,6 +418,7 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
                 case TOP_TOP -> isBottomEquivalent =
                     ce.getCardinality() > 0 && isBottomEquivalent(ce.getFiller());
                 default -> {
+                    // no action
                 }
             }
         }
@@ -424,6 +435,7 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
                     !getSignature().contains(ce.getProperty().getNamedProperty());
                 case TOP_TOP -> isBottomEquivalent = false;
                 default -> {
+                    // no action
                 }
             }
         }
@@ -436,6 +448,7 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
                         || isBottomEquivalent(ce.getFiller());
                 case TOP_TOP -> isBottomEquivalent = isBottomEquivalent(ce.getFiller());
                 default -> {
+                    // no action
                 }
             }
         }
@@ -455,6 +468,7 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
                     !getSignature().contains(ce.getProperty().getNamedProperty());
                 case TOP_TOP -> isBottomEquivalent = false;
                 default -> {
+                    // no action
                 }
             }
         }
@@ -521,6 +535,7 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
                 case TOP_BOTTOM, TOP_TOP -> isTopEquivalent =
                     ce.isOWLThing() || !ce.isOWLNothing() && !signature.contains(ce);
                 default -> {
+                    // no action
                 }
             }
         }
@@ -534,6 +549,7 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
                         || ce.getFiller().isTopDatatype();
                 case TOP_TOP -> isTopEquivalent = ce.getFiller().isTopDatatype();
                 default -> {
+                    // no action
                 }
             }
         }
@@ -546,6 +562,7 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
                     && !signature.contains(ce.getProperty().asOWLDataProperty());
                 case TOP_TOP -> isTopEquivalent = false;
                 default -> {
+                    // no action
                 }
             }
         }
@@ -558,6 +575,7 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
                     !signature.contains(ce.getProperty().asOWLDataProperty());
                 case TOP_TOP -> isTopEquivalent = false;
                 default -> {
+                    // no action
                 }
             }
         }
@@ -581,6 +599,7 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
                         && !signature.contains(ce.getProperty().asOWLDataProperty())
                         && isTopOrBuiltInInfiniteDatatype(ce.getFiller());
                 default -> {
+                    // no action
                 }
             }
         }
@@ -595,6 +614,7 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
                     !signature.contains(ce.getProperty().asOWLDataProperty())
                         && isTopOrBuiltInDatatype(ce.getFiller());
                 default -> {
+                    // no action
                 }
             }
         }
@@ -607,6 +627,7 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
                 case TOP_TOP -> isTopEquivalent =
                     !signature.contains(ce.getProperty().asOWLDataProperty());
                 default -> {
+                    // no action
                 }
             }
         }
@@ -619,6 +640,7 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
                         || isTopEquivalent(ce.getFiller());
                 case TOP_TOP -> isTopEquivalent = isTopEquivalent(ce.getFiller());
                 default -> {
+                    // no action
                 }
             }
         }
@@ -639,6 +661,7 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
                 case TOP_TOP -> isTopEquivalent = ce.getCardinality() == 0 && bottomEvaluator
                     .isBottomEquivalent(ce.getFiller(), getSignature(), getLocality());
                 default -> {
+                    // no action
                 }
             }
         }
@@ -661,6 +684,7 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
                 case TOP_TOP -> isTopEquivalent = bottomEvaluator.isBottomEquivalent(ce.getFiller(),
                     getSignature(), getLocality());
                 default -> {
+                    // no action
                 }
             }
         }
@@ -676,6 +700,7 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
                     || !signature.contains(ce.getProperty().getNamedProperty())
                         && isTopEquivalent(ce.getFiller());
                 default -> {
+                    // no action
                 }
             }
         }
@@ -692,6 +717,7 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
                 case TOP_TOP -> isTopEquivalent =
                     !signature.contains(ce.getProperty().getNamedProperty());
                 default -> {
+                    // no action
                 }
             }
         }
@@ -705,6 +731,7 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
                     !signature.contains(ce.getProperty().getNamedProperty())
                         && isTopEquivalent(ce.getFiller());
                 default -> {
+                    // no action
                 }
             }
         }
@@ -721,6 +748,7 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
                 case TOP_TOP -> isTopEquivalent =
                     !signature.contains(ce.getProperty().getNamedProperty());
                 default -> {
+                    // no action
                 }
             }
         }
@@ -775,6 +803,7 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
                     !getSignature().contains(axiom.getProperty().getNamedProperty());
                 case TOP_TOP -> isLocal = false;
                 default -> {
+                    // no action
                 }
             }
         }
@@ -792,6 +821,7 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
                 case TOP_TOP -> isLocal =
                     !getSignature().contains(axiom.getProperty().asOWLDataProperty());
                 default -> {
+                    // no action
                 }
             }
         }
@@ -806,6 +836,7 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
                 case TOP_TOP -> isLocal =
                     topEvaluator.isTopEquivalent(axiom.getDomain(), getSignature(), localityCls);
                 default -> {
+                    // no action
                 }
             }
         }
@@ -819,6 +850,7 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
                         || axiom.getRange().isTopDatatype();
                 case TOP_TOP -> isLocal = axiom.getRange().isTopDatatype();
                 default -> {
+                    // no action
                 }
             }
         }
@@ -831,6 +863,7 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
                 case TOP_TOP -> isLocal =
                     !getSignature().contains(axiom.getSuperProperty().asOWLDataProperty());
                 default -> {
+                    // no action
                 }
             }
         }
@@ -885,6 +918,7 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
                 case BOTTOM_BOTTOM, TOP_BOTTOM -> isLocal = checkIfLocalProperties(axiom);
                 case TOP_TOP -> isLocal = false;
                 default -> {
+                    // no action
                 }
             }
         }
@@ -917,6 +951,7 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
                 case BOTTOM_BOTTOM, TOP_BOTTOM -> isLocal = checkIfLocalProperties(axiom);
                 case TOP_TOP -> isLocal = false;
                 default -> {
+                    // no action
                 }
             }
         }
@@ -1056,6 +1091,7 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
                     !getSignature().contains(axiom.getProperty().asOWLDataProperty());
                 case TOP_TOP -> isLocal = false;
                 default -> {
+                    // no action
                 }
             }
         }
@@ -1069,6 +1105,7 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
                     !getSignature().contains(axiom.getProperty().getNamedProperty());
                 case TOP_TOP -> isLocal = false;
                 default -> {
+                    // no action
                 }
             }
         }
@@ -1080,6 +1117,7 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
                     !getSignature().contains(axiom.getProperty().getNamedProperty());
                 case TOP_TOP -> isLocal = false;
                 default -> {
+                    // no action
                 }
             }
         }
@@ -1100,6 +1138,7 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
                     !getSignature().contains(axiom.getProperty().getNamedProperty());
                 case TOP_TOP -> isLocal = false;
                 default -> {
+                    // no action
                 }
             }
         }
@@ -1113,6 +1152,7 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
                     !getSignature().contains(axiom.getProperty().asOWLDataProperty());
                 case TOP_TOP -> isLocal = false;
                 default -> {
+                    // no action
                 }
             }
         }
@@ -1126,6 +1166,7 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
                     !getSignature().contains(axiom.getProperty().getNamedProperty());
                 case TOP_TOP -> isLocal = false;
                 default -> {
+                    // no action
                 }
             }
         }
@@ -1137,6 +1178,7 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
                 case TOP_TOP -> isLocal =
                     !getSignature().contains(axiom.getProperty().getNamedProperty());
                 default -> {
+                    // no action
                 }
             }
         }
@@ -1154,6 +1196,7 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
                     // Axiom is local iff RHS is top-equiv
                     isLocal = !getSignature().contains(axiom.getSuperProperty().getNamedProperty());
                 default -> {
+                    // no action
                 }
             }
         }
@@ -1167,6 +1210,7 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
                 case TOP_TOP -> isLocal =
                     topEvaluator.isTopEquivalent(axiom.getDomain(), getSignature(), localityCls);
                 default -> {
+                    // no action
                 }
             }
         }
@@ -1180,6 +1224,7 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
                 case TOP_TOP -> isLocal =
                     topEvaluator.isTopEquivalent(axiom.getRange(), getSignature(), localityCls);
                 default -> {
+                    // no action
                 }
             }
         }
@@ -1192,6 +1237,7 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
                 case TOP_TOP -> isLocal =
                     !getSignature().contains(axiom.getSuperProperty().getNamedProperty());
                 default -> {
+                    // no action
                 }
             }
         }
@@ -1204,6 +1250,7 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
                 case TOP_TOP -> isLocal =
                     !getSignature().contains(axiom.getProperty().getNamedProperty());
                 default -> {
+                    // no action
                 }
             }
         }

@@ -793,27 +793,37 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousIndividualByIdProvi
         }
         IRI onDt = tripleIndex.resource(n, OWL_ON_DATA_TYPE, true);
         if (onDt != null) {
-            if (anon.isAnonymousNode(onDt)) {
-                // TODO LOG ERROR
-                return df.getOWLDatatype(n);
-            }
-            OWLDatatype dt = (OWLDatatype) translateDataRange(onDt);
-            // Now we have to get the restricted facets - there is some legacy
-            // translation code here... the current
-            // spec uses a list of triples where the predicate is a facet and
-            // the object a literal that is restricted
-            // by the facet. Originally, there just used to be multiple
-            // facet-"facet value" triples
-            IRI facets = tripleIndex.resource(n, OWL_WITH_RESTRICTIONS, true);
-            if (facets != null) {
-                return df.getOWLDatatypeRestriction(dt,
-                    translatorAccessor.translateToFacetRestrictionSet(facets));
-            } else if (!strict()) {
-                return facetLegacyEncoding(n, dt);
+            OWLDataRange d = facet(n, onDt);
+            if (d != null) {
+                return d;
             }
         }
         // Could not translated ANYTHING!
         return generateAndLogParseError(EntityType.DATATYPE, n);
+    }
+
+    private OWLDataRange facet(IRI n, IRI onDt) {
+        if (anon.isAnonymousNode(onDt)) {
+            // TODO LOG ERROR
+            return df.getOWLDatatype(n);
+        }
+        // Now we have to get the restricted facets - there is some legacy
+        // translation code here... the current
+        // spec uses a list of triples where the predicate is a facet and
+        // the object a literal that is restricted
+        // by the facet. Originally, there just used to be multiple
+        // facet-"facet value" triples
+        IRI facets = tripleIndex.resource(n, OWL_WITH_RESTRICTIONS, true);
+        if (facets != null) {
+            OWLDatatype dt = (OWLDatatype) translateDataRange(onDt);
+            return df.getOWLDatatypeRestriction(dt,
+                translatorAccessor.translateToFacetRestrictionSet(facets));
+        }
+        if (!strict()) {
+            OWLDatatype dt = (OWLDatatype) translateDataRange(onDt);
+            return facetLegacyEncoding(n, dt);
+        }
+        return null;
     }
 
     protected OWLDataRange facetLegacyEncoding(IRI n, OWLDatatype dt) {

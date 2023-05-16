@@ -12,6 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.profiles;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedHashSet;
 import java.util.Set;
@@ -57,6 +58,6 @@ public interface OWLProfile {
         Set<OWLProfileViolation> violations = new LinkedHashSet<>();
         OWLOntologyProfileWalker walker = new OWLOntologyProfileWalker(ontology.importsClosure());
         walker.walkStructure(new ProfileVisitor(walker, violations, Arrays.asList(profiles)));
-        return new OWLProfileReport(this, violations);
+        return new OWLProfileReport(this, new ArrayList<>(violations));
     }
 }

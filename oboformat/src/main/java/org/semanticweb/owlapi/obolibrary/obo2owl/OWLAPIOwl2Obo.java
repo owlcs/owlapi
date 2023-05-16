@@ -1624,13 +1624,13 @@ public class OWLAPIOwl2Obo {
              * preserved.
              */
             // handle expression list with size other than two elements as error
-            if (ax.getOperandsAsList().size() != 2) {
+            List<OWLClassExpression> list = ax.getOperandsAsList();
+            if (list.size() != 2) {
                 error(ax, false);
                 return;
             }
-            Iterator<OWLClassExpression> it = ax.classExpressions().iterator();
-            OWLClassExpression ce1 = it.next();
-            OWLClassExpression ce2 = it.next();
+            OWLClassExpression ce1 = list.get(0);
+            OWLClassExpression ce2 = list.get(1);
             if (ce1.isBottomEntity() || ce1.isTopEntity() || ce2.isBottomEntity()
                 || ce2.isTopEntity()) {
                 error(
@@ -1641,10 +1641,9 @@ public class OWLAPIOwl2Obo {
             if (!(ce1 instanceof OWLClass)) {
                 // check whether ce2 is the actual OWLEntity
                 if (ce2 instanceof OWLClass) {
-                    // three way exchange
-                    OWLClassExpression temp = ce2;
-                    ce2 = ce1;
-                    ce1 = temp;
+                    // swap
+                    ce2 = list.get(0);
+                    ce1 = list.get(1);
                 } else {
                     // this might happen for some GCI axioms, which are not
                     // expressible in OBO
@@ -1675,103 +1674,8 @@ public class OWLAPIOwl2Obo {
                     addQualifiers(c, ax.annotations());
                 }
             } else if (ce2 instanceof OWLObjectIntersectionOf c2) {
-                List<? extends OWLClassExpression> list2 = c2.getOperandsAsList();
-                for (OWLClassExpression ce : list2) {
-                    String r = null;
-                    cls2 = getIdentifier(ce);
-                    Integer exact = null; // cardinality
-                    Integer min = null; // minCardinality
-                    Integer max = null; // maxCardinality
-                    Boolean allSome = null; // all_some
-                    Boolean allOnly = null; // all_only
-                    if (ce instanceof OWLObjectSomeValuesFrom ristriction) {
-                        r = getIdentifier(ristriction.getProperty());
-                        cls2 = getIdentifier(ristriction.getFiller());
-                    } else if (ce instanceof OWLObjectExactCardinality card) {
-                        r = getIdentifier(card.getProperty());
-                        cls2 = getIdentifier(card.getFiller());
-                        exact = Integer.valueOf(card.getCardinality());
-                    } else if (ce instanceof OWLObjectMinCardinality card) {
-                        r = getIdentifier(card.getProperty());
-                        cls2 = getIdentifier(card.getFiller());
-                        min = Integer.valueOf(card.getCardinality());
-                    } else if (ce instanceof OWLObjectMaxCardinality card) {
-                        r = getIdentifier(card.getProperty());
-                        cls2 = getIdentifier(card.getFiller());
-                        max = Integer.valueOf(card.getCardinality());
-                    } else if (ce instanceof OWLObjectAllValuesFrom all) {
-                        OWLClassExpression filler = all.getFiller();
-                        if (filler instanceof OWLClass) {
-                            r = getIdentifier(all.getProperty());
-                            cls2 = getIdentifier(filler);
-                            allOnly = Boolean.TRUE;
-                        } else if (filler instanceof OWLObjectComplementOf restriction) {
-                            r = getIdentifier(all.getProperty());
-                            cls2 = getIdentifier(restriction.getOperand());
-                            exact = Integer.valueOf(0);
-                        }
-                    } else if (ce instanceof OWLObjectIntersectionOf cl) {
-                        // either a min-max or a some-all combination
-                        List<OWLClassExpression> operands = cl.getOperandsAsList();
-                        if (operands.size() == 2) {
-                            for (OWLClassExpression operand : operands) {
-                                if (operand instanceof OWLObjectMinCardinality card) {
-                                    r = getIdentifier(card.getProperty());
-                                    cls2 = getIdentifier(card.getFiller());
-                                    min = Integer.valueOf(card.getCardinality());
-                                } else if (operand instanceof OWLObjectMaxCardinality card) {
-                                    r = getIdentifier(card.getProperty());
-                                    cls2 = getIdentifier(card.getFiller());
-                                    max = Integer.valueOf(card.getCardinality());
-                                } else if (operand instanceof OWLObjectAllValuesFrom all) {
-                                    r = getIdentifier(all.getProperty());
-                                    cls2 = getIdentifier(all.getFiller());
-                                    allOnly = Boolean.TRUE;
-                                } else if (operand instanceof OWLObjectSomeValuesFrom all) {
-                                    r = getIdentifier(all.getProperty());
-                                    cls2 = getIdentifier(all.getFiller());
-                                    allSome = Boolean.TRUE;
-                                }
-                            }
-                        }
-                    }
-                    if (cls2 != null) {
-                        Clause c = new Clause(OboFormatTag.TAG_INTERSECTION_OF.getTag());
-                        if (r != null) {
-                            c.addValue(r);
-                        }
-                        c.addValue(cls2);
-                        equivalenceAxiomClauses.add(c);
-                        if (exact != null) {
-                            String string = exact.toString();
-                            c.addQualifierValue(new QualifierValue(CARDINALITY, string));
-                        }
-                        if (min != null) {
-                            String string = min.toString();
-                            c.addQualifierValue(new QualifierValue(MIN_CARDINALITY, string));
-                        }
-                        if (max != null) {
-                            String string = max.toString();
-                            c.addQualifierValue(new QualifierValue(MAX_CARDINALITY, string));
-                        }
-                        if (allSome != null) {
-                            String string = allSome.toString();
-                            c.addQualifierValue(new QualifierValue("all_some", string));
-                        }
-                        if (allOnly != null) {
-                            String string = allOnly.toString();
-                            c.addQualifierValue(new QualifierValue(ALL_ONLY, string));
-                        }
-                        addQualifiers(c, ax.annotations());
-                    } else if (!f.getClauses(OboFormatTag.TAG_INTERSECTION_OF).isEmpty()) {
-                        error(
-                            "The axiom is not translated (maximimum one IntersectionOf EquivalenceAxiom)",
-                            ax, false);
-                    } else {
-                        isUntranslateable = true;
-                        error(ax, false);
-                    }
-                }
+                isUntranslateable =
+                    intersectionOperand(ax, f, isUntranslateable, equivalenceAxiomClauses, c2);
             } else {
                 isUntranslateable = true;
                 error(ax, false);
@@ -1781,6 +1685,110 @@ public class OWLAPIOwl2Obo {
             if (!isUntranslateable) {
                 equivalenceAxiomClauses.forEach(f::addClause);
             }
+        }
+
+        protected boolean intersectionOperand(OWLEquivalentClassesAxiom ax, Frame f,
+            boolean isUntranslateable, List<Clause> equivalenceAxiomClauses,
+            OWLObjectIntersectionOf c2) {
+            String cls2;
+            List<? extends OWLClassExpression> list2 = c2.getOperandsAsList();
+            for (OWLClassExpression ce : list2) {
+                String r = null;
+                cls2 = getIdentifier(ce);
+                Integer exact = null; // cardinality
+                Integer min = null; // minCardinality
+                Integer max = null; // maxCardinality
+                Boolean allSome = null; // all_some
+                Boolean allOnly = null; // all_only
+                if (ce instanceof OWLObjectSomeValuesFrom ristriction) {
+                    r = getIdentifier(ristriction.getProperty());
+                    cls2 = getIdentifier(ristriction.getFiller());
+                } else if (ce instanceof OWLObjectExactCardinality card) {
+                    r = getIdentifier(card.getProperty());
+                    cls2 = getIdentifier(card.getFiller());
+                    exact = Integer.valueOf(card.getCardinality());
+                } else if (ce instanceof OWLObjectMinCardinality card) {
+                    r = getIdentifier(card.getProperty());
+                    cls2 = getIdentifier(card.getFiller());
+                    min = Integer.valueOf(card.getCardinality());
+                } else if (ce instanceof OWLObjectMaxCardinality card) {
+                    r = getIdentifier(card.getProperty());
+                    cls2 = getIdentifier(card.getFiller());
+                    max = Integer.valueOf(card.getCardinality());
+                } else if (ce instanceof OWLObjectAllValuesFrom all) {
+                    OWLClassExpression filler = all.getFiller();
+                    if (filler instanceof OWLClass) {
+                        r = getIdentifier(all.getProperty());
+                        cls2 = getIdentifier(filler);
+                        allOnly = Boolean.TRUE;
+                    } else if (filler instanceof OWLObjectComplementOf restriction) {
+                        r = getIdentifier(all.getProperty());
+                        cls2 = getIdentifier(restriction.getOperand());
+                        exact = Integer.valueOf(0);
+                    }
+                } else if (ce instanceof OWLObjectIntersectionOf cl) {
+                    // either a min-max or a some-all combination
+                    List<OWLClassExpression> operands = cl.getOperandsAsList();
+                    if (operands.size() == 2) {
+                        for (OWLClassExpression operand : operands) {
+                            if (operand instanceof OWLObjectMinCardinality card) {
+                                r = getIdentifier(card.getProperty());
+                                cls2 = getIdentifier(card.getFiller());
+                                min = Integer.valueOf(card.getCardinality());
+                            } else if (operand instanceof OWLObjectMaxCardinality card) {
+                                r = getIdentifier(card.getProperty());
+                                cls2 = getIdentifier(card.getFiller());
+                                max = Integer.valueOf(card.getCardinality());
+                            } else if (operand instanceof OWLObjectAllValuesFrom all) {
+                                r = getIdentifier(all.getProperty());
+                                cls2 = getIdentifier(all.getFiller());
+                                allOnly = Boolean.TRUE;
+                            } else if (operand instanceof OWLObjectSomeValuesFrom all) {
+                                r = getIdentifier(all.getProperty());
+                                cls2 = getIdentifier(all.getFiller());
+                                allSome = Boolean.TRUE;
+                            }
+                        }
+                    }
+                }
+                if (cls2 != null) {
+                    Clause c = new Clause(OboFormatTag.TAG_INTERSECTION_OF.getTag());
+                    if (r != null) {
+                        c.addValue(r);
+                    }
+                    c.addValue(cls2);
+                    equivalenceAxiomClauses.add(c);
+                    if (exact != null) {
+                        String string = exact.toString();
+                        c.addQualifierValue(new QualifierValue(CARDINALITY, string));
+                    }
+                    if (min != null) {
+                        String string = min.toString();
+                        c.addQualifierValue(new QualifierValue(MIN_CARDINALITY, string));
+                    }
+                    if (max != null) {
+                        String string = max.toString();
+                        c.addQualifierValue(new QualifierValue(MAX_CARDINALITY, string));
+                    }
+                    if (allSome != null) {
+                        String string = allSome.toString();
+                        c.addQualifierValue(new QualifierValue("all_some", string));
+                    }
+                    if (allOnly != null) {
+                        String string = allOnly.toString();
+                        c.addQualifierValue(new QualifierValue(ALL_ONLY, string));
+                    }
+                    addQualifiers(c, ax.annotations());
+                } else if (!f.getClauses(OboFormatTag.TAG_INTERSECTION_OF).isEmpty()) {
+                    error(
+                        "The axiom is not translated (maximimum one IntersectionOf EquivalenceAxiom)",
+                        ax, false);
+                } else {
+                    isUntranslateable = true;
+                    error(ax, false);
+                }
+            }
+            return isUntranslateable;
         }
 
         @Override

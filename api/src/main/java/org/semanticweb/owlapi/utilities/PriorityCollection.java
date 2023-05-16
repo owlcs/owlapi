@@ -209,10 +209,9 @@ public class PriorityCollection<T extends Serializable> implements Iterable<T>, 
         // will be ordered as in this PriorityCollection
         for (T t : delegate) {
             // if the instance has formats associated
-            if (t instanceof HasSupportedFormat mimeTypeAware) {
-                if (mimeTypeAware.getSupportedFormat().getKey().equals(formatKey)) {
-                    pc.add(t);
-                }
+            if (t instanceof HasSupportedFormat mimeTypeAware
+                && mimeTypeAware.getSupportedFormat().getKey().equals(formatKey)) {
+                pc.add(t);
             }
         }
         return pc;

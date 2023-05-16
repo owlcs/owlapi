@@ -12,9 +12,6 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.metrics;
 
-import static org.semanticweb.owlapi.utilities.OWLAPIPreconditions.checkNotNull;
-
-import java.util.ArrayList;
 import java.util.List;
 
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -22,41 +19,14 @@ import org.semanticweb.owlapi.model.OWLOntology;
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics Group
  * @since 2.1.0
+ * @param getMetrics the metrics to use
  */
-public class OWLMetricManager {
-
-    private final List<OWLMetric<?>> metrics;
-
-    /**
-     * Instantiates a new OWL metric manager.
-     *
-     * @param metrics the metrics to use
-     */
-    public OWLMetricManager(List<OWLMetric<?>> metrics) {
-        this.metrics = new ArrayList<>(checkNotNull(metrics, "metrics cannot be null"));
-    }
+public record OWLMetricManager(List<OWLMetric<?>> getMetrics) {
 
     /**
      * @param ontology the ontology to measure
      */
     public void setOntology(OWLOntology ontology) {
-        metrics.forEach(m -> m.setOntology(ontology));
-    }
-
-    /**
-     * @return the metrics
-     */
-    public List<OWLMetric<?>> getMetrics() {
-        return new ArrayList<>(metrics);
-    }
-
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        for (OWLMetric<?> m : metrics) {
-            sb.append(m);
-            sb.append('\n');
-        }
-        return sb.toString();
+        getMetrics.forEach(m -> m.setOntology(ontology));
     }
 }

@@ -16,8 +16,6 @@ import static org.semanticweb.owlapi.utilities.OWLAPIPreconditions.checkNotNull;
 
 import java.io.Serializable;
 
-import javax.annotation.Nullable;
-
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyChange;
 import org.semanticweb.owlapi.model.OWLOntologyID;
@@ -46,26 +44,13 @@ import org.semanticweb.owlapi.model.UnknownOWLOntologyException;
  *
  * @author Matthew Horridge, Stanford University, Bio-Medical Informatics Research Group
  * @since 3.3
+ * @param getOntologyID The {@link OWLOntologyID} which identifies the ontology that the change was
+ *        applied to.
+ * @param getData The {@link OWLOntologyChangeData} that describes the particular details of the
+ *        change.
  */
-public class OWLOntologyChangeRecord implements Serializable {
-
-    private final OWLOntologyID ontologyID;
-    private final OWLOntologyChangeData data;
-
-    /**
-     * Constructs an {@code OWLOntologyChangeRecord} object which holds information about a change
-     * to a particular ontology identified by an {@link OWLOntologyID} object and also change
-     * details specified by the {@link OWLOntologyChangeData} object.
-     *
-     * @param ontologyID The {@link OWLOntologyID} which identifies the ontology that the change was
-     *        applied to.
-     * @param data The {@link OWLOntologyChangeData} that describes the particular details of the
-     *        change.
-     */
-    public OWLOntologyChangeRecord(OWLOntologyID ontologyID, OWLOntologyChangeData data) {
-        this.ontologyID = checkNotNull(ontologyID, "ontologyID must not be null");
-        this.data = checkNotNull(data, "data must not be null");
-    }
+public record OWLOntologyChangeRecord(OWLOntologyID getOntologyID, OWLOntologyChangeData getData)
+    implements Serializable {
 
     /**
      * A convenience method that creates an {@code OWLOntologyChangeRecord} by deriving data from an
@@ -79,26 +64,6 @@ public class OWLOntologyChangeRecord implements Serializable {
         OWLOntologyID ontologyId = change.getOntology().getOntologyID();
         OWLOntologyChangeData data = change.getChangeData();
         return new OWLOntologyChangeRecord(ontologyId, data);
-    }
-
-    /**
-     * Gets the {@link OWLOntologyID} that identifies the ontology associated with this change
-     * record.
-     *
-     * @return The {@link OWLOntologyID}.
-     */
-    public OWLOntologyID getOntologyID() {
-        return ontologyID;
-    }
-
-    /**
-     * Gets the {@link OWLOntologyChangeData} which is associated with this
-     * {@code OWLOntologyChangeRecord}.
-     *
-     * @return The {@link OWLOntologyChangeData}.
-     */
-    public OWLOntologyChangeData getData() {
-        return data;
     }
 
     /**
@@ -122,33 +87,16 @@ public class OWLOntologyChangeRecord implements Serializable {
      *         this {@code OWLOntologyChangeRecord}.
      */
     public OWLOntologyChange createOntologyChange(OWLOntologyManager manager) {
-        OWLOntology ontology = manager.getOntology(ontologyID);
+        OWLOntology ontology = manager.getOntology(getOntologyID);
         if (ontology == null) {
-            throw new UnknownOWLOntologyException(ontologyID);
+            throw new UnknownOWLOntologyException(getOntologyID);
         }
-        return data.createOntologyChange(ontology);
-    }
-
-    @Override
-    public boolean equals(@Nullable Object obj) {
-        if (obj == this) {
-            return true;
-        }
-        if (!(obj instanceof OWLOntologyChangeRecord)) {
-            return false;
-        }
-        OWLOntologyChangeRecord other = (OWLOntologyChangeRecord) obj;
-        return ontologyID.equals(other.ontologyID) && data.equals(other.data);
-    }
-
-    @Override
-    public int hashCode() {
-        return getClass().hashCode() + ontologyID.hashCode() + data.hashCode();
+        return getData.createOntologyChange(ontology);
     }
 
     @Override
     public String toString() {
-        return getName() + '(' + ontologyID + ' ' + data + ')';
+        return getName() + '(' + getOntologyID + ' ' + getData + ')';
     }
 
     /**

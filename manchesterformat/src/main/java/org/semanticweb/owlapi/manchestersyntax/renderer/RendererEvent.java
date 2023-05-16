@@ -17,46 +17,23 @@ import org.semanticweb.owlapi.model.OWLObject;
 /**
  * @author Matthew Horridge, The University of Manchester, Information Management Group
  * @since 3.0.0
+ * @param getFrameRenderer the frame renderer
+ * @param getFrameSubject the subject
  */
-public class RendererEvent {
-
-    private final ManchesterOWLSyntaxFrameRenderer frameRenderer;
-    private final OWLObject frameSubject;
-
-    /**
-     * @param frameRenderer the frame renderer
-     * @param frameSubject the subject
-     */
-    public RendererEvent(ManchesterOWLSyntaxFrameRenderer frameRenderer, OWLObject frameSubject) {
-        this.frameSubject = frameSubject;
-        this.frameRenderer = frameRenderer;
-    }
-
-    /**
-     * @return the frame renderer
-     */
-    public ManchesterOWLSyntaxFrameRenderer getFrameRenderer() {
-        return frameRenderer;
-    }
+public record RendererEvent(ManchesterOWLSyntaxFrameRenderer getFrameRenderer,
+    OWLObject getFrameSubject) {
 
     /**
      * @param comment comment
      */
     public void writeComment(String comment) {
-        frameRenderer.writeComment(comment, false);
+        getFrameRenderer.writeComment(comment, false);
     }
 
     /**
      * @param comment comment
      */
     public void writeCommentOnNewLine(String comment) {
-        frameRenderer.writeComment(comment, true);
-    }
-
-    /**
-     * @return the frame subject
-     */
-    public OWLObject getFrameSubject() {
-        return frameSubject;
+        getFrameRenderer.writeComment(comment, true);
     }
 }

@@ -43,93 +43,64 @@ public interface OWLOntologyLoaderListener extends Serializable {
     /**
      * Loading event.
      */
-    class LoadingEvent {
-
-        private final OWLOntologyID ontologyID;
-        private final IRI documentIRI;
-        private final boolean imported;
-
-        public LoadingEvent(OWLOntologyID ontologyID, IRI documentIRI, boolean imported) {
-            this.ontologyID = ontologyID;
-            this.documentIRI = documentIRI;
-            this.imported = imported;
-        }
+    interface LoadingEvent {
 
         /**
          * Gets the ID of the ontology being loaded.
          *
          * @return The ontology ID.
          */
-        public OWLOntologyID getOntologyID() {
-            return ontologyID;
-        }
+        OWLOntologyID getOntologyID();
 
         /**
          * Gets the document IRI for the ontology being loaded.
          *
          * @return The document IRI that describes where the ontology was loaded from.
          */
-        public IRI getDocumentIRI() {
-            return documentIRI;
-        }
+        IRI getDocumentIRI();
 
         /**
          * Determines if the ontology was loaded because of an imports statement.
          *
          * @return {@code true} if the ontology was loaded because it was imported by another
-         * ontology, or {@code false} if the ontology was loaded by a direct load request on
-         * OWLOntologyManager.
+         *         ontology, or {@code false} if the ontology was loaded by a direct load request on
+         *         OWLOntologyManager.
          */
-        public boolean isImported() {
-            return imported;
-        }
+        boolean isImported();
     }
 
     /**
      * Loading start event.
+     * 
+     * @param getOntologyID ontology id
+     * @param getDocumentIRI document IDI
+     * @param isImported imported
      */
-    class LoadingStartedEvent extends LoadingEvent {
-
-        public LoadingStartedEvent(OWLOntologyID ontologyID, IRI documentIRI, boolean imported) {
-            super(ontologyID, documentIRI, imported);
-        }
+    record LoadingStartedEvent(OWLOntologyID getOntologyID, IRI getDocumentIRI, boolean isImported)
+        implements LoadingEvent {
     }
 
     /**
      * Describes the situation when the loading process for an ontology has finished.
+     * 
+     * @param getOntologyID ontology id
+     * @param getDocumentIRI document IDI
+     * @param isImported imported
+     * @param getException exception (null if successful)
      */
-    class LoadingFinishedEvent extends LoadingEvent {
-
-        @Nullable
-        private final Exception ex;
-
-        public LoadingFinishedEvent(OWLOntologyID ontologyID, IRI documentIRI, boolean imported,
-            @Nullable Exception ex) {
-            super(ontologyID, documentIRI, imported);
-            this.ex = ex;
-        }
+    record LoadingFinishedEvent(OWLOntologyID getOntologyID, IRI getDocumentIRI, boolean isImported,
+        @Nullable Exception getException) implements LoadingEvent {
 
         /**
          * Determines if the ontology was successfully loaded.
          *
          * @return {@code true} if the ontology was successfully loaded, {@code false} if the
-         * ontology was not successfully loaded. Note that an ontology being successfully loaded
-         * does not imply that any ontologies that the ontology imports were successfully loaded.
+         *         ontology was not successfully loaded. Note that an ontology being successfully
+         *         loaded does not imply that any ontologies that the ontology imports were
+         *         successfully loaded.
          */
         public boolean isSuccessful() {
-            return ex == null;
-        }
-
-        /**
-         * If the ontology was not loaded successfully then this method can be used to access the
-         * exception that describes why the ontology was not loaded successfully.
-         *
-         * @return The exception that describes why the ontology was not loaded successfully, or
-         * {@code null} if the ontology was loaded successfully.
-         */
-        @Nullable
-        public Exception getException() {
-            return ex;
+            return getException == null;
         }
     }
 }

@@ -12,8 +12,6 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.utility;
 
-import static org.semanticweb.owlapi.utilities.OWLAPIPreconditions.verifyNotNull;
-
 import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.OWLAxiom;
@@ -21,69 +19,9 @@ import org.semanticweb.owlapi.model.OWLOntology;
 
 /**
  * @author Matthew Horridge, The University of Manchester, Information Management Group
+ * @param getOntology ontology
+ * @param getAxiom axiom
  * @since 3.0.0
  */
-public class OntologyAxiomPair {
-
-    @Nullable
-    private final OWLOntology ontology;
-    private final OWLAxiom axiom;
-
-    /**
-     * @param ontology ontology
-     * @param axiom axiom
-     */
-    public OntologyAxiomPair(@Nullable OWLOntology ontology, OWLAxiom axiom) {
-        this.ontology = ontology;
-        this.axiom = axiom;
-    }
-
-    /**
-     * @return the ontology
-     */
-    @Nullable
-    public OWLOntology getOntology() {
-        return ontology;
-    }
-
-    /**
-     * @return the axiom
-     */
-    public OWLAxiom getAxiom() {
-        return axiom;
-    }
-
-    @Override
-    public boolean equals(@Nullable Object obj) {
-        if (obj == null) {
-            return false;
-        }
-        if (obj == this) {
-            return true;
-        }
-        if (!(obj instanceof OntologyAxiomPair)) {
-            return false;
-        }
-        OntologyAxiomPair other = (OntologyAxiomPair) obj;
-        if (ontology != null && other.ontology != null) {
-            return verifyNotNull(ontology).equals(other.ontology) && axiom.equals(other.axiom);
-        }
-        if (ontology != other.ontology) {
-            return false;
-        }
-        return axiom.equals(other.axiom);
-    }
-
-    @Override
-    public int hashCode() {
-        if (ontology != null) {
-            return verifyNotNull(ontology).hashCode() + axiom.hashCode();
-        }
-        return 37 + axiom.hashCode();
-    }
-
-    @Override
-    public String toString() {
-        return axiom + " in " + (ontology != null ? verifyNotNull(ontology).toString() : "");
-    }
+public record OntologyAxiomPair(@Nullable OWLOntology getOntology, OWLAxiom getAxiom) {
 }
