@@ -58,75 +58,14 @@ import static org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax
 import static org.semanticweb.owlapi.model.parameters.Imports.EXCLUDED;
 
 import java.io.Writer;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.LinkedHashMap;
-import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.TreeMap;
-import java.util.TreeSet;
+import java.util.*;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.io.OWLRendererException;
 import org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax;
-import org.semanticweb.owlapi.model.AxiomType;
-import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLAnnotation;
-import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
-import org.semanticweb.owlapi.model.OWLAnnotationProperty;
-import org.semanticweb.owlapi.model.OWLAnnotationPropertyDomainAxiom;
-import org.semanticweb.owlapi.model.OWLAnnotationPropertyRangeAxiom;
-import org.semanticweb.owlapi.model.OWLAnnotationSubject;
-import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
-import org.semanticweb.owlapi.model.OWLAxiom;
-import org.semanticweb.owlapi.model.OWLClass;
-import org.semanticweb.owlapi.model.OWLClassAssertionAxiom;
-import org.semanticweb.owlapi.model.OWLClassExpression;
-import org.semanticweb.owlapi.model.OWLDataProperty;
-import org.semanticweb.owlapi.model.OWLDataPropertyDomainAxiom;
-import org.semanticweb.owlapi.model.OWLDataPropertyRangeAxiom;
-import org.semanticweb.owlapi.model.OWLDataRange;
-import org.semanticweb.owlapi.model.OWLDatatype;
-import org.semanticweb.owlapi.model.OWLDatatypeDefinitionAxiom;
-import org.semanticweb.owlapi.model.OWLDifferentIndividualsAxiom;
-import org.semanticweb.owlapi.model.OWLDisjointClassesAxiom;
-import org.semanticweb.owlapi.model.OWLDisjointDataPropertiesAxiom;
-import org.semanticweb.owlapi.model.OWLDisjointObjectPropertiesAxiom;
-import org.semanticweb.owlapi.model.OWLDisjointUnionAxiom;
-import org.semanticweb.owlapi.model.OWLEntity;
-import org.semanticweb.owlapi.model.OWLEntityVisitor;
-import org.semanticweb.owlapi.model.OWLEquivalentClassesAxiom;
-import org.semanticweb.owlapi.model.OWLEquivalentDataPropertiesAxiom;
-import org.semanticweb.owlapi.model.OWLEquivalentObjectPropertiesAxiom;
-import org.semanticweb.owlapi.model.OWLFunctionalObjectPropertyAxiom;
-import org.semanticweb.owlapi.model.OWLHasKeyAxiom;
-import org.semanticweb.owlapi.model.OWLIndividual;
-import org.semanticweb.owlapi.model.OWLInverseObjectPropertiesAxiom;
-import org.semanticweb.owlapi.model.OWLNamedIndividual;
-import org.semanticweb.owlapi.model.OWLNegativeDataPropertyAssertionAxiom;
-import org.semanticweb.owlapi.model.OWLNegativeObjectPropertyAssertionAxiom;
-import org.semanticweb.owlapi.model.OWLObject;
-import org.semanticweb.owlapi.model.OWLObjectProperty;
-import org.semanticweb.owlapi.model.OWLObjectPropertyDomainAxiom;
-import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
-import org.semanticweb.owlapi.model.OWLObjectPropertyRangeAxiom;
-import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLPropertyAssertionAxiom;
-import org.semanticweb.owlapi.model.OWLRuntimeException;
-import org.semanticweb.owlapi.model.OWLSameIndividualAxiom;
-import org.semanticweb.owlapi.model.OWLSubAnnotationPropertyOfAxiom;
-import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
-import org.semanticweb.owlapi.model.OWLSubDataPropertyOfAxiom;
-import org.semanticweb.owlapi.model.OWLSubObjectPropertyOfAxiom;
-import org.semanticweb.owlapi.model.OWLSubPropertyChainOfAxiom;
-import org.semanticweb.owlapi.model.SWRLAtom;
-import org.semanticweb.owlapi.model.SWRLRule;
+import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.util.CollectionFactory;
 import org.semanticweb.owlapi.util.OWLAxiomFilter;
 import org.semanticweb.owlapi.util.OWLObjectComparator;
@@ -475,6 +414,18 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
             Set<SWRLRule> singleton = Collections.singleton(rule);
             writeSection(RULE, singleton, ", ", false);
         }
+
+        Map<OWLClassExpression, List<OWLSubClassOfAxiom>> gcis = new HashMap<>();
+        for(OWLSubClassOfAxiom axiom : sortedCollection(ontology.getAxioms(AxiomType.SUBCLASS_OF))) {
+            if(axiom.isGCI()) {
+                gcis.putIfAbsent(axiom.getSubClass(), new ArrayList<>());
+                gcis.get(axiom.getSubClass()).add(axiom);
+            }
+        }
+        for(Map.Entry<OWLClassExpression, List<OWLSubClassOfAxiom>> entry : gcis.entrySet()) {
+            write(entry.getKey(), entry.getValue());
+        }
+
         flush();
     }
 
@@ -612,6 +563,18 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
             return write(entity.asOWLDatatype());
         }
         return CollectionFactory.emptySet();
+    }
+
+    private void write(OWLClassExpression superClass, List<OWLSubClassOfAxiom> axs) {
+        writeEntityStart(CLASS, superClass);
+
+        if (!isFiltered(AxiomType.SUBCLASS_OF)) {
+            SectionMap<Object, OWLAxiom> superclasses = new SectionMap<>();
+            for(OWLSubClassOfAxiom ax: sortedCollection(axs)) {
+                superclasses.put(ax.getSuperClass(), ax);
+            }
+            writeSection(SUBCLASS_OF, superclasses, ",", true);
+        }
     }
 
     /**
@@ -1288,7 +1251,43 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
         String kw = keyword.toString();
         fireFrameRenderingPrepared(kw);
         writeSection(keyword);
+
+        OWLOntology o = ontologies.iterator().next();
+        boolean resetTab = false;
+        if(entity instanceof OWLEntity) {
+            Set<OWLAnnotation> annotations = new HashSet<>();
+            for(OWLDeclarationAxiom axiom : o.getDeclarationAxioms((OWLEntity) entity)) {
+                annotations.addAll(axiom.getAnnotations());
+            }
+
+            if (!annotations.isEmpty()) {
+                incrementTab(4);
+                writeNewLine();
+                write(ManchesterOWLSyntax.ANNOTATIONS.toString());
+                write(": ");
+                pushTab(getIndent() + 1);
+                for (Iterator<OWLAnnotation> annoIt = annotations.iterator(); annoIt.hasNext();) {
+                    annoIt.next().accept(this);
+                    if (annoIt.hasNext()) {
+                        write(", ");
+                        writeNewLine();
+                    }
+                }
+                popTab();
+                popTab();
+                incrementTab(2);
+                writeNewLine();
+                resetTab = true;
+            }
+        }
+
+
+
         entity.accept(this);
+        if(resetTab) {
+            popTab();
+        }
+
         fireFrameRenderingStarted(kw);
         writeNewLine();
         incrementTab(4);
