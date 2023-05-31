@@ -2249,7 +2249,7 @@ public class ManchesterOWLSyntaxParserImpl implements ManchesterOWLSyntaxParser 
                     if (j + 1 < tokens.size()) {
                         String nextToken = tokens.get(j + 1).getToken();
                         ManchesterOWLSyntax a = parse(nextToken);
-                        if (eof(nextToken) || a != null && !(a.isClassExpressionConnectiveKeyword()
+                        if (eof(nextToken) || (a != null && !(a.isClassExpressionConnectiveKeyword()
                                 || a.isClassExpressionQuantiferKeyword())) {
                             classNames.add(name);
                         }
