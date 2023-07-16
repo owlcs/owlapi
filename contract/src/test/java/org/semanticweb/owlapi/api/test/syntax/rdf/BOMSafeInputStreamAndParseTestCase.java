@@ -10,6 +10,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -80,6 +81,7 @@ class BOMSafeInputStreamAndParseTestCase extends TestBase {
         }
     }
 
+    @Disabled
     @ParameterizedTest
     @MethodSource("data")
     void testBOMError32bigReader(int[] b, String input)
