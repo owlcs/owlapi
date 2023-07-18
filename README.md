@@ -7,6 +7,8 @@ The OWL API is a Java API for creating, manipulating and serialising OWL Ontolog
 
 * The latest version of the API supports OWL 2.
 
+* OWLAPI 5.5.0 requires Java 11 
+
 * It is available under Open Source licenses (LGPL and Apache).
 
 The following components are included:
@@ -19,6 +21,58 @@ The following components are included:
 * See documentation pages on the wiki for more details.
 
 ## Release notes
+
+## 5.5.0 14 January 2023
+
+### Features:
+
+*    Java 11 required to include dependencies that require Java 9 or newer
+*    Added support for MS syntax to include all features from OWL2 DL
+
+### Bug fixes:
+
+*    Memory leaks in semantic module extraction
+*    Ensure pending annotations are cleared after handling triple
+*    Only remove unannotated axiom if it received annotations.
+*    Check for empty collections on AxiomSubjectProvder #1069
+*    Allow forcing explicit xsd:xstrig type #1063
+*    Bump rdf4j.version to 4.2.0, JDK to 11, version to 5.5.0
+*    OBO serializer incorrectly quoting IRI property values (#1085)
+
+## 5.1.20 19 February 2022
+
+### Features:
+
+*    Upgraded to RDF4j 3.7.4 and fixed issues with OSGi bundles
+*    Improve MAVEN build Performance
+*    Extend messages for OWL exceptions #1020
+
+### Bug fixes:
+
+*    Fix OWLDifferentIndividuals with two ops rendered with one triple #1031
+*    Fix Abbreviated IRI as OntologyIRI in Manchester syntax #1041
+*    Fix Individuals: anonymous individuals in Manchester syntax #1006
+*    Fix UNPARSED TRIPLES ERROR for class assertions #1023
+
+
+## 5.1.19 31 July 2021
+
+### Bug fixes:
+
+*    vulnerable dependencies update
+
+
+## 5.1.18 30 July 2021
+
+### Features:
+
+*    Specify RioSetting values for Rio renderers #614
+
+### Bug fixes:
+
+*    Fix sameAs failure when more than 2 entities included #994
+*    Fix Trig and rdf/json should include a named graph. #1002
+*    Fix ObjectHasSelf rendered wrongly in manchester syntax #1005
 
 ## 5.1.17 6 November 2020
 
@@ -409,6 +463,61 @@ Features:
 *    Enabled OWLOntologyManager to build and keep an OntologyConfigurator instance
 *    Declaration of save methods on OWLOntology
 *    OWLAPI 5 uses Java 8
+
+## 4.5.26 18 July 2023
+
+### Bug fixes:
+*    Fix violations in declarations not reported #1094 #1046
+*    Allow arbitrary annotation properties as qualifier tags in OBO #1099
+*    Fix Shared class expression causes extra triples in output #1109
+
+## 4.5.25 15 February 2023
+
+### Bug fixes:
+
+*    Add Trix to list of BANNED_PARSERS in OWLAPI 4.X #1088
+*    OBO serialisation illegal axiom annotation #1093
+*    Remove unnecessary log when OBO unsupported axioms are serialized
+
+## 4.5.24 20 January 2023
+
+### Features:
+
+*    Fix OSGI distribution Guava version #1086
+
+## 4.5.23 14 January 2023
+
+### Features:
+
+*    Allow forcing explicit xsd:xstrig type #1063
+
+### Bug fixes:
+
+*    OBO serializer incorrectly quoting IRI property values #1085
+*    Update dependencies for security issues
+*    Check for empty collections on AxiomSubjectProvder #1069
+*    Correct bad default args #1063
+*    Fix OWLEntityRenamer and anonymous individuals #892
+
+## 4.5.22 7 May 2022
+
+### Bug fixes:
+
+*    Do not output xsd:string when unnecessary #640
+
+## 4.5.21 19 February 2022
+
+### Features:
+
+*    Improve MAVEN build Performance
+*    Extend messages for OWL exceptions #1020
+
+### Bug fixes:
+
+*    Fix OWLDifferentIndividuals with two ops rendered with one triple #1031
+*    Fix Abbreviated IRI as OntologyIRI in Manchester syntax #1041
+*    Fix Individuals: anonymous individuals in Manchester syntax #1006
+*    Fix UNPARSED TRIPLES ERROR for class assertions #1023
 
 
 ## 4.5.20 31 July 2021
