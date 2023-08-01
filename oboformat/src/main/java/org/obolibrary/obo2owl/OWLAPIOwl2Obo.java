@@ -24,6 +24,7 @@ import org.obolibrary.oboformat.parser.OBOFormatConstants;
 import org.obolibrary.oboformat.parser.OBOFormatConstants.OboFormatTag;
 import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.rdf.rdfxml.parser.RDFConstants;
+import org.semanticweb.owlapi.util.DefaultPrefixManager;
 import org.semanticweb.owlapi.vocab.Namespaces;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
@@ -87,13 +88,7 @@ public class OWLAPIOwl2Obo {
     /**
      * A PrefixManager which can be used to populate the idSpaceMap
      */
-    private PrefixManager prefixManager;
-
-    /**
-     * SortedMap derived from inversion of prefixManager map; used
-     * for compacting IRIs to CURIEs.
-     */
-    private SortedMap<String, String> sortedNamespacesToPrefixes = new TreeMap<>();
+    private PrefixManager prefixManager = new DefaultPrefixManager();
 
     /**
      * The annotation property map.
@@ -239,16 +234,6 @@ public class OWLAPIOwl2Obo {
 
     public void setPrefixManager(@Nonnull PrefixManager manager) {
         this.prefixManager = manager;
-        Comparator<String> lengthComparator = Comparator.comparing(s -> -s.length());
-        TreeMap<String, String> nsToPrefix = new TreeMap<>(lengthComparator);
-        manager.getPrefixName2PrefixMap().forEach((prefix, ns) -> {
-            String cleanPrefix = prefix;
-            if (prefix.endsWith(":")) {
-                cleanPrefix = prefix.substring(0, prefix.length() - 1);
-            }
-            if (!cleanPrefix.isEmpty()) nsToPrefix.put(ns, cleanPrefix);
-        });
-        this.sortedNamespacesToPrefixes = nsToPrefix;
     }
 
     /**
@@ -375,7 +360,7 @@ public class OWLAPIOwl2Obo {
                 if (v instanceof OWLLiteral) {
                     viewRel = ((OWLLiteral) v).getLiteral();
                 } else {
-                    viewRel = getIdentifier((IRI) v, this.sortedNamespacesToPrefixes);
+                    viewRel = getIdentifier((IRI) v, this.prefixManager);
                 }
                 break;
             }
@@ -455,7 +440,7 @@ public class OWLAPIOwl2Obo {
             clause = new Clause(tag, value);
             f.addClause(clause);
         }
-        addQualifiers(clause, annotations, this.sortedNamespacesToPrefixes);
+        addQualifiers(clause, annotations, this.prefixManager);
         return true;
     }
 
@@ -477,7 +462,7 @@ public class OWLAPIOwl2Obo {
         Clause clause = new Clause(tag);
         clause.addValue(value);
         f.addClause(clause);
-        addQualifiers(clause, annotations, this.sortedNamespacesToPrefixes);
+        addQualifiers(clause, annotations, this.prefixManager);
         return true;
     }
 
@@ -574,7 +559,7 @@ public class OWLAPIOwl2Obo {
             clause.addValue(rel2);
         }
         f.addClause(clause);
-        addQualifiers(clause, unprocessedAnnotations, this.sortedNamespacesToPrefixes);
+        addQualifiers(clause, unprocessedAnnotations, this.prefixManager);
     }
 
     /**
@@ -772,7 +757,7 @@ public class OWLAPIOwl2Obo {
             Frame f = getTypedefFrame((OWLObjectProperty) sub);
             Clause clause = new Clause(OboFormatTag.TAG_IS_A, supId);
             f.addClause(clause);
-            addQualifiers(clause, ax.getAnnotations(), this.sortedNamespacesToPrefixes);
+            addQualifiers(clause, ax.getAnnotations(), this.prefixManager);
         } else {
             error(ax, true);
         }
@@ -788,17 +773,17 @@ public class OWLAPIOwl2Obo {
                 false);
             return;
         }
-        String tagObject = owlObjectToTag(sup, this.sortedNamespacesToPrefixes);
+        String tagObject = owlObjectToTag(sup, this.prefixManager);
         if (OboFormatTag.TAG_SYNONYMTYPEDEF.getTag().equals(tagObject)) {
             String name = "";
             String scope = null;
             for (OWLAnnotationAssertionAxiom axiom : getOWLOntology()
                 .getAnnotationAssertionAxioms(sub.getIRI())) {
-                String tg = owlObjectToTag(axiom.getProperty(), this.sortedNamespacesToPrefixes);
+                String tg = owlObjectToTag(axiom.getProperty(), this.prefixManager);
                 if (OboFormatTag.TAG_NAME.getTag().equals(tg)) {
                     name = ((OWLLiteral) axiom.getValue()).getLiteral();
                 } else if (OboFormatTag.TAG_SCOPE.getTag().equals(tg)) {
-                    scope = owlObjectToTag(axiom.getValue(), this.sortedNamespacesToPrefixes);
+                    scope = owlObjectToTag(axiom.getValue(), this.prefixManager);
                 }
             }
             Frame hf = getObodoc().getHeaderFrame();
@@ -808,7 +793,7 @@ public class OWLAPIOwl2Obo {
             if (scope != null) {
                 clause.addValue(scope);
             }
-            addQualifiers(clause, ax.getAnnotations(), this.sortedNamespacesToPrefixes);
+            addQualifiers(clause, ax.getAnnotations(), this.prefixManager);
             if (!hf.getClauses().contains(clause)) {
                 hf.addClause(clause);
             } else {
@@ -819,7 +804,7 @@ public class OWLAPIOwl2Obo {
             String comment = "";
             for (OWLAnnotationAssertionAxiom axiom : getOWLOntology()
                 .getAnnotationAssertionAxioms(sub.getIRI())) {
-                String tg = owlObjectToTag(axiom.getProperty(), this.sortedNamespacesToPrefixes);
+                String tg = owlObjectToTag(axiom.getProperty(), this.prefixManager);
                 if (OboFormatTag.TAG_COMMENT.getTag().equals(tg)) {
                     comment = ((OWLLiteral) axiom.getValue()).getLiteral();
                     break;
@@ -834,7 +819,7 @@ public class OWLAPIOwl2Obo {
             } else {
                 LOG.error("duplicate clause: {} in header", clause);
             }
-            addQualifiers(clause, ax.getAnnotations(), this.sortedNamespacesToPrefixes);
+            addQualifiers(clause, ax.getAnnotations(), this.prefixManager);
             return;
         }
         if (sub instanceof OWLObjectProperty && sup instanceof OWLObjectProperty) {
@@ -845,7 +830,7 @@ public class OWLAPIOwl2Obo {
             Frame f = getTypedefFrame(sub);
             Clause clause = new Clause(OboFormatTag.TAG_IS_A, supId);
             f.addClause(clause);
-            addQualifiers(clause, ax.getAnnotations(), this.sortedNamespacesToPrefixes);
+            addQualifiers(clause, ax.getAnnotations(), this.prefixManager);
         } else {
             error(ax, true);
         }
@@ -876,7 +861,7 @@ public class OWLAPIOwl2Obo {
     @SuppressWarnings("null")
     protected boolean tr(OWLAnnotationProperty prop, @Nonnull OWLAnnotationValue annVal,
         @Nonnull Set<OWLAnnotation> qualifiers, @Nonnull Frame frame) {
-        String tagString = owlObjectToTag(prop, this.sortedNamespacesToPrefixes);
+        String tagString = owlObjectToTag(prop, this.prefixManager);
         OboFormatTag tag = null;
         if (tagString != null) {
             tag = OBOFormatConstants.getTag(tagString);
@@ -888,8 +873,8 @@ public class OWLAPIOwl2Obo {
                 if (propId != null) {
                     Clause clause = new Clause(OboFormatTag.TAG_RELATIONSHIP);
                     clause.addValue(propId);
-                    clause.addValue(getIdentifier((IRI) annVal, this.sortedNamespacesToPrefixes));
-                    addQualifiers(clause, qualifiers, this.sortedNamespacesToPrefixes);
+                    clause.addValue(getIdentifier((IRI) annVal, this.prefixManager));
+                    addQualifiers(clause, qualifiers, this.prefixManager);
                     frame.addClause(clause);
                     return true;
                 }
@@ -923,7 +908,7 @@ public class OWLAPIOwl2Obo {
             Set<OWLAnnotation> unprocessedQualifiers = new HashSet<>(qualifiers);
             if (tag == OboFormatTag.TAG_DEF) {
                 for (OWLAnnotation aan : qualifiers) {
-                    String propId = owlObjectToTag(aan.getProperty(), this.sortedNamespacesToPrefixes);
+                    String propId = owlObjectToTag(aan.getProperty(), this.prefixManager);
                     if ("xref".equals(propId)) {
                         OWLAnnotationValue v = aan.getValue();
                         String xrefValue;
@@ -962,7 +947,7 @@ public class OWLAPIOwl2Obo {
                 String synonymType = null;
                 handleSynonym(qualifiers, synonymType, clause, unprocessedQualifiers);
             }
-            addQualifiers(clause, unprocessedQualifiers, this.sortedNamespacesToPrefixes);
+            addQualifiers(clause, unprocessedQualifiers, this.prefixManager);
             // before adding the clause check for redundant clauses
             boolean redundant = false;
             for (Clause frameClause : frame.getClauses()) {
@@ -1006,7 +991,7 @@ public class OWLAPIOwl2Obo {
         String type = null;
         clause.setXrefs(new ArrayList<Xref>());
         for (OWLAnnotation aan : qualifiers) {
-            String propId = owlObjectToTag(aan.getProperty(), this.sortedNamespacesToPrefixes);
+            String propId = owlObjectToTag(aan.getProperty(), this.prefixManager);
             if (OboFormatTag.TAG_XREF.getTag().equals(propId)) {
                 OWLAnnotationValue v = aan.getValue();
                 String xrefValue;
@@ -1059,7 +1044,7 @@ public class OWLAPIOwl2Obo {
         // no built-in obo tag for this: use the generic property_value tag
         Clause clause = new Clause(OboFormatTag.TAG_PROPERTY_VALUE.getTag());
         String propId = getIdentifier(prop);
-        addQualifiers(clause, qualifiers, this.sortedNamespacesToPrefixes);
+        addQualifiers(clause, qualifiers, this.prefixManager);
         if (!propId.equals("shorthand")) {
             clause.addValue(propId);
             if (annVal instanceof OWLLiteral) {
@@ -1079,7 +1064,7 @@ public class OWLAPIOwl2Obo {
                     clause.addValue(dataTypeIri.toString());
                 }
             } else if (annVal instanceof IRI) {
-                clause.addValue(getIdentifier((IRI) annVal, this.sortedNamespacesToPrefixes));
+                clause.addValue(getIdentifier((IRI) annVal, this.prefixManager));
             }
             frame.addClause(clause);
         }
@@ -1101,7 +1086,7 @@ public class OWLAPIOwl2Obo {
             OWLLiteral l = (OWLLiteral) annVal;
             value = l.isBoolean() ? Boolean.valueOf(l.parseBoolean()) : l.getLiteral();
         } else if (annVal instanceof IRI) {
-            value = getIdentifier((IRI) annVal, this.sortedNamespacesToPrefixes);
+            value = getIdentifier((IRI) annVal, this.prefixManager);
         }
         if (OboFormatTag.TAG_EXPAND_EXPRESSION_TO.getTag().equals(tag)) {
             String s = value.toString();
@@ -1126,7 +1111,7 @@ public class OWLAPIOwl2Obo {
      * @param qualifiers the qualifiers
      */
     protected static void addQualifiers(@Nonnull Clause c, @Nonnull Set<OWLAnnotation> qualifiers) {
-        addQualifiers(c, qualifiers, new TreeMap<>());
+        addQualifiers(c, qualifiers, new DefaultPrefixManager());
     }
 
     /**
@@ -1134,11 +1119,11 @@ public class OWLAPIOwl2Obo {
      *
      * @param c the c
      * @param qualifiers the qualifiers
-     * @param namespaceToPrefixMap map to pass through for IRI compaction
+     * @param pm PrefixManager to pass through for IRI compaction
      */
-    protected static void addQualifiers(@Nonnull Clause c, @Nonnull Set<OWLAnnotation> qualifiers,  @Nonnull SortedMap<String, String> namespaceToPrefixMap) {
+    protected static void addQualifiers(@Nonnull Clause c, @Nonnull Set<OWLAnnotation> qualifiers,  @Nonnull PrefixManager pm) {
         for (OWLAnnotation ann : qualifiers) {
-            String prop = owlObjectToTag(ann.getProperty(), namespaceToPrefixMap);
+            String prop = owlObjectToTag(ann.getProperty(), pm);
             if (prop == null) {
                 prop = ann.getProperty().getIRI().toString();
             }
@@ -1149,7 +1134,7 @@ public class OWLAPIOwl2Obo {
             if (ann.getValue() instanceof OWLLiteral) {
                 value = ((OWLLiteral) ann.getValue()).getLiteral();
             } else if (ann.getValue() instanceof IRI) {
-                value = getIdentifier((IRI) ann.getValue(), namespaceToPrefixMap);
+                value = getIdentifier((IRI) ann.getValue(), pm);
             }
             assert value != null;
             QualifierValue qv = new QualifierValue(prop, value);
@@ -1236,7 +1221,7 @@ public class OWLAPIOwl2Obo {
         }
         for (OWLAnnotation ann : ontology.getAnnotations()) {
             OWLAnnotationProperty property = ann.getProperty();
-            String tagString = owlObjectToTag(property, this.sortedNamespacesToPrefixes);
+            String tagString = owlObjectToTag(property, this.prefixManager);
             if (OboFormatTag.TAG_COMMENT.getTag().equals(tagString)) {
                 property = fac.getOWLAnnotationProperty(
                     OWLAPIObo2Owl.trTagToIRI(OboFormatTag.TAG_REMARK.getTag()));
@@ -1302,7 +1287,7 @@ public class OWLAPIOwl2Obo {
             Clause c = new Clause(OboFormatTag.TAG_EQUIVALENT_TO.getTag());
             c.setValue(cls2);
             f.addClause(c);
-            addQualifiers(c, ax.getAnnotations(), this.sortedNamespacesToPrefixes);
+            addQualifiers(c, ax.getAnnotations(), this.prefixManager);
         } else if (ce2 instanceof OWLObjectUnionOf) {
             List<OWLClassExpression> list2 = ((OWLObjectUnionOf) ce2).getOperandsAsList();
             for (OWLClassExpression oce : list2) {
@@ -1315,7 +1300,7 @@ public class OWLAPIOwl2Obo {
                 Clause c = new Clause(OboFormatTag.TAG_UNION_OF.getTag());
                 c.setValue(id);
                 equivalenceAxiomClauses.add(c);
-                addQualifiers(c, ax.getAnnotations(), this.sortedNamespacesToPrefixes);
+                addQualifiers(c, ax.getAnnotations(), this.prefixManager);
             }
         } else if (ce2 instanceof OWLObjectIntersectionOf) {
             List<OWLClassExpression> list2 = ((OWLObjectIntersectionOf) ce2).getOperandsAsList();
@@ -1417,7 +1402,7 @@ public class OWLAPIOwl2Obo {
                         assert string != null;
                         c.addQualifierValue(new QualifierValue("all_only", string));
                     }
-                    addQualifiers(c, ax.getAnnotations(), this.sortedNamespacesToPrefixes);
+                    addQualifiers(c, ax.getAnnotations(), this.prefixManager);
                 } else if (!f.getClauses(OboFormatTag.TAG_INTERSECTION_OF).isEmpty()) {
                     error(
                         "The axiom is not translated (maximimum one IntersectionOf EquivalenceAxiom)",
@@ -1472,7 +1457,7 @@ public class OWLAPIOwl2Obo {
         Clause c = new Clause(OboFormatTag.TAG_DISJOINT_FROM.getTag());
         c.setValue(cls2);
         f.addClause(c);
-        addQualifiers(c, ax.getAnnotations(), this.sortedNamespacesToPrefixes);
+        addQualifiers(c, ax.getAnnotations(), this.prefixManager);
     }
 
     /**
@@ -1493,11 +1478,11 @@ public class OWLAPIOwl2Obo {
         boolean isClass = entity.isOWLClass();
         boolean isObjectProperty = entity.isOWLObjectProperty();
         // check whether the entity is an alt_id
-        Optional<OboAltIdCheckResult> altIdOptional = checkForOboAltId(set, this.sortedNamespacesToPrefixes);
+        Optional<OboAltIdCheckResult> altIdOptional = checkForOboAltId(set, this.prefixManager);
         if (altIdOptional.isPresent()) {
             // the entity will not be translated
             // instead create the appropriate alt_id in the replaced_by frame
-            String currentId = getIdentifier(entity.getIRI(), this.sortedNamespacesToPrefixes);
+            String currentId = getIdentifier(entity.getIRI(), this.prefixManager);
             addAltId(altIdOptional.get().replacedBy, currentId, isClass, isObjectProperty);
             // add unrelated annotations to untranslatableAxioms axioms
             untranslatableAxioms.addAll(altIdOptional.get().unrelated);
@@ -1513,7 +1498,7 @@ public class OWLAPIOwl2Obo {
             for (OWLAxiom a : set) {
                 OWLAnnotationAssertionAxiom ax = (OWLAnnotationAssertionAxiom) a;
                 OWLAnnotationProperty prop = ax.getProperty();
-                String tag = owlObjectToTag(prop, this.sortedNamespacesToPrefixes);
+                String tag = owlObjectToTag(prop, this.prefixManager);
                 if (OboFormatTag.TAG_IS_METADATA_TAG.getTag().equals(tag)) {
                     f = getTypedefFrame(entity);
                     break;
@@ -1577,7 +1562,7 @@ public class OWLAPIOwl2Obo {
      */
     @Nonnull
     private static Optional<OboAltIdCheckResult> checkForOboAltId(
-        Set<OWLAnnotationAssertionAxiom> annotations, @Nonnull SortedMap<String, String> namespaceToPrefixMap) {
+        Set<OWLAnnotationAssertionAxiom> annotations, @Nonnull PrefixManager pm) {
         String replacedBy = null;
         boolean isMerged = false;
         boolean isDeprecated = false;
@@ -1601,7 +1586,7 @@ public class OWLAPIOwl2Obo {
                     // fallback: also check for an IRI
                     if (value.asIRI().isPresent()) {
                         // translate IRI to OBO style ID
-                        replacedBy = getIdentifier(value.asIRI().get(), namespaceToPrefixMap);
+                        replacedBy = getIdentifier(value.asIRI().get(), pm);
                     } else {
                         unrelatedAxioms.add(axiom);
                     }
@@ -1628,7 +1613,7 @@ public class OWLAPIOwl2Obo {
     @Nullable
     public String getIdentifier(OWLObject obj) {
         try {
-            return getIdentifierFromObject(obj, getOWLOntology(), this.sortedNamespacesToPrefixes);
+            return getIdentifierFromObject(obj, getOWLOntology(), this.prefixManager);
         } catch (UntranslatableAxiomException e) {
             error(e.getMessage(), true);
         }
@@ -1716,7 +1701,7 @@ public class OWLAPIOwl2Obo {
     @Nullable
     public static String getIdentifierFromObject(OWLObject obj, @Nonnull OWLOntology ont)
         throws UntranslatableAxiomException {
-        return getIdentifierFromObject(obj, ont, new TreeMap<>());
+        return getIdentifierFromObject(obj, ont, new DefaultPrefixManager());
     }
 
     /**
@@ -1725,20 +1710,20 @@ public class OWLAPIOwl2Obo {
      *
      * @param obj the {@link OWLObject} to resolve
      * @param ont the target ontology
-     * @param namespaceToPrefixMap map to pass through for IRI compaction
+     * @param pm PrefixManager to pass through for IRI compaction
      * @return identifier or null
      * @throws UntranslatableAxiomException the untranslatable axiom exception
      *         {@link UntranslatableAxiomException} is thrown.
      */
     @Nullable
-    public static String getIdentifierFromObject(OWLObject obj, @Nonnull OWLOntology ont, @Nonnull SortedMap<String, String> namespaceToPrefixMap)
+    public static String getIdentifierFromObject(OWLObject obj, @Nonnull OWLOntology ont, @Nonnull PrefixManager pm)
             throws UntranslatableAxiomException{
         if (obj instanceof OWLObjectProperty || obj instanceof OWLAnnotationProperty) {
             OWLEntity entity = (OWLEntity) obj;
             Set<OWLAnnotationAssertionAxiom> axioms =
                     ont.getAnnotationAssertionAxioms(entity.getIRI());
             for (OWLAnnotationAssertionAxiom ax : axioms) {
-                String propId = getIdentifierFromObject(ax.getProperty().getIRI(), ont, namespaceToPrefixMap);
+                String propId = getIdentifierFromObject(ax.getProperty().getIRI(), ont, pm);
                 // see BFOROXrefTest
                 // 5.9.3. Special Rules for Relations
                 if (propId != null && propId.equals("shorthand")) {
@@ -1753,10 +1738,10 @@ public class OWLAPIOwl2Obo {
             }
         }
         if (obj instanceof OWLEntity) {
-            return getIdentifier(((OWLEntity) obj).getIRI(), namespaceToPrefixMap);
+            return getIdentifier(((OWLEntity) obj).getIRI(), pm);
         }
         if (obj instanceof IRI) {
-            return getIdentifier((IRI) obj, namespaceToPrefixMap);
+            return getIdentifier((IRI) obj, pm);
         }
         return null;
     }
@@ -1769,34 +1754,31 @@ public class OWLAPIOwl2Obo {
      */
     @Nullable
     public static String getIdentifier(@Nullable IRI iriId) {
-        return getIdentifier(iriId, new TreeMap<>());
+        return getIdentifier(iriId, new DefaultPrefixManager());
     }
 
     /**
      * See table 5.9.2. Translation of identifiers
      *
      * @param iriId the iri id
-     * @param namespaceToPrefixMap map to pass through for IRI compaction
+     * @param pm PrefixManager to pass through for IRI compaction
      * @return obo identifier or null
      */
     @Nullable
-    public static String getIdentifier(@Nullable IRI iriId, @Nonnull SortedMap<String, String> namespaceToPrefixMap) {
+    public static String getIdentifier(@Nullable IRI iriId, @Nonnull PrefixManager pm) {
         if (iriId == null) {
             return null;
         }
-        String iri = iriId.toString();
-        boolean match = namespaceToPrefixMap.entrySet().stream().anyMatch(e -> iri.startsWith(e.getKey()));
-        Optional<Map.Entry<String, String>> mappingOpt = namespaceToPrefixMap.entrySet().stream().filter(e -> iri.startsWith(e.getKey())).findFirst();
-        if (mappingOpt.isPresent()) {
-            Map.Entry<String, String> mapping = mappingOpt.get();
-            String localId = iri.substring(mapping.getKey().length());
-            return mapping.getValue() + ":" + localId;
+        String curie = pm.getPrefixIRIIgnoreQName(iriId);
+        if (curie != null && !curie.startsWith(":")) {
+            return curie;
         }
         // canonical IRIs
         // if (iri.startsWith("http://purl.obolibrary.org/obo/")) {
         // String canonicalId = iri.replace("http://purl.obolibrary.org/obo/",
         // "");
         // }
+        String iri = iriId.toString();
         int indexSlash = iri.lastIndexOf('/');
         String id = null;
         if (indexSlash > -1) {
@@ -1868,18 +1850,18 @@ public class OWLAPIOwl2Obo {
      */
     @Nullable
     public static String owlObjectToTag(OWLObject obj) {
-        return owlObjectToTag(obj, new TreeMap<>());
+        return owlObjectToTag(obj, new DefaultPrefixManager());
     }
 
     /**
      * Owl object to tag.
      *
      * @param obj the object
-     * @param namespaceToPrefixMap map to pass through for IRI compaction
+     * @param pm PrefixManager to pass through for IRI compaction
      * @return the string
      */
     @Nullable
-    public static String owlObjectToTag(OWLObject obj, @Nonnull SortedMap<String, String> namespaceToPrefixMap) {
+    public static String owlObjectToTag(OWLObject obj, @Nonnull PrefixManager pm) {
         IRI iriObj = null;
         if (obj instanceof OWLNamedObject) {
             iriObj = ((OWLNamedObject) obj).getIRI();
@@ -1909,7 +1891,7 @@ public class OWLAPIOwl2Obo {
             if (iri.startsWith(prefix)) {
                 tag = iri.substring(prefix.length());
             } else {
-                tag = getIdentifier(iriObj, namespaceToPrefixMap);
+                tag = getIdentifier(iriObj, pm);
             }
         }
         return tag;
@@ -1922,7 +1904,7 @@ public class OWLAPIOwl2Obo {
      * @return the term frame
      */
     protected Frame getTermFrame(@Nonnull OWLClass entity) {
-        String id = getIdentifier(entity.getIRI(), this.sortedNamespacesToPrefixes);
+        String id = getIdentifier(entity.getIRI(), this.prefixManager);
         return getTermFrame(id);
     }
 
@@ -2081,7 +2063,7 @@ public class OWLAPIOwl2Obo {
                 c.setValue(getIdentifier(sup));
                 c.setQualifierValues(qvs);
                 f.addClause(c);
-                addQualifiers(c, ax.getAnnotations(), this.sortedNamespacesToPrefixes);
+                addQualifiers(c, ax.getAnnotations(), this.prefixManager);
             } else if (sup instanceof OWLObjectCardinalityRestriction) {
                 // OWLObjectExactCardinality
                 // OWLObjectMinCardinality
@@ -2191,7 +2173,7 @@ public class OWLAPIOwl2Obo {
         c.addValue(getIdentifier(r.getProperty()));
         c.addValue(fillerId);
         c.setQualifierValues(qvs);
-        addQualifiers(c, ax.getAnnotations(), this.sortedNamespacesToPrefixes);
+        addQualifiers(c, ax.getAnnotations(), this.prefixManager);
         return c;
     }
 
@@ -2219,7 +2201,7 @@ public class OWLAPIOwl2Obo {
             q = MAX_CARDINALITY;
         }
         c.addQualifierValue(new QualifierValue(q, Integer.toString(restriction.getCardinality())));
-        addQualifiers(c, ax.getAnnotations(), this.sortedNamespacesToPrefixes);
+        addQualifiers(c, ax.getAnnotations(), this.prefixManager);
         return c;
     }
 
