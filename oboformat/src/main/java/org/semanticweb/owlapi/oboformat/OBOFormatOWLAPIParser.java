@@ -34,10 +34,8 @@ import org.semanticweb.owlapi.formats.OBODocumentFormatFactory;
 import org.semanticweb.owlapi.io.AbstractOWLParser;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
 import org.semanticweb.owlapi.io.OWLParserException;
-import org.semanticweb.owlapi.model.OWLDocumentFormat;
-import org.semanticweb.owlapi.model.OWLDocumentFormatFactory;
-import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
+import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.util.DefaultPrefixManager;
 
 /** oboformat parser */
 public class OBOFormatOWLAPIParser extends AbstractOWLParser implements Serializable {
@@ -108,6 +106,9 @@ public class OBOFormatOWLAPIParser extends AbstractOWLParser implements Serializ
             throw new OWLParserException(e);
         }
         OBODocumentFormat format = new OBODocumentFormat();
+        PrefixManager pm = new DefaultPrefixManager();
+        pm.clear();
+        format.setPrefixManager(pm);
         if (idSpaceMap != null) format.copyPrefixesFrom(idSpaceMap);
         return format;
     }
