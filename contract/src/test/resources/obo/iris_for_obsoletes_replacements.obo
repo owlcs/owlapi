@@ -1,0 +1,102 @@
+format-version: 1.2
+subsetdef: chebi_ph7_3 "Rhea list of ChEBI terms representing the major species at pH 7.3."
+subsetdef: gocheck_do_not_annotate "Term not to be used for direct annotation"
+subsetdef: gocheck_do_not_manually_annotate "Term not to be used for direct manual annotation"
+subsetdef: goslim_agr "AGR slim"
+subsetdef: goslim_aspergillus "Aspergillus GO slim"
+subsetdef: goslim_candida "Candida GO slim"
+subsetdef: goslim_chembl "ChEMBL protein targets summary"
+subsetdef: goslim_drosophila "Drosophila GO slim"
+subsetdef: goslim_flybase_ribbon "FlyBase Drosophila GO ribbon slim"
+subsetdef: goslim_generic "Generic GO slim"
+subsetdef: goslim_metagenomics "Metagenomics GO slim"
+subsetdef: goslim_mouse "Mouse GO slim"
+subsetdef: goslim_pir "PIR GO slim"
+subsetdef: goslim_plant "Plant GO slim"
+subsetdef: goslim_pombe "Fission yeast GO slim"
+subsetdef: goslim_synapse "synapse GO slim"
+subsetdef: goslim_yeast "Yeast GO slim"
+subsetdef: prokaryote_subset "GO subset for prokaryotes"
+synonymtypedef: syngo_official_label "label approved by the SynGO project"
+synonymtypedef: systematic_synonym "Systematic synonym" EXACT
+default-namespace: gene_ontology
+ontology: go
+property_value: has_ontology_root_term GO:0003674
+property_value: has_ontology_root_term GO:0005575
+property_value: has_ontology_root_term GO:0008150
+property_value: http://purl.org/dc/elements/1.1/description "The Gene Ontology (GO) provides a framework and set of concepts for describing the functions of gene products from all organisms." xsd:string
+property_value: http://purl.org/dc/elements/1.1/title "Gene Ontology" xsd:string
+property_value: http://purl.org/dc/terms/license http://creativecommons.org/licenses/by/4.0/
+
+[Term]
+id: GO:0000108
+name: obsolete repairosome
+namespace: cellular_component
+def: "OBSOLETE. A stable complex of proteins that carry out the DNA damage recognition and incision reactions characteristic of nucleotide excision repair (NER), such as DNA damage recognition, DNA helix unwinding, and endonucleolytic cleavage at sites flanking damaged DNA; includes TFIIH subunits and additional polypeptides; may form in the absence of DNA damage." [PMID:10681587, PMID:9852079]
+comment: This term was made obsolete because 'repairosome' has fallen out of use in the literature, and the large complex described in the definition has not been confirmed to exist. The term has also confused annotators.
+synonym: "repairosome" EXACT []
+is_obsolete: true
+replaced_by: GO:0000109
+
+[Term]
+id: GO:0000109
+name: nucleotide-excision repair complex
+namespace: cellular_component
+def: "Any complex formed of proteins that act in nucleotide-excision repair." [PMID:10915862]
+comment: Note that process information is included in the term and definition for the purpose of describing and distinguishing the complex.
+subset: goslim_pir
+synonym: "UvrB-UvrC complex" NARROW [PMID:12145219]
+synonym: "UvrBC complex" NARROW [GOC:bhm, PMID:12145219]
+is_a: GO:0032991 ! protein-containing complex
+intersection_of: GO:0032991 ! protein-containing complex
+intersection_of: capable_of_part_of GO:0006289 ! nucleotide-excision repair
+relationship: part_of GO:0005634 ! nucleus
+
+[Term]
+id: GO:0000114
+name: obsolete regulation of transcription involved in G1 phase of mitotic cell cycle
+namespace: biological_process
+def: "OBSOLETE. Any process that regulates transcription such that the target genes are transcribed as part of the G1 phase of the mitotic cell cycle." [GOC:dph, GOC:mah, GOC:tb]
+comment: This term was made obsolete because it is unclear exactly what it means. It could mean either 'regulation of transcription during phase X' or 'regulation of transition between phase X and phase Y'.
+synonym: "G1-specific transcription in mitotic cell cycle" RELATED []
+synonym: "regulation of transcription from RNA polymerase II promoter during G1 phase of cell cycle" EXACT []
+synonym: "regulation of transcription involved in G1 phase of mitotic cell cycle" EXACT []
+is_obsolete: true
+consider: GO:0000083
+consider: GO:0006357
+
+[Term]
+id: GO:0000122
+name: negative regulation of transcription by RNA polymerase II
+namespace: biological_process
+alt_id: GO:0010553
+alt_id: GO:0045816
+def: "Any process that stops, prevents, or reduces the frequency, rate or extent of transcription mediated by RNA polymerase II." [GOC:go_curators, GOC:txnOH]
+synonym: "down regulation of global transcription from RNA polymerase II promoter" RELATED []
+synonym: "down regulation of transcription from RNA polymerase II promoter" EXACT []
+synonym: "down-regulation of global transcription from RNA polymerase II promoter" RELATED []
+synonym: "down-regulation of transcription from RNA polymerase II promoter" EXACT []
+synonym: "downregulation of global transcription from RNA polymerase II promoter" RELATED []
+synonym: "downregulation of transcription from RNA polymerase II promoter" EXACT []
+synonym: "inhibition of global transcription from RNA polymerase II promoter" RELATED []
+synonym: "inhibition of transcription from RNA polymerase II promoter" EXACT []
+synonym: "negative regulation of gene-specific transcription from RNA polymerase II promoter" RELATED []
+synonym: "negative regulation of global transcription from Pol II promoter" RELATED []
+synonym: "negative regulation of transcription from Pol II promoter" EXACT []
+synonym: "negative regulation of transcription from RNA polymerase II promoter" EXACT []
+synonym: "negative regulation of transcription from RNA polymerase II promoter, global" RELATED []
+intersection_of: GO:0065007 ! biological regulation
+intersection_of: negatively_regulates GO:0006366 ! transcription by RNA polymerase II
+
+[Typedef]
+id: capable_of_part_of
+name: capable of part of
+namespace: external
+xref: RO:0002216
+
+[Typedef]
+id: negatively_regulates
+name: negatively regulates
+namespace: external
+xref: RO:0002212
+is_a: regulates ! regulates

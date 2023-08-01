@@ -1,0 +1,12 @@
+format-version: 1.2
+idspace: owl http://www.w3.org/2002/07/owl#
+idspace: rdf http://www.w3.org/1999/02/22-rdf-syntax-ns#
+idspace: rdfs http://www.w3.org/2000/01/rdf-schema#
+idspace: sw http://somewhere.org/
+idspace: xml http://www.w3.org/XML/1998/namespace
+idspace: xsd http://www.w3.org/2001/XMLSchema#
+ontology: foo
+
+[Term]
+id: FOO:1234
+is_a: sw:MyClass
