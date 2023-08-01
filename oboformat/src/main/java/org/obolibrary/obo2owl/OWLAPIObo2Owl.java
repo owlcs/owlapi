@@ -1719,10 +1719,12 @@ public class OWLAPIObo2Owl {
             }
         }
         String[] idParts = id.split(":", 2);
+        String prefix = "";
         String db;
         String localId;
         if (idParts.length > 1) {
-            db = idParts[0];
+            prefix = idParts[0];
+            db = prefix;
             localId = idParts[1];
             if (localId.contains("_")) {
                 db += "#_";// NonCanonical-Prefixed-ID
@@ -1745,8 +1747,8 @@ public class OWLAPIObo2Owl {
             uriPrefix = OIOVOCAB_IRI_PREFIX;
         } else {
             uriPrefix = DEFAULT_IRI_PREFIX + db;
-            if (idSpaceMap.containsKey(db)) {
-                uriPrefix = idSpaceMap.get(db);
+            if (idSpaceMap.containsKey(prefix)) {
+                uriPrefix = idSpaceMap.get(prefix);
             }
         }
         String safeId;
@@ -1786,10 +1788,8 @@ public class OWLAPIObo2Owl {
         Collection<Xref> xrefs = tdf.getTagValues(OboFormatTag.TAG_XREF, Xref.class);
         String matchingExpandedId = null;
         for (Xref xref : xrefs) {
-            // System.err.println("ID:"+id+" xref:"+xref);
             if (xref != null) {
                 String xid = xref.getIdref();
-                // System.err.println(" ID:"+id+" xid:"+xid);
                 if (xid.equals(id)) {
                     continue;
                 }
@@ -1806,7 +1806,6 @@ public class OWLAPIObo2Owl {
         if (matchingExpandedId == null) {
             return id;
         }
-        // System.err.println(" ID:"+id+" matching:"+matchingExpandedId);
         return matchingExpandedId;
     }
 
