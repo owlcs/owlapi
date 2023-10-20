@@ -1,3 +1,10 @@
+## 4.5.26 18 July 2023
+
+### Bug fixes:
+*    Fix violations in declarations not reported #1094 #1046
+*    Allow arbitrary annotation properties as qualifier tags in OBO #1099
+*    Fix Shared class expression causes extra triples in output #1109
+
 ## 4.5.25 15 February 2023
 
 ### Bug fixes:

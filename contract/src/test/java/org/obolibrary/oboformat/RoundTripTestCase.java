@@ -245,7 +245,7 @@ class RoundTripTestCase extends RoundTripTestBasics {
                 Collection<QualifierValue> values = clause.getQualifierValues();
                 assertEquals(1, values.size());
                 QualifierValue value = values.iterator().next();
-                assertEquals("http://purl.obolibrary.org/obo/IAO_0000116", value.getQualifier());
+                assertEquals("IAO:0000116", value.getQualifier());
                 assertEquals("From Allen terminology", value.getValue());
                 found = true;
             }

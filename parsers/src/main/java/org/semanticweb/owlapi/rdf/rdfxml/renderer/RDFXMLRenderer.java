@@ -89,8 +89,8 @@ public class RDFXMLRenderer extends RDFRendererBase {
         super(checkNotNull(ontology, "ontology cannot be null"),
             checkNotNull(format, "format cannot be null"));
         this.format = checkNotNull(format, "format cannot be null");
-        explicitXsdString = Boolean
-            .parseBoolean(format.getParameter("force xsd:string on literals", Boolean.FALSE).toString());
+        explicitXsdString = Boolean.parseBoolean(
+            format.getParameter("force xsd:string on literals", Boolean.FALSE).toString());
         qnameManager = new RDFXMLNamespaceManager(ontology, format);
         String defaultNamespace = qnameManager.getDefaultNamespace();
         String base = base(defaultNamespace);
@@ -257,7 +257,16 @@ public class RDFXMLRenderer extends RDFRendererBase {
 
     protected void renderList(RDFNode n) throws IOException {
         if (n.isAnonymous()) {
-            render((RDFResourceBlankNode) n, false);
+            if (n.idRequired()) {
+                if (!pending.contains(n)) {
+                    defer(n);
+                }
+                writer.writeStartElement(RDF_DESCRIPTION.getIRI());
+                writer.writeNodeIDAttribute((RDFResourceBlankNode) n);
+                writer.writeEndElement();
+            } else {
+                render((RDFResourceBlankNode) n, false);
+            }
         } else {
             if (n.isLiteral()) {
                 write((RDFLiteral) n);
