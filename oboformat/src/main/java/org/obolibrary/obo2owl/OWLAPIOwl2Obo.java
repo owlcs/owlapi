@@ -233,7 +233,7 @@ public class OWLAPIOwl2Obo {
     }
 
     public void setPrefixManager(@Nonnull PrefixManager manager) {
-        this.prefixManager = manager;
+        this.prefixManager = new OBOFormatPrefixManager(manager);
     }
 
     /**
