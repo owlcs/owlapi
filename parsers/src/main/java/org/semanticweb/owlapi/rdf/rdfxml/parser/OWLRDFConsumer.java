@@ -190,6 +190,8 @@ public class OWLRDFConsumer
     private final Map<IRI, IRI> ontologyVersions = new HashMap<>();
     /** IRIs that had a type triple to owl:Ontology */
     private final Set<IRI> ontologyIRIs;
+    /** IRIs that represent a subject for predicate owl:imports  */
+    private final Set<IRI> ontologySubImportIRIs;
     /** IRIs that had a type triple to owl:Restriction */
     private final Set<IRI> restrictionIRIs;
     /** Maps rdf:next triple subjects to objects */
@@ -294,6 +296,7 @@ public class OWLRDFConsumer
         propertyIRIs = CollectionFactory.createSet();
         restrictionIRIs = CollectionFactory.createSet();
         ontologyIRIs = CollectionFactory.createSet();
+        ontologySubImportIRIs = CollectionFactory.createSet();
         listFirstLiteralTripleMap = CollectionFactory.createMap();
         listFirstResourceTripleMap = CollectionFactory.createMap();
         listRestTripleMap = CollectionFactory.createMap();
@@ -1467,7 +1470,8 @@ public class OWLRDFConsumer
             for (OWLAnnotation anno : ontology.getAnnotations()) {
                 if (anno.getValue() instanceof IRI) {
                     IRI iri = (IRI) anno.getValue();
-                    if (ontologyIRIs.contains(iri)) {
+                    if (ontologyIRIs.contains(iri)
+                        && !ontologySubImportIRIs.contains(iri)) {
                         candidateIRIs.remove(iri);
                     }
                 }
@@ -2285,14 +2289,28 @@ public class OWLRDFConsumer
 
     /**
      * Adds the ontology.
-     * 
+     *
      * @param iri the iri
+     * @param owlImportSubject Is the iri used as subject for predicate
+     *                         owl:imports
      */
-    protected void addOntology(IRI iri) {
+    protected void addOntology(IRI iri, boolean owlImportSubject) {
         if (ontologyIRIs.isEmpty()) {
             firstOntologyIRI = iri;
         }
+        if (owlImportSubject) {
+            ontologySubImportIRIs.add(iri);
+        }
         ontologyIRIs.add(iri);
+    }
+    /**
+     * Overload method of addOntology with
+     * no owl:import subject iri
+     *
+     * @param iri the iri
+     */
+    protected void addOntology(IRI iri) {
+        addOntology(iri, false);
     }
 
     /**
