@@ -12,7 +12,7 @@
 		<dependency>
 			<groupId>org.tukaani</groupId>
 			<artifactId>xz</artifactId>
-			<version>1.6</version>
+			<version>1.9</version>
 		</dependency>
 		<dependency>
 			<groupId>com.github.ben-manes.caffeine</groupId>
@@ -30,6 +30,7 @@
 			<plugin>
 				<groupId>com.github.siom79.japicmp</groupId>
 				<artifactId>japicmp-maven-plugin</artifactId>
+				<version>0.18.3</version>
 			</plugin>
 		</plugins>
 	</build>
