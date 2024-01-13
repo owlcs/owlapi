@@ -841,9 +841,9 @@ class BasicsTestCase extends OboFormatTestBasics {
         String oboId = OWLAPIOwl2Obo.getIdentifier(iri);
         assertEquals("GO:001", oboId);
         iri = obo2owl.oboIdToIRI("My_Ont:FOO_002");
-        assertEquals("http://purl.obolibrary.org/obo/My_Ont#_FOO_002", iri.toString());
+        assertEquals("http://purl.obolibrary.org/obo/My_Ont_#FOO_002", iri.toString());
         oboId = OWLAPIOwl2Obo.getIdentifier(iri);
-        assertEquals("My_Ont:FOO_002", oboId);
+        assertEquals("FOO_002", oboId);
         iri = obo2owl.oboIdToIRI("My_Ont:002");
         assertEquals("http://purl.obolibrary.org/obo/My_Ont_002", iri.toString());
         // OWL 2 obo
@@ -866,10 +866,10 @@ class BasicsTestCase extends OboFormatTestBasics {
         oboId = OWLAPIOwl2Obo.getIdentifier(iri);
         assertEquals(PART_OF, oboId);
         iri = obo2owl.oboIdToIRI("OBO_REL:part_of");
-        assertEquals("http://purl.obolibrary.org/obo/OBO_REL#_part_of", iri.toString());
+        assertEquals("http://purl.obolibrary.org/obo/OBO_REL_#part_of", iri.toString());
         // OWL 2 obo
         oboId = OWLAPIOwl2Obo.getIdentifier(iri);
-        assertEquals("OBO_REL:part_of", oboId);
+        assertEquals("part_of", oboId);
         iri = obo2owl.oboIdToIRI("http://purl.obolibrary.org/testont");
         assertEquals("http://purl.obolibrary.org/testont", iri.toString());
         // OWL 2 obo
