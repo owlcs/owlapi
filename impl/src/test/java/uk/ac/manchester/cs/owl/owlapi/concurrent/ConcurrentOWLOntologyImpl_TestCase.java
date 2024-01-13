@@ -1,6 +1,6 @@
 package uk.ac.manchester.cs.owl.owlapi.concurrent;
 
-import static org.mockito.ArgumentMatchers.anyListOf;
+import static org.mockito.ArgumentMatchers.anyList;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.spy;
@@ -84,7 +84,7 @@ class ConcurrentOWLOntologyImpl_TestCase {
     void setUp() {
         when(readWriteLock.readLock()).thenReturn(readLock);
         when(readWriteLock.writeLock()).thenReturn(writeLock);
-        when(delegate.applyChangesAndGetDetails(anyListOf(OWLOntologyChange.class)))
+        when(delegate.applyChangesAndGetDetails(anyList()))
             .thenReturn(new ChangeDetails(ChangeApplied.NO_OPERATION, Collections.emptyList()));
         ontology = spy(new ConcurrentOWLOntologyImpl(delegate, readWriteLock));
     }

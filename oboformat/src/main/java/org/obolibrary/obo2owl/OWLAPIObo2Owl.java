@@ -1,6 +1,7 @@
 package org.obolibrary.obo2owl;
 
 import static org.obolibrary.obo2owl.Obo2OWLConstants.DEFAULT_IRI_PREFIX;
+import static org.obolibrary.obo2owl.Obo2OWLConstants.OIOVOCAB_IRI_PREFIX;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.emptyOptional;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.optional;
@@ -1373,21 +1374,29 @@ public class OWLAPIObo2Owl {
         return fac.getOWLNamedIndividual(iri);
     }
 
+    private IRI trTagToIRIIncludingTypedefs(String tag) {
+        IRI iri = ANNOTATIONPROPERTYMAP.get(tag);
+        if (iri == null) {
+            iri = oboIdToIRI(tag, true);
+        }
+        return iri;
+    }
+
     /**
      * Translate tag to annotation prop.
-     *
+     * 
      * @param tag the tag
      * @return the OWL annotation property
      */
     protected OWLAnnotationProperty trTagToAnnotationProp(String tag) {
-        IRI iri = trTagToIRI(tag);
+        IRI iri = trTagToIRIIncludingTypedefs(tag);
         OWLAnnotationProperty ap = fac.getOWLAnnotationProperty(iri);
         if (!apToDeclare.contains(ap)) {
             apToDeclare.add(ap);
             add(fac.getOWLDeclarationAxiom(ap));
             Obo2OWLVocabulary vocab = Obo2OWLConstants.getVocabularyObj(tag);
             if (vocab != null) {
-                add(fac.getOWLAnnotationAssertionAxiom(iri, fac.getRDFSLabel(vocab.getLabel())));
+                add(fac.getOWLAnnotationAssertionAxiom(iri, fac.getRDFSLabel(trLiteral(vocab.getLabel()))));
             }
         }
         return ap;
@@ -1469,9 +1478,19 @@ public class OWLAPIObo2Owl {
      * @return the iri
      */
     public IRI oboIdToIRI(String id) {
+    	return oboIdToIRI(id, false);
+    }
+
+    /**
+     * Obo id to iri.
+     *
+     * @param id the id
+     * @return the iri
+     */
+    public IRI oboIdToIRI(String id, boolean oboInOwlDefault) {
         IRI iri = idToIRICache.get(id);
         if (iri == null) {
-            iri = loadOboToIRI(id);
+            iri = loadOboToIRI(id, oboInOwlDefault);
             idToIRICache.put(id, iri);
         }
         return iri;
@@ -1484,6 +1503,16 @@ public class OWLAPIObo2Owl {
      * @return the iri
      */
     public IRI loadOboToIRI(String id) {
+    	return loadOboToIRI(id, false);
+    }
+
+    /**
+     * Obo id to iri.
+     *
+     * @param id the id
+     * @return the iri
+     */
+    public IRI loadOboToIRI(String id, boolean oboInOwlDefault) {
         if (id.contains(" ")) {
             LOG.error("id contains space: \"{}\"", id);
             throw new OWLParserException("spaces not allowed: '" + id + '\'');
@@ -1547,9 +1576,14 @@ public class OWLAPIObo2Owl {
             db = getDefaultIDSpace() + '#';
             localId = idParts[0];
         }
-        String uriPrefix = DEFAULT_IRI_PREFIX + db;
-        if (idSpaceMap.containsKey(db)) {
-            uriPrefix = idSpaceMap.get(db);
+        String uriPrefix;
+        if (oboInOwlDefault) {
+            uriPrefix = OIOVOCAB_IRI_PREFIX;
+        } else {
+            uriPrefix = DEFAULT_IRI_PREFIX + db;
+            if (idSpaceMap.containsKey(db)) {
+                uriPrefix = idSpaceMap.get(db);
+            }
         }
         String safeId;
         try {
@@ -1570,10 +1604,9 @@ public class OWLAPIObo2Owl {
     }
 
     // 5.9.3. Special Rules for Relations
-
     /**
      * Translate shorthand id to expanded id.
-     *
+     * 
      * @param id the id
      * @return the string
      */

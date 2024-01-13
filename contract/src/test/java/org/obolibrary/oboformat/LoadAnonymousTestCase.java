@@ -5,6 +5,7 @@ import static org.semanticweb.owlapi.util.OWLAPIStreamUtils.asUnorderedSet;
 import static org.semanticweb.owlapi.vocab.OWL2Datatype.XSD_STRING;
 
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
@@ -94,7 +95,10 @@ class LoadAnonymousTestCase extends TestBase {
             AnnotationAssertion(Annotation(hasDbXref, literal), iao0000115, uo0.getIRI(),
                 literal("A unit of measurement is a standardized quantity of a physical quality.")),
             AnnotationAssertion(Annotation(hasDbXref, literal), iao0000115, uo1.getIRI(),
-                literal("A unit which is a standard measure of the distance between two points.")));
-        assertEquals(expected, asUnorderedSet(ontology.axioms()));
+                literal("A unit which is a standard measure of the distance between two points.")),
+            AnnotationAssertion(RDFSLabel(), createdBy.getIRI(), literal("created by")),
+            AnnotationAssertion(RDFSLabel(), id.getIRI(), literal("id")));
+
+        assertEquals(expected.stream().map(Object::toString).sorted().collect(Collectors.joining("\n")), ontology.axioms().map(Object::toString).sorted().collect(Collectors.joining("\n")));
     }
 }
