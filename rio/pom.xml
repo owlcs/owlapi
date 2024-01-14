@@ -6,7 +6,7 @@
 	<parent>
 		<artifactId>owlapi-parent</artifactId>
 		<groupId>net.sourceforge.owlapi</groupId>
-		<version>5.5.0</version>
+		<version>5.5.1-SNAPSHOT</version>
 	</parent>
 	<artifactId>owlapi-rio</artifactId>
 	<name>OWLAPI :: RDF4J Rio</name>
@@ -128,6 +128,7 @@
 			<plugin>
 				<groupId>com.github.siom79.japicmp</groupId>
 				<artifactId>japicmp-maven-plugin</artifactId>
+				<version>0.18.3</version>
 				<configuration>
 					<oldVersion>
 						<dependency>

@@ -6,7 +6,7 @@
 	<parent>
 		<groupId>net.sourceforge.owlapi</groupId>
 		<artifactId>owlapi-parent</artifactId>
-		<version>5.5.0</version>
+		<version>5.5.1-SNAPSHOT</version>
 	</parent>
 	<dependencies>
 		<dependency>
@@ -36,6 +36,7 @@
 			<plugin>
 				<groupId>com.github.siom79.japicmp</groupId>
 				<artifactId>japicmp-maven-plugin</artifactId>
+				<version>0.18.3</version>
 			</plugin>
 		</plugins>
 	</build>
