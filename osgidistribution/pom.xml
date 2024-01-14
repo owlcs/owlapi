@@ -93,7 +93,7 @@
 		<dependency><groupId>org.semarglproject</groupId><artifactId>semargl-rdf</artifactId><version>0.7</version></dependency -->
 		<dependency><groupId>org.apache.felix</groupId><artifactId>org.apache.felix.framework</artifactId><version>7.0.5</version><scope>test</scope></dependency>
 		<dependency><groupId>org.apache.felix</groupId><artifactId>org.osgi.core</artifactId><version>1.4.0</version><scope>test</scope></dependency>
-		<dependency><groupId>org.apache.servicemix.bundles</groupId><artifactId>org.apache.servicemix.bundles.javax-inject</artifactId><version>1_2</version></dependency>
+		<dependency><groupId>org.apache.servicemix.bundles</groupId><artifactId>org.apache.servicemix.bundles.javax-inject</artifactId><version>1_3</version></dependency>
 		<dependency><groupId>org.slf4j</groupId><artifactId>slf4j-simple</artifactId><version>1.7.30</version><scope>test</scope></dependency>
 	</dependencies>
 
@@ -103,7 +103,7 @@
 			<plugin>
 				<groupId>org.apache.felix</groupId>
 				<artifactId>maven-bundle-plugin</artifactId>
-				<version>5.1.8</version>
+				<version>5.1.9</version>
 				<extensions>true</extensions>
 				<configuration>
 					<instructions>

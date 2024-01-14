@@ -100,7 +100,7 @@
 						</_exportcontents>
 						<Import-Package>
 							!sun.misc,
-							org.eclipse.rdf4j.*;version="[3.0,4.2.0]",
+							org.eclipse.rdf4j.*;version="[3.0,5.0.0]",
 							!javax.annotation,
 							!com.google.inject.internal.*;resolution:=optional,
 							!com.github.jsonldjava.shaded.com.google.common.collect.*;resolution:=optional,
