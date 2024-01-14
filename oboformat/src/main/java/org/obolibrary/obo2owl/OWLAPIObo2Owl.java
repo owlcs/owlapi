@@ -1558,33 +1558,33 @@ public class OWLAPIObo2Owl {
             }
         }
         String[] idParts = id.split(":", 2);
-        String db;
-        String localId;
-        if (idParts.length > 1) {
-            db = idParts[0];
-            localId = idParts[1];
-            if (localId.contains("_")) {
-                db += "#_";// NonCanonical-Prefixed-ID
-            } else {
-                db += "_";
-            }
-        } else if (idParts.length == 0) {
-            db = getDefaultIDSpace() + '#';
-            localId = id;
-        } else {
-            // TODO use owlOntology IRI
-            db = getDefaultIDSpace() + '#';
-            localId = idParts[0];
-        }
         String uriPrefix;
-        if (oboInOwlDefault) {
-            uriPrefix = OIOVOCAB_IRI_PREFIX;
-        } else {
-            uriPrefix = DEFAULT_IRI_PREFIX + db;
-            if (idSpaceMap.containsKey(db)) {
-                uriPrefix = idSpaceMap.get(db);
+        String localId;
+        if (idParts.length > 1) { // Prefixed-ID (canonical or not)
+            localId = idParts[1];
+            uriPrefix = idSpaceMap.getOrDefault(idParts[0], DEFAULT_IRI_PREFIX + idParts[0] + '_');
+
+            // Non-canonical prefixed IDs use a '#' separator
+            // TODO - recognize all non-canonical prefixed IDs
+            if (localId.contains("_")) {
+                uriPrefix += "#";
+            }
+        } else { // Unprefixed-ID
+            // Special case for relation xrefs (5.9.3. Special Rules for Relations)
+            String xid = translateShorthandIdToExpandedId(id);
+            if (!xid.equals(id)) {
+                return oboIdToIRI(xid);
+            }
+
+            localId = id;
+            if (oboInOwlDefault) {
+                uriPrefix = OIOVOCAB_IRI_PREFIX;
+            } else {
+                // TODO - use ontology ID as specified in OBO-Format 5.9.2?
+                uriPrefix = DEFAULT_IRI_PREFIX + getDefaultIDSpace() + '#';
             }
         }
+
         String safeId;
         try {
             safeId = java.net.URLEncoder.encode(localId, "US-ASCII");
