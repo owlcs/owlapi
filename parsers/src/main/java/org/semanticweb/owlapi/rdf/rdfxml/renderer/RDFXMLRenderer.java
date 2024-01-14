@@ -19,6 +19,7 @@ import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.RDFS_LITERAL;
 import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.RDF_DESCRIPTION;
 import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.RDF_TYPE;
 
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -246,7 +247,16 @@ public class RDFXMLRenderer extends RDFRendererBase {
 
     protected void renderList(RDFNode n) {
         if (n.isAnonymous()) {
-            render((RDFResourceBlankNode) n, false);
+            if (n.idRequired()) {
+                if (!pending.contains(n)) {
+                    defer(n);
+                }
+                writer.writeStartElement(RDF_DESCRIPTION.getIRI());
+                writer.writeNodeIDAttribute((RDFResourceBlankNode) n);
+                writer.writeEndElement();
+            } else {
+                render((RDFResourceBlankNode) n, false);
+            }
         } else {
             if (n.isLiteral()) {
                 write((RDFLiteral) n);

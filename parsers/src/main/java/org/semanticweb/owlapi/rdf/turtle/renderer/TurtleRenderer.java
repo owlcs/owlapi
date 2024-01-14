@@ -281,7 +281,7 @@ public class TurtleRenderer extends RDFRendererBase {
                 writeSpace();
                 pushTab();
                 for (Iterator<RDFNode> it = list.iterator(); it.hasNext();) {
-                    write(verifyNotNull(it.next()));
+                    renderObject(verifyNotNull(it.next()));
                     if (it.hasNext()) {
                         writeNewLine();
                     }

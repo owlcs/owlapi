@@ -34,6 +34,7 @@ import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLIndividual;
+import org.semanticweb.owlapi.model.OWLObjectIntersectionOf;
 import org.semanticweb.owlapi.model.OWLOntology;
 
 class BlankNodeIdsAndAnnotationsRoundTripTestCase extends TestBase {
@@ -69,6 +70,16 @@ class BlankNodeIdsAndAnnotationsRoundTripTestCase extends TestBase {
         return ont1;
     }
 
+    protected OWLOntology anonClassAndAnnotationsRoundTripTestCase(OWLOntology ont1) {
+        Set<OWLAnnotation> anns =
+            set(df.getOWLAnnotation(df.getRDFSComment(), df.getOWLLiteral("comment")));
+        OWLClassExpression restrict = df.getOWLObjectSomeValuesFrom(R, B);
+        OWLObjectIntersectionOf intersect = df.getOWLObjectIntersectionOf(C, restrict);
+        ont1.getOWLOntologyManager().addAxiom(ont1, df.getOWLEquivalentClassesAxiom(A, intersect));
+        ont1.getOWLOntologyManager().addAxiom(ont1, df.getOWLSubClassOfAxiom(A, restrict, anns));
+        return ont1;
+    }
+
     @Override
     public boolean equal(OWLOntology ont1, OWLOntology ont2) {
         // Axioms without annotations are lost if identical axioms with
@@ -92,6 +103,12 @@ class BlankNodeIdsAndAnnotationsRoundTripTestCase extends TestBase {
     @MethodSource("formats")
     void testFormat(OWLDocumentFormat format) {
         roundTripOntology(blankNodeIdsAndAnnotationsRoundTripTestCase(createAnon()), format);
+    }
+
+    @ParameterizedTest
+    @MethodSource("formats")
+    void testFormat1(OWLDocumentFormat format) {
+        roundTripOntology(anonClassAndAnnotationsRoundTripTestCase(createAnon()), format);
     }
 
     @Test
