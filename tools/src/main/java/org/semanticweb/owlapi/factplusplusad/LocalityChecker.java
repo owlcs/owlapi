@@ -35,7 +35,7 @@ abstract class LocalityChecker extends SigAccessor
         return switch (moduleMethod) {
             case SYNTACTIC_STANDARD -> new SyntacticLocalityChecker(pSig);
             case SYNTACTIC_COUNTING -> new ExtendedSyntacticLocalityChecker(pSig);
-            case QUERY_ANSWERING,
+            case QUERY_ANSWERING -> throw new OWLRuntimeException("Unsupported module method: " + moduleMethod);
             /* return new SemanticLocalityChecker(pSig) */
             default -> throw new OWLRuntimeException("Unsupported module method: " + moduleMethod);
         };

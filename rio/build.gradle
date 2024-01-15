@@ -20,7 +20,7 @@ dependencies {
         exclude module: "httpclient-osgi"
         exclude module: "httpcore-osgi"
     }
-    implementation ('com.github.jsonld-java:jsonld-java:0.13.4') {
+    implementation ('com.github.jsonld-java:jsonld-java:0.13.6') {
         exclude module: "httpclient-osgi"
         exclude module: "httpcore-osgi"
     }

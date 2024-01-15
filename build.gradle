@@ -44,33 +44,32 @@ subprojects {
     }
 
     apply plugin: 'java'
-    sourceCompatibility = 17
-    targetCompatibility = 17
+    sourceCompatibility = 21
+    targetCompatibility = 21
     tasks.withType(JavaCompile) {
         options.encoding = 'UTF-8'
     }
 //    apply plugin: 'me.champeau.gradle.japicmp'
 
-    task packageSources(type: Jar) {
-
-        classifier = 'sources'
-        from sourceSets.main.allSource
-    }
-    task packageJavadoc(type: Jar) {
-        dependsOn javadoc
-        classifier = 'javadoc'
-        from javadoc.outputs
-    }
-    artifacts.archives packageSources
-    artifacts.archives packageJavadoc
+//    task packageSources(type: Jar) {
+//        classifier = 'sources'
+//        from sourceSets.main.allSource
+//   }
+//    task packageJavadoc(type: Jar) {
+//        dependsOn javadoc
+//        classifier = 'javadoc'
+//        from javadoc.outputs
+//    }
+//    artifacts.archives packageSources
+//    artifacts.archives packageJavadoc
 
     dependencies {
         implementation 'com.google.code.findbugs:jsr305:[2.0.0,4)'
-        implementation 'org.slf4j:slf4j-api:[1.8.0-beta2,)'
+        implementation 'org.slf4j:slf4j-api:[2.0.11,)'
         testImplementation 'org.hamcrest:hamcrest-core:2.2'
-        testImplementation 'org.junit.jupiter:junit-jupiter:5.7.1'
-        testImplementation 'org.mockito:mockito-core:[3.11.2,4)'
-        testImplementation 'org.slf4j:slf4j-simple:[1.8.0-beta2,)'
+        testImplementation 'org.junit.jupiter:junit-jupiter:5.10.1'
+        testImplementation 'org.mockito:mockito-core:[5.8.0,6)'
+        testImplementation 'org.slf4j:slf4j-simple:[2.0.11,)'
     }
 
 //    task wrap(type: OSGIWrapTask) {
@@ -84,13 +83,13 @@ subprojects {
             include "**/packageinfo"
         }
     }
-    classes {
-        copy {
-            into sourceSets.main.java.outputDir
-            from sourceSets.main.allSource
-            include "**/packageinfo"
-        }
-    }
+//    classes {
+//        copy {
+//            into sourceSets.main.java.outputDir
+//            from sourceSets.main.allSource
+//            include "**/packageinfo"
+//        }
+//    }
 
 
 //    task bundle(type: BundleTask) {
@@ -107,21 +106,21 @@ subprojects {
 //        }
 //    }
 
-    task initPackageInfo {
-        doFirst {
-            sourceSets.main.allJava*.parentFile.unique().each {
-                File packageInfoFile = new File(it, "packageinfo")
-                if (!packageInfoFile.exists()) {
-                    println "iPi ${it}"
-                    def out = packageInfoFile.newPrintWriter()
-                    //MavenVersion v = MavenVersion.parseMavenString(project.version.toString())
-                    out.println "version 6"
-                    out.close()
-                }
+//    task initPackageInfo {
+//        doFirst {
+//            sourceSets.main.allJava*.parentFile.unique().each {
+//                File packageInfoFile = new File(it, "packageinfo")
+//                if (!packageInfoFile.exists()) {
+//                    println "iPi ${it}"
+//                    def out = packageInfoFile.newPrintWriter()
+//                    //MavenVersion v = MavenVersion.parseMavenString(project.version.toString())
+//                    out.println "version 6"
+//                    out.close()
+//                }
 
-            }
-        }
-    }
+//            }
+//        }
+//    }
 //    if (!(project.name in ["benchmarks"])) {
 //        task japicmp(type: ArtifactJapicmpTask) {
 //            description "compare project api to baselineVersion"

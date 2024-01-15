@@ -2,8 +2,8 @@
 description = 'OWLAPI :: Atomic Decomposition and Explanation'
 dependencies {
   implementation project(':owlapi-api')
-  implementation 'commons-io:commons-io:2.10.0'
-  implementation ('com.github.ben-manes.caffeine:caffeine:3.1.1') {
+  implementation 'commons-io:commons-io:2.15.1'
+  implementation ('com.github.ben-manes.caffeine:caffeine:3.1.8') {
     exclude module: "checker-qual"
     exclude module: "error_prone_annotations"
   }

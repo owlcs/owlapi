@@ -560,165 +560,158 @@ protected transient EnumMap<InternalsPointers, MapPointer<?, ? extends OWLAxiom>
     <T extends OWLObject, A extends OWLAxiom> Optional<MapPointer<T, A>> get(Class<T> type,
         Class<A> axiom, Navigation position) {
         if (OWLEntity.class.isAssignableFrom(type) && axiom.equals(OWLDeclarationAxiom.class)) {
-            return Optional.ofNullable((MapPointer<T, A>) declarationsByEntity);
+            return get(type, axiom, declarationsByEntity);
         }
         if (type.equals(OWLClass.class) && axiom.equals(OWLAxiom.class)) {
-            return Optional.ofNullable((MapPointer<T, A>) owlClassReferences);
+            return get(type, axiom, owlClassReferences);
         }
         if (type.equals(OWLObjectProperty.class) && axiom.equals(OWLAxiom.class)) {
-            return Optional.ofNullable((MapPointer<T, A>) owlObjectPropertyReferences);
+            return get(type, axiom, owlObjectPropertyReferences);
         }
         if (type.equals(OWLDataProperty.class) && axiom.equals(OWLAxiom.class)) {
-            return Optional.ofNullable((MapPointer<T, A>) owlDataPropertyReferences);
+            return get(type, axiom, owlDataPropertyReferences);
         }
         if (type.equals(OWLNamedIndividual.class) && axiom.equals(OWLAxiom.class)) {
-            return Optional.ofNullable((MapPointer<T, A>) owlIndividualReferences);
+            return get(type, axiom, owlIndividualReferences);
         }
         if (type.equals(OWLAnonymousIndividual.class) && axiom.equals(OWLAxiom.class)) {
-            return Optional.ofNullable((MapPointer<T, A>) owlAnonymousIndividualReferences);
+            return get(type, axiom, owlAnonymousIndividualReferences);
         }
         if (type.equals(OWLDatatype.class) && axiom.equals(OWLAxiom.class)) {
-            return Optional.ofNullable((MapPointer<T, A>) owlDatatypeReferences);
+            return get(type, axiom, owlDatatypeReferences);
         }
         if (type.equals(OWLAnnotationProperty.class) && axiom.equals(OWLAxiom.class)) {
-            return Optional.ofNullable((MapPointer<T, A>) owlAnnotationPropertyReferences);
+            return get(type, axiom, owlAnnotationPropertyReferences);
         }
         if (type.equals(OWLClassExpression.class)) {
-            return Optional.ofNullable((MapPointer<T, A>) classAssertionAxiomsByClass);
+            return get(type, axiom, classAssertionAxiomsByClass);
         }
         if (type.equals(OWLObjectPropertyExpression.class)) {
             if (axiom.equals(OWLSubObjectPropertyOfAxiom.class)) {
                 if (position.superPosition()) {
-                    return Optional
-                        .ofNullable((MapPointer<T, A>) objectSubPropertyAxiomsBySuperPosition);
+                    return get(type, axiom, objectSubPropertyAxiomsBySuperPosition);
                 } else {
-                    return Optional
-                        .ofNullable((MapPointer<T, A>) objectSubPropertyAxiomsBySubPosition);
+                    return get(type, axiom, objectSubPropertyAxiomsBySubPosition);
                 }
             }
             if (axiom.equals(OWLEquivalentObjectPropertiesAxiom.class)) {
-                return Optional
-                    .ofNullable((MapPointer<T, A>) equivalentObjectPropertyAxiomsByProperty);
+                return get(type, axiom, equivalentObjectPropertyAxiomsByProperty);
             }
             if (axiom.equals(OWLDisjointObjectPropertiesAxiom.class)) {
-                return Optional
-                    .ofNullable((MapPointer<T, A>) disjointObjectPropertyAxiomsByProperty);
+                return get(type, axiom, disjointObjectPropertyAxiomsByProperty);
             }
             if (axiom.equals(OWLObjectPropertyDomainAxiom.class)) {
-                return Optional.ofNullable((MapPointer<T, A>) objectPropertyDomainAxiomsByProperty);
+                return get(type, axiom, objectPropertyDomainAxiomsByProperty);
             }
             if (axiom.equals(OWLObjectPropertyRangeAxiom.class)) {
-                return Optional.ofNullable((MapPointer<T, A>) objectPropertyRangeAxiomsByProperty);
+                return get(type, axiom, objectPropertyRangeAxiomsByProperty);
             }
             if (axiom.equals(OWLFunctionalObjectPropertyAxiom.class)) {
-                return Optional
-                    .ofNullable((MapPointer<T, A>) functionalObjectPropertyAxiomsByProperty);
+                return get(type, axiom, functionalObjectPropertyAxiomsByProperty);
             }
             if (axiom.equals(OWLInverseFunctionalObjectPropertyAxiom.class)) {
-                return Optional
-                    .ofNullable((MapPointer<T, A>) inverseFunctionalPropertyAxiomsByProperty);
+                return get(type, axiom, inverseFunctionalPropertyAxiomsByProperty);
             }
             if (axiom.equals(OWLSymmetricObjectPropertyAxiom.class)) {
-                return Optional.ofNullable((MapPointer<T, A>) symmetricPropertyAxiomsByProperty);
+                return get(type, axiom, symmetricPropertyAxiomsByProperty);
             }
             if (axiom.equals(OWLAsymmetricObjectPropertyAxiom.class)) {
-                return Optional.ofNullable((MapPointer<T, A>) asymmetricPropertyAxiomsByProperty);
+                return get(type, axiom, asymmetricPropertyAxiomsByProperty);
             }
             if (axiom.equals(OWLReflexiveObjectPropertyAxiom.class)) {
-                return Optional.ofNullable((MapPointer<T, A>) reflexivePropertyAxiomsByProperty);
+                return get(type, axiom, reflexivePropertyAxiomsByProperty);
             }
             if (axiom.equals(OWLIrreflexiveObjectPropertyAxiom.class)) {
-                return Optional.ofNullable((MapPointer<T, A>) irreflexivePropertyAxiomsByProperty);
+                return get(type, axiom, irreflexivePropertyAxiomsByProperty);
             }
             if (axiom.equals(OWLTransitiveObjectPropertyAxiom.class)) {
-                return Optional.ofNullable((MapPointer<T, A>) transitivePropertyAxiomsByProperty);
+                return get(type, axiom, transitivePropertyAxiomsByProperty);
             }
             if (axiom.equals(OWLInverseObjectPropertiesAxiom.class)) {
-                return Optional.ofNullable((MapPointer<T, A>) inversePropertyAxiomsByProperty);
+                return get(type, axiom, inversePropertyAxiomsByProperty);
             }
         }
         if (type.equals(OWLDataPropertyExpression.class)) {
             if (axiom.equals(OWLSubDataPropertyOfAxiom.class)) {
                 if (position == Navigation.IN_SUPER_POSITION) {
-                    return Optional
-                        .ofNullable((MapPointer<T, A>) dataSubPropertyAxiomsBySuperPosition);
+                    return get(type, axiom, dataSubPropertyAxiomsBySuperPosition);
                 } else {
-                    return Optional
-                        .ofNullable((MapPointer<T, A>) dataSubPropertyAxiomsBySubPosition);
+                    return get(type, axiom, dataSubPropertyAxiomsBySubPosition);
                 }
             }
             if (axiom.equals(OWLEquivalentDataPropertiesAxiom.class)) {
-                return Optional
-                    .ofNullable((MapPointer<T, A>) equivalentDataPropertyAxiomsByProperty);
+                return get(type, axiom, equivalentDataPropertyAxiomsByProperty);
             }
             if (axiom.equals(OWLDisjointDataPropertiesAxiom.class)) {
-                return Optional.ofNullable((MapPointer<T, A>) disjointDataPropertyAxiomsByProperty);
+                return get(type, axiom, disjointDataPropertyAxiomsByProperty);
             }
             if (axiom.equals(OWLDataPropertyDomainAxiom.class)) {
-                return Optional.ofNullable((MapPointer<T, A>) dataPropertyDomainAxiomsByProperty);
+                return get(type, axiom, dataPropertyDomainAxiomsByProperty);
             }
             if (axiom.equals(OWLDataPropertyRangeAxiom.class)) {
-                return Optional.ofNullable((MapPointer<T, A>) dataPropertyRangeAxiomsByProperty);
+                return get(type, axiom, dataPropertyRangeAxiomsByProperty);
             }
             if (axiom.equals(OWLFunctionalDataPropertyAxiom.class)) {
-                return Optional
-                    .ofNullable((MapPointer<T, A>) functionalDataPropertyAxiomsByProperty);
+                return get(type, axiom, functionalDataPropertyAxiomsByProperty);
             }
         }
         if (type.equals(OWLAnnotationSubject.class) || type.equals(IRI.class)) {
-            return Optional.ofNullable((MapPointer<T, A>) annotationAssertionAxiomsBySubject);
+            return get(type, axiom, annotationAssertionAxiomsBySubject);
         }
         if (type.equals(OWLIndividual.class)) {
             if (axiom.equals(OWLClassAssertionAxiom.class)) {
-                return Optional.ofNullable((MapPointer<T, A>) classAssertionAxiomsByIndividual);
+                return get(type, axiom, classAssertionAxiomsByIndividual);
             }
             if (axiom.equals(OWLObjectPropertyAssertionAxiom.class)) {
-                return Optional.ofNullable((MapPointer<T, A>) objectPropertyAssertionsByIndividual);
+                return get(type, axiom, objectPropertyAssertionsByIndividual);
             }
             if (axiom.equals(OWLDataPropertyAssertionAxiom.class)) {
-                return Optional.ofNullable((MapPointer<T, A>) dataPropertyAssertionsByIndividual);
+                return get(type, axiom, dataPropertyAssertionsByIndividual);
             }
             if (axiom.equals(OWLNegativeObjectPropertyAssertionAxiom.class)) {
                 return Optional.ofNullable(
                     (MapPointer<T, A>) negativeObjectPropertyAssertionAxiomsByIndividual);
             }
             if (axiom.equals(OWLNegativeDataPropertyAssertionAxiom.class)) {
-                return Optional
-                    .ofNullable((MapPointer<T, A>) negativeDataPropertyAssertionAxiomsByIndividual);
+                return get(type, axiom, negativeDataPropertyAssertionAxiomsByIndividual);
             }
             if (axiom.equals(OWLDifferentIndividualsAxiom.class)) {
-                return Optional
-                    .ofNullable((MapPointer<T, A>) differentIndividualsAxiomsByIndividual);
+                return get(type, axiom, differentIndividualsAxiomsByIndividual);
             }
             if (axiom.equals(OWLSameIndividualAxiom.class)) {
-                return Optional.ofNullable((MapPointer<T, A>) sameIndividualsAxiomsByIndividual);
+                return get(type, axiom, sameIndividualsAxiomsByIndividual);
             }
         }
         if (type.equals(OWLClass.class)) {
             if (axiom.equals(OWLSubClassOfAxiom.class)) {
                 if (position == Navigation.IN_SUPER_POSITION) {
-                    return Optional.ofNullable((MapPointer<T, A>) subClassAxiomsBySuperPosition);
+                    return get(type, axiom, subClassAxiomsBySuperPosition);
                 } else {
-                    return Optional.ofNullable((MapPointer<T, A>) subClassAxiomsBySubPosition);
+                    return get(type, axiom, subClassAxiomsBySubPosition);
                 }
             }
             if (axiom.equals(OWLClassAxiom.class)) {
-                return Optional.ofNullable((MapPointer<T, A>) classAxiomsByClass);
+                return get(type, axiom, classAxiomsByClass);
             }
             if (axiom.equals(OWLEquivalentClassesAxiom.class)) {
-                return Optional.ofNullable((MapPointer<T, A>) equivalentClassesAxiomsByClass);
+                return get(type, axiom, equivalentClassesAxiomsByClass);
             }
             if (axiom.equals(OWLDisjointClassesAxiom.class)) {
-                return Optional.ofNullable((MapPointer<T, A>) disjointClassesAxiomsByClass);
+                return get(type, axiom, disjointClassesAxiomsByClass);
             }
             if (axiom.equals(OWLDisjointUnionAxiom.class)) {
-                return Optional.ofNullable((MapPointer<T, A>) disjointUnionAxiomsByClass);
+                return get(type, axiom, disjointUnionAxiomsByClass);
             }
             if (axiom.equals(OWLHasKeyAxiom.class)) {
-                return Optional.ofNullable((MapPointer<T, A>) hasKeyAxiomsByClass);
+                return get(type, axiom, hasKeyAxiomsByClass);
             }
         }
         return Optional.empty();
+    }
+
+    static <T extends OWLObject, A extends OWLAxiom> Optional<MapPointer<T, A>> get(Class<T> type,
+        Class<A> axiom, MapPointer<?, ?> map) {
+        return Optional.ofNullable((MapPointer<T, A>) map);
     }
 
     protected <K, V extends OWLAxiom> MapPointer<K, V> build(Class<V> valueWithness) {
