@@ -390,7 +390,16 @@ public class OWLAPIOwl2Obo {
      * @return obo identifier
      */
     public static String getIdentifier(IRI iriId) {
-        String iri = iriId.toString();
+    	return getIdentifier(iriId.toString());
+    }
+
+    /**
+     * See table 5.9.2. Translation of identifiers
+     *
+     * @param iri the iri
+     * @return obo identifier
+     */
+    public static String getIdentifier(String iri) {
         // canonical IRIs
         String id = getId(iri);
         String[] s = BLANK_NODE_MARKER.split(id);
@@ -485,6 +494,8 @@ public class OWLAPIOwl2Obo {
             }
             if (iri.startsWith(Obo2OWLConstants.OIOVOCAB_IRI_PREFIX)) {
                 return iri.substring(Obo2OWLConstants.OIOVOCAB_IRI_PREFIX.length());
+            } else {
+            	return getIdentifier(iri);
             }
         }
         return tag;

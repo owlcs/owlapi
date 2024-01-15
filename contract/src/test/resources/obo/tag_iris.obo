@@ -1,0 +1,56 @@
+format-version: 1.2
+ontology: myont
+
+[Term]
+id: MYONT:1
+name: term one
+def: "Definition of term one." [] {comment="Here is a sub-annotation.", seeAlso="A nested see also value."}
+property_value: seeAlso "See also value." xsd:string
+
+[Term]
+id: MYONT:2
+name: term two
+def: "Definition of term two." [] {MYONT:20="A nested annotation value."}
+property_value: MYONT:21 "A top level annotation value." xsd:string
+
+[Term]
+id: MYONT:3
+name: term three
+def: "Definition of term three." [] {source="A definition source value."}
+intersection_of: MYONT:2 ! term two
+intersection_of: results_in_transport_across GO:0005739 ! mitochondrion
+created_by: goc:bro
+
+[Term]
+id: MYONT:4
+name: term four
+def: "Definition of term four." [] {invented_by="An inventor value."}
+
+[Typedef]
+id: source
+name: source
+xref: MYONT:20
+is_metadata_tag: true
+
+[Typedef]
+id: MYONT:21
+name: source2
+is_metadata_tag: true
+
+[Typedef]
+id: seeAlso
+name: see also
+xref: http://www.w3.org/2000/01/rdf-schema#seeAlso
+is_metadata_tag: true
+
+[Typedef]
+id: results_in_transport_across
+name: results in transport across
+namespace: external
+xref: RO:0002342
+
+[Typedef]
+id: created_by
+name: created by
+namespace: external
+xref: http://purl.org/dc/terms/creator

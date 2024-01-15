@@ -3,6 +3,7 @@ package org.semanticweb.owlapi.obolibrary.obo2owl;
 import static org.semanticweb.owlapi.utilities.OWLAPIPreconditions.checkNotNull;
 import static org.semanticweb.owlapi.utilities.OWLAPIPreconditions.verifyNotNull;
 import static org.semanticweb.owlapi.vocab.Obo2OWLConstants.DEFAULT_IRI_PREFIX;
+import static org.semanticweb.owlapi.vocab.Obo2OWLConstants.OIOVOCAB_IRI_PREFIX;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -1375,6 +1376,14 @@ public class OWLAPIObo2Owl {
         return df.getOWLNamedIndividual(iri);
     }
 
+    private IRI trTagToIRIIncludingTypedefs(String tag) {
+        IRI iri = ANNOTATIONPROPERTYMAP.get(tag);
+        if (iri == null) {
+            iri = oboIdToIRI(tag, true);
+        }
+        return iri;
+    }
+
     /**
      * Translate tag to annotation prop.
      *
@@ -1382,7 +1391,7 @@ public class OWLAPIObo2Owl {
      * @return the OWL annotation property
      */
     protected OWLAnnotationProperty trTagToAnnotationProp(String tag) {
-        IRI iri = trTagToIRI(tag, df);
+        IRI iri = trTagToIRIIncludingTypedefs(tag);
         OWLAnnotationProperty ap = df.getOWLAnnotationProperty(iri);
         if (!apToDeclare.contains(ap)) {
             apToDeclare.add(ap);
@@ -1463,9 +1472,19 @@ public class OWLAPIObo2Owl {
      * @return the iri
      */
     public IRI oboIdToIRI(String id) {
+    	return oboIdToIRI(id, false);
+    }
+
+    /**
+     * Obo id to iri.
+     *
+     * @param id the id
+     * @return the iri
+     */
+    public IRI oboIdToIRI(String id, boolean oboInOwlDefault) {
         IRI iri = idToIRICache.get(id);
         if (iri == null) {
-            iri = loadOboToIRI(id);
+            iri = loadOboToIRI(id, oboInOwlDefault);
             idToIRICache.put(id, iri);
         }
         return iri;
@@ -1478,6 +1497,16 @@ public class OWLAPIObo2Owl {
      * @return the iri
      */
     public IRI loadOboToIRI(String id) {
+    	return loadOboToIRI(id, false);
+    }
+
+    /**
+     * Obo id to iri.
+     *
+     * @param id the id
+     * @return the iri
+     */
+    public IRI loadOboToIRI(String id, boolean oboInOwlDefault) {
         if (id.contains(" ")) {
             LOG.error("id contains space: \"{}\"", id);
             throw new OWLParserException("spaces not allowed: '" + id + '\'');
@@ -1514,10 +1543,10 @@ public class OWLAPIObo2Owl {
                 return oboIdToIRI(xid);
             }
         }
-        return otherProtocols(id);
+        return otherProtocols(id, oboInOwlDefault);
     }
 
-    protected IRI otherProtocols(String id) {
+    protected IRI otherProtocols(String id, boolean oboInOwlDefault) {
         String[] idParts = id.split(":", 2);
         String db;
         String localId;
@@ -1537,7 +1566,15 @@ public class OWLAPIObo2Owl {
             db = getDefaultIDSpace() + '#';
             localId = idParts[0];
         }
-        String uriPrefix = uriPrefix(db);
+        String uriPrefix;
+        if (oboInOwlDefault) {
+            uriPrefix = OIOVOCAB_IRI_PREFIX;
+        } else {
+            uriPrefix = DEFAULT_IRI_PREFIX + db;
+            if (idSpaceMap.containsKey(db)) {
+                uriPrefix = idSpaceMap.get(db);
+            }
+        }
         String safeId = safeID(localId);
         try {
             return df.getIRI(uriPrefix + safeId);

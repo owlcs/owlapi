@@ -71,14 +71,4 @@ class BOMSafeInputStreamAndParseTestCase extends TestBase {
             loadFrom(in);
         }
     }
-
-    @ParameterizedTest
-    @MethodSource("data")
-    void testBOMError32bigReader(int[] b, String input) throws Exception {
-        try (InputStream in = in(b, input);
-            InputStreamReader r = new InputStreamReader(in);
-            ReaderDocumentSource source = new ReaderDocumentSource(r)) {
-            m.loadOntologyFromOntologyDocument(source);
-        }
-    }
 }

@@ -103,7 +103,9 @@ class LoadAnonymousTestCase extends TestBase {
                 literal("A unit of measurement is a standardized quantity of a physical quality.")),
             AnnotationAssertion(Annotation(ANNPROPS.hasDbXref, LITERALS.literal),
                 ANNPROPS.iao0000115, CLASSES.uo1.getIRI(),
-                literal("A unit which is a standard measure of the distance between two points.")));
+                literal("A unit which is a standard measure of the distance between two points.")),
+            AnnotationAssertion(RDFSLabel(), ANNPROPS.createdBy.getIRI(), literal("created by")),
+            AnnotationAssertion(RDFSLabel(), ANNPROPS.id.getIRI(), literal("id")));
         assertEquals(expected, asUnorderedSet(ontology.axioms()));
     }
 }
