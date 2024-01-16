@@ -446,6 +446,10 @@ public class ParserException extends OWLParserException {
     @Override
     public String getMessage() {
         StringBuilder sb = new StringBuilder(1000);
+        String topMessage = super.getMessage();
+        if (topMessage != null) {
+            sb.append(topMessage).append("\n");
+        }
         sb.append("Encountered ");
         sb.append(currentToken);
         sb.append(" at line ");
