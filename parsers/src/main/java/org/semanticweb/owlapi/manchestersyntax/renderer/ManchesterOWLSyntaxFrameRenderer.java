@@ -69,6 +69,9 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
 import java.util.TreeSet;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -76,6 +79,7 @@ import javax.annotation.Nullable;
 import org.semanticweb.owlapi.io.OWLRendererException;
 import org.semanticweb.owlapi.manchestersyntax.parser.ManchesterOWLSyntax;
 import org.semanticweb.owlapi.model.AxiomType;
+import org.semanticweb.owlapi.model.HasAnnotations;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
@@ -475,6 +479,9 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
             Set<SWRLRule> singleton = Collections.singleton(rule);
             writeSection(RULE, singleton, ", ", false);
         }
+        filtersort(ontology.getAxioms(AxiomType.SUBCLASS_OF).stream(), (OWLSubClassOfAxiom a) -> a.isGCI())
+        .collect(Collectors.groupingBy(OWLSubClassOfAxiom::getSubClass))
+        .forEach(this::write);
         flush();
     }
 
@@ -612,6 +619,20 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
             return write(entity.asOWLDatatype());
         }
         return CollectionFactory.emptySet();
+    }
+
+    protected <T extends OWLAxiom> Stream<T> filtersort(Stream<T> s, Predicate<T> p) {
+        return s.filter(p).sorted(owlObjectComparator);
+    }
+
+    private void write(OWLClassExpression superClass, List<OWLSubClassOfAxiom> axs) {
+        writeEntityStart(CLASS, superClass);
+
+        if (!isFiltered(AxiomType.SUBCLASS_OF)) {
+            SectionMap<Object, OWLAxiom> superclasses = new SectionMap<>();
+            filtersort(axs.stream(), this::isDisplayed).forEach(ax -> superclasses.put(ax.getSuperClass(), ax));
+            writeSection(SUBCLASS_OF, superclasses, ",", true);
+        }
     }
 
     /**
@@ -1288,7 +1309,39 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
         String kw = keyword.toString();
         fireFrameRenderingPrepared(kw);
         writeSection(keyword);
+
+        boolean resetTab = false;
+        if(entity instanceof OWLEntity) {
+            Set<OWLAnnotation> annotations = ontologies.stream().flatMap(o -> o.getDeclarationAxioms((OWLEntity) entity).stream())
+                    .flatMap(a -> a.getAnnotations().stream())
+                    .sorted()
+                    .collect(Collectors.toSet());
+
+            if (!annotations.isEmpty()) {
+                incrementTab(4);
+                writeNewLine();
+                write(ManchesterOWLSyntax.ANNOTATIONS.toString());
+                write(": ");
+                pushTab(getIndent() + 1);
+                for (Iterator<OWLAnnotation> annoIt = annotations.iterator(); annoIt.hasNext();) {
+                    annoIt.next().accept(this);
+                    if (annoIt.hasNext()) {
+                        write(", ");
+                        writeNewLine();
+                    }
+                }
+                popTab();
+                popTab();
+                incrementTab(2);
+                writeNewLine();
+                resetTab = true;
+            }
+        }
+
         entity.accept(this);
+        if(resetTab) {
+            popTab();
+        }
         fireFrameRenderingStarted(kw);
         writeNewLine();
         incrementTab(4);

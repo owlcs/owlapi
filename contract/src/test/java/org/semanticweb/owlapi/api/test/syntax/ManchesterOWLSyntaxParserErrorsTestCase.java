@@ -38,6 +38,8 @@ class ManchesterOWLSyntaxParserErrorsTestCase extends TestBase {
     void setUp() {
         OWLClass cls = mock(OWLClass.class);
         when(entityChecker.getOWLClass("C")).thenReturn(cls);
+        when(cls.isOWLClass()).thenReturn(true);
+        when(cls.asOWLClass()).thenReturn(cls);
         OWLClass clsC1 = mock(OWLClass.class);
         when(entityChecker.getOWLClass("C1")).thenReturn(clsC1);
         OWLObjectProperty oP = mock(OWLObjectProperty.class);
@@ -469,7 +471,7 @@ class ManchesterOWLSyntaxParserErrorsTestCase extends TestBase {
         checkForExceptionAt("Class: C Rule: oP(x, ?y)", 18, "x");
     }
 
-    private void checkForExceptionAt(@Nonnull String input, int index, String currentToken) {
+    private void checkForExceptionAt(String input, int index, String currentToken) {
         try {
             parser.parse(input);
             fail();
@@ -481,17 +483,18 @@ class ManchesterOWLSyntaxParserErrorsTestCase extends TestBase {
         }
     }
 
-    private void checkForExceptionAtEOF(@Nonnull String input) {
+    private void checkForExceptionAtEOF(String input) {
         checkForExceptionAt(input, input.length(), ManchesterOWLSyntaxTokenizer.EOF);
         String trimmedInput = input.trim();
-        checkForExceptionAt(trimmedInput, trimmedInput.length(), ManchesterOWLSyntaxTokenizer.EOF);
+        checkForExceptionAt(trimmedInput, trimmedInput.length(),
+            ManchesterOWLSyntaxTokenizer.EOF);
     }
 
     private class ParserWrapper {
 
         ParserWrapper() {}
 
-        public void parse(@Nonnull String input) {
+        void parse(String input) {
             ManchesterOWLSyntaxParser actualParser = OWLManager.createManchesterParser();
             actualParser.setOWLEntityChecker(entityChecker);
             actualParser.setStringToParse(input);

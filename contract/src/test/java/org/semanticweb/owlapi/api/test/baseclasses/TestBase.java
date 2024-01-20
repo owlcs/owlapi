@@ -386,19 +386,6 @@ public abstract class TestBase {
         axioms2 = new AnonymousIndividualsNormaliser(df).getNormalisedAxioms(ont2.getAxioms());
         OWLDocumentFormat ontologyFormat = ont2.getOWLOntologyManager().getOntologyFormat(ont2);
         applyEquivalentsRoundtrip(axioms1, axioms2, ontologyFormat);
-        if (ontologyFormat instanceof ManchesterSyntaxDocumentFormat) {
-            // drop GCIs from the expected axioms, they won't be there
-            Iterator<OWLAxiom> it = axioms1.iterator();
-            while (it.hasNext()) {
-                OWLAxiom next = it.next();
-                if (next instanceof OWLSubClassOfAxiom) {
-                    OWLSubClassOfAxiom n = (OWLSubClassOfAxiom) next;
-                    if (n.getSubClass().isAnonymous() && n.getSuperClass().isAnonymous()) {
-                        it.remove();
-                    }
-                }
-            }
-        }
         PlainLiteralTypeFoldingAxiomSet a = new PlainLiteralTypeFoldingAxiomSet(axioms1);
         PlainLiteralTypeFoldingAxiomSet b = new PlainLiteralTypeFoldingAxiomSet(axioms2);
         if (!a.equals(b)) {
