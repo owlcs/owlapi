@@ -69,7 +69,7 @@ public enum XSDVocabulary implements HasShortForm, HasIRI, HasPrefixedName {
     /** DATE. */                 DATE            ("date"),
     /** G_YEAR_MONTH. */         G_YEAR_MONTH    ("gYearMonth"),
     /** G_YEAR. */               G_YEAR          ("gYear"),
-    /** G_MONTH_DAY. */          G_MONTH_DAY     ("gMonthYear"),
+    /** G_MONTH_DAY. */          G_MONTH_DAY     ("gMonthDay"),
     /** G_DAY. */                G_DAY           ("gDay"),
     /** G_MONTH. */              G_MONTH         ("gMonth"),
     /** UNSIGNED_SHORT. */       UNSIGNED_SHORT  ("unsignedShort"),
