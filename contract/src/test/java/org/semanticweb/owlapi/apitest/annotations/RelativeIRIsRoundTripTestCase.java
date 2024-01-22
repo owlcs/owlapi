@@ -34,7 +34,7 @@ class RelativeIRIsRoundTripTestCase extends TestBase {
         l(Annotation(ANNPROPS.AP, Literal("x")), Annotation(ANNPROPS.propP, Literal("y")));
 
     protected OWLOntology relativeIRIsRoundTripTestCase() {
-        OWLClassExpression c1 = DataAllValuesFrom(DATAPROPS.DP, Boolean());
+        OWLClassExpression c1 = DataAllValuesFrom(DATAPROPS.DPP, Boolean());
         OWLClassExpression c2 = ObjectSomeValuesFrom(OBJPROPS.P, OWLThing());
         OWLAxiom a = SubClassOf(ANNS, c1, c2);
         OWLOntology ont1 = create(iri("http://www.semanticweb.org/owlapi/", ""));
@@ -44,9 +44,9 @@ class RelativeIRIsRoundTripTestCase extends TestBase {
 
     @Override
     public boolean equal(OWLOntology ont1, OWLOntology ont2) {
-        if (!ont2.containsDataPropertyInSignature(DATAPROPS.DP.getIRI())) {
+        if (!ont2.containsDataPropertyInSignature(DATAPROPS.DPP.getIRI())) {
             OWLEntityRenamer renamer = new OWLEntityRenamer(ont2.getOWLOntologyManager(), l(ont2));
-            ont2.applyChanges(renamer.changeIRI(relativise(DATAPROPS.DP), DATAPROPS.DP.getIRI()));
+            ont2.applyChanges(renamer.changeIRI(relativise(DATAPROPS.DPP), DATAPROPS.DPP.getIRI()));
             ont2.applyChanges(renamer.changeIRI(relativise(OBJPROPS.P), OBJPROPS.P.getIRI()));
             ont2.applyChanges(renamer.changeIRI(relativise(ANNPROPS.AP), ANNPROPS.AP.getIRI()));
             ont2.applyChanges(

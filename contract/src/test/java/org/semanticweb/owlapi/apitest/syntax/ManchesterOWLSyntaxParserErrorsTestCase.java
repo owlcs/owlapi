@@ -37,6 +37,8 @@ class ManchesterOWLSyntaxParserErrorsTestCase extends TestBase {
     @BeforeEach
     void setUp() {
         OWLClass cls = mock(OWLClass.class);
+        when(cls.isOWLClass()).thenReturn(true);
+        when(cls.asOWLClass()).thenReturn(cls);
         when(entityChecker.getOWLClass("C")).thenReturn(cls);
         OWLClass clsC1 = mock(OWLClass.class);
         when(entityChecker.getOWLClass("C1")).thenReturn(clsC1);

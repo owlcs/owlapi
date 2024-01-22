@@ -28,7 +28,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -74,7 +73,6 @@ import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyID;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
-import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 import org.semanticweb.owlapi.model.OntologyConfigurator;
 import org.semanticweb.owlapi.model.parameters.Imports;
 import org.semanticweb.owlapi.rioformats.NQuadsDocumentFormat;
@@ -251,19 +249,6 @@ public abstract class TestBase extends DF {
             .getNormalisedAxioms(ont2.axioms());
         OWLDocumentFormat ontologyFormat = ont2.getNonnullFormat();
         applyEquivalentsRoundtrip(axioms1, axioms2, ontologyFormat);
-        if (ontologyFormat instanceof ManchesterSyntaxDocumentFormat) {
-            // drop GCIs from the expected axioms, they won't be there
-            Iterator<OWLAxiom> it = axioms1.iterator();
-            while (it.hasNext()) {
-                OWLAxiom next = it.next();
-                if (next instanceof OWLSubClassOfAxiom) {
-                    OWLSubClassOfAxiom n = (OWLSubClassOfAxiom) next;
-                    if (n.getSubClass().isAnonymous() && n.getSuperClass().isAnonymous()) {
-                        it.remove();
-                    }
-                }
-            }
-        }
         PlainLiteralTypeFoldingAxiomSet a = new PlainLiteralTypeFoldingAxiomSet(axioms1);
         PlainLiteralTypeFoldingAxiomSet b = new PlainLiteralTypeFoldingAxiomSet(axioms2);
         if (!a.equals(b)) {
