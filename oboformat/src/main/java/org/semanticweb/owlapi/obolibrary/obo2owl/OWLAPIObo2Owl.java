@@ -1534,15 +1534,7 @@ public class OWLAPIObo2Owl {
                 }
             }
         }
-        // TODO - treat_xrefs_as_equivalent
-        // special case rule for relation xrefs:
-        // 5.9.3. Special Rules for Relations
-        if (!id.contains(":")) {
-            String xid = translateShorthandIdToExpandedId(id);
-            if (!xid.equals(id)) {
-                return oboIdToIRI(xid);
-            }
-        }
+
         return otherProtocols(id, oboInOwlDefault);
     }
 
