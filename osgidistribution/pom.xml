@@ -60,7 +60,7 @@
 		<dependency><groupId>commons-io</groupId><artifactId>commons-io</artifactId><version>2.15.1</version></dependency>
 		<dependency><groupId>com.github.vsonnier</groupId><artifactId>hppcrt</artifactId><version>0.7.5</version></dependency>
 		<dependency><groupId>com.google.guava</groupId><artifactId>guava</artifactId><version>33.0.0-jre</version></dependency>
-		<dependency><groupId>com.github.ben-manes.caffeine</groupId><artifactId>caffeine</artifactId><version>2.9.3</version></dependency>
+		<dependency><groupId>com.github.ben-manes.caffeine</groupId><artifactId>caffeine</artifactId><version>3.1.8</version></dependency>
 		<dependency><groupId>org.apache.felix</groupId><artifactId>org.apache.felix.framework</artifactId><version>7.0.5</version><scope>test</scope></dependency>
 		<dependency><groupId>org.apache.felix</groupId><artifactId>org.osgi.core</artifactId><version>1.4.0</version><scope>test</scope></dependency>
 		<dependency><groupId>org.apache.servicemix.bundles</groupId><artifactId>org.apache.servicemix.bundles.javax-inject</artifactId><version>1_3</version></dependency>
