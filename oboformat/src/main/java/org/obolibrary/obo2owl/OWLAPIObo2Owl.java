@@ -1715,12 +1715,15 @@ public class OWLAPIObo2Owl {
         String localId;
         if (idParts.length > 1) { // Prefixed-ID (canonical or not)
             localId = idParts[1];
-            uriPrefix = idSpaceMap.getOrDefault(idParts[0], DEFAULT_IRI_PREFIX + idParts[0] + '_');
-
-            // Non-canonical prefixed IDs use a '#' separator
-            // TODO - recognize all non-canonical prefixed IDs
-            if (localId.contains("_")) {
-                uriPrefix += "#";
+            if (idSpaceMap.containsKey(idParts[0])) {
+               uriPrefix = idSpaceMap.get(idParts[0]);
+            } else {
+                uriPrefix = DEFAULT_IRI_PREFIX + idParts[0] + '_';
+                // Non-canonical prefixed IDs use a '#' separator
+                // TODO - recognize all non-canonical prefixed IDs
+                if (localId.contains("_")) {
+                    uriPrefix += "#";
+                }
             }
         } else { // Unprefixed-ID
             // Special case for relation xrefs (5.9.3. Special Rules for Relations)
