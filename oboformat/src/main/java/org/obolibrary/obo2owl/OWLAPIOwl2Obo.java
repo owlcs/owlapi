@@ -889,8 +889,8 @@ public class OWLAPIOwl2Obo {
         if (!valueString.isEmpty()) {
             if (tag == OboFormatTag.TAG_ID) {
                 if (!frame.getId().equals(value)) {
-                    warn("Conflicting id definitions: 1) " + frame.getId() + "  2)" + value);
-                    return false;
+                    warn("Dropping conflicting id definition: 1) " + frame.getId() + "  2)" + value);
+                    return true;
                 }
                 return true;
             }
