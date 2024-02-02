@@ -62,7 +62,7 @@ public class PrefixesTest extends TestBase {
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
         oboOnt.getOWLOntologyManager().saveOntology(oboOnt, stream);
         stream.close();
-        String roundtripOBO = new String(stream.toByteArray(), StandardCharsets.UTF_8).substring(0, 2000);
+        String roundtripOBO = new String(stream.toByteArray(), StandardCharsets.UTF_8);
         assertFalse(roundtripOBO.contains("obo:"));
         assertFalse(roundtripOBO.contains("obo "));
         assertFalse(roundtripOBO.contains("ex:MMyClass"), "The longest available namespace match should be used");
