@@ -16,11 +16,13 @@ public class OBOFormatPrefixManager implements PrefixManager {
     @Nonnull
     private StringComparator comparator = new StringComparator() {
 
-        final Comparator<String> comparer = Comparator.comparing(s -> -s.length());
+        private final Comparator<String> alphabetical = Comparator.comparing(s -> s);
+        private final Comparator<String> byLength = Comparator.comparing(s -> -s.length());
+        private final Comparator<String> byBoth = byLength.thenComparing(alphabetical);
 
         @Override
         public int compare(String o1, String o2) {
-            return comparer.compare(o1, o2);
+            return byBoth.compare(o1, o2);
         }
 
     };
@@ -125,10 +127,14 @@ public class OBOFormatPrefixManager implements PrefixManager {
     public void setDefaultPrefix(@Nullable String defaultPrefix) {
     }
 
+    /**
+     * @param prefixName name The prefix name (must end with a colon)
+     * @param prefix The prefix. This prefix manager does not accept prefixes that overlap with
+     *               the default OBO namespace.
+     */
     @Override
     public void setPrefix(@Nonnull String prefixName, @Nonnull String prefix) {
-        if (!prefixName.isEmpty() && !prefixName.equals(":") && !OBO_NS.startsWith(prefix)) {
-            System.out.println(prefixName + "  :::  " + prefix);
+        if (!prefixName.isEmpty() && !prefixName.equals(":") && !OBO_NS.startsWith(prefix) && !prefix.startsWith(OBO_NS)) {
             String cleanPrefixName = prefixName;
             if (prefixName.endsWith(":")) {
                 cleanPrefixName = prefixName.substring(0, prefixName.length() - 1);

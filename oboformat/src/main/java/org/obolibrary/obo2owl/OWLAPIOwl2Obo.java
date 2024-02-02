@@ -1,5 +1,6 @@
 package org.obolibrary.obo2owl;
 
+import static org.obolibrary.obo2owl.Obo2OWLConstants.DEFAULT_IRI_PREFIX;
 import static org.semanticweb.owlapi.search.EntitySearcher.getAnnotationObjects;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.verifyNotNull;
 
@@ -46,9 +47,9 @@ public class OWLAPIOwl2Obo {
      */
     private static final Logger LOG = LoggerFactory.getLogger(OWLAPIOwl2Obo.class);
     private static final String IRI_CLASS_SYNONYMTYPEDEF =
-        Obo2OWLConstants.DEFAULT_IRI_PREFIX + "IAO_synonymtypedef";
+        DEFAULT_IRI_PREFIX + "IAO_synonymtypedef";
     private static final String IRI_CLASS_SUBSETDEF =
-        Obo2OWLConstants.DEFAULT_IRI_PREFIX + "IAO_subsetdef";
+        DEFAULT_IRI_PREFIX + "IAO_subsetdef";
     /**
      * The absoulte url pattern.
      */
@@ -141,7 +142,7 @@ public class OWLAPIOwl2Obo {
     public OWLAPIOwl2Obo(@Nonnull OWLOntologyManager translationManager) {
         manager = translationManager;
         fac = manager.getOWLDataFactory();
-        init();
+        //init();
     }
 
     /**
@@ -1045,7 +1046,7 @@ public class OWLAPIOwl2Obo {
         Clause clause = new Clause(OboFormatTag.TAG_PROPERTY_VALUE.getTag());
         String propId = getIdentifier(prop);
         addQualifiers(clause, qualifiers, this.prefixManager);
-        if (!propId.equals("shorthand")) {
+        if (!prop.getIRI().equals(Obo2OWLVocabulary.IRI_OIO_shorthand.iri)) {
             clause.addValue(propId);
             if (annVal instanceof OWLLiteral) {
                 OWLLiteral owlLiteral = (OWLLiteral) annVal;
@@ -1723,10 +1724,10 @@ public class OWLAPIOwl2Obo {
             Set<OWLAnnotationAssertionAxiom> axioms =
                     ont.getAnnotationAssertionAxioms(entity.getIRI());
             for (OWLAnnotationAssertionAxiom ax : axioms) {
-                String propId = getIdentifierFromObject(ax.getProperty().getIRI(), ont, pm);
+                IRI propId = ax.getProperty().getIRI();
                 // see BFOROXrefTest
                 // 5.9.3. Special Rules for Relations
-                if (propId != null && propId.equals("shorthand")) {
+                if (propId.equals(Obo2OWLVocabulary.IRI_OIO_shorthand.iri)) {
                     OWLAnnotationValue value = ax.getValue();
                     if (value instanceof OWLLiteral) {
                         return ((OWLLiteral) value).getLiteral();
@@ -1769,9 +1770,14 @@ public class OWLAPIOwl2Obo {
         if (iriId == null) {
             return null;
         }
-        String curie = pm.getPrefixIRIIgnoreQName(iriId);
-        if (curie != null && !curie.startsWith(":")) {
-            return curie;
+        // If the iri is OBO-style, don't use the prefix manager.
+        // There is a lot of special-case legacy behavior that
+        // should not be broken.
+        if (!iriId.toString().startsWith(DEFAULT_IRI_PREFIX)) {
+            String curie = pm.getPrefixIRIIgnoreQName(iriId);
+            if (curie != null && !curie.startsWith(":")) {
+                return curie;
+            }
         }
         // canonical IRIs
         // if (iri.startsWith("http://purl.obolibrary.org/obo/")) {
@@ -1875,8 +1881,8 @@ public class OWLAPIOwl2Obo {
         String tag = ANNOTATIONPROPERTYMAP.get(iri);
         if (tag == null) {
             // hard coded values for legacy annotation properties: (TEMPORARY)
-            if (iri.startsWith(Obo2OWLConstants.DEFAULT_IRI_PREFIX + "IAO_")) {
-                String legacyId = iri.replace(Obo2OWLConstants.DEFAULT_IRI_PREFIX, "");
+            if (iri.startsWith(DEFAULT_IRI_PREFIX + "IAO_")) {
+                String legacyId = iri.replace(DEFAULT_IRI_PREFIX, "");
                 if (legacyId.equals("IAO_xref")) {
                     return OboFormatTag.TAG_XREF.getTag();
                 }
