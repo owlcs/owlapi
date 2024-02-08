@@ -14,8 +14,6 @@ package org.semanticweb.owlapi.formats;
 
 import javax.annotation.Nonnull;
 
-import org.semanticweb.owlapi.model.OWLDocumentFormatImpl;
-
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
@@ -29,6 +27,11 @@ public class OBODocumentFormat extends PrefixDocumentFormatImpl {
      */
     public static final String VALIDATION = "obo.validation";
     private static final long serialVersionUID = 40000L;
+
+    public OBODocumentFormat() {
+        super();
+        this.clear();
+    }
 
     @Nonnull
     @Override

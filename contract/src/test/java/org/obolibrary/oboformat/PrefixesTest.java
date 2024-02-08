@@ -67,7 +67,32 @@ public class PrefixesTest extends TestBase {
         assertFalse(roundtripOBO.contains("obo "));
         assertFalse(roundtripOBO.contains("ex:MMyClass"), "The longest available namespace match should be used");
         assertFalse(roundtripOBO.contains("owl-axioms:"));
+    }
 
+    @Test
+    void testOBOFormatShouldNotInjectPrefixes() throws OWLOntologyStorageException, IOException {
+        OWLOntology oboOnt = loadOntology("obo/test_obo_prefix.obo", OWLManager.createOWLOntologyManager());
+        OWLOntologyManager manager = oboOnt.getOWLOntologyManager();
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        OWLDocumentFormat format = new OBODocumentFormat();
+        format.asPrefixOWLOntologyFormat().copyPrefixesFrom(manager.getOntologyFormat(oboOnt).asPrefixOWLOntologyFormat());
+        manager.saveOntology(oboOnt, format, stream);
+        stream.close();
+        String roundtripOBO = new String(stream.toByteArray(), StandardCharsets.UTF_8);
+        assertFalse(roundtripOBO.contains("idspace: rdf"));
+    }
+
+    @Test
+    void testOBOFormatShouldPreventOBOPrefixes() throws OWLOntologyStorageException, IOException {
+        OWLOntology oboOnt = loadOntology("obo/test_obo_prefix.obo", OWLManager.createOWLOntologyManager());
+        OWLOntologyManager manager = oboOnt.getOWLOntologyManager();
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        OWLDocumentFormat format = manager.getOntologyFormat(oboOnt);
+        format.asPrefixOWLOntologyFormat().setPrefix("GO", "http://purl.obolibrary.org/obo/GX_");
+        manager.saveOntology(oboOnt, format, stream);
+        stream.close();
+        String roundtripOBO = new String(stream.toByteArray(), StandardCharsets.UTF_8);
+        assertFalse(roundtripOBO.contains("idspace: GO"));
     }
 
 }
