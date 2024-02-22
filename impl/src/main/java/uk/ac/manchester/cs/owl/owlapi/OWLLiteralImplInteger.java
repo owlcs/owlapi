@@ -167,9 +167,14 @@ public class OWLLiteralImplInteger extends OWLObjectImplWithoutEntityAndAnonCach
             return literal == other.literal;
         }
         if (obj instanceof OWLLiteral) {
-            return ((OWLLiteral) obj).isInteger()
-                && ((OWLLiteral) obj).getLiteral().charAt(0) != '0'
-                && literal == ((OWLLiteral) obj).parseInteger();
+            OWLLiteral other = (OWLLiteral) obj;
+            if (other.isInteger() && other.getLiteral().charAt(0) != '0') {
+                try {
+                    return literal == other.parseInteger();
+                } catch (NumberFormatException e) {
+                    return getLiteral().equals(other.getLiteral());
+                }
+            }
         }
         return false;
     }
