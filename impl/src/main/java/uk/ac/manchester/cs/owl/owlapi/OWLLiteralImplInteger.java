@@ -167,9 +167,14 @@ public class OWLLiteralImplInteger extends OWLObjectImplWithoutEntityAndAnonCach
             return literal == other.literal;
         }
         if (obj instanceof OWLLiteral) {
-            return ((OWLLiteral) obj).isInteger()
-                && ((OWLLiteral) obj).getLiteral().charAt(0) != '0'
-                && literal == ((OWLLiteral) obj).parseInteger();
+            OWLLiteral other = (OWLLiteral) obj;
+            if (other.isInteger() && other.getLiteral().charAt(0) != '0') {
+                try {
+                    return literal == other.parseInteger();
+                } catch (NumberFormatException e) {
+                    return getLiteral().equals(other.getLiteral());
+                }
+            }
         }
         return false;
     }
@@ -205,7 +210,12 @@ public class OWLLiteralImplInteger extends OWLObjectImplWithoutEntityAndAnonCach
         if (diff != 0) {
             return diff;
         }
-        return Integer.compare(literal, other.parseInteger());
+        try {
+            // an integer datatype with a value larger than Integer.MAX_VALUE could throw an exception when calling parseInteger, although comparing the literal strings before getting here should rule that out.
+            return Integer.compare(literal, other.parseInteger());
+        } catch (NumberFormatException e) {
+            return diff;
+        }
     }
 
     @Override

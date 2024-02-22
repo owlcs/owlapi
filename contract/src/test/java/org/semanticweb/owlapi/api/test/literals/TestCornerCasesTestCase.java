@@ -111,4 +111,11 @@ class TestCornerCasesTestCase extends TestBase {
         assertTrue(saveOntology(o).toString().contains("-INF"));
         equal(o, roundTrip(o));
     }
+
+    @Test
+    void testCompareWithLargeInteger() {
+        OWLLiteral smallInteger = df.getOWLLiteral(123);
+        OWLLiteral largeInteger = df.getOWLLiteral("149597870700", df.getIntegerOWLDatatype());
+        assertFalse(smallInteger.equals(largeInteger));
+    }
 }
