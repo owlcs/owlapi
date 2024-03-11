@@ -20,6 +20,7 @@ import java.io.Reader;
 import java.io.Serializable;
 import java.net.JarURLConnection;
 import java.net.URL;
+import java.util.Map;
 import java.util.Optional;
 
 import javax.annotation.Nonnull;
@@ -33,10 +34,8 @@ import org.semanticweb.owlapi.formats.OBODocumentFormatFactory;
 import org.semanticweb.owlapi.io.AbstractOWLParser;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
 import org.semanticweb.owlapi.io.OWLParserException;
-import org.semanticweb.owlapi.model.OWLDocumentFormat;
-import org.semanticweb.owlapi.model.OWLDocumentFormatFactory;
-import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
+import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.util.DefaultPrefixManager;
 
 /** oboformat parser */
 public class OBOFormatOWLAPIParser extends AbstractOWLParser implements Serializable {
@@ -51,6 +50,7 @@ public class OBOFormatOWLAPIParser extends AbstractOWLParser implements Serializ
         // XXX configuration is not used
         OBOFormatParser p = new OBOFormatParser();
         OBODoc obodoc = null;
+        Map<String, String> idSpaceMap = null;
         try {
             Reader reader = null;
             InputStream is = null;
@@ -93,6 +93,7 @@ public class OBOFormatOWLAPIParser extends AbstractOWLParser implements Serializ
                 // create a translator object and feed it the OBO Document
                 OWLAPIObo2Owl bridge = new OWLAPIObo2Owl(ontology.getOWLOntologyManager());
                 bridge.convert(obodoc, ontology);
+                idSpaceMap = bridge.getIdSpaceMap();
             } finally {
                 if (is != null) {
                     is.close();
@@ -104,7 +105,12 @@ public class OBOFormatOWLAPIParser extends AbstractOWLParser implements Serializ
         } catch (OBOFormatParserException e) {
             throw new OWLParserException(e);
         }
-        return new OBODocumentFormat();
+        OBODocumentFormat format = new OBODocumentFormat();
+        PrefixManager pm = new DefaultPrefixManager();
+        pm.clear();
+        format.setPrefixManager(pm);
+        if (idSpaceMap != null) format.copyPrefixesFrom(idSpaceMap);
+        return format;
     }
 
     @Nonnull

@@ -253,6 +253,10 @@ public class OWLAPIObo2Owl {
         this.obodoc = obodoc;
     }
 
+    public Map<String, String> getIdSpaceMap() {
+        return Collections.unmodifiableMap(this.idSpaceMap);
+    }
+
     /**
      * Gets the owl ontology.
      * 
@@ -548,7 +552,12 @@ public class OWLAPIObo2Owl {
                         trAnnotations(clause));
                 }
             } else if (tag == OboFormatTag.TAG_IDSPACE) {
-                // do not translate, as they are just directives? TODO ask Chris
+                for (Clause clause : headerFrame.getClauses(t)) {
+                    Object[] values = clause.getValues().toArray();
+                    String prefix = values[0].toString();
+                    String baseurl = values[1].toString();
+                    idSpaceMap.put(prefix, baseurl);
+                }
             } else if (tag == OboFormatTag.TAG_OWL_AXIOMS) {
                 // in theory, there should only be one tag
                 // but we can silently collapse multiple tags
@@ -1244,6 +1253,12 @@ public class OWLAPIObo2Owl {
             }
             ax = fac.getOWLAnnotationAssertionAxiom(trTagToAnnotationProp(tag), sub,
                 trLiteral(clause.getValue()), annotations);
+        } else if (tagConstant == OboFormatTag.TAG_REPLACED_BY
+                || tagConstant == OboFormatTag.TAG_CONSIDER) {
+            String curie = (String) clause.getValue();
+            IRI iri = oboIdToIRI(curie);
+            ax = fac.getOWLAnnotationAssertionAxiom(trTagToAnnotationProp(tag), sub,
+                 iri, annotations);
         } else {
             // generic
             // System.out.println("generic clause:"+clause);
@@ -1700,12 +1715,15 @@ public class OWLAPIObo2Owl {
         String localId;
         if (idParts.length > 1) { // Prefixed-ID (canonical or not)
             localId = idParts[1];
-            uriPrefix = idSpaceMap.getOrDefault(idParts[0], DEFAULT_IRI_PREFIX + idParts[0] + '_');
-
-            // Non-canonical prefixed IDs use a '#' separator
-            // TODO - recognize all non-canonical prefixed IDs
-            if (localId.contains("_")) {
-                uriPrefix += "#";
+            if (idSpaceMap.containsKey(idParts[0])) {
+               uriPrefix = idSpaceMap.get(idParts[0]);
+            } else {
+                uriPrefix = DEFAULT_IRI_PREFIX + idParts[0] + '_';
+                // Non-canonical prefixed IDs use a '#' separator
+                // TODO - recognize all non-canonical prefixed IDs
+                if (localId.contains("_")) {
+                    uriPrefix += "#";
+                }
             }
         } else { // Unprefixed-ID
             // Special case for relation xrefs (5.9.3. Special Rules for Relations)
@@ -1760,10 +1778,8 @@ public class OWLAPIObo2Owl {
         Collection<Xref> xrefs = tdf.getTagValues(OboFormatTag.TAG_XREF, Xref.class);
         String matchingExpandedId = null;
         for (Xref xref : xrefs) {
-            // System.err.println("ID:"+id+" xref:"+xref);
             if (xref != null) {
                 String xid = xref.getIdref();
-                // System.err.println(" ID:"+id+" xid:"+xid);
                 if (xid.equals(id)) {
                     continue;
                 }
@@ -1780,7 +1796,6 @@ public class OWLAPIObo2Owl {
         if (matchingExpandedId == null) {
             return id;
         }
-        // System.err.println(" ID:"+id+" matching:"+matchingExpandedId);
         return matchingExpandedId;
     }
 

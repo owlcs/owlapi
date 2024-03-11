@@ -1,0 +1,25 @@
+format-version: 1.2
+idspace: ex http://example.org/
+idspace: ex1 http://example.org/M
+idspace: obo http://purl.obolibrary.org/obo/
+ontology: foo
+
+[Term]
+id: FOO:1234
+name: the 1234 class
+def: "A very important concept."
+is_a: ex:MyClass
+
+[Term]
+id: ex:MyClass
+name: my ex class
+
+[Term]
+id: ex1:MyClass
+name: my ex1 class
+relationship: capable_of_part_of FOO:1234
+
+[Typedef]
+id: capable_of_part_of
+name: capable of part of
+xref: RO:0002216
