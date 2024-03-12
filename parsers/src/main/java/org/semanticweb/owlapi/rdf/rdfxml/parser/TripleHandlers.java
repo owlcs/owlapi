@@ -1546,7 +1546,7 @@ public class TripleHandlers {
         @Override
         public void handleTriple(IRI s, IRI p, IRI o) {
             consume(s, p, o);
-            consumer.addOntology(s);
+            consumer.addOntology(s, true);
             consumer.addOntology(o);
             OWLImportsDeclaration id = df.getOWLImportsDeclaration(o);
             consumer.addImport(id);
