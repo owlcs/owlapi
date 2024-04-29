@@ -70,11 +70,26 @@ public class PrefixesTest extends TestBase {
     }
 
     @Test
-    void testOBOFormatShouldNotInjectPrefixes() throws OWLOntologyStorageException, IOException {
+    void testOBOFormatShouldNotInjectPrefixesInConstructedDocFormat() throws OWLOntologyStorageException, IOException {
         OWLOntology oboOnt = loadOntology("obo/test_obo_prefix.obo", OWLManager.createOWLOntologyManager());
         OWLOntologyManager manager = oboOnt.getOWLOntologyManager();
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
         OWLDocumentFormat format = new OBODocumentFormat();
+        String defaultNamespace = format.asPrefixOWLOntologyFormat().getDefaultPrefix();
+        format.asPrefixOWLOntologyFormat().copyPrefixesFrom(manager.getOntologyFormat(oboOnt).asPrefixOWLOntologyFormat());
+        format.asPrefixOWLOntologyFormat().setDefaultPrefix(defaultNamespace);
+        manager.saveOntology(oboOnt, format, stream);
+        stream.close();
+        String roundtripOBO = new String(stream.toByteArray(), StandardCharsets.UTF_8);
+        assertFalse(roundtripOBO.contains("idspace: rdf"));
+    }
+
+    @Test
+    void testOBOFormatShouldNotInjectPrefixesInLoadedDocFormat() throws OWLOntologyStorageException, IOException {
+        OWLOntology oboOnt = loadOntology("obo/test_obo_prefix.obo", OWLManager.createOWLOntologyManager());
+        OWLOntologyManager manager = oboOnt.getOWLOntologyManager();
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        OWLDocumentFormat format = manager.getOntologyFormat(oboOnt);
         format.asPrefixOWLOntologyFormat().copyPrefixesFrom(manager.getOntologyFormat(oboOnt).asPrefixOWLOntologyFormat());
         manager.saveOntology(oboOnt, format, stream);
         stream.close();
