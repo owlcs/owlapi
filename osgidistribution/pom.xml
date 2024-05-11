@@ -133,6 +133,8 @@
 							com.google.common.util.concurrent;version="[18.0,32)",
 							javax.inject;version="[1.0,2)",
 							javax.annotation;version=!,
+							org.slf4j;version="[1.0,3)",
+							!org.slf4j.spi,
 							*
 						</Import-Package>
 					</instructions>
