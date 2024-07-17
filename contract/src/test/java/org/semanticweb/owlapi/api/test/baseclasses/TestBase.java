@@ -638,9 +638,13 @@ public abstract class TestBase {
                 format.setAddMissingTypes(addMissingTypes);
             }
             if (logger.isTraceEnabled()) {
+                logger.trace("TestBase.roundTripOntology() ontology originally");
+                ont.getAxioms().forEach(ax -> logger.trace(ax.toString()));
+                logger.trace("Original document (begin) ================");
                 StringDocumentTarget targetForDebug = new StringDocumentTarget();
                 m.saveOntology(ont, format, targetForDebug);
                 logger.trace(targetForDebug.toString());
+                logger.trace("Original document (end) ==================");
             }
             m.saveOntology(ont, format, target);
             handleSaved(target, format);
@@ -650,10 +654,12 @@ public abstract class TestBase {
                     null), new OWLOntologyLoaderConfiguration().setReportStackTraces(true));
             if (logger.isTraceEnabled()) {
                 logger.trace("TestBase.roundTripOntology() ontology parsed");
-                Set<OWLAxiom> axioms = ont2.getAxioms();
-                for (OWLAxiom ax : axioms) {
-                    logger.trace(ax.toString());
-                }
+                ont2.getAxioms().forEach(ax -> logger.trace(ax.toString()));
+                logger.trace("Parsed document (begin) =================");
+                StringDocumentTarget targetForDebug = new StringDocumentTarget();
+                ont2.saveOntology(format, targetForDebug);
+                logger.trace(targetForDebug.toString());
+                logger.trace("Parsed document (end) ===================");
             }
             equal(ont, ont2);
             return ont2;
