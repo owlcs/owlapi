@@ -1833,12 +1833,12 @@ public class OWLRDFConsumer
     private <E extends OWLEntity> E getErrorEntity(@Nonnull EntityType<E> entityType) {
         IRI iri = IRI.create("http://org.semanticweb.owlapi/error#",
             "Error" + ERRORCOUNTER.incrementAndGet());
-        LOGGER.error("Entity not properly recognized, missing triples in input? {} for type {}",
+        LOGGER.error("Entity not properly recognized, missing triples in input? {} for type {}. This is a common scenario for anonymous class expressions and data ranges where mandatory properties are not present, e.g., rdf:type owl:class is not stated. Possible missing properties depend on intended type, see https://www.w3.org/TR/owl2-mapping-to-rdf/",
             iri, entityType);
         if (configuration.isStrict()) {
             throw new OWLParserException(
                 "Entity not properly recognized, missing triples in input? " + iri + " for type "
-                    + entityType);
+                    + entityType + ". This is a common scenario for anonymous class expressions and data ranges where mandatory properties are not present, e.g., rdf:type owl:class is not stated. Possible missing properties depend on intended type, see https://www.w3.org/TR/owl2-mapping-to-rdf/");
         }
         return dataFactory.getOWLEntity(entityType, iri);
     }
