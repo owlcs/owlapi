@@ -15,7 +15,7 @@ package org.semanticweb.owlapi.rdf.rdfxml.renderer;
 import org.semanticweb.owlapi.model.IRI;
 
 /**
- * Developed as part of the CO-ODE project http://www.co-ode.org .
+ * Developed as part of the CO-ODE project.
  *
  * @author Matthew Horridge, The University Of Manchester, Medical Informatics Group
  * @since 2.0.0

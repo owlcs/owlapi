@@ -572,11 +572,11 @@ public class Examples extends TestBase {
         // ontology. In order to have a concrete representation of an ontology
         // (e.g. an RDF/XML file), we MAP the ontology IRI to a PHYSICAL IRI. We
         // do this using an IRIMapper Let's create an ontology and name it
-        // "http://www.co-ode.org/ontologies/testont.owl" We need to set up a
+        // "https://raw.githubusercontent.com/owlcs/pizza-ontology/refs/heads/master/testont.owl" We need to set up a
         // mapping which points to a concrete file where the ontology will be
         // stored. (It's good practice to do this even if we don't intend to
         // save the ontology).
-        IRI ontologyIRI = IRI.create("http://www.co-ode.org/ontologies/", "testont.owl");
+        IRI ontologyIRI = IRI.create("https://raw.githubusercontent.com/owlcs/pizza-ontology/refs/heads/master/", "testont.owl");
         // Create the document IRI for our ontology
         IRI documentIRI = IRI.create("file:/tmp/", "MyOnt.owl");
         // Set up a mapping, which maps the ontology to the document IRI
@@ -785,11 +785,11 @@ public class Examples extends TestBase {
         throws OWLOntologyStorageException, OWLOntologyCreationException {
         OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
         // Let's create an ontology and name it
-        // "http://www.co-ode.org/ontologies/testont.owl" We need to set up a
+        // "https://raw.githubusercontent.com/owlcs/pizza-ontology/refs/heads/master/testont.owl" We need to set up a
         // mapping which points to a concrete file where the ontology will be
         // stored. (It's good practice to do this even if we don't intend to
         // save the ontology).
-        IRI ontologyIRI = IRI.create("http://www.co-ode.org/ontologies/", "testont.owl");
+        IRI ontologyIRI = IRI.create("https://raw.githubusercontent.com/owlcs/pizza-ontology/refs/heads/master/", "testont.owl");
         // Create a document IRI which can be resolved to point to where our
         // ontology will be saved.
         IRI documentIRI = IRI.create("file:/tmp/", "SWRLTest.owl");
