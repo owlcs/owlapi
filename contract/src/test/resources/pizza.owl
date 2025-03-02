@@ -9,8 +9,8 @@
 ]>
 
 
-<rdf:RDF xmlns="http://www.co-ode.org/ontologies/pizza/pizza.owl#"
-     xml:base="http://www.co-ode.org/ontologies/pizza/pizza.owl"
+<rdf:RDF xmlns="https://raw.githubusercontent.com/owlcs/pizza-ontology/refs/heads/master/pizza.owl#"
+     xml:base="https://raw.githubusercontent.com/owlcs/pizza-ontology/refs/heads/master/pizza.owl"
      xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
      xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
      xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
@@ -22,7 +22,7 @@
         <owl:versionInfo xml:lang="en"
             >v.1.5. Removed protege.owl import and references. Made ontology URI date-independent</owl:versionInfo>
         <rdfs:comment xml:lang="en"
-            >An example ontology that contains all constructs required for the various versions of the Pizza Tutorial run by Manchester University (see http://www.co-ode.org/resources/tutorials/)</rdfs:comment>
+            >An example ontology that contains all constructs required for the various versions of the Pizza Tutorial run by Manchester University</rdfs:comment>
     </owl:Ontology>
     
 
@@ -38,7 +38,7 @@
     
 
 
-    <!-- Class: http://www.co-ode.org/ontologies/pizza/pizza.owl#American -->
+    <!-- Class: https://raw.githubusercontent.com/owlcs/pizza-ontology/refs/heads/master/pizza.owl#American -->
 
     <owl:Class rdf:about="#American">
         <rdfs:label xml:lang="pt">Americana</rdfs:label>
@@ -87,7 +87,7 @@
     
 
 
-    <!-- Class: http://www.co-ode.org/ontologies/pizza/pizza.owl#AmericanHot -->
+    <!-- Class: https://raw.githubusercontent.com/owlcs/pizza-ontology/refs/heads/master/pizza.owl#AmericanHot -->
 
     <owl:Class rdf:about="#AmericanHot">
         <rdfs:label xml:lang="pt"
@@ -151,7 +151,7 @@
     
 
 
-    <!-- Class: http://www.co-ode.org/ontologies/pizza/pizza.owl#AnchoviesTopping -->
+    <!-- Class: https://raw.githubusercontent.com/owlcs/pizza-ontology/refs/heads/master/pizza.owl#AnchoviesTopping -->
 
     <owl:Class rdf:about="#AnchoviesTopping">
         <rdfs:label xml:lang="pt"
@@ -163,7 +163,7 @@
     
 
 
-    <!-- Class: http://www.co-ode.org/ontologies/pizza/pizza.owl#ArtichokeTopping -->
+    <!-- Class: https://raw.githubusercontent.com/owlcs/pizza-ontology/refs/heads/master/pizza.owl#ArtichokeTopping -->
 
     <owl:Class rdf:about="#ArtichokeTopping">
         <rdfs:label xml:lang="pt"
@@ -181,7 +181,7 @@
     
 
 
-    <!-- Class: http://www.co-ode.org/ontologies/pizza/pizza.owl#AsparagusTopping -->
+    <!-- Class: https://raw.githubusercontent.com/owlcs/pizza-ontology/refs/heads/master/pizza.owl#AsparagusTopping -->
 
     <owl:Class rdf:about="#AsparagusTopping">
         <rdfs:label xml:lang="pt"
@@ -199,7 +199,7 @@
     
 
 
-    <!-- Class: http://www.co-ode.org/ontologies/pizza/pizza.owl#Cajun -->
+    <!-- Class: https://raw.githubusercontent.com/owlcs/pizza-ontology/refs/heads/master/pizza.owl#Cajun -->
 
     <owl:Class rdf:about="#Cajun">
         <rdfs:label xml:lang="pt">Cajun</rdfs:label>
@@ -263,7 +263,7 @@
     
 
 
-    <!-- Class: http://www.co-ode.org/ontologies/pizza/pizza.owl#CajunSpiceTopping -->
+    <!-- Class: https://raw.githubusercontent.com/owlcs/pizza-ontology/refs/heads/master/pizza.owl#CajunSpiceTopping -->
 
     <owl:Class rdf:about="#CajunSpiceTopping">
         <rdfs:label xml:lang="pt"
@@ -281,7 +281,7 @@
     
 
 
-    <!-- Class: http://www.co-ode.org/ontologies/pizza/pizza.owl#CaperTopping -->
+    <!-- Class: https://raw.githubusercontent.com/owlcs/pizza-ontology/refs/heads/master/pizza.owl#CaperTopping -->
 
     <owl:Class rdf:about="#CaperTopping">
         <rdfs:label xml:lang="pt"
@@ -299,7 +299,7 @@
     
 
 
-    <!-- Class: http://www.co-ode.org/ontologies/pizza/pizza.owl#Capricciosa -->
+    <!-- Class: https://raw.githubusercontent.com/owlcs/pizza-ontology/refs/heads/master/pizza.owl#Capricciosa -->
 
     <owl:Class rdf:about="#Capricciosa">
         <rdfs:label xml:lang="pt">Capricciosa</rdfs:label>
@@ -370,7 +370,7 @@
     
 
 
-    <!-- Class: http://www.co-ode.org/ontologies/pizza/pizza.owl#Caprina -->
+    <!-- Class: https://raw.githubusercontent.com/owlcs/pizza-ontology/refs/heads/master/pizza.owl#Caprina -->
 
     <owl:Class rdf:about="#Caprina">
         <rdfs:label xml:lang="pt">Caprina</rdfs:label>
@@ -420,7 +420,7 @@
     
 
 
-    <!-- Class: http://www.co-ode.org/ontologies/pizza/pizza.owl#CheeseTopping -->
+    <!-- Class: https://raw.githubusercontent.com/owlcs/pizza-ontology/refs/heads/master/pizza.owl#CheeseTopping -->
 
     <owl:Class rdf:about="#CheeseTopping">
         <rdfs:label xml:lang="pt"
@@ -432,7 +432,7 @@
     
 
 
-    <!-- Class: http://www.co-ode.org/ontologies/pizza/pizza.owl#CheeseyPizza -->
+    <!-- Class: https://raw.githubusercontent.com/owlcs/pizza-ontology/refs/heads/master/pizza.owl#CheeseyPizza -->
 
     <owl:Class rdf:about="#CheeseyPizza">
         <rdfs:comment xml:lang="en"
@@ -453,7 +453,7 @@
     
 
 
-    <!-- Class: http://www.co-ode.org/ontologies/pizza/pizza.owl#CheeseyVegetableTopping -->
+    <!-- Class: https://raw.githubusercontent.com/owlcs/pizza-ontology/refs/heads/master/pizza.owl#CheeseyVegetableTopping -->
 
     <owl:Class rdf:about="#CheeseyVegetableTopping">
         <rdfs:label xml:lang="pt"
@@ -470,7 +470,7 @@
     
 
 
-    <!-- Class: http://www.co-ode.org/ontologies/pizza/pizza.owl#ChickenTopping -->
+    <!-- Class: https://raw.githubusercontent.com/owlcs/pizza-ontology/refs/heads/master/pizza.owl#ChickenTopping -->
 
     <owl:Class rdf:about="#ChickenTopping">
         <rdfs:label xml:lang="pt"
@@ -488,7 +488,7 @@
     
 
 
-    <!-- Class: http://www.co-ode.org/ontologies/pizza/pizza.owl#Country -->
+    <!-- Class: https://raw.githubusercontent.com/owlcs/pizza-ontology/refs/heads/master/pizza.owl#Country -->
 
     <owl:Class rdf:about="#Country">
         <rdfs:label xml:lang="pt">Pais</rdfs:label>
@@ -514,7 +514,7 @@
     
 
 
-    <!-- Class: http://www.co-ode.org/ontologies/pizza/pizza.owl#DeepPanBase -->
+    <!-- Class: https://raw.githubusercontent.com/owlcs/pizza-ontology/refs/heads/master/pizza.owl#DeepPanBase -->
 
     <owl:Class rdf:about="#DeepPanBase">
         <rdfs:label xml:lang="pt">BaseEspessa</rdfs:label>
@@ -525,13 +525,13 @@
     
 
 
-    <!-- Class: http://www.co-ode.org/ontologies/pizza/pizza.owl#DomainConcept -->
+    <!-- Class: https://raw.githubusercontent.com/owlcs/pizza-ontology/refs/heads/master/pizza.owl#DomainConcept -->
 
     <owl:Class rdf:about="#DomainConcept"/>
     
 
 
-    <!-- Class: http://www.co-ode.org/ontologies/pizza/pizza.owl#Fiorentina -->
+    <!-- Class: https://raw.githubusercontent.com/owlcs/pizza-ontology/refs/heads/master/pizza.owl#Fiorentina -->
 
     <owl:Class rdf:about="#Fiorentina">
         <rdfs:label xml:lang="pt">Fiorentina</rdfs:label>
@@ -595,7 +595,7 @@
     
 
 
-    <!-- Class: http://www.co-ode.org/ontologies/pizza/pizza.owl#FishTopping -->
+    <!-- Class: https://raw.githubusercontent.com/owlcs/pizza-ontology/refs/heads/master/pizza.owl#FishTopping -->
 
     <owl:Class rdf:about="#FishTopping">
         <rdfs:label xml:lang="pt"
@@ -613,7 +613,7 @@
     
 
 
-    <!-- Class: http://www.co-ode.org/ontologies/pizza/pizza.owl#Food -->
+    <!-- Class: https://raw.githubusercontent.com/owlcs/pizza-ontology/refs/heads/master/pizza.owl#Food -->
 
     <owl:Class rdf:about="#Food">
         <rdfs:subClassOf>
@@ -623,7 +623,7 @@
     
 
 
-    <!-- Class: http://www.co-ode.org/ontologies/pizza/pizza.owl#FourCheesesTopping -->
+    <!-- Class: https://raw.githubusercontent.com/owlcs/pizza-ontology/refs/heads/master/pizza.owl#FourCheesesTopping -->
 
     <owl:Class rdf:about="#FourCheesesTopping">
         <rdfs:label xml:lang="pt"
@@ -641,7 +641,7 @@
     
 
 
-    <!-- Class: http://www.co-ode.org/ontologies/pizza/pizza.owl#FourSeasons -->
+    <!-- Class: https://raw.githubusercontent.com/owlcs/pizza-ontology/refs/heads/master/pizza.owl#FourSeasons -->
 
     <owl:Class rdf:about="#FourSeasons">
         <rdfs:label xml:lang="pt">QuatroQueijos</rdfs:label>
@@ -712,7 +712,7 @@
     
 
 
-    <!-- Class: http://www.co-ode.org/ontologies/pizza/pizza.owl#FruitTopping -->
+    <!-- Class: https://raw.githubusercontent.com/owlcs/pizza-ontology/refs/heads/master/pizza.owl#FruitTopping -->
 
     <owl:Class rdf:about="#FruitTopping">
         <rdfs:label xml:lang="pt"
@@ -724,7 +724,7 @@
     
 
 
-    <!-- Class: http://www.co-ode.org/ontologies/pizza/pizza.owl#FruttiDiMare -->
+    <!-- Class: https://raw.githubusercontent.com/owlcs/pizza-ontology/refs/heads/master/pizza.owl#FruttiDiMare -->
 
     <owl:Class rdf:about="#FruttiDiMare">
         <rdfs:label xml:lang="pt">FrutosDoMar</rdfs:label>
@@ -767,7 +767,7 @@
     
 
 
-    <!-- Class: http://www.co-ode.org/ontologies/pizza/pizza.owl#GarlicTopping -->
+    <!-- Class: https://raw.githubusercontent.com/owlcs/pizza-ontology/refs/heads/master/pizza.owl#GarlicTopping -->
 
     <owl:Class rdf:about="#GarlicTopping">
         <rdfs:label xml:lang="pt">CoberturaDeAlho</rdfs:label>
@@ -784,7 +784,7 @@
     
 
 
-    <!-- Class: http://www.co-ode.org/ontologies/pizza/pizza.owl#Giardiniera -->
+    <!-- Class: https://raw.githubusercontent.com/owlcs/pizza-ontology/refs/heads/master/pizza.owl#Giardiniera -->
 
     <owl:Class rdf:about="#Giardiniera">
         <rdfs:label xml:lang="pt">Giardiniera</rdfs:label>
@@ -862,7 +862,7 @@
     
 
 
-    <!-- Class: http://www.co-ode.org/ontologies/pizza/pizza.owl#GoatsCheeseTopping -->
+    <!-- Class: https://raw.githubusercontent.com/owlcs/pizza-ontology/refs/heads/master/pizza.owl#GoatsCheeseTopping -->
 
     <owl:Class rdf:about="#GoatsCheeseTopping">
         <rdfs:label xml:lang="pt"
@@ -880,7 +880,7 @@
     
 
 
-    <!-- Class: http://www.co-ode.org/ontologies/pizza/pizza.owl#GorgonzolaTopping -->
+    <!-- Class: https://raw.githubusercontent.com/owlcs/pizza-ontology/refs/heads/master/pizza.owl#GorgonzolaTopping -->
 
     <owl:Class rdf:about="#GorgonzolaTopping">
         <rdfs:label xml:lang="pt"
@@ -898,7 +898,7 @@
     
 
 
-    <!-- Class: http://www.co-ode.org/ontologies/pizza/pizza.owl#GreenPepperTopping -->
+    <!-- Class: https://raw.githubusercontent.com/owlcs/pizza-ontology/refs/heads/master/pizza.owl#GreenPepperTopping -->
 
     <owl:Class rdf:about="#GreenPepperTopping">
         <rdfs:label xml:lang="pt"
@@ -910,7 +910,7 @@
     
 
 
-    <!-- Class: http://www.co-ode.org/ontologies/pizza/pizza.owl#HamTopping -->
+    <!-- Class: https://raw.githubusercontent.com/owlcs/pizza-ontology/refs/heads/master/pizza.owl#HamTopping -->
 
     <owl:Class rdf:about="#HamTopping">
         <rdfs:label xml:lang="pt"
@@ -922,7 +922,7 @@
     
 
 
-    <!-- Class: http://www.co-ode.org/ontologies/pizza/pizza.owl#HerbSpiceTopping -->
+    <!-- Class: https://raw.githubusercontent.com/owlcs/pizza-ontology/refs/heads/master/pizza.owl#HerbSpiceTopping -->
 
     <owl:Class rdf:about="#HerbSpiceTopping">
         <rdfs:label xml:lang="pt"
@@ -934,7 +934,7 @@
     
 
 
-    <!-- Class: http://www.co-ode.org/ontologies/pizza/pizza.owl#Hot -->
+    <!-- Class: https://raw.githubusercontent.com/owlcs/pizza-ontology/refs/heads/master/pizza.owl#Hot -->
 
     <owl:Class rdf:about="#Hot">
         <rdfs:label xml:lang="pt">Picante</rdfs:label>
@@ -945,7 +945,7 @@
     
 
 
-    <!-- Class: http://www.co-ode.org/ontologies/pizza/pizza.owl#HotGreenPepperTopping -->
+    <!-- Class: https://raw.githubusercontent.com/owlcs/pizza-ontology/refs/heads/master/pizza.owl#HotGreenPepperTopping -->
 
     <owl:Class rdf:about="#HotGreenPepperTopping">
         <rdfs:label xml:lang="pt"
@@ -963,7 +963,7 @@
     
 
 
-    <!-- Class: http://www.co-ode.org/ontologies/pizza/pizza.owl#HotSpicedBeefTopping -->
+    <!-- Class: https://raw.githubusercontent.com/owlcs/pizza-ontology/refs/heads/master/pizza.owl#HotSpicedBeefTopping -->
 
     <owl:Class rdf:about="#HotSpicedBeefTopping">
         <rdfs:label xml:lang="pt"
@@ -981,7 +981,7 @@
     
 
 
-    <!-- Class: http://www.co-ode.org/ontologies/pizza/pizza.owl#IceCream -->
+    <!-- Class: https://raw.githubusercontent.com/owlcs/pizza-ontology/refs/heads/master/pizza.owl#IceCream -->
 
     <owl:Class rdf:about="#IceCream">
         <rdfs:comment xml:lang="en"
@@ -1000,7 +1000,7 @@
     
 
 
-    <!-- Class: http://www.co-ode.org/ontologies/pizza/pizza.owl#InterestingPizza -->
+    <!-- Class: https://raw.githubusercontent.com/owlcs/pizza-ontology/refs/heads/master/pizza.owl#InterestingPizza -->
 
     <owl:Class rdf:about="#InterestingPizza">
         <rdfs:label xml:lang="pt"
@@ -1022,7 +1022,7 @@
     
 
 
-    <!-- Class: http://www.co-ode.org/ontologies/pizza/pizza.owl#JalapenoPepperTopping -->
+    <!-- Class: https://raw.githubusercontent.com/owlcs/pizza-ontology/refs/heads/master/pizza.owl#JalapenoPepperTopping -->
 
     <owl:Class rdf:about="#JalapenoPepperTopping">
         <rdfs:label xml:lang="pt"
@@ -1040,7 +1040,7 @@
     
 
 
-    <!-- Class: http://www.co-ode.org/ontologies/pizza/pizza.owl#LaReine -->
+    <!-- Class: https://raw.githubusercontent.com/owlcs/pizza-ontology/refs/heads/master/pizza.owl#LaReine -->
 
     <owl:Class rdf:about="#LaReine">
         <rdfs:label xml:lang="pt">LaReine</rdfs:label>
@@ -1097,7 +1097,7 @@
     
 
 
-    <!-- Class: http://www.co-ode.org/ontologies/pizza/pizza.owl#LeekTopping -->
+    <!-- Class: https://raw.githubusercontent.com/owlcs/pizza-ontology/refs/heads/master/pizza.owl#LeekTopping -->
 
     <owl:Class rdf:about="#LeekTopping">
         <rdfs:label xml:lang="pt">CoberturaDeLeek</rdfs:label>
@@ -1114,7 +1114,7 @@
     
 
 
-    <!-- Class: http://www.co-ode.org/ontologies/pizza/pizza.owl#Margherita -->
+    <!-- Class: https://raw.githubusercontent.com/owlcs/pizza-ontology/refs/heads/master/pizza.owl#Margherita -->
 
     <owl:Class rdf:about="#Margherita">
         <rdfs:label xml:lang="pt">Margherita</rdfs:label>
@@ -1150,7 +1150,7 @@
     
 
 
-    <!-- Class: http://www.co-ode.org/ontologies/pizza/pizza.owl#MeatTopping -->
+    <!-- Class: https://raw.githubusercontent.com/owlcs/pizza-ontology/refs/heads/master/pizza.owl#MeatTopping -->
 
     <owl:Class rdf:about="#MeatTopping">
         <rdfs:label xml:lang="pt"
@@ -1162,7 +1162,7 @@
     
 
 
-    <!-- Class: http://www.co-ode.org/ontologies/pizza/pizza.owl#MeatyPizza -->
+    <!-- Class: https://raw.githubusercontent.com/owlcs/pizza-ontology/refs/heads/master/pizza.owl#MeatyPizza -->
 
     <owl:Class rdf:about="#MeatyPizza">
         <rdfs:comment xml:lang="en"
@@ -1183,7 +1183,7 @@
     
 
 
-    <!-- Class: http://www.co-ode.org/ontologies/pizza/pizza.owl#Medium -->
+    <!-- Class: https://raw.githubusercontent.com/owlcs/pizza-ontology/refs/heads/master/pizza.owl#Medium -->
 
     <owl:Class rdf:about="#Medium">
         <rdfs:label xml:lang="pt">Media</rdfs:label>
@@ -1194,7 +1194,7 @@
     
 
 
-    <!-- Class: http://www.co-ode.org/ontologies/pizza/pizza.owl#Mild -->
+    <!-- Class: https://raw.githubusercontent.com/owlcs/pizza-ontology/refs/heads/master/pizza.owl#Mild -->
 
     <owl:Class rdf:about="#Mild">
         <rdfs:label xml:lang="pt">NaoPicante</rdfs:label>
@@ -1205,7 +1205,7 @@
     
 
 
-    <!-- Class: http://www.co-ode.org/ontologies/pizza/pizza.owl#MixedSeafoodTopping -->
+    <!-- Class: https://raw.githubusercontent.com/owlcs/pizza-ontology/refs/heads/master/pizza.owl#MixedSeafoodTopping -->
 
     <owl:Class rdf:about="#MixedSeafoodTopping">
         <rdfs:label xml:lang="pt"
@@ -1217,7 +1217,7 @@
     
 
 
-    <!-- Class: http://www.co-ode.org/ontologies/pizza/pizza.owl#MozzarellaTopping -->
+    <!-- Class: https://raw.githubusercontent.com/owlcs/pizza-ontology/refs/heads/master/pizza.owl#MozzarellaTopping -->
 
     <owl:Class rdf:about="#MozzarellaTopping">
         <rdfs:label xml:lang="pt"
@@ -1241,7 +1241,7 @@
     
 
 
-    <!-- Class: http://www.co-ode.org/ontologies/pizza/pizza.owl#Mushroom -->
+    <!-- Class: https://raw.githubusercontent.com/owlcs/pizza-ontology/refs/heads/master/pizza.owl#Mushroom -->
 
     <owl:Class rdf:about="#Mushroom">
         <rdfs:label xml:lang="pt">Cogumelo</rdfs:label>
@@ -1284,7 +1284,7 @@
     
 
 
-    <!-- Class: http://www.co-ode.org/ontologies/pizza/pizza.owl#MushroomTopping -->
+    <!-- Class: https://raw.githubusercontent.com/owlcs/pizza-ontology/refs/heads/master/pizza.owl#MushroomTopping -->
 
     <owl:Class rdf:about="#MushroomTopping">
         <rdfs:label xml:lang="pt"
@@ -1302,7 +1302,7 @@
     
 
 
-    <!-- Class: http://www.co-ode.org/ontologies/pizza/pizza.owl#NamedPizza -->
+    <!-- Class: https://raw.githubusercontent.com/owlcs/pizza-ontology/refs/heads/master/pizza.owl#NamedPizza -->
 
     <owl:Class rdf:about="#NamedPizza">
         <rdfs:comment xml:lang="en"
@@ -1315,7 +1315,7 @@
     
 
 
-    <!-- Class: http://www.co-ode.org/ontologies/pizza/pizza.owl#Napoletana -->
+    <!-- Class: https://raw.githubusercontent.com/owlcs/pizza-ontology/refs/heads/master/pizza.owl#Napoletana -->
 
     <owl:Class rdf:about="#Napoletana">
         <rdfs:label xml:lang="pt">Napoletana</rdfs:label>
@@ -1378,7 +1378,7 @@
     
 
 
-    <!-- Class: http://www.co-ode.org/ontologies/pizza/pizza.owl#NonVegetarianPizza -->
+    <!-- Class: https://raw.githubusercontent.com/owlcs/pizza-ontology/refs/heads/master/pizza.owl#NonVegetarianPizza -->
 
     <owl:Class rdf:about="#NonVegetarianPizza">
         <rdfs:comment xml:lang="en"
@@ -1401,7 +1401,7 @@
     
 
 
-    <!-- Class: http://www.co-ode.org/ontologies/pizza/pizza.owl#NutTopping -->
+    <!-- Class: https://raw.githubusercontent.com/owlcs/pizza-ontology/refs/heads/master/pizza.owl#NutTopping -->
 
     <owl:Class rdf:about="#NutTopping">
         <rdfs:label xml:lang="pt"
@@ -1419,7 +1419,7 @@
     
 
 
-    <!-- Class: http://www.co-ode.org/ontologies/pizza/pizza.owl#OliveTopping -->
+    <!-- Class: https://raw.githubusercontent.com/owlcs/pizza-ontology/refs/heads/master/pizza.owl#OliveTopping -->
 
     <owl:Class rdf:about="#OliveTopping">
         <rdfs:label xml:lang="pt"
@@ -1437,7 +1437,7 @@
     
 
 
-    <!-- Class: http://www.co-ode.org/ontologies/pizza/pizza.owl#OnionTopping -->
+    <!-- Class: https://raw.githubusercontent.com/owlcs/pizza-ontology/refs/heads/master/pizza.owl#OnionTopping -->
 
     <owl:Class rdf:about="#OnionTopping">
         <rdfs:label xml:lang="pt"
@@ -1455,7 +1455,7 @@
     
 
 
-    <!-- Class: http://www.co-ode.org/ontologies/pizza/pizza.owl#ParmaHamTopping -->
+    <!-- Class: https://raw.githubusercontent.com/owlcs/pizza-ontology/refs/heads/master/pizza.owl#ParmaHamTopping -->
 
     <owl:Class rdf:about="#ParmaHamTopping">
         <rdfs:label xml:lang="pt"
@@ -1473,7 +1473,7 @@
     
 
 
-    <!-- Class: http://www.co-ode.org/ontologies/pizza/pizza.owl#Parmense -->
+    <!-- Class: https://raw.githubusercontent.com/owlcs/pizza-ontology/refs/heads/master/pizza.owl#Parmense -->
 
     <owl:Class rdf:about="#Parmense">
         <rdfs:label xml:lang="pt">Parmense</rdfs:label>
@@ -1530,7 +1530,7 @@
     
 
 
-    <!-- Class: http://www.co-ode.org/ontologies/pizza/pizza.owl#ParmesanTopping -->
+    <!-- Class: https://raw.githubusercontent.com/owlcs/pizza-ontology/refs/heads/master/pizza.owl#ParmesanTopping -->
 
     <owl:Class rdf:about="#ParmesanTopping">
         <rdfs:label xml:lang="pt"
@@ -1548,7 +1548,7 @@
     
 
 
-    <!-- Class: http://www.co-ode.org/ontologies/pizza/pizza.owl#PeperonataTopping -->
+    <!-- Class: https://raw.githubusercontent.com/owlcs/pizza-ontology/refs/heads/master/pizza.owl#PeperonataTopping -->
 
     <owl:Class rdf:about="#PeperonataTopping">
         <rdfs:label xml:lang="pt"
@@ -1566,7 +1566,7 @@
     
 
 
-    <!-- Class: http://www.co-ode.org/ontologies/pizza/pizza.owl#PeperoniSausageTopping -->
+    <!-- Class: https://raw.githubusercontent.com/owlcs/pizza-ontology/refs/heads/master/pizza.owl#PeperoniSausageTopping -->
 
     <owl:Class rdf:about="#PeperoniSausageTopping">
         <rdfs:label xml:lang="pt"
@@ -1584,7 +1584,7 @@
     
 
 
-    <!-- Class: http://www.co-ode.org/ontologies/pizza/pizza.owl#PepperTopping -->
+    <!-- Class: https://raw.githubusercontent.com/owlcs/pizza-ontology/refs/heads/master/pizza.owl#PepperTopping -->
 
     <owl:Class rdf:about="#PepperTopping">
         <rdfs:label xml:lang="pt"
@@ -1596,7 +1596,7 @@
     
 
 
-    <!-- Class: http://www.co-ode.org/ontologies/pizza/pizza.owl#PetitPoisTopping -->
+    <!-- Class: https://raw.githubusercontent.com/owlcs/pizza-ontology/refs/heads/master/pizza.owl#PetitPoisTopping -->
 
     <owl:Class rdf:about="#PetitPoisTopping">
         <rdfs:label xml:lang="pt"
@@ -1614,7 +1614,7 @@
     
 
 
-    <!-- Class: http://www.co-ode.org/ontologies/pizza/pizza.owl#PineKernels -->
+    <!-- Class: https://raw.githubusercontent.com/owlcs/pizza-ontology/refs/heads/master/pizza.owl#PineKernels -->
 
     <owl:Class rdf:about="#PineKernels">
         <rdfs:label xml:lang="pt"
@@ -1626,7 +1626,7 @@
     
 
 
-    <!-- Class: http://www.co-ode.org/ontologies/pizza/pizza.owl#Pizza -->
+    <!-- Class: https://raw.githubusercontent.com/owlcs/pizza-ontology/refs/heads/master/pizza.owl#Pizza -->
 
     <owl:Class rdf:about="#Pizza">
         <rdfs:label xml:lang="en">Pizza</rdfs:label>
@@ -1643,7 +1643,7 @@
     
 
 
-    <!-- Class: http://www.co-ode.org/ontologies/pizza/pizza.owl#PizzaBase -->
+    <!-- Class: https://raw.githubusercontent.com/owlcs/pizza-ontology/refs/heads/master/pizza.owl#PizzaBase -->
 
     <owl:Class rdf:about="#PizzaBase">
         <rdfs:label xml:lang="pt">BaseDaPizza</rdfs:label>
@@ -1654,7 +1654,7 @@
     
 
 
-    <!-- Class: http://www.co-ode.org/ontologies/pizza/pizza.owl#PizzaTopping -->
+    <!-- Class: https://raw.githubusercontent.com/owlcs/pizza-ontology/refs/heads/master/pizza.owl#PizzaTopping -->
 
     <owl:Class rdf:about="#PizzaTopping">
         <rdfs:label xml:lang="pt"
@@ -1666,7 +1666,7 @@
     
 
 
-    <!-- Class: http://www.co-ode.org/ontologies/pizza/pizza.owl#PolloAdAstra -->
+    <!-- Class: https://raw.githubusercontent.com/owlcs/pizza-ontology/refs/heads/master/pizza.owl#PolloAdAstra -->
 
     <owl:Class rdf:about="#PolloAdAstra">
         <rdfs:label xml:lang="pt">PolloAdAstra</rdfs:label>
@@ -1737,7 +1737,7 @@
     
 
 
-    <!-- Class: http://www.co-ode.org/ontologies/pizza/pizza.owl#PrawnsTopping -->
+    <!-- Class: https://raw.githubusercontent.com/owlcs/pizza-ontology/refs/heads/master/pizza.owl#PrawnsTopping -->
 
     <owl:Class rdf:about="#PrawnsTopping">
         <rdfs:label xml:lang="pt"
@@ -1749,7 +1749,7 @@
     
 
 
-    <!-- Class: http://www.co-ode.org/ontologies/pizza/pizza.owl#PrinceCarlo -->
+    <!-- Class: https://raw.githubusercontent.com/owlcs/pizza-ontology/refs/heads/master/pizza.owl#PrinceCarlo -->
 
     <owl:Class rdf:about="#PrinceCarlo">
         <rdfs:label xml:lang="pt"
@@ -1807,7 +1807,7 @@
     
 
 
-    <!-- Class: http://www.co-ode.org/ontologies/pizza/pizza.owl#QuattroFormaggi -->
+    <!-- Class: https://raw.githubusercontent.com/owlcs/pizza-ontology/refs/heads/master/pizza.owl#QuattroFormaggi -->
 
     <owl:Class rdf:about="#QuattroFormaggi">
         <rdfs:label xml:lang="pt">QuatroQueijos</rdfs:label>
@@ -1843,7 +1843,7 @@
     
 
 
-    <!-- Class: http://www.co-ode.org/ontologies/pizza/pizza.owl#RealItalianPizza -->
+    <!-- Class: https://raw.githubusercontent.com/owlcs/pizza-ontology/refs/heads/master/pizza.owl#RealItalianPizza -->
 
     <owl:Class rdf:about="#RealItalianPizza">
         <rdfs:comment xml:lang="en"
@@ -1871,7 +1871,7 @@
     
 
 
-    <!-- Class: http://www.co-ode.org/ontologies/pizza/pizza.owl#RedOnionTopping -->
+    <!-- Class: https://raw.githubusercontent.com/owlcs/pizza-ontology/refs/heads/master/pizza.owl#RedOnionTopping -->
 
     <owl:Class rdf:about="#RedOnionTopping">
         <rdfs:label xml:lang="pt"
@@ -1883,7 +1883,7 @@
     
 
 
-    <!-- Class: http://www.co-ode.org/ontologies/pizza/pizza.owl#RocketTopping -->
+    <!-- Class: https://raw.githubusercontent.com/owlcs/pizza-ontology/refs/heads/master/pizza.owl#RocketTopping -->
 
     <owl:Class rdf:about="#RocketTopping">
         <rdfs:label xml:lang="pt">CoberturaRocket</rdfs:label>
@@ -1900,7 +1900,7 @@
     
 
 
-    <!-- Class: http://www.co-ode.org/ontologies/pizza/pizza.owl#Rosa -->
+    <!-- Class: https://raw.githubusercontent.com/owlcs/pizza-ontology/refs/heads/master/pizza.owl#Rosa -->
 
     <owl:Class rdf:about="#Rosa">
         <rdfs:label xml:lang="pt">Rosa</rdfs:label>
@@ -1943,7 +1943,7 @@
     
 
 
-    <!-- Class: http://www.co-ode.org/ontologies/pizza/pizza.owl#RosemaryTopping -->
+    <!-- Class: https://raw.githubusercontent.com/owlcs/pizza-ontology/refs/heads/master/pizza.owl#RosemaryTopping -->
 
     <owl:Class rdf:about="#RosemaryTopping">
         <rdfs:label xml:lang="pt"
@@ -1961,7 +1961,7 @@
     
 
 
-    <!-- Class: http://www.co-ode.org/ontologies/pizza/pizza.owl#SauceTopping -->
+    <!-- Class: https://raw.githubusercontent.com/owlcs/pizza-ontology/refs/heads/master/pizza.owl#SauceTopping -->
 
     <owl:Class rdf:about="#SauceTopping">
         <rdfs:label xml:lang="pt"
@@ -1973,7 +1973,7 @@
     
 
 
-    <!-- Class: http://www.co-ode.org/ontologies/pizza/pizza.owl#Siciliana -->
+    <!-- Class: https://raw.githubusercontent.com/owlcs/pizza-ontology/refs/heads/master/pizza.owl#Siciliana -->
 
     <owl:Class rdf:about="#Siciliana">
         <rdfs:label xml:lang="pt">Siciliana</rdfs:label>
@@ -2044,7 +2044,7 @@
     
 
 
-    <!-- Class: http://www.co-ode.org/ontologies/pizza/pizza.owl#SlicedTomatoTopping -->
+    <!-- Class: https://raw.githubusercontent.com/owlcs/pizza-ontology/refs/heads/master/pizza.owl#SlicedTomatoTopping -->
 
     <owl:Class rdf:about="#SlicedTomatoTopping">
         <rdfs:label xml:lang="pt"
@@ -2062,7 +2062,7 @@
     
 
 
-    <!-- Class: http://www.co-ode.org/ontologies/pizza/pizza.owl#SloppyGiuseppe -->
+    <!-- Class: https://raw.githubusercontent.com/owlcs/pizza-ontology/refs/heads/master/pizza.owl#SloppyGiuseppe -->
 
     <owl:Class rdf:about="#SloppyGiuseppe">
         <rdfs:label xml:lang="pt">SloppyGiuseppe</rdfs:label>
@@ -2119,7 +2119,7 @@
     
 
 
-    <!-- Class: http://www.co-ode.org/ontologies/pizza/pizza.owl#Soho -->
+    <!-- Class: https://raw.githubusercontent.com/owlcs/pizza-ontology/refs/heads/master/pizza.owl#Soho -->
 
     <owl:Class rdf:about="#Soho">
         <rdfs:label xml:lang="pt">Soho</rdfs:label>
@@ -2183,7 +2183,7 @@
     
 
 
-    <!-- Class: http://www.co-ode.org/ontologies/pizza/pizza.owl#Spiciness -->
+    <!-- Class: https://raw.githubusercontent.com/owlcs/pizza-ontology/refs/heads/master/pizza.owl#Spiciness -->
 
     <owl:Class rdf:about="#Spiciness">
         <rdfs:comment xml:lang="en"
@@ -2205,7 +2205,7 @@
     
 
 
-    <!-- Class: http://www.co-ode.org/ontologies/pizza/pizza.owl#SpicyPizza -->
+    <!-- Class: https://raw.githubusercontent.com/owlcs/pizza-ontology/refs/heads/master/pizza.owl#SpicyPizza -->
 
     <owl:Class rdf:about="#SpicyPizza">
         <rdfs:comment xml:lang="en"
@@ -2226,7 +2226,7 @@
     
 
 
-    <!-- Class: http://www.co-ode.org/ontologies/pizza/pizza.owl#SpicyPizzaEquivalent -->
+    <!-- Class: https://raw.githubusercontent.com/owlcs/pizza-ontology/refs/heads/master/pizza.owl#SpicyPizzaEquivalent -->
 
     <owl:Class rdf:about="#SpicyPizzaEquivalent">
         <rdfs:comment xml:lang="en"
@@ -2258,7 +2258,7 @@
     
 
 
-    <!-- Class: http://www.co-ode.org/ontologies/pizza/pizza.owl#SpicyTopping -->
+    <!-- Class: https://raw.githubusercontent.com/owlcs/pizza-ontology/refs/heads/master/pizza.owl#SpicyTopping -->
 
     <owl:Class rdf:about="#SpicyTopping">
         <rdfs:comment xml:lang="en"
@@ -2280,7 +2280,7 @@
     
 
 
-    <!-- Class: http://www.co-ode.org/ontologies/pizza/pizza.owl#SpinachTopping -->
+    <!-- Class: https://raw.githubusercontent.com/owlcs/pizza-ontology/refs/heads/master/pizza.owl#SpinachTopping -->
 
     <owl:Class rdf:about="#SpinachTopping">
         <rdfs:label xml:lang="pt"
@@ -2298,7 +2298,7 @@
     
 
 
-    <!-- Class: http://www.co-ode.org/ontologies/pizza/pizza.owl#SultanaTopping -->
+    <!-- Class: https://raw.githubusercontent.com/owlcs/pizza-ontology/refs/heads/master/pizza.owl#SultanaTopping -->
 
     <owl:Class rdf:about="#SultanaTopping">
         <rdfs:label xml:lang="pt"
@@ -2316,7 +2316,7 @@
     
 
 
-    <!-- Class: http://www.co-ode.org/ontologies/pizza/pizza.owl#SundriedTomatoTopping -->
+    <!-- Class: https://raw.githubusercontent.com/owlcs/pizza-ontology/refs/heads/master/pizza.owl#SundriedTomatoTopping -->
 
     <owl:Class rdf:about="#SundriedTomatoTopping">
         <rdfs:label xml:lang="pt"
@@ -2334,7 +2334,7 @@
     
 
 
-    <!-- Class: http://www.co-ode.org/ontologies/pizza/pizza.owl#SweetPepperTopping -->
+    <!-- Class: https://raw.githubusercontent.com/owlcs/pizza-ontology/refs/heads/master/pizza.owl#SweetPepperTopping -->
 
     <owl:Class rdf:about="#SweetPepperTopping">
         <rdfs:label xml:lang="pt"
@@ -2352,7 +2352,7 @@
     
 
 
-    <!-- Class: http://www.co-ode.org/ontologies/pizza/pizza.owl#ThinAndCrispyBase -->
+    <!-- Class: https://raw.githubusercontent.com/owlcs/pizza-ontology/refs/heads/master/pizza.owl#ThinAndCrispyBase -->
 
     <owl:Class rdf:about="#ThinAndCrispyBase">
         <rdfs:label xml:lang="pt"
@@ -2364,7 +2364,7 @@
     
 
 
-    <!-- Class: http://www.co-ode.org/ontologies/pizza/pizza.owl#ThinAndCrispyPizza -->
+    <!-- Class: https://raw.githubusercontent.com/owlcs/pizza-ontology/refs/heads/master/pizza.owl#ThinAndCrispyPizza -->
 
     <owl:Class rdf:about="#ThinAndCrispyPizza">
         <owl:equivalentClass>
@@ -2382,7 +2382,7 @@
     
 
 
-    <!-- Class: http://www.co-ode.org/ontologies/pizza/pizza.owl#TobascoPepperSauce -->
+    <!-- Class: https://raw.githubusercontent.com/owlcs/pizza-ontology/refs/heads/master/pizza.owl#TobascoPepperSauce -->
 
     <owl:Class rdf:about="#TobascoPepperSauce">
         <rdfs:label xml:lang="pt"
@@ -2400,7 +2400,7 @@
     
 
 
-    <!-- Class: http://www.co-ode.org/ontologies/pizza/pizza.owl#TomatoTopping -->
+    <!-- Class: https://raw.githubusercontent.com/owlcs/pizza-ontology/refs/heads/master/pizza.owl#TomatoTopping -->
 
     <owl:Class rdf:about="#TomatoTopping">
         <rdfs:label xml:lang="pt"
@@ -2418,7 +2418,7 @@
     
 
 
-    <!-- Class: http://www.co-ode.org/ontologies/pizza/pizza.owl#UnclosedPizza -->
+    <!-- Class: https://raw.githubusercontent.com/owlcs/pizza-ontology/refs/heads/master/pizza.owl#UnclosedPizza -->
 
     <owl:Class rdf:about="#UnclosedPizza">
         <rdfs:label xml:lang="pt">PizzaAberta</rdfs:label>
@@ -2437,7 +2437,7 @@
     
 
 
-    <!-- Class: http://www.co-ode.org/ontologies/pizza/pizza.owl#ValuePartition -->
+    <!-- Class: https://raw.githubusercontent.com/owlcs/pizza-ontology/refs/heads/master/pizza.owl#ValuePartition -->
 
     <owl:Class rdf:about="#ValuePartition">
         <rdfs:label xml:lang="pt">ValorDaParticao</rdfs:label>
@@ -2447,7 +2447,7 @@
     
 
 
-    <!-- Class: http://www.co-ode.org/ontologies/pizza/pizza.owl#VegetableTopping -->
+    <!-- Class: https://raw.githubusercontent.com/owlcs/pizza-ontology/refs/heads/master/pizza.owl#VegetableTopping -->
 
     <owl:Class rdf:about="#VegetableTopping">
         <rdfs:label xml:lang="pt"
@@ -2459,7 +2459,7 @@
     
 
 
-    <!-- Class: http://www.co-ode.org/ontologies/pizza/pizza.owl#VegetarianPizza -->
+    <!-- Class: https://raw.githubusercontent.com/owlcs/pizza-ontology/refs/heads/master/pizza.owl#VegetarianPizza -->
 
     <owl:Class rdf:about="#VegetarianPizza">
         <rdfs:label xml:lang="pt"
@@ -2493,7 +2493,7 @@
     
 
 
-    <!-- Class: http://www.co-ode.org/ontologies/pizza/pizza.owl#VegetarianPizzaEquivalent1 -->
+    <!-- Class: https://raw.githubusercontent.com/owlcs/pizza-ontology/refs/heads/master/pizza.owl#VegetarianPizzaEquivalent1 -->
 
     <owl:Class rdf:about="#VegetarianPizzaEquivalent1">
         <rdfs:comment xml:lang="en"
@@ -2515,7 +2515,7 @@
     
 
 
-    <!-- Class: http://www.co-ode.org/ontologies/pizza/pizza.owl#VegetarianPizzaEquivalent2 -->
+    <!-- Class: https://raw.githubusercontent.com/owlcs/pizza-ontology/refs/heads/master/pizza.owl#VegetarianPizzaEquivalent2 -->
 
     <owl:Class rdf:about="#VegetarianPizzaEquivalent2">
         <rdfs:comment xml:lang="en"
@@ -2548,7 +2548,7 @@
     
 
 
-    <!-- Class: http://www.co-ode.org/ontologies/pizza/pizza.owl#VegetarianTopping -->
+    <!-- Class: https://raw.githubusercontent.com/owlcs/pizza-ontology/refs/heads/master/pizza.owl#VegetarianTopping -->
 
     <owl:Class rdf:about="#VegetarianTopping">
         <rdfs:comment xml:lang="en"
@@ -2576,7 +2576,7 @@
     
 
 
-    <!-- Class: http://www.co-ode.org/ontologies/pizza/pizza.owl#Veneziana -->
+    <!-- Class: https://raw.githubusercontent.com/owlcs/pizza-ontology/refs/heads/master/pizza.owl#Veneziana -->
 
     <owl:Class rdf:about="#Veneziana">
         <rdfs:label xml:lang="pt">Veneziana</rdfs:label>
@@ -2664,7 +2664,7 @@
     
 
 
-    <!-- Object property: http://www.co-ode.org/ontologies/pizza/pizza.owl#hasBase -->
+    <!-- Object property: https://raw.githubusercontent.com/owlcs/pizza-ontology/refs/heads/master/pizza.owl#hasBase -->
 
     <owl:ObjectProperty rdf:about="#hasBase">
         <rdf:type rdf:resource="&owl;FunctionalProperty"/>
@@ -2682,13 +2682,13 @@
     
 
 
-    <!-- Object property: http://www.co-ode.org/ontologies/pizza/pizza.owl#hasCountryOfOrigin -->
+    <!-- Object property: https://raw.githubusercontent.com/owlcs/pizza-ontology/refs/heads/master/pizza.owl#hasCountryOfOrigin -->
 
     <owl:ObjectProperty rdf:about="#hasCountryOfOrigin"/>
     
 
 
-    <!-- Object property: http://www.co-ode.org/ontologies/pizza/pizza.owl#hasIngredient -->
+    <!-- Object property: https://raw.githubusercontent.com/owlcs/pizza-ontology/refs/heads/master/pizza.owl#hasIngredient -->
 
     <owl:ObjectProperty rdf:about="#hasIngredient">
         <rdfs:comment xml:lang="en"
@@ -2707,7 +2707,7 @@
     
 
 
-    <!-- Object property: http://www.co-ode.org/ontologies/pizza/pizza.owl#hasSpiciness -->
+    <!-- Object property: https://raw.githubusercontent.com/owlcs/pizza-ontology/refs/heads/master/pizza.owl#hasSpiciness -->
 
     <owl:ObjectProperty rdf:about="#hasSpiciness">
         <rdfs:comment xml:lang="en"
@@ -2720,7 +2720,7 @@
     
 
 
-    <!-- Object property: http://www.co-ode.org/ontologies/pizza/pizza.owl#hasTopping -->
+    <!-- Object property: https://raw.githubusercontent.com/owlcs/pizza-ontology/refs/heads/master/pizza.owl#hasTopping -->
 
     <owl:ObjectProperty rdf:about="#hasTopping">
         <rdfs:comment xml:lang="en"
@@ -2739,7 +2739,7 @@
     
 
 
-    <!-- Object property: http://www.co-ode.org/ontologies/pizza/pizza.owl#isBaseOf -->
+    <!-- Object property: https://raw.githubusercontent.com/owlcs/pizza-ontology/refs/heads/master/pizza.owl#isBaseOf -->
 
     <owl:ObjectProperty rdf:about="#isBaseOf">
         <rdf:type rdf:resource="&owl;FunctionalProperty"/>
@@ -2757,7 +2757,7 @@
     
 
 
-    <!-- Object property: http://www.co-ode.org/ontologies/pizza/pizza.owl#isIngredientOf -->
+    <!-- Object property: https://raw.githubusercontent.com/owlcs/pizza-ontology/refs/heads/master/pizza.owl#isIngredientOf -->
 
     <owl:ObjectProperty rdf:about="#isIngredientOf">
         <rdfs:comment xml:lang="en"
@@ -2776,7 +2776,7 @@
     
 
 
-    <!-- Object property: http://www.co-ode.org/ontologies/pizza/pizza.owl#isToppingOf -->
+    <!-- Object property: https://raw.githubusercontent.com/owlcs/pizza-ontology/refs/heads/master/pizza.owl#isToppingOf -->
 
     <owl:ObjectProperty rdf:about="#isToppingOf">
         <rdfs:comment xml:lang="en"
@@ -2806,7 +2806,7 @@
     
 
 
-    <!-- Individual: http://www.co-ode.org/ontologies/pizza/pizza.owl#America -->
+    <!-- Individual: https://raw.githubusercontent.com/owlcs/pizza-ontology/refs/heads/master/pizza.owl#America -->
 
     <owl:Thing rdf:about="#America">
         <rdf:type rdf:resource="#Country"/>
@@ -2814,7 +2814,7 @@
     
 
 
-    <!-- Individual: http://www.co-ode.org/ontologies/pizza/pizza.owl#England -->
+    <!-- Individual: https://raw.githubusercontent.com/owlcs/pizza-ontology/refs/heads/master/pizza.owl#England -->
 
     <owl:Thing rdf:about="#England">
         <rdf:type rdf:resource="#Country"/>
@@ -2822,7 +2822,7 @@
     
 
 
-    <!-- Individual: http://www.co-ode.org/ontologies/pizza/pizza.owl#France -->
+    <!-- Individual: https://raw.githubusercontent.com/owlcs/pizza-ontology/refs/heads/master/pizza.owl#France -->
 
     <owl:Thing rdf:about="#France">
         <rdf:type rdf:resource="#Country"/>
@@ -2830,7 +2830,7 @@
     
 
 
-    <!-- Individual: http://www.co-ode.org/ontologies/pizza/pizza.owl#Germany -->
+    <!-- Individual: https://raw.githubusercontent.com/owlcs/pizza-ontology/refs/heads/master/pizza.owl#Germany -->
 
     <owl:Thing rdf:about="#Germany">
         <rdf:type rdf:resource="#Country"/>
@@ -2838,7 +2838,7 @@
     
 
 
-    <!-- Individual: http://www.co-ode.org/ontologies/pizza/pizza.owl#Italy -->
+    <!-- Individual: https://raw.githubusercontent.com/owlcs/pizza-ontology/refs/heads/master/pizza.owl#Italy -->
 
     <owl:Thing rdf:about="#Italy">
         <rdf:type rdf:resource="#Country"/>

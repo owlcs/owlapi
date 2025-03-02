@@ -34,7 +34,7 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 class TripleComparatorTestCase extends TestBase {
 
-    private final String ns = "http://www.co-ode.org/roberts/pto.owl#";
+    private final String ns = "https://raw.githubusercontent.com/owlcs/pizza-ontology/refs/heads/master/roberts/pto.owl#";
     private final RDFResourceIRI gold = r(Class(iri(ns, "MoleOfGoldAtom")));
     private final RDFResourceIRI disjoint = r(ObjectProperty(OWL_DISJOINT_WITH.getIRI()));
     private final RDFResourceIRI subtype = r(RDFS_SUBCLASS_OF.getIRI());
