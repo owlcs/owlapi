@@ -1,10 +1,10 @@
-Prefix(:=<http://www.co-ode.org/ontologies/pizza/pizza.owl#>)
+Prefix(:=<https://raw.githubusercontent.com/owlcs/pizza-ontology/refs/heads/master/pizza.owl#>)
 Prefix(owl:=<http://www.w3.org/2002/07/owl#>)
 Prefix(rdf:=<http://www.w3.org/1999/02/22-rdf-syntax-ns#>)
 Prefix(xml:=<http://www.w3.org/XML/1998/namespace>)
 Prefix(xsd:=<http://www.w3.org/2001/XMLSchema#>)
 Prefix(rdfs:=<http://www.w3.org/2000/01/rdf-schema#>)
-Ontology(<http://www.co-ode.org/ontologies/pizza/pizza.owl>
+Ontology(<https://raw.githubusercontent.com/owlcs/pizza-ontology/refs/heads/master/pizza.owl>
 Annotation(rdfs:comment "An example ontology"@en)
 Annotation(owl:versionInfo "v.1.4."@en)
 Annotation(owl:versionInfo "v.1.5. Removed protege"@en)
@@ -283,13 +283,13 @@ DataPropertyAssertion(<urn:dp> _:genid1 "true"^^xsd:boolean)
 NegativeDataPropertyAssertion(<urn:dp> _:genid1 "true"^^xsd:boolean)
 AnnotationAssertion(<urn:ap> <urn:i> "true"^^xsd:boolean))
 
-Prefix(:=<http://www.co-ode.org/ontologies/pizza/pizza.owl#>)
+Prefix(:=<https://raw.githubusercontent.com/owlcs/pizza-ontology/refs/heads/master/pizza.owl#>)
 Prefix(owl:=<http://www.w3.org/2002/07/owl#>)
 Prefix(rdf:=<http://www.w3.org/1999/02/22-rdf-syntax-ns#>)
 Prefix(xsd:=<http://www.w3.org/2001/XMLSchema#>)
 Prefix(rdfs:=<http://www.w3.org/2000/01/rdf-schema#>)
 Prefix(xml:=<http://www.w3.org/XML/1998/namespace>)
-Ontology(<http://www.co-ode.org/ontologies/pizza/pizza.owl>
+Ontology(<https://raw.githubusercontent.com/owlcs/pizza-ontology/refs/heads/master/pizza.owl>
 Annotation(owl:versionInfo "version 1.5"^^xsd:string)
 Annotation(rdfs:comment "An example ontology"@en)
 Annotation(owl:versionInfo "v.1.5. Removed protege"@en)
