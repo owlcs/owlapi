@@ -44,4 +44,16 @@ class OWLXMLTestCase extends TestBase {
         assertTrue(out.contains("<Variable IRI=\"urn:swrl:var#x\"/>"), out);
         assertTrue(out.contains("<Variable IRI=\"urn:swrl:var#y\"/>"), out);
     }
+
+    @Test
+    void shouldParseSwrlAnonIndividual() {
+        OWLOntology o = loadOntologyFromFile(new File(RESOURCES, "swrl_individual.owx"));
+        for (SWRLRule r : o.getAxioms(AxiomType.SWRL_RULE)) {
+            assertEquals("DLSafeRule(Body(ClassAtom(<http://www.example.com/iri#A> _:genid2147515882)) Head(ClassAtom(<http://www.example.com/iri#B> <http://www.example.com/iri#I>)))",
+                         r.toString());
+        }
+
+        String out = saveOntology(o, new OWLXMLDocumentFormat()).toString();
+        assertTrue(out.contains("<AnonymousIndividual nodeID=\"_:genid2147515882\"/>"), out);
+    }
 }
