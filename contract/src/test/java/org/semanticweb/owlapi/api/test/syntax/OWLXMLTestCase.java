@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.ObjectProperty;
 
 import java.io.File;
+import java.util.regex.Pattern;
 
 import org.junit.jupiter.api.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
@@ -48,12 +49,23 @@ class OWLXMLTestCase extends TestBase {
     @Test
     void shouldParseSwrlAnonIndividual() {
         OWLOntology o = loadOntologyFromFile(new File(RESOURCES, "swrl_individual.owx"));
+
         for (SWRLRule r : o.getAxioms(AxiomType.SWRL_RULE)) {
-            assertEquals("DLSafeRule(Body(ClassAtom(<http://www.example.com/iri#A> _:genid2147515882)) Head(ClassAtom(<http://www.example.com/iri#B> <http://www.example.com/iri#I>)))",
-                         r.toString());
+            String expected = "DLSafeRule\\(Body\\(ClassAtom\\(<http://www.example.com/iri#A> " +
+                "_:genid\\d+\\)\\) Head\\(ClassAtom\\(<http://www.example.com/iri#B> " +
+                "<http://www.example.com/iri#I>\\)\\)\\)";
+
+            assertTrue(r.toString()
+                       .matches(expected),
+                       "No match between:\n\t" + r.toString() + " and:\n\t" + expected);
         }
 
+
         String out = saveOntology(o, new OWLXMLDocumentFormat()).toString();
-        assertTrue(out.contains("<AnonymousIndividual nodeID=\"_:genid2147515882\"/>"), out);
+        String expected = ".*<AnonymousIndividual nodeID=\"_:genid\\d+\"/>.*";
+        Pattern pattern = Pattern.compile(expected, Pattern.DOTALL);
+        assertTrue(pattern.matcher(out).matches(),
+                   "No match between:\n\t" + out + " and:\n\t" + expected
+                   );
     }
 }
