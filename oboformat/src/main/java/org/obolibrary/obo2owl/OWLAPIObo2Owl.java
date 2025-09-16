@@ -503,8 +503,7 @@ public class OWLAPIObo2Owl {
             String path = getURI(cl.getValue().toString());
             IRI importIRI = IRI.create(path);
             OWLImportsDeclaration owlImportsDeclaration = fac.getOWLImportsDeclaration(importIRI);
-            manager.makeLoadImportRequest(owlImportsDeclaration,
-                new OWLOntologyLoaderConfiguration());
+            manager.makeLoadImportRequest(owlImportsDeclaration);
             AddImport ai = new AddImport(in, owlImportsDeclaration);
             manager.applyChange(ai);
         }

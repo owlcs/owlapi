@@ -763,7 +763,9 @@ public abstract class TestBase extends DF {
     protected OWLOntology loadWithConfig(StringDocumentSource o,
         OWLOntologyLoaderConfiguration conf) {
         try {
-            return setupManager().loadOntologyFromOntologyDocument(o, conf);
+            OWLOntologyManager setupManager = setupManager();
+            setupManager.setOntologyLoaderConfiguration(conf);
+            return setupManager.loadOntologyFromOntologyDocument(o);
         } catch (OWLException ex) {
             throw new OWLRuntimeException(ex);
         }
