@@ -845,8 +845,9 @@ public abstract class TestBase {
     protected OWLOntology loadOntologyWithConfig(StringDocumentTarget o,
         OWLOntologyLoaderConfiguration conf) {
         try {
-            return setupManager().loadOntologyFromOntologyDocument(new StringDocumentSource(o),
-                conf);
+            OWLOntologyManager setupManager = setupManager();
+            setupManager.setOntologyLoaderConfiguration(conf);
+            return setupManager.loadOntologyFromOntologyDocument(new StringDocumentSource(o));
         } catch (OWLOntologyCreationException ex) {
             throw new OWLRuntimeException(ex);
         }

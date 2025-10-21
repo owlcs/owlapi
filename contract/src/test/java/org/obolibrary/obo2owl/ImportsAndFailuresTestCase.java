@@ -4,8 +4,9 @@ import org.junit.jupiter.api.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.formats.OBODocumentFormat;
 import org.semanticweb.owlapi.io.StringDocumentSource;
+import org.semanticweb.owlapi.io.StringDocumentTarget;
 import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 
 class ImportsAndFailuresTestCase extends TestBase {
@@ -47,6 +48,17 @@ class ImportsAndFailuresTestCase extends TestBase {
         create(TEST_IMPORT);
         OWLOntology o1 = loadOntologyFromSource(inputSource(EMPTY_IMPORT), m);
         equal(o, o1);
+    }
+
+    @Test
+    void shouldNotFailOnBadImportWhenSilent() throws OWLOntologyCreationException {
+        org.semanticweb.owlapi.model.IRI badIRI = iri("bad_iri.obo");
+        OWLOntology o = create(TEST_IMPORT);
+        OWLImportsDeclaration owlImportsDeclaration = o.getOWLOntologyManager().getOWLDataFactory().getOWLImportsDeclaration(badIRI);
+        o.getOWLOntologyManager().applyChange( new AddImport(o, owlImportsDeclaration));
+        StringDocumentTarget saveOntology = saveOntology(o, new OBODocumentFormat());
+        OWLOntologyLoaderConfiguration conf = new OWLOntologyLoaderConfiguration().setMissingImportHandlingStrategy(MissingImportHandlingStrategy.SILENT);
+        loadOntologyWithConfig(saveOntology, conf);
     }
 
     @Test
