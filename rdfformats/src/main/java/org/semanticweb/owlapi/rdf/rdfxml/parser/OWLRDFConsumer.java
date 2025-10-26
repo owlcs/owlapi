@@ -590,6 +590,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousIndividualByIdProvi
         // Choose one that isn't the object of an annotation assertion
         Set<IRI> candidateIRIs = createSet(iris.ontologyIRIs);
         ont().annotations().forEach(a -> a.getValue().asIRI().filter(iris.ontologyIRIs::contains)
+            .filter(iri ->!iris.ontologySubImportIRIs.contains(iri))
             .ifPresent(candidateIRIs::remove));
         // Choose the first one parsed
         if (candidateIRIs.contains(iris.firstOntologyIRI)) {
@@ -1609,7 +1610,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousIndividualByIdProvi
     }
 
     protected boolean handleImportsTriple(IRI s, IRI p, IRI o) {
-        iris.addOntology(s);
+        iris.addOntology(s, true);
         iris.addOntology(o);
         addImport(df.getOWLImportsDeclaration(o), o);
         return tripleIndex.consumeTriple(s, p, o);

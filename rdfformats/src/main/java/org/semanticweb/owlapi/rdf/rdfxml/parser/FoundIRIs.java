@@ -41,6 +41,7 @@ class FoundIRIs {
      * IRIs that had a type triple to owl:Ontology
      */
     protected final Set<IRI> ontologyIRIs = createSet();
+    protected final Set<IRI> ontologySubImportIRIs = createSet();
     protected final Map<IRI, List<Class<?>>> guessedDeclarations = new HashMap<>();
     // The set of IRIs that are either explicitly typed
     // an an owl:Class, or are inferred to be an owl:Class
@@ -369,11 +370,30 @@ class FoundIRIs {
             || !strict && !isOP(iri) && !isDP(iri) && !iri.isReservedVocabulary();
     }
 
-    protected void addOntology(IRI iri) {
+    /**
+     * Adds the ontology.
+     *
+     * @param iri the iri
+     * @param owlImportSubject Is the iri used as subject for predicate
+     *                         owl:imports
+     */
+    protected void addOntology(IRI iri, boolean owlImportSubject) {
         if (ontologyIRIs.isEmpty()) {
             firstOntologyIRI = iri;
         }
+        if (owlImportSubject) {
+            ontologySubImportIRIs.add(iri);
+        }
         ontologyIRIs.add(iri);
+    }
+    /**
+     * Overload method of addOntology with
+     * no owl:import subject iri
+     *
+     * @param iri the iri
+     */
+    protected void addOntology(IRI iri) {
+        addOntology(iri, false);
     }
 
     /**
