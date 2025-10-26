@@ -246,6 +246,10 @@ public class OWLRDFConsumer
      */
     private final Set<IRI> ontologyIRIs = createSet();
     /**
+     * IRIs that represent a subject for predicate owl:imports
+     */
+    private final Set<IRI> ontologySubImportIRIs = createSet();
+    /**
      * IRIs that had a type triple to owl:Restriction
      */
     private final Set<IRI> restrictionIRIs = createSet();
@@ -1467,7 +1471,7 @@ public class OWLRDFConsumer
             // Choose one that isn't the object of an annotation assertion
             Set<IRI> candidateIRIs = createSet(ontologyIRIs);
             ontology.annotations().forEach(a -> a.getValue().asIRI().ifPresent(iri -> {
-                if (ontologyIRIs.contains(iri)) {
+                if (ontologyIRIs.contains(iri)&& !ontologySubImportIRIs.contains(iri)) {
                     candidateIRIs.remove(iri);
                 }
             }));
@@ -2212,12 +2216,26 @@ public class OWLRDFConsumer
      * Adds the ontology.
      *
      * @param iri the iri
+     * @param owlImportSubject Is the iri used as subject for predicate
+     *                         owl:imports
      */
-    protected void addOntology(IRI iri) {
+    protected void addOntology(IRI iri, boolean owlImportSubject) {
         if (ontologyIRIs.isEmpty()) {
             firstOntologyIRI = iri;
         }
+        if (owlImportSubject) {
+            ontologySubImportIRIs.add(iri);
+        }
         ontologyIRIs.add(iri);
+    }
+    /**
+     * Overload method of addOntology with
+     * no owl:import subject iri
+     *
+     * @param iri the iri
+     */
+    protected void addOntology(IRI iri) {
+        addOntology(iri, false);
     }
 
     /**
