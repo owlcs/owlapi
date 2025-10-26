@@ -2960,6 +2960,11 @@ class SWRLClassAtomElementHandler extends SWRLAtomElementHandler {
     }
 
     @Override
+    void handleChild(@Nonnull OWLAnonymousIndividualElementHandler h) {
+        arg = df.getSWRLIndividualArgument(h.getOWLObject());
+    }
+
+    @Override
     void endElement() {
         setAtom(df.getSWRLClassAtom(verifyNotNull(ce), verifyNotNull(arg)));
         getParentHandler().handleChild(this);
