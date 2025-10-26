@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.File;
+import java.util.*;
 
 import org.junit.jupiter.api.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
@@ -12,7 +13,7 @@ import org.semanticweb.owlapi.formats.OWLXMLDocumentFormat;
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
-import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.*;
 
 class OWLXMLTestCase extends TestBase {
 
@@ -36,5 +37,29 @@ class OWLXMLTestCase extends TestBase {
         String out = saveOntology(o, new OWLXMLDocumentFormat()).toString();
         assertTrue(out.contains("<Variable IRI=\"urn:swrl:var#x\"/>"), out);
         assertTrue(out.contains("<Variable IRI=\"urn:swrl:var#y\"/>"), out);
+    }
+
+    @Test
+    void shouldParseSwrlAnonIndividual() {
+        OWLOntology o = loadFrom(new File(RESOURCES,
+            "swrl_individual.owx"), new OWLXMLDocumentFormat(), m);
+        Set<String> idsInRules = new HashSet<>();
+        for (SWRLRule r : o.getAxioms(AxiomType.SWRL_RULE)) {
+            Set<SWRLAtom> body = r.getBody();
+            assertEquals(1, body.size());
+            SWRLAtom element = body.iterator().next();
+            assertTrue(element instanceof SWRLClassAtom);
+            Set<OWLAnonymousIndividual> anonymousIndividuals = ((SWRLClassAtom) element)
+                .getAnonymousIndividuals();
+            assertEquals(1, anonymousIndividuals.size());
+            String id = anonymousIndividuals.iterator().next().getID().getID();
+            assertTrue(id.matches("_:genid\\d+"));
+            idsInRules.add(id);
+        }
+        String out = saveOntology(o, new OWLXMLDocumentFormat()).toString();
+        for (String id : idsInRules) {
+            assertTrue(out.contains("<AnonymousIndividual nodeID=\"" + id
+                + "\"/>"));
+        }
     }
 }

@@ -1920,6 +1920,11 @@ class ClassAtomEH extends AtomEH<SWRLClassAtom, BuilderSWRLClassAtom> {
     void handleChild(IndividualEH h) {
         builder.with(swrlInd(h.getOWLObject()));
     }
+
+    @Override
+    void handleChild(AnonEH h) {
+        builder.with(swrlInd(h.getOWLObject()));
+    }
 }
 
 
