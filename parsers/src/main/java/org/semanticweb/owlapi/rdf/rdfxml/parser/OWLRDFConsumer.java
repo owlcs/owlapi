@@ -893,7 +893,7 @@ public class OWLRDFConsumer
 
     private void addType(IRI iri, Set<IRI> types, boolean explicitlyTyped) {
         if (configuration.isStrict() && !explicitlyTyped) {
-            LOGGER.warn("STRICT: Not adding implicit type iri={} types={}", iri, types);
+            LOGGER.trace("STRICT: Not adding implicit type iri={} types={}", iri, types);
             return;
         }
         types.add(iri);
