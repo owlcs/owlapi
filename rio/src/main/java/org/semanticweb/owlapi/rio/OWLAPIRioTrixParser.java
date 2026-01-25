@@ -42,11 +42,11 @@ import org.eclipse.rdf4j.model.Resource;
 import org.eclipse.rdf4j.model.Statement;
 import org.eclipse.rdf4j.model.Value;
 import org.eclipse.rdf4j.model.ValueFactory;
-import org.eclipse.rdf4j.model.impl.ValueFactoryImpl;
+import org.eclipse.rdf4j.model.impl.SimpleValueFactory;
 import org.eclipse.rdf4j.rio.RDFFormat;
 import org.eclipse.rdf4j.rio.RDFHandlerException;
 import org.eclipse.rdf4j.rio.RDFParseException;
-import org.eclipse.rdf4j.rio.helpers.RDFParserBase;
+import org.eclipse.rdf4j.rio.helpers.AbstractRDFParser;
 import org.eclipse.rdf4j.rio.helpers.TriXParserSettings;
 import org.semanticweb.owlapi.rio.utils.OWLAPISimpleSAXParser;
 import org.xml.sax.SAXException;
@@ -59,14 +59,14 @@ import org.xml.sax.SAXParseException;
  * @author Arjohn Kampman Modified to install error handler by Simon Spero, because error handler.
  */
 
-class OWLAPIRioTrixParser extends RDFParserBase {
+class OWLAPIRioTrixParser extends AbstractRDFParser {
 
     /*--------------*
      * Constructors *
      *--------------*/
 
     /**
-     * Creates a new TriXParser that will use a {@link ValueFactoryImpl} to create objects for
+     * Creates a new TriXParser that will use a {@link SimpleValueFactory} to create objects for
      * resources, bNodes, literals and statements.
      */
     public OWLAPIRioTrixParser() {
@@ -180,7 +180,7 @@ class OWLAPIRioTrixParser extends RDFParserBase {
 
                     if (datatype == null) {
                         reportError(DATATYPE_ATT + " attribute missing for typed literal",
-                            TriXParserSettings.FAIL_ON_TRIX_MISSING_DATATYPE);
+                            TriXParserSettings.FAIL_ON_MISSING_DATATYPE);
                         valueList.add(createLiteral(text, null, null));
                     } else {
                         IRI dtURI = createURI(datatype);
@@ -193,11 +193,11 @@ class OWLAPIRioTrixParser extends RDFParserBase {
                             // context information
                             if (valueList.size() > 1) {
                                 reportError("At most 1 resource can be specified for the context",
-                                    TriXParserSettings.FAIL_ON_TRIX_INVALID_STATEMENT);
+                                    TriXParserSettings.FAIL_ON_INVALID_STATEMENT);
                             } else if (valueList.size() == 1) {
                                 if (!(valueList.get(0) instanceof Resource)) {
                                     reportError("Context identifier should be a URI or blank node",
-                                        TriXParserSettings.FAIL_ON_TRIX_INVALID_STATEMENT);
+                                        TriXParserSettings.FAIL_ON_INVALID_STATEMENT);
                                 } else {
                                     currentContext = (Resource) valueList.get(0);
                                 }
@@ -234,17 +234,17 @@ class OWLAPIRioTrixParser extends RDFParserBase {
             try {
                 if (valueList.size() != 3) {
                     reportError("exactly 3 values are required for a triple",
-                        TriXParserSettings.FAIL_ON_TRIX_INVALID_STATEMENT);
+                        TriXParserSettings.FAIL_ON_INVALID_STATEMENT);
                     return;
                 }
                 if (!(valueList.get(0) instanceof Resource)) {
                     reportError("First value for a triple should be a URI or blank node",
-                        TriXParserSettings.FAIL_ON_TRIX_INVALID_STATEMENT);
+                        TriXParserSettings.FAIL_ON_INVALID_STATEMENT);
                     return;
                 }
                 if (!(valueList.get(1) instanceof IRI)) {
                     reportError("Second value for a triple should be a URI",
-                        TriXParserSettings.FAIL_ON_TRIX_INVALID_STATEMENT);
+                        TriXParserSettings.FAIL_ON_INVALID_STATEMENT);
                     return;
                 }
 
