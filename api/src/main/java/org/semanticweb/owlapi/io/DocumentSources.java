@@ -79,7 +79,7 @@ public class DocumentSources {
      */
     public static Reader wrapInputAsReader(OWLOntologyDocumentSource source,
         OWLOntologyLoaderConfiguration configuration, Charset encoding)
-        throws OWLOntologyInputSourceException {
+        throws IOException, OWLOntologyInputSourceException {
         Optional<Reader> reader = source.getReader();
         if (reader.isPresent()) {
             return new BufferedReader(reader.get());
@@ -101,7 +101,7 @@ public class DocumentSources {
      * @throws OWLOntologyInputSourceException if an IO related exception is thrown.
      */
     public static Reader wrapInputAsReader(OWLOntologyDocumentSource source,
-        OWLOntologyLoaderConfiguration configuration) throws OWLOntologyInputSourceException {
+        OWLOntologyLoaderConfiguration configuration) throws IOException, OWLOntologyInputSourceException {
         return wrapInputAsReader(source, configuration, StandardCharsets.UTF_8);
     }
 
@@ -287,7 +287,7 @@ public class DocumentSources {
      * @param delegate delegate to wrap
      * @return wrapped input stream
      */
-    public static InputStream wrap(InputStream delegate) {
+    public static InputStream wrap(InputStream delegate) throws IOException {
         checkNotNull(delegate, "delegate cannot be null");
         return new BOMInputStream(delegate, ByteOrderMark.UTF_8, ByteOrderMark.UTF_16BE,
             ByteOrderMark.UTF_16LE, ByteOrderMark.UTF_32BE, ByteOrderMark.UTF_32LE);
