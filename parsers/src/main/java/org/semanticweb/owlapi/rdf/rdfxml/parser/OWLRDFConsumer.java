@@ -136,6 +136,12 @@ public class OWLRDFConsumer
      */
     private final Set<IRI> ontologyIRIs = createSet();
     /**
+     * IRIs that are subjects of owl:imports triples — i.e. ontologies that
+     * import other ontologies. These must remain valid ontology IRI candidates
+     * even if they also appear as annotation values (see issue #1080).
+     */
+    private final Set<IRI> ontologySubImportIRIs = createSet();
+    /**
      * IRIs that had a type triple to owl:Restriction
      */
     private final Set<IRI> restrictionIRIs = createSet();
@@ -1361,9 +1367,10 @@ public class OWLRDFConsumer
         } else {
             // We have multiple to choose from
             // Choose one that isn't the object of an annotation assertion
+            // but keep IRIs that are subjects of owl:imports (see issue #1080)
             Set<IRI> candidateIRIs = createSet(ontologyIRIs);
             ontology.annotations().forEach(a -> a.getValue().asIRI().ifPresent(iri -> {
-                if (ontologyIRIs.contains(iri)) {
+                if (ontologyIRIs.contains(iri) && !ontologySubImportIRIs.contains(iri)) {
                     candidateIRIs.remove(iri);
                 }
             }));
@@ -2096,6 +2103,19 @@ public class OWLRDFConsumer
             firstOntologyIRI = iri;
         }
         ontologyIRIs.add(iri);
+    }
+
+    /**
+     * Adds the ontology, optionally marking it as a subject of owl:imports.
+     *
+     * @param iri the iri
+     * @param isImportSubject true if this IRI is the subject of an owl:imports triple
+     */
+    protected void addOntology(IRI iri, boolean isImportSubject) {
+        addOntology(iri);
+        if (isImportSubject) {
+            ontologySubImportIRIs.add(iri);
+        }
     }
 
     /**
