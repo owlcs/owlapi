@@ -1,8 +1,40 @@
 
 description = 'OWLAPI :: Tests and Tutorials'
 dependencies {
+  implementation project(':owlapi-api')
+  implementation project(':owlapi-impl')
   implementation project(':owlapi-apibinding')
   implementation project(':owlapi-tools')
+  implementation project(':owlapi-functionalformat')
+  implementation project(':owlapi-manchesterformat')
+  implementation project(':owlapi-oboformat')
+  implementation project(':owlapi-otherformats')
+  implementation project(':owlapi-owlxmlformat')
+  implementation project(':owlapi-rdfformats')
+  implementation project(':owlapi-rio')
+  implementation 'org.apache.commons:commons-rdf-api:0.5.0'
+  implementation 'org.eclipse.rdf4j:rdf4j-model:4.2.0'
+  implementation 'org.eclipse.rdf4j:rdf4j-rio-api:4.2.0'
+  implementation 'org.eclipse.rdf4j:rdf4j-rio-languages:4.2.0'
+  implementation 'org.eclipse.rdf4j:rdf4j-rio-datatypes:4.2.0'
+  implementation 'org.eclipse.rdf4j:rdf4j-rio-binary:4.2.0'
+  implementation 'org.eclipse.rdf4j:rdf4j-rio-n3:4.2.0'
+  implementation 'org.eclipse.rdf4j:rdf4j-rio-nquads:4.2.0'
+  implementation 'org.eclipse.rdf4j:rdf4j-rio-ntriples:4.2.0'
+  implementation 'org.eclipse.rdf4j:rdf4j-rio-rdfjson:4.2.0'
+  implementation 'org.eclipse.rdf4j:rdf4j-rio-rdfxml:4.2.0'
+  implementation 'org.eclipse.rdf4j:rdf4j-rio-trix:4.2.0'
+  implementation 'org.eclipse.rdf4j:rdf4j-rio-turtle:4.2.0'
+  implementation 'org.eclipse.rdf4j:rdf4j-rio-trig:4.2.0'
+  implementation 'org.eclipse.rdf4j:rdf4j-rio-hdt:4.2.0'
+  implementation ('org.eclipse.rdf4j:rdf4j-rio-jsonld:4.2.0') {
+    exclude module: "httpclient-osgi"
+    exclude module: "httpcore-osgi"
+  }
+  implementation ('com.github.jsonld-java:jsonld-java:0.13.6') {
+    exclude module: "httpclient-osgi"
+    exclude module: "httpcore-osgi"
+  }
   //testImplementation 'org.apache.commons:commons-rdf-api:0.5.0:tests'
   testImplementation 'org.hamcrest:hamcrest-core:2.2'
   testImplementation 'org.mockito:mockito-core:5.8.0'

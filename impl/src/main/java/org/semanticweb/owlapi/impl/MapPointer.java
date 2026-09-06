@@ -44,10 +44,10 @@ import org.semanticweb.owlapi.utilities.OWLAxiomSearchFilter;
 import org.semanticweb.owlapi.utility.CollectionFactory;
 import org.semanticweb.owlapi.utility.SmallSet;
 
-import com.carrotsearch.hppcrt.cursors.ObjectCursor;
-import com.carrotsearch.hppcrt.maps.ObjectObjectHashMap;
-import com.carrotsearch.hppcrt.procedures.ObjectProcedure;
-import com.carrotsearch.hppcrt.sets.ObjectHashSet;
+import com.carrotsearch.hppc.cursors.ObjectCursor;
+import com.carrotsearch.hppc.ObjectObjectHashMap;
+import com.carrotsearch.hppc.procedures.ObjectProcedure;
+import com.carrotsearch.hppc.ObjectHashSet;
 
 /**
  * * Objects that identify contained maps - so that getting the keys of a specific map does not
@@ -490,7 +490,7 @@ class HPPCSet<S> implements Collection<S> {
 
     @Override
     public Iterator<S> iterator() {
-        final ObjectHashSet<S>.EntryIterator iterator = delegate.iterator();
+        final Iterator<ObjectCursor<S>> iterator = delegate.iterator();
         return new Iterator<>() {
 
             @Override

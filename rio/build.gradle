@@ -1,6 +1,8 @@
 
 description = 'OWLAPI :: RDF4J Rio'
 dependencies {
+    implementation project(':owlapi-api')
+    implementation project(':owlapi-tools')
     implementation project(':owlapi-rdfformats')
     implementation 'org.eclipse.rdf4j:rdf4j-model:4.2.0'
     implementation 'org.eclipse.rdf4j:rdf4j-rio-api:4.2.0'
@@ -24,4 +26,6 @@ dependencies {
         exclude module: "httpclient-osgi"
         exclude module: "httpcore-osgi"
     }
+    implementation 'javax.inject:javax.inject:1'
+    implementation 'org.apache.commons:commons-rdf-api:0.5.0'
 }

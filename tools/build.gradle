@@ -10,5 +10,7 @@ dependencies {
   implementation 'org.yaml:snakeyaml:1.32'
   implementation 'org.tukaani:xz:1.9'
   implementation 'com.squareup.okhttp3:okhttp:4.10.0'
+  implementation 'javax.inject:javax.inject:1'
+  implementation 'org.apache.commons:commons-rdf-api:0.5.0'
   testImplementation 'org.apache.commons:commons-rdf-api:0.5.0:tests'
 }

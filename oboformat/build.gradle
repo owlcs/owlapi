@@ -1,6 +1,13 @@
 
 description = 'OWLAPI :: OBO Format'
 dependencies {
+  implementation project(':owlapi-api')
+  implementation project(':owlapi-tools')
   implementation project(':owlapi-functionalformat')
   implementation project(':owlapi-manchesterformat')
+  implementation ('com.github.ben-manes.caffeine:caffeine:3.1.8') {
+    exclude module: "checker-qual"
+    exclude module: "error_prone_annotations"
+  }
+  implementation 'org.apache.commons:commons-rdf-api:0.5.0'
 }

@@ -846,13 +846,14 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
             });
             writeSection(TYPES, expressions, ",", true);
         }
-        Stream<Stream<? extends OWLPropertyAssertionAxiom<?, ?>>> stream =
-            Stream.of(o.objectPropertyAssertionAxioms(individual),
-                o.negativeObjectPropertyAssertionAxioms(individual),
-                o.dataPropertyAssertionAxioms(individual),
-                o.negativeDataPropertyAssertionAxioms(individual));
-        List<OWLPropertyAssertionAxiom<?, ?>> assertions =
-            stream.flatMap(Function.identity()).sorted(ooc).toList();
+        List<OWLPropertyAssertionAxiom> assertions = new ArrayList<>();
+        o.objectPropertyAssertionAxioms(individual).forEach(assertions::add);
+        o.negativeObjectPropertyAssertionAxioms(individual).forEach(
+            assertions::add);
+        o.dataPropertyAssertionAxioms(individual).forEach(assertions::add);
+        o.negativeDataPropertyAssertionAxioms(individual).forEach(
+            assertions::add);
+        assertions.sort(ooc);
         if (!assertions.isEmpty()) {
             handleAssertions(assertions);
         }
@@ -889,7 +890,7 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
         return axioms;
     }
 
-    protected void handleAssertions(List<OWLPropertyAssertionAxiom<?, ?>> assertions) {
+    protected void handleAssertions(List<OWLPropertyAssertionAxiom> assertions) {
         fireSectionRenderingPrepared(FACTS.toString());
         writeSection(FACTS);
         writeSpace();
@@ -897,8 +898,8 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
         incrementTab(1);
         writeNewLine();
         fireSectionRenderingStarted(FACTS.toString());
-        for (Iterator<OWLPropertyAssertionAxiom<?, ?>> it = assertions.iterator(); it.hasNext();) {
-            OWLPropertyAssertionAxiom<?, ?> ax = it.next();
+        for (Iterator<OWLPropertyAssertionAxiom> it = assertions.iterator(); it.hasNext();) {
+            OWLPropertyAssertionAxiom ax = it.next();
             fireSectionItemPrepared(FACTS.toString());
             Iterator<OWLAnnotation> annos = ax.annotations().iterator();
             boolean isNotEmpty = annos.hasNext();
