@@ -35,10 +35,10 @@ import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.util.CollectionFactory;
 import org.semanticweb.owlapi.util.OWLAxiomSearchFilter;
 
-import com.carrotsearch.hppcrt.cursors.ObjectCursor;
-import com.carrotsearch.hppcrt.maps.ObjectObjectHashMap;
-import com.carrotsearch.hppcrt.procedures.ObjectProcedure;
-import com.carrotsearch.hppcrt.sets.ObjectHashSet;
+import com.carrotsearch.hppc.cursors.ObjectCursor;
+import com.carrotsearch.hppc.ObjectObjectHashMap;
+import com.carrotsearch.hppc.procedures.ObjectProcedure;
+import com.carrotsearch.hppc.ObjectHashSet;
 
 import uk.ac.manchester.cs.owl.owlapi.InitVisitorFactory.InitCollectionVisitor;
 import uk.ac.manchester.cs.owl.owlapi.InitVisitorFactory.InitVisitor;
@@ -452,7 +452,7 @@ class HPPCSet<S> implements Collection<S> {
 
     @Override
     public Iterator<S> iterator() {
-        final ObjectHashSet<S>.EntryIterator iterator = delegate.iterator();
+        final Iterator<ObjectCursor<S>> iterator = delegate.iterator();
         return new Iterator<S>() {
 
             @Override
