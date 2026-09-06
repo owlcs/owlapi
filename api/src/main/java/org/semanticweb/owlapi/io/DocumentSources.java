@@ -289,8 +289,13 @@ public class DocumentSources {
      */
     public static InputStream wrap(InputStream delegate) {
         checkNotNull(delegate, "delegate cannot be null");
-        return new BOMInputStream(delegate, ByteOrderMark.UTF_8, ByteOrderMark.UTF_16BE,
-            ByteOrderMark.UTF_16LE, ByteOrderMark.UTF_32BE, ByteOrderMark.UTF_32LE);
+        try {
+            return new BOMInputStream(delegate, ByteOrderMark.UTF_8,
+                ByteOrderMark.UTF_16BE, ByteOrderMark.UTF_16LE,
+                ByteOrderMark.UTF_32BE, ByteOrderMark.UTF_32LE);
+        } catch (Exception e) {
+            throw new OWLParserException(e);
+        }
     }
 
     private static boolean couldBeOntology(@Nullable ZipEntry zipEntry) {
