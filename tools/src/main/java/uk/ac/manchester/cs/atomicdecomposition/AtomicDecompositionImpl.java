@@ -24,7 +24,7 @@ import org.semanticweb.owlapitools.decomposition.IdentityMultiMap;
 import org.semanticweb.owlapitools.decomposition.OntologyAtom;
 import org.semanticweb.owlapitools.decomposition.SyntacticLocalityChecker;
 
-import com.carrotsearch.hppcrt.maps.ObjectIntHashMap;
+import com.carrotsearch.hppc.ObjectIntHashMap;
 
 import uk.ac.manchester.cs.owlapi.modularity.ModuleType;
 

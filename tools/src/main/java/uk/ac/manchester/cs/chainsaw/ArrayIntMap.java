@@ -3,7 +3,7 @@ package uk.ac.manchester.cs.chainsaw;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.carrotsearch.hppcrt.lists.IntArrayList;
+import com.carrotsearch.hppc.IntArrayList;
 
 /**
  * a multimap for int to collection of int values.

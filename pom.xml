@@ -73,9 +73,9 @@
 
 	<dependencies>
 		<dependency>
-			<groupId>com.github.vsonnier</groupId>
-			<artifactId>hppcrt</artifactId>
-			<version>0.7.5</version>
+			<groupId>com.carrotsearch</groupId>
+			<artifactId>hppc</artifactId>
+			<version>0.10.0</version>
 		</dependency>
 		<dependency>
 			<groupId>org.hamcrest</groupId>

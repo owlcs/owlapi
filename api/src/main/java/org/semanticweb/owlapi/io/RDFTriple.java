@@ -47,7 +47,7 @@ import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
-import com.carrotsearch.hppcrt.maps.ObjectIntHashMap;
+import com.carrotsearch.hppc.ObjectIntHashMap;
 
 /**
  * @author Matthew Horridge, The University of Manchester, Bio-Health Informatics Group
@@ -126,14 +126,14 @@ public class RDFTriple implements Serializable, Comparable<RDFTriple>, Triple {
         int specialPredicateRank = specialPredicateRanks.get(predicateIRI);
         IRI otherPredicateIRI = otherPredicate.getIRI();
         int otherSpecialPredicateRank = specialPredicateRanks.get(otherPredicateIRI);
-        if (specialPredicateRank != specialPredicateRanks.getDefaultValue()) {
-            if (otherSpecialPredicateRank != specialPredicateRanks.getDefaultValue()) {
+        if (specialPredicateRank != 0) {
+            if (otherSpecialPredicateRank != 0) {
                 return Integer.compare(specialPredicateRank, otherSpecialPredicateRank);
             } else {
                 return -1;
             }
         } else {
-            if (otherSpecialPredicateRank != specialPredicateRanks.getDefaultValue()) {
+            if (otherSpecialPredicateRank != 0) {
                 return +1;
             } else {
                 return predicateIRI.compareTo(otherPredicateIRI);

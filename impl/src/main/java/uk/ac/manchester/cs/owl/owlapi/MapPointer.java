@@ -38,10 +38,10 @@ import org.semanticweb.owlapi.util.CollectionFactory;
 import org.semanticweb.owlapi.util.OWLAxiomSearchFilter;
 import org.semanticweb.owlapi.util.SmallSet;
 
-import com.carrotsearch.hppcrt.cursors.ObjectCursor;
-import com.carrotsearch.hppcrt.maps.ObjectObjectHashMap;
-import com.carrotsearch.hppcrt.procedures.ObjectProcedure;
-import com.carrotsearch.hppcrt.sets.ObjectHashSet;
+import com.carrotsearch.hppc.cursors.ObjectCursor;
+import com.carrotsearch.hppc.ObjectObjectHashMap;
+import com.carrotsearch.hppc.procedures.ObjectProcedure;
+import com.carrotsearch.hppc.ObjectHashSet;
 
 import uk.ac.manchester.cs.owl.owlapi.InitVisitorFactory.InitCollectionVisitor;
 import uk.ac.manchester.cs.owl.owlapi.InitVisitorFactory.InitVisitor;
