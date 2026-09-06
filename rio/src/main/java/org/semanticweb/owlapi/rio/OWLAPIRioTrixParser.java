@@ -48,6 +48,7 @@ import org.eclipse.rdf4j.rio.RDFHandlerException;
 import org.eclipse.rdf4j.rio.RDFParseException;
 import org.eclipse.rdf4j.rio.helpers.RDFParserBase;
 import org.eclipse.rdf4j.rio.helpers.TriXParserSettings;
+import org.semanticweb.owlapi.io.OWLParserException;
 import org.semanticweb.owlapi.rio.utils.OWLAPISimpleSAXParser;
 import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
@@ -95,7 +96,11 @@ class OWLAPIRioTrixParser extends RDFParserBase {
     @Override
     public void parse(InputStream in, String baseURI)
         throws IOException, RDFParseException, RDFHandlerException {
-        parsePrivate(new BOMInputStream(in, false));
+        try {
+            parsePrivate(new BOMInputStream(in, false));
+        } catch (Exception e) {
+            throw new OWLParserException(e);
+        }
     }
 
     @Override
