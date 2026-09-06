@@ -37,6 +37,7 @@ import java.util.zip.InflaterInputStream;
 
 import javax.annotation.Nullable;
 
+import org.apache.commons.io.ByteOrderMark;
 import org.apache.commons.io.input.BOMInputStream;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
 import org.semanticweb.owlapi.io.OWLOntologyInputSourceException;
@@ -100,8 +101,7 @@ public abstract class OWLOntologyDocumentSourceBase implements OWLOntologyDocume
     private final String mimeType;
     protected Charset encoding = StandardCharsets.UTF_8;
     private final StreamerWrapper<Reader, InputStream> defaultReader =
-        i -> new InputStreamReader(new BOMInputStream(new BufferedInputStream(i), UTF_8, UTF_16BE,
-            UTF_16LE, UTF_32BE, UTF_32LE), encoding);
+        i -> new InputStreamReader(bomParser(i), encoding);
     private Streamer<InputStream> inputStream;
     private Streamer<Reader> reader = () -> defaultReader.get(inputStream.get());
     protected String stringContent = "";
@@ -109,6 +109,15 @@ public abstract class OWLOntologyDocumentSourceBase implements OWLOntologyDocume
     protected OWLParserParameters parametersAtLoading;
     @Nullable
     private String acceptHeaders = null;
+
+    private static BOMInputStream bomParser(InputStream i) {
+        try {
+            return new BOMInputStream(new BufferedInputStream(i), UTF_8,
+                UTF_16BE, UTF_16LE, UTF_32BE, UTF_32LE);
+        } catch (Exception e) {
+            throw new OWLParserException(e);
+        }
+    }
 
     /**
      * Constructs an ontology input source using the specified file.
