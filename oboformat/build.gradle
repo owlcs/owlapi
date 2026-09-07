@@ -5,7 +5,7 @@ dependencies {
   implementation project(':owlapi-tools')
   implementation project(':owlapi-functionalformat')
   implementation project(':owlapi-manchesterformat')
-  implementation ('com.github.ben-manes.caffeine:caffeine:3.1.8') {
+  implementation ('com.github.ben-manes.caffeine:caffeine:3.2.4') {
     exclude module: "checker-qual"
     exclude module: "error_prone_annotations"
   }

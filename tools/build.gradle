@@ -2,14 +2,14 @@
 description = 'OWLAPI :: Atomic Decomposition and Explanation'
 dependencies {
   implementation project(':owlapi-api')
-  implementation 'commons-io:commons-io:2.15.1'
-  implementation ('com.github.ben-manes.caffeine:caffeine:3.1.8') {
+  implementation 'commons-io:commons-io:2.22.0'
+  implementation ('com.github.ben-manes.caffeine:caffeine:3.2.4') {
     exclude module: "checker-qual"
     exclude module: "error_prone_annotations"
   }
-  implementation 'org.yaml:snakeyaml:1.32'
-  implementation 'org.tukaani:xz:1.9'
-  implementation 'com.squareup.okhttp3:okhttp:4.10.0'
+  implementation 'org.yaml:snakeyaml:2.7'
+  implementation 'org.tukaani:xz:1.12'
+  implementation 'com.squareup.okhttp3:okhttp:5.5.0'
   implementation 'javax.inject:javax.inject:1'
   implementation 'org.apache.commons:commons-rdf-api:0.5.0'
   testImplementation 'org.apache.commons:commons-rdf-api:0.5.0:tests'

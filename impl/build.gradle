@@ -2,7 +2,7 @@
 description = 'OWLAPI :: Default Implementation'
 dependencies {
   implementation 'com.carrotsearch:hppc:0.11.1'
-  implementation ('com.github.ben-manes.caffeine:caffeine:3.1.8') {
+  implementation ('com.github.ben-manes.caffeine:caffeine:3.2.4') {
     exclude module: "checker-qual"
     exclude module: "error_prone_annotations"
   }
