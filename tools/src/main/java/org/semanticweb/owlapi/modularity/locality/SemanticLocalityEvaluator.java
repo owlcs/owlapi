@@ -1,7 +1,7 @@
 /* This file is part of the OWL API.
  * The contents of this file are subject to the LGPL License, Version 3.0.
  * Copyright 2020, Marc Robin Nolte
- * 
+ *
  * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
  * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
  * You should have received a copy of the GNU General Public License along with this program.  If not, see http://www.gnu.org/licenses/.
@@ -587,7 +587,7 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator {
         OWLOntologyManager ontologyManager, OWLReasonerFactory reasonerFactory) {
 
         this.localityClass =
-            Objects.requireNonNull(localityClass, "The given  locality class may not be null.");
+            Objects.requireNonNull(localityClass, "The given locality class may not be null.");
         if (localityClass != LocalityClass.BOTTOM && localityClass != LocalityClass.TOP) {
             throw new IllegalArgumentException(
                 "The given locality class must be one of BOTTOM or TOP");

@@ -1,7 +1,7 @@
 /* This file is part of the OWL API.
  * The contents of this file are subject to the LGPL License, Version 3.0.
  * Copyright 2020, Marc Robin Nolte
- * 
+ *
  * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
  * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
  * You should have received a copy of the GNU General Public License along with this program.  If not, see http://www.gnu.org/licenses/.
@@ -27,18 +27,6 @@ import org.semanticweb.owlapi.reasoner.OWLReasonerFactory;
  */
 public final class SemanticLocalityModuleExtractor extends LocalityModuleExtractor {
 
-
-
-    /**
-     * The manager to instantiate an {@link OWLReasoner}.
-     */
-    private final OWLReasonerFactory reasonerFactory;
-
-    /**
-     * The factory to instantiate an {@link OWLReasoner}.
-     */
-    private final OWLOntologyManager ontologyManager;
-
     private SemanticLocalityEvaluator topEvaluator;
     private SemanticLocalityEvaluator botEvaluator;
 
@@ -54,13 +42,11 @@ public final class SemanticLocalityModuleExtractor extends LocalityModuleExtract
     public SemanticLocalityModuleExtractor(LocalityClass localityClass, Stream<OWLAxiom> axiomBase,
         OWLOntologyManager ontologyManager, OWLReasonerFactory reasonerFactory) {
         super(localityClass, axiomBase);
-        initEvaluators();
 
-        this.reasonerFactory = reasonerFactory;
-        this.ontologyManager = ontologyManager;
+        initEvaluators(ontologyManager, reasonerFactory);
     }
 
-    private void initEvaluators() {
+    private void initEvaluators(OWLOntologyManager ontologyManager, OWLReasonerFactory reasonerFactory) {
         if (getLocalityClass() == LocalityClass.BOTTOM || getLocalityClass() == LocalityClass.STAR) {
             botEvaluator = new SemanticLocalityEvaluator(LocalityClass.BOTTOM, ontologyManager, reasonerFactory);
         }
