@@ -11,7 +11,10 @@ import org.semanticweb.owlapi.model.OWLEntity;
 
 /**
  * signature index
+ *
+ * @deprecated superseded by the classes in {@code org.semanticweb.owlapi.modularity}, see {@link org.semanticweb.owlapi.modularity.AtomicDecomposition}
  */
+@Deprecated
 public class SigIndex {
 
     /**

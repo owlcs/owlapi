@@ -33,7 +33,10 @@ import org.semanticweb.owlapi.model.OWLPropertyRange;
 
 /**
  * check whether class expressions are equivalent to top wrt given locality class
+ *
+ * @deprecated superseded by the classes in {@code org.semanticweb.owlapi.modularity}, see {@link org.semanticweb.owlapi.modularity.AtomicDecomposition}
  */
+@Deprecated
 public class TopEquivalenceEvaluator extends SigAccessor implements OWLObjectVisitor {
 
     /**

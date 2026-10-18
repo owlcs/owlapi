@@ -11,8 +11,8 @@
  * http://www.apache.org/licenses/LICENSE-2.0
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.modularity.locality;
-
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
@@ -23,7 +23,6 @@ import javax.annotation.Nonnull;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.modularity.ModuleExtractor;
-
 /**
  * Abstract class for convenience implementation of locality-based {@link ModuleExtractor}s. Offers
  * protected methods for the improved algorithm for module extraction.
@@ -31,7 +30,6 @@ import org.semanticweb.owlapi.modularity.ModuleExtractor;
  * @author Marc Robin Nolte
  */
 public abstract class LocalityModuleExtractor implements ModuleExtractor {
-
     /**
      * Part of the implementation of the improved algorithm for module extraction. See "Improved
      * Algorithms for Module Extraction and Atomic Decomposition" by Dmitry Tsarkov, 2012
@@ -55,7 +53,6 @@ public abstract class LocalityModuleExtractor implements ModuleExtractor {
             axiom.signature().forEach(signature::add);
         }
     }
-
     /**
      * The axiom base of this {@link LocalityModuleExtractor}.
      */
@@ -68,7 +65,11 @@ public abstract class LocalityModuleExtractor implements ModuleExtractor {
      * Map associating each entity with the axioms that contains it.
      */
     private @Nonnull final Map<OWLEntity, Set<OWLAxiom>> axiomsContainingEntity = new HashMap<>();
-
+    /**
+     * Axioms nonlocal even for an empty signature, cached separately per locality evaluator.
+     * Computed lazily because subclass evaluators are not available in this constructor.
+     */
+    private final Map<LocalityEvaluator, Set<OWLAxiom>> globallyNonLocalAxioms = new ConcurrentHashMap<>();
     /**
      * Creates a new LocalityModuleExtractor.
      *
@@ -78,10 +79,9 @@ public abstract class LocalityModuleExtractor implements ModuleExtractor {
     LocalityModuleExtractor(LocalityClass localityClass, Stream<OWLAxiom> axiomBase) {
         this.axiomBase = axiomBase.collect(Collectors.toSet());
         this.localityClass =
-            Objects.requireNonNull(localityClass, "The given locality class may not be null.");
+                Objects.requireNonNull(localityClass, "The given locality class may not be null.");
         initialize();
     }
-
     @Override
     public @Nonnull Stream<OWLAxiom> axiomBase() {
         return axiomBase.stream();
@@ -96,7 +96,6 @@ public abstract class LocalityModuleExtractor implements ModuleExtractor {
     public boolean containsAxiom(OWLAxiom axiom) {
         return axiomBase.contains(axiom);
     }
-
     @Override
     public final Stream<OWLAxiom> extract(Stream<OWLEntity> signature,
                                           Optional<Predicate<OWLAxiom>> axiomFilter) {
@@ -105,11 +104,10 @@ public abstract class LocalityModuleExtractor implements ModuleExtractor {
             return extractStarModule(signatureSet, axiomFilter).stream();
         } else {
             LocalityEvaluator evaluator =
-                localityClass == LocalityClass.BOTTOM ? bottomEvaluator() : topEvaluator();
+                    localityClass == LocalityClass.BOTTOM ? bottomEvaluator() : topEvaluator();
             return extractLocalityBasedModule(signatureSet, axiomFilter, evaluator).stream();
         }
     }
-
     /**
      * Implementation of the improved algorithm for module extraction. See "Improved Algorithms for
      * Module Extraction and Atomic Decomposition" by Dmitry Tsarkov, 2012. Uses a {@link Set}
@@ -126,7 +124,7 @@ public abstract class LocalityModuleExtractor implements ModuleExtractor {
                                                      LocalityEvaluator evaluator) {
         // Sub axiom base requires to filter the axioms
         Function<OWLEntity, Stream<OWLAxiom>> axiomsOfEntity =
-            entity -> axiomsContainingEntity.get(entity).stream();
+                entity -> axiomsContainingEntity.getOrDefault(entity, Collections.emptySet()).stream();
         if (axiomFilter.isPresent()) {
             axiomsOfEntity = axiomsOfEntity.andThen(stream -> stream.filter(axiomFilter.get()));
         }
@@ -135,17 +133,24 @@ public abstract class LocalityModuleExtractor implements ModuleExtractor {
         Set<OWLEntity> signatureCopy = new HashSet<>(signature);
         Set<OWLAxiom> module = new HashSet<>();
         Set<OWLEntity> workingSignature = new HashSet<>(signatureCopy);
+        // Axioms nonlocal for the empty signature must be considered even if they
+        // share no entity with the seed signature (including when it is empty).
+        globallyNonLocalAxioms.computeIfAbsent(evaluator,
+                        e -> axiomBase.stream()
+                                .filter(axiom -> !e.isLocal(axiom, Collections.emptySet()))
+                                .collect(Collectors.toSet())).stream()
+                .filter(axiomFilter.orElse(axiom -> true))
+                .forEach(axiom -> addNonLocal(axiom, signatureCopy, module, workingSignature, evaluator));
         // actually extracting the module
         while (!workingSignature.isEmpty()) {
             OWLEntity omega = workingSignature.stream().findAny().get();
             workingSignature.remove(omega);
             axiomsOfEntity.apply(omega).forEach(
-                alpha -> addNonLocal(alpha, signatureCopy, module, workingSignature, evaluator));
+                    alpha -> addNonLocal(alpha, signatureCopy, module, workingSignature, evaluator));
         }
         assert !axiomFilter.isPresent() || module.stream().allMatch(axiomFilter.get());
         return module;
     }
-
     /**
      * Extracts the {@link LocalityClass#STAR}-Module of the given axioms w.r.t. the given
      * signature.
@@ -166,12 +171,11 @@ public abstract class LocalityModuleExtractor implements ModuleExtractor {
         do {
             previousSize = module.size();
             module = extractLocalityBasedModule(signature, Optional.of(module::contains),
-                nextExtractionType);
+                    nextExtractionType);
             nextExtractionType = nextExtractionType == bottom ? top : bottom;
         } while (previousSize != module.size());
         return module;
     }
-
     /**
      * Returns the locality class used by this LocalityModuleExtractor.
      *
@@ -181,16 +185,14 @@ public abstract class LocalityModuleExtractor implements ModuleExtractor {
     public LocalityClass getLocalityClass() {
         return localityClass;
     }
-
     /**
-     * Initializes this LocalityModuleExtractor. Precomputes the globals and fills
+     * Initializes this LocalityModuleExtractor. Fills
      * {@link LocalityModuleExtractor#axiomsContainingEntity}.
      */
     private void initialize() {
         axiomBase().forEach(axiom -> axiom.signature().forEach(entity -> axiomsContainingEntity
-            .computeIfAbsent(entity, x -> new HashSet<>()).add(axiom)));
+                .computeIfAbsent(entity, x -> new HashSet<>()).add(axiom)));
     }
-
     /**
      * @return The {@link LocalityEvaluator} corresponding to {@link LocalityClass#TOP}.
      */

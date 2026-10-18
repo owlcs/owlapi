@@ -15,7 +15,9 @@ import org.semanticweb.owlapi.model.parameters.Imports;
  * A filter for axioms
  *
  * @author ignazio
+ * @deprecated superseded by the classes in {@code org.semanticweb.owlapi.modularity}, see {@link org.semanticweb.owlapi.modularity.AtomicDecomposition}
  */
+@Deprecated
 public class AxiomSelector {
 
     private AxiomSelector() {}

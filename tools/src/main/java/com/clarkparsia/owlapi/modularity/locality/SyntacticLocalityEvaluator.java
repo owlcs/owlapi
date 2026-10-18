@@ -95,7 +95,10 @@ import org.semanticweb.owlapi.model.SWRLRule;
 
 /**
  * Syntactic locality evaluator.
+ *
+ * @deprecated use {@link org.semanticweb.owlapi.modularity.locality.SyntacticLocalityEvaluator} instead
  */
+@Deprecated
 public class SyntacticLocalityEvaluator implements LocalityEvaluator {
 
     static final String DESC_CANNOT_BE_NULL = "desc cannot be null";

@@ -14,7 +14,9 @@ import org.semanticweb.owlapi.util.CollectionFactory;
  * @param <K> key
  * @param <V> value
  * @author ignazio palmisano
+ * @deprecated superseded by the classes in {@code org.semanticweb.owlapi.modularity}, see {@link org.semanticweb.owlapi.modularity.AtomicDecomposition}
  */
+@Deprecated
 public class IdentityMultiMap<K, V> implements Serializable {
 
     private static final long serialVersionUID = 30402L;

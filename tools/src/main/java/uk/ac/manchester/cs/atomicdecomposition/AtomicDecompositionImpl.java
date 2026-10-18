@@ -30,7 +30,10 @@ import uk.ac.manchester.cs.owlapi.modularity.ModuleType;
 
 /**
  * Atomic decomposition implementation.
+ *
+ * @deprecated superseded by the classes in {@code org.semanticweb.owlapi.modularity}, see {@link org.semanticweb.owlapi.modularity.AtomicDecomposition}
  */
+@Deprecated
 public class AtomicDecompositionImpl implements AtomicDecomposition {
 
     final Map<OWLEntity, Set<Atom>> termBasedIndex = new LinkedHashMap<>();

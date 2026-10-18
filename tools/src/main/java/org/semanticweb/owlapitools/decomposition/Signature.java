@@ -11,7 +11,10 @@ import org.semanticweb.owlapi.util.OWLAPIStreamUtils;
 
 /**
  * class to hold the signature of a module
+ *
+ * @deprecated superseded by the classes in {@code org.semanticweb.owlapi.modularity}, see {@link org.semanticweb.owlapi.modularity.AtomicDecomposition}
  */
+@Deprecated
 public class Signature {
 
     /**

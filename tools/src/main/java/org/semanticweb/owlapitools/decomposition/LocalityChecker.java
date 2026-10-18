@@ -7,7 +7,9 @@ import org.semanticweb.owlapi.model.OWLObject;
 
 /**
  * @author ignazio Locality checker
+ * @deprecated superseded by the classes in {@code org.semanticweb.owlapi.modularity}, see {@link org.semanticweb.owlapi.modularity.locality.LocalityEvaluator}
  */
+@Deprecated
 public interface LocalityChecker {
 
     /**

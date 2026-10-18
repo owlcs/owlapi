@@ -592,8 +592,22 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator, AutoCloseab
                     rewrite(ce.operands()));
         }
 
+        /**
+         * Rejects anonymous individuals inside class expressions. There they
+         * are existential variables whose scope spans the whole axiom, e.g.
+         * {@code A SubClassOf some(r, {_:x})} means "exists x such that every A
+         * has r-successor x", which has no class-expression encoding.
+         */
+        private void requireNamed(OWLIndividual individual, OWLClassExpression context) {
+            if (individual.isAnonymous()) {
+                throw new UnsupportedOperationException(
+                        "Anonymous individuals in class expressions are not supported: " + context);
+            }
+        }
+
         @Override
         public final void visit(OWLObjectOneOf ce) {
+            ce.individuals().forEach(ind -> requireNamed(ind, ce));
             // Semantic locality does not replace individuals by Thing/Nothing.
             // A nominal continues denoting the listed individuals.
             rewrittenClassExpression = ce;
@@ -629,6 +643,7 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator, AutoCloseab
 
         @Override
         public final void visit(OWLObjectHasValue ce) {
+            requireNamed(ce.getFiller(), ce);
             OWLObjectPropertyExpression p = rewriteProperty(ce.getProperty());
             // A full relation connects every individual to the named target;
             // an empty relation connects none. Targets stay unchanged.
@@ -831,25 +846,38 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator, AutoCloseab
             emitDisjointClasses(rhs);
         }
 
+        /**
+         * Expresses "condition D holds at term t" as a subclass entailment.
+         *
+         * <p>A named individual i denotes one fixed element, so D(i) iff
+         * {@code {i} SubClassOf D}. The nominal {i} denotes exactly the
+         * interpretation of i; individuals are never replaced under semantic
+         * locality.</p>
+         *
+         * <p>Under the OWL 2 Direct Semantics an anonymous individual is an
+         * existentially quantified variable, so D(_:x) iff D is nonempty, i.e.
+         * {@code Thing SubClassOf some(owl:topObjectProperty, D)} (the domain
+         * is nonempty). Each anonymous individual is scoped to the single axiom
+         * being checked.</p>
+         *
+         * <p>Both forms are subclass entailments, which avoids relying on the
+         * reasoner's handling of ABox assertions about individuals absent
+         * from the shared empty ontology.</p>
+         */
+        protected final OWLAxiom holdsAt(OWLIndividual term, OWLClassExpression condition) {
+            if (term.isNamed()) {
+                return dataFactory.getOWLSubClassOfAxiom(
+                        dataFactory.getOWLObjectOneOf(term.asOWLNamedIndividual()), condition);
+            }
+            return dataFactory.getOWLSubClassOfAxiom(dataFactory.getOWLThing(),
+                    dataFactory.getOWLObjectSomeValuesFrom(
+                            dataFactory.getOWLTopObjectProperty(), condition));
+        }
+
         @Override
         public final void visit(OWLClassAssertionAxiom axiom) {
-            if (!axiom.getIndividual().isNamed()) {
-                throw new UnsupportedOperationException(
-                        "Class assertions with anonymous individuals are not supported");
-            }
-
-            // C(i) iff {i} SubClassOf C.
-            //
-            // The nominal {i} denotes exactly the interpretation of i.
-            // Individuals are never replaced under semantic locality.
-            //
-            // Using a subclass entailment query also avoids relying on the
-            // reasoner's handling of ABox assertions about individuals that
-            // are absent from our shared empty ontology.
-
-            addRewrittenAxiom(dataFactory.getOWLSubClassOfAxiom(
-                    dataFactory.getOWLObjectOneOf(
-                            axiom.getIndividual().asOWLNamedIndividual()),
+            // C(t) iff C holds at t; see holdsAt for named and anonymous t.
+            addRewrittenAxiom(holdsAt(axiom.getIndividual(),
                     rewrite(axiom.getClassExpression())));
         }
 
@@ -857,12 +885,29 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator, AutoCloseab
         public final void visit(OWLSameIndividualAxiom axiom) {
             // Individuals are not bottom/top-replaced. Equality constraints
             // remain logically significant regardless of their signature.
-            addRewrittenAxiom(axiom.getAxiomWithoutAnnotations());
+            // An anonymous individual is existential and can always be chosen
+            // equal to the others, so only equalities between named ones remain.
+            List<OWLIndividual> named = axiom.individuals()
+                    .filter(OWLIndividual::isNamed).collect(Collectors.toList());
+            if (named.size() == axiom.individuals().count()) {
+                addRewrittenAxiom(axiom.getAxiomWithoutAnnotations());
+            } else {
+                addRewrittenAxiom(named.size() < 2 ? tautology()
+                        : dataFactory.getOWLSameIndividualAxiom(named));
+            }
         }
 
         @Override
         public final void visit(OWLDifferentIndividualsAxiom axiom) {
-            addRewrittenAxiom(axiom.getAxiomWithoutAnnotations());
+            if (axiom.individuals().anyMatch(OWLIndividual::isAnonymous)) {
+                // Two or more distinct terms can never all denote different
+                // elements of a one-element domain, so this is never valid.
+                // (The same holds for named individuals; their case is left
+                // to the reasoner as before.)
+                addRewrittenAxiom(contradiction());
+            } else {
+                addRewrittenAxiom(axiom.getAxiomWithoutAnnotations());
+            }
         }
 
         @Override
@@ -1053,22 +1098,59 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator, AutoCloseab
                     .map(this::rewriteProperty).collect(Collectors.toList()));
         }
 
+        /**
+         * The class of elements that are p-related to o, for p retained:
+         * {@code hasValue(p, o)} for named o, {@code hasSelf(p)} when o is the
+         * subject's own anonymous variable, and {@code some(p, Thing)} for a
+         * distinct anonymous o (any witness will do).
+         */
+        private OWLClassExpression relatedTo(OWLObjectPropertyExpression p,
+                                             OWLIndividual subject, OWLIndividual object) {
+            if (object.isNamed()) {
+                return dataFactory.getOWLObjectHasValue(p, object);
+            }
+            return object.equals(subject) ? dataFactory.getOWLObjectHasSelf(p)
+                    : dataFactory.getOWLObjectSomeValuesFrom(p, dataFactory.getOWLThing());
+        }
+
         @Override
         public final void visit(OWLObjectPropertyAssertionAxiom axiom) {
             OWLObjectPropertyExpression p = rewriteProperty(axiom.getProperty());
-            addRewrittenAxiom(topObject(p) ? tautology()
-                    : bottomObject(p) ? contradiction()
-                    : dataFactory.getOWLObjectPropertyAssertionAxiom(
-                    p, axiom.getSubject(), axiom.getObject()));
+            if (topObject(p)) {
+                addRewrittenAxiom(tautology());
+            } else if (bottomObject(p)) {
+                addRewrittenAxiom(contradiction());
+            } else {
+                // p(s, o) iff "related to o" holds at s.
+                addRewrittenAxiom(holdsAt(axiom.getSubject(),
+                        relatedTo(p, axiom.getSubject(), axiom.getObject())));
+            }
         }
 
         @Override
         public final void visit(OWLNegativeObjectPropertyAssertionAxiom axiom) {
             OWLObjectPropertyExpression p = rewriteProperty(axiom.getProperty());
-            addRewrittenAxiom(topObject(p) ? contradiction()
-                    : bottomObject(p) ? tautology()
-                    : dataFactory.getOWLNegativeObjectPropertyAssertionAxiom(
-                    p, axiom.getSubject(), axiom.getObject()));
+            OWLIndividual s = axiom.getSubject();
+            OWLIndividual o = axiom.getObject();
+            if (topObject(p)) {
+                addRewrittenAxiom(contradiction());
+            } else if (bottomObject(p)) {
+                addRewrittenAxiom(tautology());
+            } else if (o.isNamed() || o.equals(s)) {
+                // not p(s, o) iff "not related to o" holds at s.
+                addRewrittenAxiom(holdsAt(s, dataFactory.getOWLObjectComplementOf(
+                        relatedTo(p, s, o))));
+            } else if (s.isNamed()) {
+                // Some element y with not p(s, y): anchor at y instead, i.e.
+                // y is not an inverse-p-successor of s.
+                addRewrittenAxiom(holdsAt(o, dataFactory.getOWLObjectComplementOf(
+                        dataFactory.getOWLObjectHasValue(p.getInverseProperty(), s))));
+            } else {
+                // Two distinct anonymous terms: exists x, y with not p(x, y).
+                // p is retained here, and an interpretation may make it
+                // universal, so this is never valid.
+                addRewrittenAxiom(contradiction());
+            }
         }
 
         @Override
@@ -1076,8 +1158,8 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator, AutoCloseab
             OWLDataPropertyExpression p = rewriteProperty(axiom.getProperty());
             addRewrittenAxiom(topData(p) ? tautology()
                     : bottomData(p) ? contradiction()
-                    : dataFactory.getOWLDataPropertyAssertionAxiom(
-                    p, axiom.getSubject(), axiom.getObject()));
+                    : holdsAt(axiom.getSubject(),
+                    dataFactory.getOWLDataHasValue(p, axiom.getObject())));
         }
 
         @Override
@@ -1085,8 +1167,8 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator, AutoCloseab
             OWLDataPropertyExpression p = rewriteProperty(axiom.getProperty());
             addRewrittenAxiom(topData(p) ? contradiction()
                     : bottomData(p) ? tautology()
-                    : dataFactory.getOWLNegativeDataPropertyAssertionAxiom(
-                    p, axiom.getSubject(), axiom.getObject()));
+                    : holdsAt(axiom.getSubject(), dataFactory.getOWLObjectComplementOf(
+                    dataFactory.getOWLDataHasValue(p, axiom.getObject()))));
         }
 
         @Override

@@ -12,7 +12,10 @@ import org.semanticweb.owlapi.model.OWLEntity;
 
 /**
  * An atom in the atomic decomposition
+ *
+ * @deprecated superseded by the classes in {@code org.semanticweb.owlapi.modularity}, see {@link org.semanticweb.owlapi.modularity.AtomicDecomposition}
  */
+@Deprecated
 public class Atom {
 
     private final Collection<OWLAxiom> axioms;
