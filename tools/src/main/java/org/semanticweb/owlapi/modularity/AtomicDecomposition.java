@@ -429,7 +429,7 @@ public final class AtomicDecomposition implements HasAxioms {
         }
 
         // Tautologies do not occur in any module; collect them in one separate atom.
-        if (moduleOfAlpha.isEmpty()) {
+        if (!moduleOfAlpha.contains(alpha)) {
             return Optional.empty();
         }
         // A proper submodule is always contained in its parent module.

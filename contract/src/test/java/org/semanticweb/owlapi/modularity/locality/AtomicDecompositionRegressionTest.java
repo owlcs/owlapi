@@ -41,8 +41,7 @@ class AtomicDecompositionRegressionTest {
     private final OWLDataFactory df = manager.getOWLDataFactory();
 
     private OWLAxiom axiom(String name) {
-        return df.getOWLDeclarationAxiom(
-            df.getOWLClass(IRI.create("urn:atomic-decomposition:regression#" + name)));
+        return df.getOWLClassAssertionAxiom(df.getOWLClass(IRI.create("urn:atomic-decomposition:regression#" + name)), df.getOWLNamedIndividual("urn:atomic-decomposition:regression#" + name + "_ind"));
     }
 
     private static Set<OWLAxiom> axioms(AtomicDecomposition.Atom atom) {
@@ -67,7 +66,7 @@ class AtomicDecompositionRegressionTest {
 
         TableExtractor module(OWLAxiom key, OWLAxiom... members) {
             Set<OWLEntity> signature = key.signature().collect(Collectors.toSet());
-            if (signature.size() != 1) {
+            if (signature.size() != 2) {
                 throw new IllegalArgumentException("Test axiom must have one entity");
             }
             modules.put(signature.iterator().next(), new HashSet<>(Arrays.asList(members)));

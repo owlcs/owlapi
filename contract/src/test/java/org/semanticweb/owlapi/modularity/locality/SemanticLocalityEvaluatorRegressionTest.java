@@ -1,31 +1,21 @@
 package org.semanticweb.owlapi.modularity.locality;
 
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
-
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Tag;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.parallel.Execution;
 import org.junit.jupiter.api.parallel.ExecutionMode;
 import org.semanticweb.HermiT.ReasonerFactory;
 import org.semanticweb.owlapi.apibinding.OWLManager;
-import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLAxiom;
-import org.semanticweb.owlapi.model.OWLClass;
-import org.semanticweb.owlapi.model.OWLClassExpression;
-import org.semanticweb.owlapi.model.OWLDataFactory;
-import org.semanticweb.owlapi.model.OWLDataProperty;
-import org.semanticweb.owlapi.model.OWLEntity;
-import org.semanticweb.owlapi.model.OWLNamedIndividual;
-import org.semanticweb.owlapi.model.OWLObjectProperty;
-import org.semanticweb.owlapi.model.OWLOntologyManager;
+import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.reasoner.OWLReasoner;
+import org.semanticweb.owlapi.vocab.OWL2Datatype;
+import org.semanticweb.owlapi.vocab.OWLFacet;
+
+import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.DynamicTest.dynamicTest;
 
 /**
  * Semantic BOTTOM and TOP locality tests: bug regressions and preservation checks.
@@ -1249,4 +1239,777 @@ class SemanticLocalityEvaluatorRegressionTest {
         assertThrows(IllegalStateException.class,
                 () -> evaluator.isLocal(df.getOWLSubClassOfAxiom(a, a), sig(a)));
     }
+
+    private static OWLDatatype additionalDatatype(OWL2Datatype type) {
+        return df.getOWLDatatype(type.getIRI());
+    }
+
+    private static OWLDataProperty additionalDataProperty(String name) {
+        return df.getOWLDataProperty(IRI.create("urn:semantic-locality:additional#" + name));
+    }
+
+    private static void checkExtension(LocalityClass kind, OWLClassExpression expression,
+                                       boolean alwaysThing, boolean alwaysNothing, OWLEntity... signature) {
+        OWLClassExpression complement = df.getOWLObjectComplementOf(expression);
+        assertAll(expression.toString(),
+                () -> check(kind, alwaysThing,
+                        df.getOWLSubClassOfAxiom(df.getOWLThing(), expression), signature),
+                () -> check(kind, alwaysNothing,
+                        df.getOWLSubClassOfAxiom(expression, df.getOWLNothing()), signature),
+                () -> check(kind, alwaysNothing,
+                        df.getOWLSubClassOfAxiom(df.getOWLThing(), complement), signature),
+                () -> check(kind, alwaysThing,
+                        df.getOWLSubClassOfAxiom(complement, df.getOWLNothing()), signature));
+    }
+
+    private static DynamicTest extensionTest(String name, LocalityClass kind,
+                                             OWLClassExpression expression, boolean alwaysThing, boolean alwaysNothing,
+                                             OWLEntity... signature) {
+        return dynamicTest(name, () -> checkExtension(kind, expression,
+                alwaysThing, alwaysNothing, signature));
+    }
+
+    private static final class AdditionalRangeCase {
+        final String name;
+        final OWLDataRange range;
+        final int size; // -1 means infinite; otherwise the exact number of VALUES.
+        final boolean universal;
+
+        AdditionalRangeCase(String name, OWLDataRange range, int size, boolean universal) {
+            this.name = name;
+            this.range = range;
+            this.size = size;
+            this.universal = universal;
+        }
+
+        boolean atLeast(int n) {
+            return size < 0 || size >= n;
+        }
+    }
+
+    private static List<AdditionalRangeCase> additionalFixedRanges() {
+        OWLDatatype bool = additionalDatatype(OWL2Datatype.XSD_BOOLEAN);
+        OWLDatatype integer = additionalDatatype(OWL2Datatype.XSD_INTEGER);
+        OWLDatatype decimal = additionalDatatype(OWL2Datatype.XSD_DECIMAL);
+        OWLDatatype string = additionalDatatype(OWL2Datatype.XSD_STRING);
+        OWLDataRange empty = df.getOWLDataComplementOf(df.getTopDatatype());
+        OWLDataRange oneToThree = df.getOWLDatatypeRestriction(integer,
+                df.getOWLFacetRestriction(OWLFacet.MIN_INCLUSIVE, df.getOWLLiteral(1)),
+                df.getOWLFacetRestriction(OWLFacet.MAX_INCLUSIVE, df.getOWLLiteral(3)));
+        OWLDataRange numericAliases = df.getOWLDataOneOf(
+                df.getOWLLiteral("1", integer),
+                df.getOWLLiteral("01", integer),
+                df.getOWLLiteral("1.0", decimal));
+        // The integer/decimal pair stays structurally distinct even if the factory
+        // canonicalizes the two integer lexical forms. It still denotes ONE value.
+        return Arrays.asList(
+                new AdditionalRangeCase("empty", empty, 0, false),
+                new AdditionalRangeCase("boolean", bool, 2, false),
+                new AdditionalRangeCase("numeric-value-aliases", numericAliases, 1, false),
+                new AdditionalRangeCase("integer-interval-1-to-3", oneToThree, 3, false),
+                new AdditionalRangeCase("boolean-intersect-string",
+                        df.getOWLDataIntersectionOf(bool, string), 0, false),
+                new AdditionalRangeCase("boolean-without-true",
+                        df.getOWLDataIntersectionOf(bool, df.getOWLDataComplementOf(
+                                df.getOWLDataOneOf(df.getOWLLiteral(true)))), 1, false),
+                new AdditionalRangeCase("double-complement-boolean",
+                        df.getOWLDataComplementOf(df.getOWLDataComplementOf(bool)), 2, false),
+                new AdditionalRangeCase("overlapping-union",
+                        df.getOWLDataUnionOf(bool, df.getOWLDataOneOf(
+                                df.getOWLLiteral(true))), 2, false),
+                new AdditionalRangeCase("integer", integer, -1, false),
+                new AdditionalRangeCase("complement-boolean",
+                        df.getOWLDataComplementOf(bool), -1, false),
+                new AdditionalRangeCase("top", df.getTopDatatype(), -1, true),
+                new AdditionalRangeCase("boolean-or-not-boolean",
+                        df.getOWLDataUnionOf(bool, df.getOWLDataComplementOf(bool)), -1, true));
+    }
+
+    // B is the union of the built-in value spaces, NOT rdfs:Literal.
+// E = complement(B) can have 0, 1, 2, ... elements in different data domains.
+// Assumes the standard datatype map represented by OWL2Datatype, without an
+// additional disjoint value space from an externally extended datatype map.
+// The backend must support these ranges; backend rejection is a coverage
+// limitation and must not be mistaken for a demonstrated wrong Boolean answer.
+    private static OWLDataRange additionalBuiltInValueUnion() {
+        OWLDataRange[] operands = Arrays.stream(OWL2Datatype.values())
+                .filter(type -> type != OWL2Datatype.RDFS_LITERAL)
+                .map(SemanticLocalityEvaluatorRegressionTest::additionalDatatype)
+                .toArray(OWLDataRange[]::new);
+        return df.getOWLDataUnionOf(operands);
+    }
+
+    private static OWLDataRange additionalExtraDataValues() {
+        return df.getOWLDataComplementOf(additionalBuiltInValueUnion());
+    }
+
+// -------------------------------------------------------------------------
+// Every data-restriction constructor, both modes, absent/retained property,
+// empty/finite/infinite/universal ranges, and both expression polarities.
+// -------------------------------------------------------------------------
+
+    @Tag("regression")
+    @Tag("exact-result")
+    @TestFactory
+    Stream<DynamicTest> additionalDataRestrictionMatrix() {
+        List<DynamicTest> tests = new ArrayList<>();
+        for (LocalityClass kind : new LocalityClass[] {LocalityClass.BOTTOM, LocalityClass.TOP}) {
+            for (boolean retained : new boolean[] {false, true}) {
+                OWLEntity[] signature = retained ? new OWLEntity[] {p} : new OWLEntity[0];
+                boolean emptyProperty = !retained && kind == LocalityClass.BOTTOM;
+                boolean fullProperty = !retained && kind == LocalityClass.TOP;
+                String prefix = kind + "/" + (retained ? "retained/" : "absent/");
+                tests.add(extensionTest(prefix + "hasValue", kind,
+                        df.getOWLDataHasValue(p, df.getOWLLiteral("x")),
+                        fullProperty, emptyProperty, signature));
+                for (AdditionalRangeCase range : additionalFixedRanges()) {
+                    String name = prefix + range.name + "/";
+                    tests.add(extensionTest(name + "some", kind,
+                            df.getOWLDataSomeValuesFrom(p, range.range),
+                            fullProperty && range.atLeast(1),
+                            emptyProperty || !range.atLeast(1), signature));
+                    tests.add(extensionTest(name + "all", kind,
+                            df.getOWLDataAllValuesFrom(p, range.range),
+                            emptyProperty || range.universal,
+                            fullProperty && !range.universal, signature));
+                    for (int n : new int[] {0, 1, 2, 3, 4}) {
+                        boolean atLeastN = range.atLeast(n);
+                        boolean moreThanN = range.atLeast(n + 1);
+                        tests.add(extensionTest(name + "min-" + n, kind,
+                                df.getOWLDataMinCardinality(n, p, range.range),
+                                n == 0 || fullProperty && atLeastN,
+                                n > 0 && (emptyProperty || !atLeastN), signature));
+                        tests.add(extensionTest(name + "max-" + n, kind,
+                                df.getOWLDataMaxCardinality(n, p, range.range),
+                                emptyProperty || !moreThanN,
+                                fullProperty && moreThanN, signature));
+                        boolean exactAlways = emptyProperty ? n == 0
+                                : fullProperty ? atLeastN && !moreThanN
+                                : range.size == 0 && n == 0;
+                        boolean exactNever = emptyProperty ? n != 0
+                                : !atLeastN || fullProperty && moreThanN;
+                        tests.add(extensionTest(name + "exact-" + n, kind,
+                                df.getOWLDataExactCardinality(n, p, range.range),
+                                exactAlways, exactNever, signature));
+                    }
+                }
+            }
+        }
+        return tests.stream();
+    }
+
+    @Tag("regression")
+    @Test
+    void additionalBuiltinDatatypesAreIndependentOfSignatureMembership() {
+        OWLDatatype bool = additionalDatatype(OWL2Datatype.XSD_BOOLEAN);
+        OWLAxiom axiom = df.getOWLSubClassOfAxiom(df.getOWLThing(),
+                df.getOWLDataExactCardinality(2, p, bool));
+        check(LocalityClass.TOP, true, axiom);
+        check(LocalityClass.TOP, true, axiom, bool);
+        check(LocalityClass.BOTTOM, false, axiom);
+        check(LocalityClass.BOTTOM, false, axiom, bool);
+        checkBoth(false, axiom, p);
+        checkBoth(false, axiom, p, bool);
+    }
+
+    @Tag("regression")
+    @Test
+    void additionalExplicitBottomDataRestrictionsStayEmptyOrVacuousInBothModes() {
+        OWLDataProperty zero = df.getOWLBottomDataProperty();
+        OWLDatatype bool = additionalDatatype(OWL2Datatype.XSD_BOOLEAN);
+        for (LocalityClass kind : new LocalityClass[] {LocalityClass.BOTTOM, LocalityClass.TOP}) {
+            checkExtension(kind, df.getOWLDataSomeValuesFrom(zero, bool), false, true);
+            checkExtension(kind, df.getOWLDataAllValuesFrom(zero, bool), true, false);
+            checkExtension(kind, df.getOWLDataHasValue(zero, df.getOWLLiteral(true)), false, true);
+            for (int n : new int[] {0, 1, 2}) {
+                checkExtension(kind, df.getOWLDataMinCardinality(n, zero, bool), n == 0, n != 0);
+                checkExtension(kind, df.getOWLDataMaxCardinality(n, zero, bool), true, false);
+                checkExtension(kind, df.getOWLDataExactCardinality(n, zero, bool), n == 0, n != 0);
+            }
+        }
+    }
+
+    @Tag("regression")
+    @Tag("extended-input")
+    @Test
+    void additionalExplicitTopDataRestrictionsHaveFixedPropertySemanticsInBothModes() {
+        // As in the existing explicit-top tests: this tests the evaluator's
+        // extension to such input expressions, not OWL 2 DL profile conformance.
+        OWLDataProperty full = df.getOWLTopDataProperty();
+        OWLDatatype bool = additionalDatatype(OWL2Datatype.XSD_BOOLEAN);
+        for (LocalityClass kind : new LocalityClass[] {LocalityClass.BOTTOM, LocalityClass.TOP}) {
+            checkExtension(kind, df.getOWLDataSomeValuesFrom(full, bool), true, false);
+            checkExtension(kind, df.getOWLDataAllValuesFrom(full, bool), false, true);
+            checkExtension(kind, df.getOWLDataHasValue(full, df.getOWLLiteral(true)), true, false);
+            for (int n : new int[] {0, 1, 2, 3}) {
+                checkExtension(kind, df.getOWLDataMinCardinality(n, full, bool), n <= 2, n > 2);
+                checkExtension(kind, df.getOWLDataMaxCardinality(n, full, bool), n >= 2, n < 2);
+                checkExtension(kind, df.getOWLDataExactCardinality(n, full, bool), n == 2, n != 2);
+            }
+        }
+    }
+
+// -------------------------------------------------------------------------
+// The five interpretation-dependent TOP datatype rewrites.
+// No assertion here allows an exception to count as an exact result.
+// -------------------------------------------------------------------------
+
+    @Tag("regression")
+    @Tag("datatype-domain")
+    @Tag("exact-result")
+    @TestFactory
+    Stream<DynamicTest> additionalVariableDataDomainRestrictionsAreNotConstants() {
+        OWLDataRange extra = additionalExtraDataValues();
+        List<DynamicTest> tests = new ArrayList<>();
+        tests.add(extensionTest("variable-domain/some", LocalityClass.TOP,
+                df.getOWLDataSomeValuesFrom(p, extra), false, false));
+        tests.add(extensionTest("variable-domain/all", LocalityClass.TOP,
+                df.getOWLDataAllValuesFrom(p, additionalBuiltInValueUnion()), false, false));
+        for (int n : new int[] {1, 2, 3}) {
+            tests.add(extensionTest("variable-domain/min-" + n, LocalityClass.TOP,
+                    df.getOWLDataMinCardinality(n, p, extra), false, false));
+        }
+        for (int n : new int[] {0, 1, 2}) {
+            tests.add(extensionTest("variable-domain/max-" + n, LocalityClass.TOP,
+                    df.getOWLDataMaxCardinality(n, p, extra), false, false));
+            tests.add(extensionTest("variable-domain/exact-" + n, LocalityClass.TOP,
+                    df.getOWLDataExactCardinality(n, p, extra), false, false));
+        }
+        return tests.stream();
+    }
+
+    @Tag("regression")
+    @Tag("datatype-domain")
+    @Test
+    void additionalVariableDataRestrictionsPreserveCorrelations() {
+        OWLDataRange extra = additionalExtraDataValues();
+        OWLClassExpression some = df.getOWLDataSomeValuesFrom(p, extra);
+        OWLClassExpression allBuiltIns = df.getOWLDataAllValuesFrom(p, additionalBuiltInValueUnion());
+        OWLClassExpression minTwo = df.getOWLDataMinCardinality(2, p, extra);
+        OWLClassExpression maxOne = df.getOWLDataMaxCardinality(1, p, extra);
+        check(LocalityClass.TOP, true, df.getOWLEquivalentClassesAxiom(
+                some, df.getOWLObjectComplementOf(allBuiltIns)));
+        check(LocalityClass.TOP, true, df.getOWLEquivalentClassesAxiom(
+                minTwo, df.getOWLObjectComplementOf(maxOne)));
+        check(LocalityClass.TOP, true, df.getOWLEquivalentClassesAxiom(
+                df.getOWLDataExactCardinality(1, p, extra),
+                df.getOWLObjectIntersectionOf(some, maxOne)));
+        check(LocalityClass.TOP, true, df.getOWLSubClassOfAxiom(minTwo, some));
+        // One extra value suffices for 'some', but not for 'minTwo'.
+        check(LocalityClass.TOP, false, df.getOWLSubClassOfAxiom(some, minTwo));
+    }
+
+    @Tag("regression")
+    @Tag("datatype-domain")
+    @Test
+    void additionalVariableDataRestrictionsCorrelateWithRetainedDataProperties() {
+        OWLDataProperty q = additionalDataProperty("q");
+        OWLDataRange extra = additionalExtraDataValues();
+        OWLClassExpression localSome = df.getOWLDataSomeValuesFrom(q, extra);
+        OWLClassExpression globalSome = df.getOWLDataSomeValuesFrom(p, extra);
+        check(LocalityClass.TOP, true, df.getOWLSubClassOfAxiom(localSome, globalSome), q);
+        check(LocalityClass.TOP, false, df.getOWLSubClassOfAxiom(globalSome, localSome), q);
+        check(LocalityClass.TOP, true, df.getOWLSubClassOfAxiom(
+                df.getOWLDataMaxCardinality(0, p, extra),
+                df.getOWLDataAllValuesFrom(q, additionalBuiltInValueUnion())), q);
+    }
+
+    @Tag("regression")
+    @Tag("datatype-domain")
+    @TestFactory
+    Stream<DynamicTest> additionalVariableDataRestrictionsRemainSoundInEnclosingConstructs() {
+        OWLDataRange extra = additionalExtraDataValues();
+        OWLDataProperty q = additionalDataProperty("q");
+        // Each expression is interpretation-dependent, but the old probe-based
+        // rewriting maps it to Thing if E is reported satisfiable at these bounds.
+        List<OWLClassExpression> expressions = Arrays.asList(
+                df.getOWLDataSomeValuesFrom(p, extra),
+                df.getOWLDataMinCardinality(2, p, extra),
+                df.getOWLObjectComplementOf(df.getOWLDataMaxCardinality(0, p, extra)),
+                df.getOWLObjectComplementOf(df.getOWLDataExactCardinality(0, p, extra)),
+                df.getOWLObjectComplementOf(df.getOWLDataAllValuesFrom(
+                        p, additionalBuiltInValueUnion())));
+        List<DynamicTest> tests = new ArrayList<>();
+        for (OWLClassExpression expression : expressions) {
+            List<OWLAxiom> axioms = Arrays.asList(
+                    df.getOWLEquivalentClassesAxiom(expression, df.getOWLThing()),
+                    df.getOWLDisjointClassesAxiom(
+                            df.getOWLObjectComplementOf(expression), df.getOWLThing()),
+                    df.getOWLClassAssertionAxiom(expression, i),
+                    df.getOWLObjectPropertyDomainAxiom(r, expression),
+                    df.getOWLObjectPropertyRangeAxiom(r, expression),
+                    df.getOWLDataPropertyDomainAxiom(q, expression),
+                    df.getOWLEquivalentClassesAxiom(
+                            df.getOWLObjectIntersectionOf(a, expression), a),
+                    df.getOWLEquivalentClassesAxiom(
+                            df.getOWLObjectUnionOf(a, df.getOWLObjectComplementOf(expression)), a),
+                    df.getOWLEquivalentClassesAxiom(
+                            df.getOWLObjectSomeValuesFrom(r, expression),
+                            df.getOWLObjectSomeValuesFrom(r, df.getOWLThing())),
+                    df.getOWLEquivalentClassesAxiom(
+                            df.getOWLObjectAllValuesFrom(r, expression), df.getOWLThing()),
+                    df.getOWLEquivalentClassesAxiom(
+                            df.getOWLObjectMinCardinality(1, r, expression),
+                            df.getOWLObjectMinCardinality(1, r, df.getOWLThing())),
+                    df.getOWLEquivalentClassesAxiom(
+                            df.getOWLObjectMaxCardinality(0, r, expression),
+                            df.getOWLObjectMaxCardinality(0, r, df.getOWLThing())),
+                    df.getOWLEquivalentClassesAxiom(
+                            df.getOWLObjectExactCardinality(1, r, expression),
+                            df.getOWLObjectExactCardinality(1, r, df.getOWLThing())),
+                    df.getOWLHasKeyAxiom(df.getOWLObjectComplementOf(expression), q));
+            for (OWLAxiom axiom : axioms) {
+                tests.add(dynamicTest(axiom.toString(),
+                        () -> check(LocalityClass.TOP, false, axiom, a, r, q, i)));
+            }
+            OWLAxiom disjointUnion = df.getOWLDisjointUnionAxiom(a,
+                    Arrays.asList(expression, df.getOWLNothing()));
+            // Here A is deliberately absent, hence becomes Thing in TOP.
+            tests.add(dynamicTest(disjointUnion.toString(),
+                    () -> check(LocalityClass.TOP, false, disjointUnion)));
+        }
+        return tests.stream();
+    }
+
+// -------------------------------------------------------------------------
+// Every data-property axiom family, including missing/retained operands.
+// -------------------------------------------------------------------------
+
+    @Tag("regression")
+    @Test
+    void additionalDataSubpropertyInclusionsRespectDirectionAndSignature() {
+        OWLDataProperty q = additionalDataProperty("q");
+        OWLAxiom inclusion = df.getOWLSubDataPropertyOfAxiom(p, q);
+        checkBoth(true, inclusion);
+        check(LocalityClass.BOTTOM, false, inclusion, p);
+        check(LocalityClass.TOP, true, inclusion, p);
+        check(LocalityClass.BOTTOM, true, inclusion, q);
+        check(LocalityClass.TOP, false, inclusion, q); // U_D <= q is not valid.
+        checkBoth(false, inclusion, p, q);
+        checkBoth(true, df.getOWLSubDataPropertyOfAxiom(p, p), p);
+        checkBoth(true, df.getOWLSubDataPropertyOfAxiom(df.getOWLBottomDataProperty(), p), p);
+        checkBoth(true, df.getOWLSubDataPropertyOfAxiom(p, df.getOWLTopDataProperty()), p);
+        OWLAxiom toBottom = df.getOWLSubDataPropertyOfAxiom(p, df.getOWLBottomDataProperty());
+        check(LocalityClass.BOTTOM, true, toBottom);
+        check(LocalityClass.TOP, false, toBottom); // U_D <= empty is false, not unsupported.
+        checkBoth(false, toBottom, p);
+    }
+
+    @Tag("regression")
+    @Test
+    void additionalEquivalentDataPropertiesKeepEveryInclusionAfterCollisions() {
+        OWLDataProperty q = additionalDataProperty("q");
+        OWLDataProperty s = additionalDataProperty("s");
+        OWLAxiom pair = df.getOWLEquivalentDataPropertiesAxiom(p, q);
+        OWLAxiom triple = df.getOWLEquivalentDataPropertiesAxiom(p, q, s);
+        checkBoth(true, pair);
+        checkBoth(true, triple);
+        checkBoth(false, pair, p);
+        checkBoth(false, pair, q);
+        checkBoth(false, pair, p, q);
+        checkBoth(false, triple, p);
+        checkBoth(false, triple, p, q);
+        OWLAxiom withBottom = df.getOWLEquivalentDataPropertiesAxiom(
+                p, df.getOWLBottomDataProperty());
+        check(LocalityClass.BOTTOM, true, withBottom);
+        check(LocalityClass.TOP, false, withBottom);
+        checkBoth(false, withBottom, p);
+    }
+
+    @Tag("regression")
+    @Test
+    void additionalDisjointDataPropertiesDoNotDropOtherPairsOrCollapsedPairs() {
+        OWLDataProperty q = additionalDataProperty("q");
+        OWLDataProperty s = additionalDataProperty("s");
+        OWLAxiom pair = df.getOWLDisjointDataPropertiesAxiom(p, q);
+        check(LocalityClass.BOTTOM, true, pair);
+        check(LocalityClass.TOP, false, pair);
+        check(LocalityClass.BOTTOM, true, pair, p);
+        check(LocalityClass.TOP, false, pair, p);
+        check(LocalityClass.BOTTOM, true, pair, q);
+        check(LocalityClass.TOP, false, pair, q);
+        checkBoth(false, pair, p, q);
+        OWLAxiom triple = df.getOWLDisjointDataPropertiesAxiom(p, q, s);
+        check(LocalityClass.BOTTOM, true, triple);
+        check(LocalityClass.TOP, false, triple);
+        checkBoth(false, triple, p, q); // Empty s does not remove Disjoint(p,q).
+        checkBoth(true, df.getOWLDisjointDataPropertiesAxiom(
+                p, df.getOWLBottomDataProperty()), p);
+        checkBoth(false, df.getOWLDisjointDataPropertiesAxiom(
+                p, q, df.getOWLBottomDataProperty()), p, q);
+    }
+
+    @Tag("regression")
+    @Test
+    void additionalDataPropertyDomainsRespectBothPropertyAndClassSubstitution() {
+        OWLAxiom domain = df.getOWLDataPropertyDomainAxiom(p, a);
+        checkBoth(true, domain);
+        check(LocalityClass.BOTTOM, true, domain, a);
+        check(LocalityClass.TOP, false, domain, a);
+        check(LocalityClass.BOTTOM, false, domain, p);
+        check(LocalityClass.TOP, true, domain, p);
+        checkBoth(false, domain, p, a);
+        checkBoth(true, df.getOWLDataPropertyDomainAxiom(p, df.getOWLThing()), p);
+        checkBoth(true, df.getOWLDataPropertyDomainAxiom(df.getOWLBottomDataProperty(), a), a);
+        OWLAxiom impossibleDomain = df.getOWLDataPropertyDomainAxiom(p, df.getOWLNothing());
+        check(LocalityClass.BOTTOM, true, impossibleDomain);
+        check(LocalityClass.TOP, false, impossibleDomain);
+        checkBoth(false, impossibleDomain, p);
+    }
+
+    @Tag("regression")
+    @TestFactory
+    Stream<DynamicTest> additionalDataPropertyRangesUseWholeAxiomValidity() {
+        List<DynamicTest> tests = new ArrayList<>();
+        for (AdditionalRangeCase range : additionalFixedRanges()) {
+            OWLAxiom axiom = df.getOWLDataPropertyRangeAxiom(p, range.range);
+            tests.add(dynamicTest("range/absent/" + range.name, () -> {
+                check(LocalityClass.BOTTOM, true, axiom);
+                check(LocalityClass.TOP, range.universal, axiom);
+            }));
+            tests.add(dynamicTest("range/retained/" + range.name,
+                    () -> checkBoth(range.universal, axiom, p)));
+            tests.add(dynamicTest("range/bottom/" + range.name, () -> checkBoth(true,
+                    df.getOWLDataPropertyRangeAxiom(df.getOWLBottomDataProperty(), range.range))));
+        }
+        return tests.stream();
+    }
+
+    @Tag("regression")
+    @Tag("datatype-domain")
+    @Test
+    void additionalVariableBuiltinUnionIsNotAValidUniversalPropertyRange() {
+        // This whole-axiom decision is false even though B covers some data domains.
+        OWLAxiom axiom = df.getOWLDataPropertyRangeAxiom(p, additionalBuiltInValueUnion());
+        check(LocalityClass.TOP, false, axiom);
+        check(LocalityClass.BOTTOM, true, axiom);
+        checkBoth(false, axiom, p);
+    }
+
+    @Tag("regression")
+    @Test
+    void additionalDataAssertionsAndTheirNegationsHaveOppositeAbsentPropertyResults() {
+        OWLAxiom positive = df.getOWLDataPropertyAssertionAxiom(p, i, df.getOWLLiteral(1));
+        OWLAxiom negative = df.getOWLNegativeDataPropertyAssertionAxiom(p, i, df.getOWLLiteral(1));
+        check(LocalityClass.BOTTOM, false, positive);
+        check(LocalityClass.TOP, true, positive);
+        check(LocalityClass.BOTTOM, true, negative);
+        check(LocalityClass.TOP, false, negative);
+        checkBoth(false, positive, p, i);
+        checkBoth(false, negative, p, i);
+        checkBoth(false, df.getOWLDataPropertyAssertionAxiom(
+                df.getOWLBottomDataProperty(), i, df.getOWLLiteral(1)));
+        checkBoth(true, df.getOWLNegativeDataPropertyAssertionAxiom(
+                df.getOWLBottomDataProperty(), i, df.getOWLLiteral(1)));
+    }
+
+    @Tag("regression")
+    @Test
+    void additionalPositiveAnonymousDataAssertionIsNotAutomaticallyLocal() {
+        OWLAnonymousIndividual x = df.getOWLAnonymousIndividual("additional-data-subject");
+        OWLAxiom assertion = df.getOWLDataPropertyAssertionAxiom(p, x, df.getOWLLiteral(1));
+        check(LocalityClass.BOTTOM, false, assertion);
+        check(LocalityClass.TOP, true, assertion);
+        checkBoth(false, assertion, p);
+        // Deliberately no negative assertion with an anonymous subject: that is
+        // outside OWL 2 DL and is not a valid-input semantic regression.
+    }
+
+    @Tag("regression")
+    @Test
+    void additionalFunctionalDataPropertiesDistinguishEmptyFullAndRetainedProperties() {
+        OWLAxiom functionality = df.getOWLFunctionalDataPropertyAxiom(p);
+        check(LocalityClass.BOTTOM, true, functionality);
+        check(LocalityClass.TOP, false, functionality);
+        checkBoth(false, functionality, p);
+        checkBoth(true, df.getOWLFunctionalDataPropertyAxiom(df.getOWLBottomDataProperty()));
+    }
+
+// -------------------------------------------------------------------------
+// Data properties in keys: universal components, empty components, mixed keys,
+// recursive class expressions, and absence of a unique-name assumption.
+// -------------------------------------------------------------------------
+
+    @Tag("regression")
+    @Test
+    void additionalTopDataKeyOnNothingIsVacuous() {
+        check(LocalityClass.TOP, true, df.getOWLHasKeyAxiom(df.getOWLNothing(), p));
+    }
+
+    @Tag("regression")
+    @Test
+    void additionalTopDataKeyOnSingletonIsLocal() {
+        check(LocalityClass.TOP, true, df.getOWLHasKeyAxiom(df.getOWLObjectOneOf(i), p), i);
+    }
+
+    @Tag("regression")
+    @Test
+    void additionalTopDataKeyOnThingIsNotLocal() {
+        check(LocalityClass.TOP, false, df.getOWLHasKeyAxiom(df.getOWLThing(), p));
+    }
+
+    @Tag("regression")
+    @Test
+    void additionalTopDataKeyOnTwoNominalsIsNotLocal() {
+        OWLNamedIndividual j = df.getOWLNamedIndividual(IRI.create("urn:semantic-locality:additional#j"));
+        check(LocalityClass.TOP, false,
+                df.getOWLHasKeyAxiom(df.getOWLObjectOneOf(i, j), p), i, j);
+    }
+
+    @Tag("regression")
+    @Test
+    void additionalRemovingAllUniversalDataKeyComponentsMustNotEraseTheKey() {
+        OWLDataProperty q = additionalDataProperty("q");
+        check(LocalityClass.TOP, false, df.getOWLHasKeyAxiom(df.getOWLThing(), p, q));
+        check(LocalityClass.TOP, true, df.getOWLHasKeyAxiom(df.getOWLObjectOneOf(i), p, q), i);
+        check(LocalityClass.TOP, false, df.getOWLHasKeyAxiom(a, p), a);
+        check(LocalityClass.TOP, false, df.getOWLHasKeyAxiom(a, p));
+        check(LocalityClass.BOTTOM, true, df.getOWLHasKeyAxiom(a, p));
+    }
+
+    @Tag("regression")
+    @Test
+    void additionalEmptyKeyComponentMakesEvenAMixedTopDataKeyVacuous() {
+        check(LocalityClass.TOP, true, df.getOWLHasKeyAxiom(
+                df.getOWLThing(), df.getOWLBottomDataProperty(), p));
+        check(LocalityClass.TOP, true, df.getOWLHasKeyAxiom(
+                df.getOWLThing(), df.getOWLBottomObjectProperty(), p));
+        check(LocalityClass.BOTTOM, true, df.getOWLHasKeyAxiom(df.getOWLThing(), r, p), p);
+        check(LocalityClass.BOTTOM, true, df.getOWLHasKeyAxiom(df.getOWLThing(), r, p), r);
+    }
+
+    @Tag("regression")
+    @Test
+    void additionalRetainedKeyComponentsRemainSignificantBesideUniversalDataComponents() {
+        OWLDataProperty q = additionalDataProperty("q");
+        OWLClassExpression noQValues = df.getOWLDataMaxCardinality(0, q);
+        OWLClassExpression someQValue = df.getOWLDataSomeValuesFrom(q, df.getTopDatatype());
+        // A q-key cannot match two individuals with zero q-values.
+        check(LocalityClass.TOP, true, df.getOWLHasKeyAxiom(noQValues, q, p), q);
+        check(LocalityClass.TOP, false, df.getOWLHasKeyAxiom(someQValue, q, p), q);
+        check(LocalityClass.TOP, false, df.getOWLHasKeyAxiom(df.getOWLThing(), r, p), r);
+        check(LocalityClass.TOP, true, df.getOWLHasKeyAxiom(df.getOWLObjectOneOf(i), r, p), r, i);
+        checkBoth(false, df.getOWLHasKeyAxiom(df.getOWLThing(), r, p), r, p);
+    }
+
+// -------------------------------------------------------------------------
+// Preservation of TOP object-counting proxies while repairing data rewrites.
+// -------------------------------------------------------------------------
+
+    @Tag("preservation")
+    @Test
+    void additionalGlobalObjectCountsRespectNominalsWithoutUniqueNames() {
+        OWLNamedIndividual j = df.getOWLNamedIndividual(IRI.create("urn:semantic-locality:additional#j"));
+        OWLClassExpression oneOrTwo = df.getOWLObjectOneOf(i, j);
+        checkExtension(LocalityClass.TOP, df.getOWLObjectMaxCardinality(2, r, oneOrTwo), true, false, i, j);
+        checkExtension(LocalityClass.TOP, df.getOWLObjectMinCardinality(3, r, oneOrTwo), false, true, i, j);
+        checkExtension(LocalityClass.TOP, df.getOWLObjectMinCardinality(2, r, oneOrTwo), false, false, i, j);
+        checkExtension(LocalityClass.TOP, df.getOWLObjectExactCardinality(1, r, oneOrTwo), false, false, i, j);
+        checkExtension(LocalityClass.TOP, df.getOWLObjectExactCardinality(2, r, oneOrTwo), false, false, i, j);
+    }
+
+    @Tag("preservation")
+    @Test
+    void additionalGlobalObjectCountProxiesKeepTheirComplementAndExactRelationships() {
+        OWLClassExpression minTwo = df.getOWLObjectMinCardinality(2, r, a);
+        OWLClassExpression maxOne = df.getOWLObjectMaxCardinality(1, r, a);
+        checkExtension(LocalityClass.TOP, minTwo, false, false, a);
+        checkExtension(LocalityClass.TOP, maxOne, false, false, a);
+        check(LocalityClass.TOP, true, df.getOWLEquivalentClassesAxiom(
+                maxOne, df.getOWLObjectComplementOf(minTwo)), a);
+        check(LocalityClass.TOP, true, df.getOWLEquivalentClassesAxiom(
+                df.getOWLObjectExactCardinality(2, r, a),
+                df.getOWLObjectIntersectionOf(minTwo, df.getOWLObjectMaxCardinality(2, r, a))), a);
+        check(LocalityClass.TOP, false, df.getOWLSubClassOfAxiom(
+                df.getOWLObjectMinCardinality(1, r, a), minTwo), a);
+    }
+
+    @Tag("preservation")
+    @Test
+    void additionalNestedGlobalObjectCountsDoNotTreatProxiesAsIndependent() {
+        OWLClassExpression atLeastTwoA = df.getOWLObjectMinCardinality(2, r, a);
+        // The inner expression is empty or the whole domain. If true, the domain
+        // already has at least two elements, since A has at least two elements.
+        check(LocalityClass.TOP, true, df.getOWLEquivalentClassesAxiom(
+                df.getOWLObjectMinCardinality(2, r, atLeastTwoA), atLeastTwoA), a);
+        check(LocalityClass.TOP, true, df.getOWLEquivalentClassesAxiom(
+                df.getOWLObjectMaxCardinality(1, r, atLeastTwoA),
+                df.getOWLObjectComplementOf(atLeastTwoA)), a);
+    }
+
+    @Tag("preservation")
+    @Test
+    void additionalDataRestrictionsCanOccurInsideGlobalObjectCardinalityProxies() {
+        OWLDatatype bool = additionalDatatype(OWL2Datatype.XSD_BOOLEAN);
+        OWLClassExpression allObjects = df.getOWLDataExactCardinality(2, p, bool);
+        OWLClassExpression noObjects = df.getOWLDataExactCardinality(3, p, bool);
+        check(LocalityClass.TOP, true, df.getOWLEquivalentClassesAxiom(
+                df.getOWLObjectMinCardinality(2, r, allObjects),
+                df.getOWLObjectMinCardinality(2, r, df.getOWLThing())));
+        checkExtension(LocalityClass.TOP,
+                df.getOWLObjectMinCardinality(2, r, noObjects), false, true);
+        checkExtension(LocalityClass.TOP,
+                df.getOWLObjectMaxCardinality(2, r, noObjects), true, false);
+        checkExtension(LocalityClass.TOP,
+                df.getOWLObjectExactCardinality(2, r, noObjects), false, true);
+    }
+
+// -------------------------------------------------------------------------
+// Explicit policy tests: no external datatype definitions are available.
+// These test the proposed uniform UnsupportedOperationException contract,
+// rather than claiming undefined custom datatype inputs are valid OWL 2 DL.
+// -------------------------------------------------------------------------
+
+    private static void checkAdditionalUnsupported(LocalityClass kind, OWLAxiom axiom,
+                                                   OWLEntity... signature) {
+        SemanticLocalityEvaluator evaluator = kind == LocalityClass.BOTTOM ? bottom : top;
+        int count = manager.getOntologies().size();
+        try {
+            assertThrows(UnsupportedOperationException.class,
+                    () -> evaluator.isLocal(axiom, sig(signature)), axiom.toString());
+        } finally {
+            assertEquals(count, manager.getOntologies().size(), "Unsupported query leaked an ontology");
+            manager.getOntologies().forEach(o -> assertEquals(0, o.getAxiomCount(),
+                    "Unsupported query polluted a shared ontology"));
+        }
+    }
+
+    @Tag("regression")
+    @Tag("unsupported-datatype-policy")
+    @TestFactory
+    Stream<DynamicTest> additionalRetainedDataPropertiesDoNotBypassCustomDatatypeValidation() {
+        OWLDatatype custom = df.getOWLDatatype(IRI.create("urn:semantic-locality:additional#Custom"));
+        OWLDataProperty q = additionalDataProperty("q");
+        List<OWLAxiom> axioms = new ArrayList<>();
+        for (OWLDataRange range : Arrays.asList(custom,
+                df.getOWLDataComplementOf(custom),
+                df.getOWLDataIntersectionOf(custom, additionalDatatype(OWL2Datatype.XSD_BOOLEAN)))) {
+            OWLClassExpression[] expressions = {
+                    df.getOWLDataSomeValuesFrom(p, range),
+                    df.getOWLDataAllValuesFrom(p, range),
+                    df.getOWLDataMinCardinality(1, p, range),
+                    df.getOWLDataMaxCardinality(1, p, range),
+                    df.getOWLDataExactCardinality(1, p, range)
+            };
+            for (OWLClassExpression expression : expressions) {
+                axioms.add(df.getOWLSubClassOfAxiom(df.getOWLThing(), expression));
+                axioms.add(df.getOWLClassAssertionAxiom(expression, i));
+                axioms.add(df.getOWLObjectPropertyDomainAxiom(r, expression));
+                axioms.add(df.getOWLObjectPropertyRangeAxiom(r, expression));
+                axioms.add(df.getOWLDataPropertyDomainAxiom(q, expression));
+                axioms.add(df.getOWLHasKeyAxiom(expression, q));
+            }
+            axioms.add(df.getOWLDataPropertyRangeAxiom(p, range));
+        }
+        List<DynamicTest> tests = new ArrayList<>();
+        for (LocalityClass kind : new LocalityClass[] {LocalityClass.BOTTOM, LocalityClass.TOP}) {
+            for (OWLAxiom axiom : axioms) {
+                tests.add(dynamicTest(kind + "/" + axiom,
+                        () -> checkAdditionalUnsupported(kind, axiom, p, q, r, i, custom)));
+            }
+        }
+        return tests.stream();
+    }
+
+    @Tag("regression")
+    @Tag("unsupported-datatype-policy")
+    @Test
+    void additionalDatatypeDefinitionsAreExplicitlyRejectedInBothModes() {
+        OWLDatatype custom = df.getOWLDatatype(IRI.create("urn:semantic-locality:additional#Custom"));
+        OWLAxiom definition = df.getOWLDatatypeDefinitionAxiom(custom,
+                additionalDatatype(OWL2Datatype.XSD_BOOLEAN));
+        checkAdditionalUnsupported(LocalityClass.BOTTOM, definition, custom);
+        checkAdditionalUnsupported(LocalityClass.TOP, definition, custom);
+        checkBoth(true, df.getOWLSubClassOfAxiom(a, a), a);
+        checkBoth(false, df.getOWLSubClassOfAxiom(df.getOWLThing(), a), a);
+    }
+
+// -------------------------------------------------------------------------
+// Integration regression: shared anonymous witnesses in module extraction.
+// Uses LocalityModuleExtractor's protected evaluator hooks, so no additional
+// evaluators are allocated. This distinguishes isolated-axiom validity from
+// extraction correctness; it does NOT demand a false answer for a valid
+// isolated existential nominal assertion.
+// -------------------------------------------------------------------------
+
+    private static Set<OWLAxiom> additionalExtract(LocalityClass kind, Set<OWLAxiom> source,
+                                                   OWLEntity... signature) {
+        LocalityModuleExtractor extractor = new LocalityModuleExtractor(kind, source.stream()) {
+            @Override
+            protected LocalityEvaluator bottomEvaluator() {
+                return bottom;
+            }
+
+            @Override
+            protected LocalityEvaluator topEvaluator() {
+                return top;
+            }
+        };
+        return extractor.extract(sig(signature).stream(), Optional.empty())
+                .collect(Collectors.toSet());
+    }
+
+    private static void checkAdditionalEntailment(boolean expected, Set<OWLAxiom> premises,
+                                                  OWLAxiom goal) throws OWLOntologyCreationException {
+        OWLOntologyManager ownManager = OWLManager.createOWLOntologyManager();
+        Set<OWLAxiom> declared = new HashSet<>(premises);
+        Stream.concat(premises.stream(), Stream.of(goal))
+                .flatMap(OWLAxiom::signature).filter(entity -> !entity.isBuiltIn())
+                .map(df::getOWLDeclarationAxiom).forEach(declared::add);
+        OWLOntology ontology = ownManager.createOntology(declared);
+        OWLReasoner reasoner = null;
+        try {
+            reasoner = new ReasonerFactory().createReasoner(ontology);
+            assertEquals(true, reasoner.isConsistent(), "Entailment fixture must be consistent");
+            assertEquals(expected, reasoner.isEntailed(goal),
+                    () -> "Entailment of " + goal + " from " + premises);
+        } finally {
+            try {
+                if (reasoner != null) {
+                    reasoner.dispose();
+                }
+            } finally {
+                ownManager.removeOntology(ontology);
+            }
+        }
+    }
+
+    @Tag("preservation")
+    @Test
+    void additionalIsolatedAnonymousNominalAssertionIsExistentiallyValid() {
+        OWLAnonymousIndividual x = df.getOWLAnonymousIndividual("additional-isolated-witness");
+        checkBoth(true, df.getOWLClassAssertionAxiom(df.getOWLObjectOneOf(i), x), i);
+    }
+
+    @Tag("regression")
+    @Tag("integration")
+    @TestFactory
+    Stream<DynamicTest> additionalExtractionPreservesSharedAnonymousDataWitnesses() {
+        return Stream.of(LocalityClass.BOTTOM, LocalityClass.TOP).map(kind -> dynamicTest(
+                kind + "/shared-anonymous-data-witness", () -> {
+                    OWLAnonymousIndividual x = df.getOWLAnonymousIndividual("additional-shared-witness");
+                    OWLAxiom anchor = df.getOWLClassAssertionAxiom(df.getOWLObjectOneOf(i), x);
+                    OWLAxiom edge = df.getOWLDataPropertyAssertionAxiom(p, x, df.getOWLLiteral(1));
+                    OWLAxiom goal = df.getOWLDataPropertyAssertionAxiom(p, i, df.getOWLLiteral(1));
+                    Set<OWLAxiom> source = new HashSet<>(Arrays.asList(anchor, edge));
+                    checkAdditionalEntailment(true, source, goal);
+                    checkAdditionalEntailment(false, new HashSet<>(Arrays.asList(edge)), goal);
+                    Set<OWLAxiom> module = additionalExtract(kind, source, i, p);
+                    checkAdditionalEntailment(true, module, goal);
+                }));
+    }
+
+    @Tag("preservation")
+    @Tag("integration")
+    @Test
+    void additionalDifferentAnonymousDataWitnessesAreNotAccidentallyIdentified()
+            throws OWLOntologyCreationException {
+        OWLAnonymousIndividual x = df.getOWLAnonymousIndividual("additional-witness-x");
+        OWLAnonymousIndividual y = df.getOWLAnonymousIndividual("additional-witness-y");
+        OWLAxiom anchor = df.getOWLClassAssertionAxiom(df.getOWLObjectOneOf(i), x);
+        OWLAxiom edge = df.getOWLDataPropertyAssertionAxiom(p, y, df.getOWLLiteral(1));
+        OWLAxiom goal = df.getOWLDataPropertyAssertionAxiom(p, i, df.getOWLLiteral(1));
+        checkAdditionalEntailment(false, new HashSet<>(Arrays.asList(anchor, edge)), goal);
+    }
+
 }
