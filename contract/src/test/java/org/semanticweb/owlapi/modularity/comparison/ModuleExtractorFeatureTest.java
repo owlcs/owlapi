@@ -116,8 +116,8 @@ class ModuleExtractorFeatureTest {
     }
 
     @Test
-    void nolteSyntacticReturnsExactlyTheNonLocalAxioms() {
-        Set<OWLAxiom> module = probe("nolte-syntactic", true,
+    void modularitySyntacticReturnsExactlyTheNonLocalAxioms() {
+        Set<OWLAxiom> module = probe("modularity-syntactic", true,
             m -> new SyntacticLocalityModuleExtractor(LocalityClass.BOTTOM, base().stream())
                 .extract(sig(A).stream()).collect(Collectors.toSet()));
         // Declarations and annotation assertions are local, so they are never part of the
@@ -127,8 +127,8 @@ class ModuleExtractorFeatureTest {
     }
 
     @Test
-    void nolteSemanticReturnsExactlyTheNonLocalAxioms() {
-        Set<OWLAxiom> module = probe("nolte-semantic", true, m -> {
+    void modularitySemanticReturnsExactlyTheNonLocalAxioms() {
+        Set<OWLAxiom> module = probe("modularity-semantic", true, m -> {
             SemanticLocalityModuleExtractor extractor = new SemanticLocalityModuleExtractor(
                 LocalityClass.BOTTOM, base().stream(), m, new ReasonerFactory());
             try {

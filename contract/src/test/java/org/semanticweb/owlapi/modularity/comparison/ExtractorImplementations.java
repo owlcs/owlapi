@@ -105,7 +105,7 @@ final class ExtractorImplementations {
         }
     }
 
-    static final ExtractorImpl NOLTE_SYNTACTIC = new Base("nolte-syntactic", true, false) {
+    static final ExtractorImpl MODULARITY_SYNTACTIC = new Base("modularity-syntactic", true, false) {
         @Override
         public Prepared prepare(Set<OWLAxiom> base, LocalityClass type) {
             SyntacticLocalityModuleExtractor extractor =
@@ -115,7 +115,7 @@ final class ExtractorImplementations {
         }
     };
 
-    static final ExtractorImpl NOLTE_SEMANTIC = new Base("nolte-semantic", true, true) {
+    static final ExtractorImpl MODULARITY_SEMANTIC = new Base("modularity-semantic", true, true) {
         @Override
         public Prepared prepare(Set<OWLAxiom> base, LocalityClass type) {
             OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
@@ -186,9 +186,9 @@ final class ExtractorImplementations {
     /** All extractors; the semantic one only when requested (it is slow). */
     static List<ExtractorImpl> all(boolean includeSemantic) {
         List<ExtractorImpl> list = new ArrayList<>();
-        list.add(NOLTE_SYNTACTIC);
+        list.add(MODULARITY_SYNTACTIC);
         if (includeSemantic) {
-            list.add(NOLTE_SEMANTIC);
+            list.add(MODULARITY_SEMANTIC);
         }
         list.add(MANCHESTER_SEGMENTER);
         list.add(OWLAPITOOLS_DECOMPOSER);

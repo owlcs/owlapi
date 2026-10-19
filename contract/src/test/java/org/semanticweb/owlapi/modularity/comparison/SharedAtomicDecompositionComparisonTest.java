@@ -73,7 +73,7 @@ class SharedAtomicDecompositionComparisonTest {
     @AfterAll
     static void tearDown() {
         REPORT.note("Decomposition shape", "atoms / tautologies / dependency edges "
-            + "(transitive). `same as nolte-ad` compares the atoms as axiom sets.");
+            + "(transitive). `same as modularity-ad` compares the atoms as axiom sets.");
         REPORT.write();
     }
 
@@ -257,9 +257,9 @@ class SharedAtomicDecompositionComparisonTest {
             REPORT.metric("Decomposition shape", id, impl.name(), shape);
             if (!impl.reference()) {
                 try {
-                    Decomposed reference = decomposition(DecompositionImplementations.NOLTE,
+                    Decomposed reference = decomposition(DecompositionImplementations.MODULARITY,
                         corpus.name, corpus.logicalAxioms, type);
-                    REPORT.metric("Decomposition shape", id, "same as nolte-ad",
+                    REPORT.metric("Decomposition shape", id, "same as modularity-ad",
                         new HashSet<>(reference.atoms).equals(new HashSet<>(d.atoms)) ? "yes"
                             : "no");
                 } catch (RuntimeException e) {

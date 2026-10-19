@@ -116,8 +116,8 @@ final class DecompositionImplementations {
         return result;
     }
 
-    static final DecompositionImpl NOLTE = new Base("nolte-ad", true,
-        ExtractorImplementations.NOLTE_SYNTACTIC) {
+    static final DecompositionImpl MODULARITY = new Base("modularity-ad", true,
+        ExtractorImplementations.MODULARITY_SYNTACTIC) {
         @Override
         public Decomposed decompose(Set<OWLAxiom> base, LocalityClass type) {
             AtomicDecomposition ad = new AtomicDecomposition(base.stream(),
@@ -189,7 +189,7 @@ final class DecompositionImplementations {
 
     static List<DecompositionImpl> all() {
         List<DecompositionImpl> list = new ArrayList<>();
-        list.add(NOLTE);
+        list.add(MODULARITY);
         list.add(MANCHESTER);
         list.add(FACTPLUSPLUS);
         return Collections.unmodifiableList(list);

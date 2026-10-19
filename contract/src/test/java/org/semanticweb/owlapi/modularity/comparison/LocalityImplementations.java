@@ -85,7 +85,7 @@ final class LocalityImplementations implements AutoCloseable {
      * @param includeSemantic whether to create the (HermiT based) semantic checkers
      */
     LocalityImplementations(boolean includeSemantic) {
-        implementations.add(new Base("nolte-syntactic", true, false) {
+        implementations.add(new Base("modularity-syntactic", true, false) {
             @Override
             public boolean isLocal(OWLAxiom axiom, Set<OWLEntity> signature,
                 LocalityClass mode) {
@@ -140,24 +140,24 @@ final class LocalityImplementations implements AutoCloseable {
     private void addSemantic() {
         OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
         ReasonerFactory hermit = new ReasonerFactory();
-        SemanticLocalityEvaluator[] nolte = new SemanticLocalityEvaluator[2];
-        implementations.add(new Base("nolte-semantic", true, true) {
+        SemanticLocalityEvaluator[] evaluators = new SemanticLocalityEvaluator[2];
+        implementations.add(new Base("modularity-semantic", true, true) {
             @Override
             public boolean isLocal(OWLAxiom axiom, Set<OWLEntity> signature,
                 LocalityClass mode) {
                 int index = mode == LocalityClass.BOTTOM ? 0 : 1;
-                synchronized (nolte) {
-                    if (nolte[index] == null) {
-                        nolte[index] = new SemanticLocalityEvaluator(mode, manager, hermit);
+                synchronized (evaluators) {
+                    if (evaluators[index] == null) {
+                        evaluators[index] = new SemanticLocalityEvaluator(mode, manager, hermit);
                     }
                 }
                 // The strict variant keeps "cannot decide" visible as unsupported;
                 // isLocal itself would answer the conservative "non-local".
-                return nolte[index].isLocalOrThrow(axiom, signature);
+                return evaluators[index].isLocalOrThrow(axiom, signature);
             }
         });
         cleanup.add(() -> {
-            for (SemanticLocalityEvaluator e : nolte) {
+            for (SemanticLocalityEvaluator e : evaluators) {
                 if (e != null) {
                     e.dispose();
                 }
