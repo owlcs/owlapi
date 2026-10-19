@@ -224,7 +224,7 @@ public class LocalityModuleExtractorRegressionTest {
                         () -> {
                             if (!semantic) {
                                 checked.run(new SyntacticLocalityModuleExtractor(
-                                        kind, snapshot.stream()));
+                                        kind, snapshot.stream(), df));
                                 return;
                             }
                             OWLOntologyManager ownManager = OWLManager.createOWLOntologyManager();
@@ -232,7 +232,7 @@ public class LocalityModuleExtractorRegressionTest {
                                     LocalityClass.BOTTOM, ownManager, new ReasonerFactory());
                                  SemanticLocalityEvaluator top = new SemanticLocalityEvaluator(
                                          LocalityClass.TOP, ownManager, new ReasonerFactory())) {
-                                checked.run(new LocalityModuleExtractor(kind, snapshot.stream()) {
+                                checked.run(new LocalityModuleExtractor(kind, snapshot.stream(), df) {
                                     @Override
                                     protected LocalityEvaluator bottomEvaluator() {
                                         return bottom;
@@ -709,13 +709,22 @@ public class LocalityModuleExtractorRegressionTest {
     }
 
     @Test
-    void oldConstructorRequiresFactoryForLogicalAnonymousIndividuals() {
-        OWLAnonymousIndividual x = df.getOWLAnonymousIndividual("factory-required");
-        OWLNamedIndividual i = df.getOWLNamedIndividual(IRI.create("urn:locality-module:regression#i"));
-        OWLAxiom axiom = df.getOWLClassAssertionAxiom(df.getOWLObjectOneOf(i), x);
-        assertThrows(UnsupportedOperationException.class,
-                () -> new SyntacticLocalityModuleExtractor(LocalityClass.BOTTOM,
-                        Stream.of(axiom)));
+    void oldConstructorKeepsAnonymousGroupsInEveryModule() {
+        OWLAnonymousIndividual x = df.getOWLAnonymousIndividual("no-factory");
+        OWLDataProperty p = df.getOWLDataProperty(IRI.create("urn:locality-module:regression#p"));
+        Set<OWLAxiom> group = Set.of(df.getOWLClassAssertionAxiom(a, x),
+                df.getOWLDataPropertyAssertionAxiom(p, x, df.getOWLLiteral(1)));
+        // With a factory the group rolls up to Thing SubClassOf some(U, A and p value 1),
+        // which is TOP-local for the empty signature.
+        assertTrue(new SyntacticLocalityModuleExtractor(LocalityClass.TOP, group.stream(), df)
+                .extract(Stream.empty()).collect(Collectors.toSet()).isEmpty());
+        // Without one the group cannot be checked, so it is kept, as a whole, in every module.
+        for (LocalityClass kind : LocalityClass.values()) {
+            SyntacticLocalityModuleExtractor extractor = assertDoesNotThrow(
+                    () -> new SyntacticLocalityModuleExtractor(kind, group.stream()));
+            assertEquals(group, extractor.extract(Stream.empty()).collect(Collectors.toSet()),
+                    kind.toString());
+        }
     }
 
     @Test
@@ -731,6 +740,110 @@ public class LocalityModuleExtractorRegressionTest {
         // Together, these axioms entail p(i, 1); neither may be dropped independently.
         assertEquals(Set.of(anchor, data),
                 extractor.extract(Stream.of(i, p)).collect(Collectors.toSet()));
+    }
+
+    @Test
+    void noModuleContainsTestsAnAnonymousGroupAsAWhole() {
+        OWLAnonymousIndividual x = df.getOWLAnonymousIndividual("group-tautology");
+        OWLAxiom thing = df.getOWLClassAssertionAxiom(df.getOWLThing(), x);
+        OWLAxiom typed = df.getOWLClassAssertionAxiom(a, x);
+        // Alone, Thing(_:x) is a tautology ...
+        SyntacticLocalityModuleExtractor alone = new SyntacticLocalityModuleExtractor(
+                LocalityClass.STAR, Stream.of(thing), df);
+        assertTrue(alone.noModuleContains(thing));
+        // ... but next to A(_:x) it is included with it, e.g. in the module for {A}.
+        SyntacticLocalityModuleExtractor together = new SyntacticLocalityModuleExtractor(
+                LocalityClass.STAR, Stream.of(thing, typed), df);
+        assertTrue(together.extract(Stream.of(a)).collect(Collectors.toSet()).contains(thing));
+        assertFalse(together.noModuleContains(thing));
+        assertFalse(together.tautologies().findAny().isPresent());
+        Set<OWLEntity> groupSignature = Stream.of(thing, typed).flatMap(OWLAxiom::signature)
+                .collect(Collectors.toSet());
+        assertEquals(groupSignature,
+                together.seedSignature(thing).collect(Collectors.toSet()));
+    }
+
+    @Test
+    void anonymousIndividualsDoNotTurnExtractionIntoAFullRescan() {
+        // A chain C0 < C1 < ... < Cn plus one unrelated anonymous assertion. The
+        // module for {C0} is found link by link. The indexed worklist tests each
+        // axiom a constant number of times; a full-scan fixpoint (the former path
+        // for axiom bases with anonymous individuals) re-tests all of them per link.
+        int n = 200;
+        List<OWLAxiom> base = new ArrayList<>();
+        for (int k = 0; k < n; k++) {
+            base.add(sub(named("Chain" + k), named("Chain" + (k + 1))));
+        }
+        base.add(df.getOWLClassAssertionAxiom(named("Other"),
+                df.getOWLAnonymousIndividual("full-rescan")));
+        int[] calls = {0};
+        LocalityEvaluator counting = (axiom, signature) -> {
+            calls[0]++;
+            return SyntacticLocalityEvaluator.BOTTOM.isLocal(axiom, signature);
+        };
+        LocalityModuleExtractor extractor =
+                new LocalityModuleExtractor(LocalityClass.BOTTOM, base.stream(), df) {
+                    @Override
+                    protected LocalityEvaluator bottomEvaluator() {
+                        return counting;
+                    }
+
+                    @Override
+                    protected LocalityEvaluator topEvaluator() {
+                        return SyntacticLocalityEvaluator.TOP;
+                    }
+                };
+        // Other(_:x) is BOTTOM-non-local for every signature, so it is included too.
+        assertEquals(new HashSet<>(base),
+                extractor.extract(Stream.of(named("Chain0"))).collect(Collectors.toSet()));
+        assertTrue(calls[0] <= 4 * (n + 1), "isLocal calls: " + calls[0]);
+    }
+
+    @Test
+    void noModuleContainsAgreesWithItsDefinitionForEveryLocalityClass() {
+        // The override decides directly what the default extracts: is the axiom
+        // absent from the module for its own signature, with only it eligible?
+        OWLNamedIndividual i = df.getOWLNamedIndividual(
+                IRI.create("urn:locality-module:regression#tautology-i"));
+        List<OWLAxiom> axioms = Arrays.asList(
+                sub(a, df.getOWLThing()),
+                sub(df.getOWLNothing(), b),
+                sub(a, b),
+                sub(c, df.getOWLObjectUnionOf(c, d)),
+                df.getOWLEquivalentClassesAxiom(e, e),
+                df.getOWLClassAssertionAxiom(a, i),
+                df.getOWLClassAssertionAxiom(df.getOWLThing(), i),
+                df.getOWLDeclarationAxiom(a));
+        for (LocalityClass kind : LocalityClass.values()) {
+            SyntacticLocalityModuleExtractor extractor =
+                    new SyntacticLocalityModuleExtractor(kind, axioms.stream(), df);
+            Set<OWLAxiom> expected = new HashSet<>();
+            for (OWLAxiom axiom : axioms) {
+                boolean byDefinition = !extractor.extract(axiom.signature(), axiom::equals)
+                        .findAny().isPresent();
+                assertEquals(byDefinition, extractor.noModuleContains(axiom), kind + " / " + axiom);
+                if (byDefinition) {
+                    expected.add(axiom);
+                }
+            }
+            assertEquals(expected, extractor.tautologies().collect(Collectors.toSet()),
+                    kind.toString());
+        }
+    }
+
+    @Test
+    void semanticExtractorIsAutoCloseable() {
+        OWLOntologyManager ownManager = OWLManager.createOWLOntologyManager();
+        int before = ownManager.getOntologies().size();
+        OWLAxiom axiom = sub(a, b);
+        try (SemanticLocalityModuleExtractor extractor = new SemanticLocalityModuleExtractor(
+                LocalityClass.STAR, Stream.of(axiom), ownManager, new ReasonerFactory())) {
+            // One empty ontology per evaluator (BOTTOM and TOP).
+            assertEquals(before + 2, ownManager.getOntologies().size());
+            assertEquals(Set.of(axiom),
+                    extractor.extract(Stream.of(a, b)).collect(Collectors.toSet()));
+        }
+        assertEquals(before, ownManager.getOntologies().size());
     }
 
     @Test

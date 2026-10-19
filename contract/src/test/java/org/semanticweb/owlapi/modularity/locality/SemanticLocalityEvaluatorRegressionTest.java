@@ -1502,16 +1502,40 @@ class SemanticLocalityEvaluatorRegressionTest {
     @Tag("regression")
     @Tag("datatype-domain")
     @Test
-    void additionalVariableDataRestrictionsCorrelateWithRetainedDataProperties() {
+    void additionalVariableDataRestrictionsWithRetainedDataPropertiesAreConservative() {
         OWLDataProperty q = additionalDataProperty("q");
         OWLDataRange extra = additionalExtraDataValues();
         OWLClassExpression localSome = df.getOWLDataSomeValuesFrom(q, extra);
         OWLClassExpression globalSome = df.getOWLDataSomeValuesFrom(p, extra);
-        check(LocalityClass.TOP, true, df.getOWLSubClassOfAxiom(localSome, globalSome), q);
+        // Exactly, the first and third axioms are local: if q has an extra value,
+        // the data domain has one. The evaluator fixes the number of extra values
+        // only for the absent p and leaves q to the reasoner, which may choose a
+        // different number. OWL 2 cannot tell the reasoner "exactly k extra values",
+        // so these correlations are lost. That direction is sound: the axioms are
+        // reported non-local and kept in modules, never wrongly dropped.
+        check(LocalityClass.TOP, false, df.getOWLSubClassOfAxiom(localSome, globalSome), q);
         check(LocalityClass.TOP, false, df.getOWLSubClassOfAxiom(globalSome, localSome), q);
-        check(LocalityClass.TOP, true, df.getOWLSubClassOfAxiom(
+        check(LocalityClass.TOP, false, df.getOWLSubClassOfAxiom(
                 df.getOWLDataMaxCardinality(0, p, extra),
                 df.getOWLDataAllValuesFrom(q, additionalBuiltInValueUnion())), q);
+    }
+
+    @Tag("regression")
+    @Tag("datatype-domain")
+    @Test
+    void additionalExactDataCardinalityChecksEveryDomainSize() {
+        OWLDataRange extra = additionalExtraDataValues();
+        // "At most one extra value" holds for 0 and 1 extra values but not for 2.
+        // Regression: the threshold of the upper bound of '=1' was never
+        // discovered when its lower bound already failed, so 2 was not tested.
+        check(LocalityClass.TOP, false, df.getOWLSubClassOfAxiom(df.getOWLThing(),
+                df.getOWLObjectUnionOf(df.getOWLDataExactCardinality(1, p, extra),
+                        df.getOWLDataMaxCardinality(0, p, extra))));
+        // Control: 0, exactly 1, or at least 2 extra values covers every domain.
+        check(LocalityClass.TOP, true, df.getOWLSubClassOfAxiom(df.getOWLThing(),
+                df.getOWLObjectUnionOf(df.getOWLDataMaxCardinality(0, p, extra),
+                        df.getOWLDataExactCardinality(1, p, extra),
+                        df.getOWLDataMinCardinality(2, p, extra))));
     }
 
     @Tag("regression")
@@ -1856,8 +1880,9 @@ class SemanticLocalityEvaluatorRegressionTest {
 
 // -------------------------------------------------------------------------
 // Explicit policy tests: no external datatype definitions are available.
-// These test the proposed uniform UnsupportedOperationException contract,
-// rather than claiming undefined custom datatype inputs are valid OWL 2 DL.
+// Such axioms cannot be decided: isLocal reports them as non-local (safe for
+// modules), and isLocalOrThrow throws UnsupportedOperationException, rather
+// than claiming undefined custom datatype inputs are valid OWL 2 DL.
 // -------------------------------------------------------------------------
 
     private static void checkAdditionalUnsupported(LocalityClass kind, OWLAxiom axiom,
@@ -1865,8 +1890,9 @@ class SemanticLocalityEvaluatorRegressionTest {
         SemanticLocalityEvaluator evaluator = kind == LocalityClass.BOTTOM ? bottom : top;
         int count = manager.getOntologies().size();
         try {
+            assertFalse(evaluator.isLocal(axiom, sig(signature)), axiom.toString());
             assertThrows(UnsupportedOperationException.class,
-                    () -> evaluator.isLocal(axiom, sig(signature)), axiom.toString());
+                    () -> evaluator.isLocalOrThrow(axiom, sig(signature)), axiom.toString());
         } finally {
             assertEquals(count, manager.getOntologies().size(), "Unsupported query leaked an ontology");
             manager.getOntologies().forEach(o -> assertEquals(0, o.getAxiomCount(),
@@ -1914,6 +1940,27 @@ class SemanticLocalityEvaluatorRegressionTest {
     @Tag("regression")
     @Tag("unsupported-datatype-policy")
     @Test
+    void additionalUndecidableAxiomsAreKeptInModules() {
+        OWLDatatype custom = df.getOWLDatatype(IRI.create("urn:semantic-locality:additional#Custom"));
+        OWLAxiom definition = df.getOWLDatatypeDefinitionAxiom(custom,
+                additionalDatatype(OWL2Datatype.XSD_BOOLEAN));
+        OWLAxiom ordinary = df.getOWLSubClassOfAxiom(a, b);
+        OWLAxiom unrelated = df.getOWLSubClassOfAxiom(c, d);
+        Set<OWLAxiom> source = new HashSet<>(Arrays.asList(definition, ordinary, unrelated));
+        // The definition cannot be decided, so it counts as non-local for every
+        // signature: extraction keeps it instead of failing. A SubClassOf B is
+        // only BOTTOM-non-local for {A}; under TOP, B becomes Thing.
+        assertEquals(new HashSet<>(Arrays.asList(definition, ordinary)),
+                additionalExtract(LocalityClass.BOTTOM, source, a));
+        assertEquals(Collections.singleton(definition),
+                additionalExtract(LocalityClass.TOP, source, a));
+        assertEquals(Collections.singleton(definition),
+                additionalExtract(LocalityClass.STAR, source, a));
+    }
+
+    @Tag("regression")
+    @Tag("unsupported-datatype-policy")
+    @Test
     void additionalDatatypeDefinitionsAreExplicitlyRejectedInBothModes() {
         OWLDatatype custom = df.getOWLDatatype(IRI.create("urn:semantic-locality:additional#Custom"));
         OWLAxiom definition = df.getOWLDatatypeDefinitionAxiom(custom,
@@ -1934,7 +1981,7 @@ class SemanticLocalityEvaluatorRegressionTest {
 
     private static Set<OWLAxiom> additionalExtract(LocalityClass kind, Set<OWLAxiom> source,
                                                    OWLEntity... signature) {
-        LocalityModuleExtractor extractor = new LocalityModuleExtractor(kind, source.stream()) {
+        LocalityModuleExtractor extractor = new LocalityModuleExtractor(kind, source.stream(), df) {
             @Override
             protected LocalityEvaluator bottomEvaluator() {
                 return bottom;

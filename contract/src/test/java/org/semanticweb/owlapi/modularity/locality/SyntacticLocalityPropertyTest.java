@@ -220,7 +220,7 @@ class SyntacticLocalityPropertyTest {
                             continue; // nothing to check: incompleteness is allowed
                         }
                         try {
-                            if (oracle.isLocal(axiom, sigma)) {
+                            if (oracle.isLocalOrThrow(axiom, sigma)) {
                                 confirmed++;
                             } else {
                                 violations.add(SYNTACTIC[mode] + " claims local, but it is "

@@ -181,6 +181,20 @@ public interface ModuleExtractor {
     }
 
     /**
+     * Returns the seed signature that decides whether the given axiom occurs in modules
+     * at all: if the axiom is not in the module for this signature, it is in no module.
+     * This is the axiom's own signature by default. Extractors that include some axioms
+     * only together with others must return the signature of the whole group, so that
+     * e.g. {@link AtomicDecomposition} keeps the group in one atom.
+     *
+     * @param axiom The {@link OWLAxiom} to get the seed signature for
+     * @return The seed signature as specified above
+     */
+    default @Nonnull Stream<OWLEntity> seedSignature(OWLAxiom axiom) {
+        return axiom.signature();
+    }
+
+    /**
      * Returns {@code true} if the given {@link OWLAxiom} is absent from the module
      * extracted with only that axiom eligible and its full signature as the seed.
      * For locality-based extractors this is equivalent to absence from every

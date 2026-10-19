@@ -13,7 +13,7 @@
 package org.semanticweb.owlapi.modularity.locality;
 
 import java.util.ArrayList;
-import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -31,9 +31,10 @@ import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.modularity.ModuleExtractor;
 
 /**
- * Base class for locality-based module extractors. Ordinary (anonymous-free)
- * inputs use an entity index; connected existential ABox witnesses are handled
- * as a single extraction unit so their shared variables cannot be separated.
+ * Base class for locality-based module extractors, using the entity-indexed
+ * worklist algorithm. Axioms that share logical anonymous individuals (existential
+ * ABox witnesses) are checked and included together, as one extraction unit, so
+ * their shared variables cannot be separated.
  *
  * @author Marc Robin Nolte
  */
@@ -43,6 +44,8 @@ public abstract class LocalityModuleExtractor implements ModuleExtractor {
     private final @Nonnull LocalityClass localityClass;
     private final OWLDataFactory dataFactory;
     private final Map<OWLEntity, Set<OWLAxiom>> axiomsContainingEntity = new HashMap<>();
+    /** The group of every axiom of the base with logical anonymous individuals. */
+    private final Map<OWLAxiom, Set<OWLAxiom>> anonymousGroupOf = new HashMap<>();
     private final Map<LocalityEvaluator, Map<OWLAxiom, Boolean>> globalCache = new HashMap<>();
 
     LocalityModuleExtractor(LocalityClass localityClass, Stream<OWLAxiom> axiomBase) {
@@ -51,22 +54,17 @@ public abstract class LocalityModuleExtractor implements ModuleExtractor {
 
     /**
      * @param dataFactory factory for compiling connected anonymous assertions;
-     *                    may be null only if the axiom base has no logical
-     *                    occurrences of anonymous individuals
+     *                    may be null, in which case every connected group of
+     *                    logical anonymous assertions is kept in every module
      */
     LocalityModuleExtractor(LocalityClass localityClass, Stream<OWLAxiom> axiomBase,
                             OWLDataFactory dataFactory) {
         this.axiomBase = Objects.requireNonNull(axiomBase, "axiomBase")
                 .collect(Collectors.toSet());
         this.localityClass = Objects.requireNonNull(localityClass, "localityClass");
+        // The tools module must not depend on OWLManager from owlapi-apibinding,
+        // so the factory cannot be created here.
         this.dataFactory = dataFactory;
-        // The tools module must not depend on OWLManager from owlapi-apibinding.
-        // Fail only for logical anonymous assertions that require a factory.
-        if (dataFactory == null && this.axiomBase.stream()
-                .anyMatch(LocalityModuleExtractor::hasLogicalAnonymousIndividuals)) {
-            throw new UnsupportedOperationException(
-                    "An OWLDataFactory is required for axioms with anonymous individuals");
-        }
         initialize();
     }
 
@@ -97,26 +95,9 @@ public abstract class LocalityModuleExtractor implements ModuleExtractor {
                 .orElse(axiom -> true);
         Set<OWLAxiom> allowed = axiomBase.stream().filter(filter).collect(Collectors.toSet());
 
-        // Filtering must happen before connecting witnesses; a filtered-out
-        // assertion must neither constrain a surviving witness nor link groups.
         LocalityEvaluator bottom = localityClass == LocalityClass.TOP ? null : bottomEvaluator();
         LocalityEvaluator top = localityClass == LocalityClass.BOTTOM ? null : topEvaluator();
         LocalityEvaluator first = localityClass == LocalityClass.TOP ? top : bottom;
-        if (allowed.stream().anyMatch(LocalityModuleExtractor::hasLogicalAnonymousIndividuals)) {
-            List<ExtractionUnit> units = buildUnits(allowed, dataFactory);
-            Set<ExtractionUnit> module = extractUnits(seed, units, first);
-            if (localityClass == LocalityClass.STAR) {
-                LocalityEvaluator next = top;
-                int oldSize;
-                do {
-                    oldSize = module.size();
-                    module = extractUnits(seed, module, next);
-                    next = next == top ? bottom : top;
-                } while (oldSize != module.size());
-            }
-            return module.stream().flatMap(unit -> unit.originals.stream());
-        }
-        // Keep the existing indexed path for the overwhelmingly common case.
         Set<OWLAxiom> module = extractIndexed(seed, allowed, first);
         if (localityClass == LocalityClass.STAR) {
             LocalityEvaluator next = top;
@@ -130,32 +111,95 @@ public abstract class LocalityModuleExtractor implements ModuleExtractor {
         return module.stream();
     }
 
+    /**
+     * Axioms sharing anonymous individuals are only included as a whole group, so the
+     * signature of the whole group decides whether they occur in modules.
+     */
+    @Override
+    public @Nonnull Stream<OWLEntity> seedSignature(OWLAxiom axiom) {
+        Set<OWLAxiom> group = anonymousGroupOf.get(Objects.requireNonNull(axiom, "axiom"));
+        return group == null ? axiom.signature()
+                : group.stream().flatMap(OWLAxiom::signature).distinct();
+    }
+
+    /**
+     * Decides the default's question (is the axiom absent from the module for its own
+     * signature, with only it eligible) directly, without scanning the axiom base.
+     * An axiom sharing anonymous individuals is tested together with its group,
+     * because the group is only ever included as a whole.
+     */
+    @Override
+    public boolean noModuleContains(OWLAxiom axiom) {
+        Set<OWLAxiom> group = anonymousGroupOf.get(Objects.requireNonNull(axiom, "axiom"));
+        ExtractionUnit unit = group != null ? compileAnonymousUnit(group, dataFactory)
+                : hasLogicalAnonymousIndividuals(axiom)
+                        ? compileAnonymousUnit(Collections.singleton(axiom), dataFactory)
+                        : new ExtractionUnit(Collections.singleton(axiom), axiom, false);
+        // Locality only depends on the unit's own symbols, all of which are in the seed.
+        switch (localityClass) {
+            case BOTTOM:
+                return unit.isLocal(unit.signature, bottomEvaluator());
+            case TOP:
+                return unit.isLocal(unit.signature, topEvaluator());
+            default:
+                // A STAR module keeps the unit only if both nested passes do.
+                return unit.isLocal(unit.signature, bottomEvaluator())
+                        || unit.isLocal(unit.signature, topEvaluator());
+        }
+    }
+
     private static boolean hasLogicalAnonymousIndividuals(OWLAxiom axiom) {
         return axiom.isLogicalAxiom()
                 && axiom.getAxiomWithoutAnnotations().anonymousIndividuals().findAny().isPresent();
     }
 
-    /** The indexed worklist; global axioms must be checked even for empty seeds. */
+    /**
+     * The indexed worklist. Global axioms must be checked even for empty seeds.
+     * Axioms with logical anonymous individuals are handled as units, indexed
+     * like ordinary axioms; filtering happens before the units are formed, so a
+     * filtered-out assertion neither constrains nor links a surviving witness.
+     */
     private Set<OWLAxiom> extractIndexed(Set<OWLEntity> seed, Set<OWLAxiom> allowed,
                                          LocalityEvaluator evaluator) {
+        List<ExtractionUnit> units = anonymousUnits(allowed);
+        Map<OWLEntity, List<ExtractionUnit>> unitsContainingEntity = new HashMap<>();
+        for (ExtractionUnit unit : units) {
+            unit.signature.forEach(entity -> unitsContainingEntity
+                    .computeIfAbsent(entity, ignored -> new ArrayList<>()).add(unit));
+        }
         Set<OWLAxiom> result = new HashSet<>();
+        Set<ExtractionUnit> includedUnits = new HashSet<>();
         Set<OWLEntity> signature = new HashSet<>(seed);
         Set<OWLEntity> work = new HashSet<>(seed);
         // With the empty signature, none of the original names is retained.
         // Every non-local axiom in that interpretation must be included before
         // the entity-indexed worklist can discover dependent axioms.
-        Set<OWLEntity> empty = Set.of();
+        Set<OWLEntity> empty = Collections.emptySet();
         for (OWLAxiom axiom : allowed) {
-            if (globallyNonLocal(axiom, evaluator, empty)) {
+            if (!anonymousGroupOf.containsKey(axiom)
+                    && globallyNonLocal(axiom, evaluator, empty)) {
                 addNonLocal(axiom, signature, result, work, evaluator, true);
+            }
+        }
+        for (ExtractionUnit unit : units) {
+            if (unit.conservativelyNonLocal
+                    || globallyNonLocal(unit.localityAxiom, evaluator, empty)) {
+                addUnit(unit, signature, result, includedUnits, work);
             }
         }
         while (!work.isEmpty()) {
             OWLEntity entity = work.iterator().next();
             work.remove(entity);
-            for (OWLAxiom axiom : axiomsContainingEntity.getOrDefault(entity, Set.of())) {
-                if (allowed.contains(axiom)) {
+            for (OWLAxiom axiom : axiomsContainingEntity.getOrDefault(entity,
+                    Collections.emptySet())) {
+                if (allowed.contains(axiom) && !anonymousGroupOf.containsKey(axiom)) {
                     addNonLocal(axiom, signature, result, work, evaluator, false);
+                }
+            }
+            for (ExtractionUnit unit : unitsContainingEntity.getOrDefault(entity,
+                    Collections.emptyList())) {
+                if (!includedUnits.contains(unit) && !unit.isLocal(signature, evaluator)) {
+                    addUnit(unit, signature, result, includedUnits, work);
                 }
             }
         }
@@ -178,6 +222,15 @@ public abstract class LocalityModuleExtractor implements ModuleExtractor {
         }
     }
 
+    private static void addUnit(ExtractionUnit unit, Set<OWLEntity> signature,
+                                Set<OWLAxiom> module, Set<ExtractionUnit> includedUnits,
+                                Set<OWLEntity> work) {
+        if (includedUnits.add(unit)) {
+            module.addAll(unit.originals);
+            unit.signature.stream().filter(signature::add).forEach(work::add);
+        }
+    }
+
     private static final class ExtractionUnit {
         final Set<OWLAxiom> originals;
         final Set<OWLEntity> signature;
@@ -186,7 +239,7 @@ public abstract class LocalityModuleExtractor implements ModuleExtractor {
 
         ExtractionUnit(Set<OWLAxiom> originals, OWLAxiom localityAxiom,
                        boolean conservativelyNonLocal) {
-            this.originals = Set.copyOf(originals);
+            this.originals = Collections.unmodifiableSet(new HashSet<>(originals));
             this.signature = originals.stream().flatMap(OWLAxiom::signature)
                     .collect(Collectors.toSet());
             this.localityAxiom = localityAxiom;
@@ -198,24 +251,16 @@ public abstract class LocalityModuleExtractor implements ModuleExtractor {
         }
     }
 
-    /** A full-scan fixpoint keeps unit membership atomic across STAR passes. */
-    private static Set<ExtractionUnit> extractUnits(Set<OWLEntity> seed,
-                                                    Collection<ExtractionUnit> units,
-                                                    LocalityEvaluator evaluator) {
-        Set<ExtractionUnit> result = new HashSet<>();
-        Set<OWLEntity> signature = new HashSet<>(seed);
-        boolean changed;
-        do {
-            changed = false;
-            for (ExtractionUnit unit : units) {
-                if (!result.contains(unit) && !unit.isLocal(signature, evaluator)) {
-                    result.add(unit);
-                    signature.addAll(unit.signature);
-                    changed = true;
-                }
-            }
-        } while (changed);
-        return result;
+    /** One unit per connected group of the allowed axioms with anonymous individuals. */
+    private List<ExtractionUnit> anonymousUnits(Set<OWLAxiom> allowed) {
+        if (anonymousGroupOf.isEmpty()) {
+            return Collections.emptyList();
+        }
+        Set<OWLAxiom> candidates = anonymousGroupOf.keySet().stream()
+                .filter(allowed::contains).collect(Collectors.toSet());
+        return connectedGroups(candidates).stream()
+                .map(group -> compileAnonymousUnit(group, dataFactory))
+                .collect(Collectors.toList());
     }
 
     private static Set<OWLAnonymousIndividual> logicalAnonymousIndividuals(OWLAxiom axiom) {
@@ -223,26 +268,19 @@ public abstract class LocalityModuleExtractor implements ModuleExtractor {
                 .collect(Collectors.toSet());
     }
 
-    /** Connected components of anonymous nodes, computed AFTER the filter. */
-    private static List<ExtractionUnit> buildUnits(Set<OWLAxiom> allowed,
-                                                   OWLDataFactory dataFactory) {
+    /** Connected components of axioms linked by shared logical anonymous individuals. */
+    private static List<Set<OWLAxiom>> connectedGroups(Set<OWLAxiom> axioms) {
         Map<OWLAnonymousIndividual, Set<OWLAxiom>> byIndividual = new HashMap<>();
-        for (OWLAxiom axiom : allowed) {
-            if (axiom.isLogicalAxiom()) {
-                logicalAnonymousIndividuals(axiom).forEach(individual ->
-                        byIndividual.computeIfAbsent(individual, ignored -> new HashSet<>())
-                                .add(axiom));
-            }
+        for (OWLAxiom axiom : axioms) {
+            logicalAnonymousIndividuals(axiom).forEach(individual ->
+                    byIndividual.computeIfAbsent(individual, ignored -> new HashSet<>())
+                            .add(axiom));
         }
-        Set<OWLAxiom> pending = new HashSet<>(allowed);
-        List<ExtractionUnit> units = new ArrayList<>();
+        Set<OWLAxiom> pending = new HashSet<>(axioms);
+        List<Set<OWLAxiom>> groups = new ArrayList<>();
         while (!pending.isEmpty()) {
             OWLAxiom first = pending.iterator().next();
             pending.remove(first);
-            if (!hasLogicalAnonymousIndividuals(first)) {
-                units.add(new ExtractionUnit(Set.of(first), first, false));
-                continue;
-            }
             Set<OWLAxiom> group = new HashSet<>();
             group.add(first);
             Set<OWLAnonymousIndividual> seen = new HashSet<>();
@@ -253,17 +291,18 @@ public abstract class LocalityModuleExtractor implements ModuleExtractor {
                 if (!seen.add(current)) {
                     continue;
                 }
-                for (OWLAxiom connected : byIndividual.getOrDefault(current, Set.of())) {
+                for (OWLAxiom connected : byIndividual.getOrDefault(current,
+                        Collections.emptySet())) {
                     if (pending.remove(connected)) {
                         group.add(connected);
-                        logicalAnonymousIndividuals(connected).stream().filter(x -> !seen.contains(x))
-                                .forEach(work::add);
+                        logicalAnonymousIndividuals(connected).stream()
+                                .filter(x -> !seen.contains(x)).forEach(work::add);
                     }
                 }
             }
-            units.add(compileAnonymousUnit(group, dataFactory));
+            groups.add(group);
         }
-        return units;
+        return groups;
     }
 
     private static final class AnonymousEdge {
@@ -292,11 +331,15 @@ public abstract class LocalityModuleExtractor implements ModuleExtractor {
      * GCI. Shared nodes must be conjoined BEFORE existential closure: separate
      * closures would give every assertion an independent witness.
      *
-     * Unsupported/invalid graph shapes are kept conservatively as a whole
-     * unit, never silently approximated by a spanning tree.
+     * Unsupported/invalid graph shapes, and every group when no factory is
+     * available, are kept conservatively as a whole unit, never silently
+     * approximated by a spanning tree.
      */
     private static ExtractionUnit compileAnonymousUnit(Set<OWLAxiom> group,
                                                        OWLDataFactory factory) {
+        if (factory == null) {
+            return new ExtractionUnit(group, null, true);
+        }
         Map<OWLAnonymousIndividual, List<OWLClassExpression>> at = new HashMap<>();
         List<AnonymousEdge> edges = new ArrayList<>();
         boolean unsupported = false;
@@ -409,5 +452,11 @@ public abstract class LocalityModuleExtractor implements ModuleExtractor {
     private void initialize() {
         axiomBase().forEach(axiom -> axiom.signature().forEach(entity ->
                 axiomsContainingEntity.computeIfAbsent(entity, x -> new HashSet<>()).add(axiom)));
+        Set<OWLAxiom> anonymous = axiomBase().filter(LocalityModuleExtractor::hasLogicalAnonymousIndividuals)
+                .collect(Collectors.toSet());
+        for (Set<OWLAxiom> group : connectedGroups(anonymous)) {
+            Set<OWLAxiom> shared = Collections.unmodifiableSet(group);
+            group.forEach(axiom -> anonymousGroupOf.put(axiom, shared));
+        }
     }
 }

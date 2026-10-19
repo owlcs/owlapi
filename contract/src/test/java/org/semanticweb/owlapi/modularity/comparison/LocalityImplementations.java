@@ -151,7 +151,9 @@ final class LocalityImplementations implements AutoCloseable {
                         nolte[index] = new SemanticLocalityEvaluator(mode, manager, hermit);
                     }
                 }
-                return nolte[index].isLocal(axiom, signature);
+                // The strict variant keeps "cannot decide" visible as unsupported;
+                // isLocal itself would answer the conservative "non-local".
+                return nolte[index].isLocalOrThrow(axiom, signature);
             }
         });
         cleanup.add(() -> {

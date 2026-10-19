@@ -13,7 +13,9 @@
 package org.semanticweb.owlapi.modularity.locality;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -49,7 +51,13 @@ import org.semanticweb.owlapi.vocab.OWL2Datatype;
  * <p>Datatype value spaces are fixed, but the data domain may also contain
  * values outside all built-in value spaces. TOP data restrictions depending on
  * their number are tested together, once for each distinguishable domain-size
- * case. A case is never inferred from a single satisfiability probe.</p>
+ * case. A case is never inferred from a single satisfiability probe.
+ * Restrictions on retained data properties are left to the reasoner, which
+ * must therefore allow such extra values (checked on construction). The
+ * reasoner may pick a number of extra values that differs from the case being
+ * tested; this can only turn a local axiom into a non-local one, e.g.
+ * {@code DataSomeValuesFrom(q, not B) SubClassOf DataSomeValuesFrom(p, not B)}
+ * for an absent p in TOP. Modules may then be larger, but never wrong.</p>
  *
  * <p>A single empty ontology and reasoner are reused for all locality checks
  * that require no auxiliary axioms, including datatype cardinality probes.
@@ -59,12 +67,16 @@ import org.semanticweb.owlapi.vocab.OWL2Datatype;
  * Call {@link #dispose()} (or {@link #close()}) when finished to dispose of
  * the shared reasoner and remove its empty ontology from the manager.</p>
  *
- * <p>The evaluator serializes calls to {@link #isLocal(OWLAxiom, Collection)}
- * and {@link #dispose()} because OWL reasoners are generally not guaranteed
- * to permit concurrent queries. Unsupported cases throw
- * {@link UnsupportedOperationException} rather than returning a guessed
- * locality result. The caller supplies a reasoner factory supporting the
- * OWL 2 DL constructs used in the checks and accepting fresh query entities.</p>
+ * <p>The evaluator serializes locality checks and {@link #dispose()} because OWL reasoners are generally not guaranteed
+ * to permit concurrent queries. The caller supplies a reasoner factory
+ * supporting the OWL 2 DL constructs used in the checks and accepting fresh
+ * query entities.</p>
+ *
+ * <p>Some axioms cannot be decided, e.g. SWRL rules or axioms with undefined
+ * datatypes. {@link #isLocal(OWLAxiom, Collection)} reports them as non-local,
+ * which is always safe for module extraction; locality is never guessed.
+ * {@link #isLocalOrThrow(OWLAxiom, Collection)} throws
+ * {@link UnsupportedOperationException} for them instead.</p>
  *
  * @author Marc Robin Nolte (original implementation)
  */
@@ -99,6 +111,7 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator, AutoCloseab
      * @param reasonerFactory factory for the shared and temporary reasoners
      * @throws OWLRuntimeException if the empty ontology cannot be created
      * @throws IllegalArgumentException if the reasoner disallows fresh query entities
+     *         or data values outside all built-in datatypes
      */
     public SemanticLocalityEvaluator(LocalityClass localityClass,
                                      OWLOntologyManager manager, OWLReasonerFactory reasonerFactory) {
@@ -122,6 +135,17 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator, AutoCloseab
                 throw new IllegalArgumentException(
                         "The shared empty-ontology reasoner must allow fresh query entities");
             }
+            // Retained data properties are left to the reasoner. That is sound only
+            // if, as in OWL 2, the data domain may contain values outside all
+            // built-in datatypes; a reasoner equating rdfs:Literal with their
+            // union would report e.g. DataAllValuesFrom(p, B) as valid.
+            OWLDataProperty probe = dataFactory.getOWLDataProperty(IRI.create(
+                    "urn:owlapi:semantic-locality:" + UUID.randomUUID() + ":data-domain-probe"));
+            if (!createdReasoner.isSatisfiable(dataFactory.getOWLDataSomeValuesFrom(probe,
+                    dataFactory.getOWLDataComplementOf(builtInValueSpaces(dataFactory))))) {
+                throw new IllegalArgumentException("The reasoner must allow data values "
+                        + "outside all built-in datatypes, as the OWL 2 data domain does");
+            }
             initialized = true;
         } catch (OWLOntologyCreationException e) {
             throw new OWLRuntimeException("Cannot create shared empty locality ontology", e);
@@ -144,7 +168,30 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator, AutoCloseab
     }
 
     /**
-     * Tests the validity of the rewritten axiom.
+     * Tests the validity of the rewritten axiom. An axiom this evaluator cannot
+     * decide (see {@link #isLocalOrThrow(OWLAxiom, Collection)}) is reported as
+     * non-local. That answer is always safe for module extraction: the axiom is
+     * kept in the module, which may then be larger than necessary, but never wrong.
+     *
+     * @param axiom the OWL 2 DL axiom to check
+     * @param signature entities whose interpretation remains unrestricted
+     * @return {@code true} iff the axiom is semantically local; {@code false} if
+     *         it is not, or if it cannot be decided
+     * @throws IllegalStateException if this evaluator has been disposed
+     */
+    @Override
+    public synchronized boolean isLocal(OWLAxiom axiom, Collection<OWLEntity> signature) {
+        try {
+            return isLocalOrThrow(axiom, signature);
+        } catch (UnsupportedOperationException undecided) {
+            return false;
+        }
+    }
+
+    /**
+     * Like {@link #isLocal(OWLAxiom, Collection)}, but fails instead of answering
+     * "non-local" when the axiom cannot be decided. Use it where "not local" and
+     * "unknown" must be told apart, e.g. when this evaluator serves as an oracle.
      *
      * <p>Without auxiliary premises, queries are answered by the persistent
      * reasoner over the empty ontology. When a rewriter introduces fresh proxy
@@ -155,10 +202,13 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator, AutoCloseab
      * @param signature entities whose interpretation remains unrestricted
      * @return {@code true} iff the axiom is semantically local
      * @throws IllegalStateException if this evaluator has been disposed
-     * @throws UnsupportedOperationException if rewriting or entailment is unsupported
+     * @throws UnsupportedOperationException if the axiom cannot be decided, e.g.
+     *         SWRL rules, datatype definitions or undefined datatypes, the TOP role
+     *         in a property chain, anonymous individuals in class expressions,
+     *         cardinalities above the supported limits, or entailments the
+     *         reasoner cannot check
      */
-    @Override
-    public synchronized boolean isLocal(OWLAxiom axiom, Collection<OWLEntity> signature) {
+    public synchronized boolean isLocalOrThrow(OWLAxiom axiom, Collection<OWLEntity> signature) {
         if (disposed) {
             throw new IllegalStateException("Evaluator has been disposed");
         }
@@ -166,10 +216,6 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator, AutoCloseab
         Objects.requireNonNull(signature, "signature");
         if (!axiom.isLogicalAxiom()) {
             return true;
-        }
-        if (axiom.datatypesInSignature().anyMatch(dt -> !dt.isBuiltIn())) {
-            throw new UnsupportedOperationException(
-                    "A datatype definition/theory is required for: " + axiom);
         }
 
         // A single pass gathers ALL domain-size thresholds. They must share
@@ -244,6 +290,13 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator, AutoCloseab
         return true;
     }
 
+    /** The union B of all built-in value spaces; rdfs:Literal (the data domain) may be larger. */
+    private static OWLDataRange builtInValueSpaces(OWLDataFactory dataFactory) {
+        return dataFactory.getOWLDataUnionOf(Arrays.stream(OWL2Datatype.values())
+                .filter(dt -> dt != OWL2Datatype.RDFS_LITERAL)
+                .map(dt -> dataFactory.getOWLDatatype(dt.getIRI())));
+    }
+
     /** The result of a single rewrite: premises and entailment goals. */
     private static final class Rewriting {
         final Set<OWLAxiom> auxiliaryAxioms;
@@ -251,8 +304,8 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator, AutoCloseab
 
         Rewriting(Collection<OWLAxiom> auxiliaryAxioms,
                   Collection<OWLAxiom> rewrittenAxioms) {
-            this.auxiliaryAxioms = Set.copyOf(auxiliaryAxioms);
-            this.rewrittenAxioms = List.copyOf(rewrittenAxioms);
+            this.auxiliaryAxioms = Collections.unmodifiableSet(new HashSet<>(auxiliaryAxioms));
+            this.rewrittenAxioms = Collections.unmodifiableList(new ArrayList<>(rewrittenAxioms));
         }
     }
 
@@ -308,8 +361,6 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator, AutoCloseab
         private final int extraValues;
         private final Set<Integer> thresholds; // non-null only in the discovery pass
         private OWLDataRange fixedDatatypeUniverse;
-        private boolean retainedUniversalDataRange;
-        private boolean retainedRestrictedDataRange;
         private int nextFreshId;
         private boolean used;
 
@@ -348,26 +399,21 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator, AutoCloseab
             }
             used = true;
             Objects.requireNonNull(axiom, "axiom").accept(this);
-            if (retainedUniversalDataRange && retainedRestrictedDataRange) {
-                // Even ranges that are individually correct under the fixed
-                // datatype map can distinguish unnamed extra-domain values
-                // when combined with a restriction on rdfs:Literal.
-                throw new UnsupportedOperationException(
-                        "Mixed retained data-range tests require explicit extra-value semantics: "
-                                + axiom);
-            }
             if (rewrittenAxioms.isEmpty()) {
                 throw new UnsupportedOperationException("Unsupported logical axiom: " + axiom);
+            }
+            // Custom datatypes are only a problem if they survive the rewrite,
+            // e.g. not under an absent data property that became empty.
+            if (Stream.concat(rewrittenAxioms.stream(), auxiliaryAxioms.stream())
+                    .flatMap(OWLAxiom::datatypesInSignature).anyMatch(dt -> !dt.isBuiltIn())) {
+                throw new UnsupportedOperationException(
+                        "A datatype definition/theory is required for: " + axiom);
             }
             return new Rewriting(auxiliaryAxioms, rewrittenAxioms);
         }
 
         protected final void addRewrittenAxiom(OWLAxiom axiom) {
             rewrittenAxioms.add(Objects.requireNonNull(axiom));
-        }
-
-        protected final Collection<OWLAxiom> getRewrittenAxioms() {
-            return List.copyOf(rewrittenAxioms);
         }
 
 
@@ -484,16 +530,18 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator, AutoCloseab
         /** All fixed built-in value spaces, excluding rdfs:Literal (= the data domain). */
         private OWLDataRange fixedDatatypeUniverse() {
             if (fixedDatatypeUniverse == null) {
-                fixedDatatypeUniverse = dataFactory.getOWLDataUnionOf(
-                        java.util.Arrays.stream(OWL2Datatype.values())
-                                .filter(dt -> dt != OWL2Datatype.RDFS_LITERAL)
-                                .map(dt -> dataFactory.getOWLDatatype(dt.getIRI())));
+                fixedDatatypeUniverse = builtInValueSpaces(dataFactory);
             }
             return fixedDatatypeUniverse;
         }
 
         /** Every extra-domain value has the same membership in each supported range. */
         private boolean includesExtraValues(OWLDataRange range) {
+            if (range.datatypesInSignature().anyMatch(dt -> !dt.isBuiltIn())) {
+                // An undefined datatype has unknown values, extra ones included.
+                throw new UnsupportedOperationException(
+                        "A datatype definition/theory is required for: " + range);
+            }
             if (range.isTopDatatype()) {
                 return true;
             }
@@ -574,35 +622,6 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator, AutoCloseab
         private boolean dataRangeIsUniversal(OWLDataRange range) {
             OWLDataRange complement = dataFactory.getOWLDataComplementOf(range);
             return !includesExtraValues(complement) && !fixedPartHasAtLeast(complement, 1);
-        }
-
-        /**
-         * A reasoner that assumes a fixed data domain cannot decide claims
-         * involving ordinary properties and unnamed extra values. Do not allow
-         * such claims to slip through as incorrect 'local' answers.
-         */
-        private void requireSupportedRetainedDataRange(OWLDataPropertyExpression p,
-                                                       OWLDataRange range) {
-            if (bottomData(p) || topData(p)) {
-                return;
-            }
-            // The second case is just as important: D may cover ALL known
-            // built-in values, yet omit extra data-domain values. Treating
-            // DataSome(p,rdfs:Literal) and DataSome(p,D) as equivalent would
-            // then be unsound, even though D itself contains no extras.
-            boolean includesExtra = includesExtraValues(range);
-            boolean dependsOnExtra = includesExtra ? !dataRangeIsUniversal(range)
-                    : !fixedPartHasAtLeast(dataFactory.getOWLDataComplementOf(range), 1);
-            if (dependsOnExtra) {
-                throw new UnsupportedOperationException(
-                        "Retained data property with interpretation-dependent data range: "
-                                + p + " / " + range);
-            }
-            if (includesExtra) {
-                retainedUniversalDataRange = true;
-            } else {
-                retainedRestrictedDataRange = true;
-            }
         }
 
         /** Maps a globally true/false datatype claim to Thing/Nothing. */
@@ -838,7 +857,6 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator, AutoCloseab
         @Override
         public final void visit(OWLDataSomeValuesFrom ce) {
             OWLDataPropertyExpression p = rewriteProperty(ce.getProperty());
-            requireSupportedRetainedDataRange(p, ce.getFiller());
             rewrittenClassExpression = bottomData(p) ? dataFactory.getOWLNothing()
                     : topData(p) ? dataTruth(dataRangeHasAtLeast(ce.getFiller(), 1))
                     : dataFactory.getOWLDataSomeValuesFrom(p, ce.getFiller());
@@ -847,9 +865,6 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator, AutoCloseab
         @Override
         public final void visit(OWLDataAllValuesFrom ce) {
             OWLDataPropertyExpression p = rewriteProperty(ce.getProperty());
-            if (!ce.getFiller().isTopDatatype()) {
-                requireSupportedRetainedDataRange(p, dataFactory.getOWLDataComplementOf(ce.getFiller()));
-            }
             if (bottomData(p) || ce.getFiller().isTopDatatype()) {
                 // Empty property: no violating data values. Top datatype:
                 // every possible value meets the range condition.
@@ -868,9 +883,6 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator, AutoCloseab
         @Override
         public final void visit(OWLDataHasValue ce) {
             OWLDataPropertyExpression p = rewriteProperty(ce.getProperty());
-            if (!bottomData(p) && !topData(p)) {
-                retainedRestrictedDataRange = true; // This literal is a fixed value.
-            }
             rewrittenClassExpression = bottomData(p) ? dataFactory.getOWLNothing()
                     : topData(p) ? dataFactory.getOWLThing()
                     : dataFactory.getOWLDataHasValue(p, ce.getFiller());
@@ -880,9 +892,6 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator, AutoCloseab
         public final void visit(OWLDataMinCardinality ce) {
             OWLDataPropertyExpression p = rewriteProperty(ce.getProperty());
             int n = ce.getCardinality();
-            if (n > 0) {
-                requireSupportedRetainedDataRange(p, ce.getFiller());
-            }
             rewrittenClassExpression = n == 0 ? dataFactory.getOWLThing()
                     : bottomData(p) ? dataFactory.getOWLNothing()
                     : topData(p) ? dataTruth(dataRangeHasAtLeast(ce.getFiller(), n))
@@ -893,7 +902,6 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator, AutoCloseab
         public final void visit(OWLDataMaxCardinality ce) {
             OWLDataPropertyExpression p = rewriteProperty(ce.getProperty());
             int n = ce.getCardinality();
-            requireSupportedRetainedDataRange(p, ce.getFiller());
             if (bottomData(p)) {
                 rewrittenClassExpression = dataFactory.getOWLThing();
             } else if (topData(p)) {
@@ -910,16 +918,17 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator, AutoCloseab
         public final void visit(OWLDataExactCardinality ce) {
             OWLDataPropertyExpression p = rewriteProperty(ce.getProperty());
             int n = ce.getCardinality();
-            requireSupportedRetainedDataRange(p, ce.getFiller());
             if (bottomData(p)) {
                 rewrittenClassExpression = dataTruth(n == 0);
             } else if (topData(p)) {
                 if (n == Integer.MAX_VALUE) {
                     throw new UnsupportedOperationException("Data exact cardinality overflows int");
                 }
-                rewrittenClassExpression = dataTruth(
-                        dataRangeHasAtLeast(ce.getFiller(), n)
-                                && !dataRangeHasAtLeast(ce.getFiller(), n + 1));
+                // Evaluate both bounds: '&&' would skip the second one and with
+                // it the discovery of its domain-size threshold.
+                boolean atLeastN = dataRangeHasAtLeast(ce.getFiller(), n);
+                boolean moreThanN = dataRangeHasAtLeast(ce.getFiller(), n + 1);
+                rewrittenClassExpression = dataTruth(atLeastN && !moreThanN);
             } else {
                 rewrittenClassExpression = dataFactory.getOWLDataExactCardinality(n, p, ce.getFiller());
             }
@@ -979,7 +988,7 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator, AutoCloseab
             // Thing/Nothing and cannot stay the named lhs of DisjointUnion.
             OWLClassExpression union = rhs.size() == 1 ? rhs.get(0)
                     : dataFactory.getOWLObjectUnionOf(rhs.stream());
-            emitEquivalentClasses(List.of(lhs, union));
+            emitEquivalentClasses(Arrays.asList(lhs, union));
             emitDisjointClasses(rhs);
         }
 

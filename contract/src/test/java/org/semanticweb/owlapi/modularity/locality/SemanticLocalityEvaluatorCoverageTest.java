@@ -183,6 +183,20 @@ class SemanticLocalityEvaluatorCoverageTest {
         check(LocalityClass.TOP, expected, axiom, signature);
     }
 
+    /** An axiom the evaluator cannot decide: isLocal answers the safe "non-local". */
+    private static void undecided(LocalityClass locality, OWLAxiom axiom,
+                                  OWLEntity... signature) {
+        SemanticLocalityEvaluator evaluator = locality == LocalityClass.BOTTOM ? bottom : top;
+        check(locality, false, axiom, signature);
+        int ontologyCount = manager.getOntologies().size();
+        assertThrows(UnsupportedOperationException.class,
+                () -> evaluator.isLocalOrThrow(axiom, sig(signature)),
+                () -> locality + " / " + axiom + " / Sigma=" + sig(signature));
+        assertEquals(ontologyCount, manager.getOntologies().size(),
+                "An undecided locality query leaked an auxiliary ontology");
+        assertSharedOntologiesEmpty(manager);
+    }
+
     private static OWLClassExpression min(int n, OWLClassExpression filler) {
         return f.getOWLObjectMinCardinality(n, r, filler);
     }
@@ -290,11 +304,8 @@ class SemanticLocalityEvaluatorCoverageTest {
         check(LocalityClass.BOTTOM, false, sub, p);
         check(LocalityClass.TOP, true, sub, p);
         check(LocalityClass.BOTTOM, true, sub, q);
-        // TOP requires U_data <= q, which is not representable in this
-        // rewriter's OWL 2 DL intermediate language. The supported contract
-        // is to fail explicitly, not to guess a locality result.
-        assertThrows(UnsupportedOperationException.class,
-                () -> top.isLocal(sub, sig(q)));
+        // TOP requires U_data <= q, which fails for any q that is not full.
+        check(LocalityClass.TOP, false, sub, q);
         both(false, sub, p, q);
     }
 
@@ -328,8 +339,8 @@ class SemanticLocalityEvaluatorCoverageTest {
         OWLAxiom equiv = f.getOWLEquivalentDataPropertiesAxiom(p, q);
         both(true, equiv);
         check(LocalityClass.BOTTOM, false, equiv, p);
-        assertThrows(UnsupportedOperationException.class,
-                () -> top.isLocal(equiv, sig(p)));
+        // TOP needs U_data <= p, see dataSubpropertyInclusionsDistinguishAntecedentAndConsequent.
+        check(LocalityClass.TOP, false, equiv, p);
         both(false, equiv, p, q);
         OWLAxiom disjoint = f.getOWLDisjointDataPropertiesAxiom(p, q);
         check(LocalityClass.BOTTOM, true, disjoint);
@@ -412,9 +423,8 @@ class SemanticLocalityEvaluatorCoverageTest {
         check(LocalityClass.TOP, true, chain, r, s); // t outside Sigma => universal
         // When a top role occurs in a nontrivial chain but t is retained,
         // the implementation intentionally refuses to generate an invalid
-        // OWL 2 DL intermediate axiom.
-        assertThrows(UnsupportedOperationException.class,
-                () -> top.isLocal(chain, sig(s, t)));
+        // OWL 2 DL intermediate axiom, so the chain is treated as non-local.
+        undecided(LocalityClass.TOP, chain, s, t);
         // BOTTOM with the consequent absent: r o s SubPropertyOf empty.
         check(LocalityClass.BOTTOM, false, chain, r, s);
         both(false, chain, r, s, t);
@@ -558,15 +568,13 @@ class SemanticLocalityEvaluatorCoverageTest {
     }
 
     @Test @Tag("exceptions")
-    void anonymousIndividualsInsideClassExpressionsThrow() {
+    void anonymousIndividualsInsideClassExpressionsAreUndecided() {
         var x = f.getOWLAnonymousIndividual();
         OWLAxiom nominal = f.getOWLSubClassOfAxiom(a, f.getOWLObjectOneOf(x));
         OWLAxiom hasValue = f.getOWLSubClassOfAxiom(a, f.getOWLObjectHasValue(r, x));
-        for (SemanticLocalityEvaluator evaluator : List.of(bottom, top)) {
-            assertThrows(UnsupportedOperationException.class,
-                    () -> evaluator.isLocal(nominal, sig(a)));
-            assertThrows(UnsupportedOperationException.class,
-                    () -> evaluator.isLocal(hasValue, sig(a, r)));
+        for (LocalityClass locality : List.of(LocalityClass.BOTTOM, LocalityClass.TOP)) {
+            undecided(locality, nominal, a);
+            undecided(locality, hasValue, a, r);
         }
         assertSharedOntologiesEmpty(manager);
     }
@@ -857,15 +865,13 @@ class SemanticLocalityEvaluatorCoverageTest {
     }
 
     @Test @Tag("exceptions")
-    void swrlRulesThrowInsteadOfSilentlyReturningALocalityResult() {
+    void swrlRulesAreUndecidedInsteadOfGuessedLocal() {
         var variable = f.getSWRLVariable(IRI.create("urn:sem-locality:coverage#x"));
         OWLAxiom rule = f.getSWRLRule(
                 Set.of(f.getSWRLClassAtom(a, variable)),
                 Set.of(f.getSWRLClassAtom(b, variable)));
-        assertThrows(UnsupportedOperationException.class,
-                () -> bottom.isLocal(rule, sig(a, b)));
-        assertThrows(UnsupportedOperationException.class,
-                () -> top.isLocal(rule, sig(a, b)));
+        undecided(LocalityClass.BOTTOM, rule, a, b);
+        undecided(LocalityClass.TOP, rule, a, b);
     }
 
     @Test @Tag("data-cardinality")
@@ -890,43 +896,40 @@ class SemanticLocalityEvaluatorCoverageTest {
     }
 
     @Test @Tag("exceptions")
-    void unsupportedDatatypeDefinitionsThrowInsteadOfReportingLocality() {
+    void unsupportedDatatypeDefinitionsAreUndecidedInsteadOfReportedLocal() {
         OWLDatatype custom = f.getOWLDatatype(IRI.create("urn:sem-locality:coverage#Custom"));
         OWLAxiom definition = f.getOWLDatatypeDefinitionAxiom(custom,
                 f.getOWLDataOneOf(f.getOWLLiteral("x")));
-        assertThrows(UnsupportedOperationException.class,
-                () -> bottom.isLocal(definition, sig()));
-        assertThrows(UnsupportedOperationException.class,
-                () -> top.isLocal(definition, sig()));
+        undecided(LocalityClass.BOTTOM, definition);
+        undecided(LocalityClass.TOP, definition);
     }
 
     @Test @Tag("exceptions")
-    void undefinedCustomDatatypesInUniversalDataProbesThrow() {
+    void undefinedCustomDatatypesInUniversalDataProbesAreUndecided() {
         OWLDatatype custom = f.getOWLDatatype(IRI.create("urn:sem-locality:coverage#Undefined"));
         OWLAxiom axiom = f.getOWLSubClassOfAxiom(f.getOWLThing(),
                 f.getOWLDataSomeValuesFrom(p, custom));
-        assertThrows(UnsupportedOperationException.class,
-                () -> top.isLocal(axiom, sig()));
+        undecided(LocalityClass.TOP, axiom);
         // A BOTTOM interpretation of the absent property never needs a
         // datatype probe; it is simply an empty relation.
         check(LocalityClass.BOTTOM, false, axiom);
     }
 
-    @Test @Tag("exceptions")
-    void keyWithMissingTopDataPropertyThrowsExplicitly() {
+    @Test @Tag("axiom-matrix")
+    void keyWithMissingDataPropertyUsesEmptyOrUniversalKey() {
         OWLAxiom hasKey = f.getOWLHasKeyAxiom(a, Set.of(p));
-        assertThrows(UnsupportedOperationException.class,
-                () -> top.isLocal(hasKey, sig(a)));
+        // BOTTOM: no two individuals share a value of the empty property.
+        check(LocalityClass.BOTTOM, true, hasKey, a);
+        // TOP: all named A-individuals share every value of U_data, so the
+        // key says that A has at most one named instance, which is not valid.
+        check(LocalityClass.TOP, false, hasKey, a);
     }
 
     @Test @Tag("exceptions")
-    void excessiveGlobalCardinalityThrowsButDoesNotLeak() {
+    void excessiveGlobalCardinalityIsUndecidedButDoesNotLeak() {
         OWLAxiom axiom = f.getOWLSubClassOfAxiom(f.getOWLThing(),
                 min(TOO_LARGE_GLOBAL_CARDINALITY, c));
-        int ontologyCount = manager.getOntologies().size();
-        assertThrows(UnsupportedOperationException.class,
-                () -> top.isLocal(axiom, sig(c)));
-        assertEquals(ontologyCount, manager.getOntologies().size());
+        undecided(LocalityClass.TOP, axiom, c);
         // A failed query must not poison subsequent calls to the shared reasoner.
         check(LocalityClass.TOP, true,
                 f.getOWLSubClassOfAxiom(a, a), a);
@@ -1064,6 +1067,42 @@ class SemanticLocalityEvaluatorCoverageTest {
     }
 
     @Test @Tag("lifecycle")
+    void reasonerWithClosedDataDomainIsRejectedWithoutLeaks() {
+        OWLOntologyManager ownManager = OWLManager.createOWLOntologyManager();
+        ReasonerFactory delegate = new ReasonerFactory();
+        AtomicInteger reasonersDisposed = new AtomicInteger();
+        // Simulates a reasoner equating rdfs:Literal with the union of the
+        // built-in datatypes: values outside all of them are unsatisfiable.
+        OWLReasonerFactory closedDataDomain = (OWLReasonerFactory) Proxy.newProxyInstance(
+                OWLReasonerFactory.class.getClassLoader(),
+                new Class<?>[] { OWLReasonerFactory.class },
+                (proxy, method, args) -> {
+                    Object returned = forward(delegate, method, args);
+                    if (!createsReasoner(method)) {
+                        return returned;
+                    }
+                    OWLReasoner actual = (OWLReasoner) returned;
+                    return Proxy.newProxyInstance(OWLReasoner.class.getClassLoader(),
+                            new Class<?>[] { OWLReasoner.class },
+                            (reasonerProxy, called, parameters) -> {
+                                if (called.getName().equals("isSatisfiable")) {
+                                    return false;
+                                }
+                                if (called.getName().equals("dispose")) {
+                                    reasonersDisposed.incrementAndGet();
+                                }
+                                return forward(actual, called, parameters);
+                            });
+                });
+        int before = ownManager.getOntologies().size();
+        assertThrows(IllegalArgumentException.class,
+                () -> new SemanticLocalityEvaluator(
+                        LocalityClass.TOP, ownManager, closedDataDomain));
+        assertEquals(before, ownManager.getOntologies().size());
+        assertEquals(1, reasonersDisposed.get());
+    }
+
+    @Test @Tag("lifecycle")
     void failingTemporaryQueryDisposesReasonerAndRemovesOntology() {
         OWLOntologyManager ownManager = OWLManager.createOWLOntologyManager();
         ReasonerFactory delegate = new ReasonerFactory();
@@ -1153,7 +1192,7 @@ class SemanticLocalityEvaluatorCoverageTest {
         OWLAxiom invalidForRewriter = f.getOWLSubClassOfAxiom(f.getOWLThing(),
                 min(TOO_LARGE_GLOBAL_CARDINALITY, c));
         assertThrows(UnsupportedOperationException.class,
-                () -> top.isLocal(invalidForRewriter, sig(c)));
+                () -> top.isLocalOrThrow(invalidForRewriter, sig(c)));
         assertEquals(before, manager.getOntologies().size());
         // "Untouched" means no axioms were added, not just no ontologies.
         assertSharedOntologiesEmpty(manager);

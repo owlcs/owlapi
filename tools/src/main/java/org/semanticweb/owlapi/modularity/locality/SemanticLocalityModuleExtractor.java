@@ -27,7 +27,7 @@ import java.util.stream.Stream;
  *
  */
 public final class SemanticLocalityModuleExtractor
-        extends LocalityModuleExtractor {
+        extends LocalityModuleExtractor implements AutoCloseable {
 
     private final SemanticLocalityEvaluator topEvaluator;
     private final SemanticLocalityEvaluator botEvaluator;
@@ -39,9 +39,10 @@ public final class SemanticLocalityModuleExtractor
      * locality evaluators are created. These evaluators maintain
      * their own reasoners and temporary ontologies.</p>
      *
-     * <p>The caller must invoke {@link #dispose()} when the
-     * extractor is no longer needed. The supplied ontology
-     * manager and reasoner factory remain owned by the caller.</p>
+     * <p>The caller must invoke {@link #close()} (or {@link #dispose()})
+     * when the extractor is no longer needed, e.g. with try-with-resources.
+     * The supplied ontology manager and reasoner factory remain owned by
+     * the caller.</p>
      *
      * @param localityClass the locality class (BOTTOM, TOP or STAR)
      * @param axiomBase the axioms from which modules are extracted
@@ -95,8 +96,15 @@ public final class SemanticLocalityModuleExtractor
      *
      * <p>The supplied ontology manager is not disposed.</p>
      *
-     * <p>The extractor must not be used after disposal.</p>
+     * <p>The extractor must not be used after disposal. Repeated calls have
+     * no effect.</p>
      */
+    @Override
+    public void close() {
+        dispose();
+    }
+
+    /** Alias for {@link #close()}, following the OWLReasoner lifecycle API. */
     public void dispose() {
         try {
             if (botEvaluator != null) {

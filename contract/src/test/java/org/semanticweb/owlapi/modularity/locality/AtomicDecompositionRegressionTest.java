@@ -274,4 +274,63 @@ class AtomicDecompositionRegressionTest {
         assertTrue(decomposition.containsAxiom(axiom));
         assertEquals(Set.of(axiom), axioms(decomposition.atomOf(axiom)));
     }
+
+    // --- With the real locality-based extractor ---
+
+    private OWLAxiom subClassOf(String sub, String sup) {
+        return df.getOWLSubClassOfAxiom(
+            df.getOWLClass(IRI.create("urn:atomic-decomposition:regression#" + sub)),
+            df.getOWLClass(IRI.create("urn:atomic-decomposition:regression#" + sup)));
+    }
+
+    private AtomicDecomposition star(OWLAxiom... axioms) {
+        return new AtomicDecomposition(Stream.of(axioms),
+            s -> new SyntacticLocalityModuleExtractor(LocalityClass.STAR, s, df));
+    }
+
+    @Test
+    void tautologiesFormOneIsolatedAtom() {
+        OWLAxiom tautology = df.getOWLSubClassOfAxiom(
+            df.getOWLClass(IRI.create("urn:atomic-decomposition:regression#A")), df.getOWLThing());
+        OWLAxiom assertion = axiom("A");
+        AtomicDecomposition decomposition = star(tautology, assertion);
+        assertEquals(Set.of(tautology), decomposition.tautologies().collect(Collectors.toSet()));
+        AtomicDecomposition.Atom tautologies = decomposition.atomOf(tautology);
+        assertEquals(2, decomposition.atoms().count());
+        assertFalse(tautologies.dependencies().findAny().isPresent());
+        assertFalse(tautologies.dependents().findAny().isPresent());
+        assertFalse(star(assertion).tautologies().findAny().isPresent());
+    }
+
+    @Test
+    void axiomsSharingAnAnonymousIndividualStayInOneAtom() {
+        // The pair is only ever included as a whole: in the module for {A}, and in
+        // none for {}. Thing(_:x) alone would be a tautology, but not as part of it.
+        var x = df.getOWLAnonymousIndividual();
+        OWLAxiom thing = df.getOWLClassAssertionAxiom(df.getOWLThing(), x);
+        OWLAxiom typed = df.getOWLClassAssertionAxiom(
+            df.getOWLClass(IRI.create("urn:atomic-decomposition:regression#A")), x);
+        AtomicDecomposition decomposition = star(thing, typed);
+        assertFalse(decomposition.tautologies().findAny().isPresent());
+        assertSame(decomposition.atomOf(thing), decomposition.atomOf(typed));
+        assertEquals(Set.of(thing, typed), axioms(decomposition.atomOf(thing)));
+    }
+
+    @Test
+    void ontologyConstructorRollsUpAnonymousIndividualsWithItsFactory() throws Exception {
+        // A(_:x) is TOP-local for {B, C}, so it is not part of that atom's module.
+        // Without a factory it would be kept in every module, creating a dependency.
+        OWLAxiom anonymous = df.getOWLClassAssertionAxiom(
+            df.getOWLClass(IRI.create("urn:atomic-decomposition:regression#A")),
+            df.getOWLAnonymousIndividual());
+        OWLAxiom ordinary = subClassOf("B", "C");
+        OWLOntology ontology = manager.createOntology(Stream.of(anonymous, ordinary));
+        AtomicDecomposition decomposition = new AtomicDecomposition(ontology);
+        assertFalse(decomposition.atomOf(ordinary).dependencies().findAny().isPresent());
+        @SuppressWarnings("deprecation")
+        AtomicDecomposition withoutFactory =
+            new AtomicDecomposition(Stream.of(anonymous, ordinary));
+        assertEquals(Set.of(withoutFactory.atomOf(anonymous)),
+            atoms(withoutFactory.atomOf(ordinary).dependencies()));
+    }
 }

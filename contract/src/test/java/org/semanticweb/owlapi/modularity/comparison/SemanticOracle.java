@@ -58,7 +58,7 @@ final class SemanticOracle implements AutoCloseable {
         return cache.computeIfAbsent(key, k -> {
             try {
                 return Optional.of(Boolean.valueOf(
-                    (mode == LocalityClass.BOTTOM ? bottom : top).isLocal(axiom, signature)));
+                    (mode == LocalityClass.BOTTOM ? bottom : top).isLocalOrThrow(axiom, signature)));
             } catch (RuntimeException e) {
                 return Optional.empty();
             }

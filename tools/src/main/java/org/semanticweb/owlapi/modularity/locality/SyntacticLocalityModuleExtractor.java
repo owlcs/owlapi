@@ -29,12 +29,15 @@ public class SyntacticLocalityModuleExtractor extends LocalityModuleExtractor {
     /**
      * Instantiates a new {@link SyntacticLocalityModuleExtractor}.
      *
+     * <p>Without a data factory, assertions sharing anonymous individuals cannot
+     * be rolled up into a single checkable axiom. Each connected group of such
+     * assertions is then kept in every module: correct, but possibly larger
+     * than necessary.</p>
+     *
      * @param localityClass The {@link LocalityClass} to use
      * @param axiomBase     The axiom base of the new {@link SyntacticLocalityModuleExtractor}
-     * @deprecated use the other constructor instead
-     *
-     * @throws UnsupportedOperationException if the axiom base contains logical
-     *          occurrences of anonymous individuals (use the overload with a factory)
+     * @deprecated use {@link #SyntacticLocalityModuleExtractor(LocalityClass, Stream, OWLDataFactory)},
+     *             which gives smaller modules for axioms with anonymous individuals
      */
     @Deprecated
     public SyntacticLocalityModuleExtractor(LocalityClass localityClass,

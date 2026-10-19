@@ -32,7 +32,6 @@ import org.semanticweb.owlapi.model.parameters.Imports;
 import org.semanticweb.owlapi.modularity.locality.LocalityClass;
 import org.semanticweb.owlapi.modularity.locality.LocalityModuleExtractor;
 import org.semanticweb.owlapi.modularity.locality.SyntacticLocalityModuleExtractor;
-import org.semanticweb.owlapi.modularity.locality.SemanticLocalityModuleExtractor;
 
 /**
  * Class to represent the atomic decomposition of a set of axioms.
@@ -231,7 +230,8 @@ public final class AtomicDecomposition implements HasAxioms {
      *                 will not be considered
      */
     public AtomicDecomposition(OWLOntology ontology) {
-        this(ontology.axioms(Imports.INCLUDED));
+        this(ontology, stream -> new SyntacticLocalityModuleExtractor(LocalityClass.STAR, stream,
+                ontology.getOWLOntologyManager().getOWLDataFactory()));
     }
 
     /**
@@ -257,8 +257,16 @@ public final class AtomicDecomposition implements HasAxioms {
      * {@link LocalityClass#STAR}. This operation may take some time based on the ontology size and
      * the used module extraction algorithm.
      *
+     * <p>Without a data factory, axioms that share anonymous individuals are kept in every
+     * module, which makes their atoms larger than necessary.</p>
+     *
      * @param axioms The axiom base that is to be decomposed
+     * @deprecated use {@link #AtomicDecomposition(Stream, Function)} with
+     *             {@code s -> new SyntacticLocalityModuleExtractor(LocalityClass.STAR, s, dataFactory)},
+     *             or {@link #AtomicDecomposition(OWLOntology)}
      */
+    @Deprecated
+    @SuppressWarnings("deprecation")
     public AtomicDecomposition(Stream<OWLAxiom> axioms) {
         this(axioms, stream -> new SyntacticLocalityModuleExtractor(LocalityClass.STAR, stream));
     }
@@ -303,7 +311,8 @@ public final class AtomicDecomposition implements HasAxioms {
 
     /**
      * Returns the {@link Atom} associated with the given {@link OWLAxiom}. Those {@link Atom}s are
-     * computed when constructing the {@link AtomicDecomposition}.
+     * computed when constructing the {@link AtomicDecomposition}. For a tautology (an axiom
+     * contained in no module, see {@link #tautologies()}) this is the shared tautology atom.
      *
      * @param axiom The {@link OWLAxiom} whose {@link Atom} should be returned
      * @return The {@link Atom} as specified above
@@ -321,10 +330,27 @@ public final class AtomicDecomposition implements HasAxioms {
     /**
      * Returns a {@link Stream} of the {@link Atom}s computed by this {@link AtomicDecomposition}.
      *
+     * <p>Unlike in the literature, where tautologies belong to no atom, all tautologies of the
+     * axiom base (if any) form one additional atom here. It has no dependencies and no
+     * dependents. Use {@link #tautologies()} to tell it apart.</p>
+     *
      * @return The {@link Atom}s computed by this {@link AtomicDecomposition}
      */
     public Stream<Atom> atoms() {
         return atomOf.values().stream().distinct();
+    }
+
+    /**
+     * Returns the tautologies of the axiom base: the axioms contained in no module, not even in
+     * the module for their own signature. They form the shared tautology atom of
+     * {@link #atoms()}.
+     *
+     * @return The tautologies, possibly none
+     */
+    public @Nonnull Stream<OWLAxiom> tautologies() {
+        // The null seed is reserved for the tautology atom, see buildAtomsInModule.
+        Atom tautologyAtom = atomOf.get(null);
+        return tautologyAtom == null ? Stream.empty() : tautologyAtom.axioms();
     }
 
     @Override
@@ -401,8 +427,6 @@ public final class AtomicDecomposition implements HasAxioms {
             } catch (Exception e) {
                 throw new IllegalStateException("Could not close module extractor", e);
             }
-        } else if (moduleExtractor instanceof SemanticLocalityModuleExtractor) {
-            ((SemanticLocalityModuleExtractor) moduleExtractor).dispose();
         }
     }
 
@@ -419,13 +443,16 @@ public final class AtomicDecomposition implements HasAxioms {
         Set<OWLAxiom> moduleOfAlpha =
                 moduleToSignatureOf.computeIfAbsent(alpha, x -> new HashSet<>());
         Set<OWLAxiom> moduleOfBeta;
+        // Usually sig(alpha); for axioms that are only included together with others
+        // (sharing anonymous individuals), the signature of the whole group.
         if (beta.isPresent()) {
             moduleOfBeta = moduleToSignatureOf.get(beta.get());
-            moduleExtractor.extract(alpha.signature(), moduleOfBeta::contains)
+            moduleExtractor.extract(moduleExtractor.seedSignature(alpha), moduleOfBeta::contains)
                     .forEach(moduleOfAlpha::add);
         } else {
             moduleOfBeta = axioms;
-            moduleExtractor.extract(alpha.signature()).forEach(moduleOfAlpha::add);
+            moduleExtractor.extract(moduleExtractor.seedSignature(alpha))
+                    .forEach(moduleOfAlpha::add);
         }
 
         // Tautologies do not occur in any module; collect them in one separate atom.
@@ -442,8 +469,9 @@ public final class AtomicDecomposition implements HasAxioms {
 
     /**
      * Returns the module within the {@link AtomicDecomposition#axioms()} with respect to the
-     * signature of the given axiom. Those modules are computed when constructing the
-     * {@link AtomicDecomposition}.
+     * signature of the given axiom (more precisely, its
+     * {@link ModuleExtractor#seedSignature(OWLAxiom) seed signature}). Those modules are
+     * computed when constructing the {@link AtomicDecomposition}.
      *
      * @param axiom The axiom for whose signature the precomputed module should be returned
      * @return The module as specified above
