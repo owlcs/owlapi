@@ -20,6 +20,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
+import java.util.TreeSet;
 import java.util.UUID;
 
 import java.util.stream.Collectors;
@@ -29,6 +30,7 @@ import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
 import org.semanticweb.owlapi.reasoner.OWLReasonerFactory;
 import org.semanticweb.owlapi.reasoner.FreshEntityPolicy;
+import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
 /**
  * Checks semantic bottom- and top-locality of OWL 2 DL axioms.
@@ -44,9 +46,10 @@ import org.semanticweb.owlapi.reasoner.FreshEntityPolicy;
  * definition uses only legal simple-role cardinalities and nominals; this
  * works under negation and arbitrary nesting.</p>
  *
- * <p>Data ranges are different: the data domain and datatypes have a fixed
- * interpretation. TOP data-property restrictions are therefore evaluated by
- * independent cardinality/satisfiability probes over a fresh data property.</p>
+ * <p>Datatype value spaces are fixed, but the data domain may also contain
+ * values outside all built-in value spaces. TOP data restrictions depending on
+ * their number are tested together, once for each distinguishable domain-size
+ * case. A case is never inferred from a single satisfiability probe.</p>
  *
  * <p>A single empty ontology and reasoner are reused for all locality checks
  * that require no auxiliary axioms, including datatype cardinality probes.
@@ -164,21 +167,42 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator, AutoCloseab
         if (!axiom.isLogicalAxiom()) {
             return true;
         }
-        // A fresh, single-use visitor keeps the rewrite state isolated. The
-        // shared reasoner remains read-only throughout its entire lifetime.
-        LocalityRewriter rewriter = localityClass == LocalityClass.BOTTOM
-                ? new BottomRewriter(dataFactory, signature, emptyReasoner)
-                : new TopRewriter(dataFactory, signature, emptyReasoner);
-        Rewriting result = rewriter.rewrite(axiom);
+        if (axiom.datatypesInSignature().anyMatch(dt -> !dt.isBuiltIn())) {
+            throw new UnsupportedOperationException(
+                    "A datatype definition/theory is required for: " + axiom);
+        }
+
+        // A single pass gathers ALL domain-size thresholds. They must share
+        // one extra-value count: choosing a value independently for each TOP
+        // restriction would be wrong, especially under negation.
+        Set<Integer> thresholds = new TreeSet<>();
+        LocalityRewriter initial = rewriter(signature, 0, thresholds);
+        Rewriting first = initial.rewrite(axiom);
+        if (!entailsRewriting(first)) {
+            return false;
+        }
+        for (int extraValues : thresholds) {
+            if (!entailsRewriting(rewriter(signature, extraValues, null).rewrite(axiom))) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private LocalityRewriter rewriter(Collection<OWLEntity> signature, int extraValues,
+                                      Set<Integer> thresholds) {
+        return localityClass == LocalityClass.BOTTOM
+                ? new BottomRewriter(dataFactory, signature, emptyReasoner, extraValues, thresholds)
+                : new TopRewriter(dataFactory, signature, emptyReasoner, extraValues, thresholds);
+    }
+
+    private boolean entailsRewriting(Rewriting result) {
         if (result.auxiliaryAxioms.isEmpty()) {
             return entailsAll(emptyReasoner, result.rewrittenAxioms);
         }
-
         OWLOntology temporaryOntology = null;
         OWLReasoner temporaryReasoner = null;
         try {
-            // Fresh declarations do not affect entailment. They help reasoners
-            // that expect goal symbols to appear in the auxiliary ontology.
             Set<OWLAxiom> premises = new HashSet<>(result.auxiliaryAxioms);
             for (OWLAxiom goal : result.rewrittenAxioms) {
                 goal.signature().filter(e -> !e.isBuiltIn()).forEach(e ->
@@ -192,8 +216,6 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator, AutoCloseab
         } catch (OWLOntologyCreationException e) {
             throw new OWLRuntimeException("Cannot create auxiliary locality ontology", e);
         } finally {
-            // A reasoner may register ontology-manager change listeners:
-            // always dispose it BEFORE removing its root ontology.
             try {
                 if (temporaryReasoner != null) {
                     temporaryReasoner.dispose();
@@ -283,17 +305,26 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator, AutoCloseab
         private final OWLReasoner emptyReasoner;
         private final String freshPrefix = "urn:owlapi:semantic-locality:" + UUID.randomUUID() + ":";
         private final Map<OWLDataRange, Map<Integer, Boolean>> dataRangeChecks = new HashMap<>();
+        private final int extraValues;
+        private final Set<Integer> thresholds; // non-null only in the discovery pass
+        private OWLDataRange fixedDatatypeUniverse;
+        private boolean retainedUniversalDataRange;
+        private boolean retainedRestrictedDataRange;
         private int nextFreshId;
         private boolean used;
 
         /** Maximal allowed cardinality for nominal-based global counting. */
         private static final int MAX_GLOBAL_CARDINALITY = 256;
+        private static final int MAX_DATA_DOMAIN_THRESHOLD = 256;
 
         protected LocalityRewriter(OWLDataFactory dataFactory,
-                                   Collection<OWLEntity> signature, OWLReasoner emptyReasoner) {
+                                   Collection<OWLEntity> signature, OWLReasoner emptyReasoner,
+                                   int extraValues, Set<Integer> thresholds) {
             this.dataFactory = Objects.requireNonNull(dataFactory);
             this.signature = new HashSet<>(Objects.requireNonNull(signature));
             this.emptyReasoner = Objects.requireNonNull(emptyReasoner);
+            this.extraValues = extraValues;
+            this.thresholds = thresholds;
         }
 
         /** Replacement interpretation for a named class outside the signature. */
@@ -317,6 +348,14 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator, AutoCloseab
             }
             used = true;
             Objects.requireNonNull(axiom, "axiom").accept(this);
+            if (retainedUniversalDataRange && retainedRestrictedDataRange) {
+                // Even ranges that are individually correct under the fixed
+                // datatype map can distinguish unnamed extra-domain values
+                // when combined with a restriction on rdfs:Literal.
+                throw new UnsupportedOperationException(
+                        "Mixed retained data-range tests require explicit extra-value semantics: "
+                                + axiom);
+            }
             if (rewrittenAxioms.isEmpty()) {
                 throw new UnsupportedOperationException("Unsupported logical axiom: " + axiom);
             }
@@ -442,43 +481,128 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator, AutoCloseab
             return x;
         }
 
-        /**
-         * Checks whether a data range D contains at least n different values.
-         * A fresh, unconstrained data property p makes
-         * {@code DataMinCardinality(n,p,D)} satisfiable iff |D|>=n.
-         * This is a valid OWL 2 DL query and never mentions topDataProperty.
-         *
-         * It intentionally fails if the reasoner cannot perform the required
-         * datatype reasoning; no heuristic based only on built-in names is used.
-         */
-        private boolean dataRangeHasAtLeast(OWLDataRange range, int n) {
-            if (n == 0) {
-                return true;
+        /** All fixed built-in value spaces, excluding rdfs:Literal (= the data domain). */
+        private OWLDataRange fixedDatatypeUniverse() {
+            if (fixedDatatypeUniverse == null) {
+                fixedDatatypeUniverse = dataFactory.getOWLDataUnionOf(
+                        java.util.Arrays.stream(OWL2Datatype.values())
+                                .filter(dt -> dt != OWL2Datatype.RDFS_LITERAL)
+                                .map(dt -> dataFactory.getOWLDatatype(dt.getIRI())));
             }
-            if (range.datatypesInSignature().anyMatch(dt -> !dt.isBuiltIn())) {
-                throw new UnsupportedOperationException(
-                        "Non-built-in datatype requires external definition: " + range);
-            }
-            Map<Integer, Boolean> byCardinality = dataRangeChecks.get(range);
-            Boolean cached = byCardinality == null ? null : byCardinality.get(n);
-            if (cached != null) {
-                return cached;
-            }
-            OWLDataProperty fresh = dataFactory.getOWLDataProperty(freshIri("datatype-probe-"));
-            OWLClassExpression test = dataFactory.getOWLDataMinCardinality(n, fresh, range);
-            // Datatype probes have no premises. Reuse the same empty-ontology
-            // reasoner as ordinary checks. The enclosing synchronized isLocal()
-            // call prevents concurrent queries or disposal of this reasoner.
-            boolean answer = emptyReasoner.isSatisfiable(test);
-            dataRangeChecks.computeIfAbsent(range, ignored -> new HashMap<>())
-                    .put(n, answer);
-            return answer;
+            return fixedDatatypeUniverse;
         }
 
+        /** Every extra-domain value has the same membership in each supported range. */
+        private boolean includesExtraValues(OWLDataRange range) {
+            if (range.isTopDatatype()) {
+                return true;
+            }
+            if (range instanceof OWLDataComplementOf) {
+                return !includesExtraValues(((OWLDataComplementOf) range).getDataRange());
+            }
+            if (range instanceof OWLDataIntersectionOf) {
+                return ((OWLDataIntersectionOf) range).operands()
+                        .allMatch(this::includesExtraValues);
+            }
+            if (range instanceof OWLDataUnionOf) {
+                return ((OWLDataUnionOf) range).operands()
+                        .anyMatch(this::includesExtraValues);
+            }
+            if (range instanceof OWLDatatype || range instanceof OWLDataOneOf
+                    || range instanceof OWLDatatypeRestriction) {
+                return false;
+            }
+            throw new UnsupportedOperationException("Unsupported data range: " + range);
+        }
+
+        /** Only fixed-value-space cardinalities may be queried independently. */
+        private boolean fixedPartHasAtLeast(OWLDataRange range, int n) {
+            if (n <= 0) {
+                return true;
+            }
+            OWLDataRange fixed = includesExtraValues(range)
+                    ? dataFactory.getOWLDataIntersectionOf(range, fixedDatatypeUniverse())
+                    : range;
+            Map<Integer, Boolean> cache = dataRangeChecks.get(fixed);
+            Boolean previous = cache == null ? null : cache.get(n);
+            if (previous != null) {
+                return previous;
+            }
+            OWLDataProperty fresh = dataFactory.getOWLDataProperty(freshIri("datatype-probe-"));
+            OWLClassExpression probe = dataFactory.getOWLDataMinCardinality(n, fresh, fixed);
+            boolean result = emptyReasoner.isSatisfiable(probe);
+            dataRangeChecks.computeIfAbsent(fixed, ignored -> new HashMap<>()).put(n, result);
+            return result;
+        }
+
+        /**
+         * For |D|>=n, the fixed part contributes c values and all extra
+         * values contribute either zero or t values. A single threshold t>=n-c
+         * captures the remaining dependence on the data domain. All checks
+         * in an axiom share t, including negated and nested restrictions.
+         */
+        private boolean dataRangeHasAtLeast(OWLDataRange range, int n) {
+            if (n <= 0 || fixedPartHasAtLeast(range, n)) {
+                return true;
+            }
+            if (!includesExtraValues(range)) {
+                return false;
+            }
+            // Find c (the fixed cardinality, capped at n-1) by binary search.
+            int low = 0, high = n;
+            while (low + 1 < high) {
+                int mid = low + (high - low) / 2;
+                if (fixedPartHasAtLeast(range, mid)) {
+                    low = mid;
+                } else {
+                    high = mid;
+                }
+            }
+            int threshold = n - low;
+            if (threshold > MAX_DATA_DOMAIN_THRESHOLD) {
+                throw new UnsupportedOperationException(
+                        "Data-domain threshold " + threshold + " exceeds supported limit "
+                                + MAX_DATA_DOMAIN_THRESHOLD);
+            }
+            if (thresholds != null) {
+                thresholds.add(threshold);
+            }
+            return extraValues >= threshold;
+        }
+
+        /** A data range is universally equal to the entire data domain. */
         private boolean dataRangeIsUniversal(OWLDataRange range) {
-            // OWL 2 data ranges are subsets of the (fixed) data domain.
-            // D is universal precisely when its complement is empty.
-            return !dataRangeHasAtLeast(dataFactory.getOWLDataComplementOf(range), 1);
+            OWLDataRange complement = dataFactory.getOWLDataComplementOf(range);
+            return !includesExtraValues(complement) && !fixedPartHasAtLeast(complement, 1);
+        }
+
+        /**
+         * A reasoner that assumes a fixed data domain cannot decide claims
+         * involving ordinary properties and unnamed extra values. Do not allow
+         * such claims to slip through as incorrect 'local' answers.
+         */
+        private void requireSupportedRetainedDataRange(OWLDataPropertyExpression p,
+                                                       OWLDataRange range) {
+            if (bottomData(p) || topData(p)) {
+                return;
+            }
+            // The second case is just as important: D may cover ALL known
+            // built-in values, yet omit extra data-domain values. Treating
+            // DataSome(p,rdfs:Literal) and DataSome(p,D) as equivalent would
+            // then be unsound, even though D itself contains no extras.
+            boolean includesExtra = includesExtraValues(range);
+            boolean dependsOnExtra = includesExtra ? !dataRangeIsUniversal(range)
+                    : !fixedPartHasAtLeast(dataFactory.getOWLDataComplementOf(range), 1);
+            if (dependsOnExtra) {
+                throw new UnsupportedOperationException(
+                        "Retained data property with interpretation-dependent data range: "
+                                + p + " / " + range);
+            }
+            if (includesExtra) {
+                retainedUniversalDataRange = true;
+            } else {
+                retainedRestrictedDataRange = true;
+            }
         }
 
         /** Maps a globally true/false datatype claim to Thing/Nothing. */
@@ -714,6 +838,7 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator, AutoCloseab
         @Override
         public final void visit(OWLDataSomeValuesFrom ce) {
             OWLDataPropertyExpression p = rewriteProperty(ce.getProperty());
+            requireSupportedRetainedDataRange(p, ce.getFiller());
             rewrittenClassExpression = bottomData(p) ? dataFactory.getOWLNothing()
                     : topData(p) ? dataTruth(dataRangeHasAtLeast(ce.getFiller(), 1))
                     : dataFactory.getOWLDataSomeValuesFrom(p, ce.getFiller());
@@ -722,6 +847,9 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator, AutoCloseab
         @Override
         public final void visit(OWLDataAllValuesFrom ce) {
             OWLDataPropertyExpression p = rewriteProperty(ce.getProperty());
+            if (!ce.getFiller().isTopDatatype()) {
+                requireSupportedRetainedDataRange(p, dataFactory.getOWLDataComplementOf(ce.getFiller()));
+            }
             if (bottomData(p) || ce.getFiller().isTopDatatype()) {
                 // Empty property: no violating data values. Top datatype:
                 // every possible value meets the range condition.
@@ -729,7 +857,8 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator, AutoCloseab
             } else if (topData(p)) {
                 // Every data value is a p-successor; universal restriction
                 // holds precisely if the data range covers the data domain.
-                rewrittenClassExpression = dataTruth(dataRangeIsUniversal(ce.getFiller()));
+                rewrittenClassExpression = dataTruth(!dataRangeHasAtLeast(
+                        dataFactory.getOWLDataComplementOf(ce.getFiller()), 1));
             } else {
                 rewrittenClassExpression = dataFactory.getOWLDataAllValuesFrom(
                         p, ce.getFiller());
@@ -739,6 +868,9 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator, AutoCloseab
         @Override
         public final void visit(OWLDataHasValue ce) {
             OWLDataPropertyExpression p = rewriteProperty(ce.getProperty());
+            if (!bottomData(p) && !topData(p)) {
+                retainedRestrictedDataRange = true; // This literal is a fixed value.
+            }
             rewrittenClassExpression = bottomData(p) ? dataFactory.getOWLNothing()
                     : topData(p) ? dataFactory.getOWLThing()
                     : dataFactory.getOWLDataHasValue(p, ce.getFiller());
@@ -748,6 +880,9 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator, AutoCloseab
         public final void visit(OWLDataMinCardinality ce) {
             OWLDataPropertyExpression p = rewriteProperty(ce.getProperty());
             int n = ce.getCardinality();
+            if (n > 0) {
+                requireSupportedRetainedDataRange(p, ce.getFiller());
+            }
             rewrittenClassExpression = n == 0 ? dataFactory.getOWLThing()
                     : bottomData(p) ? dataFactory.getOWLNothing()
                     : topData(p) ? dataTruth(dataRangeHasAtLeast(ce.getFiller(), n))
@@ -758,6 +893,7 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator, AutoCloseab
         public final void visit(OWLDataMaxCardinality ce) {
             OWLDataPropertyExpression p = rewriteProperty(ce.getProperty());
             int n = ce.getCardinality();
+            requireSupportedRetainedDataRange(p, ce.getFiller());
             if (bottomData(p)) {
                 rewrittenClassExpression = dataFactory.getOWLThing();
             } else if (topData(p)) {
@@ -774,6 +910,7 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator, AutoCloseab
         public final void visit(OWLDataExactCardinality ce) {
             OWLDataPropertyExpression p = rewriteProperty(ce.getProperty());
             int n = ce.getCardinality();
+            requireSupportedRetainedDataRange(p, ce.getFiller());
             if (bottomData(p)) {
                 rewrittenClassExpression = dataTruth(n == 0);
             } else if (topData(p)) {
@@ -857,8 +994,8 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator, AutoCloseab
          * <p>Under the OWL 2 Direct Semantics an anonymous individual is an
          * existentially quantified variable, so D(_:x) iff D is nonempty, i.e.
          * {@code Thing SubClassOf some(owl:topObjectProperty, D)} (the domain
-         * is nonempty). Each anonymous individual is scoped to the single axiom
-         * being checked.</p>
+         * is nonempty). This is valid for an isolated axiom only: the module
+         * extractor must preserve witnesses shared between several axioms.</p>
          *
          * <p>Both forms are subclass entailments, which avoids relying on the
          * reasoner's handling of ABox assertions about individuals absent
@@ -938,10 +1075,11 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator, AutoCloseab
             // Range(topData,D) holds iff D covers the entire data domain.
             // A range axiom mentioning topData is not legal OWL 2 DL, so
             // the independent datatype probe determines its exact truth.
-            addRewrittenAxiom(bottomData(p) ? tautology()
-                    : topData(p) ? (dataRangeIsUniversal(axiom.getRange())
-                    ? tautology() : contradiction())
-                    : dataFactory.getOWLDataPropertyRangeAxiom(p, axiom.getRange()));
+            // A retained data property is arbitrary: its range axiom is valid
+            // iff D covers the entire data domain, exactly as for topData.
+            // Direct validity avoids a reasoner's potentially fixed data domain.
+            addRewrittenAxiom(bottomData(p) || dataRangeIsUniversal(axiom.getRange())
+                    ? tautology() : contradiction());
         }
 
         @Override
@@ -969,8 +1107,9 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator, AutoCloseab
                 return tautology();
             }
             if (topData(sub)) {
-                throw new UnsupportedOperationException(
-                        "Cannot express topDataProperty as subproperty of " + sup);
+                // Whole property-only inclusion is never universally valid
+                // when the superproperty is ordinary or bottom.
+                return contradiction();
             }
             return dataFactory.getOWLSubDataPropertyOfAxiom(sub, sup);
         }
@@ -1257,13 +1396,24 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator, AutoCloseab
             axiom.objectPropertyExpressions().map(this::rewriteProperty)
                     .forEach(properties::add);
             axiom.dataPropertyExpressions().map(this::rewriteProperty)
-                    .forEach(p -> {
-                        if (topData(p)) {
-                            throw new UnsupportedOperationException(
-                                    "HasKey with universal data role is not OWL 2 DL: " + axiom);
-                        }
-                        properties.add(p);
-                    });
+                    .forEach(properties::add);
+            if (properties.stream().anyMatch(p -> p instanceof OWLObjectPropertyExpression
+                    && bottomObject((OWLObjectPropertyExpression) p)
+                    || p instanceof OWLDataPropertyExpression
+                    && bottomData((OWLDataPropertyExpression) p))) {
+                addRewrittenAxiom(tautology()); // No two objects can share a bottom-key value.
+                return;
+            }
+            // Universal key components impose no matching requirement.
+            properties.removeIf(p -> p instanceof OWLObjectPropertyExpression
+                    && topObject((OWLObjectPropertyExpression) p)
+                    || p instanceof OWLDataPropertyExpression
+                    && topData((OWLDataPropertyExpression) p));
+            if (properties.isEmpty()) {
+                // Keep the key legal. A universal object-key component is
+                // semantically vacuous, leaving at most one NAMED C-individual.
+                properties.add(dataFactory.getOWLTopObjectProperty());
+            }
             addRewrittenAxiom(dataFactory.getOWLHasKeyAxiom(
                     rewrite(axiom.getClassExpression()), properties));
         }
@@ -1289,8 +1439,9 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator, AutoCloseab
     /** Empty interpretations for every ordinary absent class or property. */
     private static final class BottomRewriter extends LocalityRewriter {
         private BottomRewriter(OWLDataFactory f, Collection<OWLEntity> sig,
-                               OWLReasoner emptyReasoner) {
-            super(f, sig, emptyReasoner);
+                               OWLReasoner emptyReasoner, int extraValues,
+                               Set<Integer> thresholds) {
+            super(f, sig, emptyReasoner, extraValues, thresholds);
         }
         @Override
         protected OWLClass absentClassReplacement() {
@@ -1309,8 +1460,9 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator, AutoCloseab
     /** Universal interpretations for every ordinary absent class or property. */
     private static final class TopRewriter extends LocalityRewriter {
         private TopRewriter(OWLDataFactory f, Collection<OWLEntity> sig,
-                            OWLReasoner emptyReasoner) {
-            super(f, sig, emptyReasoner);
+                            OWLReasoner emptyReasoner, int extraValues,
+                            Set<Integer> thresholds) {
+            super(f, sig, emptyReasoner, extraValues, thresholds);
         }
         @Override
         protected OWLClass absentClassReplacement() {

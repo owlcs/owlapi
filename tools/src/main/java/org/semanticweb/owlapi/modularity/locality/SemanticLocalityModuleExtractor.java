@@ -54,7 +54,7 @@ public final class SemanticLocalityModuleExtractor
             OWLOntologyManager ontologyManager,
             OWLReasonerFactory reasonerFactory) {
 
-        super(localityClass, axiomBase);
+        super(localityClass, axiomBase, ontologyManager.getOWLDataFactory());
 
         SemanticLocalityEvaluator bottom = null;
         SemanticLocalityEvaluator top = null;

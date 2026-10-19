@@ -11,190 +11,403 @@
  * http://www.apache.org/licenses/LICENSE-2.0
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.modularity.locality;
-import java.util.*;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.function.Function;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Optional;
+import java.util.Set;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
 
-import org.semanticweb.owlapi.model.OWLAxiom;
-import org.semanticweb.owlapi.model.OWLEntity;
+import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.modularity.ModuleExtractor;
+
 /**
- * Abstract class for convenience implementation of locality-based {@link ModuleExtractor}s. Offers
- * protected methods for the improved algorithm for module extraction.
+ * Base class for locality-based module extractors. Ordinary (anonymous-free)
+ * inputs use an entity index; connected existential ABox witnesses are handled
+ * as a single extraction unit so their shared variables cannot be separated.
  *
  * @author Marc Robin Nolte
  */
 public abstract class LocalityModuleExtractor implements ModuleExtractor {
-    /**
-     * Part of the implementation of the improved algorithm for module extraction. See "Improved
-     * Algorithms for Module Extraction and Atomic Decomposition" by Dmitry Tsarkov, 2012
-     *
-     * @param axiom            current axiom
-     * @param signature        current signature
-     * @param module           current module
-     * @param workingSignature working signature
-     * @param evaluator        evaluator to use
-     */
-    private static void addNonLocal(OWLAxiom axiom, Set<OWLEntity> signature, Collection<OWLAxiom> module,
-                                    Collection<OWLEntity> workingSignature, LocalityEvaluator evaluator) {
-        if (!module.contains(axiom) && !evaluator.isLocal(axiom, signature)) {
-            // M ← M ∪ α
-            module.add(axiom);
-            // S ← S ∪ (̃α \ Σ)
-            Set<OWLEntity> axiomSignature = axiom.signature().collect(Collectors.toSet());
-            axiomSignature.removeAll(signature);
-            workingSignature.addAll(axiomSignature);
-            // Σ ← Σ ∪ ̃α
-            axiom.signature().forEach(signature::add);
-        }
-    }
-    /**
-     * The axiom base of this {@link LocalityModuleExtractor}.
-     */
+
     private final @Nonnull Set<OWLAxiom> axiomBase;
-    /**
-     * The locality class used by this {@link SyntacticLocalityModuleExtractor}.
-     */
-    private @Nonnull final LocalityClass localityClass;
-    /**
-     * Map associating each entity with the axioms that contains it.
-     */
-    private @Nonnull final Map<OWLEntity, Set<OWLAxiom>> axiomsContainingEntity = new HashMap<>();
-    /**
-     * Axioms nonlocal even for an empty signature, cached separately per locality evaluator.
-     * Computed lazily because subclass evaluators are not available in this constructor.
-     */
-    private final Map<LocalityEvaluator, Set<OWLAxiom>> globallyNonLocalAxioms = new ConcurrentHashMap<>();
-    /**
-     * Creates a new LocalityModuleExtractor.
-     *
-     * @param localityClass The {@link LocalityClass} to use
-     * @param axiomBase     the axiom base of the new LocalityModuleExtractor
-     */
+    private final @Nonnull LocalityClass localityClass;
+    private final OWLDataFactory dataFactory;
+    private final Map<OWLEntity, Set<OWLAxiom>> axiomsContainingEntity = new HashMap<>();
+    private final Map<LocalityEvaluator, Map<OWLAxiom, Boolean>> globalCache = new HashMap<>();
+
     LocalityModuleExtractor(LocalityClass localityClass, Stream<OWLAxiom> axiomBase) {
-        this.axiomBase = axiomBase.collect(Collectors.toSet());
-        this.localityClass =
-                Objects.requireNonNull(localityClass, "The given locality class may not be null.");
+        this(localityClass, axiomBase, null);
+    }
+
+    /**
+     * @param dataFactory factory for compiling connected anonymous assertions;
+     *                    may be null only if the axiom base has no logical
+     *                    occurrences of anonymous individuals
+     */
+    LocalityModuleExtractor(LocalityClass localityClass, Stream<OWLAxiom> axiomBase,
+                            OWLDataFactory dataFactory) {
+        this.axiomBase = Objects.requireNonNull(axiomBase, "axiomBase")
+                .collect(Collectors.toSet());
+        this.localityClass = Objects.requireNonNull(localityClass, "localityClass");
+        this.dataFactory = dataFactory;
+        // The tools module must not depend on OWLManager from owlapi-apibinding.
+        // Fail only for logical anonymous assertions that require a factory.
+        if (dataFactory == null && this.axiomBase.stream()
+                .anyMatch(LocalityModuleExtractor::hasLogicalAnonymousIndividuals)) {
+            throw new UnsupportedOperationException(
+                    "An OWLDataFactory is required for axioms with anonymous individuals");
+        }
         initialize();
     }
+
     @Override
     public @Nonnull Stream<OWLAxiom> axiomBase() {
         return axiomBase.stream();
     }
 
-    /**
-     * @return The {@link LocalityEvaluator} corresponding to {@link LocalityClass#BOTTOM}.
-     */
-    protected abstract LocalityEvaluator bottomEvaluator();
-
     @Override
     public boolean containsAxiom(OWLAxiom axiom) {
         return axiomBase.contains(axiom);
     }
-    @Override
-    public final Stream<OWLAxiom> extract(Stream<OWLEntity> signature,
-                                          Optional<Predicate<OWLAxiom>> axiomFilter) {
-        Set<OWLEntity> signatureSet = signature.collect(Collectors.toSet());
-        if (localityClass == LocalityClass.STAR) {
-            return extractStarModule(signatureSet, axiomFilter).stream();
-        } else {
-            LocalityEvaluator evaluator =
-                    localityClass == LocalityClass.BOTTOM ? bottomEvaluator() : topEvaluator();
-            return extractLocalityBasedModule(signatureSet, axiomFilter, evaluator).stream();
-        }
-    }
-    /**
-     * Implementation of the improved algorithm for module extraction. See "Improved Algorithms for
-     * Module Extraction and Atomic Decomposition" by Dmitry Tsarkov, 2012. Uses a {@link Set}
-     * instead of a Stream for the sub axiom base in favor of STAR-module extraction.
-     *
-     * @param signature   signature to use in the extraction
-     * @param axiomFilter optional filter to apply to the axioms
-     * @param evaluator   locality evaluator
-     * @return module as a set of axioms
-     */
-    @Nonnull
-    private Set<OWLAxiom> extractLocalityBasedModule(Set<OWLEntity> signature,
-                                                     Optional<Predicate<OWLAxiom>> axiomFilter,
-                                                     LocalityEvaluator evaluator) {
-        // Sub axiom base requires to filter the axioms
-        Function<OWLEntity, Stream<OWLAxiom>> axiomsOfEntity =
-                entity -> axiomsContainingEntity.getOrDefault(entity, Collections.emptySet()).stream();
-        if (axiomFilter.isPresent()) {
-            axiomsOfEntity = axiomsOfEntity.andThen(stream -> stream.filter(axiomFilter.get()));
-        }
-        // Signature needs to be copied such that the original won't be changed.
-        // STAR Modules would be wrong etc.
-        Set<OWLEntity> signatureCopy = new HashSet<>(signature);
-        Set<OWLAxiom> module = new HashSet<>();
-        Set<OWLEntity> workingSignature = new HashSet<>(signatureCopy);
-        // Axioms nonlocal for the empty signature must be considered even if they
-        // share no entity with the seed signature (including when it is empty).
-        globallyNonLocalAxioms.computeIfAbsent(evaluator,
-                        e -> axiomBase.stream()
-                                .filter(axiom -> !e.isLocal(axiom, Collections.emptySet()))
-                                .collect(Collectors.toSet())).stream()
-                .filter(axiomFilter.orElse(axiom -> true))
-                .forEach(axiom -> addNonLocal(axiom, signatureCopy, module, workingSignature, evaluator));
-        // actually extracting the module
-        while (!workingSignature.isEmpty()) {
-            OWLEntity omega = workingSignature.stream().findAny().get();
-            workingSignature.remove(omega);
-            axiomsOfEntity.apply(omega).forEach(
-                    alpha -> addNonLocal(alpha, signatureCopy, module, workingSignature, evaluator));
-        }
-        assert !axiomFilter.isPresent() || module.stream().allMatch(axiomFilter.get());
-        return module;
-    }
-    /**
-     * Extracts the {@link LocalityClass#STAR}-Module of the given axioms w.r.t. the given
-     * signature.
-     *
-     * @param signature   signature to use in the extraction
-     * @param axiomFilter optional filter to apply to the axioms
-     * @return module as a set of axioms
-     */
-    @Nonnull
-    private Set<OWLAxiom> extractStarModule(Set<OWLEntity> signature, Optional<Predicate<OWLAxiom>> axiomFilter) {
-        LocalityEvaluator bottom = bottomEvaluator(); // bot or empty_set
-        LocalityEvaluator top = topEvaluator(); // top or delta
-        // Calculating the initial module
-        Set<OWLAxiom> module = extractLocalityBasedModule(signature, axiomFilter, bottom);
-        LocalityEvaluator nextExtractionType = top;
-        int previousSize;
-        // nesting modules until stabilization
-        do {
-            previousSize = module.size();
-            module = extractLocalityBasedModule(signature, Optional.of(module::contains),
-                    nextExtractionType);
-            nextExtractionType = nextExtractionType == bottom ? top : bottom;
-        } while (previousSize != module.size());
-        return module;
-    }
-    /**
-     * Returns the locality class used by this LocalityModuleExtractor.
-     *
-     * @return The locality class used by this LocalityModuleExtractor
-     */
+
+    protected abstract LocalityEvaluator bottomEvaluator();
+
+    protected abstract LocalityEvaluator topEvaluator();
+
     @Nonnull
     public LocalityClass getLocalityClass() {
         return localityClass;
     }
-    /**
-     * Initializes this LocalityModuleExtractor. Fills
-     * {@link LocalityModuleExtractor#axiomsContainingEntity}.
-     */
-    private void initialize() {
-        axiomBase().forEach(axiom -> axiom.signature().forEach(entity -> axiomsContainingEntity
-                .computeIfAbsent(entity, x -> new HashSet<>()).add(axiom)));
+
+    @Override
+    public final Stream<OWLAxiom> extract(Stream<OWLEntity> signature,
+                                          Optional<Predicate<OWLAxiom>> axiomFilter) {
+        Set<OWLEntity> seed = Objects.requireNonNull(signature).collect(Collectors.toSet());
+        Predicate<OWLAxiom> filter = Objects.requireNonNull(axiomFilter)
+                .orElse(axiom -> true);
+        Set<OWLAxiom> allowed = axiomBase.stream().filter(filter).collect(Collectors.toSet());
+
+        // Filtering must happen before connecting witnesses; a filtered-out
+        // assertion must neither constrain a surviving witness nor link groups.
+        LocalityEvaluator bottom = localityClass == LocalityClass.TOP ? null : bottomEvaluator();
+        LocalityEvaluator top = localityClass == LocalityClass.BOTTOM ? null : topEvaluator();
+        LocalityEvaluator first = localityClass == LocalityClass.TOP ? top : bottom;
+        if (allowed.stream().anyMatch(LocalityModuleExtractor::hasLogicalAnonymousIndividuals)) {
+            List<ExtractionUnit> units = buildUnits(allowed, dataFactory);
+            Set<ExtractionUnit> module = extractUnits(seed, units, first);
+            if (localityClass == LocalityClass.STAR) {
+                LocalityEvaluator next = top;
+                int oldSize;
+                do {
+                    oldSize = module.size();
+                    module = extractUnits(seed, module, next);
+                    next = next == top ? bottom : top;
+                } while (oldSize != module.size());
+            }
+            return module.stream().flatMap(unit -> unit.originals.stream());
+        }
+        // Keep the existing indexed path for the overwhelmingly common case.
+        Set<OWLAxiom> module = extractIndexed(seed, allowed, first);
+        if (localityClass == LocalityClass.STAR) {
+            LocalityEvaluator next = top;
+            int oldSize;
+            do {
+                oldSize = module.size();
+                module = extractIndexed(seed, module, next);
+                next = next == top ? bottom : top;
+            } while (oldSize != module.size());
+        }
+        return module.stream();
     }
+
+    private static boolean hasLogicalAnonymousIndividuals(OWLAxiom axiom) {
+        return axiom.isLogicalAxiom()
+                && axiom.getAxiomWithoutAnnotations().anonymousIndividuals().findAny().isPresent();
+    }
+
+    /** The indexed worklist; global axioms must be checked even for empty seeds. */
+    private Set<OWLAxiom> extractIndexed(Set<OWLEntity> seed, Set<OWLAxiom> allowed,
+                                         LocalityEvaluator evaluator) {
+        Set<OWLAxiom> result = new HashSet<>();
+        Set<OWLEntity> signature = new HashSet<>(seed);
+        Set<OWLEntity> work = new HashSet<>(seed);
+        // With the empty signature, none of the original names is retained.
+        // Every non-local axiom in that interpretation must be included before
+        // the entity-indexed worklist can discover dependent axioms.
+        Set<OWLEntity> empty = Set.of();
+        for (OWLAxiom axiom : allowed) {
+            if (globallyNonLocal(axiom, evaluator, empty)) {
+                addNonLocal(axiom, signature, result, work, evaluator, true);
+            }
+        }
+        while (!work.isEmpty()) {
+            OWLEntity entity = work.iterator().next();
+            work.remove(entity);
+            for (OWLAxiom axiom : axiomsContainingEntity.getOrDefault(entity, Set.of())) {
+                if (allowed.contains(axiom)) {
+                    addNonLocal(axiom, signature, result, work, evaluator, false);
+                }
+            }
+        }
+        return result;
+    }
+
+    /** Cache the empty-signature test without evaluating filtered-out axioms. */
+    private synchronized boolean globallyNonLocal(OWLAxiom axiom, LocalityEvaluator evaluator,
+                                                  Set<OWLEntity> emptySignature) {
+        return globalCache.computeIfAbsent(evaluator, ignored -> new HashMap<>())
+                .computeIfAbsent(axiom, ignored -> !evaluator.isLocal(axiom, emptySignature));
+    }
+
+    private static void addNonLocal(OWLAxiom axiom, Set<OWLEntity> signature,
+                                    Set<OWLAxiom> module, Set<OWLEntity> work,
+                                    LocalityEvaluator evaluator, boolean knownNonLocal) {
+        if (!module.contains(axiom) && (knownNonLocal || !evaluator.isLocal(axiom, signature))) {
+            module.add(axiom);
+            axiom.signature().filter(signature::add).forEach(work::add);
+        }
+    }
+
+    private static final class ExtractionUnit {
+        final Set<OWLAxiom> originals;
+        final Set<OWLEntity> signature;
+        final OWLAxiom localityAxiom;
+        final boolean conservativelyNonLocal;
+
+        ExtractionUnit(Set<OWLAxiom> originals, OWLAxiom localityAxiom,
+                       boolean conservativelyNonLocal) {
+            this.originals = Set.copyOf(originals);
+            this.signature = originals.stream().flatMap(OWLAxiom::signature)
+                    .collect(Collectors.toSet());
+            this.localityAxiom = localityAxiom;
+            this.conservativelyNonLocal = conservativelyNonLocal;
+        }
+
+        boolean isLocal(Set<OWLEntity> signature, LocalityEvaluator evaluator) {
+            return !conservativelyNonLocal && evaluator.isLocal(localityAxiom, signature);
+        }
+    }
+
+    /** A full-scan fixpoint keeps unit membership atomic across STAR passes. */
+    private static Set<ExtractionUnit> extractUnits(Set<OWLEntity> seed,
+                                                    Collection<ExtractionUnit> units,
+                                                    LocalityEvaluator evaluator) {
+        Set<ExtractionUnit> result = new HashSet<>();
+        Set<OWLEntity> signature = new HashSet<>(seed);
+        boolean changed;
+        do {
+            changed = false;
+            for (ExtractionUnit unit : units) {
+                if (!result.contains(unit) && !unit.isLocal(signature, evaluator)) {
+                    result.add(unit);
+                    signature.addAll(unit.signature);
+                    changed = true;
+                }
+            }
+        } while (changed);
+        return result;
+    }
+
+    private static Set<OWLAnonymousIndividual> logicalAnonymousIndividuals(OWLAxiom axiom) {
+        return axiom.getAxiomWithoutAnnotations().anonymousIndividuals()
+                .collect(Collectors.toSet());
+    }
+
+    /** Connected components of anonymous nodes, computed AFTER the filter. */
+    private static List<ExtractionUnit> buildUnits(Set<OWLAxiom> allowed,
+                                                   OWLDataFactory dataFactory) {
+        Map<OWLAnonymousIndividual, Set<OWLAxiom>> byIndividual = new HashMap<>();
+        for (OWLAxiom axiom : allowed) {
+            if (axiom.isLogicalAxiom()) {
+                logicalAnonymousIndividuals(axiom).forEach(individual ->
+                        byIndividual.computeIfAbsent(individual, ignored -> new HashSet<>())
+                                .add(axiom));
+            }
+        }
+        Set<OWLAxiom> pending = new HashSet<>(allowed);
+        List<ExtractionUnit> units = new ArrayList<>();
+        while (!pending.isEmpty()) {
+            OWLAxiom first = pending.iterator().next();
+            pending.remove(first);
+            if (!hasLogicalAnonymousIndividuals(first)) {
+                units.add(new ExtractionUnit(Set.of(first), first, false));
+                continue;
+            }
+            Set<OWLAxiom> group = new HashSet<>();
+            group.add(first);
+            Set<OWLAnonymousIndividual> seen = new HashSet<>();
+            Set<OWLAnonymousIndividual> work = logicalAnonymousIndividuals(first);
+            while (!work.isEmpty()) {
+                OWLAnonymousIndividual current = work.iterator().next();
+                work.remove(current);
+                if (!seen.add(current)) {
+                    continue;
+                }
+                for (OWLAxiom connected : byIndividual.getOrDefault(current, Set.of())) {
+                    if (pending.remove(connected)) {
+                        group.add(connected);
+                        logicalAnonymousIndividuals(connected).stream().filter(x -> !seen.contains(x))
+                                .forEach(work::add);
+                    }
+                }
+            }
+            units.add(compileAnonymousUnit(group, dataFactory));
+        }
+        return units;
+    }
+
+    private static final class AnonymousEdge {
+        final OWLAnonymousIndividual from;
+        final OWLAnonymousIndividual to;
+        final OWLObjectPropertyExpression property;
+
+        AnonymousEdge(OWLAnonymousIndividual from, OWLAnonymousIndividual to,
+                      OWLObjectPropertyExpression property) {
+            this.from = from;
+            this.to = to;
+            this.property = property;
+        }
+
+        OWLAnonymousIndividual opposite(OWLAnonymousIndividual node) {
+            return from.equals(node) ? to : from;
+        }
+
+        OWLObjectPropertyExpression fromNode(OWLAnonymousIndividual node) {
+            return from.equals(node) ? property : property.getInverseProperty();
+        }
+    }
+
     /**
-     * @return The {@link LocalityEvaluator} corresponding to {@link LocalityClass#TOP}.
+     * Roll up an OWL 2 DL anonymous assertion forest to a single existential
+     * GCI. Shared nodes must be conjoined BEFORE existential closure: separate
+     * closures would give every assertion an independent witness.
+     *
+     * Unsupported/invalid graph shapes are kept conservatively as a whole
+     * unit, never silently approximated by a spanning tree.
      */
-    protected abstract LocalityEvaluator topEvaluator();
+    private static ExtractionUnit compileAnonymousUnit(Set<OWLAxiom> group,
+                                                       OWLDataFactory factory) {
+        Map<OWLAnonymousIndividual, List<OWLClassExpression>> at = new HashMap<>();
+        List<AnonymousEdge> edges = new ArrayList<>();
+        boolean unsupported = false;
+        for (OWLAxiom axiom : group) {
+            if (axiom instanceof OWLClassAssertionAxiom) {
+                OWLClassAssertionAxiom ca = (OWLClassAssertionAxiom) axiom;
+                if (!ca.getIndividual().isAnonymous()
+                        || ca.getClassExpression().anonymousIndividuals().findAny().isPresent()) {
+                    unsupported = true;
+                    break;
+                }
+                at.computeIfAbsent(ca.getIndividual().asOWLAnonymousIndividual(),
+                        ignored -> new ArrayList<>()).add(ca.getClassExpression());
+            } else if (axiom instanceof OWLDataPropertyAssertionAxiom) {
+                OWLDataPropertyAssertionAxiom da = (OWLDataPropertyAssertionAxiom) axiom;
+                if (!da.getSubject().isAnonymous()) {
+                    unsupported = true;
+                    break;
+                }
+                at.computeIfAbsent(da.getSubject().asOWLAnonymousIndividual(),
+                                ignored -> new ArrayList<>())
+                        .add(factory.getOWLDataHasValue(da.getProperty(), da.getObject()));
+            } else if (axiom instanceof OWLObjectPropertyAssertionAxiom) {
+                OWLObjectPropertyAssertionAxiom oa = (OWLObjectPropertyAssertionAxiom) axiom;
+                OWLIndividual from = oa.getSubject(), to = oa.getObject();
+                if (from.isAnonymous() && to.isAnonymous()) {
+                    OWLAnonymousIndividual fromAnon = from.asOWLAnonymousIndividual();
+                    OWLAnonymousIndividual toAnon = to.asOWLAnonymousIndividual();
+                    if (fromAnon.equals(toAnon)) {
+                        // OWL 2 DL does not permit an anonymous assertion cycle.
+                        unsupported = true;
+                        break;
+                    }
+                    edges.add(new AnonymousEdge(fromAnon, toAnon, oa.getProperty()));
+                    at.computeIfAbsent(fromAnon, ignored -> new ArrayList<>());
+                    at.computeIfAbsent(toAnon, ignored -> new ArrayList<>());
+                } else if (from.isAnonymous()) {
+                    at.computeIfAbsent(from.asOWLAnonymousIndividual(), ignored -> new ArrayList<>())
+                            .add(factory.getOWLObjectHasValue(oa.getProperty(), to));
+                } else if (to.isAnonymous()) {
+                    at.computeIfAbsent(to.asOWLAnonymousIndividual(), ignored -> new ArrayList<>())
+                            .add(factory.getOWLObjectHasValue(
+                                    oa.getProperty().getInverseProperty(), from));
+                } else {
+                    unsupported = true;
+                    break;
+                }
+            } else {
+                // This includes shared anonymous same/different individuals,
+                // unsupported negative assertions, and unusual RDF shapes.
+                unsupported = true;
+                break;
+            }
+        }
+        if (unsupported || at.isEmpty()) {
+            return new ExtractionUnit(group, null, true);
+        }
+        OWLAnonymousIndividual root = at.keySet().iterator().next();
+        Set<OWLAnonymousIndividual> visited = new HashSet<>();
+        OWLClassExpression tree = rollUp(root, null, at, edges, visited, factory);
+        if (tree == null || visited.size() != at.size()) {
+            return new ExtractionUnit(group, null, true);
+        }
+        OWLAxiom summary = factory.getOWLSubClassOfAxiom(factory.getOWLThing(),
+                factory.getOWLObjectSomeValuesFrom(factory.getOWLTopObjectProperty(), tree));
+        return new ExtractionUnit(group, summary, false);
+    }
+
+    /** Returns null if the anonymous assertion graph is not a forest. */
+    private static OWLClassExpression rollUp(OWLAnonymousIndividual node,
+                                             OWLAnonymousIndividual parent,
+                                             Map<OWLAnonymousIndividual, List<OWLClassExpression>> at,
+                                             List<AnonymousEdge> edges,
+                                             Set<OWLAnonymousIndividual> visited,
+                                             OWLDataFactory factory) {
+        if (!visited.add(node)) {
+            return null;
+        }
+        List<OWLClassExpression> conditions = new ArrayList<>(at.get(node));
+        int parentLinks = 0;
+        for (AnonymousEdge edge : edges) {
+            if (!edge.from.equals(node) && !edge.to.equals(node)) {
+                continue;
+            }
+            OWLAnonymousIndividual child = edge.opposite(node);
+            if (child.equals(parent)) {
+                // Multiple edges to the same parent share a witness and
+                // cannot be represented by independent existential fillers.
+                if (++parentLinks > 1) {
+                    return null;
+                }
+                continue;
+            }
+            OWLClassExpression descendant = rollUp(child, node, at, edges, visited, factory);
+            if (descendant == null) {
+                return null;
+            }
+            conditions.add(factory.getOWLObjectSomeValuesFrom(edge.fromNode(node), descendant));
+        }
+        // Distinct annotated assertions can impose the same class condition.
+        // Deduplicate BEFORE invoking a factory that requires two operands.
+        Set<OWLClassExpression> unique = new HashSet<>(conditions);
+        if (unique.isEmpty()) {
+            return factory.getOWLThing();
+        }
+        return unique.size() == 1 ? unique.iterator().next()
+                : factory.getOWLObjectIntersectionOf(unique.stream());
+    }
+
+    private void initialize() {
+        axiomBase().forEach(axiom -> axiom.signature().forEach(entity ->
+                axiomsContainingEntity.computeIfAbsent(entity, x -> new HashSet<>()).add(axiom)));
+    }
 }

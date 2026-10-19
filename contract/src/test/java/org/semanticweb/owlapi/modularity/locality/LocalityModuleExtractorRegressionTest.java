@@ -699,4 +699,62 @@ public class LocalityModuleExtractorRegressionTest {
         });
     }
 
+    @Test
+    void oldConstructorStillWorksWithoutAnonymousIndividuals() {
+        OWLAxiom axiom = sub(a, b);
+        SyntacticLocalityModuleExtractor extractor = assertDoesNotThrow(
+                () -> new SyntacticLocalityModuleExtractor(LocalityClass.BOTTOM,
+                        Stream.of(axiom)));
+        assertTrue(extractor.extract(Stream.empty()).collect(Collectors.toSet()).isEmpty());
+    }
+
+    @Test
+    void oldConstructorRequiresFactoryForLogicalAnonymousIndividuals() {
+        OWLAnonymousIndividual x = df.getOWLAnonymousIndividual("factory-required");
+        OWLNamedIndividual i = df.getOWLNamedIndividual(IRI.create("urn:locality-module:regression#i"));
+        OWLAxiom axiom = df.getOWLClassAssertionAxiom(df.getOWLObjectOneOf(i), x);
+        assertThrows(UnsupportedOperationException.class,
+                () -> new SyntacticLocalityModuleExtractor(LocalityClass.BOTTOM,
+                        Stream.of(axiom)));
+    }
+
+    @Test
+    void suppliedFactoryEnablesSharedAnonymousWitnesses() {
+        OWLAnonymousIndividual x = df.getOWLAnonymousIndividual("shared-factory-witness");
+        OWLNamedIndividual i = df.getOWLNamedIndividual(IRI.create("urn:locality-module:regression#i"));
+        OWLDataProperty p = df.getOWLDataProperty(IRI.create("urn:locality-module:regression#p"));
+        OWLAxiom anchor = df.getOWLClassAssertionAxiom(df.getOWLObjectOneOf(i), x);
+        OWLAxiom data = df.getOWLDataPropertyAssertionAxiom(p, x, df.getOWLLiteral(1));
+        SyntacticLocalityModuleExtractor extractor = assertDoesNotThrow(
+                () -> new SyntacticLocalityModuleExtractor(LocalityClass.BOTTOM,
+                        Stream.of(anchor, data), df));
+        // Together, these axioms entail p(i, 1); neither may be dropped independently.
+        assertEquals(Set.of(anchor, data),
+                extractor.extract(Stream.of(i, p)).collect(Collectors.toSet()));
+    }
+
+    @Test
+    void annotationOnlyAnonymousIndividualDoesNotRequireFactory() {
+        OWLAnonymousIndividual x = df.getOWLAnonymousIndividual("annotation-only");
+        OWLAxiom annotation = df.getOWLAnnotationAssertionAxiom(
+                df.getRDFSLabel(), x, df.getOWLLiteral("label"));
+        SyntacticLocalityModuleExtractor extractor = assertDoesNotThrow(
+                () -> new SyntacticLocalityModuleExtractor(LocalityClass.BOTTOM,
+                        Stream.of(annotation)));
+        assertTrue(extractor.extract(Stream.empty()).collect(Collectors.toSet()).isEmpty());
+    }
+
+    @Test
+    void unsupportedAnonymousGraphIsRetainedConservativelyWithFactory() {
+        OWLAnonymousIndividual x = df.getOWLAnonymousIndividual("unsupported-x");
+        OWLAnonymousIndividual y = df.getOWLAnonymousIndividual("unsupported-y");
+        OWLAxiom different = df.getOWLDifferentIndividualsAxiom(x, y);
+        SyntacticLocalityModuleExtractor extractor = assertDoesNotThrow(
+                () -> new SyntacticLocalityModuleExtractor(LocalityClass.BOTTOM,
+                        Stream.of(different), df));
+        assertEquals(Set.of(different),
+                extractor.extract(Stream.empty()).collect(Collectors.toSet()));
+    }
+
+
 }

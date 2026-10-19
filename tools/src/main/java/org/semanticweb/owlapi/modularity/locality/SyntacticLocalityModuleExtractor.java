@@ -15,6 +15,7 @@ package org.semanticweb.owlapi.modularity.locality;
 import java.util.stream.Stream;
 
 import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLDataFactory;
 
 /**
  * Class to extract modules based on syntactic locality.
@@ -30,13 +31,30 @@ public class SyntacticLocalityModuleExtractor extends LocalityModuleExtractor {
      *
      * @param localityClass The {@link LocalityClass} to use
      * @param axiomBase     The axiom base of the new {@link SyntacticLocalityModuleExtractor}
+     * @deprecated use the other constructor instead
      *
-     *
+     * @throws UnsupportedOperationException if the axiom base contains logical
+     *          occurrences of anonymous individuals (use the overload with a factory)
      */
+    @Deprecated
     public SyntacticLocalityModuleExtractor(LocalityClass localityClass,
-        Stream<OWLAxiom> axiomBase) {
+                                            Stream<OWLAxiom> axiomBase) {
         super(localityClass, axiomBase);
     }
+
+    /**
+     * Creates an extractor that can roll up shared anonymous individuals.
+     * No ontology manager or OWL API binding module is needed.
+     *
+     * @param localityClass The {@link LocalityClass} to use
+     * @param axiomBase The axiom base
+     * @param dataFactory Factory used to translate anonymous assertions
+     */
+    public SyntacticLocalityModuleExtractor(LocalityClass localityClass,
+                                            Stream<OWLAxiom> axiomBase, OWLDataFactory dataFactory) {
+        super(localityClass, axiomBase, dataFactory);
+    }
+
 
     @Override
     protected LocalityEvaluator bottomEvaluator() {
