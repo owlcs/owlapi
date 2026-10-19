@@ -20,7 +20,10 @@ import uk.ac.manchester.cs.owlapi.modularity.ModuleType;
 
 /**
  * class to create modules of an ontology wrt module type
+ *
+ * @deprecated internal part of the legacy FaCT++ port, superseded by the classes in {@code org.semanticweb.owlapi.modularity}, see {@link org.semanticweb.owlapi.modularity.ModuleExtractor}
  */
+@Deprecated
 public class Modularizer {
 
     /**

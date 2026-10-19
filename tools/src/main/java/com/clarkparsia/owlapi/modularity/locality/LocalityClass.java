@@ -14,7 +14,10 @@ package com.clarkparsia.owlapi.modularity.locality;
 
 /**
  * Types of locality classes that can be used.
+ *
+ * @deprecated use {@link org.semanticweb.owlapi.modularity.locality.LocalityClass} instead
  */
+@Deprecated
 public enum LocalityClass {
     /**
      * Locality class obtained when concepts and roles not present in the

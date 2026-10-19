@@ -10,7 +10,10 @@ import javax.annotation.Nullable;
 
 /**
  * An ontology atom including module and dependencies information.
+ *
+ * @deprecated superseded by the classes in {@code org.semanticweb.owlapi.modularity}, see {@link org.semanticweb.owlapi.modularity.AtomicDecomposition}
  */
+@Deprecated
 public class OntologyAtom {
 
     static Comparator<OntologyAtom> comparator = (arg0, arg1) -> arg0.getId() - arg1.getId();

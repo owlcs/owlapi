@@ -13,5 +13,33 @@
 			<artifactId>owlapi-apibinding</artifactId>
 			<version>${project.version}</version>
 		</dependency>
+		<!-- Test-only reasoner for the semantic locality tests of org.semanticweb.owlapi.modularity.
+		     Its own OWL API (owlapi-distribution 5.1.9) is excluded, so the tests run against the
+		     modules of this build only. -->
+		<dependency>
+			<groupId>net.sourceforge.owlapi</groupId>
+			<artifactId>org.semanticweb.hermit</artifactId>
+			<version>1.4.5.519</version>
+			<scope>test</scope>
+			<exclusions>
+				<exclusion>
+					<groupId>net.sourceforge.owlapi</groupId>
+					<artifactId>owlapi-distribution</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
 	</dependencies>
+	<build>
+		<plugins>
+			<plugin>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<configuration>
+					<!-- HermiT 1.4.5.519 has a stray assert in BinaryDataDatatypeHandler.conjoinWithDRNegation:
+					     it fires for a facet-free negated xsd:hexBinary/xsd:base64Binary, although the method
+					     handles that case correctly right below. Keep -ea for everything else. -->
+					<argLine>-Xmx2G -Djava.awt.headless=true -da:org.semanticweb.HermiT...</argLine>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
 </project>

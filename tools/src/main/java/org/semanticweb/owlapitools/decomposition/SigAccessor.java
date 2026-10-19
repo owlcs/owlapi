@@ -5,7 +5,10 @@ import org.semanticweb.owlapi.model.OWLObjectVisitor;
 
 /**
  * helper class to set signature and locality class
+ *
+ * @deprecated superseded by the classes in {@code org.semanticweb.owlapi.modularity}, see {@link org.semanticweb.owlapi.modularity.AtomicDecomposition}
  */
+@Deprecated
 public class SigAccessor implements OWLObjectVisitor {
 
     LocalityChecker localityChecker;

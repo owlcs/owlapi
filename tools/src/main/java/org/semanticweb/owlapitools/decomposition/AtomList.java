@@ -7,7 +7,10 @@ import java.util.Set;
 
 /**
  * Atomic ontology structure.
+ *
+ * @deprecated superseded by the classes in {@code org.semanticweb.owlapi.modularity}, see {@link org.semanticweb.owlapi.modularity.AtomicDecomposition}
  */
+@Deprecated
 public class AtomList {
 
     /**

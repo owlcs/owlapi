@@ -12,7 +12,9 @@ import org.semanticweb.owlapi.model.OWLEntity;
  * search space and atom which contains it.
  *
  * @author ignazio
+ * @deprecated superseded by the classes in {@code org.semanticweb.owlapi.modularity}, see {@link org.semanticweb.owlapi.modularity.AtomicDecomposition}
  */
+@Deprecated
 public class AxiomWrapper implements Serializable {
 
     private final OWLAxiom axiom;

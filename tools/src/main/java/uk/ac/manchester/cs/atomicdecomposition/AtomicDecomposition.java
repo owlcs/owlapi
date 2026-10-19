@@ -11,7 +11,10 @@ import uk.ac.manchester.cs.owlapi.modularity.ModuleType;
 
 /**
  * The atomic decomposition graph
+ *
+ * @deprecated use {@link org.semanticweb.owlapi.modularity.AtomicDecomposition} instead
  */
+@Deprecated
 public interface AtomicDecomposition {
 
     /**

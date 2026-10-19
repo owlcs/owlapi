@@ -54,7 +54,10 @@ import org.semanticweb.owlapi.model.SWRLRule;
 
 /**
  * syntactic locality checker for DL axioms
+ *
+ * @deprecated superseded by the classes in {@code org.semanticweb.owlapi.modularity}, see {@link org.semanticweb.owlapi.modularity.locality.LocalityEvaluator}
  */
+@Deprecated
 public class SyntacticLocalityChecker implements OWLAxiomVisitor, LocalityChecker {
 
     /**

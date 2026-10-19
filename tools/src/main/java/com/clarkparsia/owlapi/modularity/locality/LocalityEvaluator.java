@@ -18,8 +18,11 @@ import org.semanticweb.owlapi.model.OWLEntity;
 
 /**
  * A locality evaluator.
+ *
+ * @deprecated use {@link org.semanticweb.owlapi.modularity.locality.LocalityEvaluator} instead
  */
 @FunctionalInterface
+@Deprecated
 public interface LocalityEvaluator {
 
     /**

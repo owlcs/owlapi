@@ -14,7 +14,10 @@ import uk.ac.manchester.cs.owlapi.modularity.ModuleType;
 
 /**
  * class to create modules of an ontology wrt module type
+ *
+ * @deprecated superseded by the classes in {@code org.semanticweb.owlapi.modularity}, see {@link org.semanticweb.owlapi.modularity.locality.LocalityEvaluator}
  */
+@Deprecated
 public class Modularizer {
 
     /**

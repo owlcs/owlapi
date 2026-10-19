@@ -16,7 +16,10 @@ package org.semanticweb.owlapi.atomicdecomposition;
  * Module types - for use with Chiara and Dmitry's implementation of
  * modularisation and atomic decomposition, as implemented in
  * FaCT++/OWLAPITOOLS.
+ *
+ * @deprecated use {@link org.semanticweb.owlapi.modularity.locality.LocalityClass} to select the locality class instead
  */
+@Deprecated
 public enum ModuleMethod {
     /**
      * Standard syntactic modules.

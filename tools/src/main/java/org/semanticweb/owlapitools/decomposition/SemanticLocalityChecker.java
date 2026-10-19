@@ -59,7 +59,10 @@ import org.semanticweb.owlapi.reasoner.OWLReasonerFactory;
 
 /**
  * semantic locality checker for DL axioms
+ *
+ * @deprecated superseded by the classes in {@code org.semanticweb.owlapi.modularity}, see {@link org.semanticweb.owlapi.modularity.locality.LocalityEvaluator}
  */
+@Deprecated
 public class SemanticLocalityChecker implements OWLAxiomVisitor, LocalityChecker {
 
     /**

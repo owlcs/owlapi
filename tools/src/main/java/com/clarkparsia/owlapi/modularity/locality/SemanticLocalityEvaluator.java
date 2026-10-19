@@ -58,7 +58,10 @@ import org.slf4j.LoggerFactory;
 
 /**
  * Semantic locality evaluator.
+ *
+ * @deprecated use {@link org.semanticweb.owlapi.modularity.locality.SemanticLocalityEvaluator} instead
  */
+@Deprecated
 public class SemanticLocalityEvaluator implements LocalityEvaluator {
 
     protected static final Logger LOGGER = LoggerFactory.getLogger(SemanticLocalityEvaluator.class);

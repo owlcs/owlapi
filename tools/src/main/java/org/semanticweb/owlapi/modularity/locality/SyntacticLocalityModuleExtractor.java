@@ -1,7 +1,7 @@
 /* This file is part of the OWL API.
  * The contents of this file are subject to the LGPL License, Version 3.0.
  * Copyright 2020, Marc Robin Nolte
- * 
+ *
  * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
  * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
  * You should have received a copy of the GNU General Public License along with this program.  If not, see http://www.gnu.org/licenses/.
@@ -15,9 +15,11 @@ package org.semanticweb.owlapi.modularity.locality;
 import java.util.stream.Stream;
 
 import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLDataFactory;
 
 /**
  * Class to extract modules based on syntactic locality.
+ * Assumes that given ontologies conform to the OWL 2 DL profile (beyond this, the behavior is undefined).
  *
  * @author Marc Robin Nolte (modified version)
  *
@@ -27,15 +29,35 @@ public class SyntacticLocalityModuleExtractor extends LocalityModuleExtractor {
     /**
      * Instantiates a new {@link SyntacticLocalityModuleExtractor}.
      *
+     * <p>Without a data factory, assertions sharing anonymous individuals cannot
+     * be rolled up into a single checkable axiom. Each connected group of such
+     * assertions is then kept in every module: correct, but possibly larger
+     * than necessary.</p>
+     *
      * @param localityClass The {@link LocalityClass} to use
      * @param axiomBase     The axiom base of the new {@link SyntacticLocalityModuleExtractor}
-     *
-     *
+     * @deprecated use {@link #SyntacticLocalityModuleExtractor(LocalityClass, Stream, OWLDataFactory)},
+     *             which gives smaller modules for axioms with anonymous individuals
      */
+    @Deprecated
     public SyntacticLocalityModuleExtractor(LocalityClass localityClass,
-        Stream<OWLAxiom> axiomBase) {
+                                            Stream<OWLAxiom> axiomBase) {
         super(localityClass, axiomBase);
     }
+
+    /**
+     * Creates an extractor that can roll up shared anonymous individuals.
+     * No ontology manager or OWL API binding module is needed.
+     *
+     * @param localityClass The {@link LocalityClass} to use
+     * @param axiomBase The axiom base
+     * @param dataFactory Factory used to translate anonymous assertions
+     */
+    public SyntacticLocalityModuleExtractor(LocalityClass localityClass,
+                                            Stream<OWLAxiom> axiomBase, OWLDataFactory dataFactory) {
+        super(localityClass, axiomBase, dataFactory);
+    }
+
 
     @Override
     protected LocalityEvaluator bottomEvaluator() {

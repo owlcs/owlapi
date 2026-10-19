@@ -19,7 +19,10 @@ import uk.ac.manchester.cs.owlapi.modularity.ModuleType;
 
 /**
  * Atomic decomposer for an ontology.
+ *
+ * @deprecated superseded by the classes in {@code org.semanticweb.owlapi.modularity}, see {@link org.semanticweb.owlapi.modularity.AtomicDecomposition}
  */
+@Deprecated
 public class Decomposer {
 
     /**

@@ -32,8 +32,10 @@ import org.semanticweb.owlapi.model.OWLPropertyRange;
 
 /**
  * check whether class expressions are equivalent to bottom wrt given locality class
+ *
+ * @deprecated superseded by the classes in {@code org.semanticweb.owlapi.modularity}, see {@link org.semanticweb.owlapi.modularity.AtomicDecomposition}
  */
-// XXX verify unused parameters
+@Deprecated
 public class BotEquivalenceEvaluator extends SigAccessor implements OWLObjectVisitor {
 
     /**

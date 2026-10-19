@@ -16,7 +16,9 @@ package uk.ac.manchester.cs.owlapi.modularity;
  * Enumeration for module types.
  *
  * @author Thomas Schneider, School of Computer Science, University of Manchester
+ * @deprecated use {@link org.semanticweb.owlapi.modularity.locality.LocalityClass} to select the locality class instead
  */
+@Deprecated
 public enum ModuleType {
     //@formatter:off
     /** Module type representing top modules (AKA lower modules). */                        TOP("top"), 
