@@ -580,7 +580,7 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator {
 
         this.localityClass =
             Objects.requireNonNull(localityClass, "The given  locality class may not be null.");
-        if (localityClass != LocalityClass.BOTTOM || localityClass != LocalityClass.TOP) {
+        if (localityClass != LocalityClass.BOTTOM && localityClass != LocalityClass.TOP) {
             throw new IllegalArgumentException(
                 "The given locality class must be one of BOTTOM or TOP");
         }
