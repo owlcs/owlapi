@@ -54,10 +54,9 @@ public final class SemanticLocalityModuleExtractor extends LocalityModuleExtract
     public SemanticLocalityModuleExtractor(LocalityClass localityClass, Stream<OWLAxiom> axiomBase,
         OWLOntologyManager ontologyManager, OWLReasonerFactory reasonerFactory) {
         super(localityClass, axiomBase);
-        initEvaluators();
-
         this.reasonerFactory = reasonerFactory;
         this.ontologyManager = ontologyManager;
+        initEvaluators();
     }
 
     private void initEvaluators() {
