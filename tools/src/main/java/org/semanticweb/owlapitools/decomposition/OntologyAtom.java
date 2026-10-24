@@ -10,10 +10,16 @@ import javax.annotation.Nullable;
 
 /**
  * An ontology atom including module and dependencies information.
+ *
+ * @deprecated superseded by the classes in
+ *             {@code org.semanticweb.owlapi.modularity}, see
+ *             {@link org.semanticweb.owlapi.modularity.AtomicDecomposition}
  */
+@Deprecated
 public class OntologyAtom {
 
-    static Comparator<OntologyAtom> comparator = (arg0, arg1) -> arg0.getId() - arg1.getId();
+    static Comparator<OntologyAtom> comparator = (arg0, arg1) -> arg0.getId()
+        - arg1.getId();
     /**
      * set of axioms in the atom
      */
@@ -45,7 +51,8 @@ public class OntologyAtom {
     /**
      * build all dep atoms; filter them from DepAtoms
      *
-     * @param checked sets of atoms to check
+     * @param checked
+     *        sets of atoms to check
      */
     public void buildAllDepAtoms(Set<OntologyAtom> checked) {
         // first gather all dep atoms from all known dep atoms
@@ -60,11 +67,11 @@ public class OntologyAtom {
         // now the atom is checked
         checked.add(this);
     }
-
     // fill in the sets
 
     /**
-     * @param ax axiom to add to the atom
+     * @param ax
+     *        axiom to add to the atom
      */
     public void addAxiom(AxiomWrapper ax) {
         axioms.add(ax);
@@ -72,14 +79,16 @@ public class OntologyAtom {
     }
 
     /**
-     * @param axs axioms to add to the atom
+     * @param axs
+     *        axioms to add to the atom
      */
     public void addAxioms(Collection<AxiomWrapper> axs) {
         axs.forEach(this::addAxiom);
     }
 
     /**
-     * @param atom add atom to the dependency set
+     * @param atom
+     *        add atom to the dependency set
      */
     public void addDepAtom(@Nullable OntologyAtom atom) {
         if (atom != null && atom != this) {
@@ -90,7 +99,8 @@ public class OntologyAtom {
     /**
      * get all the atoms the current one depends on; build this set if necessary
      *
-     * @param checked atoms to check
+     * @param checked
+     *        atoms to check
      * @return all dependencies
      */
     public Set<OntologyAtom> getAllDepAtoms(Set<OntologyAtom> checked) {
@@ -106,7 +116,6 @@ public class OntologyAtom {
     public List<AxiomWrapper> getAtomAxioms() {
         return axioms;
     }
-
     // access to axioms
 
     /**
@@ -119,7 +128,8 @@ public class OntologyAtom {
     /**
      * set the module axioms
      *
-     * @param module the module axioms
+     * @param module
+     *        the module axioms
      */
     public void setModule(Collection<AxiomWrapper> module) {
         this.module = new ArrayList<>(module);
@@ -140,7 +150,8 @@ public class OntologyAtom {
     }
 
     /**
-     * @param id the id value
+     * @param id
+     *        the id value
      */
     public void setId(int id) {
         this.id = id;

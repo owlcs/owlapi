@@ -15,13 +15,18 @@ import org.semanticweb.owlapi.model.parameters.Imports;
  * A filter for axioms
  *
  * @author ignazio
+ * @deprecated superseded by the classes in
+ *             {@code org.semanticweb.owlapi.modularity}, see
+ *             {@link org.semanticweb.owlapi.modularity.AtomicDecomposition}
  */
+@Deprecated
 public class AxiomSelector {
 
     private AxiomSelector() {}
 
     /**
-     * @param o the ontology to filter
+     * @param o
+     *        the ontology to filter
      * @return list of declarations and logical axioms
      */
     public static List<OWLAxiom> selectAxioms(OWLOntology o) {
@@ -29,12 +34,16 @@ public class AxiomSelector {
     }
 
     /**
-     * @param o the ontology to filter
+     * @param o
+     *        the ontology to filter
      * @return list of declarations and logical axioms
-     * @param excludeAssertions true if assertions should be excluded
+     * @param excludeAssertions
+     *        true if assertions should be excluded
      */
-    public static List<OWLAxiom> selectAxioms(OWLOntology o, boolean excludeAssertions) {
-        Stream<AxiomType<?>> types = LOGICAL_AXIOMS_AND_DECLARATIONS_TYPES.stream();
+    public static List<OWLAxiom> selectAxioms(OWLOntology o,
+        boolean excludeAssertions) {
+        Stream<AxiomType<?>> types = LOGICAL_AXIOMS_AND_DECLARATIONS_TYPES
+            .stream();
         if (excludeAssertions) {
             types = types.filter(x -> !AxiomType.ABoxAxiomTypes.contains(x));
         }
@@ -42,7 +51,8 @@ public class AxiomSelector {
     }
 
     /**
-     * @param o axioms to wrap
+     * @param o
+     *        axioms to wrap
      * @return axioms wrapped as AxiomWrapper
      */
     public static List<AxiomWrapper> wrap(List<OWLAxiom> o) {

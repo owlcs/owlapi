@@ -14,6 +14,7 @@ import javax.annotation.Nullable;
  */
 public class FastSetSimple extends AbstractFastSet {
 
+    private static final long serialVersionUID = -8210419752868481775L;
     protected static final int DEFAULTSIZE = 16;
     @Nullable
     protected int[] values;

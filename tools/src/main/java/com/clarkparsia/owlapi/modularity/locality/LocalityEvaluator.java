@@ -18,16 +18,24 @@ import org.semanticweb.owlapi.model.OWLEntity;
 
 /**
  * A locality evaluator.
+ *
+ * @deprecated use
+ *             {@link org.semanticweb.owlapi.modularity.locality.LocalityEvaluator}
+ *             instead
  */
 @FunctionalInterface
+@Deprecated
 public interface LocalityEvaluator {
 
     /**
      * Tests whether a given axiom is local with respect to a given signature.
      *
-     * @param axiom the axiom to test
-     * @param signature the signature to test against
-     * @return {@code true} if the axiom is local w.r.t. the signature; {@code false} otherwise
+     * @param axiom
+     *        the axiom to test
+     * @param signature
+     *        the signature to test against
+     * @return {@code true} if the axiom is local w.r.t. the signature;
+     *         {@code false} otherwise
      */
     boolean isLocal(OWLAxiom axiom, Collection<OWLEntity> signature);
 }

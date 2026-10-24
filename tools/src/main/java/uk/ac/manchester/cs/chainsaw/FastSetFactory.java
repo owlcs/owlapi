@@ -7,6 +7,8 @@ import java.io.Serializable;
  */
 public class FastSetFactory implements Serializable {
 
+    private static final long serialVersionUID = -2866689366616239746L;
+
     private FastSetFactory() {
     }
 

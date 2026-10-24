@@ -12,7 +12,12 @@ import org.semanticweb.owlapi.model.OWLEntity;
 
 /**
  * An atom in the atomic decomposition
+ *
+ * @deprecated superseded by the classes in
+ *             {@code org.semanticweb.owlapi.modularity}, see
+ *             {@link org.semanticweb.owlapi.modularity.AtomicDecomposition}
  */
+@Deprecated
 public class Atom {
 
     private final Collection<OWLAxiom> axioms;
@@ -24,7 +29,8 @@ public class Atom {
     private final int hashcode;
 
     /**
-     * @param axioms build an atom out of a set of axioms
+     * @param axioms
+     *        build an atom out of a set of axioms
      */
     public Atom(Collection<OWLAxiom> axioms) {
         this.axioms = axioms;
@@ -32,7 +38,8 @@ public class Atom {
     }
 
     /**
-     * @param ax axiom
+     * @param ax
+     *        axiom
      * @return true if ax is in this atom
      */
     public boolean contains(OWLAxiom ax) {
@@ -70,7 +77,8 @@ public class Atom {
     }
 
     /**
-     * @param labelSignature the label for the atom
+     * @param labelSignature
+     *        the label for the atom
      */
     public void setLabel(Collection<OWLEntity> labelSignature) {
         label = labelSignature;

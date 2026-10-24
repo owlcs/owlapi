@@ -15,7 +15,10 @@ import uk.ac.manchester.cs.owlapi.modularity.ModuleType;
 
 /**
  * Ontology based modularizer.
+ *
+ * @deprecated internal part of the legacy FaCT++ port, superseded by the classes in {@code org.semanticweb.owlapi.modularity}, see {@link org.semanticweb.owlapi.modularity.AtomicDecomposition}
  */
+@Deprecated
 public class OntologyBasedModularizer {
 
     /**

@@ -9,6 +9,7 @@ import java.util.stream.IntStream;
  */
 public class LocalFastSet implements FastSet, Serializable {
 
+    private static final long serialVersionUID = -8293672911501111011L;
     private final BitSet pos = new BitSet();
 
     private static int asPositive(int p) {

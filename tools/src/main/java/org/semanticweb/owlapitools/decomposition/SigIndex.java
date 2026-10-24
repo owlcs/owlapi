@@ -11,7 +11,12 @@ import org.semanticweb.owlapi.model.OWLEntity;
 
 /**
  * signature index
+ *
+ * @deprecated superseded by the classes in
+ *             {@code org.semanticweb.owlapi.modularity}, see
+ *             {@link org.semanticweb.owlapi.modularity.AtomicDecomposition}
  */
+@Deprecated
 public class SigIndex {
 
     /**
@@ -41,7 +46,8 @@ public class SigIndex {
     private int nUnregistered = 0;
 
     /**
-     * @param c locality checker
+     * @param c
+     *        locality checker
      */
     public SigIndex(LocalityChecker c) {
         checker = c;
@@ -50,8 +56,10 @@ public class SigIndex {
     /**
      * add axiom AX to the non-local set with top-locality value TOP
      *
-     * @param ax axiom
-     * @param top top or bottom
+     * @param ax
+     *        axiom
+     * @param top
+     *        top or bottom
      */
     private void checkNonLocal(AxiomWrapper ax, boolean top) {
         emptySig.setLocality(top);
@@ -75,10 +83,13 @@ public class SigIndex {
     }
 
     /**
-     * given an entity, return a set of all axioms that contain this entity in a signature
+     * given an entity, return a set of all axioms that contain this entity in a
+     * signature
      *
-     * @param entity the entity
-     * @return collection of axioms referring the entity; empty for unknown entities.
+     * @param entity
+     *        the entity
+     * @return collection of axioms referring the entity; empty for unknown
+     *         entities.
      */
     public Collection<AxiomWrapper> getAxioms(OWLEntity entity) {
         Collection<AxiomWrapper> collection = base.get(entity);
@@ -91,7 +102,8 @@ public class SigIndex {
     /**
      * get the non-local axioms with top-locality value TOP
      *
-     * @param top true if top locality should be used
+     * @param top
+     *        true if top locality should be used
      * @return collection of non local axioms
      */
     public Collection<AxiomWrapper> getNonLocal(boolean top) {
@@ -115,7 +127,8 @@ public class SigIndex {
     /**
      * preprocess given set of axioms
      *
-     * @param axioms the axioms to process
+     * @param axioms
+     *        the axioms to process
      */
     public void preprocessOntology(Collection<AxiomWrapper> axioms) {
         axioms.forEach(this::processAx);
@@ -124,7 +137,8 @@ public class SigIndex {
     /**
      * process an axiom wrt its Used status
      *
-     * @param ax the axiom to process
+     * @param ax
+     *        the axiom to process
      */
     public void processAx(AxiomWrapper ax) {
         if (ax.isUsed()) {
@@ -137,10 +151,12 @@ public class SigIndex {
     /**
      * register an axiom
      *
-     * @param ax axiom
+     * @param ax
+     *        axiom
      */
     private void registerAx(AxiomWrapper ax) {
-        ax.signature().forEach(a -> base.computeIfAbsent(a, x -> new HashSet<>()).add(ax));
+        ax.signature().forEach(a -> base.computeIfAbsent(a,
+            x -> new HashSet<>()).add(ax));
         // check whether the axiom is non-local
         checkNonLocal(ax, false);
         checkNonLocal(ax, true);
@@ -150,10 +166,12 @@ public class SigIndex {
     /**
      * unregister an axiom AX
      *
-     * @param ax axiom
+     * @param ax
+     *        axiom
      */
     private void unregisterAx(AxiomWrapper ax) {
-        ax.signature().forEach(p -> base.getOrDefault(p, Collections.emptySet()).remove(ax));
+        ax.signature().forEach(p -> base.getOrDefault(p, Collections.emptySet())
+            .remove(ax));
         // remove from the non-locality
         topNonLocal.remove(ax);
         bottomNonLocal.remove(ax);

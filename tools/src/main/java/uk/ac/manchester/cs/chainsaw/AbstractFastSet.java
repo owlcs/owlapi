@@ -5,6 +5,8 @@ import javax.annotation.Nullable;
 
 abstract class AbstractFastSet implements FastSet, Serializable {
 
+    private static final long serialVersionUID = -2168429564920921388L;
+
     public static final int LIMIT = 5;
 
     @Override

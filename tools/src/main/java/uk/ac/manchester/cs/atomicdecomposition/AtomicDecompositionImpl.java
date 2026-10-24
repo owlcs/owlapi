@@ -30,7 +30,12 @@ import uk.ac.manchester.cs.owlapi.modularity.ModuleType;
 
 /**
  * Atomic decomposition implementation.
+ *
+ * @deprecated superseded by the classes in
+ *             {@code org.semanticweb.owlapi.modularity}, see
+ *             {@link org.semanticweb.owlapi.modularity.AtomicDecomposition}
  */
+@Deprecated
 public class AtomicDecompositionImpl implements AtomicDecomposition {
 
     final Map<OWLEntity, Set<Atom>> termBasedIndex = new LinkedHashMap<>();
@@ -44,48 +49,61 @@ public class AtomicDecompositionImpl implements AtomicDecomposition {
     Decomposer decomposer;
 
     /**
-     * @param o o
+     * @param o
+     *        o
      */
     public AtomicDecompositionImpl(OWLOntology o) {
         this(AxiomSelector.selectAxioms(o), ModuleType.BOT);
     }
 
     /**
-     * @param o o
-     * @param type type
+     * @param o
+     *        o
+     * @param type
+     *        type
      */
     public AtomicDecompositionImpl(OWLOntology o, ModuleType type) {
         this(AxiomSelector.selectAxioms(o), type);
     }
 
     /**
-     * @param o o
-     * @param type type
-     * @param excludeAssertions true if assertions should be excluded
+     * @param o
+     *        o
+     * @param type
+     *        type
+     * @param excludeAssertions
+     *        true if assertions should be excluded
      */
-    public AtomicDecompositionImpl(OWLOntology o, ModuleType type, boolean excludeAssertions) {
+    public AtomicDecompositionImpl(OWLOntology o, ModuleType type,
+        boolean excludeAssertions) {
         this(AxiomSelector.selectAxioms(o, excludeAssertions), type);
     }
 
     /**
-     * @param axioms axioms
-     * @param type type
+     * @param axioms
+     *        axioms
+     * @param type
+     *        type
      */
     public AtomicDecompositionImpl(List<OWLAxiom> axioms, ModuleType type) {
         this.type = type;
-        decomposer = new Decomposer(AxiomSelector.wrap(axioms), new SyntacticLocalityChecker());
+        decomposer = new Decomposer(AxiomSelector.wrap(axioms),
+            new SyntacticLocalityChecker());
         int size = decomposer.getAOS(this.type).size();
         atoms = new ArrayList<>();
         for (int i = 0; i < size; i++) {
-            final Atom atom = new Atom(asSet(decomposer.getAOS().get(i).getAtomAxioms()));
+            final Atom atom = new Atom(asSet(decomposer.getAOS().get(i)
+                .getAtomAxioms()));
             atoms.add(atom);
             atomIndex.put(atom, i);
             for (OWLEntity e : atom.getSignature()) {
-                termBasedIndex.computeIfAbsent(e, x -> new HashSet<>()).add(atom);
+                termBasedIndex.computeIfAbsent(e, x -> new HashSet<>()).add(
+                    atom);
             }
         }
         for (int i = 0; i < size; i++) {
-            Set<OntologyAtom> dependentIndexes = decomposer.getAOS().get(i).getDependencies();
+            Set<OntologyAtom> dependentIndexes = decomposer.getAOS().get(i)
+                .getDependencies();
             for (OntologyAtom j : dependentIndexes) {
                 dependencies.put(atoms.get(i), atoms.get(j.getId()));
                 dependents.put(atoms.get(j.getId()), atoms.get(i));
@@ -161,7 +179,8 @@ public class AtomicDecompositionImpl implements AtomicDecomposition {
         return explore(atom, direct, dependents);
     }
 
-    Set<Atom> explore(Atom atom, boolean direct, IdentityMultiMap<Atom, Atom> multimap) {
+    Set<Atom> explore(Atom atom, boolean direct,
+        IdentityMultiMap<Atom, Atom> multimap) {
         if (direct) {
             Set<Atom> hashSet = new HashSet<>(multimap.get(atom));
             for (Atom a : multimap.get(atom)) {
@@ -231,9 +250,11 @@ public class AtomicDecompositionImpl implements AtomicDecomposition {
     }
 
     /**
-     * get a set of axioms that corresponds to the module of the atom with the id INDEX
+     * get a set of axioms that corresponds to the module of the atom with the
+     * id INDEX
      *
-     * @param index index
+     * @param index
+     *        index
      * @return module at index
      */
     Collection<AxiomWrapper> getAtomModule(int index) {
@@ -246,9 +267,9 @@ public class AtomicDecompositionImpl implements AtomicDecomposition {
     }
 
     @Override
-    public Stream<OWLAxiom> getModule(Stream<OWLEntity> signature, boolean useSemantics,
-        ModuleType moduletype) {
-        return decomposer.getModule(signature, useSemantics, moduletype).stream()
-            .map(AxiomWrapper::getAxiom).filter(ax -> ax != null);
+    public Stream<OWLAxiom> getModule(Stream<OWLEntity> signature,
+        boolean useSemantics, ModuleType moduletype) {
+        return decomposer.getModule(signature, useSemantics, moduletype)
+            .stream().map(AxiomWrapper::getAxiom).filter(ax -> ax != null);
     }
 }

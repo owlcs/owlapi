@@ -55,7 +55,9 @@ import com.clarkparsia.owlapi.modularity.locality.SyntacticLocalityEvaluator;
  * Implementation of module extraction based on syntactic locality.
  *
  * @author Thomas Schneider, School of Computer Science, University of Manchester
+ * @deprecated use {@link org.semanticweb.owlapi.modularity.locality.SyntacticLocalityModuleExtractor} instead
  */
+@Deprecated
 public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
 
     private static final Logger LOGGER =

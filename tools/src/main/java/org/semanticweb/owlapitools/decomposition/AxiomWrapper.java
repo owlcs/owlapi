@@ -8,13 +8,18 @@ import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLEntity;
 
 /**
- * Wrapper around an OWLAxiom to hold attributes such as used, included in a module, included in
- * search space and atom which contains it.
+ * Wrapper around an OWLAxiom to hold attributes such as used, included in a
+ * module, included in search space and atom which contains it.
  *
  * @author ignazio
+ * @deprecated superseded by the classes in
+ *             {@code org.semanticweb.owlapi.modularity}, see
+ *             {@link org.semanticweb.owlapi.modularity.AtomicDecomposition}
  */
+@Deprecated
 public class AxiomWrapper implements Serializable {
 
+    private static final long serialVersionUID = -8856894192868959888L;
     private final OWLAxiom axiom;
     private boolean used = true;
     private boolean searchspace;
@@ -24,7 +29,8 @@ public class AxiomWrapper implements Serializable {
     private int id;
 
     /**
-     * @param axiom axiom to wrap
+     * @param axiom
+     *        axiom to wrap
      */
     public AxiomWrapper(OWLAxiom axiom) {
         this.axiom = axiom;
@@ -38,7 +44,8 @@ public class AxiomWrapper implements Serializable {
     }
 
     /**
-     * @param id id for the wrapper
+     * @param id
+     *        id for the wrapper
      */
     public void setId(int id) {
         this.id = id;
@@ -66,7 +73,8 @@ public class AxiomWrapper implements Serializable {
     }
 
     /**
-     * @param b value for used
+     * @param b
+     *        value for used
      */
     public void setUsed(boolean b) {
         used = b;
@@ -80,7 +88,8 @@ public class AxiomWrapper implements Serializable {
     }
 
     /**
-     * @param b value for in search space
+     * @param b
+     *        value for in search space
      */
     public void setInSearchSpace(boolean b) {
         searchspace = b;
@@ -94,7 +103,8 @@ public class AxiomWrapper implements Serializable {
     }
 
     /**
-     * @param b value for in module
+     * @param b
+     *        value for in module
      */
     public void setInModule(boolean b) {
         module = b;
@@ -108,7 +118,8 @@ public class AxiomWrapper implements Serializable {
     }
 
     /**
-     * @param atom atom including the axiom
+     * @param atom
+     *        atom including the axiom
      */
     public void setAtom(@Nullable OntologyAtom atom) {
         this.atom = atom;

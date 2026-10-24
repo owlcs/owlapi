@@ -7,11 +7,16 @@ import org.semanticweb.owlapi.model.OWLObject;
 
 /**
  * @author ignazio Locality checker
+ * @deprecated superseded by the classes in
+ *             {@code org.semanticweb.owlapi.modularity}, see
+ *             {@link org.semanticweb.owlapi.modularity.locality.LocalityEvaluator}
  */
+@Deprecated
 public interface LocalityChecker {
 
     /**
-     * @param axiom axiom to check
+     * @param axiom
+     *        axiom to check
      * @return true if axiom is local
      */
     boolean local(OWLAxiom axiom);
@@ -19,12 +24,14 @@ public interface LocalityChecker {
     /**
      * Allow the checker to preprocess an ontology if necessary
      *
-     * @param vec collection of axioms
+     * @param vec
+     *        collection of axioms
      */
     void preprocessOntology(Collection<AxiomWrapper> vec);
 
     /**
-     * @param sig signature to use
+     * @param sig
+     *        signature to use
      */
     void setSignatureValue(Signature sig);
 
@@ -34,13 +41,15 @@ public interface LocalityChecker {
     Signature getSignature();
 
     /**
-     * @param expr expression to evaluate
+     * @param expr
+     *        expression to evaluate
      * @return true if expression is top equivalent
      */
     boolean isTopEquivalent(OWLObject expr);
 
     /**
-     * @param expr expression to evaluate
+     * @param expr
+     *        expression to evaluate
      * @return true if expression is bottom equivalent
      */
     boolean isBotEquivalent(OWLObject expr);

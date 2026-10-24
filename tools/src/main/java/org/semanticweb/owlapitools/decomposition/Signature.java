@@ -11,7 +11,12 @@ import org.semanticweb.owlapi.util.OWLAPIStreamUtils;
 
 /**
  * class to hold the signature of a module
+ *
+ * @deprecated superseded by the classes in
+ *             {@code org.semanticweb.owlapi.modularity}, see
+ *             {@link org.semanticweb.owlapi.modularity.AtomicDecomposition}
  */
+@Deprecated
 public class Signature {
 
     /**
@@ -35,14 +40,16 @@ public class Signature {
     }
 
     /**
-     * @param sig signature elements
+     * @param sig
+     *        signature elements
      */
     public Signature(Stream<OWLEntity> sig) {
         addAll(sig);
     }
 
     /**
-     * @param p entity to add to signature
+     * @param p
+     *        entity to add to signature
      * @return true if p was not in the signature already
      */
     public boolean add(OWLEntity p) {
@@ -50,22 +57,26 @@ public class Signature {
     }
 
     /**
-     * @param p all entities to add
+     * @param p
+     *        all entities to add
      */
     public void addAll(Stream<OWLEntity> p) {
         OWLAPIStreamUtils.add(set, p);
     }
 
     /**
-     * @param top set new locality polarity
+     * @param top
+     *        set new locality polarity
      */
     public void setLocality(boolean top) {
         this.setLocality(top, top);
     }
 
     /**
-     * @param topC new concept locality polarity
-     * @param topR new role locality polarity
+     * @param topC
+     *        new concept locality polarity
+     * @param topR
+     *        new role locality polarity
      */
     public void setLocality(boolean topC, boolean topR) {
         topCLocality = topC;
@@ -92,7 +103,8 @@ public class Signature {
     }
 
     /**
-     * @param p entity to find
+     * @param p
+     *        entity to find
      * @return true iff signature contains p
      */
     public boolean contains(OWLEntity p) {
@@ -121,7 +133,8 @@ public class Signature {
     }
 
     /**
-     * @param s2 signature to intersect
+     * @param s2
+     *        signature to intersect
      * @return intersection
      */
     public List<OWLEntity> intersect(Signature s2) {

@@ -27,7 +27,9 @@ import org.semanticweb.owlapi.reasoner.OWLReasoner;
  * @author Thomas Schneider
  * @author School of Computer Science
  * @author University of Manchester
+ * @deprecated use {@link org.semanticweb.owlapi.modularity.ModuleExtractor} instead
  */
+@Deprecated
 public interface OntologySegmenter {
 
     /**

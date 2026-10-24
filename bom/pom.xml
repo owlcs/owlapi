@@ -4,11 +4,11 @@
 	<parent>
 		<groupId>net.sourceforge.owlapi</groupId>
 		<artifactId>owlapi-parent</artifactId>
-		<version>5.5.1</version>
+		<version>5.5.2-SNAPSHOT</version>
 	</parent>
 	<artifactId>owlapi-bom</artifactId>
 	<packaging>pom</packaging>
-	<version>5.5.1.1</version>
+	<version>5.5.2-SNAPSHOT.1</version>
 	<name>OWLAPI :: BOM</name>
 	<description>OWLAPI Bill of Materials (BOM)</description>
 	<dependencyManagement>
@@ -17,37 +17,37 @@
 			<dependency>
 				<groupId>net.sourceforge.owlapi</groupId>
 				<artifactId>owlapi-api</artifactId>
-				<version>5.5.1</version>
+				<version>5.5.2-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>net.sourceforge.owlapi</groupId>
 				<artifactId>owlapi-apibinding</artifactId>
-				<version>5.5.1</version>
+				<version>5.5.2-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>net.sourceforge.owlapi</groupId>
 				<artifactId>owlapi-impl</artifactId>
-				<version>5.5.1</version>
+				<version>5.5.2-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>net.sourceforge.owlapi</groupId>
 				<artifactId>owlapi-parsers</artifactId>
-				<version>5.5.1</version>
+				<version>5.5.2-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>net.sourceforge.owlapi</groupId>
 				<artifactId>owlapi-oboformat</artifactId>
-				<version>5.5.1</version>
+				<version>5.5.2-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>net.sourceforge.owlapi</groupId>
 				<artifactId>owlapi-tools</artifactId>
-				<version>5.5.1</version>
+				<version>5.5.2-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>net.sourceforge.owlapi</groupId>
 				<artifactId>owlapi-rio</artifactId>
-				<version>5.5.1</version>
+				<version>5.5.2-SNAPSHOT</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
