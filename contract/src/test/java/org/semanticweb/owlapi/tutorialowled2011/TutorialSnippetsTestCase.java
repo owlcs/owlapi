@@ -13,6 +13,7 @@
 package org.semanticweb.owlapi.tutorialowled2011;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.semanticweb.owlapi.search.Searcher.getAnnotationObjects;
@@ -27,6 +28,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.function.Predicate;
+import java.util.stream.Stream;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
@@ -79,7 +81,8 @@ import org.semanticweb.owlapi.model.SWRLObjectPropertyAtom;
 import org.semanticweb.owlapi.model.SWRLRule;
 import org.semanticweb.owlapi.model.SWRLVariable;
 import org.semanticweb.owlapi.modularity.ModuleType;
-import org.semanticweb.owlapi.modularity.SyntacticLocalityModuleExtractor;
+import org.semanticweb.owlapi.modularity.locality.LocalityClass;
+import org.semanticweb.owlapi.modularity.locality.SyntacticLocalityModuleExtractor;
 import org.semanticweb.owlapi.profiles.OWL2DLProfile;
 import org.semanticweb.owlapi.profiles.OWLProfileReport;
 import org.semanticweb.owlapi.profiles.OWLProfileViolation;
@@ -637,9 +640,9 @@ class TutorialSnippetsTestCase {
         // We now extract a locality-based module. STAR provides the smallest
         // ones
         SyntacticLocalityModuleExtractor sme =
-            new SyntacticLocalityModuleExtractor(m, o, ModuleType.STAR);
-        Set<OWLAxiom> mod = sme.extract(seedSig);
-        assertNotNull(mod);
+            new SyntacticLocalityModuleExtractor(LocalityClass.STAR, o.axioms(), df);
+        Stream<OWLAxiom> mod = sme.extract(seedSig.stream());
+        assertFalse(mod.count()==0L);
     }
 
     @Test

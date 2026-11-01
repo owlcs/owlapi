@@ -1,7 +1,7 @@
 /* This file is part of the OWL API.
  * The contents of this file are subject to the LGPL License, Version 3.0.
  * Copyright 2020, Marc Robin Nolte
- * 
+ *
  * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
  * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
  * You should have received a copy of the GNU General Public License along with this program.  If not, see http://www.gnu.org/licenses/.
@@ -15,26 +15,31 @@ package org.semanticweb.owlapi.modularity.locality;
 import java.util.stream.Stream;
 
 import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLDataFactory;
 
 /**
- * Class to extract modules based on syntactic locality.
+ * Class to extract modules based on syntactic locality. Assumes that given
+ * ontologies conform to the OWL 2 DL profile (beyond this, the behavior is
+ * undefined).
  *
  * @author Marc Robin Nolte (modified version)
- *
  */
 public class SyntacticLocalityModuleExtractor extends LocalityModuleExtractor {
 
     /**
-     * Instantiates a new {@link SyntacticLocalityModuleExtractor}.
+     * Creates an extractor that can roll up shared anonymous individuals. No
+     * ontology manager or OWL API binding module is needed.
      *
-     * @param localityClass The {@link LocalityClass} to use
-     * @param axiomBase The axiom base of the new {@link SyntacticLocalityModuleExtractor}
-     *
-     *
+     * @param localityClass
+     *        The {@link LocalityClass} to use
+     * @param axiomBase
+     *        The axiom base
+     * @param dataFactory
+     *        Factory used to translate anonymous assertions
      */
     public SyntacticLocalityModuleExtractor(LocalityClass localityClass,
-        Stream<OWLAxiom> axiomBase) {
-        super(localityClass, axiomBase);
+        Stream<OWLAxiom> axiomBase, OWLDataFactory dataFactory) {
+        super(localityClass, axiomBase, dataFactory);
     }
 
     @Override
@@ -46,5 +51,4 @@ public class SyntacticLocalityModuleExtractor extends LocalityModuleExtractor {
     protected LocalityEvaluator topEvaluator() {
         return SyntacticLocalityEvaluator.TOP;
     }
-
 }

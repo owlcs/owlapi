@@ -99,7 +99,8 @@ import org.semanticweb.owlapi.model.SWRLRule;
 import org.semanticweb.owlapi.model.SWRLVariable;
 import org.semanticweb.owlapi.model.SetOntologyID;
 import org.semanticweb.owlapi.modularity.ModuleType;
-import org.semanticweb.owlapi.modularity.SyntacticLocalityModuleExtractor;
+import org.semanticweb.owlapi.modularity.locality.LocalityClass;
+import org.semanticweb.owlapi.modularity.locality.SyntacticLocalityModuleExtractor;
 import org.semanticweb.owlapi.reasoner.BufferingMode;
 import org.semanticweb.owlapi.reasoner.InferenceType;
 import org.semanticweb.owlapi.reasoner.Node;
@@ -1372,9 +1373,9 @@ class Examples extends TestBase {
         // module. In easier words, the module preserves all knowledge of the
         // ontology about the terms in the seed signature or the module.
         SyntacticLocalityModuleExtractor sme =
-            new SyntacticLocalityModuleExtractor(man, ont, ModuleType.STAR);
+            new SyntacticLocalityModuleExtractor(LocalityClass.STAR, ont.axioms(), dataFactory);
         IRI moduleIRI = dataFactory.getIRI("urn:test:QuokkaModule.owl", "");
-        OWLOntology mod = sme.extractAsOntology(seedSig, moduleIRI);
+        OWLOntology mod = sme.extractAsOntology(seedSig.stream(), man, moduleIRI);
         // The module can now be saved as usual
     }
 
