@@ -285,7 +285,7 @@ class AtomicDecompositionRegressionTest {
 
     private AtomicDecomposition star(OWLAxiom... axioms) {
         return new AtomicDecomposition(Stream.of(axioms),
-            s -> new SyntacticLocalityModuleExtractor(LocalityClass.STAR, s));
+            s -> new SyntacticLocalityModuleExtractor(LocalityClass.STAR, s, df));
     }
 
     @Test

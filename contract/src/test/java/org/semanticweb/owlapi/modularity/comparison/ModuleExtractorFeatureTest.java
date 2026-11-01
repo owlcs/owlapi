@@ -116,7 +116,7 @@ class ModuleExtractorFeatureTest {
     @Test
     void modularitySyntacticReturnsExactlyTheNonLocalAxioms() {
         Set<OWLAxiom> module = probe("modularity-syntactic", true,
-            m -> new SyntacticLocalityModuleExtractor(LocalityClass.BOTTOM, base().stream())
+            m -> new SyntacticLocalityModuleExtractor(LocalityClass.BOTTOM, base().stream(), F)
                 .extract(sig(A).stream()).collect(Collectors.toSet()));
         // Declarations and annotation assertions are local, so they are never part of the
         // module; there is no option to add them back. ClassAssertion(A i) and

@@ -9,7 +9,9 @@ import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.modularity.AtomicDecomposition;
 import org.semanticweb.owlapi.modularity.comparison.ExtractorImplementations.ExtractorImpl;
 import org.semanticweb.owlapi.modularity.locality.LocalityClass;
@@ -26,6 +28,7 @@ import uk.ac.manchester.cs.factplusplusad.FactPlusPlusAdAccess;
  */
 @SuppressWarnings("deprecation")
 final class DecompositionImplementations {
+    static final OWLDataFactory DF = OWLManager.getOWLDataFactory();
 
     /** A normalised atomic decomposition. */
     static final class Decomposed {
@@ -121,7 +124,7 @@ final class DecompositionImplementations {
         @Override
         public Decomposed decompose(Set<OWLAxiom> base, LocalityClass type) {
             AtomicDecomposition ad = new AtomicDecomposition(base.stream(),
-                stream -> new SyntacticLocalityModuleExtractor(type, stream));
+                stream -> new SyntacticLocalityModuleExtractor(type, stream, DF));
             Decomposed result = new Decomposed();
             Map<AtomicDecomposition.Atom, Set<OWLAxiom>> sets = new HashMap<>();
             for (AtomicDecomposition.Atom atom : ad.atoms().collect(Collectors.toList())) {

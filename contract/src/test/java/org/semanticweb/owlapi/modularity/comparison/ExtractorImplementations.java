@@ -9,6 +9,7 @@ import java.util.stream.Collectors;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.atomicdecomposition.ModuleMethod;
 import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
@@ -31,6 +32,7 @@ import uk.ac.manchester.cs.owlapi.modularity.ModuleType;
  */
 @SuppressWarnings("deprecation")
 final class ExtractorImplementations {
+    static final OWLDataFactory DF = OWLManager.getOWLDataFactory();
 
     /** An extractor prepared for one axiom base and module type. */
     interface Prepared extends AutoCloseable {
@@ -107,7 +109,7 @@ final class ExtractorImplementations {
         @Override
         public Prepared prepare(Set<OWLAxiom> base, LocalityClass type) {
             SyntacticLocalityModuleExtractor extractor =
-                new SyntacticLocalityModuleExtractor(type, base.stream());
+                new SyntacticLocalityModuleExtractor(type, base.stream(), DF);
             return signature -> extractor.extract(signature.stream())
                 .collect(Collectors.toSet());
         }
