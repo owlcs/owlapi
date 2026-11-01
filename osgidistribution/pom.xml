@@ -113,7 +113,7 @@
 							jcl-over-slf4j;scope=compile|runtime|provided;inline=false,
 							groupId=org.tukaani;scope=compile|runtime|provided;inline=false,
 							groupId=com.fasterxml.jackson.core;scope=compile|runtime|provided;inline=false,
-							groupId=com.github.vsonnier;scope=compile|runtime|provided;inline=false,
+							groupId=com.carrotsearch;scope=compile|runtime|provided;inline=false,
 							groupId=org.apache.httpcomponents;scope=compile|runtime|provided;inline=false,
 							commons-rdf-api;scope=compile|runtime|provided;inline=false,
 							groupId=org.eclipse.rdf4j;scope=compile|runtime|provided;inline=false,
@@ -228,7 +228,7 @@
 									<exclude>org.slf4j:slf4j-api</exclude>
 									<exclude>commons-io:*</exclude>
 									<exclude>org.tukaani:*</exclude>
-									<exclude>com.github.vsonnier:*</exclude>
+									<exclude>com.carrotsearch:*</exclude>
 									<exclude>javax.xml.bind:*</exclude>
 									<exclude>jakarta.xml.bind:*</exclude>
 									<exclude>jakarta.json:*</exclude> <!-- treat jakarta.json the same way as jakarta.xml.bind -->
