@@ -86,6 +86,14 @@ class ManchesterOWLSyntaxParserTestCase extends TestBase {
         + "Rule: \n xsd:decimal(?<urn:swrl:var#x>), <http://www.owl-ontologies.com/Ontology1307394066.owl#hasAge>(?<urn:swrl:var#p>, ?<urn:swrl:var#x>) -> <http://www.owl-ontologies.com/Ontology1307394066.owl#Person>(?<urn:swrl:var#p>)";
 
     @Test
+    void shouldRoundtripInverse() {
+        OWLOntology o = loadOntologyFromString(TestFiles.MANCHESTER,
+            new ManchesterSyntaxDocumentFormat());
+        OWLOntology o2 = roundTrip(o);
+        equal(o, o2);
+    }
+
+    @Test
     void shouldRoundtripAnnotationAssertionsWithAnnotations() {
         OWLOntology o = loadOntologyFromString(TestFiles.annotatedAnnotationMansyntax,
             new ManchesterSyntaxDocumentFormat());
