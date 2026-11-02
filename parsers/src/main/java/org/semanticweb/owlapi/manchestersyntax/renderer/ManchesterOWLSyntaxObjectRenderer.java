@@ -562,9 +562,9 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer
     @Override
     public void visit(OWLObjectInverseOf property) {
         write(INVERSE);
-        write("(");
+        write(" ");
         property.getInverse().accept(this);
-        write(")");
+        write(" ");
     }
     // Annotation stuff
     // Stand alone axiom representation

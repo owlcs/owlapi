@@ -61,6 +61,14 @@ class ManchesterOWLSyntaxParserTestCase extends TestBase {
     static final OWLDatatype dateTime = Datatype(XSDVocabulary.DATE_TIME.getIRI());
 
     @Test
+    void shouldRoundtripInverse() {
+        OWLOntology o = loadFrom(TestFiles.MANCHESTER,
+            new ManchesterSyntaxDocumentFormat());
+        OWLOntology o2 = roundTrip(o);
+        equal(o, o2);
+    }
+
+    @Test
     void shouldRoundtripAnnotationAssertionsWithAnnotations() {
         OWLOntology o =
             loadFrom(TestFiles.annotatedAnnotationMansyntax, new ManchesterSyntaxDocumentFormat());
